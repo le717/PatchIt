@@ -159,5 +159,20 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
-# Mac crap
+# Mac junk
 .DS_Store
+
+
+###############
+## Windows EXEs
+###############
+
+#Just for now
+7za.exe
+
+#############
+## Zip Files
+#############
+
+#I don't want to upload any zips.
+*.zip
