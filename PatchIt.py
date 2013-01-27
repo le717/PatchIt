@@ -18,6 +18,32 @@
 
 # PatchIt! (formerly known as LEGO Racers Mod Installer) Beta 2 by le717.
 
+import os, time
+
+# Global variables
 app = "PatchIt!"
-version = "Beta 2"
+majver = "Version 1"
+minver = "Beta 2"
 creator = "le717"
+
+def menu():
+    print("\nPlease make a selection\n")
+    print(" 'c' Create a PatchIt! mod")
+    print(" 'i' Install a PatchIt! mod")
+    print(" 's' PatchIt! Settings")
+    print(" 'q' Quit")
+    menuopt = input("> ")
+    while True:
+        if menuopt.lower == "C":
+            print("createmod()")
+        elif menuopt.lower() == 'I':
+            print("extractmod()")
+        elif menuopt.lower() == 'S':
+            print("appsettings()")
+        elif menuopt.lower() == 'Q':
+            SystemExit
+
+if __name__ == "__main__":
+    print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+
+menu()
