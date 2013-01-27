@@ -164,15 +164,22 @@ pip-log.txt
 
 
 ###############
-## Windows EXEs
+## Windows Apps
 ###############
+*.exe
+*.msi
+*.com
+*.bat
 
-#Just for now
-7za.exe
 
 #############
-## Zip Files
+## Archives
 #############
 
-#I don't want to upload any zips.
+#I don't want to upload any archives.
 *.zip
+*.rar
+*.7z
+*.cab
+*.tar
+*.gz
