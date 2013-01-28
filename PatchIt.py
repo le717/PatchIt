@@ -49,7 +49,8 @@ def menu():
             break # Need to get this working correctly
 
 def settings():
-    gamepath = "C:\\Users\\Racers"
+    #gamepath = "C:\\Users\\Racers"
+    gamepath = input("Please enter the path to your {0} installation:\n".format(game))
 
     f = open('settings.txt', 'w')
     f.write(gamepath)
