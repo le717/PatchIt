@@ -189,4 +189,4 @@ pip-log.txt
 ########
 
 # Just for now
-settings.txt
+*.txt

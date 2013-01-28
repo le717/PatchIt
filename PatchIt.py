@@ -29,9 +29,10 @@ game = "LEGO Racers"
 exist = os.path.exists
 
 def menu():
-    print("\nPlease make a selection\n")
-    print(" 'c' Create a PatchIt! mod")
-    print(" 'i' Install a PatchIt! mod")
+    print("Hello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+    print("Please make a selection:\n")
+    print(" 'c' Create a PatchIt! installation")
+    print(" 'i' Install a PatchIt! installation")
     print(" 's' PatchIt! Settings")
     print(" 'q' Quit") 
     menuopt = input("> ")
@@ -81,6 +82,8 @@ def write():
 
 menu()
 if __name__ == "__main__":
+    print()
+else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
 
