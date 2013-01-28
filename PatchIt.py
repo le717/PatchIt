@@ -54,16 +54,12 @@ def menu():
 
 def read():
     if exist('settings.txt'):
-        f = open('settings.txt', 'r')
-        while True:
-            line = f.readline()
-            if len(line) == 0:
-                break
-            print("Your {0} installation is located at {1}".format(game, line))
-        f.close()
-        
-        changepath = input(r"Would you like to change this? y\N ")
-        if changepath.lower() == "y":
+        with open('settings.txt', 'r') as f:
+            for line in f:
+                print("Your {0} installation is located at {1}".format(game, line))
+                
+        changepath = input(r"Is this correct? (y\N) ")
+        if changepath.lower() == "n":
             write()
         else:
             menu()
@@ -73,9 +69,9 @@ def read():
 def write():
     if not exist('settings.txt'):
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        f = open('settings.txt', 'w')
-        f.write(gamepath)
-        f.close()
+        with open('settings.txt', 'w') as f:
+            f.write(gamepath)
+        #f.close()
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
         f = open('settings.txt', 'w')
