@@ -25,6 +25,7 @@ app = "PatchIt!"
 majver = "Version 1"
 minver = "Beta 2"
 creator = "le717"
+game = "LEGO Racers"
 
 def menu():
     print("\nPlease make a selection\n")
@@ -41,13 +42,35 @@ def menu():
             print("extractmod()")
             break
         elif menuopt.lower() == "s":
-            print("appsettings()")
-            break
+            settings()
         elif menuopt.lower() == "q":
-            break
-        else:
             return False
+        else:
+            break # Need to get this working correctly
+
+def settings():
+    gamepath = "C:\\Users\\Racers"
+
+    f = open('settings.txt', 'w')
+    f.write(gamepath)
+    f.close #close the file
+
+    f = open('settings.txt', 'r')
+    while True:
+        line = f.readline()
+        if len(line) == 0:
+            break
+        print(line, end=' ')
+    f.close 
+
+    
+
+
+
+
+
+
 if __name__ == "__main__":
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-menu()
+settings()
