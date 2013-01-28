@@ -26,6 +26,7 @@ majver = "Version 1"
 minver = "Beta 2"
 creator = "le717"
 game = "LEGO Racers"
+exist = os.path.exists
 
 def menu():
     print("\nPlease make a selection\n")
@@ -49,27 +50,20 @@ def menu():
             break # Need to get this working correctly
 
 def settings():
-    #gamepath = "C:\\Users\\Racers"
-    gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+    if exist('settings.txt'):
+        f = open('settings.txt', 'r')
+        while True:
+            line = f.readline()
+            if len(line) == 0:
+                break
+            print("Your {0} installation is located at {1}".format(game, line))
+        f.close()
 
-    f = open('settings.txt', 'w')
-    f.write(gamepath)
-    f.close #close the file
-
-    f = open('settings.txt', 'r')
-    while True:
-        line = f.readline()
-        if len(line) == 0:
-            break
-        print(line, end=' ')
-    f.close 
-
-    
-
-
-
-
-
+    else:
+        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+        f = open('settings.txt', 'w')
+        f.write(gamepath)
+        f.close()
 
 if __name__ == "__main__":
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
