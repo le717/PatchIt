@@ -31,18 +31,22 @@ def menu():
     print(" 'c' Create a PatchIt! mod")
     print(" 'i' Install a PatchIt! mod")
     print(" 's' PatchIt! Settings")
-    print(" 'q' Quit")
+    print(" 'q' Quit") 
     menuopt = input("> ")
     while True:
-        if menuopt.lower == "C":
+        if menuopt == "c":
             print("createmod()")
-        elif menuopt.lower() == 'I':
+            break
+        elif menuopt.lower() == "i":
             print("extractmod()")
-        elif menuopt.lower() == 'S':
+            break
+        elif menuopt.lower() == "s":
             print("appsettings()")
-        elif menuopt.lower() == 'Q':
-            SystemExit
-
+            break
+        elif menuopt.lower() == "q":
+            break
+        else:
+            return False
 if __name__ == "__main__":
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
