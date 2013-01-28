@@ -18,7 +18,7 @@
 
 # PatchIt! (formerly known as LEGO Racers Mod Installer) Beta 2 by le717.
 
-import os, time
+import os, sys, time
 
 # Global variables
 app = "PatchIt!"
@@ -29,7 +29,7 @@ game = "LEGO Racers"
 exist = os.path.exists
 
 def menu():
-    print("Hello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+    print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
     print("Please make a selection:\n")
     print(" 'c' Create a PatchIt! installation")
     print(" 'i' Install a PatchIt! installation")
@@ -46,7 +46,9 @@ def menu():
         elif menuopt.lower() == "s":
             read()
         elif menuopt.lower() == "q":
-            return False
+            print("Goodbye!")
+            time.sleep(1)
+            raise SystemExit
         else:
             break # Need to get this working correctly
 
@@ -60,7 +62,7 @@ def read():
             print("Your {0} installation is located at {1}".format(game, line))
         f.close()
         
-        changepath = input("Would you like to change this? ")
+        changepath = input(r"Would you like to change this? y\N ")
         if changepath.lower() == "y":
             write()
         else:
