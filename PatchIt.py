@@ -43,13 +43,13 @@ def menu():
             print("extractmod()")
             break
         elif menuopt.lower() == "s":
-            settings()
+            read()
         elif menuopt.lower() == "q":
             return False
         else:
             break # Need to get this working correctly
 
-def settings():
+def read():
     if exist('settings.txt'):
         f = open('settings.txt', 'r')
         while True:
@@ -58,14 +58,29 @@ def settings():
                 break
             print("Your {0} installation is located at {1}".format(game, line))
         f.close()
+        
+        changepath = input("Would you like to change this? ")
+        if changepath.lower() == "y":
+            write()
+        else:
+            menu()
+    else:
+        write()
 
+def write():
+    if not exist('settings.txt'):
+        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+        f = open('settings.txt', 'w')
+        f.write(gamepath)
+        f.close()
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
         f = open('settings.txt', 'w')
         f.write(gamepath)
         f.close()
 
+menu()
 if __name__ == "__main__":
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-settings()
+
