@@ -56,42 +56,50 @@ def menu():
 
 def read():
     '''Read PatchIt! settings.ini'''
-    print("read()")
     if exist('settings.ini'):
         with open('settings.ini', 'rt') as f:
             for line in f:
-                print("Your {0} installation is located at {1}".format(game, line))
-        changepath = input(r"Is this correct? (y\N) ")
-        if changepath.lower() == "n":
-            write()
-        else:
-            menu()
-    else:
+                if check() == True:
+                    #print("Your {0} installation is located at {1}".format(game, line))
+                    changepath = input(r"Is this correct? (y\N) ")
+                    if changepath.lower() == "n":
+                        write()
+                    else:
+                        menu()
+                elif check() == False:
+                    write()
+    elif not exist('settings.ini'):
+        #print("if not exist")
         write()
 
 def write():
     '''Write PatchIt! settings.ini'''
-    print("write()")
     if not exist('settings.ini'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
         with open('settings.ini', 'wt') as f:
             f.write(gamepath)
+            f.close
+
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
         f = open('settings.ini', 'wt')
         f.write(gamepath)
         f.close()
+        #print("check()")
+        #check()
 
 
 def check():
     '''Confirm LEGO Racers installation'''
-    time.sleep(1)
+    #time.sleep(1)
     with open('settings.ini', 'rt') as gamepath:
         gamepath = gamepath.readline()
         if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"):
             print("{0} installation found at {1}.".format(game, gamepath))
+            return True
         else:
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
+            return False
 
 def extract():
     with open('settings.ini', 'rt') as gamepath:
@@ -118,6 +126,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-check()
+menu()
 
 
