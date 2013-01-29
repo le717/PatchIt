@@ -28,7 +28,7 @@ creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
 
-def menu():
+def main():
     '''PatchIt! Menu Layout'''
     print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
     print('''Please make a selection:\n
@@ -43,6 +43,7 @@ def menu():
             break
         elif menuopt.lower() == "i":
             print("extract()")
+            install()
         elif menuopt.lower() == "s":
             print("read()")
             read()
@@ -51,7 +52,7 @@ def menu():
             time.sleep(1)
             quit(code=None)
         else:
-            menu()
+            main()
 
 def read():
     '''Read PatchIt! settings.ini'''
@@ -64,7 +65,7 @@ def read():
                     if changepath.lower() == "n":
                         write()
                     else:
-                        menu()
+                        main()
                 elif check() == False:
                     write()
     elif not exist('settings.ini'):
@@ -97,11 +98,10 @@ def check():
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
             return False
 
-def extract():
+def install():
     with open('settings.ini', 'rt') as gamepath:
         while True:
                 print("This will overwrite existing game files.")
-                time.sleep(1)
                 print("Installing PatchIt! patch...")
                 extract_zip = "7za.exe x test.zip -o{0} -r -y".format(gamepath)
                 if os.system(extract_zip) == 0:
@@ -109,18 +109,18 @@ def extract():
                     time.sleep(2)
                     exit(code=None)
                 elif os.system(extract_zip) == 1:
-                    print("An error ocurred, but exact details are unknown.")
+                   #print("An error ocurred, but exact details are unknown.")
                     time.sleep(2)
-                    menu()
+                    main()
                 else:
                     print("Installation of {0} failed.".format(name))
                     time.sleep(2)
 
 if __name__ == "__main__":
-    pass
+    main()
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-menu()
+main()
 
 
