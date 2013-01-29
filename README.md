@@ -8,7 +8,7 @@ This repo will be renamed very soon to refelect the project's new name, and at t
 PatchIt! Readme
 ===============
 
-This is the readme to *PatchIt!*, a Python 3 application written by le717 to provide a standard way of 
+This is the readme to *PatchIt!*, a [Python 3](http://www.python.org) application written by le717 to provide a standard way of 
 installing mods for the 1999 High Voltage Software PC game *LEGO Racers*.
 
 The Plan
@@ -36,6 +36,8 @@ Contribute
 
 If you would like to contribute to the development of *PatchIt!*, please be sure to read these few guidelines.
 
-* *Coming soon*
+* As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of Python 3.3.0 to commit to this repo. I will not be back-porting the to 2.7.
+
+* Coming soon.
 
 *PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.
