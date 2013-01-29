@@ -1,3 +1,10 @@
+HEADS UP!
+=========
+
+If anyone has any remotes or links to this project, this is for you:
+
+This repo will be renamed very soon to refelect the project's new name, and at that time, you will no longer be able to connect to it or reach it via any links. If you are unable to find this, please go back to [profile](https://github.com/le717), and get the new link from there. If you cannot contrib anymore, you'll need to reconnect to it.
+
 PatchIt! Readme
 ===============
 
