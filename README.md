@@ -17,4 +17,6 @@ How It Works
 
 The three main goals for *PatchIt!*, along with a brief explanation, are as follows:
 
-*bullet points here*
+* Create  *PatchIt!* patches by entering the mod's name, version, and creator, and pointing it to the modded files. *PatchIt!* will automatically compress the 
+files into a normal ZIP archive, and write the details to a plain text file ( * .PiP) using the mod's name and version as the filename.
+* Install *PatchIt!* patches by selecting the * .PiP file, confirming the installation, and automatically decompressing the ZIP archive directly into the *LEGO Racers* installtion.
