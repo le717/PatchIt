@@ -43,7 +43,7 @@ def menu():
             break
         elif menuopt.lower() == "i":
             print("extract()")
-            break
+            extract()
         elif menuopt.lower() == "s":
             read()
         elif menuopt.lower() == "q":
@@ -109,6 +109,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-extract()
+menu()
 
 
