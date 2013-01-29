@@ -35,7 +35,7 @@ def menu():
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
-[q] Quit''') 
+[q] Quit''')
     menuopt = input("> ")
     while True:
         if menuopt == "c":
@@ -45,8 +45,8 @@ def menu():
             print("extract()")
             extract()
         elif menuopt.lower() == "s":
-            print("gameread()")
-            gameread()
+            print("read()")
+            read()
         elif menuopt.lower() == "q":
             print("Goodbye!")
             time.sleep(1)
@@ -54,32 +54,69 @@ def menu():
         else:
             menu()
 
-def gameread():
-    '''Write PatchIt! settings file'''
-    if exist('settings.ini'): 
-        settings = open('settings.ini', 'rt')
-        path = settings.read()
-        settings.close()
-        print("Your {0} installation is located at {1}".format(game, path))                
+##def gameread():
+##    '''Read PatchIt! settings file'''
+##    if exist('settings.ini'):
+##        settings = open('settings.ini', 'rt')
+##        path = settings.read()
+##        settings.close()
+##        print("Your {0} installation is located at {1}".format(game, path))
+##        changepath = input(r"Is this correct? (y\N) ")
+##        if changepath.lower() == "n":
+##            gamewrite()
+##        elif changepath.lower() == "y":
+##            menu()
+##        else:
+##            menu()
+##    elif not exist('settings.ini'):
+##     print("Cannot find settings file.")
+##     gamewrite()
+
+def read():
+    '''Read PatchIt! settings.ini'''
+    print("read()")
+    if exist('settings.ini'):
+        with open('settings.ini', 'rt') as f:
+            for line in f:
+                print("Your {0} installation is located at {1}".format(game, line))
         changepath = input(r"Is this correct? (y\N) ")
         if changepath.lower() == "n":
-            gamewrite()
-        elif changepath.lower() == "y":
-            menu()
+            write()
         else:
             menu()
-    elif not exist('settings.ini'):
-       # gamewrite()
-        print("Cannot find settings file.")
+    else:
+        write()
 
-def gamewrite():
-    '''Read PatchIt! settings file'''
-    if exist('settings.ini') or not exist('settings.ini'):
-        path = input("Please enter the path to your {0} installation:\n".format(game))
-        settings = open('settings.ini', 'wt')
-        path = settings.write(path)
-        print("{0} installation path set to {1}".format(game, path))
-        settings.close()
+def write():
+    '''Write PatchIt! settings.ini'''
+    print("write()")
+    if not exist('settings.ini'):
+        gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
+        with open('settings.ini', 'wt') as f:
+            f.write(gamepath)
+    else:
+        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+        f = open('settings.ini', 'wt')
+        f.write(gamepath)
+        f.close()
+
+
+
+
+##def gamewrite():
+##    '''Write PatchIt! settings file'''
+##    if exist('settings.ini'):
+##        path = input("Please enter the path to your {0} installation:\n".format(game))
+##        settings = open('settings.ini', 'wt')
+##        path = settings.write(path)
+##        print("{0} installation path set to {1}".format(game, path))
+##        settings.close()
+##    elif not exist('settings.ini'):
+##        path = input("Please enter the path to your {0} installation:\n".format(game))
+##        settings = open('settings.ini', 'wt')
+##        path = settings.write(path)
+##        print("{0} installation path set to {1}".format(game, path))
+##        settings.close()
 #print("File written in {0} sec".format(time.time() - time_start)) #Debug
             #time.sleep(1)
             #gamecheck()
@@ -87,7 +124,7 @@ def gamewrite():
     #    gamepath = input("Please enter the path to your {0} installation:\n".format(game))
     #    with open('settings.ini', 'wt') as gamepath:
     #        gamepath.write(gamepath)
-    #        gamecheck()    
+    #        gamecheck()
 
 
 def gamecheck():
@@ -95,14 +132,14 @@ def gamecheck():
     time.sleep(1)
     with open('settings.ini', 'rt') as gamepath:
         gamepath = gamepath.readline()
-        if exist(gamepath + "\\LEGORacers.exe") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\GAMEDATA"): 
+        if exist(gamepath + "\\LEGORacers.exe") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\GAMEDATA"):
             print("{0} installation found at {1}.".format(game, gamepath))
         else:
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
-            
+
 def extract():
     with open('settings.ini', 'rt') as gamepath:
-        while True:            
+        while True:
                 print("This will overwrite existing game files.")
                 time.sleep(1)
                 print("Installing PatchIt! patch...")
@@ -125,6 +162,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-gamecheck()
+menu()
 
 
