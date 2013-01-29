@@ -57,21 +57,24 @@ def menu():
 def gameread():
     '''Write PatchIt! settings file'''
     if exist('settings.ini'): 
-        with open('settings.ini', 'rt') as settings:
-            for line in settings:
-                print("Your {0} installation is located at {1}".format(game, line))
-                
+        settings = open('settings.ini', 'rt')
+        text = settings.read()
+        settings.close()
+        print("Your {0} installation is located at {1}".format(game, text))                
         changepath = input(r"Is this correct? (y\N) ")
         if changepath.lower() == "n":
             gamewrite()
+        elif changepath.lower() == "y":
+            menu()
         else:
             menu()
-    else:
-        gamewrite()
+    elif not exist('settings.ini'):
+       # gamewrite()
+        print("Cannot find settings file.")
 
 def gamewrite():
     '''Read PatchIt! settings file'''
-    if not exist('settings.ini'):
+    if exist('settings.ini'):
         gamefile = input("Please enter the path to your {0} installation:\n".format(game))
         with open('settings.ini', 'wt') as gamepath:
             #time_start = time.time()
@@ -79,11 +82,12 @@ def gamewrite():
             #print("File written in {0} sec".format(time.time() - time_start)) #Debug
             time.sleep(1)
             gamecheck()
-    elif exist('settings.ini'):
-        gamecheck()
-        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        with open('settings.ini', 'wt') as gamepath:
-            gamepath.write(gamepath)
+    #elif exist('settings.ini'):
+    #    gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+    #    with open('settings.ini', 'wt') as gamepath:
+    #        gamepath.write(gamepath)
+    #        gamecheck()    
+
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
@@ -121,6 +125,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-menu()
+gameread()
 
 
