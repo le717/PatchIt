@@ -36,8 +36,10 @@ Contribute
 
 If you would like to contribute to the development of *PatchIt!*, please be sure to read these few guidelines.
 
-* As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of Python 3.3.0 to commit to this repo. I will not be back-porting the to 2.7.
+* As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of Python 3.3.0 to edit and run *PatchIt!* I will not be back-porting it to 2.7, nor rewriting it in 2.7.
 
-* Coming soon.
+* Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). Py2EXE does not support Python 3, so I cannot use it.
+ 
+* The * .PiP format documentation will be written at a later time. The goal is to have Beta 3 or 4 ready for public use, although it may not completely bug free. Of course, if everything is written before then, it will be released as a final 1.0 version.
 
 *PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.
