@@ -45,6 +45,7 @@ def menu():
             print("extract()")
             extract()
         elif menuopt.lower() == "s":
+            print("gameread()")
             gameread()
         elif menuopt.lower() == "q":
             print("Goodbye!")
@@ -55,8 +56,8 @@ def menu():
 
 def gameread():
     '''Write PatchIt! settings file'''
-    if exist('settings.txt'):
-        with open('settings.txt', 'rt') as settings:
+    if exist('settings.ini'): 
+        with open('settings.ini', 'rt') as settings:
             for line in settings:
                 print("Your {0} installation is located at {1}".format(game, line))
                 
@@ -70,24 +71,24 @@ def gameread():
 
 def gamewrite():
     '''Read PatchIt! settings file'''
-    if not exist('settings.txt'):
+    if not exist('settings.ini'):
         gamefile = input("Please enter the path to your {0} installation:\n".format(game))
-        with open('settings.txt', 'wt') as gamepath:
+        with open('settings.ini', 'wt') as gamepath:
             #time_start = time.time()
             gamepath.write(gamefile)
             #print("File written in {0} sec".format(time.time() - time_start)) #Debug
             time.sleep(1)
             gamecheck()
-    else:
+    elif exist('settings.ini'):
         gamecheck()
-        #gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        #with open('settings.txt', 'wt') as f:
-        #    f.write(gamepath)
+        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+        with open('settings.ini', 'wt') as gamepath:
+            gamepath.write(gamepath)
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
     time.sleep(1)
-    with open('settings.txt', 'rt') as gamepath:
+    with open('settings.ini', 'rt') as gamepath:
         gamepath = gamepath.readline()
         if exist(gamepath + os.sep + "LEGORacers.exe") and exist(gamepath + os.sep + "\\GAMEDATA") \
            and exist(gamepath + os.sep + "\\MENUDATA"): #Splitting lne to improve readability.
@@ -96,16 +97,16 @@ def gamecheck():
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
             
 def extract():
-    with open('settings.txt', 'rt') as gamepath:
+    with open('settings.ini', 'rt') as gamepath:
         while True:            
                 print("This will overwrite existing game files.")
                 time.sleep(1)
-                print("Installing PatchIt! Mod...")
+                print("Installing PatchIt! patch...")
                 extract_zip = "7za.exe x test.zip -o{0} -r -y".format(gamepath)
                 if os.system(extract_zip) == 0:
                     print("\nInstallation complete!")
                     time.sleep(2)
-                    SystemExit
+                    exit(code=None)
                 elif os.system(extract_zip) == 1:
                     print("An error ocurred, but exact details are unknown.")
                     time.sleep(2)
@@ -116,10 +117,10 @@ def extract():
             #path exists stuff here.
 
 if __name__ == "__main__":
-    print()
+    pass
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-gamecheck()
+menu()
 
 
