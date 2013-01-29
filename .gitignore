@@ -183,3 +183,10 @@ pip-log.txt
 *.cab
 *.tar
 *.gz
+
+#########
+## Misc.
+#########
+
+*.ini
+*.txt
