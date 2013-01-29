@@ -83,12 +83,12 @@ def write():
         f.close()
 
 
-def gamecheck():
+def check():
     '''Confirm LEGO Racers installation'''
     time.sleep(1)
     with open('settings.ini', 'rt') as gamepath:
         gamepath = gamepath.readline()
-        if exist(gamepath + "\\LEGORacers.exe") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\GAMEDATA"):
+        if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"):
             print("{0} installation found at {1}.".format(game, gamepath))
         else:
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
@@ -118,6 +118,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-menu()
+check()
 
 
