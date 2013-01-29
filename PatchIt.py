@@ -84,13 +84,13 @@ def extract():
     with open('settings.txt', 'rt') as gamepath:
         while True:
             #http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3/File_IO
-            f = f.readline()
+            gamepath = gamepath.readline()
             if exist(gamepath + os.sep + "LEGORacers.exe") and exist(gamepath + os.sep + "\\GAMEDATA") \
                and exist(gamepath + os.sep + "\\MENUDATA"):
                 print("{0} installation found. This will overwrite existing game files.".format(game))
                 time.sleep(1)
                 print("Installing PatchIt! Mod...")
-                extract_zip = "7za.exe x test.zip -o{1} -r -y".format(zip_file, gamepath)
+                extract_zip = "7za.exe x test.zip -o{0} -r -y".format(gamepath)
                 if os.system(extract_zip) == 0:
                     print("\nInstallation complete!")
                     time.sleep(2)
@@ -109,6 +109,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-menu()
+extract()
 
 
