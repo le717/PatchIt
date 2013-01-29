@@ -43,7 +43,6 @@ def menu():
             break
         elif menuopt.lower() == "i":
             print("extract()")
-            extract()
         elif menuopt.lower() == "s":
             print("read()")
             read()
@@ -57,8 +56,8 @@ def menu():
 def read():
     '''Read PatchIt! settings.ini'''
     if exist('settings.ini'):
-        with open('settings.ini', 'rt') as f:
-            for line in f:
+        with open('settings.ini', 'rt') as settings:
+            for line in settings:
                 if check() == True:
                     #print("Your {0} installation is located at {1}".format(game, line))
                     changepath = input(r"Is this correct? (y\N) ")
@@ -76,18 +75,15 @@ def write():
     '''Write PatchIt! settings.ini'''
     if not exist('settings.ini'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
-        with open('settings.ini', 'wt') as f:
-            f.write(gamepath)
-            f.close
+        with open('settings.ini', 'wt') as settings: # If I swap this to the long-hand version, a major error occurs.
+            settings.write(gamepath)
+            settings.close
 
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        f = open('settings.ini', 'wt')
-        f.write(gamepath)
-        f.close()
-        #print("check()")
-        #check()
-
+        settings = open('settings.ini', 'wt')
+        settings.write(gamepath)
+        settings.close()
 
 def check():
     '''Confirm LEGO Racers installation'''
@@ -119,7 +115,6 @@ def extract():
                 else:
                     print("Installation of {0} failed.".format(name))
                     time.sleep(2)
-            #path exists stuff here.
 
 if __name__ == "__main__":
     pass
