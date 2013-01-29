@@ -84,6 +84,9 @@ def write():
 def extract():
     with open('settings.txt', 'rt') as f:
         while True:
+            #http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3/File_IO
+            f = f.readline()
+            if #path exists stuff here.
 
 if __name__ == "__main__":
     print()
