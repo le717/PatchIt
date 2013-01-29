@@ -74,7 +74,7 @@ def gameread():
 
 def gamewrite():
     '''Read PatchIt! settings file'''
-    if exist('settings.ini'):
+    if exist('settings.ini') or not exist('settings.ini'):
         path = input("Please enter the path to your {0} installation:\n".format(game))
         settings = open('settings.ini', 'wt')
         path = settings.write(path)
