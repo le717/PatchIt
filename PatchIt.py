@@ -54,24 +54,6 @@ def menu():
         else:
             menu()
 
-##def gameread():
-##    '''Read PatchIt! settings file'''
-##    if exist('settings.ini'):
-##        settings = open('settings.ini', 'rt')
-##        path = settings.read()
-##        settings.close()
-##        print("Your {0} installation is located at {1}".format(game, path))
-##        changepath = input(r"Is this correct? (y\N) ")
-##        if changepath.lower() == "n":
-##            gamewrite()
-##        elif changepath.lower() == "y":
-##            menu()
-##        else:
-##            menu()
-##    elif not exist('settings.ini'):
-##     print("Cannot find settings file.")
-##     gamewrite()
-
 def read():
     '''Read PatchIt! settings.ini'''
     print("read()")
@@ -99,32 +81,6 @@ def write():
         f = open('settings.ini', 'wt')
         f.write(gamepath)
         f.close()
-
-
-
-
-##def gamewrite():
-##    '''Write PatchIt! settings file'''
-##    if exist('settings.ini'):
-##        path = input("Please enter the path to your {0} installation:\n".format(game))
-##        settings = open('settings.ini', 'wt')
-##        path = settings.write(path)
-##        print("{0} installation path set to {1}".format(game, path))
-##        settings.close()
-##    elif not exist('settings.ini'):
-##        path = input("Please enter the path to your {0} installation:\n".format(game))
-##        settings = open('settings.ini', 'wt')
-##        path = settings.write(path)
-##        print("{0} installation path set to {1}".format(game, path))
-##        settings.close()
-#print("File written in {0} sec".format(time.time() - time_start)) #Debug
-            #time.sleep(1)
-            #gamecheck()
-    #elif exist('settings.ini'):
-    #    gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-    #    with open('settings.ini', 'wt') as gamepath:
-    #        gamepath.write(gamepath)
-    #        gamecheck()
 
 
 def gamecheck():
