@@ -31,11 +31,11 @@ exist = os.path.exists
 def menu():
     '''PatchIt! Menu Layout'''
     print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
-    print("Please make a selection:\n")
-    print(" 'c' Create a PatchIt! installation")
-    print(" 'i' Install a PatchIt! installation")
-    print(" 's' PatchIt! Settings")
-    print(" 'q' Quit") 
+    print('''Please make a selection:\n
+[c] Create a PatchIt! Patch
+[i] Install a PatchIt! Patch
+[s] PatchIt! Settings
+[q] Quit''') 
     menuopt = input("> ")
     while True:
         if menuopt == "c":
@@ -45,49 +45,60 @@ def menu():
             print("extract()")
             extract()
         elif menuopt.lower() == "s":
-            read()
+            gameread()
         elif menuopt.lower() == "q":
             print("Goodbye!")
             time.sleep(1)
-            raise SystemExit
+            quit(code=None)
         else:
             menu()
 
-def read():
+def gameread():
     '''Write PatchIt! settings file'''
     if exist('settings.txt'):
-        with open('settings.txt', 'rt') as f:
-            for line in f:
+        with open('settings.txt', 'rt') as settings:
+            for line in settings:
                 print("Your {0} installation is located at {1}".format(game, line))
                 
         changepath = input(r"Is this correct? (y\N) ")
         if changepath.lower() == "n":
-            write()
+            gamewrite()
         else:
             menu()
     else:
-        write()
+        gamewrite()
 
-def write():
+def gamewrite():
     '''Read PatchIt! settings file'''
     if not exist('settings.txt'):
-        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        with open('settings.txt', 'wt') as f:
-            f.write(gamepath)
+        gamefile = input("Please enter the path to your {0} installation:\n".format(game))
+        with open('settings.txt', 'wt') as gamepath:
+            #time_start = time.time()
+            gamepath.write(gamefile)
+            #print("File written in {0} sec".format(time.time() - time_start)) #Debug
+            time.sleep(1)
+            gamecheck()
     else:
-        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        f = open('settings.txt', 'wt')
-        f.write(gamepath)
-        f.close()
+        gamecheck()
+        #gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+        #with open('settings.txt', 'wt') as f:
+        #    f.write(gamepath)
 
+def gamecheck():
+    '''Confirm LEGO Racers installation'''
+    time.sleep(1)
+    with open('settings.txt', 'rt') as gamepath:
+        gamepath = gamepath.readline()
+        if exist(gamepath + os.sep + "LEGORacers.exe") and exist(gamepath + os.sep + "\\GAMEDATA") \
+           and exist(gamepath + os.sep + "\\MENUDATA"): #Splitting lne to improve readability.
+            print("{0} installation found at {1}.".format(game, gamepath))
+        else:
+            print("Cannot find {0} installation at {1}.".format(game, gamepath))
+            
 def extract():
     with open('settings.txt', 'rt') as gamepath:
-        while True:
-            #http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3/File_IO
-            gamepath = gamepath.readline()
-            if exist(gamepath + os.sep + "LEGORacers.exe") and exist(gamepath + os.sep + "\\GAMEDATA") \
-               and exist(gamepath + os.sep + "\\MENUDATA"):
-                print("{0} installation found. This will overwrite existing game files.".format(game))
+        while True:            
+                print("This will overwrite existing game files.")
                 time.sleep(1)
                 print("Installing PatchIt! Mod...")
                 extract_zip = "7za.exe x test.zip -o{0} -r -y".format(gamepath)
@@ -109,6 +120,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-menu()
+gamecheck()
 
 
