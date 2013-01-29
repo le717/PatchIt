@@ -74,19 +74,35 @@ def write():
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
         with open('settings.txt', 'wt') as f:
             f.write(gamepath)
-        #f.close()
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        f = open('settings.txt', 'ww')
+        f = open('settings.txt', 'wt')
         f.write(gamepath)
         f.close()
 
 def extract():
-    with open('settings.txt', 'rt') as f:
+    with open('settings.txt', 'rt') as gamepath:
         while True:
             #http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3/File_IO
             f = f.readline()
-            if #path exists stuff here.
+            if exist(gamepath + os.sep + "LEGORacers.exe") and exist(gamepath + os.sep + "\\GAMEDATA") \
+               and exist(gamepath + os.sep + "\\MENUDATA"):
+                print("{0} installation found. This will overwrite existing game files.".format(game))
+                time.sleep(1)
+                print("Installing PatchIt! Mod...")
+                extract_zip = "7za.exe x test.zip -o{1} -r -y".format(zip_file, gamepath)
+                if os.system(extract_zip) == 0:
+                    print("\nInstallation complete!")
+                    time.sleep(2)
+                    SystemExit
+                elif os.system(extract_zip) == 1:
+                    print("An error ocurred, but exact details are unknown.")
+                    time.sleep(2)
+                    menu()
+                else:
+                    print("Installation of {0} failed.".format(name))
+                    time.sleep(2)
+            #path exists stuff here.
 
 if __name__ == "__main__":
     print()
