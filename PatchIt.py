@@ -58,9 +58,9 @@ def gameread():
     '''Write PatchIt! settings file'''
     if exist('settings.ini'): 
         settings = open('settings.ini', 'rt')
-        text = settings.read()
+        path = settings.read()
         settings.close()
-        print("Your {0} installation is located at {1}".format(game, text))                
+        print("Your {0} installation is located at {1}".format(game, path))                
         changepath = input(r"Is this correct? (y\N) ")
         if changepath.lower() == "n":
             gamewrite()
@@ -75,13 +75,14 @@ def gameread():
 def gamewrite():
     '''Read PatchIt! settings file'''
     if exist('settings.ini'):
-        gamefile = input("Please enter the path to your {0} installation:\n".format(game))
-        with open('settings.ini', 'wt') as gamepath:
-            #time_start = time.time()
-            gamepath.write(gamefile)
-            #print("File written in {0} sec".format(time.time() - time_start)) #Debug
-            time.sleep(1)
-            gamecheck()
+        path = input("Please enter the path to your {0} installation:\n".format(game))
+        settings = open('settings.ini', 'wt')
+        path = settings.write(path)
+        print("{0} installation path set to {1}".format(game, path))
+        settings.close()
+#print("File written in {0} sec".format(time.time() - time_start)) #Debug
+            #time.sleep(1)
+            #gamecheck()
     #elif exist('settings.ini'):
     #    gamepath = input("Please enter the path to your {0} installation:\n".format(game))
     #    with open('settings.ini', 'wt') as gamepath:
@@ -125,6 +126,6 @@ if __name__ == "__main__":
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
-gameread()
+gamewrite()
 
 
