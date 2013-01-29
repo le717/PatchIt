@@ -29,6 +29,7 @@ game = "LEGO Racers"
 exist = os.path.exists
 
 def menu():
+    '''PatchIt! Menu Layout'''
     print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
     print("Please make a selection:\n")
     print(" 'c' Create a PatchIt! installation")
@@ -38,10 +39,10 @@ def menu():
     menuopt = input("> ")
     while True:
         if menuopt == "c":
-            print("createmod()")
+            print("compress()")
             break
         elif menuopt.lower() == "i":
-            print("extractmod()")
+            print("extract()")
             break
         elif menuopt.lower() == "s":
             read()
@@ -50,11 +51,12 @@ def menu():
             time.sleep(1)
             raise SystemExit
         else:
-            break # Need to get this working correctly
+            menu()
 
 def read():
+    '''Write PatchIt! settings file'''
     if exist('settings.txt'):
-        with open('settings.txt', 'r') as f:
+        with open('settings.txt', 'rt') as f:
             for line in f:
                 print("Your {0} installation is located at {1}".format(game, line))
                 
@@ -67,21 +69,27 @@ def read():
         write()
 
 def write():
+    '''Read PatchIt! settings file'''
     if not exist('settings.txt'):
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        with open('settings.txt', 'w') as f:
+        with open('settings.txt', 'wt') as f:
             f.write(gamepath)
         #f.close()
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        f = open('settings.txt', 'w')
+        f = open('settings.txt', 'ww')
         f.write(gamepath)
         f.close()
 
-menu()
+def extract():
+    with open('settings.txt', 'rt') as f:
+        while True:
+
 if __name__ == "__main__":
     print()
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+
+menu()
 
 
