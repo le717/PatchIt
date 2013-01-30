@@ -97,30 +97,22 @@ def check():
         else:
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
             return False
-
+zip_file = "test.zip"
 def install():
     with open('settings.ini', 'rt') as gamepath:
-        while True:
+        for line in gamepath:
                 print("This will overwrite existing game files.")
                 print("Installing PatchIt! patch...")
-                extract_zip = "7za.exe x test.zip -o{0} -r -y".format(gamepath)
+                extract_zip = "7za.exe x {0} -o{1} -r -y".format(zip_file, gamepath)
                 if os.system(extract_zip) == 0:
                     print("\nInstallation complete!")
-                    time.sleep(2)
-                    exit(code=None)
                 elif os.system(extract_zip) == 1:
-                   #print("An error ocurred, but exact details are unknown.")
-                    time.sleep(2)
-                    main()
+                   print("An error ocurred, but exact details are unknown.")
                 else:
-                    print("Installation of {0} failed.".format(name))
-                    time.sleep(2)
+                    print("Failed.")
 
 if __name__ == "__main__":
-    main()
+    install()
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
-
-main()
-
 
