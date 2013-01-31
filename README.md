@@ -1,5 +1,5 @@
-PatchIt! Readme
-===============
+PatchIt!
+========
 
 This is the readme to *PatchIt!*, a [Python 3](http://www.python.org) application written by le717 to provide a standard way of 
 installing mods for the 1999 High Voltage Software PC game *LEGO Racers*.
@@ -24,15 +24,17 @@ files into a normal ZIP archive, and write the details to a plain text file ( * 
 * Install *PatchIt!* patches by selecting the * .PiP file, confirming the installation, and automatically decompressing the ZIP archive directly into the *LEGO 
 Racers* installation.
 
-Contribute
+Requirements
 ----------
 
-If you would like to contribute to the development of *PatchIt!*, please be sure to read these few guidelines.
+If you would like to contribute to the development of *PatchIt!*, please be sure you meet the system requirements.
 
-* As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of Python 3.3.0 to edit and run *PatchIt!* I will not be back-porting it to 2.7, nor rewriting it in 2.7.
+* As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of `>=` Python 3.3.0 to edit and run *PatchIt!* `<=` Python 2.7 is not supported.
 
-* Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). Py2EXE does not support Python 3, so I cannot use it.
+* You will need to download and install [Zip for Windows](http://gnuwin32.sourceforge.net/packages/zip.htm) and [UnZip for Windows](http://gnuwin32.sourceforge.net/packages/unzip.htm) and add it to your system PATH.
+
+* Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org) does not support Python 3, so I cannot use it.
  
-* The * .PiP format documentation will be written at a later time. The goal is to have Beta 3 or 4 ready for public use, although it may not completely bug free. Of course, if everything is written before then, it will be released as a final 1.0 version.
+* The * .PiP format documentation will be written at a later time, around Beta 2.5. The goal is to have Beta 3 or 4 ready for public use, although it may not completely bug free. Of course, if everything is written before then, it will be released as a final 1.0 version.
 
 *PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.
