@@ -16,50 +16,127 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! 1.0 Beta 1 by le717 (http://triangle717.wordpress.com)
+# PatchIt! 1.0 Beta 2 by le717 (http://triangle717.wordpress.com).
 
-import os, time
+import os, sys, time, webbrowser
+import zipfile, shutil # Zip extraction and compression, respectively
 
-# Kinda like the ISPP in Inno Setup, changing these changes all code that points back to them, make it easier to completely rebrand the script.
+# Global variables
 app = "PatchIt!"
-majver = "1.0"
-minver = "Beta 1"
+majver = "Version 1"
+minver = "Beta 2"
+creator = "le717"
 game = "LEGO Racers"
-mod = "Your_mod_name_here"
-zip_file = "Your_ZIP_file_here.zip"
+exist = os.path.exists
+
+def preload():
+    if sys.version_info < (3,3):
+        print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
+        webbrowser.open("http://python.org/download", new=2, autoraise=True)
+        time.sleep(5)
+    else:
+        main()
 
 def main():
-    '''Controls all functions of the application. Might be broken up later.'''
-    print("This {0} patch will install {1} onto your computer.".format(app, mod))
-    path = input("Please enter the path to your {0} installation: ".format(game))
-    print() # I like blank lines. It keeps everything nice and neat (unlike this script...)
-    # The three items needed to confirm a LEGO Racers installation, both 1999 and 2001.
-    if os.path.exists(path + os.sep + "\\LEGORacers.exe") and os.path.exists(path + os.sep + os.path.join("\\GAMEDATA"))\
-       and os.path.exists(path + os.sep + os.path.join("\\MENUDATA")): # Breaking it up for better code reading.
-        confirm = input("{0} installation found. This will overwrite existing game files.\nDo you wish to continue? ".format(game))
-        if confirm.lower() == "y":
-            print("Installing {0}.".format(mod))
-            extract_zip = "7za.exe x {0} -o{1} -r -y".format(zip_file, path) # Need to get ZipFile module (or equal function) working to support more than just Windows.
-            if os.system(extract_zip) == 0:
-                print("\nInstallation complete!")
-                time.sleep(2) # Instead of closing as soon as that after any result, sleep for 2 seconds to let the user actually see the result.
-                SystemExit # Because I cannot get break working...
-            elif os.system(extract_zip) == 1:
-                print("An error ocurred, but exact details are unknown.")
-                time.sleep(2)
-                SystemExit
-            else:
-                print("Installation of {0} failed.".format(mod))
-                time.sleep(2)
-                SystemExit
+    '''PatchIt! Menu Layout'''
+    print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+    print('''Please make a selection:\n
+[c] Create a PatchIt! Patch
+[i] Install a PatchIt! Patch
+[s] PatchIt! Settings
+[q] Quit''')
+    menuopt = input("> ")
+    while True:
+        if menuopt == "c":
+            #print("compress()")
+            compress()
+        elif menuopt.lower() == "i":
+            #print("install()")
+            install()
+        elif menuopt.lower() == "s":
+            #print("read()")
+            read()
+        elif menuopt.lower() == "q":
+            print("Goodbye!")
+            time.sleep(1)
+            quit(code=None)
         else:
-            print("\nInstallation canceled.")
-            time.sleep(2)
-            SystemExit
+            main()
+
+def read():
+    '''Read PatchIt! settings.txt'''
+    # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
+    if exist('settings.txt'):
+        with open('settings.txt', 'rt') as settings:
+            for line in settings:
+                if check() == True:
+                    #print("Your {0} installation is located at {1}".format(game, line))
+                    changepath = input(r"Would you like to change this? (y\N) ")
+                    if changepath.lower() == "y":
+                        write()
+                    else:
+                        main()
+                elif check() == False:
+                    write()
+    elif not exist('settings.txt'):
+        #print("if not exist")
+        write()
+
+def write():
+    '''Write PatchIt! settings.txt'''
+    if not exist('settings.txt'):
+        gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
+        with open('settings.txt', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
+            settings.write(gamepath)
+            settings.close
+
     else:
-        print("Cannot find {0} installation.".format(game))
-        time.sleep(2)
+        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
+        settings = open('settings.txt', 'wt')
+        settings.write(gamepath)
+        settings.close()
 
+def check():
+    '''Confirm LEGO Racers installation'''
+    with open('settings.txt', 'rt') as gamepath:
+        gamepath = gamepath.readline()
+        if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"):
+            print("{0} installation found at {1}.".format(game, gamepath))
+            return True
+        else:
+            print("Cannot find {0} installation at {1}!".format(game, gamepath))
+            return False
 
-if name == "__main__":
-    main()
+def install():
+    '''Install PatchIt! patch'''
+    install = open('settings.txt', 'r')
+    path = install.read()
+    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is written
+    zip.extractall(path)
+    install.close()
+    zipfile.ZipFile.close(zip)
+    if os.system(path) == 1:
+        print("PatchIt! patch installed! :D")
+        main()
+    else:
+        print("PatchIt! patch installation failed. Please try again.")
+        main()
+
+def compress():
+    '''Compress PatchIt! patch'''
+    compress = open('settings2.txt', 'r') # Temp code until .PiP format is written
+    files = compress.read()
+    shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
+    compress.close()
+    if os.system(files) == 1:
+        print("PatchIt! patch created!") # Temp message
+        main()
+    else:
+        print("PatchIt! patch creation failed. Please try again.") # Temp message
+        main()
+
+if __name__ == "__main__":
+    preload()
+else:
+    print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+
