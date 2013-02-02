@@ -25,7 +25,7 @@ files into a normal ZIP archive, and write the details to a plain text file ( * 
 Racers* installation.
 
 Requirements
-----------
+------------
 
 If you would like to contribute to the development of *PatchIt!*, please be sure you meet the system requirements.
 
@@ -36,7 +36,8 @@ If you would like to contribute to the development of *PatchIt!*, please be sure
 * Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org)
  does not support Python 3.3, so I cannot use it.
  
-* The * .PiP format documentation will be written at a later time, around Beta 2.5. The goal is to have Beta 3 or 4 ready for public use, although it may not 
-completely bug free. Of course, if everything is written before then, it will be released as a final 1.0 version.
+* The * .PiP file format documentation can be found under the file *PiP File Format.md* in this same folder.
+
+* The release goal of *PatchIt!* is to have a Beta 3 version ready for public use, although it may not completely bug free, while a proper GUI, written in Tkinter, will be released in Beta 4. Currently, there is no date set for the releases. Of course, if everything is written and completed before then, it will be released as a final 1.0 version.
 
 *PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.
