@@ -57,6 +57,7 @@ def main():
 
 def read():
     '''Read PatchIt! settings.ini'''
+    # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
     if exist('settings.ini'):
         with open('settings.ini', 'rt') as settings:
             for line in settings:
@@ -77,7 +78,7 @@ def write():
     '''Write PatchIt! settings.ini'''
     if not exist('settings.ini'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
-        with open('settings.ini', 'wt') as settings: # If I swap this to the long-hand version, a major error occurs.
+        with open('settings.ini', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
             settings.write(gamepath)
             settings.close
 
@@ -96,11 +97,11 @@ def check():
             print("{0} installation found at {1}.".format(game, gamepath))
             return True
         else:
-            print("Cannot find {0} installation at {1}.".format(game, gamepath))
+            print("Cannot find {0} installation at {1}!".format(game, gamepath))
             return False
 
 def install():
-    '''Installs PatchIt! patch'''
+    '''Install PatchIt! patch'''
     install = open('settings.ini', 'r')
     path = install.read()
     zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp path until .PiP format is written
@@ -108,23 +109,23 @@ def install():
     install.close()
     zipfile.ZipFile.close(zip)
     if os.system(path) == 1:
-        print('Done')
+        print("PatchIt! patch installed! :D")
         main()
     else:
-        print('Fail')
+        print("PatchIt! patch installation failed. Please try again.")
         main()
 
 def compress():
-    '''Compresses PatchIt! patch'''
+    '''Compress PatchIt! patch'''
     compress = open('settings2.ini', 'r') # Temp path until .PiP format is written
     files = compress.read()
     shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as settings2.ini
     compress.close()
     if os.system(files) == 1:
-        print('Done')
+        print("PatchIt! patch created!")
         main()
     else:
-        print('Fail')
+        print("PatchIt! patch creation failed. Please try again.")
         main()
 
 if __name__ == "__main__":
