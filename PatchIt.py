@@ -63,8 +63,8 @@ def read():
             for line in settings:
                 if check() == True:
                     #print("Your {0} installation is located at {1}".format(game, line))
-                    changepath = input(r"Is this correct? (y\N) ")
-                    if changepath.lower() == "n":
+                    changepath = input(r"Would you like to change this? (y\N) ")
+                    if changepath.lower() == "y":
                         write()
                     else:
                         main()
