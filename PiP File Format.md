@@ -14,7 +14,9 @@ Details
 
 * A PiP file is plain text, and can be edited on any text editor. It stands for *Patch*it*Patch*.
 
-* File layout
+* The ZIP file containing the mod's files must be in the same folder as the .PiP file.
+
+### File layout
 
 ```
 [General]
@@ -27,3 +29,5 @@ Mod Version
 [ZIP]
 ZIP file with modded files
 ```
+
+**This document is incomplete.**
