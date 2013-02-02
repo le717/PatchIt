@@ -31,7 +31,7 @@ If you would like to contribute to the development of *PatchIt!*, please be sure
 
 * As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of `>=` Python 3.3.0 to edit and run *PatchIt!* `<=` Python 2.7 is not supported.
 
-* You will need to download and install [Zip for Windows](http://gnuwin32.sourceforge.net/packages/zip.htm) and [UnZip for Windows](http://gnuwin32.sourceforge.net/packages/unzip.htm) and add it to your system PATH.
+* You will need to download and install [Zip for Windows](http://gnuwin32.sourceforge.net/packages/zip.htm) and add it to your system PATH in order to extract the ZIP archives..
 
 * Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org) does not support Python 3, so I cannot use it.
  

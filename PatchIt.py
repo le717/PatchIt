@@ -19,6 +19,7 @@
 # PatchIt! (formerly known as LEGO Racers Mod Installer) Beta 2 by le717.
 
 import os, sys, time
+import zipfile
 
 # Global variables
 app = "PatchIt!"
@@ -42,7 +43,7 @@ def main():
             print("compress()")
             break
         elif menuopt.lower() == "i":
-            print("extract()")
+            print("install()")
             install()
         elif menuopt.lower() == "s":
             print("read()")
@@ -97,22 +98,25 @@ def check():
         else:
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
             return False
+
 zip_file = "test.zip"
+
 def install():
-    with open('settings.ini', 'rt') as gamepath:
-        for line in gamepath:
-                print("This will overwrite existing game files.")
-                print("Installing PatchIt! patch...")
-                extract_zip = "7za.exe x {0} -o{1} -r -y".format(zip_file, gamepath)
-                if os.system(extract_zip) == 0:
-                    print("\nInstallation complete!")
-                elif os.system(extract_zip) == 1:
-                   print("An error ocurred, but exact details are unknown.")
-                else:
-                    print("Failed.")
+    install = open('settings.ini', 'r')
+    path = install.read()
+    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip')
+    zip.extractall(path)
+    install.close()
+    zipfile.ZipFile.close(zip)
+    if os.system(path) == 1:
+        print('Done')
+        main()
+    else:
+        print('Fail')
+        main()
 
 if __name__ == "__main__":
-    install()
+    main()
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
