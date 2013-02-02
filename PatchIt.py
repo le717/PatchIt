@@ -40,13 +40,13 @@ def main():
     menuopt = input("> ")
     while True:
         if menuopt == "c":
-            print("compress()")
+            #print("compress()")
             compress()
         elif menuopt.lower() == "i":
-            print("install()")
+            #print("install()")
             install()
         elif menuopt.lower() == "s":
-            print("read()")
+            #print("read()")
             read()
         elif menuopt.lower() == "q":
             print("Goodbye!")
@@ -56,10 +56,10 @@ def main():
             main()
 
 def read():
-    '''Read PatchIt! settings.ini'''
+    '''Read PatchIt! settings.txt'''
     # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
-    if exist('settings.ini'):
-        with open('settings.ini', 'rt') as settings:
+    if exist('settings.txt'):
+        with open('settings.txt', 'rt') as settings:
             for line in settings:
                 if check() == True:
                     #print("Your {0} installation is located at {1}".format(game, line))
@@ -70,28 +70,27 @@ def read():
                         main()
                 elif check() == False:
                     write()
-    elif not exist('settings.ini'):
+    elif not exist('settings.txt'):
         #print("if not exist")
         write()
 
 def write():
-    '''Write PatchIt! settings.ini'''
-    if not exist('settings.ini'):
+    '''Write PatchIt! settings.txt'''
+    if not exist('settings.txt'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
-        with open('settings.ini', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
+        with open('settings.txt', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
             settings.write(gamepath)
             settings.close
 
     else:
         gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        settings = open('settings.ini', 'wt')
+        settings = open('settings.txt', 'wt')
         settings.write(gamepath)
         settings.close()
 
 def check():
     '''Confirm LEGO Racers installation'''
-    #time.sleep(1)
-    with open('settings.ini', 'rt') as gamepath:
+    with open('settings.txt', 'rt') as gamepath:
         gamepath = gamepath.readline()
         if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"):
             print("{0} installation found at {1}.".format(game, gamepath))
@@ -102,9 +101,9 @@ def check():
 
 def install():
     '''Install PatchIt! patch'''
-    install = open('settings.ini', 'r')
+    install = open('settings.txt', 'r')
     path = install.read()
-    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp path until .PiP format is written
+    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is written
     zip.extractall(path)
     install.close()
     zipfile.ZipFile.close(zip)
@@ -117,15 +116,15 @@ def install():
 
 def compress():
     '''Compress PatchIt! patch'''
-    compress = open('settings2.ini', 'r') # Temp path until .PiP format is written
+    compress = open('settings2.txt', 'r') # Temp code until .PiP format is written
     files = compress.read()
-    shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as settings2.ini
+    shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
     compress.close()
     if os.system(files) == 1:
-        print("PatchIt! patch created!")
+        print("PatchIt! patch created!") # Temp message
         main()
     else:
-        print("PatchIt! patch creation failed. Please try again.")
+        print("PatchIt! patch creation failed. Please try again.") # Temp message
         main()
 
 if __name__ == "__main__":
