@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! 1.0 Beta 2 by le717 (http://triangle717.wordpress.com).
+# PatchIt! 1.0 Beta 3 by le717 (http://triangle717.wordpress.com).
 
 import os, sys, time, webbrowser
 import zipfile, shutil # Zip extraction and compression, respectively
@@ -24,7 +24,7 @@ import zipfile, shutil # Zip extraction and compression, respectively
 # Global variables
 app = "PatchIt!"
 majver = "Version 1"
-minver = "Beta 2"
+minver = "Beta 3"
 creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
@@ -55,6 +55,7 @@ def main():
             install()
         elif menuopt.lower() == "s":
             #print("read()")
+            time.sleep(0.5)
             read()
         elif menuopt.lower() == "q":
             print("Goodbye!")
@@ -70,13 +71,16 @@ def read():
         with open('settings.txt', 'rt') as settings:
             for line in settings:
                 if check() == True:
-                    #print("Your {0} installation is located at {1}".format(game, line))
+                    time.sleep(0.5)
+                    print("{0} installation found at {1}.".format(game, line))
                     changepath = input(r"Would you like to change this? (y\N) ")
                     if changepath.lower() == "y":
+                        time.sleep(0.5)
                         write()
                     else:
                         main()
                 elif check() == False:
+                    print("Cannot find {0} installation at {1}!".format(game, line))
                     write()
     elif not exist('settings.txt'):
         #print("if not exist")
@@ -84,27 +88,27 @@ def read():
 
 def write():
     '''Write PatchIt! settings.txt'''
-    if not exist('settings.txt'):
+    if exist('settings.txt') or not exist('settings.txt'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
-        with open('settings.txt', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
-            settings.write(gamepath)
-            settings.close
+        if gamepath.lower() == 'exit':
+            print("Canceling...")
+            #time.sleep(0.5)
+            main()
+        else:
+            with open('settings.txt', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
+                settings.write(gamepath)
+                settings.close
 
-    else:
-        gamepath = input("Please enter the path to your {0} installation:\n".format(game))
-        settings = open('settings.txt', 'wt')
-        settings.write(gamepath)
-        settings.close()
 
 def check():
     '''Confirm LEGO Racers installation'''
     with open('settings.txt', 'rt') as gamepath:
         gamepath = gamepath.readline()
         if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"):
-            print("{0} installation found at {1}.".format(game, gamepath))
+            #print("{0} installation found at {1}.".format(game, gamepath))
             return True
         else:
-            print("Cannot find {0} installation at {1}!".format(game, gamepath))
+            #print("Cannot find {0} installation at {1}!".format(game, gamepath))
             return False
 
 def install():
