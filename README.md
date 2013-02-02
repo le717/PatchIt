@@ -19,9 +19,8 @@ The three main goals for *PatchIt!* are as follows:
 
 * Ask for *LEGO Racers* installation path, ensure it exists, and store it as a plain text file in the same folder the *PatchIt!* to be used for mod 
 installation, and to create a completely portable application.
-* Create *PatchIt!* patches by entering the mod's name, version, and creator, and pointing it to the modded files. *PatchIt!* will automatically compress the 
-files into a normal ZIP archive, and write the details to a plain text file ( * .PiP) using the mod's name and version as the filename.
-* Install *PatchIt!* patches by selecting the * .PiP file, confirming the installation, and automatically decompressing the ZIP archive directly into the *LEGO 
+* Create *PatchIt!* patches by entering the mod's name, version, description, and creator, and pointing it to the modded files. *PatchIt!* will automatically compress the files into a normal ZIP archive, and write the details to a plain text file (.PiP) using the mod's name and version as the filename.
+* Install *PatchIt!* patches by selecting the .PiP file, confirming the installation, and automatically decompressing the ZIP archive directly into the *LEGO 
 Racers* installation.
 
 Requirements
@@ -36,7 +35,7 @@ If you would like to contribute to the development of *PatchIt!*, please be sure
 * Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org)
  does not support Python 3.3, so I cannot use it.
  
-* The * .PiP file format documentation can be found under the file *PiP File Format.md* in this same folder.
+* The .PiP file format documentation can be found under in the  [*PiP File Format.md* file](https://github.com/le717/PatchIt/blob/rewrite/PiP%20File%20Format.md).
 
 * The release goal of *PatchIt!* is to have a Beta 3 version ready for public use, although it may not completely bug free, while a proper GUI, written in Tkinter, will be released in Beta 4. Currently, there is no date set for the releases. Of course, if everything is written and completed before then, it will be released as a final 1.0 version.
 

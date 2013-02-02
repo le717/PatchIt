@@ -1,4 +1,4 @@
-PatchIt! * .PiP File Format
+PatchIt! .PiP File Format
 ===========================
 
 Information
@@ -11,3 +11,19 @@ to update the mod details (they may have made a typo in the description, say), a
 
 Details
 -------
+
+* A PiP file is plain text, and can be edited on any text editor. It stands for *Patch*it*Patch*.
+
+* File layout
+
+```
+[General]
+Mod Name
+Mod Creator
+[Description]
+Mod Description
+[Misc.]
+Mod Version
+[ZIP]
+ZIP file with modded files
+```
