@@ -19,7 +19,7 @@
 # PatchIt! (formerly known as LEGO Racers Mod Installer) Beta 2 by le717.
 
 import os, sys, time
-import zipfile
+import zipfile, shutil # Zip extraction and compression, respectively
 
 # Global variables
 app = "PatchIt!"
@@ -41,7 +41,7 @@ def main():
     while True:
         if menuopt == "c":
             print("compress()")
-            break
+            compress()
         elif menuopt.lower() == "i":
             print("install()")
             install()
@@ -99,16 +99,28 @@ def check():
             print("Cannot find {0} installation at {1}.".format(game, gamepath))
             return False
 
-zip_file = "test.zip"
-
 def install():
+    '''Installs PatchIt! patch'''
     install = open('settings.ini', 'r')
     path = install.read()
-    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip')
+    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp path until .PiP format is written
     zip.extractall(path)
     install.close()
     zipfile.ZipFile.close(zip)
     if os.system(path) == 1:
+        print('Done')
+        main()
+    else:
+        print('Fail')
+        main()
+
+def compress():
+    '''Compresses PatchIt! patch'''
+    compress = open('settings2.ini', 'r') # Temp path until .PiP format is written
+    files = compress.read()
+    shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as settings2.ini
+    compress.close()
+    if os.system(files) == 1:
         print('Done')
         main()
     else:
