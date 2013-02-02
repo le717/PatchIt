@@ -16,9 +16,9 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! (formerly known as LEGO Racers Mod Installer) Beta 2 by le717.
+# PatchIt! 1.0 Beta 2 by le717 (http://triangle717.wordpress.com).
 
-import os, sys, time
+import os, sys, time, webbrowser
 import zipfile, shutil # Zip extraction and compression, respectively
 
 # Global variables
@@ -28,6 +28,14 @@ minver = "Beta 2"
 creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
+
+def preload():
+    if sys.version_info < (3,3):
+        print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
+        webbrowser.open("http://python.org/download", new=2, autoraise=True)
+        time.sleep(5)
+    else:
+        main()
 
 def main():
     '''PatchIt! Menu Layout'''
@@ -128,7 +136,7 @@ def compress():
         main()
 
 if __name__ == "__main__":
-    main()
+    preload()
 else:
     print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
 
