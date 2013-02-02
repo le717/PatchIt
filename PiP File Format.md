@@ -16,6 +16,8 @@ Details
 
 * The ZIP file containing the mod's files must be in the same folder as the .PiP file.
 
+* The ZIP file's filename
+
 ### File layout
 
 ```
@@ -24,7 +26,7 @@ Mod Name
 Mod Creator
 [Description]
 Mod Description
-[Misc.]
+[Misc]
 Mod Version
 [ZIP]
 ZIP file with modded files
