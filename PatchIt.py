@@ -16,29 +16,29 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-
-
-# LEGO Racers Mod Installer Beta 1.
-# Built with Nyan Cat-Athon because it is a good mod.
+# PatchIt! 1.0 Beta 1 by le717 (http://triangle717.wordpress.com)
 
 import os, time
 
 # Kinda like the ISPP in Inno Setup, changing these changes all code that points back to them, make it easier to completely rebrand the script.
+app = "PatchIt!"
+majver = "1.0"
+minver = "Beta 1"
 game = "LEGO Racers"
-name = "Nyan Cat-Athon Mod"
-zip_file = "LR_Mod_Nyan-Cat-Athon.zip"
+mod = "Your_mod_name_here"
+zip_file = "Your_ZIP_file_here.zip"
 
 def main():
     '''Controls all functions of the application. Might be broken up later.'''
-    print("This will install {0} {1} onto your computer.".format(game, name))
+    print("This {0} patch will install {1} onto your computer.".format(app, mod))
     path = input("Please enter the path to your {0} installation: ".format(game))
-    print() # I like blank lines. It keeps everything nice and neat (unlike this script at the moment...)
+    print() # I like blank lines. It keeps everything nice and neat (unlike this script...)
     # The three items needed to confirm a LEGO Racers installation, both 1999 and 2001.
     if os.path.exists(path + os.sep + "\\LEGORacers.exe") and os.path.exists(path + os.sep + os.path.join("\\GAMEDATA"))\
        and os.path.exists(path + os.sep + os.path.join("\\MENUDATA")): # Breaking it up for better code reading.
         confirm = input("{0} installation found. This will overwrite existing game files.\nDo you wish to continue? ".format(game))
         if confirm.lower() == "y":
-            print("Installing {0}.".format(name))
+            print("Installing {0}.".format(mod))
             extract_zip = "7za.exe x {0} -o{1} -r -y".format(zip_file, path) # Need to get ZipFile module (or equal function) working to support more than just Windows.
             if os.system(extract_zip) == 0:
                 print("\nInstallation complete!")
@@ -49,7 +49,7 @@ def main():
                 time.sleep(2)
                 SystemExit
             else:
-                print("Installation of {0} failed.".format(name))
+                print("Installation of {0} failed.".format(mod))
                 time.sleep(2)
                 SystemExit
         else:
@@ -62,6 +62,4 @@ def main():
 
 
 if name == "__main__":
-    print(name)
-
-main()
+    main()
