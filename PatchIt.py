@@ -18,10 +18,13 @@
 
 # PatchIt! 1.0 Beta 3 by le717 (http://triangle717.wordpress.com).
 
-import os, sys, time, webbrowser
-import zipfile, shutil # Zip extraction and compression, respectively
+import os, sys, time # General function modules
+import webbrowser, random # Special purpose modules
+import zipfile, shutil # Zip extraction and compression modules, respectively
 
-# Global variables
+''' Global variables
+This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
+Thankfully, this is built into Python, and doesn't require installing an optional module. :)'''
 app = "PatchIt!"
 majver = "Version 1"
 minver = "Beta 3"
@@ -30,15 +33,17 @@ game = "LEGO Racers"
 exist = os.path.exists
 
 def preload():
+    '''Python 3.3 version and app first-run check'''
     if sys.version_info < (3,3):
         print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
+        time.sleep(2)
         webbrowser.open("http://python.org/download", new=2, autoraise=True)
         time.sleep(5)
     else:
         main()
 
 def main():
-    '''PatchIt! Menu Layout'''
+    '''PatchIt! Menu Layout. Will be replaced with a TKinter GUI in Beta 4.'''
     print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
     print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
@@ -47,15 +52,12 @@ def main():
 [q] Quit''')
     menuopt = input("> ")
     while True:
-        if menuopt == "c":
-            #print("compress()")
+        if menuopt.lower() == "c":
             compress()
         elif menuopt.lower() == "i":
-            #print("install()")
             install()
         elif menuopt.lower() == "s":
-            #print("read()")
-            time.sleep(0.5)
+            time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
             read()
         elif menuopt.lower() == "q":
             print("Goodbye!")
@@ -104,7 +106,7 @@ def check():
     '''Confirm LEGO Racers installation'''
     with open('settings.txt', 'rt') as gamepath:
         gamepath = gamepath.readline()
-        if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"):
+        if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
             #print("{0} installation found at {1}.".format(game, gamepath))
             return True
         else:
@@ -115,30 +117,36 @@ def install():
     '''Install PatchIt! patch'''
     install = open('settings.txt', 'r')
     path = install.read()
-    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is written
+    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is finalized.
     zip.extractall(path)
     install.close()
     zipfile.ZipFile.close(zip)
-    if os.system(path) == 1:
-        print("PatchIt! patch installed! :D")
+    if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+        print("*mod name* sucessfully installed!")
         main()
+    elif os.system(path) == 1:
+        print("An unknown error occured while installing *mod name*")
     else:
-        print("PatchIt! patch installation failed. Please try again.")
+        print("Installation *mod name* failed!")
         main()
 
 def compress():
     '''Compress PatchIt! patch'''
-    compress = open('settings2.txt', 'r') # Temp code until .PiP format is written
+    compress = open('settings2.txt', 'r') # Temp code until .PiP format is finalized.
     files = compress.read()
     shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
     compress.close()
-    if os.system(files) == 1:
-        print("PatchIt! patch created!") # Temp message
+    if os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+        print("{0} patch for *mod name* created!".format(game)) # Temp messages
+        main()
+    elif os.system(files) == 1:
+        print("Creation of {0} patch for *mod name* ended with an unknown error. Please try again.".format(app))
         main()
     else:
-        print("PatchIt! patch creation failed. Please try again.") # Temp message
+        print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
         main()
 
+'''If PatchIt! is run by itself, preload(). If imported, display PatchIt! info.'''
 if __name__ == "__main__":
     preload()
 else:
