@@ -121,7 +121,10 @@ def install():
     zip.extractall(path)
     install.close()
     zipfile.ZipFile.close(zip)
-    if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+    if OSError:
+        print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
+        main()
+    elif os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
         print("*mod name* sucessfully installed!")
         main()
     elif os.system(path) == 1:
@@ -136,7 +139,10 @@ def compress():
     files = compress.read()
     shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
     compress.close()
-    if os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+    if OSError:
+    print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
+        main()
+    elif os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
         print("{0} patch for *mod name* created!".format(game)) # Temp messages
         main()
     elif os.system(files) == 1:
