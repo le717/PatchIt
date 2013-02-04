@@ -20,7 +20,8 @@ Details
 
 * The ZIP file uses the mod's name and version as it's filename.
 
-* As a validity test, each PiP must have a specific line of text that must exactly match *PatchIt!*'s internal version to confirm it is a valid patch file.
+* As a validity test, each PiP file must have on line 1 a specific line of text that must exactly match *PatchIt!*'s internal version to confirm it is a valid 
+patch file.
 
 ### PiP File layout
 

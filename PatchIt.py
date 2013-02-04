@@ -70,7 +70,7 @@ def read():
     '''Read PatchIt! settings.txt'''
     # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
     if exist('settings.txt'):
-        with open('settings.txt', 'rt') as settings:
+        with open('settings.txt', 'rt', encoding='utf-8',) as settings:
             for line in settings:
                 if check() == True:
                     time.sleep(0.5)
@@ -97,14 +97,14 @@ def write():
             #time.sleep(0.5)
             main()
         else:
-            with open('settings.txt', 'wt') as settings: # If I swap this to the long-hand version, major code breakage occurs.
+            with open('settings.txt', 'wt', encoding='utf-8',) as settings: # If I swap this to the long-hand version, major code breakage occurs.
                 settings.write(gamepath)
                 settings.close
 
 
 def check():
     '''Confirm LEGO Racers installation'''
-    with open('settings.txt', 'rt') as gamepath:
+    with open('settings.txt', 'rt', encoding='utf-8',) as gamepath:
         gamepath = gamepath.readline()
         if exist(gamepath + "\\GAMEDATA") and exist(gamepath + "\\MENUDATA") and exist(gamepath + "\\LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
             #print("{0} installation found at {1}.".format(game, gamepath))
@@ -115,7 +115,7 @@ def check():
 
 def install():
     '''Install PatchIt! patch'''
-    install = open('settings.txt', 'r')
+    install = open('settings.txt', 'rt', encoding='utf-8',)
     path = install.read()
     zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is finalized.
     zip.extractall(path)
@@ -140,7 +140,7 @@ def compress():
     shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
     compress.close()
     if OSError:
-    print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
+        print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         main()
     elif os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
         print("{0} patch for *mod name* created!".format(game)) # Temp messages
