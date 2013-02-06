@@ -77,11 +77,11 @@ def main():
             main()
 
 def read():
-    '''Read PatchIt! settings.txt'''
+    '''Read PatchIt! settings'''
     # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
     if exist('settings.txt'):
         with open('settings.txt', 'rt', encoding='utf-8',) as settings:
-            settings.seek(1)
+            settings.seek(3)
             for line in settings:
                 if check() == True:
                     time.sleep(0.5)
@@ -91,6 +91,8 @@ def read():
                         time.sleep(0.5)
                         write()
                     else:
+                        print("Canceling...")
+                        time.sleep(0.7)
                         main()
                 elif check() == False:
                     print("Cannot find {0} installation at {1}!".format(game, line))
@@ -100,7 +102,7 @@ def read():
         write()
 
 def write():
-    '''Write PatchIt! settings.txt'''
+    '''Write PatchIt! settings'''
     if exist('settings.txt') or not exist('settings.txt'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
         if gamepath.lower() == 'exit':
