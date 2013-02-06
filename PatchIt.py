@@ -40,8 +40,8 @@ def preload():
         webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         time.sleep(5) # PatchIt! closes after this
     else: # elif sys.version_info >= (3,3)
-        if exist('settings.txt'):
-            with open('settings.txt', 'r+', encoding='utf-8') as runcheck:
+        if exist('settings'):
+            with open('settings', 'r+', encoding='utf-8') as runcheck:
                 firstrun = runcheck.read()
                 if firstrun == "0": # '0' means this is the first run
                     runcheck.seek(0)
@@ -78,8 +78,8 @@ def main():
 
 def read():
     '''Read PatchIt! settings'''
-    if exist('settings.txt'):
-        with open('settings.txt', 'rt', encoding='utf-8') as settings:
+    if exist('settings'):
+        with open('settings', 'r', encoding='utf-8') as settings:
             settings.seek(3)
             for line in settings:
                 if check() ==  True:
@@ -96,19 +96,19 @@ def read():
                 elif check() == False:
                     print("Cannot find {0} installation at {1}!".format(game, line))
                     write()
-    elif not exist('settings.txt'):
+    elif not exist('settings'):
         write()
 
 def write():
     '''Write PatchIt! settings'''
-    if exist('settings.txt') or not exist('settings.txt'):
+    if exist('settings') or not exist('settings'):
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
         if gamepath.lower() == 'exit':
             print("Canceling...")
             #time.sleep(0.5)
             #main()
         else:
-            with open('settings.txt', 'wt', encoding='utf-8',) as settings:
+            with open('settings', 'wt', encoding='utf-8',) as settings:
                 settings.seek(0)
                 settings.write("1")
                 settings.seek(1)
@@ -117,7 +117,7 @@ def write():
                 read()
 def check():
     '''Confirm LEGO Racers installation'''
-    with open('settings.txt', 'rt', encoding='utf-8',) as gamepath:
+    with open('settings', 'r', encoding='utf-8',) as gamepath:
         gamepath.seek(3)
         gamepath = gamepath.readline()
         if exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
@@ -127,7 +127,7 @@ def check():
 
 def install():
     '''Install PatchIt! patch'''
-    install = open('settings.txt', 'rt', encoding='utf-8',)
+    install = open('settings', 'r', encoding='utf-8',)
     path = install.read()
     zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is finalized.
     zip.extractall(path)

@@ -191,3 +191,4 @@ pip-log.txt
 *.ini
 *.txt
 *.py
+settings
