@@ -34,20 +34,22 @@ exist = os.path.exists
 
 def preload():
     '''Python 3.3 version and PatchIt! first-run check'''
-    if sys.version_info < (3,4): # You need to have at least Python 3.3 to run PatchIt!
+    if sys.version_info < (3,3): # You need to have at least Python 3.3 to run PatchIt!
         print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
         time.sleep(2) # Don't open browser immediately
-        webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window
+        webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         time.sleep(5) # PatchIt! closes after this
     else: # elif sys.version_info >= (3,3)
         with open('settings.txt', 'r+', encoding='utf-8') as runcheck:
             firstrun = runcheck.read()
             if firstrun == "0": # '0' means this is the first run
                 runcheck.seek(0)
-                runcheck.write("1\n")
-                print(r"1\n") # Debug print
+                runcheck.write("1")
+                print("1") # Debug print
                 read()
             else: # This is not the first run
+                #runcheck.seek(0)
+                #runcheck.write("1")
                 main()
 
 def main():
@@ -79,6 +81,7 @@ def read():
     # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
     if exist('settings.txt'):
         with open('settings.txt', 'rt', encoding='utf-8',) as settings:
+            settings.seek(1)
             for line in settings:
                 if check() == True:
                     time.sleep(0.5)
@@ -113,6 +116,7 @@ def write():
 def check():
     '''Confirm LEGO Racers installation'''
     with open('settings.txt', 'rt', encoding='utf-8',) as gamepath:
+        gamepath.seek(3)
         gamepath = gamepath.readline()
         if exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
             #print("{0} installation found at {1}.".format(game, gamepath))
