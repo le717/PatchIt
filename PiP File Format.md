@@ -1,7 +1,7 @@
 PatchIt! .PiP File Format
 ===========================
 
-**This document has not been finalized, and the details laid out therein are subject to change.**
+**This document has not been finalized, and the details laid out herein are subject to change.**
 
 Information
 -----------
