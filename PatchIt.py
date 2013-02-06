@@ -108,7 +108,7 @@ def write():
             #time.sleep(0.5)
             #main()
         else:
-            with open('settings', 'wt', encoding='utf-8',) as settings:
+            with open('settings', 'w', encoding='utf-8',) as settings:
                 settings.seek(0)
                 settings.write("1")
                 settings.seek(1)
