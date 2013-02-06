@@ -40,17 +40,17 @@ def preload():
         webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         time.sleep(5) # PatchIt! closes after this
     else: # elif sys.version_info >= (3,3)
-        with open('settings.txt', 'r+', encoding='utf-8') as runcheck:
-            firstrun = runcheck.read()
-            if firstrun == "0": # '0' means this is the first run
-                runcheck.seek(0)
-                runcheck.write("1")
-                print("1") # Debug print
-                read()
-            else: # This is not the first run
-                #runcheck.seek(0)
-                #runcheck.write("1")
-                main()
+        if exist('settings.txt'):
+            with open('settings.txt', 'r+', encoding='utf-8') as runcheck:
+                firstrun = runcheck.read()
+                if firstrun == "0": # '0' means this is the first run
+                    runcheck.seek(0)
+                    runcheck.write("1") # This is not the first run
+                    write()
+                else: # This is not the first run
+                    main()
+        else: # settings does not exist
+            write()
 
 def main():
     '''PatchIt! Menu Layout. Will be replaced with a TKinter GUI in Beta 4.'''
@@ -67,7 +67,7 @@ def main():
         elif menuopt.lower() == "i":
             install()
         elif menuopt.lower() == "s":
-            time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
+            #time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
             read()
         elif menuopt.lower() == "q":
             print("Goodbye!")
@@ -78,41 +78,26 @@ def main():
 
 def read():
     '''Read PatchIt! settings'''
-    # TODO: Remove input and replace with "if path not exist: say so, ask, and main(). if exist: say so and main().
     if exist('settings.txt'):
-        with open('settings.txt', 'rt', encoding='utf-8',) as settings:
+        with open('settings.txt', 'rt', encoding='utf-8') as settings:
             settings.seek(3)
             for line in settings:
-                if check() == True:
-                    time.sleep(0.5)
-                    print("{0} installation found at {1}.".format(game, line))
+                if check() ==  True:
+                    #time.sleep(0.5)
+                    print("{0} installation found at {1}".format(game, line))
                     changepath = input(r"Would you like to change this? (y\N) ")
                     if changepath.lower() == "y":
                         time.sleep(0.5)
                         write()
                     else:
-                        print("Canceling...")
-                        time.sleep(0.7)
+                        #print("Canceling...")
+                        time.sleep(0.5)
                         main()
                 elif check() == False:
                     print("Cannot find {0} installation at {1}!".format(game, line))
                     write()
     elif not exist('settings.txt'):
-        #print("if not exist")
         write()
-
-def write():
-    '''Write PatchIt! settings'''
-    if exist('settings.txt') or not exist('settings.txt'):
-        gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
-        if gamepath.lower() == 'exit':
-            print("Canceling...")
-            #time.sleep(0.5)
-            main()
-        else:
-            with open('settings.txt', 'wt', encoding='utf-8',) as settings: # If I swap this to the long-hand version, major code breakage occurs.
-                settings.write(gamepath)
-                settings.close
 
 
 def check():
@@ -121,11 +106,26 @@ def check():
         gamepath.seek(3)
         gamepath = gamepath.readline()
         if exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
-            #print("{0} installation found at {1}.".format(game, gamepath))
             return True
         else:
-            #print("Cannot find {0} installation at {1}!".format(game, gamepath))
             return False
+
+def write():
+    '''Write PatchIt! settings'''
+    if exist('settings.txt') or not exist('settings.txt'):
+        gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
+        if gamepath.lower() == 'exit':
+            print("Canceling...")
+            #time.sleep(0.5)
+            #main()
+        else:
+            with open('settings.txt', 'wt', encoding='utf-8',) as settings:
+                settings.seek(0)
+                settings.write("1")
+                settings.seek(1)
+                settings.write("\n" + gamepath)
+                settings.close()
+                read()
 
 def install():
     '''Install PatchIt! patch'''
