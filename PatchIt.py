@@ -99,17 +99,6 @@ def read():
     elif not exist('settings.txt'):
         write()
 
-
-def check():
-    '''Confirm LEGO Racers installation'''
-    with open('settings.txt', 'rt', encoding='utf-8',) as gamepath:
-        gamepath.seek(3)
-        gamepath = gamepath.readline()
-        if exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
-            return True
-        else:
-            return False
-
 def write():
     '''Write PatchIt! settings'''
     if exist('settings.txt') or not exist('settings.txt'):
@@ -126,6 +115,15 @@ def write():
                 settings.write("\n" + gamepath)
                 settings.close()
                 read()
+def check():
+    '''Confirm LEGO Racers installation'''
+    with open('settings.txt', 'rt', encoding='utf-8',) as gamepath:
+        gamepath.seek(3)
+        gamepath = gamepath.readline()
+        if exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
+            return True
+        else:
+            return False
 
 def install():
     '''Install PatchIt! patch'''
