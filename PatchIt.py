@@ -54,7 +54,7 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout. Will be replaced with a TKinter GUI in Beta 4.'''
-    print("\nHello, and welcome to {0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+    print(("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator)))
     print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
@@ -105,15 +105,14 @@ def write():
         gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
         if gamepath.lower() == 'exit':
             print("Canceling...")
-            #time.sleep(0.5)
-            #main()
+            time.sleep(0.5)
+            main()
         else:
             with open('settings', 'w', encoding='utf-8',) as settings:
                 settings.seek(0)
                 settings.write("1")
                 settings.seek(1)
                 settings.write("\n" + gamepath)
-                settings.close()
                 read()
 def check():
     '''Confirm LEGO Racers installation'''
@@ -164,9 +163,9 @@ def compress():
         print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
         main()
 
-'''If PatchIt! is run by itself, preload(). If imported, display PatchIt! info.'''
+#If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
 if __name__ == "__main__":
     preload()
 else:
-    print("{0} {1} {2}, created by {3}.".format(app, majver, minver, creator))
+    print("{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
 
