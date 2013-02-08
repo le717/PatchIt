@@ -4,7 +4,7 @@
 <style>
 h2 { text-align: center; }
 .italic { font-style: italic; }
-.bold { font-style: strong; }
+.bold { font-weight: bold; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 </style>
@@ -19,53 +19,64 @@ a:hover { text-decoration: underline; }
 </thead>
 <tbody>
 <tr>
-<td><a href="Intro">Introduction</a></td>
+<td><a href="#Intro">Introduction</a></td>
 </tr>
 <tr>
-<td><a href="Changes">Change Log</a></td>
+<td><a href="#How">Usage</a></td>
 </tr>
 <tr>
-<td><a href="Help">Support</a></td>
+<td><a href="#Changes">Change Log</a></td>
+</tr>
+<tr>
+<td><a href="#Help">Support</a></td>
+</tr>
+<tr>
+<td><a href="#Credit">Credit</a></td>
 </tr>
 </tbody>
 </table>
 <h2>Introduction</h2>
-<p>This is the Readme for <span class="bold">PatchIt!</span>, a <a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a> application created by <a href="http://triangle717.wordpress.com" target="_blank" title="Triangle717.WordPress.com">le717</a>
+<p>This is the Readme for <span class="bold">PatchIt!</span>, a <a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a> application intended to provide a standard yet simple way to distribute and install mods for the 1999 High Voltage Software PC game <span class="italic">LEGO Racers</span>.
+
+<h2>Usage</h2>
 <a name="Changes"></a>
 <h2>Change Log</h2>
 
 <strong>1.0 Beta 3</strong><br>
 (Released ?? ??, 2013)<br>
 <ul>
-<li>Clended up check() and write() functions a bit</li>
+<li>Cleaned up check() and write() functions</li>
 <li>First draft of PiP patch layout</li>
-<li>Set settings file to UTF-8 encoding</li>
 <li>Improved Python 3.3 version check</li>
 <li>Lots of script comments</li>
-<li>Work-around for any OS errors</li>
-<li>Added first-run check, uses PatchIt! settings file</li>
-<li>LEGO Racers game check is on now 2nd line of PatchIt! settings file</li>
-<li>LEGOs in space? More later!</li>
+<li>Work-around to any OS errors</li>
+<li>Set settings file to use UTF-8 encoding</li>
+<li>Added preliminary first-run check, uses <span class="bold">PatchIt!</span> settings file</li>
+<li>LEGO Racers game path is now located on line 2 of the <span class="bold">PatchIt!</span> settings file</li>
+<li>check() function is now compatible with first-run check</li>
+<li>read() function now works with first-run check</li>
+<li>Finalizing first-run check</li>
+<li>Script rearrangement</li>
 <li>Renamed settings file from settings.txt to just settings, code changed accordingly</li>
 <li>Updated app info</li>
-<li>Enabled cancellation of LEGO Racers game path change</li>
+<li>Enabled cancellation of <span class="italic">LEGO Racers</span> game path change</li>
 <li>Started HTML Readme</li>
+<li>LEGOs in space? More later!</li>
 </ul>
 
 <strong>1.0 Beta 2</strong><br>
 (Released February 2, 2013)<br>
 <ul>
 <li>Completely rewrote code base</li>
-<li>Saved PatchIt! settings to text file</li>
-<li>You can now change LEGO Racers game path</li>
-<li>Added LEGO Racers installation check and ZIP extraction usig 7-zip</li>
-<li>Split LEGO Racers installation check into seperate function</li>
+<li>PatchIt! settings are now saved to a text file</li>
+<li>LEGO Racers game path can now be changed</li>
+<li>Added <span class="italic">LEGO Racers</span> installation check and ZIP extraction using 7-zip</li>
+<li>Split <span class="italic">LEGO Racers</span> installation check into separate function</li>
 <li>Began writing GitHub-flavored Markdown Readme</li>
 <li>Official rename from <span class="bold">LEGO Racers Mod Installer</span> to <span class="bold">PatchIt!</span></li>
-<li>Incorpratet check() function into read() and write() functions. It is still a seperate function, however</li>
+<li>Incorporated check() function into read() and write() functions</li>
 <li>Added ZIP compression using 7-zip</li>
 <li>Removed 7-zip dependency and replaced it with the built-in ZipFile and Shutil modules for ZIP extraction and compression, respectively</li>
-<li>Added Python version check</li>
 <li>Small code cleanup</li>
 <li>Added Python 3.3 version check</li>
 <li>Version bump</li>
@@ -74,12 +85,16 @@ a:hover { text-decoration: underline; }
 <strong>1.0 Beta 1</strong><br>
 (Released January 26, 2013)<br>
 <ul>
-<li>First version, based on very sloppy, hacky code with 7-zip dependency for ZIP extraction and creation.</li>
+<li>First version, based on very sloppy, hacky code with 7-zip (7za.exe) dependency for ZIP extraction and creation.</li>
 </ul><a name="Help"></a>
 <h2>Support</h2>
 <p>To request a feature, submit a bug report or code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br><br>
-<a href="#ToC">Back to the Beginning</a>
+<a name="Credit"></a>
+<h2>Credit</h2>
 
-<p class="bold"><span class="italic">PatchIt!</span> is copyright 2013 le717, and released under the GNU General Public License Version 3.</p>
+<p class="bold"><span class="italic">PatchIt!</span> is copyright 2013  <a href="http://triangle717.wordpress.com" target="_blank" title="Triangle717.WordPress.com">le717</a>, and released under the <a
+ href="http://www.gnu.org/licenses/gpl.html" target="_blank" title ="GNU General Public License Version 3">GNU General Public License Version 3.</a></p>
+ <br>
+ <a href="#ToC">Back to the Beginning</a>
 </body>
 </html>
