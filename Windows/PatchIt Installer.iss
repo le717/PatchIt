@@ -20,7 +20,7 @@
 AppId={#MyAppVerName}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-VersionInfoVersion={#MyAppVerName}
+;VersionInfoVersion={#MyAppVerName}
 AppPublisher={#MyAppPublisher}
 AppCopyright=© 2013 {#MyAppPublisher}
 LicenseFile=LICENSE.txt
@@ -29,8 +29,8 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 ; Installer Graphics
-SetupIconFile=PatchIt.ico
-WizardImageFile=PatchIt Sidebar.bmp
+SetupIconFile=PatchIt Logo.ico
+;WizardImageFile=PatchIt Sidebar.bmp
 WizardSmallImageFile=PatchIt Logo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
@@ -59,11 +59,11 @@ english.BeveledLabel={#MyAppVerName}
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
-[Files]
-Source: "PatchIt.exe"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;  
+; [Files]
+; Source: "PatchIt.exe"; DestDir: "{app}"; Flags: ignoreversion;
+; Source: "_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
+; Source: "python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
+; Source: "unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;  
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Comment: "Run {#MyAppVerName}";
