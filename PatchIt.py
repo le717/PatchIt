@@ -46,11 +46,11 @@ def preload():
                 if firstrun == "0": # '0' means this is the first run
                     runcheck.seek(0)
                     runcheck.write("1") # This is not the first run
-                    write()
+                    writesettings()
                 else: # This is not the first run
                     main()
         else: # settings does not exist
-            write()
+            writesettings()
 
 def main():
     '''PatchIt! Menu Layout. Will be replaced with a TKinter GUI in Beta 4.'''
@@ -65,10 +65,10 @@ def main():
         if menuopt.lower() == "c":
             compress()
         elif menuopt.lower() == "i":
-            install()
+            readpatch()
         elif menuopt.lower() == "s":
             #time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
-            read()
+            readsettings()
         elif menuopt.lower() == "q":
             print("Goodbye!")
             time.sleep(1)
@@ -76,10 +76,10 @@ def main():
         else:
             main()
 
-def read():
+def readsettings():
     '''Read PatchIt! settings'''
     if not exist('settings'):
-        write()
+        writesettings()
     elif exist('settings'):
         with open('settings', 'r', encoding='utf-8') as settings:
             settings.seek(3)
@@ -90,16 +90,16 @@ def read():
                     changepath = input(r"Would you like to change this? (y\N)" + "\n> ")
                     if changepath.lower() == "y":
                         time.sleep(0.5)
-                        write()
+                        writesettings()
                     else:
                         #print("Canceling...")
                         time.sleep(0.5)
                         main()
                 elif check() == False:
                     print("\nCannot find {0} installation at {1}!".format(game, line))
-                    write()
+                    writesettings()
 
-def write():
+def writesettings():
     '''Write PatchIt! settings'''
     if exist('settings') or not exist('settings'):
         gamepath = input("\nPlease enter the path to your {0} installaton:\n> ".format(game))
@@ -114,7 +114,7 @@ def write():
                 settings.seek(1)
                 settings.write("\n" + gamepath)
                 settings.close()
-                read()
+                readsettings()
 def check():
     '''Confirm LEGO Racers installation'''
     with open('settings', 'r', encoding='utf-8',) as gamepath:
@@ -130,19 +130,21 @@ def check():
 def install():
     '''Install PatchIt! patch'''
     install = open('settings', 'r', encoding='utf-8',)
-    path = install.read()
+    install.seek(3)
+    path = install.readline()
     zip = zipfile.ZipFile(r'C:\Users\Public\MCIslandOBJ.zip') # Temp code until .PiP format is finalized.
     zip.extractall(path)
     install.close()
     zipfile.ZipFile.close(zip)
-    if OSError:
-        print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
-        main()
-    elif os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+    #if OSError:
+        #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
+        #main()
+    if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
         print("*mod name* sucessfully installed!")
         main()
     elif os.system(path) == 1:
-        print("An unknown error occured while installing *mod name*")
+        print("An unknown error occured while installing Mod")
+        main()
     else:
         print("Installation *mod name* failed!")
         main()
@@ -153,10 +155,10 @@ def compress():
     files = compress.read()
     shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
     compress.close()
-    if OSError:
-        print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
-        main()
-    elif os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+    #if OSError:
+        #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
+        #main()
+    if os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
         print("{0} patch for *mod name* created!".format(game)) # Temp messages
         main()
     elif os.system(files) == 1:
@@ -166,13 +168,13 @@ def compress():
         print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
         main()
 
-def PiPpatch():
+def readpatch():
     linecache.clearcache()
     patchfile = input("Please enter the patch to a {0} patch:\n> ".format(app))
     confirmpatch = linecache.getline(patchfile, 1)
     if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n":
         print(line,
-        patchfile + " is not a valid {0} patch.".format(app))
+         patchfile + " is not a valid {0} patch.".format(app))
     else:
         modname = linecache.getline(patchfile, 3)
         modver = linecache.getline(patchfile, 4)
@@ -189,7 +191,7 @@ def PiPpatch():
 
 #If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
 if __name__ == "__main__":
-    PiPpatch()
+    preload()
 else:
     print("{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
 
