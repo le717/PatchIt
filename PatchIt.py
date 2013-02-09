@@ -124,6 +124,7 @@ def check():
             return True
         else:
             return False
+tips = ["Have you heard about the TRUCK DRIVER cheat? It's fake. Don't believe anyone who tells you otherwise."]
 
 def install():
     '''Install PatchIt! patch'''
