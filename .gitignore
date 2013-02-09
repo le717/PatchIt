@@ -194,4 +194,4 @@ pip-log.txt
 settings
 *.log
 *.PiP
-*.is~
+*.~is
