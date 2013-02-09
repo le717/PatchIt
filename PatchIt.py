@@ -19,7 +19,7 @@
 # PatchIt! 1.0 Beta 3 by le717 (http://triangle717.wordpress.com).
 
 import os, sys, time # General function modules
-import webbrowser, random # Special purpose modules
+import webbrowser, random, linecache # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 
 ''' Global variables
@@ -131,7 +131,7 @@ def install():
     '''Install PatchIt! patch'''
     install = open('settings', 'r', encoding='utf-8',)
     path = install.read()
-    zip = zipfile.ZipFile(r'C:\Users\Public\myzipfile.zip') # Temp code until .PiP format is finalized.
+    zip = zipfile.ZipFile(r'C:\Users\Public\MCIslandOBJ.zip') # Temp code until .PiP format is finalized.
     zip.extractall(path)
     install.close()
     zipfile.ZipFile.close(zip)
@@ -166,9 +166,30 @@ def compress():
         print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
         main()
 
+def PiPpatch():
+    linecache.clearcache()
+    patchfile = input("Please enter the patch to a {0} patch:\n> ".format(app))
+    confirmpatch = linecache.getline(patchfile, 1)
+    if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n":
+        print(line,
+        patchfile + " is not a valid {0} patch.".format(app))
+    else:
+        modname = linecache.getline(patchfile, 3)
+        modver = linecache.getline(patchfile, 4)
+        modcreator = linecache.getline(patchfile, 5)
+        moddesc = linecache.getline(patchfile, 7)
+        print("\n{0} Version {1} Created by {2} {3}".format(modname, modver, modcreator, moddesc))
+        print("Do you wish to install {0}".format(modname), end="")
+        confirminstall = input("\n> ")
+        if confirminstall.lower() == "y":
+            install()
+        else:
+            main()
+
+
 #If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
 if __name__ == "__main__":
-    preload()
+    PiPpatch()
 else:
     print("{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
 
