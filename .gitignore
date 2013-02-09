@@ -193,3 +193,5 @@ pip-log.txt
 *.py
 settings
 *.log
+*.PiP
+*.is~
