@@ -17,37 +17,56 @@
 #define MyAppExeName "PatchIt.exe"
 
 [Setup]
-;AppId=
+AppId={#MyAppVerName}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVerName}
 AppPublisher={#MyAppPublisher}
 AppCopyright=© 2013 {#MyAppPublisher}
 LicenseFile=LICENSE.txt
+; Start menu\screen and Desktop shortcuts
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
+AllowNoIcons=yes
+; Installer Graphics
 SetupIconFile=PatchIt.ico
 WizardImageFile=PatchIt Sidebar.bmp
 WizardSmallImageFile=PatchIt Logo.bmp
-AllowNoIcons=yes
-
+; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
+; Uninstallation stuff
+UninstallDisplayIcon={#MyAppExeName}
+CreateUninstallRegKey=yes
+UninstallDisplayName={#MyAppName}
+; Compression
 Compression=lzma
-SolidCompression=yes
+SolidCompression=True
+InternalCompressLevel=ultra
+; From top to bottom: Allows installation to C:\ (and the like),
+; Explicitly set Admin rights, no other languages, do not restart upon finishing.
+AllowRootDirectory=yes
+PrivilegesRequired=admin
+ShowLanguageDialog=no
+RestartIfNeededByRun=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+
+[Messages]
+english.BeveledLabel={#MyAppVerName}
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "PatchIt!"; DestDir: "{app}"; Flags: ignoreversion
-
+Source: "PatchIt.exe"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;  
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Comment: "Run {#MyAppVerName}";
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
