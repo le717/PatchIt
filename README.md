@@ -32,7 +32,7 @@ If you would like to contribute to the development of *PatchIt!*, please be sure
 *PatchIt!* Versions `<=` Python 2.7 is not supported, and a Python version check will prevent it from running on lower versions.
 
 * No external packages or dependencies are needed for the ZIP archive functions, as it is implemented using native Python modules.
-* Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org)
+* Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](http://cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org)
  does not support Python 3.3, so I cannot use it.
  
 * The .PiP file format documentation can be found under in [*PiP File Format.md*](https://github.com/le717/PatchIt/blob/rewrite/PiP%20File%20Format.md).

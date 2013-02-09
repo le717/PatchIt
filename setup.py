@@ -6,4 +6,5 @@ setup(
     description = "The simple and standard way to create and install LEGO Racers mods.",
 	author = "le717",
 	license = "GNU GPLv3",
+	icon = "Windows/PatchIt Icon.ico",
     executables = [Executable("PatchIt.py")]
