@@ -54,7 +54,7 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout. Will be replaced with a TKinter GUI in Beta 4.'''
-    print(("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator)))
+    print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
     print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
@@ -78,14 +78,16 @@ def main():
 
 def read():
     '''Read PatchIt! settings'''
-    if exist('settings'):
+    if not exist('settings'):
+        write()
+    elif exist('settings'):
         with open('settings', 'r', encoding='utf-8') as settings:
             settings.seek(3)
             for line in settings:
                 if check() ==  True:
                     #time.sleep(0.5)
-                    print("{0} installation found at {1}".format(game, line))
-                    changepath = input(r"Would you like to change this? (y\N) ")
+                    print("\n{0} installation found at {1}".format(game, line))
+                    changepath = input(r"Would you like to change this? (y\N)" + "\n> ")
                     if changepath.lower() == "y":
                         time.sleep(0.5)
                         write()
@@ -94,15 +96,13 @@ def read():
                         time.sleep(0.5)
                         main()
                 elif check() == False:
-                    print("Cannot find {0} installation at {1}!".format(game, line))
+                    print("\nCannot find {0} installation at {1}!".format(game, line))
                     write()
-    elif not exist('settings'):
-        write()
 
 def write():
     '''Write PatchIt! settings'''
     if exist('settings') or not exist('settings'):
-        gamepath = input("Please enter the path to your {0} installaton:\n".format(game))
+        gamepath = input("\nPlease enter the path to your {0} installaton:\n> ".format(game))
         if gamepath.lower() == 'exit':
             print("Canceling...")
             time.sleep(0.5)
@@ -113,13 +113,16 @@ def write():
                 settings.write("1")
                 settings.seek(1)
                 settings.write("\n" + gamepath)
+                settings.close()
                 read()
 def check():
     '''Confirm LEGO Racers installation'''
     with open('settings', 'r', encoding='utf-8',) as gamepath:
         gamepath.seek(3)
         gamepath = gamepath.readline()
-        if exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
+        if len(gamepath) == 0:
+            return False
+        elif exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
             return True
         else:
             return False
