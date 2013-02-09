@@ -44,8 +44,6 @@ def preload():
             with open('settings', 'r+', encoding='utf-8') as runcheck:
                 firstrun = runcheck.read()
                 if firstrun == "0": # '0' means this is the first run
-                    runcheck.seek(0)
-                    runcheck.write("1") # This is not the first run
                     writesettings()
                 else: # This is not the first run
                     main()
@@ -143,7 +141,7 @@ def install():
         print("*mod name* sucessfully installed!")
         main()
     elif os.system(path) == 1:
-        print("An unknown error occured while installing Mod")
+        print("An unknown error occured while installing your mod.")
         main()
     else:
         print("Installation *mod name* failed!")
@@ -170,23 +168,28 @@ def compress():
 
 def readpatch():
     linecache.clearcache()
-    patchfile = input("Please enter the patch to a {0} patch:\n> ".format(app))
-    confirmpatch = linecache.getline(patchfile, 1)
-    if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n":
-        print(line,
-         patchfile + " is not a valid {0} patch.".format(app))
+    patchfile = input("Please enter the path to a {0} patch:\n> ".format(app))
+    if patchfile.lower() == "exit":
+        print("Canceling installation...")
+        main()
     else:
-        modname = linecache.getline(patchfile, 3)
-        modver = linecache.getline(patchfile, 4)
-        modcreator = linecache.getline(patchfile, 5)
-        moddesc = linecache.getline(patchfile, 7)
-        print("\n{0} Version {1} Created by {2} {3}".format(modname, modver, modcreator, moddesc))
-        print("Do you wish to install {0}".format(modname), end="")
-        confirminstall = input("\n> ")
-        if confirminstall.lower() == "y":
-            install()
+        confirmpatch = linecache.getline(patchfile, 1)
+        if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n":
+            print(line,
+             patchfile + " is not a valid {0} patch.".format(app))
         else:
-            main()
+            modname = linecache.getline(patchfile, 3)
+            modver = linecache.getline(patchfile, 4)
+            modcreator = linecache.getline(patchfile, 5)
+            moddesc = linecache.getline(patchfile, 7)
+            print("\n{0} Version {1} Created by {2} {3}".format(modname, modver, modcreator, moddesc))
+            print("Do you wish to install {0}".format(modname), end="")
+            confirminstall = input("\n> ")
+            if confirminstall.lower() == "y":
+                install()
+            else:
+                print("Canceling installation of {0}".format(modname))
+                main()
 
 
 #If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
