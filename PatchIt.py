@@ -35,7 +35,7 @@ gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't 
 "Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.",
 "Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.",
 "Is Veronica Voltage in your way? Just drive right through her, she won't stop you.",
-"Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360° spin, instead of turning backwards."]
+"Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360Â° spin, instead of turning backwards."]
 
 def preload():
     '''Python 3.3 version and PatchIt! first-run check'''
@@ -45,18 +45,20 @@ def preload():
         webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         time.sleep(5) # PatchIt! closes after this
     else: # elif sys.version_info >= (3,3)
-        if exist('settings'):
-            with open('settings', 'r+', encoding='utf-8') as runcheck:
-                firstrun = runcheck.read()
-                if firstrun == "0": # '0' means this is the first run
+        if not exist('settings'): # settings file does not exist
+            writesettings()
+        else:
+            with open('settings', 'r+', encoding='utf-8') as runcheck: # It does exist
+                linecache.clearcache()
+                firstrun = linecache.getline('settings', 1)
+                if firstrun == "0\n": # '0' means this is the first run
                     writesettings()
                 else: # This is not the first run
                     main()
-        else: # settings does not exist
-            writesettings()
+
 
 def main():
-    '''PatchIt! Menu Layout. Will be replaced with a TKinter GUI in Beta 4.'''
+    '''PatchIt! Menu Layout'''
     print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
     print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
@@ -81,39 +83,39 @@ def main():
 
 def readsettings():
     '''Read PatchIt! settings'''
-    if not exist('settings'):
+    if not exist('settings'): # Settings file does not exist
         writesettings()
-    elif exist('settings'):
+    elif exist('settings'): # Setting file does exist
         with open('settings', 'r', encoding='utf-8') as settings:
-            settings.seek(3)
+            settings.seek(3) # Jump to installation path
             for line in settings:
-                if check() ==  True:
+                if check() ==  True: # The defined Racers installation exists
                     #time.sleep(0.5)
                     print("\n{0} installation found at {1}".format(game, line))
                     changepath = input(r"Would you like to change this? (y\N)" + "\n> ")
-                    if changepath.lower() == "y":
+                    if changepath.lower() == "y": # I want to change the defined Racers installation path
                         time.sleep(0.5)
                         writesettings()
-                    else:
+                    else: # I do not want to change the defined Racers installation path
                         #print("Canceling...")
                         time.sleep(0.5)
                         main()
-                elif check() == False:
+                elif check() == False: # The defined Racers installation does not exists
                     print("\nCannot find {0} installation at {1}!".format(game, line))
                     writesettings()
 
 def writesettings():
     '''Write PatchIt! settings'''
-    if exist('settings') or not exist('settings'):
+    if exist('settings') or not exist('settings'): # It does not matter
         gamepath = input("\nPlease enter the path to your {0} installaton:\n> ".format(game))
-        if gamepath.lower() == 'exit':
+        if gamepath.lower() == 'exit': # I do not want to change the path
             print("Canceling...")
             time.sleep(0.5)
             main()
-        else:
+        else: # I do want to change the path
             with open('settings', 'w', encoding='utf-8',) as settings:
                 settings.seek(0)
-                settings.write("1")
+                settings.write("1") # Not first-run
                 settings.seek(1)
                 settings.write("\n" + gamepath)
                 settings.close()
@@ -121,9 +123,9 @@ def writesettings():
 def check():
     '''Confirm LEGO Racers installation'''
     with open('settings', 'r', encoding='utf-8',) as gamepath:
-        gamepath.seek(3)
+        gamepath.seek(3) # Skip to defined Racers installation path
         gamepath = gamepath.readline()
-        if len(gamepath) == 0:
+        if len(gamepath) == 0: # TODO: Fix this
             return False
         elif exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
             return True
