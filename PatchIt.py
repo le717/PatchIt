@@ -18,8 +18,8 @@
 
 # PatchIt! 1.0 Beta 3 by le717 (http://triangle717.wordpress.com).
 
-import os, sys, time # General function modules
-import webbrowser, random, linecache # Special purpose modules
+import os, sys, time, linecache # General function modules
+import webbrowser, random # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 
 ''' Global variables
@@ -31,11 +31,7 @@ minver = "Beta 3"
 creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
-gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't believe anyone who tells you otherwise.",
-"Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.",
-"Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.",
-"Is Veronica Voltage in your way? Just drive right through her, she won't stop you.",
-"Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360Â° spin, instead of turning backwards."]
+gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't believe anyone who tells you otherwise.", "Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.", "Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.","Is Veronica Voltage in your way? Just drive right through her, she won't stop you.","Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360Ã‚Â° spin, instead of turning backwards."]
 
 def preload():
     '''Python 3.3 version and PatchIt! first-run check'''
@@ -44,8 +40,8 @@ def preload():
         time.sleep(2) # Don't open browser immediately
         webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         time.sleep(5) # PatchIt! closes after this
-    else: # elif sys.version_info >= (3,3)
-        if not exist('settings'): # settings file does not exist
+    else: # If you are not running Python 3.3
+        if not exist('settings'): # The settings file does not exist
             writesettings()
         else:
             with open('settings', 'r+', encoding='utf-8') as runcheck: # It does exist
@@ -65,14 +61,14 @@ def main():
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
 [q] Quit''')
-    menuopt = input("> ")
+    menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
             compress()
         elif menuopt.lower() == "i":
             readpatch()
         elif menuopt.lower() == "s":
-            #time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
+            time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
             readsettings()
         elif menuopt.lower() == "q":
             print("Goodbye!")
@@ -83,16 +79,16 @@ def main():
 
 def readsettings():
     '''Read PatchIt! settings'''
-    if not exist('settings'): # Settings file does not exist
+    if not exist('settings'): # The settings file does not exist
         writesettings()
-    elif exist('settings'): # Setting file does exist
+    elif exist('settings'): # The setting file does exist
         with open('settings', 'r', encoding='utf-8') as settings:
             settings.seek(3) # Jump to installation path
             for line in settings:
                 if check() ==  True: # The defined Racers installation exists
-                    #time.sleep(0.5)
+                    time.sleep(0.5)
                     print("\n{0} installation found at {1}".format(game, line))
-                    changepath = input(r"Would you like to change this? (y\N)" + "\n> ")
+                    changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
                     if changepath.lower() == "y": # I want to change the defined Racers installation path
                         time.sleep(0.5)
                         writesettings()
@@ -107,7 +103,7 @@ def readsettings():
 def writesettings():
     '''Write PatchIt! settings'''
     if exist('settings') or not exist('settings'): # It does not matter if it exists or not
-        gamepath = input("\nPlease enter the path to your {0} installaton:\n> ".format(game))
+        gamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
         if gamepath.lower() == 'exit': # I do not want to change the path
             print("Canceling...")
             time.sleep(0.5)
@@ -115,9 +111,12 @@ def writesettings():
         else: # I do want to change the path
             with open('settings', 'w', encoding='utf-8',) as settings:
                 settings.seek(0)
-                settings.write("1") # Not first-run
+                settings.write("1") # The first-run code will not be enacted next time
                 settings.seek(1)
                 settings.write("\n" + gamepath)
+                '''Removing this line breaks the entire first-run code.
+                Once it writes the path, PatchIt! closes, without doing as much
+                as running the path through check() nor going back to main()'''
                 settings.close()
                 readsettings()
 def check():
@@ -127,64 +126,64 @@ def check():
         gamepath = gamepath.readline()
         if len(gamepath) == 0: # TODO: Fix this
             return False
-        elif exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"): # The only three items needed to confirm a Racers installation.
+         # The only three items needed to confirm a Racers installation.
+        elif exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"):
             return True
         else:
             return False
 
 def install():
     '''Install PatchIt! patch'''
-    install = open('settings', 'r', encoding='utf-8',)
-    install.seek(3)
-    path = install.readline()
-    print('\n"' + random.choice(gametips) + '"\n')
-    zip = zipfile.ZipFile(r'C:\Users\Public\MCIslandOBJ.zip') # Temp code until .PiP format is finalized.
-    zip.extractall(path)
-    install.close()
-    zipfile.ZipFile.close(zip)
+    with open('settings', 'r', encoding='utf-8') as install:
+        install.seek(3)
+        path = install.readline()
+        print('\n"' + random.choice(gametips) + '"\n')
+        zip = zipfile.ZipFile(r'C:\Users\Public\MCIslandOBJ.zip') # Temp code until .PiP format is finalized and code is written.
+        zip.extractall(path)
+        #install.close()
+        zipfile.ZipFile.close(zip)
     #if OSError:
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
-    if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-        print("*mod name* sucessfully installed!")
-        main()
-    elif os.system(path) == 1:
-        print("An unknown error occured while installing your mod.")
-        main()
-    else:
-        print("Installation *mod name* failed!")
-        main()
+        if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+            print("*mod name* sucessfully installed!")
+            main()
+        elif os.system(path) == 1:
+            print("An unknown error occured while installing your mod.")
+            main()
+        else:
+            print("Installation of *mod name* failed!")
+            main()
 
 def compress():
     '''Compress PatchIt! patch'''
-    compress = open('settings2.txt', 'r') # Temp code until .PiP format is finalized.
-    files = compress.read()
-    shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
-    compress.close()
+    with open('settings2.txt', 'r') as compress:  # Temp file until .PiP format is finalized.
+        files = compress.read()
+        shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
+        #compress.close()
     #if OSError:
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
-    if os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-        print("{0} patch for *mod name* created!".format(game)) # Temp messages
-        main()
-    elif os.system(files) == 1:
-        print("Creation of {0} patch for *mod name* ended with an unknown error. Please try again.".format(app))
-        main()
-    else:
-        print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
-        main()
+        if os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+            print("{0} patch for *mod name* created!".format(game)) # Temp messages
+            main()
+        elif os.system(files) == 1:
+            print("Creation of {0} patch for *mod name* ended with an unknown error. Please try again.".format(app))
+            main()
+        else:
+            print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
+            main()
 
 def readpatch():
     linecache.clearcache()
-    patchfile = input("Please enter the path to a {0} patch:\n> ".format(app))
+    patchfile = input("Please enter the path to a {0} patch:\n\n> ".format(app))
     if patchfile.lower() == "exit":
         print("Canceling installation...")
         main()
     else:
         confirmpatch = linecache.getline(patchfile, 1)
         if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
-            print(line,
-             patchfile + " is not a valid {0} patch.".format(app))
+            print(line, patchfile + " is not a valid {0} patch.".format(app))
         else:
             modname = linecache.getline(patchfile, 3)
             modver = linecache.getline(patchfile, 4)
