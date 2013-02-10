@@ -20,18 +20,18 @@
 AppId={#MyAppVerName}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;VersionInfoVersion={#MyAppVerName}
 AppPublisher={#MyAppPublisher}
 AppCopyright=© 2013 {#MyAppPublisher}
-LicenseFile=LICENSE.txt
+LicenseFile=..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={pf}\PatchIt
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 ; Installer Graphics
-SetupIconFile=PatchIt Logo.ico
-;WizardImageFile=PatchIt Sidebar.bmp
-WizardSmallImageFile=PatchIt Logo.bmp
+; SetupIconFile=..\Icons\PatchIt Logo Normal.ico
+SetupIconFile=C:\tmp\BlenderScale.ico
+; WizardImageFile=PatchIt Sidebar.bmp
+WizardSmallImageFile=..\Icons\PatchIt Icon.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
@@ -49,6 +49,8 @@ AllowRootDirectory=yes
 PrivilegesRequired=admin
 ShowLanguageDialog=no
 RestartIfNeededByRun=no
+ArchitecturesInstallIn64BitMode=x64 ia64
+ArchitecturesAllowed=x86 x64 ia64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -59,11 +61,12 @@ english.BeveledLabel={#MyAppVerName}
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
-; [Files]
-; Source: "PatchIt.exe"; DestDir: "{app}"; Flags: ignoreversion;
+[Files]
+; Source: "PatchIt64.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin64
+; Source: "PatchIt32.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin32
 ; Source: "_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
 ; Source: "python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;  
+; Source: "unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Comment: "Run {#MyAppVerName}";
@@ -72,3 +75,9 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+function IsWin32: Boolean;
+begin
+ Result := not IsWin64;
+end;

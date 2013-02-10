@@ -191,3 +191,7 @@ settings
 *.PiP
 *.~is
 *.png
+*.blend
+*.blend1
+*.blend2
+Testing/
