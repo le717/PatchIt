@@ -106,7 +106,7 @@ def readsettings():
 
 def writesettings():
     '''Write PatchIt! settings'''
-    if exist('settings') or not exist('settings'): # It does not matter
+    if exist('settings') or not exist('settings'): # It does not matter if it exists or not
         gamepath = input("\nPlease enter the path to your {0} installaton:\n> ".format(game))
         if gamepath.lower() == 'exit': # I do not want to change the path
             print("Canceling...")
@@ -182,7 +182,7 @@ def readpatch():
         main()
     else:
         confirmpatch = linecache.getline(patchfile, 1)
-        if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n":
+        if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
             print(line,
              patchfile + " is not a valid {0} patch.".format(app))
         else:
