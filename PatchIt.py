@@ -64,7 +64,7 @@ def main():
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
-            compress()
+            compressfiles()
         elif menuopt.lower() == "i":
             readpatch()
         elif menuopt.lower() == "s":
@@ -155,24 +155,26 @@ def install():
             print("Installation of *mod name* failed!")
             main()
 
-def compress():
+def compressfiles():
     '''Compress PatchIt! patch'''
-    with open('settings2.txt', 'r') as compress:  # Temp file until .PiP format is finalized.
-        files = compress.read()
-        shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
+    modfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
+    #with open('settings2.txt', 'r') as compress:  # Temp file until .PiP format is finalized.
+        #files = compress.read()
+        #shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
+    shutil.make_archive(modfiles, format="zip", root_dir=modfiles) # Same as above.
         #compress.close()
     #if OSError:
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
-        if os.system(files) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-            print("{0} patch for *mod name* created!".format(game)) # Temp messages
-            main()
-        elif os.system(files) == 1:
-            print("Creation of {0} patch for *mod name* ended with an unknown error. Please try again.".format(app))
-            main()
-        else:
-            print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
-            main()
+    if os.system(modfiles) == 1: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+        print("{0} patch for *mod name* created and saved to {1}.zip".format(game, modfiles)) # Temp messages
+        main()
+    elif os.system(modfiles) == 0:
+        print("Creation of {0} patch for *mod name* ended with an unknown error. Please try again.".format(app))
+        main()
+    else:
+        print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
+        main()
 
 def readpatch():
     linecache.clearcache()

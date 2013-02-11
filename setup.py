@@ -1,5 +1,4 @@
 from cx_Freeze import setup, Executable
-
 setup(
     name = "PatchIt!",
     version = "1.0 Beta 3",
