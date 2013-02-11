@@ -184,13 +184,11 @@ pip-log.txt
 ########
 
 *.ini
-*.txt
 *.py
 settings
 *.log
 *.PiP
 *.~is
-*.png
 *.blend
 *.blend1
 *.blend2
