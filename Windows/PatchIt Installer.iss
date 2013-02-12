@@ -28,10 +28,9 @@ DefaultDirName={pf}\PatchIt
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 ; Installer Graphics
-; SetupIconFile=..\Icons\PatchIt Logo Normal.ico
-SetupIconFile=C:\tmp\BlenderScale.ico
-; WizardImageFile=PatchIt Sidebar.bmp
-WizardSmallImageFile=..\Icons\PatchIt Icon.bmp
+SetupIconFile=..\Icons\PatchItIcon.ico
+; WizardImageFile=PatchItSidebar.bmp
+WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
@@ -53,6 +52,7 @@ ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 
 [Languages]
+; TODO: Add more languages
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Messages]
@@ -67,6 +67,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Source: "_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
 ; Source: "python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
 ; Source: "unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;
+
+; MORE FILES TO BE ADDED LATER
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Comment: "Run {#MyAppVerName}";

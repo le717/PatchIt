@@ -192,4 +192,4 @@ settings
 *.blend
 *.blend1
 *.blend2
-Testing/
+Testing/*.*

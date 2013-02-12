@@ -35,7 +35,7 @@ If you would like to contribute to the development of *PatchIt!*, please be sure
 * Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](http://cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org)
  does not support Python 3.3, so I cannot use it.
  
-* The .PiP file format documentation can be found under in [*PiP File Format.md*](https://github.com/le717/PatchIt/blob/rewrite/PiP%20File%20Format.md).
+* The .PiP file format documentation can be found under in [*PiP File Format.md*](PiP%20File%20Format.md).
 
 * The release goal of *PatchIt!* is to have a Beta 3 version ready for public use, although it may not completely bug free, while a proper GUI, written in Tkinter, will be released in Beta 4. Currently, there is no date set for the releases. Of course, if everything is written and completed before then, it will be released as a final 1.0 version.
 
