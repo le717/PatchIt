@@ -31,7 +31,7 @@ minver = "Beta 3"
 creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
-gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't believe anyone who tells you otherwise.", "Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.", "Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.","Is Veronica Voltage in your way? Just drive right through her, she won't stop you.","Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360Ã‚Â° spin, instead of turning backwards."]
+gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't believe anyone who tells you otherwise.", "Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.", "Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.","Is Veronica Voltage in your way? Just drive right through her, she won't stop you.","Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360° spin, instead of turning backwards."]
 
 def preload():
     '''Python 3.3 version and PatchIt! first-run check'''
@@ -73,7 +73,7 @@ def main():
         elif menuopt.lower() == "q":
             print("Goodbye!")
             time.sleep(1)
-            quit(code=None)
+            exit()
         else:
             main()
 
