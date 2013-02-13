@@ -35,7 +35,7 @@ gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't 
 "Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.",
 "Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.",
 "Is Veronica Voltage in your way? Just drive right through her, she won't stop you.",
-"Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360° spin, instead of turning backwards."]
+"Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360 degree spin, instead of turning backwards."]
 
 def preload():
     '''Python 3.3 version and PatchIt! first-run check'''
@@ -150,13 +150,13 @@ def install():
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
         if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-            print("*mod name* sucessfully installed!")
+            print("{0} sucessfully installed!".format(modname))
             main()
         elif os.system(path) == 1:
-            print("An unknown error occured while installing your mod.")
+            print("An unknown error occured while installing {0}.".format(modname))
             main()
         else:
-            print("Installation of *mod name* failed!")
+            print("Installation of {0} failed!".format(modname))
             main()
 
 def compressfiles():
@@ -171,13 +171,13 @@ def compressfiles():
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
     if os.system(modfiles) == 1: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-        print("{0} patch for *mod name* created and saved to {1}.zip".format(game, modfiles)) # Temp messages
+        print("{0} patch for {1} created and saved to {2}.zip".format(game, modname, modfiles)) # Temp messages
         main()
     elif os.system(modfiles) == 0:
-        print("Creation of {0} patch for *mod name* ended with an unknown error. Please try again.".format(app))
+        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(app, modname))
         main()
     else:
-        print("Creation of {0} patch for *mod name* failed!".format(app)) # Temp message
+        print("Creation of {0} patch for {1} failed!".format(app, modname)) # Temp message
         main()
 
 def readpatch():
@@ -191,6 +191,7 @@ def readpatch():
         if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
             print(line, patchfile + " is not a valid {0} patch.".format(app))
         else:
+            global modname
             modname = linecache.getline(patchfile, 3)
             modver = linecache.getline(patchfile, 4)
             modcreator = linecache.getline(patchfile, 5)
