@@ -48,7 +48,7 @@ def preload():
         if not exist('settings'): # The settings file does not exist
             writesettings()
         else:
-            with open('settings', 'r+', encoding='utf-8') as runcheck: # It does exist
+            with open('settings', 'rt+', encoding='utf-8') as runcheck: # It does exist
                 linecache.clearcache()
                 firstrun = linecache.getline('settings', 1)
                 if firstrun == "0\n": # '0' means this is the first run
@@ -86,7 +86,7 @@ def readsettings():
     if not exist('settings'): # The settings file does not exist
         writesettings()
     elif exist('settings'): # The setting file does exist
-        with open('settings', 'r', encoding='utf-8') as settings:
+        with open('settings', 'rt', encoding='utf-8') as settings:
             settings.seek(3) # Jump to installation path
             for line in settings:
                 if check() ==  True: # The defined Racers installation exists
@@ -113,7 +113,7 @@ def writesettings():
             time.sleep(0.5)
             main()
         else: # I do want to change the path
-            with open('settings', 'w', encoding='utf-8',) as settings:
+            with open('settings', 'wt', encoding='utf-8',) as settings:
                 settings.seek(0)
                 settings.write("1") # The first-run code will not be enacted next time
                 settings.seek(1)
@@ -125,7 +125,7 @@ def writesettings():
                 readsettings()
 def check():
     '''Confirm LEGO Racers installation'''
-    with open('settings', 'r', encoding='utf-8',) as gamepath:
+    with open('settings', 'rt', encoding='utf-8',) as gamepath:
         gamepath.seek(3) # Skip to defined Racers installation path
         gamepath = gamepath.readline()
         if len(gamepath) == 0: # TODO: Fix this
@@ -138,7 +138,7 @@ def check():
 
 def install():
     '''Install PatchIt! patch'''
-    with open('settings', 'r', encoding='utf-8') as install:
+    with open('settings', 'rt', encoding='utf-8') as install:
         install.seek(3)
         path = install.readline()
         print('\n"' + random.choice(gametips) + '"\n')
@@ -162,7 +162,7 @@ def install():
 def compressfiles():
     '''Compress PatchIt! patch'''
     modfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
-    #with open('settings2.txt', 'r') as compress:  # Temp file until .PiP format is finalized.
+    #with open('settings2.txt', 'rt') as compress:  # Temp file until .PiP format is finalized.
         #files = compress.read()
         #shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
     shutil.make_archive(modfiles, format="zip", root_dir=modfiles) # Same as above.
