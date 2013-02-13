@@ -77,7 +77,7 @@ def main():
         elif menuopt.lower() == "q":
             print("Goodbye!")
             time.sleep(1)
-            exit()
+            raise SystemExit
         else:
             main()
 
