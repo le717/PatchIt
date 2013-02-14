@@ -184,7 +184,6 @@ pip-log.txt
 ########
 
 *.ini
-*.py
 settings
 *.log
 *.PiP
@@ -193,3 +192,4 @@ settings
 *.blend1
 *.blend2
 Testing/*.*
+Compile/*.*

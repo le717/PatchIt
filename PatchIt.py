@@ -16,10 +16,10 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! 1.0 Beta 3 by le717 (http://triangle717.wordpress.com).
+# PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
 
 import os, sys, time, linecache # General function modules
-import webbrowser, random # Special purpose modules
+import webbrowser, random, gametips # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 
 ''' Global variables
@@ -31,11 +31,6 @@ minver = "Beta 3"
 creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
-gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't believe anyone who tells you otherwise.",
-"Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.",
-"Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.",
-"Is Veronica Voltage in your way? Just drive right through her, she won't stop you.",
-"Take your foot of the gas when you're hit by enemy missiles or run into by an oil slick - it will increase the chance of your car doing a full 360 degree spin, instead of turning backwards."]
 
 def preload():
     '''Python 3.3 version and PatchIt! first-run check'''
@@ -51,7 +46,8 @@ def preload():
             with open('settings', 'rt+', encoding='utf-8') as runcheck: # It does exist
                 linecache.clearcache()
                 firstrun = linecache.getline('settings', 1)
-                if firstrun == "0\n": # '0' means this is the first run
+                firstrun = firstrun.strip()
+                if firstrun == "0": # '0' means this is the first run
                     writesettings()
                 else: # This is not the first run
                     main()
@@ -86,29 +82,29 @@ def readsettings():
     if not exist('settings'): # The settings file does not exist
         writesettings()
     elif exist('settings'): # The setting file does exist
-        with open('settings', 'rt', encoding='utf-8') as settings:
-            settings.seek(3) # Jump to installation path
-            for line in settings:
-                if check() ==  True: # The defined Racers installation exists
-                    time.sleep(0.5)
-                    print("\n{0} installation found at {1}".format(game, line))
-                    changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
-                    if changepath.lower() == "y": # I want to change the defined Racers installation path
-                        time.sleep(0.5)
-                        writesettings()
-                    else: # I do not want to change the defined Racers installation path
-                        #print("Canceling...")
-                        time.sleep(0.5)
-                        main()
-                elif check() == False: # The defined Racers installation does not exists
-                    print("\nCannot find {0} installation at {1}!".format(game, line))
-                    writesettings()
+        linecache.clearcache()
+        currentgamepath = linecache.getline('settings', 2)
+        currentgamepath = currentgamepath.strip()
+        if check() == False:  # The defined Racers installation does not exist
+            print("\nCannot find {0} installation at {1}!".format(game, currentgamepath))
+            writesettings()
+        elif check() ==  True: # The defined Racers installation exists
+            time.sleep(0.5)
+            print("\n{0} installation found at {1}".format(game, currentgamepath))
+            changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
+            if changepath.lower() == "y": # I want to change the defined Racers installation path
+                time.sleep(0.5)
+                writesettings()
+            else: # I do not want to change the defined Racers installation path
+                #print("Canceling...")
+                time.sleep(0.5)
+                main()
 
 def writesettings():
     '''Write PatchIt! settings'''
     if exist('settings') or not exist('settings'): # It does not matter if it exists or not
-        gamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
-        if gamepath.lower() == 'exit': # I do not want to change the path
+        newgamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
+        if newgamepath.lower() == 'exit': # I do not want to change the path
             print("Canceling...")
             time.sleep(0.5)
             main()
@@ -117,7 +113,7 @@ def writesettings():
                 settings.seek(0)
                 settings.write("1") # The first-run code will not be enacted next time
                 settings.seek(1)
-                settings.write("\n" + gamepath)
+                settings.write("\n" + newgamepath)
                 '''Removing this line breaks the entire first-run code.
                 Once it writes the path, PatchIt! closes, without doing as much
                 as running the path through check() nor going back to main()'''
@@ -125,23 +121,23 @@ def writesettings():
                 readsettings()
 def check():
     '''Confirm LEGO Racers installation'''
-    with open('settings', 'rt', encoding='utf-8',) as gamepath:
-        gamepath.seek(3) # Skip to defined Racers installation path
-        gamepath = gamepath.readline()
-        if len(gamepath) == 0: # TODO: Fix this
-            return False
-         # The only three items needed to confirm a Racers installation.
-        elif exist(gamepath + "/GAMEDATA") and exist(gamepath + "/MENUDATA") and exist(gamepath + "/LEGORacers.exe"):
-            return True
-        else:
-            return False
+    linecache.clearcache()
+    definedgamepath = linecache.getline('settings', 2)
+    definedgamepath = definedgamepath.strip()
+    if len(definedgamepath) == 0: # TODO: Fix this
+        return False
+   # The only three items needed to confirm a Racers installation.
+    elif exist(definedgamepath + "/GAMEDATA") and exist(definedgamepath + "/MENUDATA") and exist(definedgamepath + "/LEGORacers.exe"):
+        return True
+    else:
+        return False
 
 def install():
     '''Install PatchIt! patch'''
     with open('settings', 'rt', encoding='utf-8') as install:
         install.seek(3)
         path = install.readline()
-        print('\n"' + random.choice(gametips) + '"\n')
+        print('\n"' + random.choice(gametips.gametips) + '"\n')
         zip = zipfile.ZipFile(r'C:\Users\Public\MCIslandOBJ.zip') # Temp code until .PiP format is finalized and code is written.
         zip.extractall(path)
         #install.close()
