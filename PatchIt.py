@@ -150,13 +150,13 @@ def install():
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
         if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-            print("{0} sucessfully installed!".format(modname))
+            print("{0} sucessfully installed!".format(modinstallname))
             main()
         elif os.system(path) == 1:
-            print("An unknown error occured while installing {0}.".format(modname))
+            print("An unknown error occured while installing {0}.".format(modinstallname))
             main()
         else:
-            print("Installation of {0} failed!".format(modname))
+            print("Installation of {0} failed!".format(modinstallname))
             main()
 
 def compressfiles():
@@ -171,13 +171,13 @@ def compressfiles():
         #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
         #main()
     if os.system(modfiles) == 1: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-        print("{0} patch for {1} created and saved to {2}.zip".format(game, modname, modfiles)) # Temp messages
+        print("{0} patch for {1} created and saved to {2}.zip".format(game, modcreatename, modcreatefiles)) # Temp messages
         main()
     elif os.system(modfiles) == 0:
-        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(app, modname))
+        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(app, modcreatename))
         main()
     else:
-        print("Creation of {0} patch for {1} failed!".format(app, modname)) # Temp message
+        print("Creation of {0} patch for {1} failed!".format(app, modcreatename)) # Temp message
         main()
 
 def readpatch():
@@ -191,18 +191,18 @@ def readpatch():
         if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
             print(line, patchfile + " is not a valid {0} patch.".format(app))
         else:
-            global modname
-            modname = linecache.getline(patchfile, 3)
-            modver = linecache.getline(patchfile, 4)
-            modcreator = linecache.getline(patchfile, 5)
-            moddesc = linecache.getline(patchfile, 7)
-            print("\n{0} Version {1} Created by {2} {3}".format(modname, modver, modcreator, moddesc))
-            print("Do you wish to install {0}".format(modname), end="")
+            global modinstallname
+            modinstallname = linecache.getline(patchfile, 3)
+            modinstallver = linecache.getline(patchfile, 4)
+            modinstallcreator = linecache.getline(patchfile, 5)
+            modinstalldesc = linecache.getline(patchfile, 7)
+            print("\n{0} Version {1} Created by {2} {3}".format(modinstallname, modinstallver, modinstallcreator, modinstalldesc))
+            print("Do you wish to install {0}".format(modinstallname), end="")
             confirminstall = input("\n> ")
             if confirminstall.lower() == "y":
                 install()
             else:
-                print("Canceling installation of {0}".format(modname))
+                print("Canceling installation of {0}".format(modinstallname))
                 main()
 
 
