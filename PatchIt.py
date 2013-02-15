@@ -18,13 +18,14 @@
 
 # PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
 
-import os, sys, time, linecache # General function modules
+import os, sys, time, linecache # General use modules
 import webbrowser, random, gametips # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
-Thankfully, this is built into Python, and doesn't require installing an optional module. :)'''
+Thankfully, variables are a key part of Python, and doesn't require installing an optional module. :)'''
+
 app = "PatchIt!"
 majver = "Version 1"
 minver = "Beta 3"
@@ -32,25 +33,34 @@ creator = "le717"
 game = "LEGO Racers"
 exist = os.path.exists
 
+# ------------ Begin PatchIt! Initialization ------------ #
+
 def preload():
-    '''Python 3.3 version and PatchIt! first-run check'''
+    '''Python 3.3 and PatchIt! first-run check'''
     if sys.version_info < (3,3): # You need to have at least Python 3.3 to run PatchIt!
         print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
-        time.sleep(2) # Don't open browser immediately
+        # Don't open browser immediately
+        time.sleep(2)
         webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
-        time.sleep(5) # PatchIt! closes after this
-    else: # If you are not running Python 3.3
-        if not exist('settings'): # The settings file does not exist
+        # PatchIt! automatically closes after this
+        time.sleep(5)
+    else: # You are running <= Python 3.3
+        # The settings file does not exist
+        if not exist('settings'):
             writesettings()
+        # The settings file does exist
         else:
-            with open('settings', 'rt+', encoding='utf-8') as runcheck: # It does exist
-                linecache.clearcache()
-                firstrun = linecache.getline('settings', 1)
-                firstrun = firstrun.strip()
-                if firstrun == "0": # '0' means this is the first run
-                    writesettings()
-                else: # This is not the first run
-                    main()
+            # Settings file does not need to be opened to use linecache
+            linecache.clearcache() # Always clear cache before reading
+            firstrun = linecache.getline('settings', 1)
+            # Remove \n, \r, \t, or any of the like
+            firstrun = firstrun.strip()
+            # '0' defines a first-run
+            if firstrun == "0":
+                writesettings()
+            # Any other number (Default, 1) means it has been run before
+            else:
+                main()
 
 
 def main():
@@ -68,69 +78,120 @@ def main():
         elif menuopt.lower() == "i":
             readpatch()
         elif menuopt.lower() == "s":
-            time.sleep(0.5) # 0.5 second sleep makes it seem like the program is not glitching by running too fast.
+        # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
+            time.sleep(0.5)
             readsettings()
         elif menuopt.lower() == "q":
+            # Blank space makes everything nice and neat
+            print()
             print("Goodbye!")
             time.sleep(1)
             raise SystemExit
         else:
             main()
 
+# ------------ End PatchIt! Initialization ------------ #
+
+
+# ------------ Begin PatchIt! Settings ------------ #
+
 def readsettings():
     '''Read PatchIt! settings'''
-    if not exist('settings'): # The settings file does not exist
+    # The settings file does not exist
+    if not exist('settings'):
         writesettings()
-    elif exist('settings'): # The setting file does exist
-        linecache.clearcache()
-        currentgamepath = linecache.getline('settings', 2)
-        currentgamepath = currentgamepath.strip()
-        if check() == False:  # The defined Racers installation does not exist
-            print("\nCannot find {0} installation at {1}!".format(game, currentgamepath))
+    # The setting file does exist
+    elif exist('settings'):
+        # Use path as listed in gamecheck() for messages
+        # The defined installation was not confirmed by gamecheck()
+        if gamecheck() == False:
+            print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
             writesettings()
-        elif check() ==  True: # The defined Racers installation exists
+        # The defined installation was confirmed by gamecheck()
+        elif gamecheck() ==  True:
             time.sleep(0.5)
-            print("\n{0} installation found at {1}".format(game, currentgamepath))
+            print("\n{0} installation found at {1}".format(game, definedgamepath))
             changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
-            if changepath.lower() == "y": # I want to change the defined Racers installation path
+            # Yes, I want to change the defined installation
+            if changepath.lower() == "y":
                 time.sleep(0.5)
                 writesettings()
-            else: # I do not want to change the defined Racers installation path
+                # No, I do not want to change the defined installation
+            else:
                 #print("Canceling...")
                 time.sleep(0.5)
                 main()
 
 def writesettings():
     '''Write PatchIt! settings'''
-    if exist('settings') or not exist('settings'): # It does not matter if it exists or not
+     # It does not matter if it exists or not, it has to be written
+    if exist('settings') or not exist('settings'):
         newgamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
-        if newgamepath.lower() == 'exit': # I do not want to change the path
+        # Allow the user to cancel the change
+        if newgamepath.lower() == 'exit':
             print("Canceling...")
             time.sleep(0.5)
             main()
-        else: # I do want to change the path
-            with open('settings', 'wt', encoding='utf-8',) as settings:
+        # Continue on with the change
+        else:
+            with open('settings', 'wt', encoding='utf-8') as settings:
                 settings.seek(0)
-                settings.write("1") # The first-run code will not be enacted next time
+                # Ensures first-run process will be skipped next time
+                settings.write("1")
                 settings.seek(1)
                 settings.write("\n" + newgamepath)
                 '''Removing this line breaks the entire first-run code.
                 Once it writes the path, PatchIt! closes, without doing as much
-                as running the path through check() nor going back to main()'''
+                as running the path through gamecheck() nor going back to main()
+                Possible TODO: Find out why this happens and remove it if possible.'''
                 settings.close()
                 readsettings()
-def check():
+def gamecheck():
     '''Confirm LEGO Racers installation'''
     linecache.clearcache()
+    global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
     definedgamepath = definedgamepath.strip()
-    if len(definedgamepath) == 0: # TODO: Fix this
+    # If the settings file was externally edited and the path was removed
+    if len(definedgamepath) == 0:
         return False
-   # The only three items needed to confirm a Racers installation.
+    # The only three items needed to confirm a LEGO Racers installation.
     elif exist(definedgamepath + "/GAMEDATA") and exist(definedgamepath + "/MENUDATA") and exist(definedgamepath + "/LEGORacers.exe"):
         return True
+    # The installation path cannot be found
     else:
         return False
+
+# ------------ End PatchIt! Settings ------------ #
+
+
+# ------------ Begin PatchIt! Patch Installation ------------ #
+
+def readpatch():
+    global installpatch
+    linecache.clearcache()
+    installpatch = input("Please enter the path to a {0} patch:\n\n> ".format(app))
+    if installpatch.lower() == "exit":
+        print("Canceling installation...")
+        main()
+    else:
+        confirmpatch = linecache.getline(installpatch, 1)
+        if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
+            print(confirmpatch, installpatch + " is not a valid {0} patch.".format(app))
+        else:
+            global modinstallname
+            modinstallname = linecache.getline(installpatch, 3)
+            modinstallver = linecache.getline(installpatch, 4)
+            modinstallauthor = linecache.getline(installpatch, 5)
+            modinstalldesc = linecache.getline(installpatch, 7)
+            print("\n{0} {1} {2} {3}".format(modinstallname, modinstallver, modinstallauthor, modinstalldesc))
+            print("Do you wish to install {0}".format(modinstallname), end="")
+            confirminstall = input("\n> ")
+            if confirminstall.lower() == "y":
+                installfiles()
+            else:
+                print("\nCanceling installation of {0}".format(modinstallname))
+                main()
 
 def installfiles():
     '''Install PatchIt! patch'''
@@ -153,6 +214,11 @@ def installfiles():
         print("Installation of {0} failed!".format(modinstallname))
         main()
 
+# ------------ End PatchIt! Patch Installation ------------ #
+
+
+# ------------ Begin PatchIt! Patch Creation ------------ #
+
 def compressfiles():
     '''Compress PatchIt! patch'''
     modfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
@@ -174,32 +240,7 @@ def compressfiles():
         print("Creation of {0} patch for {1} failed!".format(app, modcreatename)) # Temp message
         main()
 
-def readpatch():
-    linecache.clearcache()
-    global installpatch
-    installpatch = input("Please enter the path to a {0} patch:\n\n> ".format(app))
-    if installpatch.lower() == "exit":
-        print("Canceling installation...")
-        main()
-    else:
-        confirmpatch = linecache.getline(installpatch, 1)
-        if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
-            print(confirmpatch, installpatch + " is not a valid {0} patch.".format(app))
-        else:
-            global modinstallname
-            modinstallname = linecache.getline(installpatch, 3)
-            modinstallver = linecache.getline(installpatch, 4)
-            modinstallauthor = linecache.getline(installpatch, 5)
-            modinstalldesc = linecache.getline(installpatch, 7)
-            print("\n{0} {1} {2} {3}".format(modinstallname, modinstallver, modinstallauthor, modinstalldesc))
-            print("Do you wish to install {0}".format(modinstallname), end="")
-            confirminstall = input("\n> ")
-            if confirminstall.lower() == "y":
-                installfiles()
-            else:
-                print("Canceling installation of {0}".format(modinstallname))
-                main()
-
+# ------------ End PatchIt! Patch Creation ------------ #
 
 #If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
 if __name__ == "__main__":
