@@ -29,5 +29,5 @@ Author: Author
 [Description]
 "Description"
 [ZIP]
-NameVesion.zip
+NameVersion.zip
 ```
