@@ -134,26 +134,24 @@ def check():
 
 def install():
     '''Install PatchIt! patch'''
-    with open('settings', 'rt', encoding='utf-8') as install:
-        install.seek(3)
-        path = install.readline()
-        print('\n"' + random.choice(gametips.gametips) + '"\n')
-        zip = zipfile.ZipFile(r'C:\Users\Public\MCIslandOBJ.zip') # Temp code until .PiP format is finalized and code is written.
-        zip.extractall(path)
-        #install.close()
-        zipfile.ZipFile.close(zip)
-    #if OSError:
-        #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
-        #main()
-        if os.system(path) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-            print("{0} sucessfully installed!".format(modinstallname))
-            main()
-        elif os.system(path) == 1:
-            print("An unknown error occured while installing {0}.".format(modinstallname))
-            main()
-        else:
-            print("Installation of {0} failed!".format(modinstallname))
-            main()
+    linecache.clearcache()
+    installpath = linecache.getline('settings', 2)
+    installpath = installpath.rstrip()
+    installzipfile = linecache.getline(installpatch, 9)
+    installzipfile = installzipfile.rstrip()
+    print('\n"' + random.choice(gametips.gametips) + '"\n')
+    zip = zipfile.ZipFile(installzipfile)
+    zip.extractall(installpath)
+    zipfile.ZipFile.close(zip)
+    if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+        print("{0} sucessfully installed!".format(modinstallname))
+        main()
+    elif os.system(installpath) == 1:
+        print("An unknown error occured while installing {0}.".format(modinstallname))
+        main()
+    else:
+        print("Installation of {0} failed!".format(modinstallname))
+        main()
 
 def compressfiles():
     '''Compress PatchIt! patch'''
@@ -178,6 +176,7 @@ def compressfiles():
 
 def readpatch():
     linecache.clearcache()
+    global installpatch
     installpatch = input("Please enter the path to a {0} patch:\n\n> ".format(app))
     if installpatch.lower() == "exit":
         print("Canceling installation...")
@@ -185,7 +184,7 @@ def readpatch():
     else:
         confirmpatch = linecache.getline(installpatch, 1)
         if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
-            print(line, installpatch + " is not a valid {0} patch.".format(app))
+            print(confirmpatch, installpatch + " is not a valid {0} patch.".format(app))
         else:
             global modinstallname
             modinstallname = linecache.getline(installpatch, 3)
