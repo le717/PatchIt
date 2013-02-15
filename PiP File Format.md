@@ -12,7 +12,7 @@ description, but as well as to know what ZIP archive to extract and install into
 Details
 -------
 
-* A PiP file is plain text, and can be edited on any text editor. It stands for **P**atch**I**t **P**atch.
+* A PiP file is plain text, and can be edited on any text editor. It stands for **P**atch **I**t **P**atch.
 * A PiP file is written use UTF-8 encoding.
 * The ZIP archive uses the mod's name and version as the filename.
 * The ZIP archive containing the modded files must be in the same folder as the .PiP file.
@@ -23,11 +23,11 @@ Details
 ```
 // PatchIt! Patch format, created by le717 and rioforce.
 [General]
-Mod Name
-Mod Version
-Mod Author
+Name
+Version: Version
+Author: Author
 [Description]
-Mod Description
+"Description"
 [ZIP]
-ModNameVesion.zip
+NameVesion.zip
 ```

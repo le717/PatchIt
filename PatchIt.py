@@ -176,7 +176,7 @@ def readpatch():
         main()
     else:
         confirmpatch = linecache.getline(installpatch, 1)
-        if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
+        if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity check
             print(confirmpatch, installpatch + " is not a valid {0} patch.".format(app))
         else:
             global modinstallname
