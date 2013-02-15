@@ -178,21 +178,21 @@ def compressfiles():
 
 def readpatch():
     linecache.clearcache()
-    patchfile = input("Please enter the path to a {0} patch:\n\n> ".format(app))
-    if patchfile.lower() == "exit":
+    installpatch = input("Please enter the path to a {0} patch:\n\n> ".format(app))
+    if installpatch.lower() == "exit":
         print("Canceling installation...")
         main()
     else:
-        confirmpatch = linecache.getline(patchfile, 1)
+        confirmpatch = linecache.getline(installpatch, 1)
         if confirmpatch != "// PatchIt! Patch file, created by le717 and rioforce.\n": # Validity check
-            print(line, patchfile + " is not a valid {0} patch.".format(app))
+            print(line, installpatch + " is not a valid {0} patch.".format(app))
         else:
             global modinstallname
-            modinstallname = linecache.getline(patchfile, 3)
-            modinstallver = linecache.getline(patchfile, 4)
-            modinstallcreator = linecache.getline(patchfile, 5)
-            modinstalldesc = linecache.getline(patchfile, 7)
-            print("\n{0} Version {1} Created by {2} {3}".format(modinstallname, modinstallver, modinstallcreator, modinstalldesc))
+            modinstallname = linecache.getline(installpatch, 3)
+            modinstallver = linecache.getline(installpatch, 4)
+            modinstallauthor = linecache.getline(installpatch, 5)
+            modinstalldesc = linecache.getline(installpatch, 7)
+            print("\n{0} {1} {2} {3}".format(modinstallname, modinstallver, modinstallauthor, modinstalldesc))
             print("Do you wish to install {0}".format(modinstallname), end="")
             confirminstall = input("\n> ")
             if confirminstall.lower() == "y":
