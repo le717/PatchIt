@@ -132,7 +132,7 @@ def check():
     else:
         return False
 
-def install():
+def installfiles():
     '''Install PatchIt! patch'''
     linecache.clearcache()
     installpath = linecache.getline('settings', 2)
@@ -195,7 +195,7 @@ def readpatch():
             print("Do you wish to install {0}".format(modinstallname), end="")
             confirminstall = input("\n> ")
             if confirminstall.lower() == "y":
-                install()
+                installfiles()
             else:
                 print("Canceling installation of {0}".format(modinstallname))
                 main()
