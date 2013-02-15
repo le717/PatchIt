@@ -35,8 +35,8 @@ All **PatchIt!** downloads will be hosted on this project, in an [Annotated Tag]
 
 So far, there have been two releases:
 
-* [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2)
-* [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1)
+* [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released  February 2, 2013
+* [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released  January 26, 2013
 
 Credit
 ------
