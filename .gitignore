@@ -126,6 +126,11 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
+*.exe
+*.msi
+*.com
+*.bat
+
 
 #############
 ## Python
@@ -162,16 +167,6 @@ pip-log.txt
 # Mac junk
 .DS_Store
 
-
-###############
-## Windows Apps
-###############
-*.exe
-*.msi
-*.com
-*.bat
-
-
 #############
 ## Archives
 #############
@@ -184,9 +179,19 @@ pip-log.txt
 *.tar
 *.gz
 
-#########
+########
 ## Misc.
-#########
+########
 
-*.ini
 *.txt
+*.ini
+#*.py
+settings
+*.log
+*.PiP
+*.~is
+*.blend
+*.blend1
+*.blend2
+Testing/*.*
+Compile/*.*
