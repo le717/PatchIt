@@ -21,6 +21,8 @@
 import os, sys, time, linecache # General use modules
 import webbrowser, random, gametips # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
+import PatchCreate
+import PatchCreate.createpatch as createpatch
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
@@ -74,7 +76,8 @@ def main():
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
-            compressfiles()
+            #compressfiles()
+            createpatch.writepatch()
         elif menuopt.lower() == "i":
             readpatch()
         elif menuopt.lower() == "s":
@@ -219,26 +222,26 @@ def installfiles():
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
-def compressfiles():
-    '''Compress PatchIt! patch'''
-    modfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
-    #with open('settings2.txt', 'rt') as compress:  # Temp file until .PiP format is finalized.
-        #files = compress.read()
-        #shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
-    shutil.make_archive(modfiles, format="zip", root_dir=modfiles) # Same as above.
-        #compress.close()
-    #if OSError:
-        #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
-        #main()
-    if os.system(modfiles) == 1: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-        print("{0} patch for {1} created and saved to {2}.zip".format(game, modcreatename, modcreatefiles)) # Temp messages
-        main()
-    elif os.system(modfiles) == 0:
-        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(app, modcreatename))
-        main()
-    else:
-        print("Creation of {0} patch for {1} failed!".format(app, modcreatename)) # Temp message
-        main()
+##def compressfiles():
+##    '''Compress PatchIt! patch'''
+##    modfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
+##    #with open('settings2.txt', 'rt') as compress:  # Temp file until .PiP format is finalized.
+##        #files = compress.read()
+##        #shutil.make_archive(r'C:\Users\Public\myzipfile', format="zip", root_dir=files) # Same as above.
+##    shutil.make_archive(modfiles, format="zip", root_dir=modfiles) # Same as above.
+##        #compress.close()
+##    #if OSError:
+##        #print("*mod name* sucessfully installed!") # Only because this is currently the only way I know how to supress Window's error message, but I need a better way...
+##        #main()
+##    if os.system(modfiles) == 1: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+##        print("{0} patch for {1} created and saved to {2}.zip".format(game, modcreatename, modcreatefiles)) # Temp messages
+##        main()
+##    elif os.system(modfiles) == 0:
+##        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(app, modcreatename))
+##        main()
+##    else:
+##        print("Creation of {0} patch for {1} failed!".format(app, modcreatename)) # Temp message
+##        main()
 
 # ------------ End PatchIt! Patch Creation ------------ #
 
