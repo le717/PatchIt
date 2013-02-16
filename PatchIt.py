@@ -22,7 +22,8 @@ import os, sys, time, linecache # General use modules
 import webbrowser, random, gametips # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 import PatchCreate
-import PatchCreate.createpatch
+#import PatchCreate.createpatch
+import PatchCreate.compress
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
@@ -77,7 +78,7 @@ def main():
     while True:
         if menuopt.lower() == "c":
             #compressfiles()
-            PatchCreate.createpatch.writepatch()
+            PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
             readpatch()
         elif menuopt.lower() == "s":
