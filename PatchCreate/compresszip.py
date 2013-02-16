@@ -1,8 +1,8 @@
 import os, shutil
-
+global zipfile, inputfiles
 def compressfiles():
     '''Compress PatchIt! patch'''
-    global zipfile, inputfiles
+
     print()
     inputfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
     zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
