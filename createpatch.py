@@ -1,9 +1,9 @@
-#from ..PatchIt import main as main
 # http://www.python.org/dev/peps/pep-0328/#rationale-for-absolute-imports
 # http://stackoverflow.com/questions/1054271/how-to-import-a-python-class-that-is-in-a-directory-above
-from PatchCreate import compresszip as compress
+
+import compresszip as compress
+import PatchIt
 import os
-app = "PatchIt!"
 
 def writepatch():
     global createname, createver
@@ -23,17 +23,17 @@ def writepatch():
         print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
 
     if compress.compressfiles() == True:
-        print("{0} patch for {1} created and saved to {2}.zip".format(app, createname, compress.inputfiles))
-        #PatchIt.main()
-        raise SystemExit
+        print("{0} patch for {1} created and saved to {2}.zip".format(PatchIt.app, createname, compress.inputfiles))
+        PatchIt.main()
+        #raise SystemExit
 
     elif compress.compressfiles() == False:
-        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(app, createname))
+        print("Creation of {0} patch for {1} ended with an unknown error. Please try again.".format(PatchIt.app, createname))
         #main()
         raise SystemExit
 
     elif compress.compressfiles() == "Fail":
-        print("Creation of {0} patch for {1} failed!".format(app, createname))
+        print("Creation of {0} patch for {1} failed!".format(PatchIt.app, createname))
         #main()
         raise SystemExit
 

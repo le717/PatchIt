@@ -21,8 +21,7 @@
 import os, sys, time, linecache # General use modules
 import webbrowser, random, gametips # Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
-import PatchCreate
-import PatchCreate.createpatch as createpatch
+import createpatch
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
