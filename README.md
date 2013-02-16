@@ -26,7 +26,7 @@ Racers* installation.
 Contributing
 ------------
 
-If you would like to contribute to the development of *PatchIt!*, please be sure to read [*CONTRIBUTING.md*](CONTRIBUTING.md)
+If you would like to contribute to the development of *PatchIt!*, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
 Downloads
 ---------

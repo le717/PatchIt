@@ -16,8 +16,8 @@ http://www.py2exe.org) does not support Python 3.3, so I cannot use it.
 What To Do
 -----------
 
-* A (incomplete list) of everything that needs to be done can be found under [*TODO.md](TODO.md).
+* A (incomplete list) of everything that needs to be done can be found under [*TODO.md*](Documentation/TODO.md).
  
-* The .PiP format documentation can be found under in [*PiP File Format.md*](PiP%20File%20Format.md).
+* The .PiP format documentation can be found under in [*PiP File Format.md*](Documentation/PiP%20File%20Format.md).
 
 * The release goal of **PatchIt!** is to have a Beta 3 version ready for public use, although it may not completely bug free, while a proper GUI, written in Tkinter, will be released in Beta 4. Currently, there is no date set for any release. Of course, if everything is written and completed before then, it will be released as a final 1.0 version.
