@@ -174,7 +174,8 @@ def gamecheck():
 def readpatch():
     global installpatch
     linecache.clearcache()
-    installpatch = input("Please enter the path to a {0} patch:\n\n> ".format(app))
+    global installpatch
+    installpatch = input("\nPlease enter the path to a {0} patch:\n\n> ".format(app))
     if installpatch.lower() == "exit":
         print("Canceling installation...")
         main()
@@ -205,7 +206,7 @@ def installfiles():
     installzipfile = linecache.getline(installpatch, 9)
     installzipfile = installzipfile.rstrip()
     print('\n"' + random.choice(gametips.gametips) + '"\n')
-    zip = zipfile.ZipFile(installzipfile)
+    zip = zipfile.ZipFile(installpatch + installzipfile)
     zip.extractall(installpath)
     zipfile.ZipFile.close(zip)
     if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
