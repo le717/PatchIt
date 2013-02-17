@@ -1,12 +1,18 @@
 import PatchIt
-import os, shutil
+import os, time, shutil
 
 def writepatch():
-    global createname, createver
+    '''Writes and compresses PatchIt! Patch'''
     createname = input("Name: ")
-    createver = input("Version: ")
-    createauthor = input("Author: ")
-    createdesc = input("Description: ")
+    if createname.lower() == "exit":
+        print("\nCanceling creation...")
+        time.sleep(0.5)
+        PatchIt.main()
+    else:
+        createver = input("Version: ")
+        createauthor = input("Author: ")
+        createdesc = input("Description: ")
+
     with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
         print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
         print("[General]", file=createpatch)
@@ -17,13 +23,8 @@ def writepatch():
         print('"{0}"'.format(createdesc), file=createpatch)
         print("[ZIP]", file=createpatch)
         print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
-    compressfiles()
 
-def compressfiles():
-    '''Compress PatchIt! patch'''
-
-    print()
-    inputfiles = input("Please enter the path to the files you wish to compress: \n\n> ")
+    inputfiles = input("\nPlease enter the path to the files you wish to compress: \n\n> ")
     zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
     newzipfile = os.rename(zipfile, createname + createver + ".zip")
     #shutil.move(newzipfile, inputfiles)
