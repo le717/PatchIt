@@ -19,7 +19,7 @@
 # PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
 
 import os, sys, time, linecache # General use modules
-import webbrowser, random, gametips # Special purpose modules
+import webbrowser, random # gametips Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 import PatchCreate
 import PatchCreate.compress

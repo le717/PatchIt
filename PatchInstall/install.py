@@ -1,4 +1,5 @@
-import linecache, random, zipfile, gametips
+import linecache, random, zipfile
+#import gametips
 import PatchIt
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
@@ -32,7 +33,7 @@ def readpatch():
                 installpath = installpath.rstrip()
                 installzipfile = linecache.getline(installpatch, 9)
                 installzipfile = installzipfile.rstrip()
-                print('\n"' + random.choice(gametips.gametips) + '"\n')
+                #print('\n"' + random.choice(gametips.gametips) + '"\n')
                 zip = zipfile.ZipFile(installpatch + installzipfile)
                 zip.extractall(installpath)
                 zipfile.ZipFile.close(zip)
