@@ -172,7 +172,6 @@ pip-log.txt
 #############
 
 #I don't want to upload any archives.
-*.zip
 *.rar
 *.7z
 *.cab
