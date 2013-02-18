@@ -29,7 +29,7 @@ DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 ; Installer Graphics
 SetupIconFile=..\Icons\PatchItIcon.ico
-; WizardImageFile=PatchItSidebar.bmp
+WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
