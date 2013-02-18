@@ -35,6 +35,7 @@ WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
 ; Uninstallation stuff
+; Uninstallable=no
 UninstallDisplayIcon={#MyAppExeName}
 CreateUninstallRegKey=yes
 UninstallDisplayName={#MyAppName}
