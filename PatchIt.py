@@ -18,8 +18,10 @@
 
 # PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
 
+# Import only certain items instead of "the whole toolbox"
 import os, sys, time, linecache # General use modules
-import webbrowser, random # gametips Special purpose modules
+from webbrowser import open # Special purpose module
+from time import sleep
 import zipfile, shutil # Zip extraction and compression modules, respectively
 import PatchCreate
 import PatchCreate.compress
@@ -43,10 +45,10 @@ def preload():
     if sys.version_info < (3,3): # You need to have at least Python 3.3 to run PatchIt!
         print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
         # Don't open browser immediately
-        time.sleep(2)
-        webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
+        sleep(2)
+        open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         # PatchIt! automatically closes after this
-        time.sleep(5)
+        sleep(5)
     else: # You are running <= Python 3.3
         # The settings file does not exist
         if not exist('settings'):
@@ -79,21 +81,21 @@ def main():
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
-            time.sleep(0.5)
+            sleep(0.5)
             PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
-            time.sleep(0.5)
+            sleep(0.5)
             install.readpatch()
             #PatchInstall.install.readpatch()
         elif menuopt.lower() == "s":
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
-            time.sleep(0.5)
+            sleep(0.5)
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space makes everything nice and neat
             print()
             print("Goodbye!")
-            time.sleep(1)
+            sleep(1)
             raise SystemExit
         else:
             main()
@@ -113,22 +115,22 @@ def readsettings():
         # Use path as listed in gamecheck() for messages
         # The defined installation was not confirmed by gamecheck()
         if gamecheck() == False:
-            time.sleep(0.5)
+            sleep(0.5)
             print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
             writesettings()
         # The defined installation was confirmed by gamecheck()
         elif gamecheck() ==  True:
-            time.sleep(0.5)
+            sleep(0.5)
             print("\n{0} installation found at {1}".format(game, definedgamepath))
             changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
-                time.sleep(0.5)
+                sleep(0.5)
                 writesettings()
                 # No, I do not want to change the defined installation
             else:
                 #print("Canceling...")
-                time.sleep(0.5)
+                sleep(0.5)
                 main()
 
 def writesettings():
@@ -139,7 +141,7 @@ def writesettings():
         # Allow the user to cancel the change
         if newgamepath.lower() == 'exit':
             print("Canceling...")
-            time.sleep(0.5)
+            sleep(0.5)
             main()
         # Continue on with the change
         else:
@@ -175,60 +177,9 @@ def gamecheck():
 # ------------ End PatchIt! Settings ------------ #
 
 
-# ------------ Begin PatchIt! Patch Installation ------------ #
-
-def readpatch():
-    global installpatch
-    linecache.clearcache()
-    global installpatch
-    installpatch = input("\nPlease enter the path to a {0} patch:\n\n> ".format(app))
-    if installpatch.lower() == "exit":
-        print("Canceling installation...")
-        main()
-    else:
-        confirmpatch = linecache.getline(installpatch, 1)
-        if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity check
-            print(confirmpatch, installpatch + " is not a valid {0} patch.".format(app))
-        else:
-            global modinstallname
-            modinstallname = linecache.getline(installpatch, 3)
-            modinstallver = linecache.getline(installpatch, 4)
-            modinstallauthor = linecache.getline(installpatch, 5)
-            modinstalldesc = linecache.getline(installpatch, 7)
-            print("\n{0} {1} {2} {3}".format(modinstallname, modinstallver, modinstallauthor, modinstalldesc))
-            print("Do you wish to install {0}".format(modinstallname), end="")
-            confirminstall = input("\n> ")
-            if confirminstall.lower() == "y":
-                installfiles()
-            else:
-                print("\nCanceling installation of {0}".format(modinstallname))
-                main()
-
-def installfiles():
-    '''Install PatchIt! patch'''
-    linecache.clearcache()
-    installpath = linecache.getline('settings', 2)
-    installpath = installpath.rstrip()
-    installzipfile = linecache.getline(installpatch, 9)
-    installzipfile = installzipfile.rstrip()
-    print('\n"' + random.choice(gametips.gametips) + '"\n')
-    zip = zipfile.ZipFile(installpatch + installzipfile)
-    zip.extractall(installpath)
-    zipfile.ZipFile.close(zip)
-    if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-        print("{0} sucessfully installed!".format(modinstallname))
-        main()
-    elif os.system(installpath) == 1:
-        print("An unknown error occured while installing {0}.".format(modinstallname))
-        main()
-    else:
-        print("Installation of {0} failed!".format(modinstallname))
-        main()
-
-# ------------ End PatchIt! Patch Installation ------------ #
-
 #If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
 if __name__ == "__main__":
     preload()
 else:
+    print()
     print("{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))

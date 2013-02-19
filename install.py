@@ -1,12 +1,11 @@
 import linecache, random
 import os
 import zipfile
-import gametips
-import PatchIt
-#from . import extractzip
-#import extractzip
+import PatchIt, gametips
+from time import sleep
+#from random import choice
 
-#from .install import *
+# ------------ Begin PatchIt! Patch Installation ------------ #
 
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
@@ -39,7 +38,7 @@ def readpatch():
                 installzipfile = linecache.getline(installpatch, 9)
                 installzipfile = installzipfile.rstrip("\n")
                 ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
-                #print('\n"' + random.choice(gametips.gametips) + '"\n')
+                print('\n"' + random.choice(gametips) + '"\n')
                 zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
                 zip_handler.extractall(path=installpath)
                 linecache.clearcache()
@@ -69,10 +68,15 @@ def extractpatch(installpatch, installname, installver):
 
     if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
         print("{0} sucessfully installed!".format(installname))
+        sleep(1)
         PatchIt.main()
     elif os.system(installpath) == 1:
         print("An unknown error occured while installing {0}.".format(installname))
+        sleep(1)
         PatchIt.main()
     else:
         print("Installation of {0} failed!".format(installname))
+        sleep(1)
         PatchIt.main()
+
+# ------------ End PatchIt! Patch Installation ------------ #
