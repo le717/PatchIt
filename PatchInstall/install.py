@@ -24,23 +24,45 @@ def readpatch():
                 print("\nCanceling installation of {0} {1}".format(installname, installver))
                 PatchIt.main()
             else:
-                linecache.clearcache()
-                installpath = linecache.getline('../settings', 2)
-                installpath = installpath.rstrip("\n")
-                installzipfile = linecache.getline(installpatch, 9)
-                installzipfile = installzipfile.rstrip("\n")
-                ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
-                #print('\n"' + random.choice(gametips.gametips) + '"\n')
-                zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
-                zip_handler.extractall(path=installpath)
-                #zipfile.ZipFile.close(zip)
+                extractpatch(installpath, installpatch, installname, installver)
+##                linecache.clearcache()
+##                installpath = linecache.getline('../settings', 2)
+##                installpath = installpath.rstrip("\n")
+##                installzipfile = linecache.getline(installpatch, 9)
+##                installzipfile = installzipfile.rstrip("\n")
+##                ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+##                #print('\n"' + random.choice(gametips.gametips) + '"\n')
+##                zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
+##                zip_handler.extractall(path=installpath)
+##                #zipfile.ZipFile.close(zip)
+##
+##            if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+##                print("{0} sucessfully installed!".format(installname))
+##                PatchIt.main()
+##            elif os.system(installpath) == 1:
+##                print("An unknown error occured while installing {0}.".format(installname))
+##                PatchIt.main()
+##            else:
+##                print("Installation of {0} failed!".format(installname))
+##                PatchIt.main()
 
-            if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
-                print("{0} sucessfully installed!".format(installname))
-                PatchIt.main()
-            elif os.system(installpath) == 1:
-                print("An unknown error occured while installing {0}.".format(installname))
-                PatchIt.main()
-            else:
-                print("Installation of {0} failed!".format(installname))
-                PatchIt.main()
+def extractpatch(installpath, installpatch, installname, installver):
+    linecache.clearcache()
+    installpath = linecache.getline('../settings', 2)
+    installpath = installpath.rstrip("\n")
+    installzipfile = linecache.getline(installpatch, 9)
+    installzipfile = installzipfile.rstrip("\n")
+    ziplocation = patch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+
+    zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
+    zip_handler.extractall(path=installpath)
+
+    if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+        print("{0} sucessfully installed!".format(installname))
+        PatchIt.main()
+    elif os.system(installpath) == 1:
+        print("An unknown error occured while installing {0}.".format(installname))
+        PatchIt.main()
+    else:
+        print("Installation of {0} failed!".format(installname))
+        PatchIt.main()
