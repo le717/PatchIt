@@ -60,6 +60,7 @@ def preload():
             firstrun = linecache.getline('settings', 1)
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
+            #firstrun.close
             # '0' defines a first-run
             if firstrun == "0":
                 writesettings()
@@ -79,8 +80,10 @@ def main():
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
+            time.sleep(0.5)
             PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
+            time.sleep(0.5)
             PatchInstall.install.readpatch()
         elif menuopt.lower() == "s":
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
@@ -110,6 +113,7 @@ def readsettings():
         # Use path as listed in gamecheck() for messages
         # The defined installation was not confirmed by gamecheck()
         if gamecheck() == False:
+            time.sleep(0.5)
             print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
             writesettings()
         # The defined installation was confirmed by gamecheck()
@@ -157,6 +161,7 @@ def gamecheck():
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
     definedgamepath = definedgamepath.strip()
+    #definedgamepath.close()
     # If the settings file was externally edited and the path was removed
     if len(definedgamepath) == 0:
         return False

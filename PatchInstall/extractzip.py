@@ -1,4 +1,4 @@
-import glob
+#import glob
 import os
 import zipfile
 
@@ -36,13 +36,13 @@ zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
 zip_handler.extractall(path=installpath)
 
 
-if os.system(installpath) == 0: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+if os.system(installpath) == 0:
     print("Sucessfully installed!")
     raise SystemExit
-elif os.system(installpath) == 1: # TODO: Disregard OS error and use only app error, thus bringing the proper exit codes.
+elif os.system(installpath) == 1:
     print("Install with error")
     raise SystemExit
 else:
     print("FAIL!")
     raise SystemExit
-    
+
