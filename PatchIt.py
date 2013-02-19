@@ -19,10 +19,13 @@
 # PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
 
 # Import only certain items instead of "the whole toolbox"
-import os, sys, time, linecache # General use modules
+import os
+##from os.path import exists
+##from sys import version_info
+import sys
+import linecache # General use modules
 from webbrowser import open # Special purpose module
 from time import sleep
-import zipfile, shutil # Zip extraction and compression modules, respectively
 import PatchCreate
 import PatchCreate.compress
 import install
@@ -157,6 +160,7 @@ def writesettings():
                 Possible TODO: Find out why this happens and remove it if possible.'''
                 settings.close()
                 readsettings()
+
 def gamecheck():
     '''Confirm LEGO Racers installation'''
     linecache.clearcache()
