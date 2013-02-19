@@ -24,7 +24,7 @@ def readpatch():
                 print("\nCanceling installation of {0} {1}".format(installname, installver))
                 PatchIt.main()
             else:
-                extractpatch(installpath, installpatch, installname, installver)
+                extractpatch(installpatch, installname, installver)
 ##                linecache.clearcache()
 ##                installpath = linecache.getline('../settings', 2)
 ##                installpath = installpath.rstrip("\n")
@@ -46,13 +46,13 @@ def readpatch():
 ##                print("Installation of {0} failed!".format(installname))
 ##                PatchIt.main()
 
-def extractpatch(installpath, installpatch, installname, installver):
+def extractpatch(installpatch, installname, installver):
     linecache.clearcache()
     installpath = linecache.getline('../settings', 2)
     installpath = installpath.rstrip("\n")
     installzipfile = linecache.getline(installpatch, 9)
     installzipfile = installzipfile.rstrip("\n")
-    ziplocation = patch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+    ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
 
     zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
     zip_handler.extractall(path=installpath)
