@@ -60,6 +60,7 @@ def preload():
             firstrun = linecache.getline('settings', 1)
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
+            linecache.clearcache()
             #firstrun.close
             # '0' defines a first-run
             if firstrun == "0":
