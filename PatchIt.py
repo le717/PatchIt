@@ -23,9 +23,7 @@ import webbrowser, random # gametips Special purpose modules
 import zipfile, shutil # Zip extraction and compression modules, respectively
 import PatchCreate
 import PatchCreate.compress
-import PatchInstall
-import PatchInstall.install
-
+import install
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
@@ -85,7 +83,8 @@ def main():
             PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
             time.sleep(0.5)
-            PatchInstall.install.readpatch()
+            install.readpatch()
+            #PatchInstall.install.readpatch()
         elif menuopt.lower() == "s":
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
             time.sleep(0.5)
