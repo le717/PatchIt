@@ -16,7 +16,7 @@ Details
 -------
 
 * A PiP file is plain text. It stands for **P**atch **I**t **P**atch.
-* A PiP file is written use UTF-8 encoding., and can be edited on any text editor that supports UTF-8 encoding.
+* A PiP file is written use UTF-8 encoding, and can be edited on any text editor that supports UTF-8 encoding.
 * As a validity test, each PiP file **must** have on line 1 a specific line of text that **must** match **PatchIt!**'s internal version exactly to confirm it is a valid patch.
 * The Description is limited to 161 characters. Anything longer will break **PatchIt!** entirely. 
 * The ZIP archive and the PiP file uses the mod's name and version as the filename.
