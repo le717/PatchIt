@@ -3,14 +3,27 @@ import os
 import zipfile
 import PatchIt, gametips
 from time import sleep
+# GUI! :D
+import tkinter
+from tkinter import filedialog
 #from random import choice
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
 
+filetype = [("PatchIt! Patch", "*.PiP")]
+
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
-    installpatch = input("\nPlease enter the path to a {0} patch:\n\n> ".format(PatchIt.app))
-    if installpatch.lower() == "exit":
+    root = tkinter.Tk()
+    root.withdraw()
+    installpatch = installpatch.askopenfilename(
+    title="Select a PatchIt! Patch",
+    defaultextension=".PiP",
+    filetypes=filetype)
+
+    if len(installpatch) == 0:
+    #installpatch = input("\nPlease enter the path to a {0} patch:\n\n> ".format(PatchIt.app))
+    #if installpatch.lower() == "exit":
         print("\nCanceling installation...")
         PatchIt.main()
     else:
@@ -22,7 +35,6 @@ def readpatch():
             installver = linecache.getline(installpatch, 4)
             installauthor = linecache.getline(installpatch, 5)
             installdesc = linecache.getline(installpatch, 7)
-            #installpatch.close()
             print("\n{0} {1} {2} {3}".format(installname, installver, installauthor, installdesc))
             print("Do you wish to install {0}".format(installname), end="")
             confirminstall = input("\n> ")
