@@ -183,6 +183,7 @@ pip-log.txt
 ## Misc.
 ########
 
+PatchItOld.py
 *.txt
 *.ini
 #*.py

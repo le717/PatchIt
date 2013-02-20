@@ -19,16 +19,18 @@
 # PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
 
 # Import only certain items instead of "the whole toolbox"
-import os
+import os, linecache # General use modules
+from sys import version_info
 ##from os.path import exists
 ##from sys import version_info
-import sys
-import linecache # General use modules
-from webbrowser import open # Special purpose module
+import webbrowser # Module used in preload()
 from time import sleep
 import PatchCreate
 import PatchCreate.compress
 import install
+# GUI! :D
+import tkinter
+from tkinter import filedialog
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
@@ -45,13 +47,13 @@ exist = os.path.exists
 
 def preload():
     '''Python 3.3 and PatchIt! first-run check'''
-    if sys.version_info < (3,3): # You need to have at least Python 3.3 to run PatchIt!
+    if version_info < (3,3): # You need to have at least Python 3.3 to run PatchIt!
         print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
         # Don't open browser immediately
         sleep(2)
-        open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
+        webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         # PatchIt! automatically closes after this
-        sleep(5)
+        sleep(3)
     else: # You are running <= Python 3.3
         # The settings file does not exist
         if not exist('settings'):
@@ -63,8 +65,6 @@ def preload():
             firstrun = linecache.getline('settings', 1)
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
-            linecache.clearcache()
-            #firstrun.close
             # '0' defines a first-run
             if firstrun == "0":
                 writesettings()
@@ -89,7 +89,6 @@ def main():
         elif menuopt.lower() == "i":
             sleep(0.5)
             install.readpatch()
-            #PatchInstall.install.readpatch()
         elif menuopt.lower() == "s":
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
             sleep(0.5)
@@ -140,9 +139,13 @@ def writesettings():
     '''Write PatchIt! settings'''
      # It does not matter if it exists or not, it has to be written
     if exist('settings') or not exist('settings'):
-        newgamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
+        root = tkinter.Tk()
+        root.withdraw()
+        newgamepath = filedialog.askdirectory(title="Select your {0} installation".format(game))
+        #newgamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
         # Allow the user to cancel the change
-        if newgamepath.lower() == 'exit':
+        if len(newgamepath) == 0:
+        #if newgamepath.lower() == 'exit':
             print("Canceling...")
             sleep(0.5)
             main()
@@ -167,7 +170,6 @@ def gamecheck():
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
     definedgamepath = definedgamepath.strip()
-    #definedgamepath.close()
     # If the settings file was externally edited and the path was removed
     if len(definedgamepath) == 0:
         return False
@@ -177,6 +179,7 @@ def gamecheck():
     # The installation path cannot be found
     else:
         return False
+
 
 # ------------ End PatchIt! Settings ------------ #
 
