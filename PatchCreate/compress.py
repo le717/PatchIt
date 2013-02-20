@@ -28,18 +28,6 @@ def writepatch():
         createauthor = input("Author: ")
         createdesc = input("Description: ")
 
-    # PiP file format, as defined in Documentation/PiP Format.md
-    with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
-        print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
-        print("[General]", file=createpatch)
-        print(createname, file=createpatch)
-        print("Version: {0}".format(createver), file=createpatch)
-        print("Author: {0}".format(createauthor), file=createpatch)
-        print("[Description]", file=createpatch)
-        print('"{0}"'.format(createdesc), file=createpatch)
-        print("[ZIP]", file=createpatch)
-        print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
-
     # The files to be compressed
     root = tkinter.Tk()
     root.withdraw()
@@ -50,6 +38,18 @@ def writepatch():
         main()
 
     else:
+        # PiP file format, as defined in Documentation/PiP Format.md
+        with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
+            print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
+            print("[General]", file=createpatch)
+            print(createname, file=createpatch)
+            print("Version: {0}".format(createver), file=createpatch)
+            print("Author: {0}".format(createauthor), file=createpatch)
+            print("[Description]", file=createpatch)
+            print("{0}".format(createdesc), file=createpatch)
+            print("[ZIP]", file=createpatch)
+            print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
+
     # Compresses the files
         zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
         # Rename the ZIP archive to createname + creationver, as defined in Documentation/PiP Format.md

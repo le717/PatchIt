@@ -22,10 +22,7 @@ def readpatch():
     defaultextension=".PiP",
     filetypes=fileformat)
 
-
     if len(installpatch) == 0:
-    #installpatch = input("\nPlease enter the path to a {0} patch:\n\n> ".format(PatchIt.app))
-    #if installpatch.lower() == "exit":
         print("\nCanceling installation...")
         PatchIt.main()
     else:
@@ -37,11 +34,14 @@ def readpatch():
             installver = linecache.getline(installpatch, 4)
             installauthor = linecache.getline(installpatch, 5)
             installdesc = linecache.getline(installpatch, 7)
-            print("\n{0} {1} {2} {3}".format(installname, installver, installauthor, installdesc))
-            print("Do you wish to install {0}".format(installname), end="")
+            installdesc = installdesc.strip("\n")
+            print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
+            installname = installname.strip("\n")
+            print("\nDo you wish to install {0}? {1}".format(installname, r"(y\N)"))
             confirminstall = input("\n> ")
             if confirminstall.lower() != "y":
-                print("\nCanceling installation of {0} {1}".format(installname, installver))
+                print("\nCanceling installation of {0}...".format(installname))
+                sleep(1)
                 PatchIt.main()
             else:
 ##                extractzip.installfiles(installname, installver, installpatch)
