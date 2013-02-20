@@ -10,12 +10,17 @@ from tkinter import filedialog
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
 def patchdesc():
+    '''Mod Description input and length check'''
+    # Because I can't see how to do it any other way
     global createdesc
     createdesc = input("Description: ")
+    # 162 characters will mess up PatchIt! entirely
     if len(createdesc) > 161:
             print("\nYour description is too long! Please write it a bit shorter.\n")
+            # Loop back through the input if it is longer
             patchdesc()
     else:
+        # It fits into the limit, send it back to writepatch()
         return createdesc
 
 def writepatch():
@@ -25,7 +30,7 @@ def writepatch():
     print('Type "exit" in the "Name:" field to cancel.', end="\n")
     createname = input("\nName: ")
 
-    # I wanted to quit the process
+    # I want to quit the process
     if createname.lower() == "exit":
         print("\nCanceling creation...")
         sleep(0.5)
@@ -35,20 +40,20 @@ def writepatch():
     else:
         createver = input("Version: ")
         createauthor = input("Author: ")
+        # See def patchdesc() above.
         patchdesc()
-        #createdesc = input("Description: ")
-        #if len(createdesc) > 161:
-            #print("\nYour description is too long! Please write it a bit shorter.\n")
-            #pass
+
     # The files to be compressed
         root = tkinter.Tk()
         root.withdraw()
         inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
+        # The user clicked the cancel button
         if len(inputfiles) == 0:
             print("\nCannot find any files to compress!")
             sleep(1)
             main()
 
+        # The user selected a folder to compress
         else:
             # PiP file format, as defined in Documentation/PiP Format.md
             with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
@@ -62,7 +67,7 @@ def writepatch():
                 print("[ZIP]", file=createpatch)
                 print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
 
-            # Compresses the files
+            # Compress the files
             zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
             # Rename the ZIP archive to createname + creationver, as defined in Documentation/PiP Format.md
             newzipfile = replace(zipfile, createname + createver + ".zip")
@@ -77,14 +82,14 @@ def writepatch():
             sleep(0.5)
 
             '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
-            operable program or batch file.' error, and I am unable to neither silence it nor hide it with looping back over all the code
-            or killing the exit codes. So I had to redefine what is a clean exit and what isn't. Thus,
+            operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
+            looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
             1 == clean exit, 0, == exit with some error, and anything else is pure fail.
             Hopefully, I can fix this in Beta 4.'''
 
             if system(inputfiles) == 1:
                 print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(app, createname, createver, inputfiles))
-                # Always sleep for 1 second before kicking back to the menu.
+                # Always sleep for 1 second before kicking back to the PatchIt! menu.
                 sleep(1)
                 main()
 
