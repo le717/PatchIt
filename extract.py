@@ -10,16 +10,18 @@ from tkinter import filedialog
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
 
-filetype = [("PatchIt! Patch", "*.PiP")]
-
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
+
+    fileformat = [("PatchIt! Patch", "*.PiP")]
+
     root = tkinter.Tk()
     root.withdraw()
-    installpatch = installpatch.askopenfilename(
-    title="Select a PatchIt! Patch",
+    installpatch = filedialog.askopenfilename(
+    title="Select a {0} Patch".format(PatchIt.app),
     defaultextension=".PiP",
-    filetypes=filetype)
+    filetypes=fileformat)
+
 
     if len(installpatch) == 0:
     #installpatch = input("\nPlease enter the path to a {0} patch:\n\n> ".format(PatchIt.app))
