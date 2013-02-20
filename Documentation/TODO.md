@@ -7,8 +7,6 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**. Is lis
 * Ignore OSError and retain proper exit codes - **Currently impossible for me**
 * File/Folder TK Dialog boxes (Beta 3 release, PiP file)
 * HTML Readme and Change Log
-* Save (move?) PiP file to same folder as ZIP archive (currently saves to same location as app) 
-* Created Patch *x* and saved to" message in PatchCreate/compress.py needs proper path at end
 * Code Comments
 * Corrected 16x16 Icon
 * Make all time.sleep() lines consistent with each other
