@@ -7,7 +7,7 @@ Requirements
 ------------
 
 * As already stated, **PatchIt!** is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of Python `>=` 3.3 to edit and run 
-*PatchIt!* Versions `<=` Python 2.7 is not supported, and a Python version check will prevent it from running on lower versions.
+*PatchIt!* Versions `<=` Python 3.2 is not supported, and a Python version check will prevent it from running on lower versions.
 
 * No external packages or dependencies are needed for the ZIP archive functions, as it is implemented using native Python modules.
 * Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](http://cx-freeze.sourceforge.net). [py2exe](
