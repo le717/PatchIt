@@ -17,11 +17,12 @@ Complete with custom music of the Nyan Cat's theme song, this mod will be sure t
 [Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Nyan%20Cat-AthonV1.1.zip)
 
 ### Royally Crafted Raceway
-This interesting mod, created by Segatendo, reskins Royal Knights Raceway in Minecraft-style textures creating possibly the calmest mod available. 
+This interesting mod, created by Segatendo, reskins Royal Knights Raceway with Minecraft textures, 
+reflecting the calm/creative side of Minecraft, creating possibly the calmest mod available for this track!
 Royally Crafted Raceway is so calm that it might even calm you down enough to win the race. :P
 
 
-[Download Royally Crafted Raceway (Direct link)](about:robots)
+[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Readme.md)
 
 
 Credits
