@@ -1,3 +1,5 @@
+#PatchIt! V1.0 Beta 3 Patch Creation code
+
 # Import only certain items instead of "the whole toolbox"
 from PatchIt import (app, main)
 from time import sleep
@@ -43,9 +45,10 @@ def writepatch():
         # See def patchdesc() above.
         patchdesc()
 
-    # The files to be compressed
+        # Hide the root Tk window
         root = tkinter.Tk()
         root.withdraw()
+        # The files to be compressed
         inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
         # The user clicked the cancel button
         if len(inputfiles) == 0:
