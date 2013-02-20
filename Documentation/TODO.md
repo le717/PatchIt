@@ -5,7 +5,6 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**. Is lis
 
 
 * Ignore OSError and retain proper exit codes - **Currently impossible for me**
-* File/Folder TK Dialog boxes (Beta 3 release, PiP file)
 * HTML Readme and Change Log
 * Code Comments
 * Corrected 16x16 Icon
