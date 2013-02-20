@@ -38,7 +38,7 @@ def readpatch():
                 installzipfile = linecache.getline(installpatch, 9)
                 installzipfile = installzipfile.rstrip("\n")
                 ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
-                #print('\n"' + random.choice(gametips) + '"\n')
+                print('\n"' + random.choice(gametips.gametips) + '"\n')
                 zip_handler = zipfile.ZipFile(ziplocation + installzipfile, "r")
                 zip_handler.extractall(path=installpath)
                 linecache.clearcache()
