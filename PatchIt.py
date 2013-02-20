@@ -20,11 +20,11 @@
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
-from sys import version_info
-##from os.path import exists
-##from sys import version_info
 import webbrowser # Module used in preload()
+from sys import version_info
+from os.path import exists
 from time import sleep
+# Patch Creation and Installation modules
 import PatchCreate
 import PatchCreate.compress
 import extract
@@ -41,7 +41,6 @@ majver = "Version 1"
 minver = "Beta 3"
 creator = "le717"
 game = "LEGO Racers"
-exist = os.path.exists
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
@@ -54,10 +53,13 @@ def preload():
         webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
         # PatchIt! automatically closes after this
         sleep(3)
-    else: # You are running <= Python 3.3
+
+    # You are running >= Python 3.3
+    else:
         # The settings file does not exist
-        if not exist('settings'):
+        if not exists('settings'):
             writesettings()
+
         # The settings file does exist
         else:
             # Settings file does not need to be opened to use linecache
@@ -65,11 +67,13 @@ def preload():
             firstrun = linecache.getline('settings', 1)
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
+
             # '0' defines a first-run
             if firstrun == "0":
                 writesettings()
             # Any other number (Default, 1) means it has been run before
             else:
+                # Does not sleep, for user doesn't know about this unless it is run on < 3.3
                 main()
 
 
@@ -85,21 +89,24 @@ def main():
     while True:
         if menuopt.lower() == "c":
             sleep(0.5)
+            # Call the Patch Creation module
             PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
             sleep(0.5)
+            # Call the Patch Installation module
             extract.readpatch()
         elif menuopt.lower() == "s":
-        # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
+            # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
             sleep(0.5)
             readsettings()
         elif menuopt.lower() == "q":
-            # Blank space makes everything nice and neat
-            print()
-            print("Goodbye!")
+            # Blank space (\n) makes everything nice and neat
+            print("\nGoodbye!")
             sleep(1)
             raise SystemExit
+        # Undefined input
         else:
+            # Do not sleep here
             main()
 
 # ------------ End PatchIt! Initialization ------------ #
@@ -110,73 +117,88 @@ def main():
 def readsettings():
     '''Read PatchIt! settings'''
     # The settings file does not exist
-    if not exist('settings'):
+    if not exists('settings'):
         writesettings()
     # The setting file does exist
-    elif exist('settings'):
-        # Use path as listed in gamecheck() for messages
+    elif exists('settings'):
+
         # The defined installation was not confirmed by gamecheck()
         if gamecheck() == False:
             sleep(0.5)
+            # Use path defined in gamecheck() for messages
             print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
+            # Go write the settings file
             writesettings()
+
         # The defined installation was confirmed by gamecheck()
+        # TODO: Find a better way to do this
         elif gamecheck() ==  True:
             sleep(0.5)
             print("\n{0} installation found at {1}".format(game, definedgamepath))
             changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
+
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 sleep(0.5)
                 writesettings()
                 # No, I do not want to change the defined installation
             else:
-                #print("Canceling...")
-                sleep(0.5)
+                print("\nCanceling...") # I can't think of a better line...
+                # Always sleep for 1 second before kicking back to the menu.
+                sleep(1)
                 main()
 
 def writesettings():
     '''Write PatchIt! settings'''
+
      # It does not matter if it exists or not, it has to be written
-    if exist('settings') or not exist('settings'):
+    if exists('settings') or not exists('settings'):
+
+        # Hide the root Tk window
         root = tkinter.Tk()
         root.withdraw()
+        # Select the LEGO Racers installation
         newgamepath = filedialog.askdirectory(title="Select your {0} installation".format(game))
-        #newgamepath = input("\nPlease enter the path to your {0} installaton:\n\n> ".format(game))
-        # Allow the user to cancel the change
+        # The user clicked the cancel button
         if len(newgamepath) == 0:
-        #if newgamepath.lower() == 'exit':
-            print("Canceling...")
-            sleep(0.5)
+            print("Canceling...") # Again, for lack of a better messages
+            sleep(1)
             main()
-        # Continue on with the change
+
+        # The user selected a folder
         else:
+            # Write file, using UTF-8 encoding
             with open('settings', 'wt', encoding='utf-8') as settings:
                 settings.seek(0)
                 # Ensures first-run process will be skipped next time
                 settings.write("1")
+                # So the first-run check won't be overridden
                 settings.seek(1)
                 settings.write("\n" + newgamepath)
-                '''Removing this line breaks the entire first-run code.
+
+                '''Removing "settings.close()" breaks the entire first-run code.
                 Once it writes the path, PatchIt! closes, without doing as much
                 as running the path through gamecheck() nor going back to main()
-                Possible TODO: Find out why this happens and remove it if possible.'''
+                Possible TODO: Find out why this is happening and remove it if possible.'''
                 settings.close()
                 readsettings()
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
     linecache.clearcache()
+    # For use in other messages
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
+    # Strip the path to make it valid
     definedgamepath = definedgamepath.strip()
+
     # If the settings file was externally edited and the path was removed
     if len(definedgamepath) == 0:
         return False
-    # The only three items needed to confirm a LEGO Racers installation.
-    elif exist(definedgamepath + "/GAMEDATA") and exist(definedgamepath + "/MENUDATA") and exist(definedgamepath + "/LEGORacers.exe"):
+        # The only three items needed to confirm a LEGO Racers installation.
+    elif exists(definedgamepath + "/GAMEDATA") and exists(definedgamepath + "/MENUDATA") and exists(definedgamepath + "/LEGORacers.exe"):
         return True
-    # The installation path cannot be found
+    # The installation path cannot be found, or it cannot be confirmed
     else:
         return False
 
@@ -184,9 +206,9 @@ def gamecheck():
 # ------------ End PatchIt! Settings ------------ #
 
 
-#If PatchIt! is run by itself: preload(). If imported (else): display PatchIt! info.
+# Run preload() upon PatchIt! launch
 if __name__ == "__main__":
     preload()
-else:
-    print()
-    print("{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
+# TODO: Find out why I'm getting an import error when PatchIt! is imported
+#else:
+    #print("\n{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))

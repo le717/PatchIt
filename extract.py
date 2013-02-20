@@ -1,13 +1,11 @@
 #PatchIt! V1.0 Beta 3 Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
-import linecache #, random
-#import os
-#from PatchIt import (app, main)
+import linecache
 import PatchIt
-from os import system
-import zipfile
 import gametips
+import zipfile
+from os import system
 from random import choice
 from time import sleep
 # GUI! :D
@@ -59,7 +57,7 @@ def readpatch():
             # Display all the info
             print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
 
-            # Strip the name to put all the text on one line
+            # Strip the name and version to put all the text on one line
             installname = installname.strip("\n")
             installver = installver.strip("\n")
             print("\nDo you wish to install {0} {1}? {2}".format(installname, installver, r"(y\N)"))
@@ -73,6 +71,7 @@ def readpatch():
             # Yes, I do want to install it!
             else:
                 linecache.clearcache() # Again, clear cache
+                # Read the settins file for installation (LEGO Racers) directory
                 installpath = linecache.getline('settings', 2)
                 # Create a valid folder path
                 installpath = installpath.rstrip("\n")
@@ -83,10 +82,11 @@ def readpatch():
                 ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
                 # Display the Racers game tips
                 print('\n"' + choice(gametips.gametips) + '"\n')
-                # Actually extract the ZIP
+                # Actually extract the ZIP archive
                 extractzip = zipfile.ZipFile(ziplocation + installzipfile, "r")
                 extractzip.extractall(path=installpath)
-                #zipfile.ZipFile.close(zip)
+                # Close the ZIP archive when we are through
+                zipfile.ZipFile.close(extractzip)
 
             '''Windows continually throws up the '*installpath* is not recognized as an internal or external command,
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
