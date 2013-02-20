@@ -27,7 +27,7 @@ import webbrowser # Module used in preload()
 from time import sleep
 import PatchCreate
 import PatchCreate.compress
-import install
+import extract
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -88,7 +88,7 @@ def main():
             PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
             sleep(0.5)
-            install.readpatch()
+            extract.readpatch()
         elif menuopt.lower() == "s":
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
             sleep(0.5)
