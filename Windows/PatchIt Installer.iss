@@ -12,7 +12,7 @@
 #define MyAppName "PatchIt!"
 #define MyAppVersion "Version 1.0 Stable"
 #define MyAppVerName "PatchIt! Version 1.0 Stable"
-#define MyAppPublisher "le717"
+#define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
 #define MyAppExeName "PatchIt.exe"
 
@@ -62,21 +62,8 @@ english.BeveledLabel={#MyAppVerName}
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\Compile\PatchIt64.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin64
-Source: "..\Compile\PatchIt32.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin32
-Source: "..\Compile\_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\_ctypes.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\_hashlib.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\_lzma.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\_socket.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\_tkinter.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\python33.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\select.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\tcl85.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\tk85.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Compile\tcl\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\Compile\tk\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Compile\Windows x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+Source: "..\Compile\Windows x86\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
 Source: "Read Me First.html"; DestDir: "{app}"
 
