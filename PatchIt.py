@@ -37,8 +37,8 @@ This is like the ISPP in Inno Setup. Changing these variables changes anything e
 Thankfully, variables are a key part of Python, and doesn't require installing an optional module. :)'''
 
 app = "PatchIt!"
-majver = "Version 1"
-minver = "Beta 3"
+majver = "Version 1.0"
+minver = "Stable"
 creator = "le717"
 game = "LEGO Racers"
 
@@ -161,7 +161,7 @@ def writesettings():
         newgamepath = filedialog.askdirectory(title="Select your {0} installation".format(game))
         # The user clicked the cancel button
         if len(newgamepath) == 0:
-            print("Canceling...") # Again, for lack of a better messages
+            #print("Canceling...") # Again, for lack of a better messages
             sleep(1)
             main()
 
