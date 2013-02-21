@@ -35,6 +35,7 @@ WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
 ; Uninstallation stuff
+; Debug line
 ; Uninstallable=no
 UninstallDisplayIcon={#MyAppExeName}
 CreateUninstallRegKey=yes
@@ -78,16 +79,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Source: "..\Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;
 ; Source: "..\Compile\tcl\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
 ; Source: "..\Compile\tk\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
+Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
 ; Source: "Read Me First.html"; DestDir: "{app}"
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Comment: "Run {#MyAppVerName}";
-Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
+Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\PatchItIcon.ico"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
-; Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
+Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
 
 [Code]
 function IsWin32: Boolean;
