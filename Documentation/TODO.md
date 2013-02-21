@@ -5,6 +5,7 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**. Is lis
 
 * Ignore OSError and retain proper exit codes - **Currently impossible for me**
 * Add new gameplay tips
-* Complete TKinter GUI (V1.1 Stable release)
+* Complete TKinter GUI
 * Any TODO items scattered around in the scripts
+* Ammend PiP File Format to allow longer descriptions
 * LEGOs in Space? More later!
