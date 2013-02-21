@@ -161,7 +161,7 @@ def writesettings():
         newgamepath = filedialog.askdirectory(title="Select your {0} installation".format(game))
         # The user clicked the cancel button
         if len(newgamepath) == 0:
-            print("Canceling...") # Again, for lack of a better messages
+            #print("Canceling...") # Again, for lack of a better messages
             sleep(1)
             main()
 

@@ -35,13 +35,11 @@ WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
 ; Uninstallation stuff
-; Debug line
-; Uninstallable=no
 UninstallDisplayIcon={#MyAppExeName}
 CreateUninstallRegKey=yes
 UninstallDisplayName={#MyAppName}
 ; Compression
-Compression=lzma
+Compression=lzma/ultra
 SolidCompression=True
 InternalCompressLevel=ultra
 ; From top to bottom: Allows installation to C:\ (and the like),
@@ -64,23 +62,23 @@ english.BeveledLabel={#MyAppVerName}
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-; Source: "..\Compile\PatchIt64.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin64
-; Source: "..\Compile\PatchIt32.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin32
-; Source: "..\Compile\_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_ctypes.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_hashlib.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_lzma.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_socket.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_tkinter.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\select.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\tcl85.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\tk85.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\tcl\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
-; Source: "..\Compile\tk\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
+Source: "..\Compile\PatchIt64.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin64
+Source: "..\Compile\PatchIt32.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin32
+Source: "..\Compile\_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\_ctypes.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\_hashlib.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\_lzma.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\_socket.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\_tkinter.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\python33.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\select.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\tcl85.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\tk85.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\tcl\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Compile\tk\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
-; Source: "Read Me First.html"; DestDir: "{app}"
+Source: "Read Me First.html"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -88,10 +86,10 @@ Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
 
-[Code]
+[Code]                                                                                            
 function IsWin32: Boolean;
 begin
  Result := not IsWin64;
