@@ -16,11 +16,11 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! 1.0 Beta 3, copyright 2013 le717 (http://triangle717.wordpress.com).
+# PatchIt! V1.0 Stable, copyright 2013 le717 (http://triangle717.wordpress.com).
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
-import webbrowser # Module used in preload()
+from webbrowser import open_new_tab # Module used in preload()
 from sys import version_info
 from os.path import exists
 from time import sleep
@@ -45,16 +45,16 @@ game = "LEGO Racers"
 # ------------ Begin PatchIt! Initialization ------------ #
 
 def preload():
-    '''Python 3.3 and PatchIt! first-run check'''
-    if version_info < (3,3): # You need to have at least Python 3.3 to run PatchIt!
-        print("You need to download Python 3.3 or greater to run {0} {1} {2}.".format(app, majver, minver))
+    '''Python 3.3.0 and PatchIt! first-run check'''
+    if version_info < (3,3,0): # You need to have at least Python 3.3.0 to run PatchIt!
+        print("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver))
         # Don't open browser immediately
         sleep(2)
-        webbrowser.open("http://python.org/download", new=2, autoraise=True) # New tab, raise browser window (if possible)
+        open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
         # PatchIt! automatically closes after this
         sleep(3)
 
-    # You are running >= Python 3.3
+    # You are running >= Python 3.3.0
     else:
         # The settings file does not exist
         if not exists('settings'):
@@ -73,7 +73,7 @@ def preload():
                 writesettings()
             # Any other number (Default, 1) means it has been run before
             else:
-                # Does not sleep, for user doesn't know about this unless it is run on < 3.3
+                # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
                 main()
 
 
@@ -106,7 +106,7 @@ def main():
             raise SystemExit
         # Undefined input
         else:
-            # Do not sleep here
+            # Do not sleep here, since we are already on the menu
             main()
 
 # ------------ End PatchIt! Initialization ------------ #
@@ -134,7 +134,7 @@ def readsettings():
         # TODO: Find a better way to do this
         elif gamecheck() ==  True:
             sleep(0.5)
-            print("\n{0} installation found at {1}".format(game, definedgamepath))
+            print("\n{0} installation found at {1}!".format(game, definedgamepath))
             changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -143,7 +143,7 @@ def readsettings():
                 writesettings()
                 # No, I do not want to change the defined installation
             else:
-                print("\nCanceling...") # I can't think of a better line...
+                #print("\nCanceling...") # I can't think of a better line...
                 # Always sleep for 1 second before kicking back to the menu.
                 sleep(1)
                 main()

@@ -1,4 +1,4 @@
-#PatchIt! V1.0 Beta 3 Patch Creation code
+#PatchIt! V1.0 Stable Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
 from PatchIt import (app, main)
@@ -49,6 +49,7 @@ def writepatch():
         root = tkinter.Tk()
         root.withdraw()
         # The files to be compressed
+        # TODO: Make dialog active window automatically and do the same to main window when closed.
         inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
         # The user clicked the cancel button
         if len(inputfiles) == 0:
@@ -88,22 +89,22 @@ def writepatch():
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
             looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
             1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-            Hopefully, I can fix this in Beta 4.'''
+            Hopefully, I can fix this in V1.1 Stable.'''
 
             if system(inputfiles) == 1:
                 print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(app, createname, createver, inputfiles))
-                # Always sleep for 1 second before kicking back to the PatchIt! menu.
-                sleep(1)
+                # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
+                sleep(2)
                 main()
 
             elif system(inputfiles) == 0:
                 print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(app, createname, createver))
-                sleep(1)
+                sleep(2)
                 main()
 
             else:
                 print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
-                sleep(1)
+                sleep(2)
                 main()
 
 # ------------ End PatchIt! Patch Creation ------------ #

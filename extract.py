@@ -1,4 +1,4 @@
-#PatchIt! V1.0 Beta 3 Patch Installation code
+#PatchIt! V1.0 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
@@ -26,6 +26,7 @@ def readpatch():
     root.withdraw()
 
     # Select the patch file
+    # TODO: Make dialog active window automatically and do the same to main window when closed.
     installpatch = filedialog.askopenfilename(
     title="Select a {0} Patch".format(PatchIt.app),
     defaultextension=".PiP",
@@ -36,6 +37,7 @@ def readpatch():
         print("\nCould not find a {0} patch to read!".format(PatchIt.app))
         sleep(1)
         PatchIt.main()
+
     # The user selected a patch
     else:
         # Confirm that this is a patch, as defined in Documentation/PiP Format.md
@@ -46,7 +48,6 @@ def readpatch():
 
         # It is a patch! :D
         else:
-
             # Get all patch details
             installname = linecache.getline(installpatch, 3)
             installver = linecache.getline(installpatch, 4)
@@ -92,22 +93,22 @@ def readpatch():
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
             looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
             1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-            Hopefully, I can fix this in Beta 4.'''
+            Hopefully, I can fix this in V1.1 Stable.'''
 
             if system(installpath) == 1:
                 print("\n{0} {1} sucessfully installed!".format(installname, installver))
-                # Always sleep for 1 second before kicking back to the PatchIt! menu.
-                sleep(1)
+                # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
+                sleep(2)
                 PatchIt.main()
 
             elif system(installpath) == 0:
                 print("\nAn unknown error occured while installing {0} {1}.".format(installname, installver))
-                sleep(1)
+                sleep(2)
                 PatchIt.main()
 
             else:
                 print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
-                sleep(1)
+                sleep(2)
                 PatchIt.main()
 
 # ------------ End PatchIt! Patch Installation ------------ #
