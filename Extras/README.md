@@ -22,7 +22,7 @@ reflecting the calm/creative side of Minecraft, creating possibly the calmest mo
 Royally Crafted Raceway is so calm that it might even calm you down enough to win the race. :P
 
 
-[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Readme.md)
+[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Royally%20Crafted%20RacewayV1.0.zip)
 
 
 Credits
