@@ -67,4 +67,5 @@ NameVersion.zip/
         KEYBOARD.BMP
 		MAINMENU.MIB
     theme.tun
+	builder.tun
 ```
