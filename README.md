@@ -1,8 +1,8 @@
 PatchIt!
 ========
 
-This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by le717 to provide a standard way of
-packaging an dinstalling mods for the 1999 High Voltage Software PC game *LEGO Racers*.
+This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by le717 to be the standard yet simple way to
+packaging and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
 
 The Plan
 --------
@@ -34,7 +34,6 @@ Downloads
 
 All **PatchIt!** downloads will be hosted on this project, in an [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
-So far, there have been two releases:
 * [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February ??, 2013
 * [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released February 2, 2013
 * [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released January 26, 2013
