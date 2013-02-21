@@ -2,7 +2,7 @@
 <html>
 <head>
 <style>
-h2 { text-align: center; }
+h2, h3 { text-align: center; }
 .italic { font-style: italic; }
 .bold { font-weight: bold; }
 a { text-decoration: none; }
@@ -31,6 +31,10 @@ a:hover { text-decoration: underline; }
 <td><a href="#Help">Support</a></td>
 </tr>
 <tr>
+<tr>
+<td><a href="#MoreInfo">Resources</a></td>
+</tr>
+<tr>
 <td><a href="#Credit">Credit</a></td>
 </tr>
 </tbody>
@@ -38,14 +42,26 @@ a:hover { text-decoration: underline; }
 <a name="Intro"></a>
 <h2>Introduction</h2>
 <p>This is the Readme for <span class="bold">PatchIt!</span>, a <a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a>
-application intended to provide a standard yet simple way to distribute and install mods for the 1999 High Voltage Software PC game <span class="italic">LEGO 
+application intended to provide a standard yet simple way to package and install mods for the 1999 High Voltage Software PC game <span class="italic">LEGO 
 Racers</span>.<a name="How"></a>
 
 <h2>Usage</h2>
+
+<h3>First Run</h3>
+Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked for the path to your LEGO Racers installation. Simply point it to your 
+LEGO Racers installation with your LEGO.JAM already decompressed. <span class="bold">PatchIt!</span> will ensure it is a valid installation, and if so, 
+continue to the menu. You will only need to do this once, as <span class="bold">PatchIt!</span> is smart enough to know if you ran it once already.
+
+<h3>Changing your LEGO Racers Installation</h3>
+
+<h3>Installation</h3>
+<p>To install a <span class="bold">PatchIt!</span> compatible mod, simply load <span class="bold">PatchIt!</span>, press 'c', select the PiP file, and after 
+reading the mod information, confirm the installation. <span class="bold">PatchIt!</span> will automatically install it into your <span class="italic">LEGO 
+Racers</span> game.
 <a name="Changes"></a>
 <h2>Change Log</h2>
 
-<strong>1.0 Beta 3</strong><br>
+<strong>1.0 Stable</strong><br>
 (Released ?? ??, 2013)<br>
 <ul>
 <li>Cleaned up check() and write() functions</li>
@@ -117,15 +133,24 @@ Racers</span>.<a name="How"></a>
 <h2>Support</h2>
 <p>To request a feature, submit a bug report or code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="
 https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br><br>
-<a name="Credit"></a>
+<a name="MoreInfo"></a>
+<h2>Resources</h2>
+<p>The following sites and programs may be helpful to you and in your use of <span class="bold">PatchIt!</span>
+<ul>
+<li><a href="https://github.com/JrMasterModelBuilder/JAM-Extractor" targeet="_blank"><span class="italic">LEGO Racers</span> JAM Extractor: Extracts and recompresses LEGO.JAM</a></li>
+<li><a href="http://rockraidersunited.org" target="_blank">Rock Raiders United: The only place to learn everything you need to know about <span class="italic">LEGO Racers</span> modding</a></li>
+<li><a href="http://python.org" target="_blank" title="Python (Programming Language)">Python: The programming language of <span class="bold">PatchIt!</span></a></li>
+</ul>
+
 <h2>Credit</h2>
 
 <p class="bold"><span class="italic">PatchIt!</span> is copyright 2013  <a href="http://triangle717.wordpress.com" target="_blank" title=
 "Triangle717.WordPress.com">le717</a>, and released under the <a
  href="http://www.gnu.org/licenses/gpl.html" target="_blank" title ="GNU General Public License Version 3">GNU General Public License Version 3.</a></p>
  <p>Special thanks to Cirevam, alan, RobExplorien, JimbobJeffers, Creator, and all the awesome people at <a href="http://rockraidersunited.org" target=
- "_blank" title="Rock Raiders United">Rock Raiders United</a> for sharing their <span class="italic">LEGO Racers</span> gameplay tips and support in the 
- development of <span class="bold">PatchIt!</span></p>
+ "_blank" title="Rock Raiders United">Rock Raiders United</a> for sharing their <span class="italic">LEGO Racers</span> gameplay tips and supporting the 
+ development of <span class="bold">PatchIt!</span>. A very special thank you goes out to JrMasterModelBuilder and TheDoctor for putting up with my constant 
+ Python questions. Without you guys, I would have never been able to write this.</p>
  <br>
  <a href="#ToC">Back to the Beginning</a>
 </body>
