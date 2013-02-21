@@ -184,9 +184,9 @@ pip-log.txt
 ########
 
 *.psd
-*.html
+#*.html
 PatchItOld.py
-*.txt
+#*.txt
 *.ini
 #*.py
 settings

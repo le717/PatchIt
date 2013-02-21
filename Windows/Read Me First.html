@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, h2, h3 { text-align: center; }
+.italic { font-style: italic; }
+.bold { font-weight: bold; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+</style>
+<title>PatchIt! Readme</title>
+</head>
+<body>
+<a name="ToC"></a>
+<h2>PatchIt! Version 1.0 Readme</h2>
+<table border="0">
+<thead>
+<th>Table of Contents</th>
+</thead>
+<tbody>
+<tr>
+<td><a href="#Intro">Introduction</a></td>
+</tr>
+<tr>
+<td><a href="#How">Usage</a></td>
+</tr>
+<tr>
+<td><a href="#Changes">Change Log</a></td>
+</tr>
+<tr>
+<td><a href="#Help">Support</a></td>
+</tr>
+<tr>
+<tr>
+<td><a href="#MoreInfo">Resources</a></td>
+</tr>
+<tr>
+<td><a href="#Credit">Credit</a></td>
+</tr>
+</tbody>
+</table>
+<a name="Intro"></a>
+<h2>Introduction</h2>
+<p>This is the Readme for <span class="bold">PatchIt!</span>, a <a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a>
+application intended to provide a standard yet simple way to package and install mods for the 1999 High Voltage Software PC game <span class="italic">LEGO 
+Racers</span>.<a name="How"></a>
+
+<h2>Usage</h2>
+
+<h3>First Run</h3>
+<p>Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked for the path to your <span class="italic">LEGO 
+Racers</span> installation. Simply point it to your 
+LEGO Racers installation with your LEGO.JAM already decompressed. <span class="bold">PatchIt!</span> will ensure it is a valid installation, and if so, 
+continue to the menu. You will only need to do this once, as <span class="bold">PatchIt!</span> is smart enough to know if you ran it once already.</p>
+
+<h3>Changing your LEGO Racers Installation</h3>
+<p>If you need to change your defined <span class="italic">LEGO Racers</span> installation, you can do it in a minute. Just load <span class="bold">PatchIt!
+</span>, press the 's' key, and point it to your <span class="italic">LEGO Racers</span> installation. If it confirms a valid installation, press the 'n' 
+key, and you're off! If it can't verify, you'll need to enter it again.</p>
+
+<h3>Patch Installation</h3>
+<p>To install a <span class="bold">PatchIt!</span> compatible mod, simply load <span class="bold">PatchIt!</span>, press the 'i' key, select the PiP file, 
+and after reading the mod information, confirm the installation. <span class="bold">PatchIt!</span> will automatically install it into your <span class=
+"italic">LEGO Racers</span> game. If you need a patch to install, jump down to the <a href="#MoreInfo">Resources</a> section to download one!</p>
+
+<h3>Patch Creation</h3>
+<p>To create a <span class="bold">PatchIt!</span> compatible mod, load <span class="bold">PatchIt!</span> and press the 'c' key. Type your mod's name, version,
+author, and description. Point it to your modded files, and <span class="bold">PatchIt!</span> will compress them into a normal ZIP archive and write to the 
+details to a PiP file. Both items use your mod's name and version for the filename, and will be located in the same folder as your uncompressed modded files. 
+Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p>
+<a name="Changes"></a>
+
+<h2>Change Log</h2>
+<strong>1.0 Stable</strong><br>
+(Released ?? ??, 2013)<br>
+<ul>
+<li>Cleaned up check() and write() functions</li>
+<li>First draft of PiP patch layout</li>
+<li>Improved Python 3.3 version check</li>
+<li>Lots of script comments</li>
+<li>Set settings file to use UTF-8 encoding</li>
+<li>Added first-run check, uses <span class="bold">PatchIt!</span> settings file</li>
+<li>Moved <span class="italic">LEGO Racers</span> installation path to line 2 of the settings file</li>
+<li>Updated functions to work with first-load (preload())</li>
+<li>Renamed settings file from settings.txt to just settings, code changed accordingly</li>
+<li>Enabled cancellation of <span class="italic">LEGO Racers</span> game path change</li>
+<li>Started HTML Readme</li>
+<li>Fixed odd first-run bug</li>
+<li>Rewrote input questions to be more consistent with each other</li>
+<li>Wrote PiP reading code</li>
+<li>Added PiP file validity check</li>
+<li>Renamed most script functions</li>
+<li>Enabled cancellation of patch installation</li>
+<li>Removed settings file writing in preload()</li>
+<li>Added <span class="italic">LEGO Racers</span> gameplay tips</li>
+<li>Created <a href="http://www.innosetup.com" title="Inno Setup" target="_blank">Inno Setup</a> Windows Installer</li>
+<li>New <span class="bold">PatchIt!</span> Application Icon created by <a href="http://rioforce.wordpress.com" target="_blank" title="rioforce">rioforce</a> 
+(Thanks!)</li>
+<li>Added "files for compression" input</li> 
+<li>New exit function</li>
+<li>Wrote more documentation</li>
+<li>Split gameplay tips list into a separate file</li>
+<li>Prep work for PiP writing code</li>
+<li>More function renames</li>
+<li>Large changes to installfiles()</li>
+<li>Began writing PiP writing code</li>
+<li>More large script changes</li>
+<li>Updated PiP file format</li>
+<li>Wrote Patch Creation module</li>
+<li>Created TODO.md, updated CONTRIBUTING.md</li>
+<li>More Patch Creation code</li>
+<li>ZIP archive now uses defined filename</li>
+<li>Updated <span class="bold">PatchIt!</span> installer graphics</li>
+<li>Finalized PiP Format</li>
+<li>Wrote documentation on ZIP archive layout</li>
+<li>Moved Patch Installation code to root folder, everything now works correctly</li>
+<li>Added new messages</li>
+<li>Import only certain parts of a module</li>
+<li>Fixed setting file writing bug</li>
+<li>Added Tkinter folder selection dialog box for <span class="italic">LEGO Racers</span> installation path</li>
+<li>Added Tkinter folder selection dialog box for modded files selection</li>
+<li>Patch Installation file rename</li>
+<li>PiP file and ZIP archived are moved from app location to location of modded files</li>
+<li>Fixed gameplay tips display</li>
+<li>Added Tkinter file selection dialog box for PiP file</li>
+<li>PiP file is no longer written if user cancels Patch Creation process</li>
+<li>Amended PiP file format to address inherit 161 character description limit</li>
+<li>Added PiP file description length check</li>
+<li>Wrote and updated script comments</li>
+<li>Small preload(), internal edits</li>
+<li>Major Installer script update</li>
+<li>Corrected <span class="bold">PatchIt!</span> ICO file</li>
+<li>Wrote <span class="bold">PatchIt!</span> usage documentation</li>
+<li>Created <span class="bold">PatchIt! Compatible</span> sticker</li>
+<li>Updated HTML Change log</li>
+<li>LEGOs in space? More later!</li>
+</ul>
+
+<strong>1.0 Beta 2</strong><br>
+(Released February 2, 2013)<br>
+<ul>
+<li>Completely rewrote the code base</li>
+<li>App settings are now saved to a text file</li>
+<li><span class="italic">LEGO Racers</span> game path can now be changed from within the app</li>
+<li>Added <span class="italic">LEGO Racers</span> installation check and ZIP extraction using 7-zip</li>
+<li>Split <span class="italic">LEGO Racers</span> installation check into separate function</li>
+<li>Began writing GitHub-flavored Markdown Readme</li>
+<li>Official rename from <span class="bold">LEGO Racers Mod Installer</span> to <span class="bold">PatchIt!</span></li>
+<li>Incorporated check() function into read() and write() functions</li>
+<li>Added ZIP compression using 7-zip</li>
+<li>Removed 7-zip dependency and replaced it with the built-in ZipFile and Shutil modules for ZIP extraction and compression, respectively</li>
+<li>Small code cleanup</li>
+<li>Added Python 3.3 version check</li>
+<li>Version bump</li>
+</ul>
+
+<strong>1.0 Beta 1</strong><br>
+(Released January 26, 2013)<br>
+<ul>
+<li>First version, based on very sloppy, hacky code with 7-zip (7za.exe) dependency for ZIP extraction and creation.</li>
+</ul><a name="Help"></a>
+<h2>Support</h2>
+<p>To request a feature, submit a bug report or code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="
+https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br><br>
+<a name="MoreInfo"></a>
+
+<h2>Resources</h2>
+<p>The following sites and programs may be helpful to you and in your use of <span class="bold">PatchIt!</span>
+<ul>
+<li><a href="https://github.com/le717/PatchIt/tree/master/Documentation" target="_blank"><span class="bold">PatchIt!</span> Documention</a></li>
+<li><a href="https://github.com/le717/PatchIt/tree/master/Extras" target="_blank"><span class="bold">PatchIt!</span> Extras: <span class="italic">LEGO Racers
+</span> mod packs to get you started!</a></li>
+<li><a href="https://github.com/JrMasterModelBuilder/JAM-Extractor" target="_blank"><span class="italic">LEGO Racers</span> JAM Extractor: Extracts and 
+recompresses LEGO.JAM</a></li>
+<li><a href="http://rockraidersunited.org" target="_blank">Rock Raiders United: The only place to learn everything you need to know about <span class="italic"
+>LEGO Racers</span> modding</a></li>
+<li><a href="http://python.org" target="_blank" title="Python (Programming Language)">Python: The programming language of <span class="bold">PatchIt!
+</span></a></li>
+</ul><a name="Credit"></a>
+
+<h2>Credit</h2>
+<p class="bold"><span class="italic">PatchIt!</span> is copyright 2013  <a href="http://triangle717.wordpress.com" target="_blank" title=
+"Triangle717.WordPress.com">le717</a>, and released under the <a
+ href="http://www.gnu.org/licenses/gpl.html" target="_blank" title ="GNU General Public License Version 3">GNU General Public License Version 3.</a></p>
+ <p>Special thanks to Cirevam, alan, RobExplorien, JimbobJeffers, Creator, and all the awesome people at <a href="http://rockraidersunited.org" target=
+ "_blank" title="Rock Raiders United">Rock Raiders United</a> for sharing their <span class="italic">LEGO Racers</span> gameplay tips and supporting the 
+ development of <span class="bold">PatchIt!</span> A very special thank you goes out to JrMasterModelBuilder and TheDoctor for putting up with my constant 
+ Python questions. Without you guys, I would have never been able to write this.</p>
+ <br>
+ <a href="#ToC">Back to the Beginning</a>
+</body>
+</html>

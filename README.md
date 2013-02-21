@@ -1,42 +1,43 @@
 PatchIt!
 ========
 
-This is the readme to *PatchIt!*, a [Python 3](http://www.python.org) application written by le717 to provide a standard way of 
-installing mods for the 1999 High Voltage Software PC game *LEGO Racers*.
+This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by le717 to be the standard yet simple way to
+packaging and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
 
 The Plan
 --------
 
 Although *LEGO Racers* modding is still in it's early stages, many mods are already being developed, and there 
 needs to be a standard way to install them. Heavily influenced and based on *Patchman*, a mod installer for 
-the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, *PatchIt!* aims to be a standard yet simple way 
+the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** aims to be a standard yet simple way 
 to install *LEGO Racers* mods.
 
 How It Works
 ------------
 
-The three main goals for *PatchIt!* are as follows:
+The three main goals for **PatchIt!** are as follows:
 
-* Ask for *LEGO Racers* installation path, ensure it exists, and store it as a plain text file in the same folder the *PatchIt!* to be used for mod 
-installation, and to create a completely portable application.
-* Create *PatchIt!* patches by entering the mod's name, version, and creator, and pointing it to the modded files. *PatchIt!* will automatically compress the 
-files into a normal ZIP archive, and write the details to a plain text file ( * .PiP) using the mod's name and version as the filename.
-* Install *PatchIt!* patches by selecting the * .PiP file, confirming the installation, and automatically decompressing the ZIP archive directly into the *LEGO 
+* Ask for the *LEGO Racers* installation, ensure one exists at that location, and store it as a plain text file in the same folder as **PatchIt!** to be used 
+as the mod installation directory, and to create a completely portable (thumb-drive) application.
+* Create a **PatchIt!** patch by entering the mod name, version, author, and description, and point it to the modded files. Automatically compress the files 
+into a normal ZIP archive, and write the details to a plain text patch file (.PiP), using the name and version for the filenames.
+* Install a **PatchIt!** patch by selecting the .PiP file, confirm the installation, and automatically decompress the ZIP archive directly into the *LEGO 
 Racers* installation.
 
-Requirements
-----------
+Contributing
+------------
 
-If you would like to contribute to the development of *PatchIt!*, please be sure you meet the system requirements.
+If you would like to contribute to the development of *PatchIt!*, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
-* As already stated, *PatchIt!* is written in Python 3, 3.3.0 to be exact. You will need to have a complete installation of Python `>=` 3.3 to edit and run 
-*PatchIt!* Versions `<=` Python 2.7 is not supported, and a Python version check will prevent it from running on lower versions.
+Downloads
+---------
 
-* No external packages or dependencies are needed for the ZIP archive functions, as it is implemented using native Python modules.
-* Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](cx-freeze.sourceforge.net). [py2exe](http://www.py2exe.org)
- does not support Python 3.3, so I cannot use it.
- 
-* The * .PiP format documentation will be written at a later time, around Beta 2.5. The goal is to have Beta 3 or 4 ready for public use, although it may not 
-completely bug free. Of course, if everything is written before then, it will be released as a final 1.0 version.
+All **PatchIt!** downloads will be hosted on this project, in an [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
-*PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.
+* [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February ??, 2013
+* [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released February 2, 2013
+* [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released January 26, 2013
+
+Credit
+------
+***PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.**
