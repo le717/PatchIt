@@ -78,7 +78,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Source: "..\Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;
 ; Source: "..\Compile\tcl\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
 ; Source: "..\Compile\tk\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
-Source: "Read Me First.html"; DestDir: "{app}"
+; Source: "Read Me First.html"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Comment: "Run {#MyAppVerName}";
@@ -87,7 +87,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
-Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
+; Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
 
 [Code]
 function IsWin32: Boolean;

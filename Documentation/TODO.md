@@ -7,8 +7,7 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**. Is lis
 * HTML Readme and Change Log
 * Finish Inno Setup installer
 * Upload Royally Crafted Raceway Extra
-* Corrected 16x16 Icon
 * Add new gameplay tips
-* Complete TKinter GUI (Beta 4 release)
+* Complete TKinter GUI (V1.1 Stable release)
 * Any TODO items scattered around in the scripts
 * LEGOs in Space? More later!
