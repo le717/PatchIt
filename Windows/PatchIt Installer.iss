@@ -62,10 +62,12 @@ english.BeveledLabel={#MyAppVerName}
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
+; 64-bit Windows build
 Source: "..\Compile\Windows x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+; 32-bit Windows build
 Source: "..\Compile\Windows x86\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
-Source: "Read Me First.html"; DestDir: "{app}"
+Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -74,7 +76,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
-Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
+Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec; Description: "View Readme"
 
 [Code]                                                                                            
 function IsWin32: Boolean;
