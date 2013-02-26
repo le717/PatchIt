@@ -1,43 +1,40 @@
-PatchIt!
-========
+PatchIt! Extras
+===============
 
-This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by le717 to be the standard yet simple way to
-packaging and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
+**PatchIt!** Extras are simply optional downloads that make **PatchIt!** more enjoyable.
 
-The Plan
---------
+Why would you download a *LEGO Racers* mod installer and not have anything to install?  Answer: you wouldn't! So I've provided a few mod packs
+to get you started. ![](http://s0.wp.com/wp-includes/images/smilies/icon_smile.gif?raw=true)
 
-Although *LEGO Racers* modding is still in it's early stages, many mods are already being developed, and there 
-needs to be a standard way to install them. Heavily influenced and based on *Patchman*, a mod installer for 
-the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** aims to be a standard yet simple way 
-to install *LEGO Racers* mods.
+Texture Packs
+-------------
 
-How It Works
-------------
+### Nyan Cat-Athon
 
-The three main goals for **PatchIt!** are as follows:
+This mod, originally created by JimbobJeffers and with improvements by myself, reskins the Knightmare-Athon track to be [Nyan Cat](http://www.youtube.com/watch?v=QH2-TGUlwu4) themed. 
+Complete with custom music of the Nyan Cat's theme song, this mod will be sure to either please your inner cat, or anger your inner dog.
 
-* Ask for the *LEGO Racers* installation, ensure one exists at that location, and store it as a plain text file in the same folder as **PatchIt!** to be used 
-as the mod installation directory, and to create a completely portable (thumb-drive) application.
-* Create a **PatchIt!** patch by entering the mod name, version, author, and description, and point it to the modded files. Automatically compress the files 
-into a normal ZIP archive, and write the details to a plain text patch file (.PiP), using the name and version for the filenames.
-* Install a **PatchIt!** patch by selecting the .PiP file, confirm the installation, and automatically decompress the ZIP archive directly into the *LEGO 
-Racers* installation.
+[Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Nyan%20Cat-AthonV1.1.zip)
 
-Contributing
-------------
+### Royally Crafted Raceway
+This interesting mod, created by Segatendo, reskins Royal Knights Raceway with Minecraft textures, 
+reflecting the calm/creative side of Minecraft, creating possibly the calmest mod available for this track!
+Royally Crafted Raceway is so calm that it might even calm you down enough to win the race. :P
 
-If you would like to contribute to the development of *PatchIt!*, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
-Downloads
----------
+[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Royally%20Crafted%20RacewayV1.0.zip)
 
-All **PatchIt!** downloads will be hosted on this project, in an [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
-* [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February 21, 2013
-* [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released February 2, 2013
-* [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released January 26, 2013
+Credits
+-------
 
-Credit
-------
-***PatchIt!* is copyright 2013 le717, and released under the GNU General Public License Version 3.**
+***Nyan Cat-Athon* mod created by JimbobJeffers, rehosted with permission. *Royally Crafted Raceway* mod created by Segatendo, rehosted with permission.**
+
+***The Nyan Cat* was created by [PRguitarman](http://www.prguitarman.com/index.php?id=348), and [saraj00n](http://www.youtube.com/user/saraj00n).**
+
+**[Minecraft](http://minecraft.net/) is created by Mojang, and is in no way, shape, or form, affiliated with or involved in the development of PatchIt!**
+
+**Majong © 2009-2013. "Minecraft" is a trademark of Notch Development AB**.
+
+
+
