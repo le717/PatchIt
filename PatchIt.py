@@ -100,7 +100,7 @@ def main():
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
-            print("\nGoodbye!")
+            print("\nThank you for using {0}".format(app))
             sleep(1)
             raise SystemExit
         # Undefined input
