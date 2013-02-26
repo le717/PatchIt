@@ -1,4 +1,4 @@
-# PatchIt! V1.0 Stable, copyright 2013 le717 (http://triangle717.wordpress.com).
+# PatchIt! V1.0.1 Stable, copyright 2013 le717 (http://triangle717.wordpress.com).
 # LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 

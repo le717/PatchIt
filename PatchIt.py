@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0 Stable, copyright 2013 le717 (http://triangle717.wordpress.com).
+# PatchIt! V1.0.1 Stable, copyright 2013 le717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
@@ -37,7 +37,7 @@ This is like the ISPP in Inno Setup. Changing these variables changes anything e
 Thankfully, variables are a key part of Python, and doesn't require installing an optional module. :)'''
 
 app = "PatchIt!"
-majver = "Version 1.0"
+majver = "Version 1.0.1"
 minver = "Stable"
 creator = "le717"
 game = "LEGO Racers"

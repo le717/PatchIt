@@ -1,4 +1,4 @@
-#PatchIt! V1.0 Stable Patch Creation code
+#PatchIt! V1.0.1 Stable Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
 from PatchIt import (app, main)

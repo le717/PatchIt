@@ -10,8 +10,8 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "Version 1.1 Stable"
-#define MyAppVerName "PatchIt! Version 1.1 Stable"
+#define MyAppVersion "Version 1.0.1 Stable"
+#define MyAppVerName "PatchIt! Version 1.0.1 Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
 #define MyAppExeName "PatchIt.exe"

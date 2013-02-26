@@ -1,4 +1,4 @@
-#PatchIt! V1.0 Stable Patch Installation code
+#PatchIt! V1.0.1 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
