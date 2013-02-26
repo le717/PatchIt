@@ -20,15 +20,14 @@
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
-from webbrowser import open_new_tab # Used in preload()
+from webbrowser import open_new_tab # Module used in preload()
 from sys import version_info
 from os.path import exists
 from time import sleep
 # Patch Creation and Installation modules
+import PatchCreate
+import PatchCreate.compress
 import extract
-import compress
-import Colors
-import Colors.colors as color
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -91,7 +90,7 @@ def main():
         if menuopt.lower() == "c":
             sleep(0.5)
             # Call the Patch Creation module
-            compress.writepatch()
+            PatchCreate.compress.writepatch()
         elif menuopt.lower() == "i":
             sleep(0.5)
             # Call the Patch Installation module
