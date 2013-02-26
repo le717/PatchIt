@@ -1,7 +1,7 @@
 #PatchIt! V1.0.1 Stable Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
-from PatchIt import (app, main)
+import PatchIt
 from time import sleep
 from shutil import (make_archive, move)
 from os import (system, replace)
@@ -27,7 +27,7 @@ def patchdesc():
 
 def writepatch():
     '''Writes and compresses PatchIt! Patch'''
-    print("\nCreate a {0} Patch".format(app), end="\n")
+    print("\nCreate a {0} Patch".format(PatchIt.app), end="\n")
     # Tells the user how to cancel the process
     print('Type "exit" in the "Name:" field to cancel.', end="\n")
     createname = input("\nName: ")
@@ -36,7 +36,7 @@ def writepatch():
     if createname.lower() == "exit":
         print("\nCanceling creation...")
         sleep(0.5)
-        main()
+        PatchIt.main()
 
     # I want to continue on
     else:
@@ -55,7 +55,7 @@ def writepatch():
         if len(inputfiles) == 0:
             print("\nCannot find any files to compress!")
             sleep(1)
-            main()
+            PatchIt.main()
 
         # The user selected a folder to compress
         else:
@@ -92,19 +92,19 @@ def writepatch():
             Hopefully, I can fix this in V1.1 Stable.'''
 
             if system(inputfiles) == 1:
-                print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(app, createname, createver, inputfiles))
+                print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
                 # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                 sleep(2)
-                main()
+                PatchIt.main()
 
             elif system(inputfiles) == 0:
-                print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(app, createname, createver))
+                print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
                 sleep(2)
-                main()
+                PatchIt.main()
 
             else:
                 print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
                 sleep(2)
-                main()
+                PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #
