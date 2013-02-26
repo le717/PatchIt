@@ -14,7 +14,7 @@ Texture Packs
 This mod, originally created by JimbobJeffers and with improvements by myself, reskins the Knightmare-Athon track to be [Nyan Cat](http://www.youtube.com/watch?v=QH2-TGUlwu4) themed. 
 Complete with custom music of the Nyan Cat's theme song, this mod will be sure to either please your inner cat, or anger your inner dog.
 
-[Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Nyan%20Cat-AthonV1.1.zip)
+[Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Nyan%20Cat-AthonV1.1.zip)
 
 ### Royally Crafted Raceway
 This interesting mod, created by Segatendo, reskins Royal Knights Raceway with Minecraft textures, 
@@ -22,7 +22,7 @@ reflecting the calm/creative side of Minecraft, creating possibly the calmest mo
 Royally Crafted Raceway is so calm that it might even calm you down enough to win the race. :P
 
 
-[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/master/Extras/Royally%20Crafted%20RacewayV1.0.zip)
+[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Royally%20Crafted%20RacewayV1.0.zip)
 
 
 Credits
