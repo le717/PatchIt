@@ -27,6 +27,8 @@ from time import sleep
 # Patch Creation and Installation modules
 import extract
 import compress
+import Colors
+import Colors.colors as color
 # GUI! :D
 import tkinter
 from tkinter import filedialog
