@@ -16,18 +16,19 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0 Stable, copyright 2013 le717 (http://triangle717.wordpress.com).
+# PatchIt! V1.0.1 Stable, copyright 2013 le717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
-from webbrowser import open_new_tab # Module used in preload()
+from webbrowser import open_new_tab # Used in preload()
 from sys import version_info
 from os.path import exists
 from time import sleep
 # Patch Creation and Installation modules
-import PatchCreate
-import PatchCreate.compress
 import extract
+import compress
+import Colors
+import Colors.colors as color
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -37,7 +38,7 @@ This is like the ISPP in Inno Setup. Changing these variables changes anything e
 Thankfully, variables are a key part of Python, and doesn't require installing an optional module. :)'''
 
 app = "PatchIt!"
-majver = "Version 1.0"
+majver = "Version 1.0.1"
 minver = "Stable"
 creator = "le717"
 game = "LEGO Racers"
@@ -90,7 +91,7 @@ def main():
         if menuopt.lower() == "c":
             sleep(0.5)
             # Call the Patch Creation module
-            PatchCreate.compress.writepatch()
+            compress.writepatch()
         elif menuopt.lower() == "i":
             sleep(0.5)
             # Call the Patch Installation module
@@ -101,7 +102,7 @@ def main():
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
-            print("\nGoodbye!")
+            print("\nThank you for using {0}".format(app))
             sleep(1)
             raise SystemExit
         # Undefined input

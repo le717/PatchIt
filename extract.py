@@ -1,4 +1,4 @@
-#PatchIt! V1.0 Stable Patch Installation code
+#PatchIt! V1.0.1 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
@@ -72,43 +72,66 @@ def readpatch():
             # Yes, I do want to install it!
             else:
                 linecache.clearcache() # Again, clear cache
-                # Read the settins file for installation (LEGO Racers) directory
+                # Read the settings file for installation (LEGO Racers) directory
                 installpath = linecache.getline('settings', 2)
+
                 # Create a valid folder path
                 installpath = installpath.rstrip("\n")
                 installzipfile = linecache.getline(installpatch, 9)
+
                 # Create a vaild ZIP archive
                 installzipfile = installzipfile.rstrip("\n")
+
                 # Find the ZIP archive
                 ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+
                 # Display the Racers game tips
                 print('\n"' + choice(gametips.gametips) + '"\n')
-                # Actually extract the ZIP archive
-                extractzip = zipfile.ZipFile(ziplocation + installzipfile, "r")
-                extractzip.extractall(path=installpath)
-                # Close the ZIP archive when we are through
-                zipfile.ZipFile.close(extractzip)
+                try:
+                    # Actually extract the ZIP archive
+                    extractzip = zipfile.ZipFile(ziplocation + installzipfile, "r")
+                    extractzip.extractall(path=installpath)
 
-            '''Windows continually throws up the '*installpath* is not recognized as an internal or external command,
-            operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
-            looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
-            1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-            Hopefully, I can fix this in V1.1 Stable.'''
+                    # Close the ZIP archive when we are through
+                    zipfile.ZipFile.close(extractzip)
 
-            if system(installpath) == 1:
-                print("\n{0} {1} sucessfully installed!".format(installname, installver))
-                # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
-                sleep(2)
-                PatchIt.main()
+                    # For some reason, it cannot find the ZIP archive
+                except FileNotFoundError:
+                    # Strip the ID text for a smoother error message
+                    installver = installver.lstrip("Version: ")
+                    installauthor = installauthor.lstrip("Author: ")
+                    print('''Cannot find files for {0} {1}!
+Make sure {2}{3}.zip and {4}{5}.PiP
+are in the same folder, and try again.
 
-            elif system(installpath) == 0:
-                print("\nAn unknown error occured while installing {0} {1}.".format(installname, installver))
-                sleep(2)
-                PatchIt.main()
+If the error continues, contact {6}and ask for a fixed version.'''
+                    .format(installname, installver, installname, installver, installname, installver, installauthor))
+                    # There has to be an easier way to format the message without repeating installname/ver 3 times each...
+                    # Sleep a bit longer so the error message can be read.
+                    sleep(4.5)
+                    PatchIt.main()
 
-            else:
-                print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
-                sleep(2)
-                PatchIt.main()
+                '''Windows continually throws up the '*installpath* is not recognized as an internal or external command,
+                operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
+                looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
+                1 == clean exit, 0, == exit with some error, and anything else is pure fail.
+                I believe the error is due the fact I have it attached to the wrong code. The question now is,
+                what do I attach it to so I can have proper exit codes?'''
+
+                if system(installpath) == 1:
+                    print("\n{0} {1} sucessfully installed!".format(installname, installver))
+                    # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
+                    sleep(2)
+                    PatchIt.main()
+
+                elif system(installpath) == 0:
+                    print("\nAn unknown error occured while installing {0} {1}.".format(installname, installver))
+                    sleep(2)
+                    PatchIt.main()
+
+                else:
+                    print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
+                    sleep(2)
+                    PatchIt.main()
 
 # ------------ End PatchIt! Patch Installation ------------ #

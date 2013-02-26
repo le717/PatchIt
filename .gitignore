@@ -183,10 +183,11 @@ pip-log.txt
 ## Misc.
 ########
 
-*.psd
+Windows/Here Lie the Installer/
+#*.psd
 #*.html
 PatchItOld.py
-*.txt
+#*.txt
 *.ini
 #*.py
 settings

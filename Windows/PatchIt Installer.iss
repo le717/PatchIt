@@ -10,9 +10,9 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "Version 1.0 Stable"
-#define MyAppVerName "PatchIt! Version 1.0 Stable"
-#define MyAppPublisher "le717"
+#define MyAppVersion "Version 1.0.1 Stable"
+#define MyAppVerName "PatchIt! Version 1.0.1 Stable"
+#define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
 #define MyAppExeName "PatchIt.exe"
 
@@ -35,52 +35,47 @@ WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
 ; Uninstallation stuff
-; Debug line
-; Uninstallable=no
 UninstallDisplayIcon={#MyAppExeName}
 CreateUninstallRegKey=yes
 UninstallDisplayName={#MyAppName}
 ; Compression
-Compression=lzma
+Compression=lzma/ultra
 SolidCompression=True
 InternalCompressLevel=ultra
 ; From top to bottom: Allows installation to C:\ (and the like),
 ; Explicitly set Admin rights, no other languages, do not restart upon finishing.
 AllowRootDirectory=yes
 PrivilegesRequired=admin
-ShowLanguageDialog=no
 RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 
 [Languages]
 ; TODO: Add more languages
-Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: english; MessagesFile: compiler:Default.isl
+Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-3.0.fr.txt"
+Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 english.BeveledLabel={#MyAppVerName}
 
+[CustomMessages]
+english.Settings_Reset=Reset {#MyAppName} Preferences
+francais.Settings_Reset=Réintialiser les paramètres {#MyAppName}
+nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
+
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
 
 [Files]
-; Source: "..\Compile\PatchIt64.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin64
-; Source: "..\Compile\PatchIt32.exe"; DestDir: "{app}"; DestName: "PatchIt.exe"; Flags: ignoreversion; Check: IsWin32
-; Source: "..\Compile\_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_ctypes.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_hashlib.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_lzma.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_socket.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\_tkinter.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\select.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\tcl85.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\tk85.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\python33.dll"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\Compile\tcl\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
-; Source: "..\Compile\tk\*"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
+; 64-bit Windows build
+Source: "..\Compile\Windows x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+; 32-bit Windows build
+Source: "..\Compile\Windows x86\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
+Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Tasks: Settings_Reset
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
-; Source: "Read Me First.html"; DestDir: "{app}"
+Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -88,10 +83,10 @@ Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
-Filename: "{app}\Read Me First.html"; Flags: nowait postinstall skipifsilent shellexec unchecked; Description: "View Readme"
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
+Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipifsilent; Description: "View Readme"
 
-[Code]
+[Code]                                                                                            
 function IsWin32: Boolean;
 begin
  Result := not IsWin64;
