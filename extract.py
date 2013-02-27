@@ -8,6 +8,9 @@ import zipfile
 from os import system
 from random import choice
 from time import sleep
+# Colored text (until GUI is written)
+import color
+import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -34,7 +37,7 @@ def readpatch():
 
     # The user clicked the cancel button
     if len(installpatch) == 0:
-        print("\nCould not find a {0} patch to read!".format(PatchIt.app))
+        colors.pc("\nCould not find a {0} patch to read!".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(1)
         PatchIt.main()
 
@@ -44,7 +47,9 @@ def readpatch():
         confirmpatch = linecache.getline(installpatch, 1)
         # It's not a patch! D:
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
-            print(confirmpatch, installpatch + " is not a valid {0} patch.".format(PatchIt.app))
+            colors.pc("{0}\n{1}is not a valid {2} patch!".format(confirmpatch, installpatch, PatchIt.app), color.FG_LIGHT_RED)
+            sleep(1)
+            PatchIt.main()
 
         # It is a patch! :D
         else:
@@ -100,12 +105,12 @@ def readpatch():
                     # Strip the ID text for a smoother error message
                     installver = installver.lstrip("Version: ")
                     installauthor = installauthor.lstrip("Author: ")
-                    print('''Cannot find files for {0} {1}!
+                    colors.pc('''Cannot find files for {0} {1}!
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
 
 If the error continues, contact {6}and ask for a fixed version.'''
-                    .format(installname, installver, installname, installver, installname, installver, installauthor))
+                    .format(installname, installver, installname, installver, installname, installver, installauthor), color.FG_LIGHT_RED)
                     # There has to be an easier way to format the message without repeating installname/ver 3 times each...
                     # Sleep a bit longer so the error message can be read.
                     sleep(4.5)

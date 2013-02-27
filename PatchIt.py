@@ -27,8 +27,9 @@ from time import sleep
 # Patch Creation and Installation modules
 import extract
 import compress
-import Colors
-import Colors.colors as color
+# Colored text (until GUI is written)
+import color
+import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -127,7 +128,8 @@ def readsettings():
         if gamecheck() == False:
             sleep(0.5)
             # Use path defined in gamecheck() for messages
-            print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
+            colors.pc("\nCannot find {0} installation at {1}!".format(game, definedgamepath), color.FG_LIGHT_RED)
+            #print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
             # Go write the settings file
             writesettings()
 

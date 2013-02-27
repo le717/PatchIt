@@ -5,6 +5,9 @@ import PatchIt
 from time import sleep
 from shutil import (make_archive, move)
 from os import (system, replace)
+# Colored text (until GUI is written)
+import color
+import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
