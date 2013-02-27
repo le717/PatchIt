@@ -161,7 +161,7 @@ def writesettings():
         root = tkinter.Tk()
         root.withdraw()
         # Select the LEGO Racers installation
-        newgamepath = filedialog.askdirectory(title="Select your {0} installation".format(game))
+        newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
         # The user clicked the cancel button
         if len(newgamepath) == 0:
             #print("Canceling...") # Again, for lack of a better messages
@@ -171,17 +171,22 @@ def writesettings():
         # The user selected a folder
         else:
             # Write file, using UTF-8 encoding
-            with open('settings', 'wt', encoding='utf-8') as settings:
-                # Ensures first-run process will be skipped next time
-                print("1", file=settings)
-                print(newgamepath, file=settings, end="")
-                # So the first-run check won't be overridden
-                '''Removing "settings.close()" breaks the entire first-run code.
-                Once it writes the path, PatchIt! closes, without doing as much
-                as running the path through gamecheck() nor going back to main()
-                Possible TODO: Find out why this is happening and remove it if possible.'''
-                settings.close()
-                readsettings()
+            try:
+                with open('settings', 'wt', encoding='utf-8') as settings:
+                    # Ensures first-run process will be skipped next time
+                    print("1", file=settings)
+                    print(newgamepath, file=settings, end="")
+                    # So the first-run check won't be overridden
+                    '''Removing "settings.close()" breaks the entire first-run code.
+                    Once it writes the path, PatchIt! closes, without doing as much
+                    as running the path through gamecheck() nor going back to main()
+                    Possible TODO: Find out why this is happening and remove it if possible.'''
+                    settings.close()
+                    readsettings()
+            except PermissionError:
+                print("\nUnable to change {0} installation to {1}!".format(game, newgamepath))
+                sleep(2)
+                main()
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''

@@ -49,6 +49,7 @@ def readpatch():
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
             colors.pc("{0}".format(confirmpatch), color.FG_CYAN)
             colors.pc("{0} is not a valid PatchIt patch!".format(installpatch), color.FG_LIGHT_RED)
+            linecache.clearcache()
             sleep(1)
             PatchIt.main()
 
@@ -115,6 +116,11 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     # There has to be an easier way to format the message without repeating installname/ver 3 times each...
                     # Sleep a bit longer so the error message can be read.
                     sleep(4.5)
+                    PatchIt.main()
+                    # The user does not have the rights to install to the location.
+                except PermissionError:
+                    colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
+                    sleep(2)
                     PatchIt.main()
 
                 '''Windows continually throws up the '*installpath* is not recognized as an internal or external command,
