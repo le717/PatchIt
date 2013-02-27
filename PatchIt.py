@@ -49,7 +49,7 @@ game = "LEGO Racers"
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
     if version_info < (3,3,0): # You need to have at least Python 3.3.0 to run PatchIt!
-        print("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver))
+        colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
         # Don't open browser immediately
         sleep(2)
         open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
@@ -71,7 +71,7 @@ def preload():
             firstrun = firstrun.strip()
 
             # '0' defines a first-run
-            if firstrun == "0":
+            if firstrun == "0" or firstrun == "":
                 writesettings()
             # Any other number (Default, 1) means it has been run before
             else:
@@ -81,12 +81,13 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout'''
-    print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
-    print('''Please make a selection:\n
+    #print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
+    colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    colors.pc('''Please make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
-[q] Quit''')
+[q] Quit''', color.FG_WHITE)
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
@@ -103,7 +104,7 @@ def main():
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
-            print("\nThank you for using {0}".format(app))
+            colors.pc("\nThank you for using {0}".format(app), color.FG_LIGHT_YELLOW)
             sleep(1)
             raise SystemExit
         # Undefined input
@@ -129,7 +130,6 @@ def readsettings():
             sleep(0.5)
             # Use path defined in gamecheck() for messages
             colors.pc("\nCannot find {0} installation at {1}!".format(game, definedgamepath), color.FG_LIGHT_RED)
-            #print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
             # Go write the settings file
             writesettings()
 
@@ -137,8 +137,9 @@ def readsettings():
         # TODO: Find a better way to do this
         elif gamecheck() ==  True:
             sleep(0.5)
-            print("\n{0} installation found at {1}!".format(game, definedgamepath))
-            changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
+            colors.pc("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)", color.FG_LIGHT_BLUE)
+            #changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
+            changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
@@ -146,7 +147,6 @@ def readsettings():
                 writesettings()
                 # No, I do not want to change the defined installation
             else:
-                #print("\nCanceling...") # I can't think of a better line...
                 # Always sleep for 1 second before kicking back to the menu.
                 sleep(1)
                 main()
@@ -172,13 +172,10 @@ def writesettings():
         else:
             # Write file, using UTF-8 encoding
             with open('settings', 'wt', encoding='utf-8') as settings:
-                settings.seek(0)
                 # Ensures first-run process will be skipped next time
-                settings.write("1")
+                print("1", file=settings)
+                print(newgamepath, file=settings, end="")
                 # So the first-run check won't be overridden
-                settings.seek(1)
-                settings.write("\n" + newgamepath)
-
                 '''Removing "settings.close()" breaks the entire first-run code.
                 Once it writes the path, PatchIt! closes, without doing as much
                 as running the path through gamecheck() nor going back to main()

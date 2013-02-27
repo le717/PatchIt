@@ -21,7 +21,7 @@ from tkinter import filedialog
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
 
-    print("\nInstall a {0} Patch".format(PatchIt.app), end="\n")
+    print("\nInstall a {0} Patch\n".format(PatchIt.app))
     # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
     # Hide the root Tk window
@@ -47,7 +47,8 @@ def readpatch():
         confirmpatch = linecache.getline(installpatch, 1)
         # It's not a patch! D:
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
-            colors.pc("{0}\n{1}is not a valid {2} patch!".format(confirmpatch, installpatch, PatchIt.app), color.FG_LIGHT_RED)
+            colors.pc("{0}".format(confirmpatch), color.FG_CYAN)
+            colors.pc("{0} is not a valid PatchIt patch!".format(installpatch), color.FG_LIGHT_RED)
             sleep(1)
             PatchIt.main()
 

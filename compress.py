@@ -21,7 +21,7 @@ def patchdesc():
     createdesc = input("Description: ")
     # 162 characters will mess up PatchIt! entirely
     if len(createdesc) > 161:
-            print("\nYour description is too long! Please write it a bit shorter.\n")
+            colors.pc("\nYour description is too long! Please write it a bit shorter.\n", color.FG_LIGHT_RED)
             # Loop back through the input if it is longer
             patchdesc()
     else:
@@ -56,7 +56,7 @@ def writepatch():
         inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
         # The user clicked the cancel button
         if len(inputfiles) == 0:
-            print("\nCannot find any files to compress!")
+            colors.pc("\nCannot find any files to compress!", color.FG_LIGHT_RED)
             sleep(1)
             PatchIt.main()
 
@@ -92,7 +92,8 @@ def writepatch():
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
             looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
             1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-            Hopefully, I can fix this in V1.1 Stable.'''
+            I believe the error is due the fact I have it attached to the wrong code. The question now is,
+            what do I attach it to so I can have proper exit codes?'''
 
             if system(inputfiles) == 1:
                 print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
