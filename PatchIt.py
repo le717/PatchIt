@@ -27,7 +27,7 @@ from time import sleep
 # Patch Creation and Installation modules
 import extract
 import compress
-# Colored text (until GUI is written)
+# Colored text (until complete GUI is written)
 import color
 import color.colors as colors
 # GUI! :D
@@ -83,11 +83,11 @@ def main():
     '''PatchIt! Menu Layout'''
     #print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
     colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
-    colors.pc('''Please make a selection:\n
+    print('''\nPlease make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
-[q] Quit''', color.FG_WHITE)
+[q] Quit''')
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
@@ -119,6 +119,7 @@ def main():
 
 def readsettings():
     '''Read PatchIt! settings'''
+
     # The settings file does not exist
     if not exists('settings'):
         writesettings()
@@ -137,8 +138,7 @@ def readsettings():
         # TODO: Find a better way to do this
         elif gamecheck() ==  True:
             sleep(0.5)
-            colors.pc("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)", color.FG_LIGHT_BLUE)
-            #changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
+            print("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -146,6 +146,7 @@ def readsettings():
                 sleep(0.5)
                 writesettings()
                 # No, I do not want to change the defined installation
+
             else:
                 # Always sleep for 1 second before kicking back to the menu.
                 sleep(1)
@@ -184,7 +185,7 @@ def writesettings():
                     settings.close()
                     readsettings()
             except PermissionError:
-                print("\nUnable to change {0} installation to {1}!".format(game, newgamepath))
+                colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
                 sleep(2)
                 main()
 

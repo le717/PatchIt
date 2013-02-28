@@ -5,8 +5,9 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**. Is lis
 
 * Ignore OSError and retain proper exit codes - **Currently impossible for me**
 * Do not compress *.db or Desktop.ini into ZIP
-* Added "Permission Denied" checks to patch compression and installation
+* Add "Permission Denied" checks to patch installation
 * Finish Shell Colors
+* Cross-platform Compatbility (not until GUI, shell colors are Windows only)
 * Why do some Shell Colors keep breaking?
 * App logging code
 * Sometimes Patch cannot be saved in a Dropbox folder

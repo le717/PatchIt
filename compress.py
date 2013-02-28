@@ -1,11 +1,11 @@
-#PatchIt! V1.0.1 Stable Patch Creation code
+# PatchIt! V1.0.1 Stable Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
 import PatchIt
 from time import sleep
 from shutil import (make_archive, move)
 from os import (system, replace)
-# Colored text (until GUI is written)
+# Colored text (until complete GUI is written)
 import color
 import color.colors as colors
 # GUI! :D
@@ -16,6 +16,7 @@ from tkinter import filedialog
 
 def patchdesc():
     '''Mod Description input and length check'''
+
     # Because I can't see how to do it any other way
     global createdesc
     createdesc = input("Description: ")
@@ -30,14 +31,16 @@ def patchdesc():
 
 def writepatch():
     '''Writes and compresses PatchIt! Patch'''
-    print("\nCreate a {0} Patch".format(PatchIt.app), end="\n")
+
+    colors.pc("\nCreate a {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_YELLOW)
     # Tells the user how to cancel the process
     print('Type "exit" in the "Name:" field to cancel.', end="\n")
     createname = input("\nName: ")
 
     # I want to quit the process
     if createname.lower() == "exit":
-        print("\nCanceling creation...")
+        #print("\nCanceling creation...")
+        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(0.5)
         PatchIt.main()
 
@@ -54,9 +57,10 @@ def writepatch():
         # The files to be compressed
         # TODO: Make dialog active window automatically and do the same to main window when closed.
         inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
+
         # The user clicked the cancel button
         if len(inputfiles) == 0:
-            colors.pc("\nCannot find any files to compress!", color.FG_LIGHT_RED)
+            colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
             sleep(1)
             PatchIt.main()
 
@@ -75,12 +79,18 @@ def writepatch():
                     print("[ZIP]", file=createpatch)
                     print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
 
+            # The user does not have the rights to write a PiP in that location
+            except PermissionError:
+                print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
+                sleep(2)
+                PatchIt.main()
+
                 # Compress the files
                 zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
-                # Rename the ZIP archive to createname + creationver, as defined in Documentation/PiP Format.md
+                # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
                 newzipfile = replace(zipfile, createname + createver + ".zip")
 
-                # Define the Patch and ZIP filenames
+                # Declare the Patch and ZIP filenames
                 patchfile = "{0}{1}.PiP".format(createname, createver)
                 newzipfile = "{0}{1}.zip".format(createname, createver)
 
@@ -88,12 +98,6 @@ def writepatch():
                 movepatch = move(patchfile, inputfiles)
                 movezip = move(newzipfile, inputfiles)
                 sleep(0.5)
-
-            # The user does not have the rights to compress a patch in that location
-            except PermissionError:
-                colors.pc("{0} does not have the rights to save {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
-                sleep(2)
-                PatchIt.main()
 
             '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
@@ -114,7 +118,8 @@ def writepatch():
                 PatchIt.main()
 
             else:
-                print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
+                colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
                 sleep(2)
                 PatchIt.main()
 

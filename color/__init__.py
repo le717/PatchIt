@@ -1,4 +1,3 @@
-
 FG_BLACK         = 0x00
 FG_BLUE          = 0x01
 FG_GREEN         = 0x02

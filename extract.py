@@ -1,4 +1,4 @@
-#PatchIt! V1.0.1 Stable Patch Installation code
+# PatchIt! V1.0.1 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
@@ -8,7 +8,7 @@ import zipfile
 from os import system
 from random import choice
 from time import sleep
-# Colored text (until GUI is written)
+# Colored text (until complete GUI is written)
 import color
 import color.colors as colors
 # GUI! :D
@@ -22,6 +22,7 @@ def readpatch():
     '''Reads and Installs PatchIt! Patch'''
 
     print("\nInstall a {0} Patch\n".format(PatchIt.app))
+
     # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
     # Hide the root Tk window
@@ -37,7 +38,7 @@ def readpatch():
 
     # The user clicked the cancel button
     if len(installpatch) == 0:
-        colors.pc("\nCould not find a {0} patch to read!".format(PatchIt.app), color.FG_LIGHT_RED)
+        colors.pc("\nCould not find a {0} patch to read!\n".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(1)
         PatchIt.main()
 
@@ -47,8 +48,8 @@ def readpatch():
         confirmpatch = linecache.getline(installpatch, 1)
         # It's not a patch! D:
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
-            colors.pc("{0}".format(confirmpatch), color.FG_CYAN)
-            colors.pc("{0} is not a valid PatchIt patch!".format(installpatch), color.FG_LIGHT_RED)
+            #print(confirmpatch)
+            colors.pc("{0} is not a valid PatchIt patch!\n".format(installpatch), color.FG_LIGHT_RED)
             linecache.clearcache()
             sleep(1)
             PatchIt.main()
@@ -70,6 +71,7 @@ def readpatch():
             installver = installver.strip("\n")
             print("\nDo you wish to install {0} {1}? {2}".format(installname, installver, r"(y\N)"))
             confirminstall = input("\n> ")
+
             # No, I do not want to install the patch
             if confirminstall.lower() != "y":
                 print("\nCanceling installation of {0} {1}...".format(installname, installver))
@@ -142,7 +144,8 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     PatchIt.main()
 
                 else:
-                    print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
+                    colors.pc("\nInstallation of {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                    #print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
                     sleep(2)
                     PatchIt.main()
 
