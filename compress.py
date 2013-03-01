@@ -16,6 +16,8 @@ from tkinter import filedialog
 
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
+def thumbsFind(inputfiles):
+    pass
 
 ##for dir, subdirs, files in os.walk(root):
 ##    for f in files:
@@ -88,8 +90,11 @@ def writepatch():
 
         # The user selected a folder to compress
         else:
+            #thumbsFind(inputfiles)
             try:
                 # PiP file format, as defined in Documentation/PiP Format.md
+
+                # BUG! Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
                     print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
                     print("[General]", file=createpatch)
