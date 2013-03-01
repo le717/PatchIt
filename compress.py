@@ -4,7 +4,7 @@
 import PatchIt
 from time import sleep
 from shutil import (make_archive, move)
-from os import (system, replace)
+from os import (system, replace, walk)
 import os.path
 # Colored text (until complete GUI is written)
 import color
@@ -12,6 +12,26 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
+
+
+# ------------ Begin WIP Thumbs.db Checking Code ------------ #
+
+
+##for dir, subdirs, files in os.walk(root):
+##    for f in files:
+##        if f[-4:].lower() == '.vbp':
+##            print os.path.join(dir, f)
+
+
+##            for dir, subdirs, files in os.walk(inputfiles, followlinks=False):
+##                for f in files:
+##                    if f[-3:].lower() == ".db":
+##                        print("\nBad Files Found!\n")
+##                        sleep(1)
+##                        PatchIt.main()
+
+# ------------ End WIP Thumbs.db Checking Code ------------ #
+
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
@@ -30,20 +50,6 @@ def patchdesc():
         # It fits into the limit, send it back to writepatch()
         return createdesc
 
-def filecheck(inputfiles):
-    '''Checks for files that would choke patch installation'''
-
-    #badfiles = ["thumbs.db", "Desktop.ini"]
-
-    if not os.path.isfile("{0}/thumbs.db".format(inputfiles)):
-        print("\nBad files not found, proceeding...\n") # Temp, could be adapted for release
-        return "clean"
-
-    elif os.path.isfile("{0}/thumbs.db".format(inputfiles)):
-        print("\nBad files found!\n")
-        # Delete(?) files here
-        return "muddy"
-
 def writepatch():
     '''Writes and compresses PatchIt! Patch'''
 
@@ -57,8 +63,7 @@ def writepatch():
         #print("\nCanceling creation...")
         colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(0.5)
-        raise SystemExit
-#        PatchIt.main()
+        PatchIt.main()
 
     # I want to continue on
     else:
@@ -83,14 +88,6 @@ def writepatch():
 
         # The user selected a folder to compress
         else:
-            filecheck(inputfiles)
-            if filecheck == "muddy":
-                print("\nBad files found!\n")
-                sleep(2)
-                PatchIt.main()
-
-            elif filecheck == "clean":
-                print("\nBad files not found, proceeding...\n")
             try:
                 # PiP file format, as defined in Documentation/PiP Format.md
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
