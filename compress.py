@@ -33,11 +33,13 @@ def patchdesc():
 def filecheck(inputfiles):
     '''Checks for files that would choke patch installation'''
 
-    badfiles = ["thumbs.db", "Desktop.ini"]
-    if not os.path.isfile("thumbs.db"):
+    #badfiles = ["thumbs.db", "Desktop.ini"]
+
+    if not os.path.isfile("{0}/thumbs.db".format(inputfiles)):
         print("\nBad files not found, proceeding...\n") # Temp, could be adapted for release
         return "clean"
-    elif os.path.isfile("thumbs.db"):
+
+    elif os.path.isfile("{0}/thumbs.db".format(inputfiles)):
         print("\nBad files found!\n")
         # Delete(?) files here
         return "muddy"
@@ -55,7 +57,8 @@ def writepatch():
         #print("\nCanceling creation...")
         colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(0.5)
-        PatchIt.main()
+        raise SystemExit
+#        PatchIt.main()
 
     # I want to continue on
     else:
@@ -67,6 +70,7 @@ def writepatch():
         # Hide the root Tk window
         root = tkinter.Tk()
         root.withdraw()
+
         # The files to be compressed
         # TODO: Make dialog active window automatically and do the same to main window when closed.
         inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
@@ -79,13 +83,14 @@ def writepatch():
 
         # The user selected a folder to compress
         else:
-##            filecheck(inputfiles)
-##            if filecheck == "muddy":
-##                print("\nBad files found!\n")
-##                PatchIt.main()
-##
-##            elif filecheck == "clean":
-##                print("\nBad files not found, proceeding...\n")
+            filecheck(inputfiles)
+            if filecheck == "muddy":
+                print("\nBad files found!\n")
+                sleep(2)
+                PatchIt.main()
+
+            elif filecheck == "clean":
+                print("\nBad files not found, proceeding...\n")
             try:
                 # PiP file format, as defined in Documentation/PiP Format.md
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
