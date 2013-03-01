@@ -65,10 +65,13 @@ def preload():
         # The settings file does exist
         else:
             # Settings file does not need to be opened to use linecache
-            linecache.clearcache() # Always clear cache before reading
+
             firstrun = linecache.getline('settings', 1)
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
+
+             # Always clear cache after reading
+            linecache.clearcache()
 
             # '0' defines a first-run
             if firstrun == "0" or firstrun == "":
@@ -161,8 +164,10 @@ def writesettings():
         # Hide the root Tk window
         root = tkinter.Tk()
         root.withdraw()
+
         # Select the LEGO Racers installation
         newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
+
         # The user clicked the cancel button
         if len(newgamepath) == 0:
             #print("Canceling...") # Again, for lack of a better messages
@@ -176,14 +181,18 @@ def writesettings():
                 with open('settings', 'wt', encoding='utf-8') as settings:
                     # Ensures first-run process will be skipped next time
                     print("1", file=settings)
+                    # end="" So there won't be a \n written
                     print(newgamepath, file=settings, end="")
-                    # So the first-run check won't be overridden
+
                     '''Removing "settings.close()" breaks the entire first-run code.
                     Once it writes the path, PatchIt! closes, without doing as much
                     as running the path through gamecheck() nor going back to main()
                     Possible TODO: Find out why this is happening and remove it if possible.'''
+
                     settings.close()
                     readsettings()
+
+            # User does not have the rights to write the settings file
             except PermissionError:
                 colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
                 sleep(2)
@@ -191,19 +200,25 @@ def writesettings():
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
-    linecache.clearcache()
+
     # For use in other messages
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
+
+    # Clear cache so settings fiele is completely re-read everytime
+    linecache.clearcache()
+
     # Strip the path to make it valid
     definedgamepath = definedgamepath.strip()
 
     # If the settings file was externally edited and the path was removed
     if len(definedgamepath) == 0:
         return False
-        # The only three items needed to confirm a LEGO Racers installation.
+
+     # The only three items needed to confirm a LEGO Racers installation.
     elif exists(definedgamepath + "/GAMEDATA") and exists(definedgamepath + "/MENUDATA") and exists(definedgamepath + "/LEGORacers.exe"):
         return True
+
     # The installation path cannot be found, or it cannot be confirmed
     else:
         return False

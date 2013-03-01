@@ -25,12 +25,14 @@ def readpatch():
 
     # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
-    # Hide the root Tk window
-    root = tkinter.Tk()
-    root.withdraw()
 
     # Select the patch file
     # TODO: Make dialog active window automatically and do the same to main window when closed.
+
+    # Draw (then hide) the root Tk window
+    root = tkinter.Tk()
+    root.withdraw()
+
     installpatch = filedialog.askopenfilename(
     title="Select a {0} Patch".format(PatchIt.app),
     defaultextension=".PiP",
@@ -44,12 +46,15 @@ def readpatch():
 
     # The user selected a patch
     else:
-        # Confirm that this is a patch, as defined in Documentation/PiP Format.md
+        # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
         confirmpatch = linecache.getline(installpatch, 1)
+
         # It's not a patch! D:
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
             #print(confirmpatch)
             colors.pc("{0} is not a valid PatchIt patch!\n".format(installpatch), color.FG_LIGHT_RED)
+
+            # Dump PiP validity cache after reading
             linecache.clearcache()
             sleep(1)
             PatchIt.main()
@@ -61,8 +66,12 @@ def readpatch():
             installver = linecache.getline(installpatch, 4)
             installauthor = linecache.getline(installpatch, 5)
             installdesc = linecache.getline(installpatch, 7)
+
             # Strip the description for better display
             installdesc = installdesc.strip()
+
+             # Clear cache so file is completely re-read next time
+            linecache.clearcache()
             # Display all the info
             print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
 
@@ -80,13 +89,15 @@ def readpatch():
 
             # Yes, I do want to install it!
             else:
-                linecache.clearcache() # Again, clear cache
                 # Read the settings file for installation (LEGO Racers) directory
                 installpath = linecache.getline('settings', 2)
 
                 # Create a valid folder path
                 installpath = installpath.rstrip("\n")
                 installzipfile = linecache.getline(installpatch, 9)
+
+                 # Again, clear cache so everything completely re-read every time
+                linecache.clearcache()
 
                 # Create a vaild ZIP archive
                 installzipfile = installzipfile.rstrip("\n")
@@ -106,6 +117,7 @@ def readpatch():
 
                     # For some reason, it cannot find the ZIP archive
                 except FileNotFoundError:
+
                     # Strip the ID text for a smoother error message
                     installver = installver.lstrip("Version: ")
                     installauthor = installauthor.lstrip("Author: ")
@@ -119,6 +131,7 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     # Sleep a bit longer so the error message can be read.
                     sleep(4.5)
                     PatchIt.main()
+
                     # The user does not have the rights to install to the location.
                 except PermissionError:
                     colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)

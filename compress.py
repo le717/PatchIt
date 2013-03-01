@@ -5,6 +5,7 @@ import PatchIt
 from time import sleep
 from shutil import (make_archive, move)
 from os import (system, replace)
+import os.path
 # Colored text (until complete GUI is written)
 import color
 import color.colors as colors
@@ -28,6 +29,18 @@ def patchdesc():
     else:
         # It fits into the limit, send it back to writepatch()
         return createdesc
+
+def filecheck(inputfiles):
+    '''Checks for files that would choke patch installation'''
+
+    badfiles = ["thumbs.db", "Desktop.ini"]
+    if not os.path.isfile("thumbs.db"):
+        print("\nBad files not found, proceeding...\n") # Temp, could be adapted for release
+        return "clean"
+    elif os.path.isfile("thumbs.db"):
+        print("\nBad files found!\n")
+        # Delete(?) files here
+        return "muddy"
 
 def writepatch():
     '''Writes and compresses PatchIt! Patch'''
@@ -66,6 +79,13 @@ def writepatch():
 
         # The user selected a folder to compress
         else:
+##            filecheck(inputfiles)
+##            if filecheck == "muddy":
+##                print("\nBad files found!\n")
+##                PatchIt.main()
+##
+##            elif filecheck == "clean":
+##                print("\nBad files not found, proceeding...\n")
             try:
                 # PiP file format, as defined in Documentation/PiP Format.md
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
@@ -78,12 +98,6 @@ def writepatch():
                     print("{0}".format(createdesc), file=createpatch)
                     print("[ZIP]", file=createpatch)
                     print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
-
-            # The user does not have the rights to write a PiP in that location
-            except PermissionError:
-                print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
-                sleep(2)
-                PatchIt.main()
 
                 # Compress the files
                 zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
@@ -99,7 +113,13 @@ def writepatch():
                 movezip = move(newzipfile, inputfiles)
                 sleep(0.5)
 
-            '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
+                # The user does not have the rights to write a PiP in that location
+            except PermissionError:
+                print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
+                sleep(2)
+                PatchIt.main()
+
+                '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
             looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
             1 == clean exit, 0, == exit with some error, and anything else is pure fail.
