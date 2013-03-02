@@ -126,7 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-*.exe
+#*.exe
 *.msi
 *.com
 *.bat
@@ -172,7 +172,7 @@ pip-log.txt
 #############
 
 #I don't want to upload any archives.
-*.zip
+#*.zip
 *.rar
 *.7z
 *.cab
