@@ -3,7 +3,8 @@
 # Import only certain items instead of "the whole toolbox"
 import PatchIt
 from time import sleep
-from shutil import (make_archive, move)
+import shutil
+import zipfile
 from os import (system, replace)
 import os
 import os.path
@@ -17,32 +18,21 @@ from tkinter import filedialog
 
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
-def thumbsFind(inputfiles):
-    for (root, dirs, file) in os.walk(inputfiles):
-        for item in file:
-            if item[-3:].lower() == ".db":
-                print("\nBad files found!\n")
-                #return "muddy"
-                os._exit(0)
-                #PatchIt.main()
-                #raise SystemExit
-            else:
-            #elif f[-3:].lower() != ".db":
-                return "clean"
-
+##def thumbsFind(inputfiles):
+##    oldzip = zipfile.ZipFile(renamezip, "r")
+##    newzip = zipfile.ZipFile(newziparchive, "w")
+##    for item in oldzip.infolist():
+##        buffer = oldzip.read(item.filename)
+##        if (item.filename[-3:]) != ".db":
+##            newzip.writestr(item, buffer)
+##    newzip.close()
+##    oldzip.close()
 
 ##for dir, subdirs, files in os.walk(root):
 ##    for f in files:
 ##        if f[-4:].lower() == '.vbp':
 ##            print os.path.join(dir, f)
 
-
-##            for dir, subdirs, files in os.walk(inputfiles, followlinks=False):
-##                for f in files:
-##                    if f[-3:].lower() == ".db":
-##                        print("\nBad Files Found!\n")
-##                        sleep(1)
-##                        PatchIt.main()
 
 # ------------ End WIP Thumbs.db Checking Code ------------ #
 
@@ -102,12 +92,12 @@ def writepatch():
 
         # The user selected a folder to compress
         else:
-            thumbsFind(inputfiles)
+##            thumbsFind(inputfiles)
 ##            if thumbsFind == "muddy":
 ##                print("\nBad files found!\n")
 ##                #PatchIt.main()
 ##                os._exit(0)
-            if thumbsFind == "clean":
+##            if thumbsFind == "clean":
                 try:
                     # PiP file format, as defined in Documentation/PiP Format.md
 
@@ -124,17 +114,28 @@ def writepatch():
                         print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
 
                     # Compress the files
-                    zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
+                    zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
                     # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
-                    newzipfile = replace(zipfile, createname + createver + ".zip")
+                    renamezip = replace(zipfile, createname + createver + ".zip")
 
                     # Declare the Patch and ZIP filenames
                     patchfile = "{0}{1}.PiP".format(createname, createver)
-                    newzipfile = "{0}{1}.zip".format(createname, createver)
+                    thezipfile = "{0}{1}.zip".format(createname, createver)
+
+                    oldzip = zipfile.ZipFile("{0}{1}.zip".format(createname, createver), "r")
+                    newzip = zipfile.ZipFile("{0}{1}.zip".format(createname, createver), "w")
+                    for item in oldzip.infolist():
+                        buffer = oldzip.read(item.filename)
+                        if (item.filename[-3:]) != ".db":
+                            newzip.writestr(item, buffer)
+                    newzip.close()
+                    oldzip.close()
+
+                    os.remove(renamezip)
 
                     # Move the Patch and ZIP to the folder the compressed files came from
-                    movepatch = move(patchfile, inputfiles)
-                    movezip = move(newzipfile, inputfiles)
+                    movepatch = shutil.move(patchfile, inputfiles)
+                    movezip = shutil.move(newzip, inputfiles)
                     sleep(0.5)
 
                     '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
