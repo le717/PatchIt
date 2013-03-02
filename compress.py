@@ -17,18 +17,17 @@ from tkinter import filedialog
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
 
-##for dir, subdirs, files in os.walk(root):
-##    for f in files:
-##        if f[-4:].lower() == '.vbp':
-##            print os.path.join(dir, f)
+def deleteThumbs(root, name):
+    os.unlink(os.path.join(root, name))
+    return "muddy"
 
-
-##            for dir, subdirs, files in os.walk(inputfiles, followlinks=False):
-##                for f in files:
-##                    if f[-3:].lower() == ".db":
-##                        print("\nBad Files Found!\n")
-##                        sleep(1)
-##                        PatchIt.main()
+def findThumbs(inputfiles):
+    for root, dir, files in os.walk(inputfiles):
+        for f in files:
+            if f.lower().endswith(".db"):
+                if f.lower() == "thumbs.db":
+                    print("Delete {0}".format(os.path.join(root, f)))
+                    deleteThumbs(root, f)
 
 # ------------ End WIP Thumbs.db Checking Code ------------ #
 

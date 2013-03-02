@@ -3,7 +3,7 @@ PatchIt! TODO List
 
 An (incomplete) list of everything that needs to be done in **PatchIt!**, listed in no particular order, as well as new, upcoming features and current bugs
 
-* **BUG!** Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error
+* **BUG!** Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error (Just give warning)
 * **BUG!** Ignore OSError and retain proper exit codes - **Currently impossible for me**
 * **BUG!** Do not compress *.db or Desktop.ini into ZIP
 * **BUG!** Why do some Shell Colors keep breaking?
