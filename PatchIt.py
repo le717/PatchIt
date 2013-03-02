@@ -20,14 +20,16 @@
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
-from webbrowser import open_new_tab # Module used in preload()
+from webbrowser import open_new_tab # Used in preload()
 from sys import version_info
 from os.path import exists
 from time import sleep
 # Patch Creation and Installation modules
-import PatchCreate
-import PatchCreate.compress
 import extract
+import compress
+# Colored text (until complete GUI is written)
+import color
+import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -47,7 +49,7 @@ game = "LEGO Racers"
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
     if version_info < (3,3,0): # You need to have at least Python 3.3.0 to run PatchIt!
-        print("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver))
+        colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
         # Don't open browser immediately
         sleep(2)
         open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
@@ -63,13 +65,16 @@ def preload():
         # The settings file does exist
         else:
             # Settings file does not need to be opened to use linecache
-            linecache.clearcache() # Always clear cache before reading
+
             firstrun = linecache.getline('settings', 1)
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
 
+             # Always clear cache after reading
+            linecache.clearcache()
+
             # '0' defines a first-run
-            if firstrun == "0":
+            if firstrun == "0" or firstrun == "":
                 writesettings()
             # Any other number (Default, 1) means it has been run before
             else:
@@ -79,8 +84,9 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout'''
-    print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
-    print('''Please make a selection:\n
+    #print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
+    colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    print('''\nPlease make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
@@ -90,7 +96,7 @@ def main():
         if menuopt.lower() == "c":
             sleep(0.5)
             # Call the Patch Creation module
-            PatchCreate.compress.writepatch()
+            compress.writePatch()
         elif menuopt.lower() == "i":
             sleep(0.5)
             # Call the Patch Installation module
@@ -101,7 +107,7 @@ def main():
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
-            print("\nThank you for using {0}".format(app))
+            colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
             sleep(1)
             raise SystemExit
         # Undefined input
@@ -116,6 +122,7 @@ def main():
 
 def readsettings():
     '''Read PatchIt! settings'''
+
     # The settings file does not exist
     if not exists('settings'):
         writesettings()
@@ -126,7 +133,7 @@ def readsettings():
         if gamecheck() == False:
             sleep(0.5)
             # Use path defined in gamecheck() for messages
-            print("\nCannot find {0} installation at {1}!".format(game, definedgamepath))
+            colors.pc("\nCannot find {0} installation at {1}!".format(game, definedgamepath), color.FG_LIGHT_RED)
             # Go write the settings file
             writesettings()
 
@@ -134,16 +141,16 @@ def readsettings():
         # TODO: Find a better way to do this
         elif gamecheck() ==  True:
             sleep(0.5)
-            print("\n{0} installation found at {1}!".format(game, definedgamepath))
-            changepath = input(r"Would you like to change this? (y\N)" + "\n\n> ")
+            print("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)")
+            changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 sleep(0.5)
                 writesettings()
                 # No, I do not want to change the defined installation
+
             else:
-                #print("\nCanceling...") # I can't think of a better line...
                 # Always sleep for 1 second before kicking back to the menu.
                 sleep(1)
                 main()
@@ -157,8 +164,10 @@ def writesettings():
         # Hide the root Tk window
         root = tkinter.Tk()
         root.withdraw()
+
         # Select the LEGO Racers installation
-        newgamepath = filedialog.askdirectory(title="Select your {0} installation".format(game))
+        newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
+
         # The user clicked the cancel button
         if len(newgamepath) == 0:
             #print("Canceling...") # Again, for lack of a better messages
@@ -168,36 +177,48 @@ def writesettings():
         # The user selected a folder
         else:
             # Write file, using UTF-8 encoding
-            with open('settings', 'wt', encoding='utf-8') as settings:
-                settings.seek(0)
-                # Ensures first-run process will be skipped next time
-                settings.write("1")
-                # So the first-run check won't be overridden
-                settings.seek(1)
-                settings.write("\n" + newgamepath)
+            try:
+                with open('settings', 'wt', encoding='utf-8') as settings:
+                    # Ensures first-run process will be skipped next time
+                    print("1", file=settings)
+                    # end="" So there won't be a \n written
+                    print(newgamepath, file=settings, end="")
 
-                '''Removing "settings.close()" breaks the entire first-run code.
-                Once it writes the path, PatchIt! closes, without doing as much
-                as running the path through gamecheck() nor going back to main()
-                Possible TODO: Find out why this is happening and remove it if possible.'''
-                settings.close()
-                readsettings()
+                    '''Removing "settings.close()" breaks the entire first-run code.
+                    Once it writes the path, PatchIt! closes, without doing as much
+                    as running the path through gamecheck() nor going back to main()
+                    Possible TODO: Find out why this is happening and remove it if possible.'''
+
+                    settings.close()
+                    readsettings()
+
+            # User does not have the rights to write the settings file
+            except PermissionError:
+                colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
+                sleep(2)
+                main()
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
-    linecache.clearcache()
+
     # For use in other messages
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
+
+    # Clear cache so settings fiele is completely re-read everytime
+    linecache.clearcache()
+
     # Strip the path to make it valid
     definedgamepath = definedgamepath.strip()
 
     # If the settings file was externally edited and the path was removed
     if len(definedgamepath) == 0:
         return False
-        # The only three items needed to confirm a LEGO Racers installation.
+
+     # The only three items needed to confirm a LEGO Racers installation.
     elif exists(definedgamepath + "/GAMEDATA") and exists(definedgamepath + "/MENUDATA") and exists(definedgamepath + "/LEGORacers.exe"):
         return True
+
     # The installation path cannot be found, or it cannot be confirmed
     else:
         return False

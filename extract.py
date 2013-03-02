@@ -1,4 +1,4 @@
-#PatchIt! V1.0.1 Stable Patch Installation code
+# PatchIt! V1.0.1 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
@@ -8,6 +8,9 @@ import zipfile
 from os import system
 from random import choice
 from time import sleep
+# Colored text (until complete GUI is written)
+import color
+import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
@@ -18,15 +21,18 @@ from tkinter import filedialog
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
 
-    print("\nInstall a {0} Patch".format(PatchIt.app), end="\n")
+    print("\nInstall a {0} Patch\n".format(PatchIt.app))
+
     # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
-    # Hide the root Tk window
-    root = tkinter.Tk()
-    root.withdraw()
 
     # Select the patch file
     # TODO: Make dialog active window automatically and do the same to main window when closed.
+
+    # Draw (then hide) the root Tk window
+    root = tkinter.Tk()
+    root.withdraw()
+
     installpatch = filedialog.askopenfilename(
     title="Select a {0} Patch".format(PatchIt.app),
     defaultextension=".PiP",
@@ -34,17 +40,24 @@ def readpatch():
 
     # The user clicked the cancel button
     if len(installpatch) == 0:
-        print("\nCould not find a {0} patch to read!".format(PatchIt.app))
+        colors.pc("\nCould not find a {0} patch to read!\n".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(1)
         PatchIt.main()
 
     # The user selected a patch
     else:
-        # Confirm that this is a patch, as defined in Documentation/PiP Format.md
+        # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
         confirmpatch = linecache.getline(installpatch, 1)
+
         # It's not a patch! D:
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
-            print(confirmpatch, installpatch + " is not a valid {0} patch.".format(PatchIt.app))
+            #print(confirmpatch)
+            colors.pc("{0} is not a valid PatchIt patch!\n".format(installpatch), color.FG_LIGHT_RED)
+
+            # Dump PiP validity cache after reading
+            linecache.clearcache()
+            sleep(1)
+            PatchIt.main()
 
         # It is a patch! :D
         else:
@@ -53,8 +66,12 @@ def readpatch():
             installver = linecache.getline(installpatch, 4)
             installauthor = linecache.getline(installpatch, 5)
             installdesc = linecache.getline(installpatch, 7)
+
             # Strip the description for better display
             installdesc = installdesc.strip()
+
+             # Clear cache so file is completely re-read next time
+            linecache.clearcache()
             # Display all the info
             print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
 
@@ -63,6 +80,7 @@ def readpatch():
             installver = installver.strip("\n")
             print("\nDo you wish to install {0} {1}? {2}".format(installname, installver, r"(y\N)"))
             confirminstall = input("\n> ")
+
             # No, I do not want to install the patch
             if confirminstall.lower() != "y":
                 print("\nCanceling installation of {0} {1}...".format(installname, installver))
@@ -71,13 +89,15 @@ def readpatch():
 
             # Yes, I do want to install it!
             else:
-                linecache.clearcache() # Again, clear cache
                 # Read the settings file for installation (LEGO Racers) directory
                 installpath = linecache.getline('settings', 2)
 
                 # Create a valid folder path
                 installpath = installpath.rstrip("\n")
                 installzipfile = linecache.getline(installpatch, 9)
+
+                 # Again, clear cache so everything completely re-read every time
+                linecache.clearcache()
 
                 # Create a vaild ZIP archive
                 installzipfile = installzipfile.rstrip("\n")
@@ -97,18 +117,25 @@ def readpatch():
 
                     # For some reason, it cannot find the ZIP archive
                 except FileNotFoundError:
+
                     # Strip the ID text for a smoother error message
                     installver = installver.lstrip("Version: ")
                     installauthor = installauthor.lstrip("Author: ")
-                    print('''Cannot find files for {0} {1}!
+                    colors.pc('''Cannot find files for {0} {1}!
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
 
 If the error continues, contact {6}and ask for a fixed version.'''
-                    .format(installname, installver, installname, installver, installname, installver, installauthor))
+                    .format(installname, installver, installname, installver, installname, installver, installauthor), color.FG_LIGHT_RED)
                     # There has to be an easier way to format the message without repeating installname/ver 3 times each...
                     # Sleep a bit longer so the error message can be read.
                     sleep(4.5)
+                    PatchIt.main()
+
+                    # The user does not have the rights to install to the location.
+                except PermissionError:
+                    colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
+                    sleep(2)
                     PatchIt.main()
 
                 '''Windows continually throws up the '*installpath* is not recognized as an internal or external command,
@@ -130,7 +157,8 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     PatchIt.main()
 
                 else:
-                    print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
+                    colors.pc("\nInstallation of {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                    #print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
                     sleep(2)
                     PatchIt.main()
 

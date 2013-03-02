@@ -34,7 +34,8 @@ Downloads
 
 All **PatchIt!** downloads will be hosted on this project, in an [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
-* [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February ??, 2013
+* [**PatchIt!** Version 1.0.1 Stable](https://github.com/le717/PatchIt/tree/V1.0.1Stable) - Released March 2, 2013
+* [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February 21, 2013
 * [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released February 2, 2013
 * [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released January 26, 2013
 

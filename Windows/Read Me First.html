@@ -2,7 +2,7 @@
 <html>
 <head>
 <style>
-table, h2, h3, h4, #careful { text-align: center; }
+table, h2, h3 { text-align: center; }
 .italic { font-style: italic; }
 .bold { font-weight: bold; }
 a { text-decoration: none; }
@@ -12,7 +12,7 @@ a:hover { text-decoration: underline; }
 </head>
 <body>
 <a name="ToC"></a>
-<h2>PatchIt! Version 1.0.1 Readme</h2>
+<h2>PatchIt! Version 1.0 Readme</h2>
 <table border="0">
 <thead>
 <th>Table of Contents</th>
@@ -65,44 +65,12 @@ and after reading the mod information, confirm the installation. <span class="bo
 
 <h3>Patch Creation</h3>
 <p>To create a <span class="bold">PatchIt!</span> compatible mod, load <span class="bold">PatchIt!</span> and press the 'c' key. Type your mod's name, version,
-author, and description. Point it to your modded files, and <span class="bold">PatchIt!</span> will compress them into a normal ZIP archive and write the 
-details to a PiP file. As of <span class="bold">PatchIt! 1.0.1 Stable</span>, if <span class="italic">Thumbs.db</span> is found in your modded files, it will 
-automatically deleted to avoid an error when someone installs your patch. Don't worry, Windows will automatically recreate it. ;)<br> 
-Both items use your mod's name and version for the filename, and will be located in the same folder as your uncompressed modded files. 
-Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p><br>
-
-<h4>Be Careful!</h4>
-<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>), back-slash (<code>\</code>),
-and forward-slash (<code>/</code>)<br> are not permitted as filenames, and entering these into the <code>Name:</code> and <code>Version:</code> fields 
-will have undesired effects on your computer.<br>They are only permitted in the <code>Author:</code> and <code>Description:</code> fields, where no harm will 
-be done.</p>
+author, and description. Point it to your modded files, and <span class="bold">PatchIt!</span> will compress them into a normal ZIP archive and write to the 
+details to a PiP file. Both items use your mod's name and version for the filename, and will be located in the same folder as your uncompressed modded files. 
+Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p>
 <a name="Changes"></a>
 
 <h2>Change Log</h2>
-<!-- <li>LEGOs in space? More later!</li> -->
-<strong>1.0.1 Stable</strong><br>
-(Released March 2, 2013)<br>
-<ul>
-<li>Readme.html now opens when installation is complete</li>
-<li>Added Settings reset option to Windows Installer</li>
-<li>Added French and Dutch languages to Windows Installer</li>
-<li>Version bump</li>
-<li>Added FileNotFoundError exception to Patch Installation</li>
-<li>Changed App exit message</li>
-<li>Added colored shell text from <a href="https://github.com/imayhaveborkedit/lms-lrr-modding-system" target="_blank">LMS-LRR-Modding System</a>
-<li>App warnings are now displayed in red</li>
-<li>Fixed invalid PiP file error</li>
-<li>More colored shell text</li>
-<li>Changed writesettings() to use new Python 3 print() file writing</li>
-<li>preload() now checks for empty file</li>
-<li>Dump PiP validity cache after reading</li>
-<li>Added PermissionError check to settings writing</li>
-<li>Reverted most of colored shell text due to bug in code</li> 
-<li>Fixed Patch Compression (broke it when adding PermissionError check)</li>
-<li>Fixed clearcache functions</li>
-<li><span style="italic">Thumbs.db</span> is automatally delete if found (Fixes PermissionError when installing Patch)</li>
-</ul>
-
 <strong>1.0 Stable</strong><br>
 (Released February 21, 2013)<br>
 <ul>
@@ -165,7 +133,7 @@ be done.</p>
 <li>Wrote <span class="bold">PatchIt!</span> usage documentation</li>
 <li>Created <span class="bold">PatchIt! Compatible</span> sticker</li>
 <li>Updated HTML Change log</li>
-<li>Fixed x86 and x64 installation issue</li>
+<li>LEGOs in space? More later!</li>
 </ul>
 
 <strong>1.0 Beta 2</strong><br>
@@ -200,14 +168,14 @@ https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717
 <p>The following sites and programs may be helpful to you and in your use of <span class="bold">PatchIt!</span>
 <ul>
 <li><a href="https://github.com/le717/PatchIt/tree/master/Documentation" target="_blank"><span class="bold">PatchIt!</span> Documention</a></li>
-<li><a href="https://github.com/le717/PatchIt/tree/Extras" target="_blank"><span class="bold">PatchIt!</span> Extras: <span class="italic">LEGO Racers
+<li><a href="https://github.com/le717/PatchIt/tree/master/Extras" target="_blank"><span class="bold">PatchIt!</span> Extras: <span class="italic">LEGO Racers
 </span> mod packs to get you started!</a></li>
 <li><a href="https://github.com/JrMasterModelBuilder/JAM-Extractor" target="_blank"><span class="italic">LEGO Racers</span> JAM Extractor: Extracts and 
 recompresses LEGO.JAM</a></li>
 <li><a href="http://rockraidersunited.org" target="_blank">Rock Raiders United: The only place to learn everything you need to know about <span class="italic"
 >LEGO Racers</span> modding</a></li>
-<li><a href="http://python.org" target="_blank" title="Python (Programming Language)">Python: The programming language <span class="bold">PatchIt!
-</span> is written in</a></li>
+<li><a href="http://python.org" target="_blank" title="Python (Programming Language)">Python: The programming language of <span class="bold">PatchIt!
+</span></a></li>
 </ul><a name="Credit"></a>
 
 <h2>Credit</h2>
