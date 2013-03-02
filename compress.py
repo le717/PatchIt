@@ -4,8 +4,8 @@
 import PatchIt
 from time import sleep
 from shutil import (make_archive, move)
-from os import (system, replace, walk)
-import os.path
+from os import (system, replace, walk, unlink)
+from os.path import join
 # Colored text (until complete GUI is written)
 import color
 import color.colors as colors
@@ -14,19 +14,19 @@ import tkinter
 from tkinter import filedialog
 
 
-# ------------ Begin WIP Thumbs.db Checking Code ------------ #
+# ------------ Begin Thumbs.db Check And Delete Code ------------ #
 
 def delThumbs(inputfiles):
-    for root, dir, files in os.walk(inputfiles):
+    for root, dir, files in walk(inputfiles):
         for item in files:
             if item.lower().endswith(".db"):
                 #if item.lower() == "thumbs.db":
                 #print('''\nI found Thumbs.db in your files. I will delete it for you in a few seconds.
 #Don't worry, Windows will recreate it.\n''')
-                    #print("Delete {0}".format(os.path.join(root, f)))
-                os.unlink(os.path.join(root, item))
+                    #print("Delete {0}".format(join(root, f)))
+                unlink(join(root, item))
 
-# ------------ End WIP Thumbs.db Checking Code ------------ #
+# ------------ End Thumbs.db Check And Delete Code ------------ #
 
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
