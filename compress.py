@@ -14,7 +14,7 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
-
+from re import match
 
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
@@ -37,7 +37,16 @@ def findThumbs(inputfiles):
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
-def patchdesc():
+def patchVer():
+    '''Mod Version input check'''
+
+    global createver
+    createver = input("Version: ")
+    if match("[/\\\?:;]", createver):
+        print("\nYou have entered an invalid letter. Please try again.\n")
+        patchVer()
+
+def patchDesc():
     '''Mod Description input and length check'''
 
     # Because I can't see how to do it any other way
@@ -47,10 +56,7 @@ def patchdesc():
     if len(createdesc) > 161:
             colors.pc("\nYour description is too long! Please write it a bit shorter.\n", color.FG_LIGHT_RED)
             # Loop back through the input if it is longer
-            patchdesc()
-    else:
-        # It fits into the limit, send it back to writepatch()
-        return createdesc
+            patchDesc()
 
 def writepatch():
     '''Writes and compresses PatchIt! Patch'''
@@ -69,10 +75,11 @@ def writepatch():
 
     # I want to continue on
     else:
-        createver = input("Version: ")
+        # See def patchVer() above.
+        patchVer()
         createauthor = input("Author: ")
-        # See def patchdesc() above.
-        patchdesc()
+        # See def patchDesc() above.
+        patchDesc()
 
         # Hide the root Tk window
         root = tkinter.Tk()
@@ -97,7 +104,7 @@ def writepatch():
 ##                os._exit(0)
 ##            if thumbsFind == "clean":
             try:
-                findThumbs(inputfiles)
+                #findThumbs(inputfiles)
                 # PiP file format, as defined in Documentation/PiP Format.md
                 # BUG! Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
