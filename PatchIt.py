@@ -84,8 +84,8 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout'''
-    print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
-    #colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    #print("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
+    colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
     print('''\nPlease make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch

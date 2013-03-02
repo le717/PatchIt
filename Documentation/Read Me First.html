@@ -2,7 +2,7 @@
 <html>
 <head>
 <style>
-table, h2, h3 { text-align: center; }
+table, h2, h3, h4, #careful { text-align: center; }
 .italic { font-style: italic; }
 .bold { font-weight: bold; }
 a { text-decoration: none; }
@@ -12,7 +12,7 @@ a:hover { text-decoration: underline; }
 </head>
 <body>
 <a name="ToC"></a>
-<h2>PatchIt! Version 1.0 Readme</h2>
+<h2>PatchIt! Version 1.0.1 Readme</h2>
 <table border="0">
 <thead>
 <th>Table of Contents</th>
@@ -65,9 +65,17 @@ and after reading the mod information, confirm the installation. <span class="bo
 
 <h3>Patch Creation</h3>
 <p>To create a <span class="bold">PatchIt!</span> compatible mod, load <span class="bold">PatchIt!</span> and press the 'c' key. Type your mod's name, version,
-author, and description. Point it to your modded files, and <span class="bold">PatchIt!</span> will compress them into a normal ZIP archive and write to the 
-details to a PiP file. Both items use your mod's name and version for the filename, and will be located in the same folder as your uncompressed modded files. 
-Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p>
+author, and description. Point it to your modded files, and <span class="bold">PatchIt!</span> will compress them into a normal ZIP archive and write the 
+details to a PiP file. As of <span class="bold">PatchIt! 1.0.1 Stable</span>, if <span class="italic">Thumbs.db</span> is found in your modded files, it will 
+automatically deleted to avoid an error when someone installs your patch. Don't worry, Windows will automatically recreate it. ;)<br> 
+Both items use your mod's name and version for the filename, and will be located in the same folder as your uncompressed modded files. 
+Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p><br>
+
+<h4>Be Careful!</h4>
+<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>), back-slash (<code>\</code>),
+and forward-slash (<code>/</code>)<br> are not permitted as filenames, and entering these into the <code>Name:</code> and <code>Version:</code> fields 
+will have undesired effects on your computer.<br>They are only permitted in the <code>Author:</code> and <code>Description:</code> fields, where no harm will 
+be done.</p>
 <a name="Changes"></a>
 
 <h2>Change Log</h2>
@@ -90,7 +98,8 @@ Check the the PiP Format documentation (linked in the Resources section below) f
 <li>Added PermissionError check to settings writing</li>
 <li>Reverted most of colored shell text due to bug in code</li> 
 <li>Fixed Patch Compression (broke it when adding PermissionError check)</li>
-<li>Fixed clearcache functions<li>
+<li>Fixed clearcache functions</li>
+<li><span style="italic">Thumbs.db</span> is automatally delete if found (Fixes PermissionError when installing Patch)</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
@@ -198,7 +207,7 @@ recompresses LEGO.JAM</a></li>
 <li><a href="http://rockraidersunited.org" target="_blank">Rock Raiders United: The only place to learn everything you need to know about <span class="italic"
 >LEGO Racers</span> modding</a></li>
 <li><a href="http://python.org" target="_blank" title="Python (Programming Language)">Python: The programming language <span class="bold">PatchIt!
-</span> was written with</a></li>
+</span> is written in</a></li>
 </ul><a name="Credit"></a>
 
 <h2>Credit</h2>

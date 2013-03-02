@@ -16,18 +16,15 @@ from tkinter import filedialog
 
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
-
-def deleteThumbs(root, name):
-    os.unlink(os.path.join(root, name))
-    return "muddy"
-
-def findThumbs(inputfiles):
+def delThumbs(inputfiles):
     for root, dir, files in os.walk(inputfiles):
-        for f in files:
-            if f.lower().endswith(".db"):
-                if f.lower() == "thumbs.db":
-                    print("Delete {0}".format(os.path.join(root, f)))
-                    deleteThumbs(root, f)
+        for item in files:
+            if item.lower().endswith(".db"):
+                #if item.lower() == "thumbs.db":
+                #print('''\nI found Thumbs.db in your files. I will delete it for you in a few seconds.
+#Don't worry, Windows will recreate it.\n''')
+                    #print("Delete {0}".format(os.path.join(root, f)))
+                os.unlink(os.path.join(root, item))
 
 # ------------ End WIP Thumbs.db Checking Code ------------ #
 
@@ -88,6 +85,7 @@ def writePatch():
         # The user selected a folder to compress
         else:
             try:
+                delThumbs(inputfiles)
                 # PiP file format, as defined in Documentation/PiP Format.md
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
                     print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
@@ -128,18 +126,18 @@ def writePatch():
             what do I attach it to so I can have proper exit codes?'''
 
             if system(inputfiles) == 1:
-                print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
+                print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
                 # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                 sleep(2)
                 PatchIt.main()
 
             elif system(inputfiles) == 0:
-                print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
+                print("\nCreation of {0} patch for {1} Version: {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
                 sleep(2)
                 PatchIt.main()
 
             else:
-                colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                colors.pc("\nCreation of {0} patch for {1} Version: {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
                 #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
                 sleep(2)
                 PatchIt.main()

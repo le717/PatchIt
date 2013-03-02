@@ -5,7 +5,6 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**, listed
 
 * **BUG!** Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error (Just give warning)
 * **BUG!** Ignore OSError and retain proper exit codes - **Currently impossible for me**
-* **BUG!** Do not compress *.db or Desktop.ini into ZIP
 * **BUG!** Why do some Shell Colors keep breaking?
 * **BUG!** Sometimes Patch cannot be saved in a Dropbox folder
 * *NEW!* App logging code
