@@ -18,20 +18,18 @@ from tkinter import filedialog
 
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
-##def thumbsFind(inputfiles):
-##    oldzip = zipfile.ZipFile(renamezip, "r")
-##    newzip = zipfile.ZipFile(newziparchive, "w")
-##    for item in oldzip.infolist():
-##        buffer = oldzip.read(item.filename)
-##        if (item.filename[-3:]) != ".db":
-##            newzip.writestr(item, buffer)
-##    newzip.close()
-##    oldzip.close()
+def deleteThumbs(root, name):
+    os.unlink(os.path.join(root, name))
+    return "muddy"
 
-##for dir, subdirs, files in os.walk(root):
-##    for f in files:
-##        if f[-4:].lower() == '.vbp':
-##            print os.path.join(dir, f)
+def findThumbs(inputfiles):
+    for root, dir, files in os.walk(inputfiles):
+        for f in files:
+            if f.lower().endswith(".db"):
+                if f.lower() == "thumbs.db":
+                    print("Delete {0}".format(os.path.join(root, f)))
+                    deleteThumbs(root, f)
+
 
 
 # ------------ End WIP Thumbs.db Checking Code ------------ #
@@ -98,98 +96,63 @@ def writepatch():
 ##                #PatchIt.main()
 ##                os._exit(0)
 ##            if thumbsFind == "clean":
-                try:
-                    # PiP file format, as defined in Documentation/PiP Format.md
+            try:
+                findThumbs(inputfiles)
+                # PiP file format, as defined in Documentation/PiP Format.md
+                # BUG! Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error
+                with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
+                    print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
+                    print("[General]", file=createpatch)
+                    print(createname, file=createpatch)
+                    print("Version: {0}".format(createver), file=createpatch)
+                    print("Author: {0}".format(createauthor), file=createpatch)
+                    print("[Description]", file=createpatch)
+                    print("{0}".format(createdesc), file=createpatch)
+                    print("[ZIP]", file=createpatch)
+                    print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
 
-                    # BUG! Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error
-                    with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
-                        print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
-                        print("[General]", file=createpatch)
-                        print(createname, file=createpatch)
-                        print("Version: {0}".format(createver), file=createpatch)
-                        print("Author: {0}".format(createauthor), file=createpatch)
-                        print("[Description]", file=createpatch)
-                        print("{0}".format(createdesc), file=createpatch)
-                        print("[ZIP]", file=createpatch)
-                        print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
+                # Compress the files
+                zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
+                # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
+                renamezip = replace(zipfile, createname + createver + ".zip")
 
-                    # Compress the files
-                    zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
-                    # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
-                    renamezip = replace(zipfile, createname + createver + ".zip")
+                # Declare the Patch and ZIP filenames
+                patchfile = "{0}{1}.PiP".format(createname, createver)
+                newzipfile = "{0}{1}.zip".format(createname, createver)
 
-                    # Declare the Patch and ZIP filenames
-                    patchfile = "{0}{1}.PiP".format(createname, createver)
-                    thezipfile = "{0}{1}.zip".format(createname, createver)
+                # Move the Patch and ZIP to the folder the compressed files came from
+                movepatch = shutil.move(patchfile, inputfiles)
+                movezip = shutil.move(newzipfile, inputfiles)
+                sleep(0.5)
 
-                    oldzip = zipfile.ZipFile("{0}{1}.zip".format(createname, createver), "r")
-                    newzip = zipfile.ZipFile("{0}{1}.zip".format(createname, createver), "w")
-                    for item in oldzip.infolist():
-                        buffer = oldzip.read(item.filename)
-                        if (item.filename[-3:]) != ".db":
-                            newzip.writestr(item, buffer)
-                    newzip.close()
-                    oldzip.close()
+            # The user does not have the rights to write a PiP in that location
+            except PermissionError:
+                print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
+                sleep(2)
+                PatchIt.main()
 
-                    os.remove(renamezip)
-
-                    # Move the Patch and ZIP to the folder the compressed files came from
-                    movepatch = shutil.move(patchfile, inputfiles)
-                    movezip = shutil.move(newzip, inputfiles)
-                    sleep(0.5)
-
-                    '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
-                    operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
+                '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
+                     operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
                     looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
                     1 == clean exit, 0, == exit with some error, and anything else is pure fail.
                     I believe the error is due the fact I have it attached to the wrong code. The question now is,
                     what do I attach it to so I can have proper exit codes?'''
 
-                    if system(inputfiles) == 1:
-                        print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
-                        # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
-                        sleep(2)
-                        PatchIt.main()
-
-                    elif system(inputfiles) == 0:
-                        print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
-                        sleep(2)
-                        PatchIt.main()
-
-                    else:
-                        colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
-                    #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
-                        sleep(2)
-                        PatchIt.main()
-
-                # The user does not have the rights to write a PiP in that location
-                except PermissionError:
-                    print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
+                if system(inputfiles) == 1:
+                    print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
+                    # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                     sleep(2)
                     PatchIt.main()
 
-##                    '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
-##                    operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
-##                    looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
-##                    1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-##                    I believe the error is due the fact I have it attached to the wrong code. The question now is,
-##                    what do I attach it to so I can have proper exit codes?'''
-##
-##                    if system(inputfiles) == 1:
-##                    print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
-##                        # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
-##                    sleep(2)
-##                    PatchIt.main()
-##
-##                    elif system(inputfiles) == 0:
-##                        print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
-##                        sleep(2)
-##                        PatchIt.main()
-##
-##                    else:
-##                        colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
-##                    #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
-##                        sleep(2)
-##                        PatchIt.main()
+                elif system(inputfiles) == 0:
+                    print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
+                    sleep(2)
+                    PatchIt.main()
+
+                else:
+                    colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                    #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
+                    sleep(2)
+                    PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #

@@ -107,7 +107,7 @@ def main():
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
-            colors.pc("\nThank you for using {0}".format(app), color.FG_LIGHT_YELLOW)
+            colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
             sleep(1)
             raise SystemExit
         # Undefined input
