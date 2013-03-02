@@ -3,10 +3,8 @@
 # Import only certain items instead of "the whole toolbox"
 import PatchIt
 from time import sleep
-import shutil
-import zipfile
-from os import (system, replace)
-import os
+from shutil import (make_archive, move)
+from os import (system, replace, walk)
 import os.path
 # Colored text (until complete GUI is written)
 import color
@@ -14,39 +12,30 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
-from re import match
+
 
 # ------------ Begin WIP Thumbs.db Checking Code ------------ #
 
-def deleteThumbs(root, name):
-    os.unlink(os.path.join(root, name))
-    return "muddy"
 
-def findThumbs(inputfiles):
-    for root, dir, files in os.walk(inputfiles):
-        for f in files:
-            if f.lower().endswith(".db"):
-                if f.lower() == "thumbs.db":
-                    print("Delete {0}".format(os.path.join(root, f)))
-                    deleteThumbs(root, f)
+##for dir, subdirs, files in os.walk(root):
+##    for f in files:
+##        if f[-4:].lower() == '.vbp':
+##            print os.path.join(dir, f)
 
 
+##            for dir, subdirs, files in os.walk(inputfiles, followlinks=False):
+##                for f in files:
+##                    if f[-3:].lower() == ".db":
+##                        print("\nBad Files Found!\n")
+##                        sleep(1)
+##                        PatchIt.main()
 
 # ------------ End WIP Thumbs.db Checking Code ------------ #
 
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
-def patchVer():
-    '''Mod Version input check'''
-
-    global createver
-    createver = input("Version: ")
-    if match("[/\\\?:;]", createver):
-        print("\nYou have entered an invalid letter. Please try again.\n")
-        patchVer()
-
-def patchDesc():
+def patchdesc():
     '''Mod Description input and length check'''
 
     # Because I can't see how to do it any other way
@@ -56,9 +45,12 @@ def patchDesc():
     if len(createdesc) > 161:
             colors.pc("\nYour description is too long! Please write it a bit shorter.\n", color.FG_LIGHT_RED)
             # Loop back through the input if it is longer
-            patchDesc()
+            patchdesc()
+    else:
+        # It fits into the limit, send it back to writepatch()
+        return createdesc
 
-def writepatch():
+def writePatch():
     '''Writes and compresses PatchIt! Patch'''
 
     colors.pc("\nCreate a {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_YELLOW)
@@ -69,17 +61,16 @@ def writepatch():
     # I want to quit the process
     if createname.lower() == "exit":
         #print("\nCanceling creation...")
-        colors.pc("\nCanceling creation of {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_RED)
+        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(0.5)
         PatchIt.main()
 
     # I want to continue on
     else:
-        # See def patchVer() above.
-        patchVer()
+        createver = input("Version: ")
         createauthor = input("Author: ")
-        # See def patchDesc() above.
-        patchDesc()
+        # See def patchdesc() above.
+        patchdesc()
 
         # Hide the root Tk window
         root = tkinter.Tk()
@@ -97,16 +88,8 @@ def writepatch():
 
         # The user selected a folder to compress
         else:
-##            thumbsFind(inputfiles)
-##            if thumbsFind == "muddy":
-##                print("\nBad files found!\n")
-##                #PatchIt.main()
-##                os._exit(0)
-##            if thumbsFind == "clean":
             try:
-                #findThumbs(inputfiles)
                 # PiP file format, as defined in Documentation/PiP Format.md
-                # BUG! Question Marks in Name/Version fields for Patch Creation throws "Invalid Argument" error
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
                     print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
                     print("[General]", file=createpatch)
@@ -119,47 +102,47 @@ def writepatch():
                     print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
 
                 # Compress the files
-                zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
+                zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
                 # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
-                renamezip = replace(zipfile, createname + createver + ".zip")
+                newzipfile = replace(zipfile, createname + createver + ".zip")
 
                 # Declare the Patch and ZIP filenames
                 patchfile = "{0}{1}.PiP".format(createname, createver)
                 newzipfile = "{0}{1}.zip".format(createname, createver)
 
                 # Move the Patch and ZIP to the folder the compressed files came from
-                movepatch = shutil.move(patchfile, inputfiles)
-                movezip = shutil.move(newzipfile, inputfiles)
+                movepatch = move(patchfile, inputfiles)
+                movezip = move(newzipfile, inputfiles)
                 sleep(0.5)
 
-            # The user does not have the rights to write a PiP in that location
+                # The user does not have the rights to write a PiP in that location
             except PermissionError:
                 print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
                 sleep(2)
                 PatchIt.main()
 
                 '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
-                     operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
-                    looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
-                    1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-                    I believe the error is due the fact I have it attached to the wrong code. The question now is,
-                    what do I attach it to so I can have proper exit codes?'''
+            operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
+            looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
+            1 == clean exit, 0, == exit with some error, and anything else is pure fail.
+            I believe the error is due the fact I have it attached to the wrong code. The question now is,
+            what do I attach it to so I can have proper exit codes?'''
 
-                if system(inputfiles) == 1:
-                    print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
-                    # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
-                    sleep(2)
-                    PatchIt.main()
+            if system(inputfiles) == 1:
+                print("\n{0} patch for {1} Version {2} created and saved to {3}!".format(PatchIt.app, createname, createver, inputfiles))
+                # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
+                sleep(2)
+                PatchIt.main()
 
-                elif system(inputfiles) == 0:
-                    print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
-                    sleep(2)
-                    PatchIt.main()
+            elif system(inputfiles) == 0:
+                print("\nCreation of {0} patch for {1} Version {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
+                sleep(2)
+                PatchIt.main()
 
-                else:
-                    colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
-                    #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
-                    sleep(2)
-                    PatchIt.main()
+            else:
+                colors.pc("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
+                sleep(2)
+                PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #
