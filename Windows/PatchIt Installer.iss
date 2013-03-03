@@ -10,7 +10,7 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "Version 1.0.1 Stable"
+#define MyAppVersion "1.0.1"
 #define MyAppVerName "PatchIt! Version 1.0.1 Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
@@ -20,6 +20,7 @@
 AppId={#MyAppVerName}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
+VersionInfoVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppCopyright=© 2013 {#MyAppPublisher}
 LicenseFile=..\License\LICENSE.txt
@@ -73,13 +74,13 @@ Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
 
 [Files]
 ; PatchIt! Icon
-Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: createallsubdirs recursesubdirs
+Source: "..\Icons\PatchItIcon.ico"; Flags: ignoreversion; DestDir: "{app}";
 ; HTML Readme
-Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"
+Source: "..\Documentation\Read Me First.html"; Flags: ignoreversion; DestDir: "{app}"
 ; PatchIt! settings file (with first-run set to 0)
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion
 ; Again for Settings_Reset switch
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Tasks: Settings_Reset
+Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
 ; 64-bit Windows build
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
