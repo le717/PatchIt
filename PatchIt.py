@@ -136,27 +136,37 @@ def main():
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
 [q] Quit''')
+    logging.info("Display menu to user")
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == "c":
+            logging.info("User pressed '[c] Create a PatchIt! Patch'")
             sleep(0.5)
             # Call the Patch Creation module
+            logging.info("Calling Patch Compression module (compress.writePatch())")
             compress.writePatch()
         elif menuopt.lower() == "i":
+            logging.info("User pressed '[i] Install a PatchIt! Patch'")
             sleep(0.5)
+            logging.info("Calling Patch Installation module (extract.readpatch())")
             # Call the Patch Installation module
             extract.readpatch()
         elif menuopt.lower() == "s":
+            logging.info("User pressed '[s] PatchIt! Settings'")
             # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
             sleep(0.5)
+            logging.info("Calling PatchIt! Settings (readsettings())")
             readsettings()
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
+            logging.info("User pressed '[q] Quit'")
             colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
             sleep(1)
+            logging.info("PatchIt! is shutting down")
             raise SystemExit
         # Undefined input
         else:
+            logging.info("User pressed an undefined key")
             # Do not sleep here, since we are already on the menu
             main()
 
@@ -170,14 +180,21 @@ def readsettings():
 
     # The settings file does not exist
     if not exists('settings'):
+
+        logging.warning("Settings file does not exist!")
+        logging.info("Proceeding to write PatchIt! settings (writesettings())")
         writesettings()
     # The setting file does exist
     elif exists('settings'):
 
+        logging.info("Settings file does exist")
         # The defined installation was not confirmed by gamecheck()
         if gamecheck() == False:
+            logging.warning("LEGO Racers installation was not confirmed!")
             sleep(0.5)
+
             # Use path defined in gamecheck() for messages
+            logging.info("Display warning message to user")
             colors.pc("\nCannot find {0} installation at {1}!\n".format(game, definedgamepath), color.FG_LIGHT_RED)
             # Go write the settings file
             writesettings()
@@ -185,17 +202,22 @@ def readsettings():
         # The defined installation was confirmed by gamecheck()
         # TODO: Find a better way to do this
         elif gamecheck() ==  True:
+            logging.info("LEGO Racers installation was confirmed")
             sleep(0.5)
+            logging.info("Display confirmation message to user")
             print("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
+                logging.info("User wants to change defined LEGO Racers installation")
                 sleep(0.5)
+                logging.info("Proceeding to write PatchIt! settings (writesettings())")
                 writesettings()
                 # No, I do not want to change the defined installation
 
             else:
+                logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
                 # Always sleep for 1 second before kicking back to the menu.
                 sleep(1)
                 main()
@@ -256,13 +278,13 @@ def gamecheck():
     # Strip the path to make it valid
     definedgamepath = definedgamepath.strip()
 
-    # If the settings file was externally edited and the path was removed
-    if len(definedgamepath) == 0:
-        return False
-
      # The only three items needed to confirm a LEGO Racers installation.
-    elif exists(join(definedgamepath, "GAMEDATA")) and exists(join(definedgamepath, "MENUDATA")) and exists(join(definedgamepath, "LEGORacers.exe")):
+    if exists(join(definedgamepath, "GAMEDATA")) and exists(join(definedgamepath, "MENUDATA")) and exists(join(definedgamepath, "LEGORacers.exe")):
         return True
+
+    # If the settings file was externally edited and the path was removed
+    elif len(definedgamepath) == 0:
+        return False
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
