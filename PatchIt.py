@@ -22,7 +22,7 @@
 import os, linecache # General use modules
 from webbrowser import open_new_tab # Used in preload()
 from sys import version_info
-from os.path import exists
+from os.path import exists, join
 from time import sleep
 # Patch Creation and Installation modules
 import extract
@@ -33,7 +33,7 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
-
+# App Logging module
 import logging
 
 ''' Global variables
@@ -51,18 +51,14 @@ game = "LEGO Racers"
 
 
 def appLoggingFolder():
-    '''Checks for PatchIt! Logs folder'''
+    '''Checks for (and creates) PatchIt! Logs folder'''
 
     # The Logs folder does not exist in the current directory
-    if not exists(os.getcwd() + "/Logs"):
-        # Create the Logs folder
-        os.mkdir(os.path.join(os.getcwd(), "Logs"))
-        print("Logs folder created\n") # Debug print
+    if not exists(join(os.getcwd(), "Logs")):
 
-    # The Logs folder does  exist in the current directory
-    elif exists(os.getcwd() + "/Logs"):
-        print("Logs folder exists\n") # Debug print
-        # TODO: What to do here when I remove the print?
+        # Create the Logs folder
+        logsfolder = os.mkdir(join(os.getcwd(), "Logs"))
+        print("\nLogs folder created\n") # Debug print
 
 
 # ------------ End WIP PatchIt! Logging Code ------------ #
@@ -265,7 +261,7 @@ def gamecheck():
         return False
 
      # The only three items needed to confirm a LEGO Racers installation.
-    elif exists(definedgamepath + "/GAMEDATA") and exists(definedgamepath + "/MENUDATA") and exists(definedgamepath + "/LEGORacers.exe"):
+    elif exists(join(definedgamepath, "GAMEDATA")) and exists(join(definedgamepath, "MENUDATA")) and exists(join(definedgamepath, "LEGORacers.exe")):
         return True
 
     # The installation path cannot be found, or it cannot be confirmed
@@ -293,6 +289,5 @@ if __name__ == "__main__":
     # -- End Logging Config -- #
 
     preload()
-# TODO: Find out why I'm getting an import error when PatchIt! is imported
-#else:
-    #print("\n{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
+else:
+    print("\n{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
