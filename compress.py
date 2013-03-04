@@ -1,11 +1,11 @@
-# PatchIt! V1.0.1 Stable Patch Creation code
+# PatchIt! V1.0.2 Stable Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
 import PatchIt
+import os
+from os.path import join
 from time import sleep
 from shutil import (make_archive, move)
-from os import (system, replace, walk, unlink)
-from os.path import join
 # Colored text (until complete GUI is written)
 import color
 import color.colors as colors
@@ -17,14 +17,20 @@ from tkinter import filedialog
 # ------------ Begin Thumbs.db Check And Delete Code ------------ #
 
 def delThumbs(inputfiles):
-    for root, dir, files in walk(inputfiles):
+    '''Checks for and Deletes Thumbs.db'''
+
+    # Traverse through the subfolders
+    for root, dir, files in os.walk(inputfiles):
         for item in files:
+            # I've heard of a ethumbs.db file once before...
             if item.lower().endswith(".db"):
+                '''Uncomment this to target just thumbs.db'''
                 #if item.lower() == "thumbs.db":
+                '''This will print upon every instance of thumbs.db. Not good.'''
                 #print('''\nI found Thumbs.db in your files. I will delete it for you in a few seconds.
 #Don't worry, Windows will recreate it.\n''')
-                    #print("Delete {0}".format(join(root, f)))
-                unlink(join(root, item))
+                '''Actually delete the file(s)'''
+                os.unlink(join(root, item))
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
 
@@ -57,7 +63,7 @@ def writePatch():
     # I want to quit the process
     if createname.lower() == "exit":
         #print("\nCanceling creation...")
-        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
+        colors.pc("\nCanceling creation of {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(0.5)
         PatchIt.main()
 
@@ -85,8 +91,10 @@ def writePatch():
         # The user selected a folder to compress
         else:
             try:
+                # Check for and delete thumbs.db
                 delThumbs(inputfiles)
-                # PiP file format, as defined in Documentation/PiP Format.md
+
+                # Write PiP file format, as defined in Documentation/PiP Format.md
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
                     print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
                     print("[General]", file=createpatch)
@@ -100,8 +108,9 @@ def writePatch():
 
                 # Compress the files
                 zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
+
                 # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
-                newzipfile = replace(zipfile, createname + createver + ".zip")
+                newzipfile = os.replace(zipfile, createname + createver + ".zip")
 
                 # Declare the Patch and ZIP filenames
                 patchfile = "{0}{1}.PiP".format(createname, createver)
@@ -114,30 +123,30 @@ def writePatch():
 
                 # The user does not have the rights to write a PiP in that location
             except PermissionError:
-                print("\n{0} does not have the rights to save {1} {2} to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
+                print("\n{0} does not have the rights to save {1} {2} to\n{3}!\n".format(PatchIt.app, createname, createver, inputfiles))
                 sleep(2)
                 PatchIt.main()
 
-                '''Windows continually throws up the '*inputfiles* is not recognized as an internal or external command,
+                '''Windows continually throws up the *inputfiles* is not recognized as an internal or external command,
             operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
             looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
             1 == clean exit, 0, == exit with some error, and anything else is pure fail.
             I believe the error is due the fact I have it attached to the wrong code. The question now is,
             what do I attach it to so I can have proper exit codes?'''
 
-            if system(inputfiles) == 1:
-                print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!".format(PatchIt.app, createname, createver, inputfiles))
-                # Always sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
+            if os.system(inputfiles) == 1:
+                print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!\n".format(PatchIt.app, createname, createver, inputfiles))
+                # Sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                 sleep(2)
                 PatchIt.main()
 
-            elif system(inputfiles) == 0:
-                print("\nCreation of {0} patch for {1} Version: {2} completed with an unknown error.".format(PatchIt.app, createname, createver))
+            elif os.system(inputfiles) == 0:
+                print("\nCreation of {0} patch for {1} Version: {2} completed with an unknown error.\n".format(PatchIt.app, createname, createver))
                 sleep(2)
                 PatchIt.main()
 
             else:
-                colors.pc("\nCreation of {0} patch for {1} Version: {2} failed!".format(app, createname, createver), color.FG_LIGHT_RED)
+                colors.pc("\nCreation of {0} patch for {1} Version: {2} failed!\n".format(app, createname, createver), color.FG_LIGHT_RED)
                 #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
                 sleep(2)
                 PatchIt.main()

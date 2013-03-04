@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0.1 Stable, copyright 2013 le717 (http://triangle717.wordpress.com)
+# PatchIt! V1.0.2 Stable, copyright 2013 le717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
@@ -34,52 +34,101 @@ import color.colors as colors
 import tkinter
 from tkinter import filedialog
 
+import logging
+
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
 Thankfully, variables are a key part of Python, and doesn't require installing an optional module. :)'''
 
 app = "PatchIt!"
-majver = "Version 1.0.1"
+majver = "Version 1.0.2"
 minver = "Stable"
 creator = "le717"
 game = "LEGO Racers"
+
+
+# ------------ Begin WIP PatchIt! Logging Code ------------ #
+
+
+def appLoggingFolder():
+    '''Checks for PatchIt! Logs folder'''
+
+    # The Logs folder does not exist in the current directory
+    if not exists(os.getcwd() + "/Logs"):
+        # Create the Logs folder
+        os.mkdir(os.path.join(os.getcwd(), "Logs"))
+        print("Logs folder created\n") # Debug print
+
+    # The Logs folder does  exist in the current directory
+    elif exists(os.getcwd() + "/Logs"):
+        print("Logs folder exists\n") # Debug print
+        # TODO: What to do here when I remove the print?
+
+
+# ------------ End WIP PatchIt! Logging Code ------------ #
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
-    if version_info < (3,3,0): # You need to have at least Python 3.3.0 to run PatchIt!
+    logging.info("Begin logging to {0}".format(logging_file))
+
+     # You need to have at least Python 3.3.0 to run PatchIt!
+    if version_info < (3,3,0):
+        logging.warning("You are not running Python 3.3.0 or higher!\nYou need to get a newer version to run PatchIt!")
         colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
+
         # Don't open browser immediately
+        logging.info("2 second sleep")
         sleep(2)
         open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
-        # PatchIt! automatically closes after this
+        logging.info("Open new tab in web browser to http://python.org/download")
+
+        # Close PatchIt! after this
+        logging.info("3 second sleep")
         sleep(3)
+        logging.info("PatchIt! is shutting down.")
+        raise SystemExit
 
     # You are running >= Python 3.3.0
     else:
+        logging.info("You are running Python 3.3.0 or greater. PatchIt! will continue.")
         # The settings file does not exist
         if not exists('settings'):
+            logging.warning("Settings file does not exist!")
+            logging.info("Proceeding to write PatchIt! settings (writesettings())")
             writesettings()
 
         # The settings file does exist
         else:
+            logging.info("Settings file does exist")
             # Settings file does not need to be opened to use linecache
 
             firstrun = linecache.getline('settings', 1)
+            logging.info("Reading line 1 for first-run info")
             # Remove \n, \r, \t, or any of the like
             firstrun = firstrun.strip()
 
              # Always clear cache after reading
+            logging.info("Clearing file cache")
             linecache.clearcache()
 
             # '0' defines a first-run
+            # "" if file is empty or non-existant
             if firstrun == "0" or firstrun == "":
+                logging.warning('''First-run info not found!
+                Proceeding to write PatchIt! settings (writesettings())''')
                 writesettings()
             # Any other number (Default, 1) means it has been run before
             else:
+                logging.info("First-run info found, this is not the first-run. Switching to menu.")
                 # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
                 main()
+
+# ------------ End PatchIt! Initialization ------------ #
+
+
+# ------------ Begin PatchIt! Menu Layout ------------ #
 
 
 def main():
@@ -118,7 +167,7 @@ def main():
 # ------------ End PatchIt! Initialization ------------ #
 
 
-# ------------ Begin PatchIt! Settings ------------ #
+# ------------ Begin PatchIt! Menu Layout ------------ #
 
 def readsettings():
     '''Read PatchIt! settings'''
@@ -133,7 +182,7 @@ def readsettings():
         if gamecheck() == False:
             sleep(0.5)
             # Use path defined in gamecheck() for messages
-            colors.pc("\nCannot find {0} installation at {1}!".format(game, definedgamepath), color.FG_LIGHT_RED)
+            colors.pc("\nCannot find {0} installation at {1}!\n".format(game, definedgamepath), color.FG_LIGHT_RED)
             # Go write the settings file
             writesettings()
 
@@ -229,6 +278,20 @@ def gamecheck():
 
 # Run preload() upon PatchIt! launch
 if __name__ == "__main__":
+    appLoggingFolder()
+
+    # -- Begin Logging Config -- #
+    # TODO: Can I move this to a seperate function and it still work?
+    logging_file = os.path.join(os.getcwd(), "Logs", 'MainLog.log')
+    print("Logging to", logging_file) # Debug
+    logging.basicConfig(
+        level = logging.DEBUG,
+        format = "%(asctime)s : %(levelname)s : %(message)s",
+        filename = logging_file,
+        filemode = 'a+',
+    )
+    # -- End Logging Config -- #
+
     preload()
 # TODO: Find out why I'm getting an import error when PatchIt! is imported
 #else:
