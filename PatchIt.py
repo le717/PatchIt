@@ -71,13 +71,12 @@ def preload():
         colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
 
         # Don't open browser immediately
-        logging.info("2 second sleep")
         sleep(2)
-        open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
         logging.info("Open new tab in web browser to http://python.org/download")
+        open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
 
-        # Close PatchIt! after this
-        logging.info("3 second sleep")
+        # Close PatchIt!
+        logging.info("Display message for three seconds")
         sleep(3)
         logging.info("PatchIt! is shutting down.")
         raise SystemExit

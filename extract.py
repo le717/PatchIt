@@ -90,6 +90,7 @@ def readpatch():
              # Clear cache so file is completely re-read next time
             logging.info("Clearing PiP file cache...")
             linecache.clearcache()
+
             # Display all the info
             logging.info("Display all mod info")
             logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver, installauthor, installdesc))
@@ -107,7 +108,7 @@ def readpatch():
 
             # No, I do not want to install the patch
             if confirminstall.lower() != "y":
-                logging.info("User does not want to install {0} {1}!".format(installname, installver))
+                logging.warning("User does not want to install {0} {1}!".format(installname, installver))
                 print("\nCanceling installation of {0} {1}...".format(installname, installver))
                 sleep(1)
                 logging.info("Proceeding to main menu")
@@ -132,28 +133,37 @@ def readpatch():
                 linecache.clearcache()
 
                 # Create a vaild ZIP archive
+                logging.info("Cleaning up ZIP archive text")
                 installzipfile = installzipfile.rstrip("\n")
 
                 # Find the ZIP archive
                 ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+                logging.info("Found ZIP archive at {0}".format(ziplocation))
 
                 # Display the Racers game tips
                 #print('\n"' + choice(gametips.gametips) + '"\n')
-                colors.pc('\n"' + choice(gametips.gametips) + '"\n', color.FG_LIGHT_CYAN)
+                logging.info("Display LEGO Racers gameplay tip")
+                #colors.pc('\n"' + choice(gametips.gametips) + '"\n', color.FG_LIGHT_CYAN)
+                colors.pc(choice(gametips.gametips), color.FG_LIGHT_CYAN)
                 try:
                     # Actually extract the ZIP archive
+                    logging.info("Extract {0} to {1}".format(installzipfile, installpath))
                     extractzip = zipfile.ZipFile(ziplocation + installzipfile, "r")
                     extractzip.extractall(path=installpath)
 
                     # Close the ZIP archive when we are through
+                    logging.info("Closing {0}".format(installzipfile))
                     zipfile.ZipFile.close(extractzip)
 
                     # For some reason, it cannot find the ZIP archive
                 except FileNotFoundError:
 
+                    logging.warning()
                     # Strip the ID text for a smoother error message
+                    logging.info("Cleaning up Version and Author text")
                     installver = installver.lstrip("Version: ")
                     installauthor = installauthor.lstrip("Author: ")
+                    logging.warning("Unable to find {0} at {1}!".format(installzipfile, installpath))
                     colors.pc('''Cannot find files for {0} {1}!
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
@@ -168,6 +178,8 @@ If the error continues, contact {6}and ask for a fixed version.'''
 
                     # The user does not have the rights to install to the location.
                 except PermissionError:
+
+                    logging.warning("User does not have the rights to install {0} {1} to {2}!".format(installname, installver, installpath))
                     colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
                     sleep(2)
                     logging.info("Proceeding to main menu")
@@ -181,6 +193,9 @@ If the error continues, contact {6}and ask for a fixed version.'''
                 what do I attach it to so I can have proper exit codes?'''
 
                 if os.system(installpath) == 1:
+
+                    logging.info("Exit code '1'")
+                    logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installpath))
                     print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
                     # Sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                     sleep(2)
@@ -188,12 +203,18 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     PatchIt.main()
 
                 elif os.system(installpath) == 0:
+
+                    # "A landslide has occured" :P
+                    logging.info("Exit code '0'")
+                    logging.info("An unknown error occured while installing {0} {1}\n.".format(installname, installver))
                     print("\nAn unknown error occured while installing {0} {1}\n.".format(installname, installver))
                     sleep(2)
                     logging.info("Proceeding to main menu")
                     PatchIt.main()
 
                 else:
+                    logging.warning("Undefined exit code!")
+                    logging.warning("Installation of {1} Version {2} failed!".format(app, createname, createver))
                     colors.pc("\nInstallation of {1} Version {2} failed!\n".format(app, createname, createver), color.FG_LIGHT_RED)
                     #print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
                     sleep(2)

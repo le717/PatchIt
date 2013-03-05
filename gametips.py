@@ -3,9 +3,9 @@
 # All tips donated by the fine folks at Rock Raiders United.
 
 # TODO: Add new tips.
-gametips = ["Have you heard about the TRUCK DRIVER cheat code? It's fake. Don't believe anyone who tells you otherwise.",
-"Only fire missiles when you have a clear shot at your opponents. Otherwise, you'll miss them completely.",
-"Developing a good track line will improve your lap times. Stay near corners to prevent a great speed loss when turning.",
-"Is Veronica Voltage in your way? Just drive right through her, she won't stop you.",
-"Take your foot off the gas when you're hit by missiles or run into an oil slick - it will increase your  chance of doing a full 360 degree spin, instead of turning around backwards."
+gametips = ["\nHave you heard about the TRUCK DRIVER cheat code? It's fake.\nDon't believe anyone who tells you otherwise.\n",
+"\nOnly fire missiles when you have a clear shot at your opponents.\nOtherwise, you'll miss them completely.\n",
+"\nDeveloping a good track line will improve your lap times.\nStay near corners to prevent a great speed loss when turning.\n",
+"\nIs Veronica Voltage in your way? Just drive right through her,\nshe won't stop you.\n",
+"\nTake your foot off the gas when you're hit by missiles or run into an oil slick:it will increase your chances of doing a full 360 degree spin,\ninstead of turning around backwards.\n"
 ]
