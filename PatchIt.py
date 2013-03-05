@@ -33,8 +33,9 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
-# App Logging module
+# App Logging modules
 import logging
+import thebookkeeper
 
 ''' Global variables
 This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
@@ -46,28 +47,11 @@ minver = "Stable"
 creator = "Triangle717"
 game = "LEGO Racers"
 
-
-# ------------ Begin WIP PatchIt! Logging Code ------------ #
-
-
-def appLoggingFolder():
-    '''Checks for (and creates) PatchIt! Logs folder'''
-
-    # The Logs folder does not exist in the current directory
-    if not exists(join(os.getcwd(), "Logs")):
-
-        # Create the Logs folder
-        logsfolder = os.mkdir(join(os.getcwd(), "Logs"))
-        print("\nLogs folder created\n") # Debug print
-
-
-# ------------ End WIP PatchIt! Logging Code ------------ #
-
 # ------------ Begin PatchIt! Initialization ------------ #
 
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
-    logging.info("Begin logging to {0}".format(logging_file))
+    logging.info("Begin logging to {0}".format(thebookkeeper.logging_file))
     logging.info('''
                                 #############################################
                                         {0} {1} {2}
@@ -333,20 +317,6 @@ def gamecheck():
 
 # Run preload() upon PatchIt! launch
 if __name__ == "__main__":
-    appLoggingFolder()
-
-    # -- Begin Logging Config -- #
-    # TODO: Can I move this to a seperate function and it still work?
-    logging_file = os.path.join(os.getcwd(), "Logs", 'TheWritingsofPatchIt.log')
-    print("Logging to", logging_file) # Debug
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = "%(asctime)s : %(levelname)s : %(message)s",
-        filename = logging_file,
-        filemode = 'a+',
-    )
-    # -- End Logging Config -- #
-
     preload()
 else:
     print("\n{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
