@@ -68,6 +68,18 @@ def appLoggingFolder():
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
     logging.info("Begin logging to {0}".format(logging_file))
+    logging.info('''
+                                #############################################
+                                        {0} {1} {2}
+                                        Copyright 2013 {3}
+                                        TheWritingsofPatchIt.log
+
+
+                                    If you run into a bug, open an issue at
+                                    https://github.com/le717/PatchIt/issues
+                                    and attach this file for an easier fix!
+                                #############################################
+                                '''.format(app, majver, minver, creator))
 
      # You need to have at least Python 3.3.0 to run PatchIt!
     if version_info < (3,3,0):
@@ -164,7 +176,8 @@ def main():
             logging.info("User pressed '[q] Quit'")
             colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
             sleep(1)
-            logging.info("PatchIt! is shutting down")
+            logging.info('''PatchIt! is shutting down
+            ''')
             raise SystemExit
         # Undefined input
         else:
@@ -203,7 +216,8 @@ def readsettings():
 
         # The defined installation was confirmed by gamecheck()
         # TODO: Find a better way to do this
-        elif gamecheck() ==  True:
+        else:
+        #elif gamecheck() ==  True:
             logging.info("LEGO Racers installation was confirmed")
             sleep(0.5)
             logging.info("LEGO Racers installation was found.".format(definedgamepath))
@@ -323,7 +337,7 @@ if __name__ == "__main__":
 
     # -- Begin Logging Config -- #
     # TODO: Can I move this to a seperate function and it still work?
-    logging_file = os.path.join(os.getcwd(), "Logs", 'ThePatchItLog.log')
+    logging_file = os.path.join(os.getcwd(), "Logs", 'TheWritingsofPatchIt.log')
     print("Logging to", logging_file) # Debug
     logging.basicConfig(
         level = logging.DEBUG,
