@@ -56,14 +56,16 @@ def readpatch():
     # The user selected a patch
     else:
         # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
+        logging.info("Reading line 1 of {0} for PiP validity check".format(installpatch))
         confirmpatch = linecache.getline(installpatch, 1)
 
         # It's not a patch! D:
-        if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity line
-            #print(confirmpatch)
+        if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity check
+            logging.warning("{0} is not a valid PatchIt patch!\n".format(installpatch))
             colors.pc("{0} is not a valid PatchIt patch!\n".format(installpatch), color.FG_LIGHT_RED)
 
             # Dump PiP validity cache after reading
+            logging.info("Clearing PiP validity cache...")
             linecache.clearcache()
             sleep(1)
             logging.info("Proceeding to main menu")
@@ -72,27 +74,40 @@ def readpatch():
         # It is a patch! :D
         else:
             # Get all patch details
+            logging.info("Reading line 3 of {0} for mod name".format(installpatch))
             installname = linecache.getline(installpatch, 3)
+            logging.info("Reading line 34 of {0} for mod version".format(installpatch))
             installver = linecache.getline(installpatch, 4)
+            logging.info("Reading line 5 of {0} for mod author".format(installpatch))
             installauthor = linecache.getline(installpatch, 5)
+            logging.info("Reading line 7 of {0} for mod description".format(installpatch))
             installdesc = linecache.getline(installpatch, 7)
 
             # Strip the description for better display
+            logging.info("Cleaning up description text")
             installdesc = installdesc.strip()
 
              # Clear cache so file is completely re-read next time
+            logging.info("Clearing PiP file cache...")
             linecache.clearcache()
             # Display all the info
+            logging.info("Display all mod info")
+            logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver, installauthor, installdesc))
             print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
 
             # Strip the name and version to put all the text on one line
+            logging.info("Cleaning up mod name")
             installname = installname.strip("\n")
+            logging.info("Cleaning up mod version")
             installver = installver.strip("\n")
+
+            logging.info("Do you Do you wish to install {0} {1}?".format(installname, installver))
             print("\nDo you wish to install {0} {1}? {2}".format(installname, installver, r"(y\N)"))
             confirminstall = input("\n> ")
 
             # No, I do not want to install the patch
             if confirminstall.lower() != "y":
+                logging.info("User does not want to install {0} {1}!".format(installname, installver))
                 print("\nCanceling installation of {0} {1}...".format(installname, installver))
                 sleep(1)
                 logging.info("Proceeding to main menu")
@@ -100,14 +115,20 @@ def readpatch():
 
             # Yes, I do want to install it!
             else:
+                logging.info("User does want to install {0} {1}.".format(installname, installver))
+
                 # Read the settings file for installation (LEGO Racers directory)
+                logging.info("Reading line 2 of settings for LEGO Racers installation")
                 installpath = linecache.getline('settings', 2)
 
                 # Create a valid folder path
+                logging.info("Cleaning up installation text")
                 installpath = installpath.rstrip("\n")
+                logging.info("Reading line 9 of {0} {1} for ZIP archive".format(installname, installver))
                 installzipfile = linecache.getline(installpatch, 9)
 
                  # Again, clear cache so everything completely re-read every time
+                logging.info("Clearing settings file cache...")
                 linecache.clearcache()
 
                 # Create a vaild ZIP archive

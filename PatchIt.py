@@ -108,7 +108,7 @@ def preload():
             firstrun = firstrun.strip()
 
              # Always clear cache after reading
-            logging.info("Clearing file cache...")
+            logging.info("Clearing first-run cache...")
             linecache.clearcache()
 
             # '0' defines a first-run
@@ -291,11 +291,11 @@ def gamecheck():
     definedgamepath = linecache.getline('settings', 2)
 
     # Clear cache so settings fiele is completely re-read everytime
-    logging.info("Clearing file cache")
+    logging.info("Clearing installation cache...")
     linecache.clearcache()
 
     # Strip the path to make it valid
-    logging.info("Cleaning up line text")
+    logging.info("Cleaning up installation text")
     definedgamepath = definedgamepath.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
