@@ -290,7 +290,7 @@ def gamecheck():
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
 
-    # Clear cache so settings fiele is completely re-read everytime
+    # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
     linecache.clearcache()
 
