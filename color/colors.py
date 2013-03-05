@@ -21,7 +21,7 @@ def color(text, color, nl = True):
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
     sys.stdout.write(text)
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, reset)
-    if nl: sys.stdout.write("")
+    if nl: print("")
     sys.stdout.flush()
 
 handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
@@ -33,4 +33,4 @@ def pc(t, c = 0xf, nl = True):
     color(t,c, nl)
 
 def info(i):
-    sys.stdout.write(str(i))
+    print(str(i))

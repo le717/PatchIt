@@ -43,7 +43,7 @@ Thankfully, variables are a key part of Python, and doesn't require installing a
 
 app = "PatchIt!"
 majver = "Version 1.0.2"
-minver = "Stable"
+minver = "Unstable"
 creator = "Triangle717"
 game = "LEGO Racers"
 
