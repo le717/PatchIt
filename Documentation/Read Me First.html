@@ -95,8 +95,8 @@ be done.</p>
 <li>Version bump</li>
 <li>Added intro logging message</li>
 <li>Renamed log file</li>
-<li>Changed the way gamecheck() is called</li>
-<li>Moved App logging to a seperate function</li>
+<li>Changed the way <code>gamecheck()</code> is called</li>
+<li>Moved App logging to a separate module (<code>thebookkeeper.py</code>)</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
@@ -113,8 +113,8 @@ be done.</p>
 <li>App warnings are now displayed in red</li>
 <li>Fixed invalid PiP file error</li>
 <li>More colored shell text</li>
-<li>Changed writesettings() to use new Python 3 print() file writing</li>
-<li>preload() now checks for empty file</li>
+<li>Changed <code>writesettings()</code> to use new Python 3 <code>print()</code> file writing</li>
+<li><code>preload()</code> now checks for empty file</li>
 <li>Dump PiP validity cache after reading</li>
 <li>Added PermissionError check to settings writing</li>
 <li>Reverted most of colored shell text due to bug in code</li> 
@@ -127,14 +127,14 @@ be done.</p>
 <strong>1.0 Stable</strong><br>
 (Released February 21, 2013)<br>
 <ul>
-<li>Cleaned up check() and write() functions</li>
+<li>Cleaned up <code>check()</code> and <code>write()</code> functions</li>
 <li>First draft of PiP patch layout</li>
 <li>Improved Python 3.3 version check</li>
 <li>Lots of script comments</li>
 <li>Set settings file to use UTF-8 encoding</li>
 <li>Added first-run check, uses <span class="bold">PatchIt!</span> settings file</li>
 <li>Moved <span class="italic">LEGO Racers</span> installation path to line 2 of the settings file</li>
-<li>Updated functions to work with first-load (preload())</li>
+<li>Updated functions to work with first-load (<code>preload()</code>)</li>
 <li>Renamed settings file from settings.txt to just settings, code changed accordingly</li>
 <li>Enabled cancellation of <span class="italic">LEGO Racers</span> game path change</li>
 <li>Started HTML Readme</li>
@@ -144,7 +144,7 @@ be done.</p>
 <li>Added PiP file validity check</li>
 <li>Renamed most script functions</li>
 <li>Enabled cancellation of patch installation</li>
-<li>Removed settings file writing in preload()</li>
+<li>Removed settings file writing in <code>preload()</code></li>
 <li>Added <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Created <a href="http://www.innosetup.com" title="Inno Setup" target="_blank">Inno Setup</a> Windows Installer</li>
 <li>New <span class="bold">PatchIt!</span> Application Icon created by <a href="http://rioforce.wordpress.com" target="_blank" title="rioforce">rioforce</a> 
@@ -155,7 +155,7 @@ be done.</p>
 <li>Split gameplay tips list into a separate file</li>
 <li>Prep work for PiP writing code</li>
 <li>More function renames</li>
-<li>Large changes to installfiles()</li>
+<li>Large changes to <code>installfiles()</code></li>
 <li>Began writing PiP writing code</li>
 <li>More large script changes</li>
 <li>Updated PiP file format</li>
@@ -180,7 +180,7 @@ be done.</p>
 <li>Amended PiP file format to address inherit 161 character description limit</li>
 <li>Added PiP file description length check</li>
 <li>Wrote and updated script comments</li>
-<li>Small preload(), internal edits</li>
+<li>Small <code>preload()</code>, internal edits</li>
 <li>Major Installer script update</li>
 <li>Corrected <span class="bold">PatchIt!</span> ICO file</li>
 <li>Wrote <span class="bold">PatchIt!</span> usage documentation</li>
@@ -199,7 +199,7 @@ be done.</p>
 <li>Split <span class="italic">LEGO Racers</span> installation check into separate function</li>
 <li>Began writing GitHub-flavored Markdown Readme</li>
 <li>Official rename from <span class="bold">LEGO Racers Mod Installer</span> to <span class="bold">PatchIt!</span></li>
-<li>Incorporated check() function into read() and write() functions</li>
+<li>Incorporated <code>check()</code> function into <code>read()</code> and <code>write()</code> functions</li>
 <li>Added ZIP compression using 7-zip</li>
 <li>Removed 7-zip dependency and replaced it with the built-in ZipFile and Shutil modules for ZIP extraction and compression, respectively</li>
 <li>Small code cleanup</li>
