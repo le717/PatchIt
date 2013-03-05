@@ -1,5 +1,5 @@
 ; PatchIt! V1.0 Stable Windows Installer
-; Copyright © 2013 le717
+; Copyright © 2013 Triangle717
 ; http://triangle717.wordpress.com
 ; Written with Inno Setup 5.5.2 Unicode
 
@@ -10,8 +10,8 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "1.0.1"
-#define MyAppVerName "PatchIt! Version 1.0.1 Stable"
+#define MyAppVersion "1.0.2"
+#define MyAppVerName "PatchIt! Version 1.0.2 Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -74,18 +74,17 @@ Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
 
 [Files]
 ; PatchIt! Icon
-Source: "..\Icons\PatchItIcon.ico"; Flags: ignoreversion; DestDir: "{app}";
+Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; HTML Readme
-Source: "..\Documentation\Read Me First.html"; Flags: ignoreversion; DestDir: "{app}"
+Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! settings file (with first-run set to 0)
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
 ; Again for Settings_Reset switch
 Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
 ; 64-bit Windows build
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
-
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"

@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0.2 Stable, copyright 2013 le717 (http://triangle717.wordpress.com)
+# PatchIt! V1.0.2 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
@@ -43,7 +43,7 @@ Thankfully, variables are a key part of Python, and doesn't require installing a
 app = "PatchIt!"
 majver = "Version 1.0.2"
 minver = "Stable"
-creator = "le717"
+creator = "Triangle717"
 game = "LEGO Racers"
 
 
