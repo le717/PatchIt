@@ -100,13 +100,15 @@ def preload():
             logging.info("Settings file does exist")
             # Settings file does not need to be opened to use linecache
 
-            firstrun = linecache.getline('settings', 1)
             logging.info("Reading line 1 for first-run info")
+            firstrun = linecache.getline('settings', 1)
+
             # Remove \n, \r, \t, or any of the like
+            logging.info("Cleaning up line text")
             firstrun = firstrun.strip()
 
              # Always clear cache after reading
-            logging.info("Clearing file cache")
+            logging.info("Clearing file cache...")
             linecache.clearcache()
 
             # '0' defines a first-run
@@ -117,7 +119,7 @@ def preload():
                 writesettings()
             # Any other number (Default, 1) means it has been run before
             else:
-                logging.info("First-run info found, this is not the first-run. Switching to menu.")
+                logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
                 # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
                 main()
 
@@ -194,7 +196,7 @@ def readsettings():
             sleep(0.5)
 
             # Use path defined in gamecheck() for messages
-            logging.info("Display warning message to user")
+            logging.warning("LEGO Racers installation was not found!".format(definedgamepath))
             colors.pc("\nCannot find {0} installation at {1}!\n".format(game, definedgamepath), color.FG_LIGHT_RED)
             # Go write the settings file
             writesettings()
@@ -204,11 +206,12 @@ def readsettings():
         elif gamecheck() ==  True:
             logging.info("LEGO Racers installation was confirmed")
             sleep(0.5)
-            logging.info("Display confirmation message to user")
+            logging.info("LEGO Racers installation was found.".format(definedgamepath))
             print("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
+
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
                 sleep(0.5)
@@ -220,6 +223,7 @@ def readsettings():
                 logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
                 # Always sleep for 1 second before kicking back to the menu.
                 sleep(1)
+                logging.info("Proceeding to main menu")
                 main()
 
 def writesettings():
@@ -228,27 +232,37 @@ def writesettings():
      # It does not matter if it exists or not, it has to be written
     if exists('settings') or not exists('settings'):
 
-        # Hide the root Tk window
+        # Draw (then withdraw) the root Tk window
+        logging.info("Draw root Tk window")
         root = tkinter.Tk()
+        logging.info("Withdraw root Tk window")
         root.withdraw()
 
         # Select the LEGO Racers installation
+        logging.info("Display folder selection dialog for LEGO Racers installation")
         newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
 
         # The user clicked the cancel button
         if len(newgamepath) == 0:
-            #print("Canceling...") # Again, for lack of a better messages
+            logging.warning("User did not select a new LEGO Racers installation!")
             sleep(1)
+            logging.info("Proceeding to main menu")
             main()
 
         # The user selected a folder
         else:
+            logging.info("User selected a new LEGO Racers installation {0}".format(newgamepath))
             # Write file, using UTF-8 encoding
             try:
                 with open('settings', 'wt', encoding='utf-8') as settings:
+                    logging.info("Open 'settings' for writing with UTF-8 encoding")
+
                     # Ensures first-run process will be skipped next time
+                    logging.info("Wrote '1' to first line (to skip first-run next time)")
                     print("1", file=settings)
+
                     # end="" So there won't be a \n written
+                    logging.info("Wrote new LEGO Racers installation to second line (killing the new line ending)")
                     print(newgamepath, file=settings, end="")
 
                     '''Removing "settings.close()" breaks the entire first-run code.
@@ -256,11 +270,14 @@ def writesettings():
                     as running the path through gamecheck() nor going back to main()
                     Possible TODO: Find out why this is happening and remove it if possible.'''
 
+                    logging.info("Closing file")
                     settings.close()
+                    logging.info("Proceeding to PatchIt! Settings (readsettings())")
                     readsettings()
 
             # User does not have the rights to write the settings file
             except PermissionError:
+                logging.info("User does not have the rights change installation to {0}!".format(newgamepath))
                 colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
                 sleep(2)
                 main()
@@ -269,25 +286,31 @@ def gamecheck():
     '''Confirm LEGO Racers installation'''
 
     # For use in other messages
+    logging.info("Reading line 2 of settings for LEGO Racers installation")
     global definedgamepath
     definedgamepath = linecache.getline('settings', 2)
 
     # Clear cache so settings fiele is completely re-read everytime
+    logging.info("Clearing file cache")
     linecache.clearcache()
 
     # Strip the path to make it valid
+    logging.info("Cleaning up line text")
     definedgamepath = definedgamepath.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
     if exists(join(definedgamepath, "GAMEDATA")) and exists(join(definedgamepath, "MENUDATA")) and exists(join(definedgamepath, "LEGORacers.exe")):
+        logging.info("GAMEDATA, MENUDATA, and LEGORacers.exe were found at {0}".format(definedgamepath))
         return True
 
     # If the settings file was externally edited and the path was removed
     elif len(definedgamepath) == 0:
+        logging.warning("LEGO Racers installation is empty!")
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
+        logging.warning("GAMEDATA, MENUDATA, and LEGORacers.exe were not found at {0}!".format(definedgamepath))
         return False
 
 
