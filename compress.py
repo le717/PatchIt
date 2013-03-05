@@ -12,6 +12,8 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
+# App Logging modules
+import logging
 
 
 # ------------ Begin Thumbs.db Check And Delete Code ------------ #
@@ -21,15 +23,22 @@ def delThumbs(inputfiles):
 
     # Traverse through the subfolders
     for root, dir, files in os.walk(inputfiles):
+        logging.info("Walking through {0}...".format(inputfiles))
         for item in files:
+
             # I've heard of a ethumbs.db file once before...
             if item.lower().endswith(".db"):
+                logging.warning("Thumbs.db has been found!")
+
                 '''Uncomment this to target just thumbs.db'''
                 #if item.lower() == "thumbs.db":
+
                 '''This will print upon every instance of thumbs.db. Not good.'''
                 #print('''\nI found Thumbs.db in your files. I will delete it for you in a few seconds.
 #Don't worry, Windows will recreate it.\n''')
+
                 '''Actually delete the file(s)'''
+                logging.info("Deleting Thumbs.db (don't worry, Windows will recreate it. ;))")
                 os.unlink(join(root, item))
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
@@ -37,18 +46,23 @@ def delThumbs(inputfiles):
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
-def patchdesc():
+def patchDesc():
     '''Mod Description input and length check'''
 
     # Because I can't see how to do it any other way
     global createdesc
+    logging.info("Ask for mod description")
     createdesc = input("Description: ")
+
     # 162 characters will mess up PatchIt! entirely
     if len(createdesc) > 161:
+            logging.warning("The description is too longer - longer than 161 characters!")
             colors.pc("\nYour description is too long! Please write it a bit shorter.\n", color.FG_LIGHT_RED)
             # Loop back through the input if it is longer
-            patchdesc()
+            logging.info("Loop back through for shorter description (patchDesc())")
+            patchDesc()
     else:
+        logging.info("Your description fits into the 161 character limit")
         # It fits into the limit, send it back to writepatch()
         return createdesc
 

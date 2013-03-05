@@ -92,7 +92,7 @@ be done.</p>
 <li>Cleaned up App Logging config</li>
 <li>Cleaned up <span class="italic">LEGO Racers</span> installation check</li>
 <li>Added App Logging code for Patch Installation module</li>
-<li>Added missing <code>onlyifdoesntexist</code> installer flag to settings file</li>
+<li>Added missing <code>onlyifdoesntexist</code> installer flag for <code>settings</code></li>
 <li>Version bump</li>
 <li>Added intro logging message</li>
 <li>Renamed log file</li>
@@ -100,6 +100,8 @@ be done.</p>
 <li>Moved App logging to a separate module (<code>thebookkeeper.py</code>)</li>
 <li>Updated Support section to mention app log</li>
 <li>Corrected <span class="italic">LEGO Racers</span> gameplay tips formatting</li>
+<li>Added new <code>setup.py</code> from <a href="https://github.com/Lyrositor/EBPatcher" target="_blank">EBPatcher</a></li>
+<li>Began adding App Logging code for Patch Creation module</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
@@ -123,7 +125,7 @@ be done.</p>
 <li>Reverted most of colored shell text due to bug in code</li> 
 <li>Fixed Patch Compression (broke it when adding PermissionError check)</li>
 <li>Fixed clearcache functions</li>
-<li><span style="italic">Thumbs.db</span> is automatically delete if found (Fixes PermissionError when installing Patch)</li>
+<li><code>Thumbs.db</code> is automatically delete if found (Fixes PermissionError when installing Patch)</li>
 <li>Fixed Uninstallation Icon and Installation Size value</li>
 </ul>
 
@@ -134,11 +136,11 @@ be done.</p>
 <li>First draft of PiP patch layout</li>
 <li>Improved Python 3.3 version check</li>
 <li>Lots of script comments</li>
-<li>Set settings file to use UTF-8 encoding</li>
-<li>Added first-run check, uses <span class="bold">PatchIt!</span> settings file</li>
-<li>Moved <span class="italic">LEGO Racers</span> installation path to line 2 of the settings file</li>
+<li>Set <code>settings</code> file to use UTF-8 encoding</li>
+<li>Added first-run check, uses <span class="bold">PatchIt!</span> <code>settings</code> file</li>
+<li>Moved <span class="italic">LEGO Racers</span> installation path to line 2 of <code>settings</code></li>
 <li>Updated functions to work with first-load (<code>preload()</code>)</li>
-<li>Renamed settings file from settings.txt to just settings, code changed accordingly</li>
+<li>Renamed settings file from <code>settings.txt</code> to just <code>settings</code>, code changed accordingly</li>
 <li>Enabled cancellation of <span class="italic">LEGO Racers</span> game path change</li>
 <li>Started HTML Readme</li>
 <li>Fixed odd first-run bug</li>
@@ -147,7 +149,7 @@ be done.</p>
 <li>Added PiP file validity check</li>
 <li>Renamed most script functions</li>
 <li>Enabled cancellation of patch installation</li>
-<li>Removed settings file writing in <code>preload()</code></li>
+<li>Removed <code>settings file</code> writing in <code>preload()</code></li>
 <li>Added <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Created <a href="http://www.innosetup.com" title="Inno Setup" target="_blank">Inno Setup</a> Windows Installer</li>
 <li>New <span class="bold">PatchIt!</span> Application Icon created by <a href="http://rioforce.wordpress.com" target="_blank" title="rioforce">rioforce</a> 
