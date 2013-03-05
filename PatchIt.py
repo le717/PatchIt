@@ -323,7 +323,7 @@ if __name__ == "__main__":
 
     # -- Begin Logging Config -- #
     # TODO: Can I move this to a seperate function and it still work?
-    logging_file = os.path.join(os.getcwd(), "Logs", 'MainLog.log')
+    logging_file = os.path.join(os.getcwd(), "Logs", 'ThePatchItLog.log')
     print("Logging to", logging_file) # Debug
     logging.basicConfig(
         level = logging.DEBUG,

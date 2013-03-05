@@ -5,7 +5,8 @@ import linecache
 import PatchIt
 import gametips
 import zipfile
-from os import system
+import os
+from os.path import exists, join
 from random import choice
 from time import sleep
 # Colored text (until complete GUI is written)
@@ -14,6 +15,8 @@ import color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
+# App Logging module
+import logging
 
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
@@ -22,6 +25,7 @@ def readpatch():
     '''Reads and Installs PatchIt! Patch'''
 
     print("\nInstall a {0} Patch\n".format(PatchIt.app))
+    logging.info("Install a PatchIt! Patch")
 
     # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
@@ -29,10 +33,13 @@ def readpatch():
     # Select the patch file
     # TODO: Make dialog active window automatically and do the same to main window when closed.
 
-    # Draw (then hide) the root Tk window
+    # Draw (then withdraw) the root Tk window
+    logging.info("Draw root Tk window")
     root = tkinter.Tk()
+    logging.info("Withdraw root Tk window")
     root.withdraw()
 
+    logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
     installpatch = filedialog.askopenfilename(
     title="Please select a {0} Patch".format(PatchIt.app),
     defaultextension=".PiP",
@@ -40,8 +47,10 @@ def readpatch():
 
     # The user clicked the cancel button
     if len(installpatch) == 0:
+        logging.warning("User did not select a PatchIt! Patch for installation!")
         colors.pc("\nCould not find a {0} patch to read!\n".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(1)
+        logging.info("Proceeding to main menu")
         PatchIt.main()
 
     # The user selected a patch
@@ -57,6 +66,7 @@ def readpatch():
             # Dump PiP validity cache after reading
             linecache.clearcache()
             sleep(1)
+            logging.info("Proceeding to main menu")
             PatchIt.main()
 
         # It is a patch! :D
@@ -85,6 +95,7 @@ def readpatch():
             if confirminstall.lower() != "y":
                 print("\nCanceling installation of {0} {1}...".format(installname, installver))
                 sleep(1)
+                logging.info("Proceeding to main menu")
                 PatchIt.main()
 
             # Yes, I do want to install it!
@@ -131,12 +142,14 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     # There has to be an easier way to format the message without repeating installname/ver 3 times each...
                     # Sleep a bit longer so the error message can be read.
                     sleep(4.5)
+                    logging.info("Proceeding to main menu")
                     PatchIt.main()
 
                     # The user does not have the rights to install to the location.
                 except PermissionError:
                     colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
                     sleep(2)
+                    logging.info("Proceeding to main menu")
                     PatchIt.main()
 
                 '''Windows continually throws up the *installpath* is not recognized as an internal or external command,
@@ -146,21 +159,24 @@ If the error continues, contact {6}and ask for a fixed version.'''
                 I believe the error is due the fact I have it attached to the wrong code. The question now is,
                 what do I attach it to so I can have proper exit codes?'''
 
-                if system(installpath) == 1:
+                if os.system(installpath) == 1:
                     print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
                     # Sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                     sleep(2)
+                    logging.info("Proceeding to main menu")
                     PatchIt.main()
 
-                elif system(installpath) == 0:
+                elif os.system(installpath) == 0:
                     print("\nAn unknown error occured while installing {0} {1}\n.".format(installname, installver))
                     sleep(2)
+                    logging.info("Proceeding to main menu")
                     PatchIt.main()
 
                 else:
                     colors.pc("\nInstallation of {1} Version {2} failed!\n".format(app, createname, createver), color.FG_LIGHT_RED)
                     #print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
                     sleep(2)
+                    logging.info("Proceeding to main menu")
                     PatchIt.main()
 
 # ------------ End PatchIt! Patch Installation ------------ #
