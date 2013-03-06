@@ -40,7 +40,7 @@ UninstallDisplayIcon={app}\PatchItIcon.ico
 CreateUninstallRegKey=yes
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
-UninstallDisplaySize=15730000
+UninstallDisplaySize=16253000
 ; Compression
 Compression=lzma/ultra
 SolidCompression=True
@@ -53,7 +53,7 @@ RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 ; This is required because Inno is having issues figuring out how large the files are. :|
-ExtraDiskSpaceRequired=15730000
+ExtraDiskSpaceRequired=16253000
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
