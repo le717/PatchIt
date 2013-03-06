@@ -12,7 +12,7 @@ a:hover { text-decoration: underline; }
 </head>
 <body>
 <a name="ToC"></a>
-<h2>PatchIt! Version 1.0.1 Readme</h2>
+<h2>PatchIt! Version 1.0.2 Readme</h2>
 <table border="0">
 <thead>
 <th>Table of Contents</th>
@@ -49,9 +49,9 @@ Racers</span>.<a name="How"></a>
 
 <h3>First Run</h3>
 <p>Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked for the path to your <span class="italic">LEGO 
-Racers</span> installation. Simply point it to your 
-LEGO Racers installation with your LEGO.JAM already decompressed. <span class="bold">PatchIt!</span> will ensure it is a valid installation, and if so, 
-continue to the menu. You will only need to do this once, as <span class="bold">PatchIt!</span> is smart enough to know if you ran it once already.</p>
+Racers</span> installation. Simply point it to your LEGO Racers installation with your LEGO.JAM already decompressed. <span class="bold">PatchIt!</span> will 
+ensure it is a valid installation, and if so, continue to the menu. You will only need to do this once, as <span class="bold">PatchIt!</span> is smart enough 
+to know if you ran it once already.</p>
 
 <h3>Changing your LEGO Racers Installation</h3>
 <p>If you need to change your defined <span class="italic">LEGO Racers</span> installation, you can do it in a minute. Just load <span class="bold">PatchIt!
@@ -72,7 +72,8 @@ Both items use your mod's name and version for the filename, and will be located
 Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p><br>
 
 <h4>Be Careful!</h4>
-<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>), back-slash (<code>\</code>),
+<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>), back-slash (<code>\
+</code>),
 and forward-slash (<code>/</code>)<br> are not permitted as filenames, and entering these into the <code>Name:</code> and <code>Version:</code> fields 
 will have undesired effects on your computer.<br>They are only permitted in the <code>Author:</code> and <code>Description:</code> fields, where no harm will 
 be done.</p>
@@ -82,8 +83,28 @@ be done.</p>
 <strong>1.0.2 Stable</strong><br>
 (Released ?? ??, 2013)<br>
 <ul>
+<li>Colorized <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Fixed small Installer errors</li>
-<li>LEGOs in space? More later!</li>
+<li>Commented Thumbs.db deletion code</li>
+<li>Change import options for <code>os</code> module</li>
+<li>Added App Logging code for main <span class="bold">PatchIt!</span> module</li>
+<li>Fixed error when importing <span class="bold">PatchIt!</span> itself as a module</li>
+<li>Cleaned up App Logging config</li>
+<li>Cleaned up <span class="italic">LEGO Racers</span> installation check</li>
+<li>Added App Logging code for Patch Installation module</li>
+<li>Added missing <code>onlyifdoesntexist</code> installer flag for <code>settings</code></li>
+<li>Version bump</li>
+<li>Added intro logging message</li>
+<li>Renamed log file</li>
+<li>Changed the way <code>gamecheck()</code> is called</li>
+<li>Moved App logging to a separate module (<code>thebookkeeper.py</code>)</li>
+<li>Updated Support section to mention app log</li>
+<li>Corrected <span class="italic">LEGO Racers</span> gameplay tips formatting</li>
+<li>Added new <code>setup.py</code> from <a href="https://github.com/Lyrositor/EBPatcher" target="_blank">EBPatcher</a></li>
+<li>Added App Logging code for Patch Creation module</li>
+<li>Added new <span class="italic">LEGO Racers</span> gameplay tips, with help from Xiron</li>
+<li>Changed color of <span class="italic">LEGO Racers</span> gameplay tips from Light Cyan to Light Green</li>
+<!-- <li>LEGOs in space? More later!</li> -->
 </ul>
 
 <strong>1.0.1 Stable</strong><br>
@@ -99,29 +120,29 @@ be done.</p>
 <li>App warnings are now displayed in red</li>
 <li>Fixed invalid PiP file error</li>
 <li>More colored shell text</li>
-<li>Changed writesettings() to use new Python 3 print() file writing</li>
-<li>preload() now checks for empty file</li>
+<li>Changed <code>writesettings()</code> to use new Python 3 <code>print()</code> file writing</li>
+<li><code>preload()</code> now checks for empty file</li>
 <li>Dump PiP validity cache after reading</li>
 <li>Added PermissionError check to settings writing</li>
 <li>Reverted most of colored shell text due to bug in code</li> 
 <li>Fixed Patch Compression (broke it when adding PermissionError check)</li>
 <li>Fixed clearcache functions</li>
-<li><span style="italic">Thumbs.db</span> is automatally delete if found (Fixes PermissionError when installing Patch)</li>
+<li><code>Thumbs.db</code> is automatically delete if found (Fixes PermissionError when installing Patch)</li>
 <li>Fixed Uninstallation Icon and Installation Size value</li>
 </ul>
 
 <strong>1.0 Stable</strong><br>
 (Released February 21, 2013)<br>
 <ul>
-<li>Cleaned up check() and write() functions</li>
+<li>Cleaned up <code>check()</code> and <code>write()</code> functions</li>
 <li>First draft of PiP patch layout</li>
 <li>Improved Python 3.3 version check</li>
 <li>Lots of script comments</li>
-<li>Set settings file to use UTF-8 encoding</li>
-<li>Added first-run check, uses <span class="bold">PatchIt!</span> settings file</li>
-<li>Moved <span class="italic">LEGO Racers</span> installation path to line 2 of the settings file</li>
-<li>Updated functions to work with first-load (preload())</li>
-<li>Renamed settings file from settings.txt to just settings, code changed accordingly</li>
+<li>Set <code>settings</code> file to use UTF-8 encoding</li>
+<li>Added first-run check, uses <span class="bold">PatchIt!</span> <code>settings</code> file</li>
+<li>Moved <span class="italic">LEGO Racers</span> installation path to line 2 of <code>settings</code></li>
+<li>Updated functions to work with first-load (<code>preload()</code>)</li>
+<li>Renamed settings file from <code>settings.txt</code> to just <code>settings</code>, code changed accordingly</li>
 <li>Enabled cancellation of <span class="italic">LEGO Racers</span> game path change</li>
 <li>Started HTML Readme</li>
 <li>Fixed odd first-run bug</li>
@@ -130,7 +151,7 @@ be done.</p>
 <li>Added PiP file validity check</li>
 <li>Renamed most script functions</li>
 <li>Enabled cancellation of patch installation</li>
-<li>Removed settings file writing in preload()</li>
+<li>Removed <code>settings file</code> writing in <code>preload()</code></li>
 <li>Added <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Created <a href="http://www.innosetup.com" title="Inno Setup" target="_blank">Inno Setup</a> Windows Installer</li>
 <li>New <span class="bold">PatchIt!</span> Application Icon created by <a href="http://rioforce.wordpress.com" target="_blank" title="rioforce">rioforce</a> 
@@ -141,7 +162,7 @@ be done.</p>
 <li>Split gameplay tips list into a separate file</li>
 <li>Prep work for PiP writing code</li>
 <li>More function renames</li>
-<li>Large changes to installfiles()</li>
+<li>Large changes to <code>installfiles()</code></li>
 <li>Began writing PiP writing code</li>
 <li>More large script changes</li>
 <li>Updated PiP file format</li>
@@ -166,7 +187,7 @@ be done.</p>
 <li>Amended PiP file format to address inherit 161 character description limit</li>
 <li>Added PiP file description length check</li>
 <li>Wrote and updated script comments</li>
-<li>Small preload(), internal edits</li>
+<li>Small <code>preload()</code>, internal edits</li>
 <li>Major Installer script update</li>
 <li>Corrected <span class="bold">PatchIt!</span> ICO file</li>
 <li>Wrote <span class="bold">PatchIt!</span> usage documentation</li>
@@ -185,7 +206,7 @@ be done.</p>
 <li>Split <span class="italic">LEGO Racers</span> installation check into separate function</li>
 <li>Began writing GitHub-flavored Markdown Readme</li>
 <li>Official rename from <span class="bold">LEGO Racers Mod Installer</span> to <span class="bold">PatchIt!</span></li>
-<li>Incorporated check() function into read() and write() functions</li>
+<li>Incorporated <code>check()</code> function into <code>read()</code> and <code>write()</code> functions</li>
 <li>Added ZIP compression using 7-zip</li>
 <li>Removed 7-zip dependency and replaced it with the built-in ZipFile and Shutil modules for ZIP extraction and compression, respectively</li>
 <li>Small code cleanup</li>
@@ -199,8 +220,12 @@ be done.</p>
 <li>First version, based on very sloppy, hacky code with 7-zip (7za.exe) dependency for ZIP extraction and creation.</li>
 </ul><a name="Help"></a>
 <h2>Support</h2>
-<p>To request a feature, submit a bug report or code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="
-https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br><br>
+<p>To request a feature, submit a code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="
+https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br>
+To submit a bug report, please go to  <a title="https://github.com/le717/PatchIt/issues" target="_blank" href="https://github.com/le717/PatchIt/issues">
+https://github.com/le717/PatchIt/issues</a>, state the bug, and attach <code>TheWritingsofPatchIt.log</code>, 
+located at <code>%ProgramFiles%\PatchIt\Logs</code>. Attaching this file will ensure the bug will be found a log easier, and a bug fix will be released much 
+faster.</p><br><br>
 <a name="MoreInfo"></a>
 
 <h2>Resources</h2>
@@ -219,12 +244,12 @@ recompresses LEGO.JAM</a></li>
 
 <h2>Credit</h2>
 <p class="bold"><span class="italic">PatchIt!</span> is copyright 2013  <a href="http://triangle717.wordpress.com" target="_blank" title=
-"Triangle717.WordPress.com">le717</a>, and released under the <a
+"Triangle717.WordPress.com">Triangle717</a>, and released under the <a
  href="http://www.gnu.org/licenses/gpl.html" target="_blank" title ="GNU General Public License Version 3">GNU General Public License Version 3.</a></p>
- <p>Special thanks to Cirevam, alan, RobExplorien, JimbobJeffers, Creator, and all the awesome people at <a href="http://rockraidersunited.org" target=
- "_blank" title="Rock Raiders United">Rock Raiders United</a> for sharing their <span class="italic">LEGO Racers</span> gameplay tips and supporting the 
- development of <span class="bold">PatchIt!</span> A very special thank you goes out to JrMasterModelBuilder and TheDoctor for putting up with my constant 
- Python questions. Without you guys, I would have never been able to write this.</p>
+ <p>Special thanks to Cirevam, alan, RobExplorien, JimbobJeffers, Creator, Olivus Prime, Xiron, and all the awesome people at <a href="
+ http://rockraidersunited.org" target= "_blank" title="Rock Raiders United">Rock Raiders United</a> for sharing their <span class="italic">LEGO Racers</span> 
+ gameplay tips and supporting the development of <span class="bold">PatchIt!</span> A very special thank you goes out to JrMasterModelBuilder and TheDoctor 
+ for putting up with my constant Python questions. Without you guys, I would have never been able to write this.</p>
  <br>
  <a href="#ToC">Back to the Beginning</a>
 </body>

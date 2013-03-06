@@ -126,7 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-#*.exe
+*.exe
 *.msi
 *.com
 *.bat
@@ -172,7 +172,7 @@ pip-log.txt
 #############
 
 #I don't want to upload any archives.
-#*.zip
+*.zip
 *.rar
 *.7z
 *.cab
@@ -184,6 +184,7 @@ pip-log.txt
 ########
 
 Windows/Here Lie the Installer/
+listtips.py
 #*.psd
 #*.html
 PatchItOld.py
@@ -199,3 +200,5 @@ settings
 *.blend2
 Testing/
 Compile/
+Logs/
+License/
