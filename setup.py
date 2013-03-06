@@ -10,7 +10,6 @@ from PatchIt import majver, minver
 build_exe_options = {"build_exe": "build",
 					 "create_shared_zip": True,
 					 "icon": "Icons/PatchItIcon.ico",
-                     "optimize": "1",
                      "compressed": True,
                      "includes": ["extract", "compress", "thebookkeeper", "gametips", "color"],
                      }
