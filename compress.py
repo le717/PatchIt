@@ -22,8 +22,8 @@ def delThumbs(inputfiles):
     '''Checks for and Deletes Thumbs.db'''
 
     # Traverse through the subfolders
+    logging.info("Walking through {0}...".format(inputfiles))
     for root, dir, files in os.walk(inputfiles):
-        logging.info("Walking through {0}...".format(inputfiles))
         for item in files:
 
             # I've heard of a ethumbs.db file once before...
@@ -115,13 +115,13 @@ def writePatch():
         # The user selected a folder to compress
         else:
             try:
-                logging.info("User selected files at {0} for Patch compression",format(inputfiles))
+                logging.info("User selected files at {0} for Patch compression".format(inputfiles))
                 # Check for and delete thumbs.db
                 logging.info("Proceed to delThumbs()")
                 delThumbs(inputfiles)
 
                 # Write PiP file format, as defined in Documentation/PiP Format.md
-                logging.info("Write {0}{1}.PiP using UTF-8 encoding with mod details")
+                logging.info("Write {0}{1}.PiP using UTF-8 encoding with mod details".format(createname, createver))
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
                     print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
                     print("[General]", file=createpatch)
@@ -133,6 +133,7 @@ def writePatch():
                     print("[ZIP]", file=createpatch)
                     print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
                 logging.info('''
+
                         // PatchIt! Patch format, created by le717 and rioforce.
                         [General]
                         {0}
@@ -149,7 +150,7 @@ def writePatch():
                 zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
 
                 # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
-                logging.info("Rename ZIP archive to {0}{1}.zip, as defined in {2}".format(createname, creationver, "Documentation/PiP Format.md"))
+                logging.info("Rename ZIP archive to {0}{1}.zip, as defined in {2}".format(createname, createver, "Documentation/PiP Format.md"))
                 newzipfile = os.replace(zipfile, createname + createver + ".zip")
 
                 # Declare the Patch and ZIP filenames
@@ -158,9 +159,9 @@ def writePatch():
                 logging.info("The final file names are {0} and {1}".format(patchfile, newzipfile))
 
                 # Move the Patch and ZIP to the folder the compressed files came from
-                logging.info("Moving {0} to {1}".format(patchfile, inputfiles))
+                logging.info("Moving {0} from {1} to {2}".format(patchfile, os.getcwd(), inputfiles))
                 movepatch = move(patchfile, inputfiles)
-                logging.info("Moving {0} to {1}".format(newzipfile, inputfiles))
+                logging.info("Moving {0} from {1} to {2}".format(newzipfile, os.getcwd(), inputfiles))
                 movezip = move(newzipfile, inputfiles)
                 sleep(0.5)
 

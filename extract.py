@@ -141,10 +141,8 @@ def readpatch():
                 logging.info("Found ZIP archive at {0}".format(ziplocation))
 
                 # Display the Racers game tips
-                #print('\n"' + choice(gametips.gametips) + '"\n')
                 logging.info("Display LEGO Racers gameplay tip")
-                #colors.pc('\n"' + choice(gametips.gametips) + '"\n', color.FG_LIGHT_CYAN)
-                colors.pc(choice(gametips.gametips), color.FG_LIGHT_CYAN)
+                colors.pc(choice(gametips.gametips), color.FG_LIGHT_GREEN)
                 try:
                     # Actually extract the ZIP archive
                     logging.info("Extract {0} to {1}".format(installzipfile, installpath))

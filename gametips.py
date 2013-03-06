@@ -1,8 +1,7 @@
-# PatchIt! V1.0.2 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com).
-# LEGO Racers Gameplay tips
+# PatchIt! V1.0.2 Stable LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 
-# TODO: Add new tips.
+# TODO: Add more tips?
 gametips = [
 "\nHave you heard about the TRUCK DRIVER cheat code? It's fake.\nDon't believe anyone who tells you otherwise.\n",
 "\nOnly fire missiles when you have a clear shot at your opponents.\nOtherwise, you'll miss them completely.\n",

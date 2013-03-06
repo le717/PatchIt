@@ -12,7 +12,6 @@ def appLoggingFolder():
 
         # Create the Logs folder
         logsfolder = os.mkdir(os.path.join(os.getcwd(), "Logs"))
-        print("\nLogs folder created\n") # Debug print
 
 if "__main__" != __name__:
     appLoggingFolder()
