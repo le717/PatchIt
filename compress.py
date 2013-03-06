@@ -63,30 +63,38 @@ def patchDesc():
             patchDesc()
     else:
         logging.info("Your description fits into the 161 character limit")
+        logging.info("Proceed back to writePatch()")
         # It fits into the limit, send it back to writepatch()
         return createdesc
 
 def writePatch():
     '''Writes and compresses PatchIt! Patch'''
 
+    logging.info("Create a PatchIt! Patch")
     colors.pc("\nCreate a {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_YELLOW)
+
     # Tells the user how to cancel the process
+    logging.info('Type "exit" in the "Name:" field to cancel the Patch Creation process.')
     print('Type "exit" in the "Name:" field to cancel.', end="\n")
     createname = input("\nName: ")
 
     # I want to quit the process
     if createname.lower() == "exit":
-        #print("\nCanceling creation...")
+        logging.warning("User canceled PatchIt! Patch Creation!")
         colors.pc("\nCanceling creation of {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_RED)
         sleep(0.5)
+        logging.info("Proceeding to main menu")
         PatchIt.main()
 
     # I want to continue on
     else:
+        logging.info("Ask for mod version")
         createver = input("Version: ")
+        logging.info("Ask for mod author")
         createauthor = input("Author: ")
-        # See def patchdesc() above.
-        patchdesc()
+        logging.info("Proceeding to patchDesc().")
+        # See def patchDesc() above.
+        patchDesc()
 
         # Hide the root Tk window
         root = tkinter.Tk()
@@ -98,17 +106,22 @@ def writePatch():
 
         # The user clicked the cancel button
         if len(inputfiles) == 0:
+            logging.warning("User did not select any files to compress!")
             colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
             sleep(1)
+            logging.info("Proceeding to main menu")
             PatchIt.main()
 
         # The user selected a folder to compress
         else:
             try:
+                logging.info("User selected files at {0} for Patch compression",format(inputfiles))
                 # Check for and delete thumbs.db
+                logging.info("Proceed to delThumbs()")
                 delThumbs(inputfiles)
 
                 # Write PiP file format, as defined in Documentation/PiP Format.md
+                logging.info("Write {0}{1}.PiP using UTF-8 encoding with mod details")
                 with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
                     print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
                     print("[General]", file=createpatch)
@@ -119,26 +132,45 @@ def writePatch():
                     print("{0}".format(createdesc), file=createpatch)
                     print("[ZIP]", file=createpatch)
                     print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
+                logging.info('''
+                        // PatchIt! Patch format, created by le717 and rioforce.
+                        [General]
+                        {0}
+                        Version: {1}
+                        Author: {2}
+                        [Description]
+                        {3}
+                        [ZIP]
+                        {4}{5}.zip
+                        '''.format(createname, createver, createauthor, createdesc, createname, createver))
 
                 # Compress the files
+                logging.info("Compress files located at {0} into a ZIP archive".format(inputfiles))
                 zipfile = make_archive(inputfiles, format="zip", root_dir=inputfiles)
 
                 # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format.md
+                logging.info("Rename ZIP archive to {0}{1}.zip, as defined in {2}".format(createname, creationver, "Documentation/PiP Format.md"))
                 newzipfile = os.replace(zipfile, createname + createver + ".zip")
 
                 # Declare the Patch and ZIP filenames
                 patchfile = "{0}{1}.PiP".format(createname, createver)
                 newzipfile = "{0}{1}.zip".format(createname, createver)
+                logging.info("The final file names are {0} and {1}".format(patchfile, newzipfile))
 
                 # Move the Patch and ZIP to the folder the compressed files came from
+                logging.info("Moving {0} to {1}".format(patchfile, inputfiles))
                 movepatch = move(patchfile, inputfiles)
+                logging.info("Moving {0} to {1}".format(newzipfile, inputfiles))
                 movezip = move(newzipfile, inputfiles)
                 sleep(0.5)
 
                 # The user does not have the rights to write a PiP in that location
             except PermissionError:
+
+                logging.warning("{0} does not have the rights to save {1} {2} to\n{3}!!".format(PatchIt.app, createname, createver, inputfiles))
                 print("\n{0} does not have the rights to save {1} {2} to\n{3}!\n".format(PatchIt.app, createname, createver, inputfiles))
                 sleep(2)
+                logging.info("Proceeding to main menu")
                 PatchIt.main()
 
                 '''Windows continually throws up the *inputfiles* is not recognized as an internal or external command,
@@ -149,20 +181,31 @@ def writePatch():
             what do I attach it to so I can have proper exit codes?'''
 
             if os.system(inputfiles) == 1:
+
+                logging.info("Exit code '1'")
+                logging.info("{0} Version: {1} created and saved to {2}".format(createname, createver, inputfiles))
                 print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!\n".format(PatchIt.app, createname, createver, inputfiles))
                 # Sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
                 sleep(2)
+                logging.info("Proceeding to main menu")
                 PatchIt.main()
 
             elif os.system(inputfiles) == 0:
+
+                # "A landslide has occured" :P
+                logging.info("Exit code '0'")
+                logging.warning("An unknown error occured while creating {0} {1}!".format(createname, createver))
                 print("\nCreation of {0} patch for {1} Version: {2} completed with an unknown error.\n".format(PatchIt.app, createname, createver))
                 sleep(2)
+                logging.info("Proceeding to main menu")
                 PatchIt.main()
 
             else:
+                logging.warning("Undefined exit code!")
+                logging.warning("Creation of {0} patch for {1} Version: {2} failed!".format(app, createname, createver),)
                 colors.pc("\nCreation of {0} patch for {1} Version: {2} failed!\n".format(app, createname, createver), color.FG_LIGHT_RED)
-                #print("\nCreation of {0} patch for {1} Version {2} failed!".format(app, createname, createver))
                 sleep(2)
+                logging.info("Proceeding to main menu")
                 PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #

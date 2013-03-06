@@ -179,7 +179,7 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     # The user does not have the rights to install to the location.
                 except PermissionError:
 
-                    logging.warning("User does not have the rights to install {0} {1} to {2}!".format(installname, installver, installpath))
+                    logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
                     colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
                     sleep(2)
                     logging.info("Proceeding to main menu")
@@ -206,7 +206,7 @@ If the error continues, contact {6}and ask for a fixed version.'''
 
                     # "A landslide has occured" :P
                     logging.info("Exit code '0'")
-                    logging.info("An unknown error occured while installing {0} {1}\n.".format(installname, installver))
+                    logging.warning("An unknown error occured while installing {0} {1}!".format(installname, installver))
                     print("\nAn unknown error occured while installing {0} {1}\n.".format(installname, installver))
                     sleep(2)
                     logging.info("Proceeding to main menu")
