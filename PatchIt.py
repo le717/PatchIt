@@ -313,9 +313,6 @@ def gamecheck():
 
 # ------------ End PatchIt! Settings ------------ #
 
-
-# Run preload() upon PatchIt! launch
 if __name__ == "__main__":
+    # Run preload() to begin PatchIt! Initialization
     preload()
-else:
-    print("\n{0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator))
