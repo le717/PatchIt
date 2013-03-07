@@ -249,35 +249,28 @@ def writesettings():
     # The user selected a folder
     else:
         logging.info("User selected a new LEGO Racers installation {0}".format(newgamepath))
-        # Write file, using UTF-8 encoding
-        try:
-            logging.info("Open 'settings' for writing with UTF-8 encoding")
-            with open('settings', 'wt', encoding='utf-8') as settings:
 
-                # Ensures first-run process will be skipped next time
-                logging.info("Wrote '1' to first line (to skip first-run next time)")
-                print("1", file=settings)
+        # Write settings, using UTF-8 encoding
+        logging.info("Open 'settings' for writing with UTF-8 encoding")
+        with open('settings', 'wt', encoding='utf-8') as settings:
 
-                # end="" So \n will not be written
-                logging.info("Wrote new LEGO Racers installation to second line (killing the new line ending)")
-                print(newgamepath, file=settings, end="")
+            # Ensures first-run process will be skipped next time
+            logging.info("Wrote '1' to first line (to skip first-run next time)")
+            print("1", file=settings)
 
-                '''Removing "settings.close()" breaks the entire first-run code.
-                Once it writes the path, PatchIt! closes, without doing as much
-                as running the path through gamecheck() nor going back to main()
-                Possible TODO: Find out why this is happening and remove it if possible.'''
+            # end="" So \n will not be written
+            logging.info("Wrote new LEGO Racers installation to second line (killing the new line ending)")
+            print(newgamepath, file=settings, end="")
 
-                logging.info("Closing file")
-                settings.close()
-                logging.info("Proceeding to PatchIt! Settings (readsettings())")
-                readsettings()
+            '''Removing "settings.close()" breaks the entire first-run code.
+            Once it writes the path, PatchIt! closes, without doing as much
+            as running the path through gamecheck() nor going back to main()
+            Possible TODO: Find out why this is happening and remove it if possible.'''
 
-            # User does not have the rights to write the settings file
-        except PermissionError:
-            logging.info("User does not have the rights change installation to {0}!".format(newgamepath))
-            colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
-            sleep(2)
-            main()
+            logging.info("Closing file")
+            settings.close()
+            logging.info("Proceeding to PatchIt! Settings (readsettings())")
+            readsettings()
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
