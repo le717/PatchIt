@@ -1,28 +1,35 @@
-# PatchIt! V1.0.2 Stable Logging code
+# PatchIt! V1.0.3 Stable Logging code
 
-import os, logging
+# logging.BasicConfig code based on example from A Byte of Python
+# http://www.swaroopch.com/notes/Python
+
+import os, logging, time
+import color, color.colors as colors
 
 # ------------ Begin PatchIt! Logging Code ------------ #
 
 def appLoggingFolder():
     '''Checks for (and creates) PatchIt! Logs folder'''
 
-    # The Logs folder does not exist in the current directory
-    if not os.path.exists(os.path.join(os.getcwd(), "Logs")):
+    try:
+        # The Logs folder does not exist in the current directory
+        if not os.path.exists(os.path.join(os.getcwd(), "Logs")):
 
-        # Create the Logs folder
-        logsfolder = os.mkdir(os.path.join(os.getcwd(), "Logs"))
+            # Create the Logs folder
+            logsfolder = os.mkdir(os.path.join(os.getcwd(), "Logs"))
+    except PermissionError:
+        colors.pc("\nPatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.", color.FG_LIGHT_RED)
+        time.sleep(5)
+        raise SystemExit
 
+
+# AKA if this is imported as a module
 if "__main__" != __name__:
     appLoggingFolder()
 
     # -- Begin Logging Config -- #
 
     logging_file = os.path.join(os.getcwd(), "Logs", 'TheWritingsofPatchIt.log')
-
-
-    # Code based on example from A Byte of Python
-    # http://www.swaroopch.com/notes/Python
 
     logging.basicConfig(
         level = logging.DEBUG,

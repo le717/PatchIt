@@ -1,4 +1,4 @@
-# PatchIt! V1.0.2 Stable Patch Installation code
+# PatchIt! V1.0.3 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
@@ -10,8 +10,7 @@ from os.path import exists, join
 from random import choice
 from time import sleep
 # Colored text (until complete GUI is written)
-import color
-import color.colors as colors
+import color, color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog

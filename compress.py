@@ -1,4 +1,4 @@
-# PatchIt! V1.0.2 Stable Patch Creation code
+# PatchIt! V1.0.3 Stable Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
 import PatchIt
@@ -7,8 +7,7 @@ from os.path import join
 from time import sleep
 from shutil import (make_archive, move)
 # Colored text (until complete GUI is written)
-import color
-import color.colors as colors
+import color, color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog

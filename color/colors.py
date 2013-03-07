@@ -14,7 +14,7 @@ def get_csbi_attributes(handle):
     assert res
 
     (bufx, bufy, curx, cury, wattr,
-    left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhhhhhhhh", csbi.raw)
+    left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh", csbi.raw)
     return wattr
 
 def color(text, color, nl = True):
