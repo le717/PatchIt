@@ -83,7 +83,7 @@ be done.</p>
 <strong>1.0.3 Stable</strong><br>
 (Released ?? ??, 2013)<br>
 <ul>
-<li>Added PermissionError check to App Logging module</li>
+<li>Added <code>PermissionError</code> exception to App Logging module</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 <strong>1.0.2 Stable</strong><br>
@@ -91,7 +91,7 @@ be done.</p>
 <ul>
 <li>Colorized <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Fixed small Installer errors</li>
-<li>Commented Thumbs.db deletion code</li>
+<li>Commented <code>Thumbs.db</code> deletion code</li>
 <li>Change import options for <code>os</code> module</li>
 <li>Added App Logging code for main <span class="bold">PatchIt!</span> module</li>
 <li>Fixed error when importing <span class="bold">PatchIt!</span> itself as a module</li>
@@ -121,7 +121,7 @@ be done.</p>
 <li>Added Settings reset option to Windows Installer</li>
 <li>Added French and Dutch languages to Windows Installer</li>
 <li>Version bump</li>
-<li>Added FileNotFoundError exception to Patch Installation</li>
+<li>Added <code>FileNotFoundError</code> exception to Patch Installation</li>
 <li>Changed App exit message</li>
 <li>Added colored shell text from <a href="https://github.com/imayhaveborkedit/lms-lrr-modding-system" target="_blank">LMS-LRR-Modding System</a>
 <li>App warnings are now displayed in red</li>
@@ -130,11 +130,11 @@ be done.</p>
 <li>Changed <code>writesettings()</code> to use new Python 3 <code>print()</code> file writing</li>
 <li><code>preload()</code> now checks for empty file</li>
 <li>Dump PiP validity cache after reading</li>
-<li>Added PermissionError check to settings writing</li>
+<li>Added <code>PermissionError</code> exception to settings writing</li>
 <li>Reverted most of colored shell text due to bug in code</li> 
-<li>Fixed Patch Compression (broke it when adding PermissionError check)</li>
+<li>Fixed Patch Compression (broke it when adding <code>PermissionError</code> exception)</li>
 <li>Fixed clearcache functions</li>
-<li><code>Thumbs.db</code> is automatically delete if found (Fixes PermissionError when installing Patch)</li>
+<li><code>Thumbs.db</code> is automatically deleted if found (Fixes <code>PermissionError</code> during Patch installation)</li>
 <li>Fixed Uninstallation Icon and Installation Size value</li>
 </ul>
 
