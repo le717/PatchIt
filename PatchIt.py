@@ -227,57 +227,57 @@ def writesettings():
     '''Write PatchIt! settings'''
 
      # It does not matter if it exists or not, it has to be written
-    if exists('settings') or not exists('settings'):
+    #if exists('settings') or not exists('settings'):
 
-        # Draw (then withdraw) the root Tk window
-        logging.info("Draw root Tk window")
-        root = tkinter.Tk()
-        logging.info("Withdraw root Tk window")
-        root.withdraw()
+    # Draw (then withdraw) the root Tk window
+    logging.info("Drawing root Tk window")
+    root = tkinter.Tk()
+    logging.info("Withdrawing root Tk window")
+    root.withdraw()
 
-        # Select the LEGO Racers installation
-        logging.info("Display folder selection dialog for LEGO Racers installation")
-        newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
+    # Select the LEGO Racers installation
+    logging.info("Display folder selection dialog for LEGO Racers installation")
+    newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
 
-        # The user clicked the cancel button
-        if len(newgamepath) == 0:
-            logging.warning("User did not select a new LEGO Racers installation!")
-            sleep(1)
-            logging.info("Proceeding to main menu")
-            main()
+    # The user clicked the cancel button
+    if len(newgamepath) == 0:
+        logging.warning("User did not select a new LEGO Racers installation!")
+        sleep(1)
+        logging.info("Proceeding to main menu")
+        main()
 
-        # The user selected a folder
-        else:
-            logging.info("User selected a new LEGO Racers installation {0}".format(newgamepath))
-            # Write file, using UTF-8 encoding
-            try:
-                with open('settings', 'wt', encoding='utf-8') as settings:
-                    logging.info("Open 'settings' for writing with UTF-8 encoding")
+    # The user selected a folder
+    else:
+        logging.info("User selected a new LEGO Racers installation {0}".format(newgamepath))
+        # Write file, using UTF-8 encoding
+        try:
+            logging.info("Open 'settings' for writing with UTF-8 encoding")
+            with open('settings', 'wt', encoding='utf-8') as settings:
 
-                    # Ensures first-run process will be skipped next time
-                    logging.info("Wrote '1' to first line (to skip first-run next time)")
-                    print("1", file=settings)
+                # Ensures first-run process will be skipped next time
+                logging.info("Wrote '1' to first line (to skip first-run next time)")
+                print("1", file=settings)
 
-                    # end="" So there won't be a \n written
-                    logging.info("Wrote new LEGO Racers installation to second line (killing the new line ending)")
-                    print(newgamepath, file=settings, end="")
+                # end="" So \n will not be written
+                logging.info("Wrote new LEGO Racers installation to second line (killing the new line ending)")
+                print(newgamepath, file=settings, end="")
 
-                    '''Removing "settings.close()" breaks the entire first-run code.
-                    Once it writes the path, PatchIt! closes, without doing as much
-                    as running the path through gamecheck() nor going back to main()
-                    Possible TODO: Find out why this is happening and remove it if possible.'''
+                '''Removing "settings.close()" breaks the entire first-run code.
+                Once it writes the path, PatchIt! closes, without doing as much
+                as running the path through gamecheck() nor going back to main()
+                Possible TODO: Find out why this is happening and remove it if possible.'''
 
-                    logging.info("Closing file")
-                    settings.close()
-                    logging.info("Proceeding to PatchIt! Settings (readsettings())")
-                    readsettings()
+                logging.info("Closing file")
+                settings.close()
+                logging.info("Proceeding to PatchIt! Settings (readsettings())")
+                readsettings()
 
             # User does not have the rights to write the settings file
-            except PermissionError:
-                logging.info("User does not have the rights change installation to {0}!".format(newgamepath))
-                colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
-                sleep(2)
-                main()
+        except PermissionError:
+            logging.info("User does not have the rights change installation to {0}!".format(newgamepath))
+            colors.pc("\nUnable to change {0} installation to {1}!".format(game, newgamepath), color.FG_LIGHT_RED)
+            sleep(2)
+            main()
 
 def gamecheck():
     '''Confirm LEGO Racers installation'''
