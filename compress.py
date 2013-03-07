@@ -95,8 +95,10 @@ def writePatch():
         # See def patchDesc() above.
         patchDesc()
 
-        # Hide the root Tk window
+        # Draw (then withdraw) the root Tk window
+        logging.info("Drawing root Tk window")
         root = tkinter.Tk()
+        logging.info("Withdrawing root Tk window")
         root.withdraw()
 
         # The files to be compressed

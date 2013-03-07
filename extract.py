@@ -30,14 +30,14 @@ def readpatch():
     fileformat = [("PatchIt! Patch", "*.PiP")]
 
     # Select the patch file
-    # TODO: Make dialog active window automatically and do the same to main window when closed.
 
     # Draw (then withdraw) the root Tk window
-    logging.info("Draw root Tk window")
+    logging.info("Drawing root Tk window")
     root = tkinter.Tk()
-    logging.info("Withdraw root Tk window")
+    logging.info("Withdrawing root Tk window")
     root.withdraw()
 
+    # TODO: Make dialog active window automatically and do the same to main window when closed.
     logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
     installpatch = filedialog.askopenfilename(
     title="Please select a {0} Patch".format(PatchIt.app),
