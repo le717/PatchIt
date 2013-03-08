@@ -23,7 +23,7 @@ import logging
 def readpatch():
     '''Reads and Installs PatchIt! Patch'''
 
-    print("\nInstall a {0} Patch\n".format(PatchIt.app))
+    print("\nInstall a PatchIt! Patch\n")
     logging.info("Install a PatchIt! Patch")
 
     # PiP label for Patch selection dialog box
@@ -40,20 +40,21 @@ def readpatch():
     # TODO: Make dialog active window automatically and do the same to main window when closed.
     logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
     installpatch = filedialog.askopenfilename(
-    title="Please select a {0} Patch".format(PatchIt.app),
+    title="Please select a PatchIt! Patch",
     defaultextension=".PiP",
     filetypes=fileformat)
 
     # The user clicked the cancel button
     if len(installpatch) == 0:
         logging.warning("User did not select a PatchIt! Patch for installation!")
-        colors.pc("\nCould not find a {0} patch to read!\n".format(PatchIt.app), color.FG_LIGHT_RED)
+        colors.pc("\nCould not find a PatchIt! patch to read!\n", color.FG_LIGHT_RED)
         sleep(1)
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
     # The user selected a patch
     else:
+        logging.info("User selected a PatchIt! Patch")
         # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
         logging.info("Reading line 1 of {0} for PiP validity check".format(installpatch))
         confirmpatch = linecache.getline(installpatch, 1)
@@ -61,7 +62,7 @@ def readpatch():
         # It's not a patch! D:
         if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity check
             logging.warning("{0} is not a valid PatchIt patch!\n".format(installpatch))
-            colors.pc("{0} is not a valid PatchIt patch!\n".format(installpatch), color.FG_LIGHT_RED)
+            colors.pc("{0} is not a valid PatchIt patch!".format(installpatch), color.FG_LIGHT_RED)
 
             # Dump PiP validity cache after reading
             logging.info("Clearing PiP validity cache...")

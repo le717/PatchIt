@@ -122,7 +122,6 @@ def preload():
 
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
-
 def main():
     '''PatchIt! Menu Layout'''
     colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
@@ -170,10 +169,12 @@ def main():
             # Do not sleep here, since we are already on the menu
             main()
 
-# ------------ End PatchIt! Initialization ------------ #
+# ------------ End PatchIt! Menu Layout ------------ #
 
 
-# ------------ Begin PatchIt! Menu Layout ------------ #
+# ------------ Begin PatchIt! Settings ------------ #
+
+# ----- Begin PatchIt! Settings Reading ----- #
 
 def readsettings():
     '''Read PatchIt! settings'''
@@ -222,6 +223,10 @@ def readsettings():
                 sleep(1)
                 logging.info("Proceeding to main menu")
                 main()
+
+# ----- End PatchIt! Settings Reading ----- #
+
+# ----- Begin PatchIt! Settings Writing ----- #
 
 def writesettings():
     '''Write PatchIt! settings'''
@@ -272,6 +277,10 @@ def writesettings():
             logging.info("Proceeding to PatchIt! Settings (readsettings())")
             readsettings()
 
+# ----- End PatchIt! Settings Writing ----- #
+
+# ----- Begin LEGO Racers Installation Check ----- #
+
 def gamecheck():
     '''Confirm LEGO Racers installation'''
 
@@ -303,6 +312,7 @@ def gamecheck():
         logging.warning("GAMEDATA, MENUDATA, and LEGORacers.exe were not found at {0}!".format(definedgamepath))
         return False
 
+# ----- End LEGO Racers Installation Check ----- #
 
 # ------------ End PatchIt! Settings ------------ #
 

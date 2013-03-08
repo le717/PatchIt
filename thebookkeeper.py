@@ -19,7 +19,9 @@ def appLoggingFolder():
             logsfolder = os.mkdir(os.path.join(os.getcwd(), "Logs"))
     except PermissionError:
         colors.pc("\nPatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.", color.FG_LIGHT_RED)
+        # Display message long enough so user can read it
         time.sleep(5)
+        # Close program
         raise SystemExit
 
 
