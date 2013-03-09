@@ -74,6 +74,7 @@ def readpatch():
         # It is a patch! :D
         else:
             # Get all patch details
+            logging.info("Valid PatchIt! Patch selected")
             logging.info("Reading line 3 of {0} for mod name".format(installpatch))
             installname = linecache.getline(installpatch, 3)
             logging.info("Reading line 34 of {0} for mod version".format(installpatch))
@@ -146,22 +147,25 @@ def readpatch():
                 try:
                     # Actually extract the ZIP archive
                     logging.info("Extract {0} to {1}".format(installzipfile, installpath))
-                    extractzip = zipfile.ZipFile(ziplocation + installzipfile, "r")
-                    extractzip.extractall(path=installpath)
+                    with zipfile.ZipFile(ziplocation + installzipfile, "r") as extractzip:
+                        extractzip.extractall(path=installpath)
 
-                    # Close the ZIP archive when we are through
+                    # Installation was sucessful!
+                    logging.info("Error (exit) number '0'")
+                    logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installpath))
+                    print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
+
+                    # Log ZIP closure although it was closed automatically by with
                     logging.info("Closing {0}".format(installzipfile))
-                    zipfile.ZipFile.close(extractzip)
 
                     # For some reason, it cannot find the ZIP archive
                 except FileNotFoundError:
-
-                    logging.warning()
+                    logging.info("Error number '2'")
                     # Strip the ID text for a smoother error message
                     logging.info("Cleaning up Version and Author text")
                     installver = installver.lstrip("Version: ")
                     installauthor = installauthor.lstrip("Author: ")
-                    logging.warning("Unable to find {0} at {1}!".format(installzipfile, installpath))
+                    logging.warning("Unable to find {0} at {1}!".format(installzipfile, ziplocation))
                     colors.pc('''Cannot find files for {0} {1}!
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
@@ -170,52 +174,23 @@ If the error continues, contact {6}and ask for a fixed version.'''
                     .format(installname, installver, installname, installver, installname, installver, installauthor), color.FG_LIGHT_RED)
                     # There has to be an easier way to format the message without repeating installname/ver 3 times each...
                     # Sleep a bit longer so the error message can be read.
-                    sleep(4.5)
-                    logging.info("Proceeding to main menu")
-                    PatchIt.main()
 
-                    # The user does not have the rights to install to the location.
+                    # The user does not have the rights to install to that location.
                 except PermissionError:
-
+                    logging.info("Error number '13'")
                     logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-                    colors.pc("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
-                    sleep(2)
-                    logging.info("Proceeding to main menu")
-                    PatchIt.main()
+                    colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
 
-                '''Windows continually throws up the *installpath* is not recognized as an internal or external command,
-                operable program or batch file.' error, killing the exit codes, and I am unable to neither silence it nor hide it without
-                looping back over all the code. So I had to redefine what is a clean exit and what isn't. Thus,
-                1 == clean exit, 0, == exit with some error, and anything else is pure fail.
-                I believe the error is due the fact I have it attached to the wrong code. The question now is,
-                what do I attach it to so I can have proper exit codes?'''
+                # Python itself had some I/O error / any exceptions not handled
+                except Exception:
+                    logging.info("Unknown error number")
+                    logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
+                    colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
 
-                if os.system(installpath) == 1:
-
-                    logging.info("Exit code '1'")
-                    logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installpath))
-                    print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
-                    # Sleep for 2 second after displaying exit code before kicking back to the PatchIt! menu.
-                    sleep(2)
-                    logging.info("Proceeding to main menu")
-                    PatchIt.main()
-
-                elif os.system(installpath) == 0:
-
-                    # "A landslide has occured" :P
-                    logging.info("Exit code '0'")
-                    logging.warning("An unknown error occured while installing {0} {1}!".format(installname, installver))
-                    print("\nAn unknown error occured while installing {0} {1}\n.".format(installname, installver))
-                    sleep(2)
-                    logging.info("Proceeding to main menu")
-                    PatchIt.main()
-
-                else:
-                    logging.warning("Undefined exit code!")
-                    logging.warning("Installation of {1} Version {2} failed!".format(app, createname, createver))
-                    colors.pc("\nInstallation of {1} Version {2} failed!\n".format(app, createname, createver), color.FG_LIGHT_RED)
-                    #print("\nInstallation of {1} Version {2} failed!".format(app, createname, createver))
-                    sleep(2)
+                # This is run no matter if an exception was raised nor not.
+                finally:
+                    # Sleep for 4.5 seconds after displaying installation result before kicking back to the PatchIt! menu.
+                    sleep(4.5)
                     logging.info("Proceeding to main menu")
                     PatchIt.main()
 
