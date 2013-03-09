@@ -1,7 +1,7 @@
-# PatchIt! V1.0.3 Unstable LEGO Racers Gameplay tips
+# PatchIt! V1.0.3 Stable LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 
-# TODO: Finish adding tips sorted by JimbobJeffers
+# TODO: Finish adding Intermediate and Expert Level tips, as sorted by JimbobJeffers
 
 # Tips 1 - 11: Beginner Level
 # Tips 12 - ??: Intermediate Level

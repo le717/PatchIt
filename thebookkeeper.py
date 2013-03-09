@@ -24,22 +24,34 @@ def appLoggingFolder():
         # Close program
         raise SystemExit
 
+def logConfig():
+    '''Set Logging Settings'''
+    try:
+
+    # -- Begin Logging Config -- #
+
+        logging.basicConfig(
+            level = logging.DEBUG,
+            format = "%(asctime)s : %(levelname)s : %(message)s",
+            filename = logging_file,
+            filemode = 'a+',
+        )
+
+    # -- End Logging Config -- #
+
+    # PatchIt! does not have the righst to set the Log Config
+    except PermissionError:
+        colors.pc("\nPatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.", color.FG_LIGHT_RED)
+        # Display message long enough so user can read it
+        time.sleep(5)
+        # Close program
+        raise SystemExit
+
 
 # AKA if this is imported as a module
 if "__main__" != __name__:
     appLoggingFolder()
-
-    # -- Begin Logging Config -- #
-
     logging_file = os.path.join(os.getcwd(), "Logs", 'TheWritingsofPatchIt.log')
-
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = "%(asctime)s : %(levelname)s : %(message)s",
-        filename = logging_file,
-        filemode = 'a+',
-    )
-
-    # -- End Logging Config -- #
+    logConfig()
 
 # ------------ End PatchIt! Logging Code ------------ #

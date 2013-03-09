@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0.2 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
+# PatchIt! V1.0.3 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import os, linecache # General use modules
@@ -36,13 +36,10 @@ from tkinter import filedialog
 import logging
 import thebookkeeper
 
-''' Global variables
-This is like the ISPP in Inno Setup. Changing these variables changes anything else that refers back to them.
-Thankfully, variables are a key part of Python, and doesn't require installing an optional module. :)'''
-
+# Global variables
 app = "PatchIt!"
 majver = "Version 1.0.3"
-minver = "Unstable"
+minver = "Stable"
 creator = "Triangle717"
 game = "LEGO Racers"
 
@@ -86,8 +83,8 @@ def preload():
         # The settings file does not exist
         if not exists('settings'):
             logging.warning("Settings file does not exist!")
-            logging.info("Proceeding to write PatchIt! settings (writesettings())")
-            writesettings()
+            logging.info("Proceeding to write PatchIt! settings (writeSettings())")
+            writeSettings()
 
         # The settings file does exist
         else:
@@ -109,8 +106,8 @@ def preload():
             # "" if file is empty or non-existant
             if firstrun == "0" or firstrun == "":
                 logging.warning('''First-run info not found!
-                Proceeding to write PatchIt! settings (writesettings())''')
-                writesettings()
+                Proceeding to write PatchIt! settings (writeSettings())''')
+                writeSettings()
             # Any other number (Default, 1) means it has been run before
             else:
                 logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
@@ -143,16 +140,16 @@ def main():
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
             sleep(0.5)
-            logging.info("Calling Patch Installation module (extract.readpatch())")
+            logging.info("Calling Patch Installation module (extract.readPatch())")
             # Call the Patch Installation module
-            extract.readpatch()
+            extract.readPatch()
 
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
             # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
             sleep(0.5)
-            logging.info("Calling PatchIt! Settings (readsettings())")
-            readsettings()
+            logging.info("Calling PatchIt! Settings (readSettings())")
+            readSettings()
 
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
@@ -176,21 +173,21 @@ def main():
 
 # ----- Begin PatchIt! Settings Reading ----- #
 
-def readsettings():
+def readSettings():
     '''Read PatchIt! settings'''
 
     # The settings file does not exist
     if not exists('settings'):
 
         logging.warning("Settings file does not exist!")
-        logging.info("Proceeding to write PatchIt! settings (writesettings())")
-        writesettings()
+        logging.info("Proceeding to write PatchIt! settings (writeSettings())")
+        writeSettings()
     # The setting file does exist
     elif exists('settings'):
 
         logging.info("Settings file does exist")
-        # The defined installation was not confirmed by gamecheck()
-        if gamecheck() == False:
+        # The defined installation was not confirmed by gameCheck()
+        if gameCheck() == False:
             logging.warning("LEGO Racers installation was not confirmed!")
             sleep(0.5)
 
@@ -198,11 +195,10 @@ def readsettings():
             logging.warning("LEGO Racers installation was not found!".format(definedgamepath))
             colors.pc("\nCannot find {0} installation at {1}!\n".format(game, definedgamepath), color.FG_LIGHT_RED)
             # Go write the settings file
-            writesettings()
+            writeSettings()
 
         # The defined installation was confirmed by gamecheck()
-        # TODO: Find a better way to do this
-        else:  #elif gamecheck() ==  True:
+        else:  #elif gameCheck() ==  True:
             logging.info("LEGO Racers installation was confirmed")
             sleep(0.5)
             logging.info("LEGO Racers installation was found.".format(definedgamepath))
@@ -213,8 +209,8 @@ def readsettings():
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
                 sleep(0.5)
-                logging.info("Proceeding to write PatchIt! settings (writesettings())")
-                writesettings()
+                logging.info("Proceeding to write PatchIt! settings (writeSettings())")
+                writeSettings()
 
                 # No, I do not want to change the defined installation
             else:
@@ -228,7 +224,7 @@ def readsettings():
 
 # ----- Begin PatchIt! Settings Writing ----- #
 
-def writesettings():
+def writeSettings():
     '''Write PatchIt! settings'''
 
      # It does not matter if it exists or not, it has to be written
@@ -274,14 +270,14 @@ def writesettings():
 
             logging.info("Closing file")
             settings.close()
-            logging.info("Proceeding to PatchIt! Settings (readsettings())")
-            readsettings()
+            logging.info("Proceeding to PatchIt! Settings (readSettings())")
+            readSettings()
 
 # ----- End PatchIt! Settings Writing ----- #
 
 # ----- Begin LEGO Racers Installation Check ----- #
 
-def gamecheck():
+def gameCheck():
     '''Confirm LEGO Racers installation'''
 
     # For use in other messages

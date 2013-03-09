@@ -20,7 +20,7 @@ import logging
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
 
-def readpatch():
+def readPatch():
     '''Reads and Installs PatchIt! Patch'''
 
     print("\nInstall a PatchIt! Patch\n")
