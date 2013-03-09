@@ -1,4 +1,4 @@
-; PatchIt! V1.0 Stable Windows Installer
+; PatchIt! Windows Installer
 ; Copyright © 2013 Triangle717
 ; http://triangle717.wordpress.com
 ; Written with Inno Setup 5.5.2 Unicode
@@ -10,8 +10,8 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "1.0.2"
-#define MyAppVerName "PatchIt! Version 1.0.2 Stable"
+#define MyAppVersion "1.0.3"
+#define MyAppVerName "PatchIt! Version 1.0.3 Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
 #define MyAppExeName "PatchIt.exe"
