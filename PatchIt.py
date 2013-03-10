@@ -19,9 +19,8 @@
 # PatchIt! V1.0.3 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
-import os, linecache # General use modules
+import sys, os, linecache # General use modules
 from webbrowser import open_new_tab # Used in preload()
-from sys import version_info
 from os.path import exists, join
 from time import sleep
 # Patch Creation and Installation modules
@@ -34,7 +33,7 @@ import tkinter
 from tkinter import filedialog
 # App Logging modules
 import logging
-import thebookkeeper
+import thescore
 
 # Global variables
 app = "PatchIt!"
@@ -47,7 +46,7 @@ game = "LEGO Racers"
 
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
-    logging.info("Begin logging to {0}".format(thebookkeeper.logging_file))
+    logging.info("Begin logging to {0}".format(thescore.logging_file))
     logging.info('''
                                 #############################################
                                         {0} {1} {2}
@@ -62,7 +61,7 @@ def preload():
                                 '''.format(app, majver, minver, creator))
 
      # You need to have at least Python 3.3.0 to run PatchIt!
-    if version_info < (3,3,0):
+    if sys.version_info < (3,3,0):
         logging.warning("You are not running Python 3.3.0 or higher!\nYou need to get a newer version to run PatchIt!")
         colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
 
