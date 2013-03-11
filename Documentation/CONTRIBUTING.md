@@ -23,5 +23,5 @@ Where to Start
  
 * The .PiP format documentation can be found under in [*PiP File Format.md*](PiP%20File%20Format.md).
 
-* The release goals of *PatchIt!** is to write a complete Tkinter GUI for Version 1.1 Stable, as well any planned improvements. A release date has not been set, 
+* The release goal of **PatchIt!** is to write a complete Tkinter GUI for Version 1.1 Stable, as well any planned improvements. A release date has not been set, 
 and will not be any time soon.

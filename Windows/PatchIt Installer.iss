@@ -40,7 +40,7 @@ UninstallDisplayIcon={app}\PatchItIcon.ico
 CreateUninstallRegKey=yes
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
-UninstallDisplaySize=16253000
+UninstallDisplaySize=16252928
 ; Compression
 Compression=lzma/ultra
 SolidCompression=True
@@ -53,7 +53,7 @@ RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 ; This is required because Inno is having issues figuring out how large the files are. :|
-ExtraDiskSpaceRequired=16253000
+ExtraDiskSpaceRequired=16252928
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -76,7 +76,9 @@ Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
 ; PatchIt! Icon
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; HTML Readme
-Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion  
+; Favicon for HTML Readme
+Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! settings file (with first-run set to 0)
 Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
 ; Again for Settings_Reset switch

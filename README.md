@@ -27,13 +27,14 @@ Racers* installation.
 Contributing
 ------------
 
-If you would like to contribute to the development of *PatchIt!*, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
+If you would like to contribute to the development of **PatchIt!**, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
 Downloads
 ---------
 
-All **PatchIt!** downloads will be hosted on this project, in an [Annotated Tag](https://github.com/le717/PatchIt/tags). 
+All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
+* [**PatchIt!** Version 1.0.3 Stable](https://github.com/le717/PatchIt/tree/V1.0.3Stable) - Released March 11, 2013
 * [**PatchIt!** Version 1.0.2 Stable](https://github.com/le717/PatchIt/tree/V1.0.2Stable) - Released March 5, 2013
 * [**PatchIt!** Version 1.0.1 Stable](https://github.com/le717/PatchIt/tree/V1.0.1Stable) - Released March 2, 2013
 * [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February 21, 2013
