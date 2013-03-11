@@ -19,7 +19,7 @@ http://www.py2exe.org) does not support Python 3.3, so I cannot use it.
 Where to Start
 ---------------
 
-* A (incomplete) of everything that needs to be done can be found under [*TODO.md*](TODO.md).
+* A (incomplete) of everything that needs to be done can be found under [*TODO.md*](https://github.com/le717/PatchIt/blob/rewrite/Documentation/TODO.md).
  
 * The .PiP format documentation can be found under in [*PiP File Format.md*](PiP%20File%20Format.md).
 

@@ -19,10 +19,9 @@ def get_csbi_attributes(handle):
 
 def color(text, color, nl = True):
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
-    print(text)
+    sys.stdout.write(text)
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, reset)
-    if nl: print("")
-##    sys.stdout.flush()
+    if nl: sys.stdout.write("")
 
 handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
 reset = get_csbi_attributes(handle)
@@ -33,4 +32,4 @@ def pc(t, c = 0xf, nl = True):
     color(t,c, nl)
 
 def info(i):
-    print(str(i))
+    sys.stdout.write(str(i))
