@@ -36,8 +36,9 @@ WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppVerName}
 ; Uninstallation stuff
+Uninstallable= not PortableCheck
 UninstallDisplayIcon={app}\PatchItIcon.ico
-CreateUninstallRegKey=yes
+CreateUninstallRegKey=not PortableCheck
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
 UninstallDisplaySize=16252928
@@ -97,8 +98,19 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipifsilent; Description: "View Readme"
 
+[InstallDelete]
+; Because for some reason, these are not getting deleted at uninstall
+Type: filesandordirs; Name: "{app}\tcl"
+Type: filesandordirs; Name: "{app}\tk"
+
 [Code]                                                                                            
 function IsWin32: Boolean;
 begin
  Result := not IsWin64;
+end;
+
+// Portable Switch taken from https://github.com/jrsoftware/issrc/blob/master/setup.iss
+function PortableCheck: Boolean;
+begin
+  Result := ExpandConstant('{param:portable|0}') = '1';
 end;
