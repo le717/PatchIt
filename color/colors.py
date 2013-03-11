@@ -11,18 +11,17 @@ def get_csbi_attributes(handle):
     import struct
     csbi = ctypes.create_string_buffer(22)
     res = ctypes.windll.kernel32.GetConsoleScreenBufferInfo(handle, csbi)
-    assert res
+##    assert res
 
     (bufx, bufy, curx, cury, wattr,
-    left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhhhhhhhh", csbi.raw)
+    left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh", csbi.raw)
     return wattr
 
 def color(text, color, nl = True):
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
     sys.stdout.write(text)
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, reset)
-    if nl: print("")
-    sys.stdout.flush()
+    if nl: sys.stdout.write("")
 
 handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
 reset = get_csbi_attributes(handle)
@@ -33,4 +32,4 @@ def pc(t, c = 0xf, nl = True):
     color(t,c, nl)
 
 def info(i):
-    print(str(i))
+    sys.stdout.write(str(i))

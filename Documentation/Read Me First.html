@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset='utf-8'>
 <style>
 table, h2, h3, h4, #careful { text-align: center; }
 .italic { font-style: italic; }
@@ -8,11 +9,12 @@ table, h2, h3, h4, #careful { text-align: center; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 </style>
+<link rel="icon" type="image/png" href="favicon.png" />
 <title>PatchIt! Readme</title>
 </head>
 <body>
 <a name="ToC"></a>
-<h2>PatchIt! Version 1.0.2 Readme</h2>
+<h2>PatchIt! Version 1.0.3 Readme</h2>
 <table border="0">
 <thead>
 <th>Table of Contents</th>
@@ -80,12 +82,32 @@ be done.</p>
 <a name="Changes"></a>
 
 <h2>Change Log</h2>
+<strong>1.0.3 Stable</strong><br>
+(Released ?? ??, 2013)<br>
+<ul>
+<li>Added <code>PermissionError</code> exception to App Logging module</li>
+<li>Removed <code>if exists or not exists</code> check for <code>settings</code> file</li>
+<li>Removed <code>PermissionError</code> exception when writing <code>settings</code> file (was rendered useless when exception was added to App Logging)</li>
+<li>Adding missing logger to Patch Creation module</li>
+<li>Added Beginner level <span class="italic">LEGO Racers</span> gameplay tips, with help from JimbobJeffers</li>
+<li>Fixed native Windows I/O error in Patch Installation module, added new exceptions</li>
+<li>Changed Patch Installation module to use <code>with</code> handle for ZIP extraction</li>
+<li>Fixed native Windows I/O error in Patch Creation module, added new exceptions</li>
+<li>Cleaned up App Logging Config</li>
+<li>Version bump</li>
+<li>Updated Shell Colors code in an attempt a successful binary compile with <code>setup.py</code></li>
+<li>Renamed <code>thebookkeeper.py</code> to <code>thescore.py</code> (You know, the score you get when you complete a race?)</li>
+<li>Minor changes to <code>PatchIt.py</code></li>
+<li>Set <code>Read Me First.html</code> to use UTF-8 encoding</li>
+<li>Added favicon for <code>Read Me First.html</code></li>
+<!-- <li>LEGOs in space? More later!</li> -->
+</ul>
 <strong>1.0.2 Stable</strong><br>
 (Released March 5, 2013)<br>
 <ul>
 <li>Colorized <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Fixed small Installer errors</li>
-<li>Commented Thumbs.db deletion code</li>
+<li>Commented <code>Thumbs.db</code> deletion code</li>
 <li>Change import options for <code>os</code> module</li>
 <li>Added App Logging code for main <span class="bold">PatchIt!</span> module</li>
 <li>Fixed error when importing <span class="bold">PatchIt!</span> itself as a module</li>
@@ -106,7 +128,6 @@ be done.</p>
 <li>Changed color of <span class="italic">LEGO Racers</span> gameplay tips from Light Cyan to Light Green</li>
 <li>Overall clean up to HTML</li>
 <li>Removed <code>print()</code> function that was supposed to be displayed when <span class="bold">PatchIt!</span> itself was imported as a module (it was actually being displayed upon launch after being compiled into an EXE)</li>
-<!-- <li>LEGOs in space? More later!</li> -->
 </ul>
 
 <strong>1.0.1 Stable</strong><br>
@@ -116,7 +137,7 @@ be done.</p>
 <li>Added Settings reset option to Windows Installer</li>
 <li>Added French and Dutch languages to Windows Installer</li>
 <li>Version bump</li>
-<li>Added FileNotFoundError exception to Patch Installation</li>
+<li>Added <code>FileNotFoundError</code> exception to Patch Installation</li>
 <li>Changed App exit message</li>
 <li>Added colored shell text from <a href="https://github.com/imayhaveborkedit/lms-lrr-modding-system" target="_blank">LMS-LRR-Modding System</a>
 <li>App warnings are now displayed in red</li>
@@ -125,11 +146,11 @@ be done.</p>
 <li>Changed <code>writesettings()</code> to use new Python 3 <code>print()</code> file writing</li>
 <li><code>preload()</code> now checks for empty file</li>
 <li>Dump PiP validity cache after reading</li>
-<li>Added PermissionError check to settings writing</li>
+<li>Added <code>PermissionError</code> exception to settings writing</li>
 <li>Reverted most of colored shell text due to bug in code</li> 
-<li>Fixed Patch Compression (broke it when adding PermissionError check)</li>
+<li>Fixed Patch Compression (broke it when adding <code>PermissionError</code> exception)</li>
 <li>Fixed clearcache functions</li>
-<li><code>Thumbs.db</code> is automatically delete if found (Fixes PermissionError when installing Patch)</li>
+<li><code>Thumbs.db</code> is automatically deleted if found (Fixes <code>PermissionError</code> during Patch installation)</li>
 <li>Fixed Uninstallation Icon and Installation Size value</li>
 </ul>
 
@@ -226,7 +247,7 @@ be done.</p>
 https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br>
 To submit a bug report, please go to  <a title="https://github.com/le717/PatchIt/issues" target="_blank" href="https://github.com/le717/PatchIt/issues">
 https://github.com/le717/PatchIt/issues</a>, state the bug, and attach <code>TheWritingsofPatchIt.log</code>, 
-located at <code>%ProgramFiles%\PatchIt\Logs</code>. Attaching this file will ensure the bug will be found a log easier, and a bug fix will be released much 
+located at <code>%ProgramFiles%\PatchIt\Logs</code>. Attaching this file will ensure the bug will be found a lot easier, and a bug fix will be released much 
 faster.</p><br><br>
 <a name="MoreInfo"></a>
 
