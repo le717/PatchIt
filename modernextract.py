@@ -35,13 +35,13 @@ def checkPatch():
 
     # TODO: Make dialog active window automatically and do the same to main window when closed.
     logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
-    installpatch = filedialog.askopenfilename(
+    patch = filedialog.askopenfilename(
     title="Please select a PatchIt! Patch",
     defaultextension=".PiP",
     filetypes=fileformat)
 
     # The user clicked the cancel button
-    if len(installpatch) == 0:
+    if len(patch) == 0:
         logging.warning("User did not select a PatchIt! Patch for installation!")
         colors.pc("\nCould not find a PatchIt! patch to read!\n", color.FG_LIGHT_RED)
         time.sleep(1)
@@ -56,34 +56,33 @@ def checkPatch():
         # Also check if it uses the modern or legacy format, as defined in
         # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
         logging.info("Reading line 1 of {0} for PiP validity check and Patch format"
-        .format(installpatch))
-        confirmpatch = linecache.getline(installpatch, 1)
-        logging.info('''The validity line reads
-        \n{0}'''.format(confirmpatch))
+        .format(patch))
+        validline = linecache.getline(patch, 1)
+        logging.info("The validity line reads\n{0}".format(validline))
 
 
         # It's a legacy Patch
-        if confirmpatch == "// PatchIt! Patch format, created by le717 and rioforce.\n":
-            logging.warning("{0} is a legacy PatchIt patch!\n".format(installpatch))
+        if validline == "// PatchIt! Patch format, created by le717 and rioforce.\n":
+            logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
             colors.pc('''{0} is a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
-It may be best to check if a newer version of this mod is available.\n'''.format(installpatch), color.FG_LIGHT_GREEN)
+It may be best to check if a newer version of this mod is available.\n'''.format(patch), color.FG_LIGHT_GREEN)
             # Give them time to actually read the message.
             time.sleep(5)
             logging.info("Switching to legacy PatchIt! Patch Installation routine *name here*")
             raise SystemExit
 
         # It's a modern Patch
-        elif confirmpatch == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
-            logging.info("{0} is a modern PatchIt! Patch".format(installpatch))
-            logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(installpatch))")
-            readModernPatch(installpatch)
+        elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+            logging.info("{0} is a modern PatchIt! Patch".format(patch))
+            logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(patch))")
+            readModernPatch(patch)
 ##            raise SystemExit
 
         # It's not a Patch at all! D:
-        elif confirmpatch != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
-            logging.warning("{0} is not a valid PatchIt patch!\n".format(installpatch))
-            colors.pc("{0} is not a valid PatchIt! Patch!\n".format(installpatch), color.FG_LIGHT_RED)
+        elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+            logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
+            colors.pc("{0} is not a valid PatchIt! Patch!\n".format(patch), color.FG_LIGHT_RED)
 
             # Dump PiP validity cache after reading
             logging.info("Clearing PiP validity cache...")
@@ -97,23 +96,23 @@ It may be best to check if a newer version of this mod is available.\n'''.format
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
 
-def readModernPatch(installpatch):
+def readModernPatch(patch):
     '''Reads PatchIt! Patch Details'''
 
     # Get all patch details
     logging.info("Valid PatchIt! Patch selected")
-    logging.info("Reading line 7 of {0} for mod name".format(installpatch))
-    name = linecache.getline(installpatch, 7)
-    logging.info("Reading line 6 of {0} for mod version".format(installpatch))
-    version = linecache.getline(installpatch, 6)
-    logging.info("Reading line 5 of {0} for mod author".format(installpatch))
-    author = linecache.getline(installpatch, 5)
-##    logging.info("Reading line 8 of {0} for mod type".format(installpatch))
-##    modtype = linecache.getline(installpatch, 8)
-    logging.info("Reading lines 10-12 of {0} for mod description".format(installpatch))
+    logging.info("Reading line 7 of {0} for mod name".format(patch))
+    name = linecache.getline(patch, 7)
+    logging.info("Reading line 6 of {0} for mod version".format(patch))
+    version = linecache.getline(patch, 6)
+    logging.info("Reading line 5 of {0} for mod author".format(patch))
+    author = linecache.getline(patch, 5)
+##    logging.info("Reading line 8 of {0} for mod type".format(patch))
+##    modtype = linecache.getline(patch, 8)
+    logging.info("Reading lines 10-12 of {0} for mod description".format(patch))
 
     # Read lines 10-12, or until there is no more text
-    with open(installpatch, 'rt', encoding='utf-8') as file:
+    with open(patch, 'rt', encoding='utf-8') as file:
         while True:
             lines = file.readlines()[9:]
             if len(lines) == 0:
@@ -148,8 +147,13 @@ def readModernPatch(installpatch):
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
-    # Yes, I do want to install it!
     else:
+        # Yes, I do want to install it!
+        installModernPatch(patch, name, version, author)
+
+def installModernPatch(patch, name, version, author):
+    '''Installs a Mondern PatchIt!'''
+
         logging.info("User does want to install {0} {1}.".format(name, version))
         raise SystemExit
 
@@ -160,8 +164,8 @@ def readModernPatch(installpatch):
         # Create a valid folder path
         logging.info("Cleaning up installation text")
         installpath = installpath.rstrip("\n")
-        logging.info("Reading line 3 of {0} for ZIP archive".format(installpatch))
-        installzipfile = linecache.getline(installpatch, 3)
+        logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
+        installzipfile = linecache.getline(patch, 3)
 
         # Again, clear cache so everything completely re-read every time
         logging.info("Clearing settings file cache...")
@@ -172,7 +176,7 @@ def readModernPatch(installpatch):
         installzipfile = installzipfile.rstrip("\n")
 
         # Find the ZIP archive
-        ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+        ziplocation = patch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
         logging.info("Found ZIP archive at {0}".format(ziplocation))
 
         # Display the Racers game tips
