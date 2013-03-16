@@ -13,7 +13,6 @@ from tkinter import filedialog
 # App Logging module
 import logging
 
-
 # ------------ Begin PatchIt! Patch Installation ------------ #
 
 def readPatch():

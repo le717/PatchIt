@@ -137,9 +137,9 @@ def main():
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
             sleep(0.5)
-            logging.info("Calling Patch Installation module (extract.readPatch())")
+            logging.info("Calling Patch Installation module (extract.checkPatch())")
             # Call the Patch Installation module
-            extract.readPatch()
+            extract.checkPatch()
 
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")

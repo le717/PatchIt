@@ -12,7 +12,6 @@ from tkinter import filedialog
 # App Logging modules
 import logging
 
-
 # ------------ Begin Thumbs.db Check And Delete Code ------------ #
 
 def delThumbs(inputfiles):

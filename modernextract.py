@@ -13,9 +13,92 @@ from tkinter import filedialog
 # App Logging module
 import logging
 
+# ------------ Begin PatchIt! Patch Identification  ------------ #
+
+def checkPatch():
+    '''Select a PatchIt! Patch, checks if file uses
+        the modern or legacy format,
+        or if it is a PatchIt! Patch at all'''
+
+    print("\nInstall a PatchIt! Patch\n")
+    logging.info("Install a PatchIt! Patch")
+
+    # PiP label for Patch selection dialog box
+    fileformat = [("PatchIt! Patch", "*.PiP")]
+
+    # Select the patch file
+
+    # Draw (then withdraw) the root Tk window
+    logging.info("Drawing root Tk window")
+    root = tkinter.Tk()
+    logging.info("Withdrawing root Tk window")
+    root.withdraw()
+
+    # TODO: Make dialog active window automatically and do the same to main window when closed.
+    logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
+    installpatch = filedialog.askopenfilename(
+    title="Please select a PatchIt! Patch",
+    defaultextension=".PiP",
+    filetypes=fileformat)
+
+    # The user clicked the cancel button
+    if len(installpatch) == 0:
+        logging.warning("User did not select a PatchIt! Patch for installation!")
+        colors.pc("\nCould not find a PatchIt! patch to read!\n", color.FG_LIGHT_RED)
+        sleep(1)
+        logging.info("Proceeding to main menu")
+        PatchIt.main()
+
+    # The user selected a patch
+    else:
+        logging.info("User selected a PatchIt! Patch")
+
+        # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
+        # Also check if it uses the modern or legacy format, as defined in
+        # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
+        logging.info("Reading line 1 of {0} for PiP validity check and Patch format"
+        .format(installpatch))
+        confirmpatch = linecache.getline(installpatch, 1)
+        logging.info('''The validity line reads
+        \n{0}'''.format(confirmpatch))
+
+
+        # It's a legacy Patch
+        if confirmpatch == "// PatchIt! Patch format, created by le717 and rioforce.\n":
+            logging.warning("{0} is a legacy PatchIt patch!\n".format(installpatch))
+            colors.pc('''{0} is a legacy PatchIt! Patch.
+It will be installed using the legacy installation routine.
+It may be best to check if a newer version of this mod is available.\n'''.format(installpatch), color.FG_LIGHT_GREEN)
+            # Give them time to actually read the message.
+            sleep(5)
+            logging.info("Switching to legacy PatchIt! Patch Installation routine *name here*")
+            raise SystemExit
+
+        # It's a modern Patch
+        elif confirmpatch == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+            logging.info("{0} is a modern PatchIt! Patch".format(installpatch))
+            logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(installpatch))")
+##            readModernPatch(installpatch)
+            raise SystemExit
+
+        # It's not a Patch at all! D:
+        elif confirmpatch != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+            logging.warning("{0} is not a valid PatchIt patch!\n".format(installpatch))
+            colors.pc("{0} is not a valid PatchIt! Patch!\n".format(installpatch), color.FG_LIGHT_RED)
+
+            # Dump PiP validity cache after reading
+            logging.info("Clearing PiP validity cache...")
+            linecache.clearcache()
+            sleep(1)
+            logging.info("Proceeding to main menu")
+            PatchIt.main()
+
+# ------------ End PatchIt! Patch Identification  ------------ #
+
+
 # ------------ Begin PatchIt! Patch Installation ------------ #
 
-def readPatch():
+def readModernPatch(installpatch):
     '''Reads and Installs PatchIt! Patch'''
 
     print("\nInstall a PatchIt! Patch\n")
