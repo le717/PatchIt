@@ -17,13 +17,19 @@ file, they can open it in a UTF-8 supported text editor and correct the typo, or
 Details
 -------
 
+#### PiP File Format
+
 * A PiP file is plain text. It stands for **P**atch **I**t **P**atch.
 * A PiP file is written use UTF-8 encoding, and can be edited on any text editor that supports UTF-8 encoding.
-* As a validity test, each PiP file **must** have on line 1 a specific line of text that **must** match **PatchIt!**'s internal version exactly to confirm it is a valid patch.
-* The Description is limited to 161 characters. Anything longer will break **PatchIt!** entirely. 
+* As a validity test, each PiP file **must** have on line 1 a specific line of text that **must** match **PatchIt!**'s internal version exactly 
+to confirm it is a valid patch.
+* Mod Type
+* The Description is written on the last three lines.
 * The ZIP archive and the PiP file uses the mod's name and version as the filename.
 
-**The PiP file layout can be found below.**
+**The PiP file layout can be found [below.](#PiP Version 1.1 Draft 2 File Layout)**
+
+#### PiP ZIP Archive Layout
 
 * The ZIP archive containing the modded files must be in the same folder as the .PiP file.
 * The ZIP archive needs to be laid out in the same way the game would use them. For example: Any TUN audio would go in the root of the archive. Anything under 
@@ -39,30 +45,17 @@ The same goes for files that are scattered in the root of the archive. If *ENGLI
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
-[General]
-Name
-Version: Version
-Author: Author
-[Description]
-Description
 [ZIP]
 NameVersion.zip
-```
-
- 
-
-### PiP Version 1.0.1 File Layout
-
-```
-// PatchIt! Patch format, created by le717 and rioforce.
-[General]
+[GENERAL]
+Author
+Version
 Name
-Version: Version
-Author: Author
-[Description]
-Description
-[ZIP]
-NameVersion.zip
+Mod Type
+[DESCRIPTION]
+This is the first line of a description
+This is the second line of a description
+This is the third line of a description
 ```
 
 ### Example ZIP Archive Layout
@@ -89,7 +82,7 @@ NameVersion.zip/
 Revision History
 ----------------
 * 1.1 Draft 2: March 5 & 6, 2013
-Improvement on Draft 1 (transscript not yet available)
+Improvement on Draft 1 (details not yet available)
 * 1.1 Draft 1: March 3, 2013
 Rewrite of format, outlined in [PatchIt! Dev-log #5](http://wp.me/p1V5ge-yl)
 * 1.0.1: February 20, 2013
