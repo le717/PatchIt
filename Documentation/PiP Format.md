@@ -73,5 +73,8 @@ NameVersion.zip/
 Revision History
 ----------------
 
-* Draft 2
-* Draft 1
+* 1.0.1: February 20, 2013
+* 1.0: February 18, 2013
+* Draft 3: February 15, 2013
+* Draft 2: February 8, 2013
+* Draft 1: February 2, 2013
