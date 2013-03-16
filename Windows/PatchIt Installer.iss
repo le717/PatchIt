@@ -12,6 +12,7 @@
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.0.3"
 #define MyAppVerName "PatchIt! Version 1.0.3 Stable"
+#define MyAppInstallName "PatchIt!Version 1.0.3Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://triangle717.wordpress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -34,7 +35,7 @@ WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
-OutputBaseFilename={#MyAppName}{#MyAppVersion}Stable
+OutputBaseFilename={#MyAppInstallName}
 ; Uninstallation stuff
 Uninstallable= not PortableCheck
 UninstallDisplayIcon={app}\PatchItIcon.ico
@@ -68,10 +69,19 @@ english.BeveledLabel={#MyAppVerName}
 english.Settings_Reset=Reset {#MyAppName} Preferences
 francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
 nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
+english.Admin=Run {#MyAppName} with Administrator Rights
+francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
+nederlands.Admin=Run {#MyAppName} met beheerdersrechten
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
+Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked
+
+[Registry]
+; Registry strings are always hard-coded (NO ISPP) to ensure everything works correctly.
+Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
+
 
 [Files]
 ; PatchIt! Icon
