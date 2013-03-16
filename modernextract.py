@@ -103,11 +103,13 @@ def readModernPatch(installpatch):
     # Get all patch details
     logging.info("Valid PatchIt! Patch selected")
     logging.info("Reading line 7 of {0} for mod name".format(installpatch))
-    installname = linecache.getline(installpatch, 7)
+    name = linecache.getline(installpatch, 7)
     logging.info("Reading line 6 of {0} for mod version".format(installpatch))
-    installver = linecache.getline(installpatch, 6)
+    version = linecache.getline(installpatch, 6)
     logging.info("Reading line 5 of {0} for mod author".format(installpatch))
-    installauthor = linecache.getline(installpatch, 5)
+    author = linecache.getline(installpatch, 5)
+##    logging.info("Reading line 8 of {0} for mod type".format(installpatch))
+##    modtype = linecache.getline(installpatch, 8)
     logging.info("Reading lines 10-12 of {0} for mod description".format(installpatch))
 
     # Read lines 10-12, or until there is no more text
@@ -117,7 +119,7 @@ def readModernPatch(installpatch):
             if len(lines) == 0:
                 break
             # Remove list that is is returned as, removes need for .strip()
-            installdesc = "".join(lines)
+            desc = "".join(lines)
 
     # Clear cache so file is completely re-read next time
     logging.info("Clearing PiP file cache...")
@@ -125,30 +127,31 @@ def readModernPatch(installpatch):
 
     # Display all the info
     logging.info("Display all mod info")
-    logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver, installauthor, installdesc))
-    print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
+    logging.info('\n{0} {1} {2} "{3}"\n'.format(name, version, author, desc))
+    print('\n{0} {1} {2} "{3}"'.format(name, version, author, desc), end="\n")
 
     # Strip the name and version to put all the text on one line
     logging.info("Cleaning up mod name")
-    installname = installname.strip("\n")
+    name = name.strip("\n")
     logging.info("Cleaning up mod version")
-    installver = installver.strip("\n")
+    version = version.strip("\n")
 
-    logging.info("Do you Do you wish to install {0} {1}?".format(installname, installver))
-    print("\nDo you wish to install {0} {1}? {2}".format(installname, installver, r"(y\N)"))
+    logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
+    print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))
     confirminstall = input("\n> ")
 
     # No, I do not want to install the patch
     if confirminstall.lower() != "y":
-        logging.warning("User does not want to install {0} {1}!".format(installname, installver))
-        print("\nCanceling installation of {0} {1}...".format(installname, installver))
+        logging.warning("User does not want to install {0} {1}!".format(name, version))
+        print("\nCanceling installation of {0} {1}...".format(name, version))
         time.sleep(1)
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
     # Yes, I do want to install it!
     else:
-        logging.info("User does want to install {0} {1}.".format(installname, installver))
+        logging.info("User does want to install {0} {1}.".format(name, version))
+        raise SystemExit
 
         # Read the settings file for installation (LEGO Racers directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
