@@ -34,7 +34,7 @@ WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
-OutputBaseFilename={#MyAppVerName}
+OutputBaseFilename={#MyAppName}{#MyAppVersion}Stable
 ; Uninstallation stuff
 Uninstallable= not PortableCheck
 UninstallDisplayIcon={app}\PatchItIcon.ico
