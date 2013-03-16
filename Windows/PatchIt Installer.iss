@@ -37,9 +37,9 @@ WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 OutputDir=Here Lie the Installer
 OutputBaseFilename={#MyAppInstallName}
 ; Uninstallation stuff
-Uninstallable= not PortableCheck
+Uninstallable=not PortableInstall
 UninstallDisplayIcon={app}\PatchItIcon.ico
-CreateUninstallRegKey=not PortableCheck
+CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
 UninstallDisplaySize=16252928
@@ -74,9 +74,9 @@ francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableInstall
 Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
-Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked
+Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked; Check: not PortableInstall
 
 [Registry]
 ; Registry strings are always hard-coded (NO ISPP) to ensure everything works correctly.
@@ -113,14 +113,15 @@ Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipif
 Type: filesandordirs; Name: "{app}\tcl"
 Type: filesandordirs; Name: "{app}\tk"
 
-[Code]                                                                                            
+[Code]   
+// Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         
 function IsWin32: Boolean;
 begin
  Result := not IsWin64;
 end;
 
 // Portable Switch taken from https://github.com/jrsoftware/issrc/blob/master/setup.iss
-function PortableCheck: Boolean;
+function PortableInstall: Boolean;
 begin
   Result := ExpandConstant('{param:portable|0}') = '1';
 end;
