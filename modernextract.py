@@ -157,49 +157,50 @@ def readModernPatch(patch):
 
     else:
         # Yes, I do want to install it!
+        logging.info("User does want to install {0} {1}.".format(name, version))
         installModernPatch(patch, name, version, author)
 
 def installModernPatch(patch, name, version, author):
     '''Installs a Mondern PatchIt!'''
-    pass
 
-        logging.info("User does want to install {0} {1}.".format(name, version))
-        raise SystemExit
+    raise SystemExit
 
-        # Read the settings file for installation (LEGO Racers directory)
-        logging.info("Reading line 5 of settings for LEGO Racers installation")
-        installpath = linecache.getline('settings', 5)
 
-        # Create a valid folder path
-        logging.info("Cleaning up installation text")
-        installpath = installpath.rstrip("\n")
-        logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
-        installzipfile = linecache.getline(patch, 3)
+    # Read the settings file for installation (LEGO Racers directory)
+    logging.info("Reading line 5 of settings for LEGO Racers installation")
+    installationpath = linecache.getline('settings', 5)
 
-        # Again, clear cache so everything completely re-read every time
-        logging.info("Clearing settings file cache...")
-        linecache.clearcache()
+    # Create a valid folder path
+    logging.info("Cleaning up installation text")
+    installationpath = installationpath.rstrip("\n")
+    logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
+    ziparchive = linecache.getline(patch, 3)
 
-        # Create a vaild ZIP archive
-        logging.info("Cleaning up ZIP archive text")
-        installzipfile = installzipfile.rstrip("\n")
+    # Again, clear cache so everything completely re-read every time
+    logging.info("Clearing settings file cache...")
+    linecache.clearcache()
 
-        # Find the ZIP archive
-        ziplocation = patch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
-        logging.info("Found ZIP archive at {0}".format(ziplocation))
+    # Create a vaild ZIP archive
+    logging.info("Cleaning up ZIP archive text")
+    ziparchive = ziparchive.rstrip("\n")
 
-        # Display the Racers game tips
-        logging.info("Display LEGO Racers gameplay tip")
-        colors.pc(choice(gametips.gametips), color.FG_LIGHT_GREEN)
-        try:
+    # Find the ZIP archive
+    ziplocation = patch.rstrip("{0}{1}{2}".format(name, version, ".PiP"))
+    logging.info("Found ZIP archive at {0}".format(ziplocation))
+
+    # Display the Racers game tips
+    logging.info("Display LEGO Racers gameplay tip")
+    colors.pc(choice(gametips.gametips), color.FG_LIGHT_GREEN)
+
+    try:
             # Actually extract the ZIP archive
-            logging.info("Extract {0} to {1}".format(installzipfile, installpath))
+            logging.info("Extract {0} to {1}".format(installzipfile, installationpath))
             with zipfile.ZipFile(ziplocation + installzipfile, "r") as extractzip:
-                extractzip.extractall(path=installpath)
+                extractzip.extractall(path=installationpath)
 
             # Installation was sucessful!
             logging.info("Error (exit) number '0'")
-            logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installpath))
+            logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installationpath))
             print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
 
             # Log ZIP closure although it was closed automatically by with
@@ -224,14 +225,14 @@ If the error continues, contact {6}and ask for a fixed version.'''
         # The user does not have the rights to install to that location.
         except PermissionError:
             logging.info("Error number '13'")
-            logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
+            logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installationpath))
+            colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installationpath), color.FG_LIGHT_RED)
 
         # Python itself had some I/O error/any unhandled exceptions
         except Exception:
             logging.info("Unknown error number")
-            logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
+            logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installationpath))
+            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installationpath), color.FG_LIGHT_RED)
 
         # This is run no matter if an exception was raised nor not.
         finally:
