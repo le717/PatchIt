@@ -60,13 +60,17 @@ def checkPatch():
         validline = linecache.getline(patch, 1)
         logging.info("The validity line reads\n{0}".format(validline))
 
-
         # It's a legacy Patch
         if validline == "// PatchIt! Patch format, created by le717 and rioforce.\n":
             logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
             colors.pc('''{0} is a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.\n'''.format(patch), color.FG_LIGHT_GREEN)
+
+            # Dump PiP validity cache after reading
+            logging.info("Clearing PiP validity cache...")
+            linecache.clearcache()
+
             # Give them time to actually read the message.
             time.sleep(5)
             logging.info("Switching to legacy PatchIt! Patch Installation routine *name here*")
@@ -75,9 +79,13 @@ It may be best to check if a newer version of this mod is available.\n'''.format
         # It's a modern Patch
         elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
             logging.info("{0} is a modern PatchIt! Patch".format(patch))
+
+            # Dump PiP validity cache after reading
+            logging.info("Clearing PiP validity cache...")
+            linecache.clearcache()
+
             logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(patch))")
             readModernPatch(patch)
-##            raise SystemExit
 
         # It's not a Patch at all! D:
         elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
@@ -153,6 +161,7 @@ def readModernPatch(patch):
 
 def installModernPatch(patch, name, version, author):
     '''Installs a Mondern PatchIt!'''
+    pass
 
         logging.info("User does want to install {0} {1}.".format(name, version))
         raise SystemExit
