@@ -27,7 +27,7 @@ to confirm it is a valid patch.
 * The Description is written on the last three lines.
 * The ZIP archive and the PiP file uses the mod's name and version as the filename.
 
-**The PiP file layout can be found [below.](#PiP Version 1.1 Draft 2 File Layout)**
+**The PiP file layout can be found [below.](#pip-file-format-version-11-draft-2-layout)**
 
 #### PiP ZIP Archive Layout
 
@@ -41,7 +41,7 @@ The same goes for files that are scattered in the root of the archive. If *ENGLI
 
 **An example ZIP archive layout can be found below.**
 
-### PiP Version 1.1 Draft 2 File Layout
+### PiP File Format Version 1.1 Draft 2 Layout
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
