@@ -1,11 +1,7 @@
-# PatchIt! V1.0.3 Stable Patch Installation code
+# PatchIt! V1.1 Unstable Legacy Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
-import linecache
-import PatchIt
-import gametips
-import zipfile
-import os
+import PatchIt, linecache, gametips, zipfile, os
 from os.path import exists, join
 from random import choice
 from time import sleep
@@ -120,8 +116,8 @@ def readPatch():
                 logging.info("User does want to install {0} {1}.".format(installname, installver))
 
                 # Read the settings file for installation (LEGO Racers directory)
-                logging.info("Reading line 2 of settings for LEGO Racers installation")
-                installpath = linecache.getline('settings', 2)
+                logging.info("Reading line 5 of settings for LEGO Racers installation")
+                installpath = linecache.getline('settings', 5)
 
                 # Create a valid folder path
                 logging.info("Cleaning up installation text")

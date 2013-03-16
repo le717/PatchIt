@@ -24,7 +24,7 @@ from webbrowser import open_new_tab # Used in preload()
 from os.path import exists, join
 from time import sleep
 # Patch Creation and Installation modules
-import extract, compress
+import modernextract as extract, moderncompress as compress
 # Colored text (until complete GUI is written)
 import color, color.colors as colors
 # GUI! :D

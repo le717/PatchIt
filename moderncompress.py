@@ -1,11 +1,9 @@
-# PatchIt! V1.0.3 Stable Patch Creation code
+# PatchIt! V1.1 Unstable Modern Patch Creation code
 
 # Import only certain items instead of "the whole toolbox"
-import PatchIt
-import os
+import PatchIt, os, shutil
 from os.path import join
 from time import sleep
-import shutil
 # Colored text (until complete GUI is written)
 import color, color.colors as colors
 # GUI! :D
