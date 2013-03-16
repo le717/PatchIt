@@ -1,6 +1,6 @@
 ; PatchIt! Windows Installer
 ; Copyright © 2013 Triangle717
-; http://triangle717.wordpress.com
+; http://Triangle717.WordPress.com
 ; Written with Inno Setup 5.5.2 Unicode
 
 ; If any version below the specified version is used for compiling, this error will be shown.
@@ -12,9 +12,9 @@
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.0.3"
 #define MyAppVerName "PatchIt! Version 1.0.3 Stable"
-#define MyAppInstallName "PatchIt!Version 1.0.3Stable"
+#define MyInstallerName "PatchIt!-Version-1.0.3-Stable"
 #define MyAppPublisher "Triangle717"
-#define MyAppURL "http://triangle717.wordpress.com"
+#define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
 
 [Setup]
@@ -35,7 +35,7 @@ WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
-OutputBaseFilename={#MyAppInstallName}
+OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
 Uninstallable=not PortableInstall
 UninstallDisplayIcon={app}\PatchItIcon.ico
