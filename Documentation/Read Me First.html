@@ -82,8 +82,8 @@ be done.</p>
 <a name="Changes"></a>
 
 <h2>Change Log</h2>
-<strong>1.?? Stable</strong><br>
-(Released ??, 2013)<br>
+<strong>1.1 Stable</strong><br>
+(Released ?? ??, 2013)<br>
 <ul>
 <li>Added <code>build.bat</code> for compiling <span class="bold">PatchIt!</span></li>
 <li>Removed spaces in Installer output name (provides a better download link when uploaded to GitHub)</li>
@@ -91,8 +91,15 @@ be done.</p>
 <li>Added Installer Portable Switch to <code>Run with Administrator Rights</code> option, Desktop icon</li>
 <li>Added PiP Format Revision History Dates</li>
 <li>Added dashes to Installer output name (it's better than no spaces)</li>
+<li>Added window title using name, major version, minor version</li>
+<li>Updated <span class="bold">PatchIt!</span> <code>settings</code> file in partial accordance with <a href="http://wp.me/p1V5ge-yB" target="_blank">
+PatchIt! Dev-log #6</a></li>
+<li><code>PatchIt.py</code> updated for new <code>settings</code> file</li>
+<li>Removed code commented out in V1.0.3 Stable</li>
+<li>Removed <code>onlyifdoesntexist</code> installer flag for <code>settings</code> file</li>
 <li>LEGOs in space? More later!</li>
 </ul>
+
 <strong>1.0.3 Stable</strong><br>
 (Released March 11, 2013)<br>
 <ul>
@@ -106,13 +113,14 @@ be done.</p>
 <li>Fixed native Windows I/O error in Patch Creation module, added new exceptions</li>
 <li>Cleaned up App Logging Config</li>
 <li>Version bump</li>
-<li>Updated Shell Colors code in an attempt a successful binary compile with <code>setup.py</code></li>
+<li>Updated Shell Colors code to attempt a successful binary compile with <code>setup.py</code></li>
 <li>Renamed <code>thebookkeeper.py</code> to <code>thescore.py</code> (You know, the score you get when you complete a race?)</li>
 <li>Minor changes to <code>PatchIt.py</code></li>
 <li>Set <code>Read Me First.html</code> to use UTF-8 encoding</li>
 <li>Added favicon for <code>Read Me First.html</code></li>
 <li>Added Portable Switch to Installer (pass <code>/PORTABLE=1</code> at the command-line)</li>
 </ul>
+
 <strong>1.0.2 Stable</strong><br>
 (Released March 5, 2013)<br>
 <ul>
@@ -125,7 +133,7 @@ be done.</p>
 <li>Cleaned up App Logging config</li>
 <li>Cleaned up <span class="italic">LEGO Racers</span> installation check</li>
 <li>Added App Logging code for Patch Installation module</li>
-<li>Added missing <code>onlyifdoesntexist</code> installer flag for <code>settings</code></li>
+<li>Added missing <code>onlyifdoesntexist</code> installer flag for <code>settings</code> file</li>
 <li>Version bump</li>
 <li>Added intro logging message</li>
 <li>Renamed log file</li>
@@ -253,6 +261,7 @@ be done.</p>
 <ul>
 <li>First version, based on very sloppy, hacky code with 7-zip (7za.exe) dependency for ZIP extraction and creation.</li>
 </ul><a name="Help"></a>
+
 <h2>Support</h2>
 <p>To request a feature, submit a code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="
 https://github.com/le717/PatchIt" target="_blank" href="https://github.com/le717/PatchIt">https://github.com/le717/PatchIt.</a><br>

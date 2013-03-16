@@ -24,21 +24,19 @@ from webbrowser import open_new_tab # Used in preload()
 from os.path import exists, join
 from time import sleep
 # Patch Creation and Installation modules
-import extract
-import compress
+import extract, compress
 # Colored text (until complete GUI is written)
 import color, color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog
 # App Logging modules
-import logging
-import thescore
+import logging, thescore
 
 # Global variables
 app = "PatchIt!"
-majver = "Version 1.0.3"
-minver = "Stable"
+majver = "Version 1.1"
+minver = "Unstable"
 creator = "Triangle717"
 game = "LEGO Racers"
 
@@ -90,8 +88,8 @@ def preload():
             logging.info("Settings file does exist")
             # Settings file does not need to be opened to use linecache
 
-            logging.info("Reading line 1 for first-run info")
-            firstrun = linecache.getline('settings', 1)
+            logging.info("Reading line 3 for first-run info")
+            firstrun = linecache.getline('settings', 3)
 
             # Remove \n, \r, \t, or any of the like
             logging.info("Cleaning up line text")
@@ -187,7 +185,6 @@ def readSettings():
         logging.info("Settings file does exist")
         # The defined installation was not confirmed by gameCheck()
         if gameCheck() == False:
-            logging.warning("LEGO Racers installation was not confirmed!")
             sleep(0.5)
 
             # Use path defined in gamecheck() for messages
@@ -226,9 +223,6 @@ def readSettings():
 def writeSettings():
     '''Write PatchIt! settings'''
 
-     # It does not matter if it exists or not, it has to be written
-    #if exists('settings') or not exists('settings'):
-
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = tkinter.Tk()
@@ -254,12 +248,21 @@ def writeSettings():
         logging.info("Open 'settings' for writing with UTF-8 encoding")
         with open('settings', 'wt', encoding='utf-8') as settings:
 
-            # Ensures first-run process will be skipped next time
-            logging.info("Wrote '1' to first line (to skip first-run next time)")
+            # As defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
+            logging.info("Write line denoting what program this file belongs to")
+            print("// PatchIt! V1.1.x Settings", file=settings)
+
+            # Write brief comment explaining what the number means
+            # "Ensures the first-run process will be skipped next time"
+            logging.info("Write brief comment explaining what the number means")
+            logging.info("Write '1' to line 3 to skip first-run next time")
+            print("# Ensures the first-run process will be skipped next time", file=settings)
             print("1", file=settings)
 
+            logging.info("Write brief comment explaining what the folder path means")
             # end="" So \n will not be written
-            logging.info("Wrote new LEGO Racers installation to second line (killing the new line ending)")
+            logging.info("Write new LEGO Racers installation to fifth line (killing the new line ending)")
+            print("# Your LEGO Racers installation path", file=settings)
             print(newgamepath, file=settings, end="")
 
             '''Removing "settings.close()" breaks the entire first-run code.
@@ -280,9 +283,9 @@ def gameCheck():
     '''Confirm LEGO Racers installation'''
 
     # For use in other messages
-    logging.info("Reading line 2 of settings for LEGO Racers installation")
+    logging.info("Reading line 5 of settings for LEGO Racers installation")
     global definedgamepath
-    definedgamepath = linecache.getline('settings', 2)
+    definedgamepath = linecache.getline('settings', 5)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
@@ -312,5 +315,7 @@ def gameCheck():
 # ------------ End PatchIt! Settings ------------ #
 
 if __name__ == "__main__":
+    # Write window title (since there is no GUI)
+    os.system("title {0} {1} {2}".format(app, majver, minver))
     # Run preload() to begin PatchIt! Initialization
     preload()

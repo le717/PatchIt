@@ -91,7 +91,7 @@ Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreve
 ; Favicon for HTML Readme
 Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! settings file (with first-run set to 0)
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
+Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion
 ; Again for Settings_Reset switch
 Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
 ; 64-bit Windows build
