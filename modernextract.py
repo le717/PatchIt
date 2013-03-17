@@ -109,20 +109,22 @@ def readModernPatch(patch):
 
     # Get all patch details
     logging.info("Valid PatchIt! Patch selected")
-    logging.info("Reading line 7 of {0} for mod name".format(patch))
+    logging.info("Reading line 7 of {0} for name".format(patch))
     name = linecache.getline(patch, 7)
-    logging.info("Reading line 6 of {0} for mod version".format(patch))
+    logging.info("Reading line 6 of {0} for version".format(patch))
     version = linecache.getline(patch, 6)
-    logging.info("Reading line 5 of {0} for mod author".format(patch))
+    logging.info("Reading line 5 of {0} for author".format(patch))
     author = linecache.getline(patch, 5)
 ##    logging.info("Reading line 8 of {0} for mod type".format(patch))
 ##    modtype = linecache.getline(patch, 8)
-    logging.info("Reading lines 10-12 of {0} for mod description".format(patch))
+##    logging.info("Reading line 8 of {0} for game".format(patch))
+##    modtype = linecache.getline(patch, 9)
+    logging.info("Reading lines 10-12 of {0} for description".format(patch))
 
-    # Read lines 10-12, or until there is no more text
+    # Read lines 11-13, or until there is no more text
     with open(patch, 'rt', encoding='utf-8') as file:
         while True:
-            lines = file.readlines()[9:]
+            lines = file.readlines()[10:]
             if len(lines) == 0:
                 break
             # Remove list that is is returned as, removes need for .strip()

@@ -21,13 +21,17 @@ Details
 
 * A PiP file is plain text. It stands for **P**atch **I**t **P**atch.
 * A PiP file is written use UTF-8 encoding, and can be edited on any text editor that supports UTF-8 encoding.
-* As a validity test, each PiP file **must** have on line 1 a specific line of text that **must** match **PatchIt!**'s internal version exactly 
-to confirm it is a valid patch.
-* Mod Type
-* The Description is written on the last three lines.
+* As a validity test, each PiP file **must** have on line 1 a specific line of text (known as the validity line) 
+that **must** match **PatchIt!**'s internal version exactly to confirm it is a valid patch.
+* Legacy (V1.0.1) patches are determined by lookin for that version's validity line, and if found, is installed using the legacy installation method.
+* Only Modern (post-V1.0.1) patches are written. Legacy patches are installed only for backward compatibility purposes. Legacy Patches are not and will not be 
+written anymore.  
+* The *Mod Type* field
+* The *Game* field
+* The Description of the mod is written on the last three lines. Unlike V1.0.1, this layout does not have an 161 character limit.
 * The ZIP archive and the PiP file uses the mod's name and version as the filename.
 
-**The PiP file layout can be found [below.](#pip-file-format-version-11-draft-2-layout)**
+**The PiP file layout can be found [below.](#pip-file-format-version-11-draft-3-layout)**
 
 #### PiP ZIP Archive Layout
 
@@ -42,7 +46,7 @@ The same goes for files that are scattered in the root of the archive. If *ENGLI
 
 **An example ZIP archive layout can be found below.**
 
-### PiP File Format Version 1.1 Draft 2 Layout
+### PiP File Format Version 1.1 Draft 3 Layout
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
@@ -53,6 +57,7 @@ Author
 Version
 Name
 Mod Type
+Game
 [DESCRIPTION]
 This is the first line of a description
 This is the second line of a description
@@ -82,13 +87,16 @@ NameVersion.zip/
 
 Revision History
 ----------------
+
+* 1.1 Draft 3: March 16, 2013
+> Added Game field
 * 1.1 Draft 2: March 5 & 6, 2013
-Improvement on Draft 1 (details not yet available)
+> Improvement on Draft 1 (details not yet available)
 * 1.1 Draft 1: March 3, 2013
-Rewrite of format, outlined in [PatchIt! Dev-log #5](http://wp.me/p1V5ge-yl)
+> Rewrite of format, outlined in [PatchIt! Dev-log #5](http://wp.me/p1V5ge-yl)
 * 1.0.1: February 20, 2013
 * 1.0: February 18, 2013
 * Draft 3: February 15, 2013
 * Draft 2: February 8, 2013
 * Draft 1: February 2, 2013
-First design
+> First design
