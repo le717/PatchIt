@@ -161,10 +161,7 @@ def readModernPatch(patch):
         installModernPatch(patch, name, version, author)
 
 def installModernPatch(patch, name, version, author):
-    '''Installs a Mondern PatchIt!'''
-
-    raise SystemExit
-
+    '''Installs a Modern PatchIt! Patch'''
 
     # Read the settings file for installation (LEGO Racers directory)
     logging.info("Reading line 5 of settings for LEGO Racers installation")
@@ -194,17 +191,17 @@ def installModernPatch(patch, name, version, author):
 
     try:
         # Actually extract the ZIP archive
-        logging.info("Extract {0} to {1}".format(installzipfile, installationpath))
-        with zipfile.ZipFile(ziplocation + installzipfile, "r") as extractzip:
+        logging.info("Extract {0} to {1}".format(ziparchive, installationpath))
+        with zipfile.ZipFile(ziplocation + ziparchive, "r") as extractzip:
             extractzip.extractall(path=installationpath)
 
         # Installation was sucessful!
         logging.info("Error (exit) number '0'")
-        logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installationpath))
-        print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
+        logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
+        print("\n{0} {1} sucessfully installed!\n".format(name, version))
 
         # Log ZIP closure although it was closed automatically by with
-        logging.info("Closing {0}".format(installzipfile))
+        logging.info("Closing {0}".format(ziparchive))
 
     # For some reason, it cannot find the ZIP archive
     except FileNotFoundError:
@@ -212,28 +209,28 @@ def installModernPatch(patch, name, version, author):
 
         # Strip the ID text for a smoother error message
         logging.info("Cleaning up Version and Author text")
-        installver = installver.lstrip("Version: ")
-        installauthor = installauthor.lstrip("Author: ")
-        logging.warning("Unable to find {0} at {1}!".format(installzipfile, ziplocation))
+        version = version.lstrip("Version: ")
+        author = author.lstrip("Author: ")
+        logging.warning("Unable to find {0} at {1}!".format(ziparchive, ziplocation))
         colors.pc('''Cannot find files for {0} {1}!
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
 
 If the error continues, contact {6}and ask for a fixed version.'''
-        .format(installname, installver, installname, installver, installname, installver, installauthor), color.FG_LIGHT_RED)
-        # There has to be an easier way to format the message without repeating installname/ver 3 times each...
+        .format(name, version, name, version, name, version, author), color.FG_LIGHT_RED)
+        # There has to be an easier way to format the message without repeating name/version 3 times each...
 
     # The user does not have the rights to install to that location.
     except PermissionError:
         logging.info("Error number '13'")
-        logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installationpath))
-        colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installationpath), color.FG_LIGHT_RED)
+        logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, name, version, installationpath))
+        colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.info("Unknown error number")
-        logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installationpath))
-        colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installationpath), color.FG_LIGHT_RED)
+        logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, name, version, installationpath))
+        colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # This is run no matter if an exception was raised nor not.
     finally:
