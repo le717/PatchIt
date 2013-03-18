@@ -1,7 +1,8 @@
 # PatchIt! V1.1 Unstable Modern Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
-import PatchIt,  os, time, linecache, gametips, zipfile
+import PatchIt, legacyextract
+import os, time, linecache, gametips, zipfile
 from os.path import exists, join
 from random import choice
 # Colored text (until complete GUI is written)
@@ -58,7 +59,7 @@ def checkPatch():
         logging.info("Reading line 1 of {0} for PiP validity check and Patch format"
         .format(patch))
         validline = linecache.getline(patch, 1)
-        logging.info("The validity line reads\n{0}".format(validline))
+        logging.info("The validity line reads\n\n{0}".format(validline))
 
         # It's a legacy Patch
         if validline == "// PatchIt! Patch format, created by le717 and rioforce.\n":
@@ -73,8 +74,9 @@ It may be best to check if a newer version of this mod is available.\n'''.format
 
             # Give them time to actually read the message.
             time.sleep(5)
-            logging.info("Switching to legacy PatchIt! Patch Installation routine *name here*")
-            raise SystemExit
+            logging.info("Switching to legacy PatchIt! Patch Installation routine (legacyextract.readpatch(patch))")
+            legacyextract.readPatch(patch)
+            # raise SystemExit
 
         # It's a modern Patch
         elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
@@ -117,7 +119,7 @@ def readModernPatch(patch):
     author = linecache.getline(patch, 5)
 ##    logging.info("Reading line 8 of {0} for mod type".format(patch))
 ##    modtype = linecache.getline(patch, 8)
-##    logging.info("Reading line 8 of {0} for game".format(patch))
+##    logging.info("Reading line 9 of {0} for game".format(patch))
 ##    modtype = linecache.getline(patch, 9)
     logging.info("Reading lines 10-12 of {0} for description".format(patch))
 
@@ -133,17 +135,32 @@ def readModernPatch(patch):
     # Clear cache so file is completely re-read next time
     logging.info("Clearing PiP file cache...")
     linecache.clearcache()
+    
+    logging.info("Cleaning up mod name")
+    name = name.rstrip("\n")
+    logging.info("Cleaning up mod version")
+    version = version.strip("\n")
+    logging.info("Cleaning up mod version")
+    desc  = desc.strip()
 
     # Display all the info
     logging.info("Display all mod info")
-    logging.info('\n{0} {1} {2} "{3}"\n'.format(name, version, author, desc))
-    print('\n{0} {1} {2} "{3}"'.format(name, version, author, desc), end="\n")
+    logging.info('''\n{0} 
+Version {1} 
+{2} 
+"{3}"\n'''
+    .format(name, version, author, desc))
+    
+    print('''\n{0} 
+Version {1} 
+{2} 
+"{3}"'''.format(name, version, author, desc), end="\n")
 
     # Strip the name and version to put all the text on one line
-    logging.info("Cleaning up mod name")
-    name = name.strip("\n")
-    logging.info("Cleaning up mod version")
-    version = version.strip("\n")
+    # logging.info("Cleaning up mod name")
+    # name = name.strip("\n")
+    # logging.info("Cleaning up mod version")
+    # version = version.strip("\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))

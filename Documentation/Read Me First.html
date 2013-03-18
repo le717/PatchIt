@@ -14,7 +14,7 @@ a:hover { text-decoration: underline; }
 </head>
 <body>
 <a name="ToC"></a>
-<h2>PatchIt! Version 1.0.3 Readme</h2>
+<h2>PatchIt! Version 1.1.0 Readme</h2>
 <table border="0">
 <thead>
 <th>Table of Contents</th>
@@ -82,7 +82,7 @@ be done.</p>
 <a name="Changes"></a>
 
 <h2>Change Log</h2>
-<strong>1.1 Stable</strong><br>
+<strong>1.1.0 Unstable</strong><br>
 (Released ?? ??, 2013)<br>
 <ul>
 <li>Added <code>build.bat</code> for compiling <span class="bold">PatchIt!</span></li>
@@ -98,16 +98,25 @@ PatchIt! Dev-log #6</a></li>
 <li>Removed code commented out in V1.0.3 Stable</li>
 <li>Removed <code>onlyifdoesntexist</code> installer flag for <code>settings</code> file</li>
 <li>Legacy Patch Installation code moved to <code>legacyinstall.py</code></li>
-<li>Patch Compression module updated for new <code>settings</code> file</li>
+<li>Modern Patch Compression module updated for new <code>settings</code> file</li>
 <li>Added <code>Documentation/PiP Format V1.1.md</code></li>
-<li>Added modern, legacy, and not-at-all Patch check (as defined in <a href="http://wp.me/p1V5ge-EX" target="_blank">
+<li>Added modern, legacy, or not-at-all Patch check (as defined in <a href="http://wp.me/p1V5ge-EX" target="_blank">
 PatchIt! Dev-log #7</a>)</li>
 <li>Began writing PiP File Format Draft 2 documentation</li>
-<li>PiP File Format Draft 2 is almost completely read</li>
+<li>PiP File Format Draft 2 is almost completely parsed</li>
 <li>Renamed lots of variables (they were a throwback to pre-V1.0 Stable days)</li>
-<li>Spilt Patch Checking, Modern Patch Reading and Installation into three seperare functions</li>
+<li>Spilt Patch Checking, Modern Patch Reading and Installation into three separate functions</li>
 <li>Dump PiP validity cache after reading Patch Check</li>
 <li>Patch Installation Module now compatible with PiP File Format Draft 2</li>
+<li>Added new "Game" field in PiP File Format Draft 3, </li>
+<li>Removed Patch selection, validity check in Legacy Patch Installation code (uses file selected in <code>modernextract.py</code>)</li>
+<li>Changed mod information display in Modern Patch Installation code</li>
+<li>Small logging changes in Modern Patch Installation code</li>
+<li>Changed versioning scheme: three digit version number, separated by periods,<br>
+"Stable" keyword for releases, "Unstable" keyword for work-in-progress builds</li>
+<li>Updated <code>Documentation/CONTRIBUTING.md</code></li>
+<li>Wrote <span class="bold">PatchIt!</span> Windows compiling instructions (<code>Documentation/CONTRIBUTING.md</code>)</li>
+<li>Updated <code>Documentation/TODO.md</code></li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
@@ -300,9 +309,10 @@ recompresses LEGO.JAM</a></li>
 <p class="bold"><span class="italic">PatchIt!</span> is copyright 2013  <a href="http://triangle717.wordpress.com" target="_blank" title=
 "Triangle717.WordPress.com">Triangle717</a>, and released under the <a
  href="http://www.gnu.org/licenses/gpl.html" target="_blank" title ="GNU General Public License Version 3">GNU General Public License Version 3.</a></p>
- <p>Special thanks to Cirevam, alan, RobExplorien, JimbobJeffers, Creator, Olivus Prime, Xiron, and all the awesome people at <a href="
+ <p>Special thanks to Cyrem, Cirevam, alan, RobExplorien, JimbobJeffers, Creator, Olivus Prime, Xiron, and all the awesome people at <a href="
  http://rockraidersunited.org" target= "_blank" title="Rock Raiders United">Rock Raiders United</a> for sharing their <span class="italic">LEGO Racers</span> 
- gameplay tips and supporting the development of <span class="bold">PatchIt!</span> A very special thank you goes out to JrMasterModelBuilder and TheDoctor 
+ gameplay tips and supporting the development of <span class="bold">PatchIt!</span> 
+ <br>A very special thank you goes out to JrMasterModelBuilder and TheDoctor 
  for putting up with my constant Python questions. Without you guys, I would have never been able to write this.</p>
  <br>
  <a href="#ToC">Back to the Beginning</a>

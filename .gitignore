@@ -188,7 +188,7 @@ listtips.py
 #*.psd
 #*.html
 PatchItOld.py
-#*.txt
+*.txt
 *.ini
 #*.py
 settings

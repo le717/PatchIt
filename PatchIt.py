@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0.3 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
+# PatchIt! V1.1.0 Unstable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import sys, os, linecache # General use modules
@@ -35,7 +35,7 @@ import logging, thescore
 
 # Global variables
 app = "PatchIt!"
-majver = "Version 1.1"
+majver = "Version 1.1.0"
 minver = "Unstable"
 creator = "Triangle717"
 game = "LEGO Racers"
