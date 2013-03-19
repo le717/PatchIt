@@ -1,10 +1,11 @@
-# PatchIt! V1.0.3 Stable LEGO Racers Gameplay tips
+# PatchIt! V1.1.0 Stable LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 
-# TODO: Finish adding Intermediate and Expert Level tips, as sorted by JimbobJeffers
+# TODO: Finish adding Expert Level tips, as sorted by JimbobJeffers
 
 # Tips 1 - 11: Beginner Level
-# Tips 12 - ??: Intermediate Level
+# Tips 12 - 21: Intermediate Level
+# Tips 22 - ??: Expert tips
 gametips = [
 # Begin Beginner Tips
 "\nThe shortcut in Imperial Grand Prix can be opened by firing the cannon\nby the waterfall. To do this, press the power-up key\nwhen you don't have a powerup while approching it.\n",
@@ -19,7 +20,17 @@ gametips = [
 "\nAvoid getting hit by the swinging hammer in Royal Knights Raceway\nby staying near the sides of the track when passing it.\n",
 "\nThere's no need to use the Warp shortcut on Rocket Racer Run,\nas it is shorter than regular Warps -\nthe white bricks around it are much more valuable.\n",
 # Begin Intermediate Tips
+"\nYou can perform tighter turns than usual while using the Flying Turbo Boost,\nparticularly if you Power Slide.\n",
+"\nAt the start of a race, press the accelerator key when the 'GO' message appears to get an extra boost.\n",
+"\nAll Projectile power-ups can be used to open shortcuts,\nhowever not all shortcuts can be opened by a Projectile.\n",
+"\nMoving to the outside of the track and powersliding inwards\nwhile rounding tight corners will give you a tighter turn.\n",
 "\nDeveloping a good track line will improve your lap times.\nStay near corners to prevent a great speed loss when turning.\n",
+"\nTry to use Hazard power-ups on narrow sections of track -\nit maximizes the chances of hitting an opponent.\n",
+"\nTry to save the Cannonball until an opponent activates a Turbo Boost,\nthen fire it to rob him of his speed increase.\n",
+"\nTribal Island Trail has only two green power-up bricks hidden around the track, so you will need to plan your tactics.\n",
+"\nBrake when using the Grappling Hook on an opponent to not only stop them\nin their tracks, but also to drag them backward while you are pulled forward.\n",
+"\nOn Alien Rally Asteroid, try to grab the shield at the start of the track -\nyou will avoid being stopped down by the UFO,\nwhile your opponents won't be.\n",
+
 "\nIs Veronica Voltage in your way? Just drive right through her,\nshe won't stop you.\n",
 "\nListen to the console beeps in Magma Moon Marathon\nto learn the combination code to unlock the shortcut on the next lap.\n",
 "\nFor a harder game experience, avoid using green bricks.\n",
