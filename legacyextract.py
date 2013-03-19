@@ -1,3 +1,21 @@
+"""
+    PatchIt! -  the standard yet simple way to packaging and install mods for LEGO Racers
+    Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
 # PatchIt! V1.1 Unstable Legacy Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
@@ -76,7 +94,7 @@ def readPatch(installpatch):
         logging.info("Reading line 9 of {0} for ZIP archive".format(installpatch))
         installzipfile = linecache.getline(installpatch, 9)
 
-        # Again, clear cache 
+        # Again, clear cache
         logging.info("Clearing settings file cache...")
         linecache.clearcache()
 
