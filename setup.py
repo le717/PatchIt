@@ -24,7 +24,7 @@
 
 from cx_Freeze import setup, Executable
 from PatchIt import majver, minver
-import os, sys, platform
+import sys, platform
 
 # Append build to the arguments. Just type "python setup.py" and it will compile
 if len(sys.argv) == 1: sys.argv[1:] = ["build"]
