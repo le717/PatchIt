@@ -210,7 +210,7 @@ def readSettings():
                 # No, I do not want to change the defined installation
             else:
                 logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
-                # Always sleep for 1 second before kicking back to the menu.
+                # Sleep for 1 second before kicking back to the menu.
                 sleep(1)
                 logging.info("Proceeding to main menu")
                 main()
@@ -228,20 +228,50 @@ def writeSettings():
     logging.info("Withdrawing root Tk window")
     root.withdraw()
 
+        # Draw (then withdraw) the root Tk window
+    logging.info("Drawing root Tk window")
+    root = tkinter.Tk()
+    logging.info("Withdrawing root Tk window")
+    root.withdraw()
+
+    # Overwrite root display settings
+    logging.info("Overwrite root settings to (basically) completely hide it")
+    root.overrideredirect(True)
+    root.geometry('0x0+0+0')
+
+    # Show window again, lift it so it can recieve the focus
+    # Otherwise, it is behind the console window
+    root.deiconify()
+    root.lift()
+    root.focus_force()
+
     # Select the LEGO Racers installation
     logging.info("Display folder selection dialog for LEGO Racers installation")
-    newgamepath = filedialog.askdirectory(title="Please select your {0} installation".format(game))
+    newgamepath = filedialog.askdirectory(
+    parent=root,
+    title="Please select your {0} installation".format(game)
+    )
 
     # The user clicked the cancel button
     if len(newgamepath) == 0:
+
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
+
         logging.warning("User did not select a new LEGO Racers installation!")
         sleep(1)
+
         logging.info("Proceeding to main menu")
         main()
 
     # The user selected a folder
     else:
         logging.info("User selected a new LEGO Racers installation {0}".format(newgamepath))
+
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
 
         # Write settings, using UTF-8 encoding
         logging.info("Open 'settings' for writing with UTF-8 encoding")
