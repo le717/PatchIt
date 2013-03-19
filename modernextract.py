@@ -126,16 +126,16 @@ def readModernPatch(patch):
     # Read lines 11-13, or until there is no more text
     with open(patch, 'rt', encoding='utf-8') as file:
         while True:
-            lines = file.readlines()[10:]
-            if len(lines) == 0:
+            desclines = file.readlines()[10:]
+            if len(desclines) == 0:
                 break
-            # Remove list that is is returned as, removes need for .strip()
-            desc = "".join(lines)
+            # Convert (and remove) list to string
+            desc = "".join(desclines)
 
     # Clear cache so file is completely re-read next time
     logging.info("Clearing PiP file cache...")
     linecache.clearcache()
-    
+
     logging.info("Cleaning up mod name")
     name = name.rstrip("\n")
     logging.info("Cleaning up mod version")
@@ -145,16 +145,15 @@ def readModernPatch(patch):
 
     # Display all the info
     logging.info("Display all mod info")
-    logging.info('''\n{0} 
-Version {1} 
-{2} 
-"{3}"\n'''
-    .format(name, version, author, desc))
-    
-    print('''\n{0} 
-Version {1} 
-{2} 
-"{3}"'''.format(name, version, author, desc), end="\n")
+
+    mod_info = '''\n{0}
+Version {1}
+{2}
+"{3}"'''.format(name, version, author, desc)
+
+    logging.info(mod_info)
+
+    print(mod_info, end="\n")
 
     # Strip the name and version to put all the text on one line
     # logging.info("Cleaning up mod name")
@@ -202,7 +201,7 @@ def installModernPatch(patch, name, version, author):
 
     # Find the ZIP archive
     ziplocation = patch.rstrip("{0}{1}{2}".format(name, version, ".PiP"))
-    logging.info("Found ZIP archive at {0}".format(ziplocation))
+    logging.info("Locate ZIP archive at {0}".format(ziplocation))
 
     # Display the Racers game tips
     logging.info("Display LEGO Racers gameplay tip")
