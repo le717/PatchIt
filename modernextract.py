@@ -26,32 +26,52 @@ def checkPatch():
     # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
 
-    # Select the patch file
-
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = tkinter.Tk()
     logging.info("Withdrawing root Tk window")
     root.withdraw()
 
-    # TODO: Make dialog active window automatically and do the same to main window when closed.
+    # Overwrite root display settings
+    logging.info("Overwrite root settings to (basically) completely hide it")
+    root.overrideredirect(True)
+    root.geometry('0x0+0+0')
+
+    # Show window again, lift it so it can recieve the focus
+    # Otherwise, it is behind the console window
+    root.deiconify()
+    root.lift()
+    root.focus_force()
+
+    # Select the patch file
     logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
     patch = filedialog.askopenfilename(
+    parent=root,
     title="Please select a PatchIt! Patch",
     defaultextension=".PiP",
     filetypes=fileformat)
 
     # The user clicked the cancel button
     if len(patch) == 0:
+
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
+
         logging.warning("User did not select a PatchIt! Patch for installation!")
         colors.pc("\nCould not find a PatchIt! patch to read!\n", color.FG_LIGHT_RED)
         time.sleep(1)
+
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
     # The user selected a patch
     else:
         logging.info("User selected a PatchIt! Patch")
+
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
 
         # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
         # Also check if it uses the modern or legacy format, as defined in
@@ -156,10 +176,10 @@ Version {1}
     print(mod_info, end="\n")
 
     # Strip the name and version to put all the text on one line
-    # logging.info("Cleaning up mod name")
-    # name = name.strip("\n")
-    # logging.info("Cleaning up mod version")
-    # version = version.strip("\n")
+##    # logging.info("Cleaning up mod name")
+##    # name = name.strip("\n")
+##    # logging.info("Cleaning up mod version")
+##    # version = version.strip("\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))
@@ -191,7 +211,7 @@ def installModernPatch(patch, name, version, author):
     logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
     ziparchive = linecache.getline(patch, 3)
 
-    # Again, clear cache so everything completely re-read every time
+    # Again, clear cache so everything is completely re-read every time
     logging.info("Clearing settings file cache...")
     linecache.clearcache()
 

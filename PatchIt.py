@@ -194,11 +194,10 @@ def readSettings():
             writeSettings()
 
         # The defined installation was confirmed by gamecheck()
-        else:  #elif gameCheck() ==  True:
-            logging.info("LEGO Racers installation was confirmed")
+        else:
             sleep(0.5)
-            logging.info("LEGO Racers installation was found.".format(definedgamepath))
-            print("\n{0} installation found at {1}!\n".format(game, definedgamepath) + r"Would you like to change this? (y\N)")
+            logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
+            print('\n{0} installation found at "{1}"!\n'.format(game, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -282,7 +281,7 @@ def writeSettings():
 def gameCheck():
     '''Confirm LEGO Racers installation'''
 
-    # For use in other messages
+    # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO Racers installation")
     global definedgamepath
     definedgamepath = linecache.getline('settings', 5)
