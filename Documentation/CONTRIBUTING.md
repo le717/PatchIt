@@ -28,6 +28,8 @@ until futher notice.
 Building PatchIt!
 -----------------
 
+### Windows EXEs
+
 As mentioned above, **PatchIt!** is compiled into Windows EXE using cx_freeze. If you would like to compile your own build of **PatchIt**, follow these steps.
 
 * Clone the **PatchIt!** Git repository by typing the following command:
@@ -37,15 +39,12 @@ git clone git://github.com/le717/PatchIt.git
 ```
 Replace *master* with the branch or tagged release you wish to download.
 
-* Open *PatchIt\build32.bat* and add the proper folder path to your x86 Python installation, and do the same for your x64 Python installation in *PatchIt\build64.bat*
-* Open a command window above the **PatchIt** folder you just cloned.
-* To compile both a 32- and 64-bit version of **PatchIt** at once, type the following commands into the Command Prompt:
-
+* Type the following command in a command prompt:
 ```
 cd PatchIt
-build.bat
+python setup.py
 ```
+Depending on the Python architecture, your newly created EXEs will be located at either *PatchIt\Compile\Windows32* 
+or under *PatchIt\Compile\Windows64*. 
 
-To compile only one version, replace *build.bat* with the appropriate batch file.
-
-Your newly created EXEs will be located at *PatchIt\Compile* under their respective folders.
+### Inno Setup installer
