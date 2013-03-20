@@ -31,7 +31,7 @@ import logging
 def delThumbs(inputfiles):
     '''Checks for and Deletes Thumbs.db'''
 
-    # Traverse through the subfolders
+    # Traversing the files in each subfolder..
     logging.info("Walking through {0}...".format(inputfiles))
     for root, dir, files in os.walk(inputfiles):
         for item in files:
@@ -112,12 +112,31 @@ def writePatch():
         logging.info("Withdrawing root Tk window")
         root.withdraw()
 
+        # Overwrite root display settings
+        logging.info("Overwrite root settings to (basically) completely hide it")
+        root.overrideredirect(True)
+        root.geometry('0x0+0+0')
+
+        # Show window again, lift it so it can recieve the focus
+        # Otherwise, it is behind the console window
+        root.deiconify()
+        root.lift()
+        root.focus_force()
+
         # The files to be compressed
         # TODO: Make dialog active window automatically and do the same to main window when closed.
-        inputfiles = filedialog.askdirectory(title="Select the files you wish to compress:")
+        inputfiles = filedialog.askdirectory(
+        parent=root,
+        title="Select the files you wish to compress:"
+        )
 
         # The user clicked the cancel button
         if len(inputfiles) == 0:
+
+            # Give focus back to console window
+            logging.info("Give focus back to console window")
+            root.destroy()
+
             logging.warning("User did not select any files to compress!")
             colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
             time.sleep(1)
@@ -126,6 +145,10 @@ def writePatch():
 
         # The user selected a folder to compress
         else:
+
+            # Give focus back to console window
+            logging.info("Give focus back to console window")
+            root.destroy()
             try:
                 logging.info("User selected files at {0} for Patch compression".format(inputfiles))
                 # Check for and delete thumbs.db
