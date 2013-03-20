@@ -16,18 +16,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-# PatchIt! V1.1 Unstable Modern Patch Installation code
+# PatchIt! V1.1.0 Unstable Modern Patch Installation code
 
-# Import only certain items instead of "the whole toolbox"
+import os, time, linecache, random
 import PatchIt, legacyextract
-import os, time, linecache, gametips, zipfile
-from os.path import exists, join
-from random import choice
-# Colored text (until complete GUI is written)
+import gametips, zipfile
+# Colored shell text
 import color, color.colors as colors
-# GUI! :D
-import tkinter
-from tkinter import filedialog
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
 # App Logging module
 import logging
 
@@ -46,7 +43,7 @@ def checkPatch():
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
-    root = tkinter.Tk()
+    root = Tk()
     logging.info("Withdrawing root Tk window")
     root.withdraw()
 
@@ -243,7 +240,7 @@ def installModernPatch(patch, name, version, author):
 
     # Display the Racers game tips
     logging.info("Display LEGO Racers gameplay tip")
-    colors.pc(choice(gametips.gametips), color.FG_LIGHT_GREEN)
+    colors.pc(random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
 
     try:
         # Actually extract the ZIP archive
@@ -280,13 +277,13 @@ If the error continues, contact {6}and ask for a fixed version.'''
     except PermissionError:
         logging.info("Error number '13'")
         logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, name, version, installationpath))
-        colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
+        colors.pc("\n{0} does not have the rights to install {1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.info("Unknown error number")
         logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, name, version, installationpath))
-        colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
+        colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # This is run no matter if an exception was raised nor not.
     finally:

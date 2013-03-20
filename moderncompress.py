@@ -16,17 +16,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-# PatchIt! V1.1 Unstable Modern Patch Creation code
+# PatchIt! V1.1.0 Unstable Modern Patch Creation code
 
-# Import only certain items instead of "the whole toolbox"
-import PatchIt, os, shutil
-from os.path import join
-from time import sleep
-# Colored text (until complete GUI is written)
+import PatchIt, os, shutil, time
+# Colored shell text
 import color, color.colors as colors
-# GUI! :D
-import tkinter
-from tkinter import filedialog
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
 # App Logging modules
 import logging
 
@@ -53,7 +49,7 @@ def delThumbs(inputfiles):
 
                 '''Actually delete the file(s)'''
                 logging.info("Deleting Thumbs.db (don't worry, Windows will recreate it. ;))")
-                os.unlink(join(root, item))
+                os.unlink(os.path.join(root, item))
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
 
@@ -96,7 +92,7 @@ def writePatch():
     if createname.lower() == "exit":
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.pc("\nCanceling creation of {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_RED)
-        sleep(0.5)
+        time.sleep(0.5)
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
@@ -112,7 +108,7 @@ def writePatch():
 
         # Draw (then withdraw) the root Tk window
         logging.info("Drawing root Tk window")
-        root = tkinter.Tk()
+        root = Tk()
         logging.info("Withdrawing root Tk window")
         root.withdraw()
 
@@ -124,7 +120,7 @@ def writePatch():
         if len(inputfiles) == 0:
             logging.warning("User did not select any files to compress!")
             colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
-            sleep(1)
+            time.sleep(1)
             logging.info("Proceeding to main menu")
             PatchIt.main()
 
@@ -179,7 +175,7 @@ def writePatch():
                 movepatch = shutil.move(patchfile, inputfiles)
                 logging.info("Moving {0} from {1} to {2}".format(newzipfile, os.getcwd(), inputfiles))
                 movezip = shutil.move(newzipfile, inputfiles)
-                sleep(0.5)
+                time.sleep(0.5)
 
                 # The Patch was created sucessfully!
                 logging.info("Exit code '0'")
@@ -200,7 +196,7 @@ def writePatch():
 
             finally:
                 # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
-                    sleep(2)
+                    time.sleep(2)
                     logging.info("Proceeding to main menu")
                     PatchIt.main()
 

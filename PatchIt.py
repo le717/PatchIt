@@ -18,18 +18,14 @@
 """
 # PatchIt! V1.1.0 Unstable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
-# Import only certain items instead of "the whole toolbox"
 import sys, os, linecache # General use modules
-from webbrowser import open_new_tab # Used in preload()
-from os.path import exists, join
-from time import sleep
+import webbrowser, time
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
-# Colored text (until complete GUI is written)
+# Colored shell text
 import color, color.colors as colors
-# GUI! :D
-import tkinter
-from tkinter import filedialog
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
 # App Logging modules
 import logging, thescore
 
@@ -64,13 +60,13 @@ def preload():
         colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
 
         # Don't open browser immediately
-        sleep(2)
+        time.sleep(2)
         logging.info("Open new tab in web browser to http://python.org/download")
-        open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
+        webbrowser.open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
 
         # Close PatchIt!
         logging.info("Display message for three seconds")
-        sleep(3)
+        time.sleep(3)
         logging.info("PatchIt! is shutting down.")
         raise SystemExit
 
@@ -78,7 +74,7 @@ def preload():
     else:
         logging.info("You are running Python 3.3.0 or greater. PatchIt! will continue.")
         # The settings file does not exist
-        if not exists('settings'):
+        if not os.path.exists('settings'):
             logging.warning("Settings file does not exist!")
             logging.info("Proceeding to write PatchIt! settings (writeSettings())")
             writeSettings()
@@ -129,14 +125,14 @@ def main():
     while True:
         if menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
-            sleep(0.5)
+            time.sleep(0.5)
             # Call the Patch Creation module
             logging.info("Calling Patch Compression module (compress.writePatch())")
             compress.writePatch()
 
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
-            sleep(0.5)
+            time.sleep(0.5)
             logging.info("Calling Patch Installation module (extract.checkPatch())")
             # Call the Patch Installation module
             extract.checkPatch()
@@ -144,7 +140,7 @@ def main():
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
             # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
-            sleep(0.5)
+            time.sleep(0.5)
             logging.info("Calling PatchIt! Settings (readSettings())")
             readSettings()
 
@@ -152,7 +148,7 @@ def main():
             # Blank space (\n) makes everything nice and neat
             logging.info("User pressed '[q] Quit'")
             colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
-            sleep(3)
+            time.sleep(3)
             logging.info('''PatchIt! is shutting down
             ''')
             raise SystemExit
@@ -174,18 +170,18 @@ def readSettings():
     '''Read PatchIt! settings'''
 
     # The settings file does not exist
-    if not exists('settings'):
+    if not os.path.exists('settings'):
 
         logging.warning("Settings file does not exist!")
         logging.info("Proceeding to write PatchIt! settings (writeSettings())")
         writeSettings()
     # The setting file does exist
-    elif exists('settings'):
+    elif os.path.exists('settings'):
 
         logging.info("Settings file does exist")
         # The defined installation was not confirmed by gameCheck()
         if gameCheck() == False:
-            sleep(0.5)
+            time.sleep(0.5)
 
             # Use path defined in gamecheck() for messages
             logging.warning("LEGO Racers installation was not found!".format(definedgamepath))
@@ -195,7 +191,7 @@ def readSettings():
 
         # The defined installation was confirmed by gamecheck()
         else:
-            sleep(0.5)
+            time.sleep(0.5)
             logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
             print('\n{0} installation found at "{1}"!\n'.format(game, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
@@ -203,7 +199,7 @@ def readSettings():
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
-                sleep(0.5)
+                time.sleep(0.5)
                 logging.info("Proceeding to write PatchIt! settings (writeSettings())")
                 writeSettings()
 
@@ -211,7 +207,7 @@ def readSettings():
             else:
                 logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
                 # Sleep for 1 second before kicking back to the menu.
-                sleep(1)
+                time.sleep(1)
                 logging.info("Proceeding to main menu")
                 main()
 
@@ -224,13 +220,7 @@ def writeSettings():
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
-    root = tkinter.Tk()
-    logging.info("Withdrawing root Tk window")
-    root.withdraw()
-
-        # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
-    root = tkinter.Tk()
+    root = Tk()
     logging.info("Withdrawing root Tk window")
     root.withdraw()
 
@@ -260,7 +250,7 @@ def writeSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO Racers installation!")
-        sleep(1)
+        time.sleep(1)
 
         logging.info("Proceeding to main menu")
         main()
@@ -325,7 +315,8 @@ def gameCheck():
     definedgamepath = definedgamepath.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
-    if exists(join(definedgamepath, "GAMEDATA")) and exists(join(definedgamepath, "MENUDATA")) and exists(join(definedgamepath, "LEGORacers.exe")):
+    if os.path.exists(os.path.join(definedgamepath, "GAMEDATA")) and os.path.exists(os.path.join(definedgamepath, "MENUDATA"))\
+    and os.path.exists(os.path.join(definedgamepath, "LEGORacers.exe")):
         logging.info("GAMEDATA, MENUDATA, and LEGORacers.exe were found at {0}".format(definedgamepath))
         return True
 
