@@ -36,9 +36,9 @@ elif platform.architecture('32bit'):
     destfolder = "Compile/Windows32"
 
 build_exe_options = {"build_exe": destfolder,
-					 "create_shared_zip": True,
+                     "create_shared_zip": True,
                      "optimize": 1,
-					 "icon": "Icons/PatchItIcon.ico",
+                     "icon": "Icons/PatchItIcon.ico",
                      "compressed": True,
                      "includes": ["modernextract", "moderncompress", "legacyextract", "thescore", "gametips", "color"],
                      }
@@ -48,7 +48,7 @@ setup(
     version = "{0} {1}".format(majver, minver),
     author = "Triangle717",
     description = "PatchIt! Version {0} {1}, copyright 2013 Triangle717".format(majver, minver),
-	license = "GNU GPLv3",
+    license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
     executables = [Executable("PatchIt.py")]
 )
