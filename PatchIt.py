@@ -129,8 +129,8 @@ def main():
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
             time.sleep(0.5)
             # Call the Patch Creation module
-            logging.info("Calling Patch Compression module (compress.writePatch())")
-            compress.writePatch()
+            logging.info("Calling Patch Compression module (compress.patchInfo())")
+            compress.patchInfo()
 
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")

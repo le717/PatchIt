@@ -28,12 +28,12 @@ import logging
 
 # ------------ Begin Thumbs.db Check And Delete Code ------------ #
 
-def delThumbs(inputfiles):
+def delThumbs(patchfiles):
     '''Checks for and Deletes Thumbs.db'''
 
     # Traversing the files in each subfolder..
-    logging.info("Walking through {0}...".format(inputfiles))
-    for root, dir, files in os.walk(inputfiles):
+    logging.info("Walking through {0}...".format(patchfiles))
+    for root, dir, files in os.walk(patchfiles):
         for item in files:
 
             # I've heard of a ethumbs.db file once before...
@@ -77,11 +77,11 @@ def patchDesc():
         # It fits into the limit, send it back to writepatch()
         return desc
 
-def PatchInfo():
+def patchInfo():
     '''Asks for PatchIt! Patch details'''
 
     logging.info("Create a PatchIt! Patch")
-    colors.pc("\nCreate a {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_YELLOW)
+    colors.pc("\nCreate a PatchIt! Patch\n", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
     logging.info('Type "exit" in the "Name:" field to cancel the Patch Creation process.')
@@ -99,7 +99,7 @@ def PatchInfo():
 
     # I want to continue on
     logging.info("Ask for mod version")
-    ver = input("Version: ")
+    version = input("Version: ")
 
     logging.info("Ask for mod author")
     author = input("Author: ")
@@ -127,14 +127,13 @@ def PatchInfo():
 
     # The files to be compressed
     # TODO: Make dialog active window automatically and do the same to main window when closed.
-    inputfiles = filedialog.askdirectory(
+    patchfiles = filedialog.askdirectory(
     parent=root,
     title="Select the files you wish to compress"
     )
 
     # The user clicked the cancel button
-    if len(inputfiles) == 0:
-
+    if len(patchfiles) == 0:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
@@ -142,89 +141,96 @@ def PatchInfo():
         logging.warning("User did not select any files to compress!")
         colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
         time.sleep(1)
-        logging.info("Proceeding to main menu")
+        logging.info("Switching to to main menu")
         PatchIt.main()
 
     # The user selected files for Patch creation
     else:
-        writePatch()
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
+        logging.info("Switching to to writePatch(patchfiles, name, version, author, desc)")
+        writePatch(patchfiles, name, version, author, desc)
 
 
-def writePatch():
+def writePatch(patchfiles, name, version, author, desc):
     '''Writes and compresses PatchIt! Patch'''
 
     # The user selected a folder to compress
-    # Give focus back to console window
-    logging.info("Give focus back to console window")
-    root.destroy()
     try:
-        logging.info("User selected files at {0} for Patch compression".format(inputfiles))
+        logging.info("User selected files at {0} for Patch compression".format(patchfiles))
         # Check for and delete thumbs.db
-        logging.info("Switching to delThumbs(inputfiles)")
-        delThumbs(inputfiles)
+        logging.info("Switching to delThumbs(patchfiles)")
+        delThumbs(patchfiles)
 
         # Write PiP file format, as defined in Documentation/PiP Format.md
-        logging.info("Write {0}{1}.PiP using UTF-8 encoding with mod details".format(createname, createver))
-        with open("{0}{1}.PiP".format(createname, createver), 'wt', encoding='utf-8') as createpatch:
-            print("// PatchIt! Patch format, created by le717 and rioforce.", file=createpatch)
-            print("[General]", file=createpatch)
-            print(createname, file=createpatch)
-            print("Version: {0}".format(createver), file=createpatch)
-            print("Author: {0}".format(createauthor), file=createpatch)
-            print("[Description]", file=createpatch)
-            print("{0}".format(createdesc), file=createpatch)
-            print("[ZIP]", file=createpatch)
-            print("{0}{1}.zip".format(createname, createver), file=createpatch, end="")
+        logging.info("Write {0}{1}.PiP with Patch details using UTF-8 encoding".format(name, version))
+        with open("{0}{1}.PiP".format(name, version), 'wt', encoding='utf-8') as patch:
+            print("// PatchIt! PiP file format V1.1, developed by le717 and rioforce", file=patch)
+            print("[ZIP]", file=patch)
+            print("{0}{1}.zip".format(name, version), file=patch)
+            print("[GENERAL]", file=patch)
+            print(author, file=patch)
+            print(version, file=patch)
+            print(name, file=patch)
+            print("modtype", file=patch)
+            print("LEGO Racers", file=patch)
+            print("[DESCRIPTION]", file=patch)
+            print("{0}".format(desc), file=patch)
+
             logging.info('''
 
-                    // PatchIt! Patch format, created by le717 and rioforce.
-                    [General]
-                    {0}
-                    Version: {1}
-                    Author: {2}
-                    [Description]
-                    {3}
+                    // PatchIt! PiP file format V1.1, developed by le717 and rioforce
                     [ZIP]
-                    {4}{5}.zip
-                        '''.format(createname, createver, createauthor, createdesc, createname, createver))
+                    {0]{1}.zip
+                    [GENERAL]
+                    {2}
+                    {3}
+                    {4}
+                    Mod Type
+                    LEGO Racers
+                    [DESCRIPTION]
+                    {5}
+
+                        '''.format(name, version, author, version, name, desc))
 
         # Compress the files
-        logging.info("Compress files located at {0} into a ZIP archive".format(inputfiles))
-        zipfile = shutil.make_archive(inputfiles, format="zip", root_dir=inputfiles)
+        logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))
+        zipfile = shutil.make_archive(patchfiles, format="zip", root_dir=patchfiles)
 
         # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format V1.1.md
-        logging.info("Rename ZIP archive to {0}{1}.zip, as defined in {2}".format(createname, createver, "Documentation/PiP Format.md"))
-        newzipfile = os.replace(zipfile, createname + createver + ".zip")
+        logging.info("Rename ZIP archive to {0}{1}.zip, as defined in {2}".format(name, version, "Documentation/PiP Format V1.1.md"))
+        newzipfile = os.replace(zipfile, name + version + ".zip")
 
         # Declare the Patch and ZIP filenames
-        patchfile = "{0}{1}.PiP".format(createname, createver)
-        newzipfile = "{0}{1}.zip".format(createname, createver)
-        logging.info("The final file names are {0} and {1}".format(patchfile, newzipfile))
+        thepatch = "{0}{1}.PiP".format(name, version)
+        newzipfile = "{0}{1}.zip".format(name, version)
+        logging.info("The final file names are {0} and {1}".format(thepatch, newzipfile))
 
         # Move the Patch and ZIP to the folder the compressed files came from
-        logging.info("Moving {0} from {1} to {2}".format(patchfile, os.getcwd(), inputfiles))
-        movepatch = shutil.move(patchfile, inputfiles)
-        logging.info("Moving {0} from {1} to {2}".format(newzipfile, os.getcwd(), inputfiles))
-        movezip = shutil.move(newzipfile, inputfiles)
+        logging.info("Moving {0} from {1} to {2}".format(thepatch, os.getcwd(), patchfiles))
+        movepatch = shutil.move(thepatch, inputfiles)
+        logging.info("Moving {0} from {1} to {2}".format(newzipfile, os.getcwd(), patchfiles))
+        movezip = shutil.move(newzipfile, patchfiles)
         time.sleep(0.5)
 
         # The Patch was created sucessfully!
         logging.info("Exit code '0'")
-        logging.info("{0} Version: {1} created and saved to {2}".format(createname, createver, inputfiles))
-        print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!\n".format(PatchIt.app, createname, createver, inputfiles))
+        logging.info("{0} Version: {1} created and saved to {2}".format(name, version, patchfiles))
+        print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!\n".format(PatchIt.app, name, version, patchfiles))
 
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
         logging.info("Error number '13'")
-        logging.warning("{0} does not have the rights to save {1} {2}".format(PatchIt.app, createname, createver))
-        colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, createname, createver), color.FG_LIGHT_RED)
+        logging.warning("{0} does not have the rights to save {1} {2}".format(PatchIt.app, name, version))
+        colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
         # TODO: Delete incomplete .PiP file here?
 
     # Python itself had some I/O error / any exceptions not handled
     except Exception:
         logging.info("Unknown error number")
-        logging.warning("{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, createname, createver))
-        colors.pc("\n{0} ran into an unknown error while trying to create {1} {2}!\n".format(PatchIt.app, createname, createver), color.FG_LIGHT_RED)
+        logging.warning("{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version))
+        colors.pc("\n{0} ran into an unknown error while trying to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
 
     finally:
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
