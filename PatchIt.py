@@ -40,6 +40,7 @@ game = "LEGO Racers"
 
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
+
     logging.info("Begin logging to {0}".format(thescore.logging_file))
     logging.info('''
                                 #############################################
@@ -114,6 +115,7 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout'''
+
     colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
     print('''\nPlease make a selection:\n
 [c] Create a PatchIt! Patch

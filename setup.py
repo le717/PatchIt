@@ -41,7 +41,7 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "Icons/PatchItIcon.ico",
                      "compressed": True,
                      "includes": ["modernextract", "moderncompress", "legacyextract", "thescore", "gametips", "color"],
-                     }
+}
 
 setup(
     name = "PatchIt!",

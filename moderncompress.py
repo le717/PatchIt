@@ -60,12 +60,12 @@ def patchDesc():
     '''Mod Description input and length check'''
 
     # Because I can't see how to do it any other way
-    global createdesc
+    global desc
     logging.info("Ask for mod description")
-    createdesc = input("Description: ")
+    desc = input("Description: ")
 
     # 162 characters will mess up PatchIt! entirely
-    if len(createdesc) > 161:
+    if len(desc) > 161:
             logging.warning("The description is too longer - longer than 161 characters!")
             colors.pc("\nYour description is too long! Please write it a bit shorter.\n", color.FG_LIGHT_RED)
             # Loop back through the input if it is longer
@@ -75,10 +75,10 @@ def patchDesc():
         logging.info("Your description fits into the 161 character limit")
         logging.info("Proceed back to writePatch()")
         # It fits into the limit, send it back to writepatch()
-        return createdesc
+        return desc
 
-def writePatch():
-    '''Writes and compresses PatchIt! Patch'''
+def PatchInfo():
+    '''Asks for PatchIt! Patch details'''
 
     logging.info("Create a PatchIt! Patch")
     colors.pc("\nCreate a {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_YELLOW)
@@ -86,10 +86,11 @@ def writePatch():
     # Tells the user how to cancel the process
     logging.info('Type "exit" in the "Name:" field to cancel the Patch Creation process.')
     print('Type "exit" in the "Name:" field to cancel.', end="\n")
-    createname = input("\nName: ")
+
+    name = input("\nName: ")
 
     # I want to quit the process
-    if createname.lower() == "exit":
+    if name.lower() == "exit":
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.pc("\nCanceling creation of {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_RED)
         time.sleep(0.5)
@@ -97,59 +98,66 @@ def writePatch():
         PatchIt.main()
 
     # I want to continue on
+    logging.info("Ask for mod version")
+    ver = input("Version: ")
+
+    logging.info("Ask for mod author")
+    author = input("Author: ")
+
+    logging.info("Switching to patchDesc().")
+    # See def patchDesc() above.
+    patchDesc()
+
+    # Draw (then withdraw) the root Tk window
+    logging.info("Drawing root Tk window")
+    root = Tk()
+    logging.info("Withdrawing root Tk window")
+    root.withdraw()
+
+    # Overwrite root display settings
+    logging.info("Overwrite root settings to (basically) completely hide it")
+    root.overrideredirect(True)
+    root.geometry('0x0+0+0')
+
+    # Show window again, lift it so it can recieve the focus
+    # Otherwise, it is behind the console window
+    root.deiconify()
+    root.lift()
+    root.focus_force()
+
+    # The files to be compressed
+    # TODO: Make dialog active window automatically and do the same to main window when closed.
+    inputfiles = filedialog.askdirectory(
+    parent=root,
+    title="Select the files you wish to compress"
+    )
+
+    # The user clicked the cancel button
+    if len(inputfiles) == 0:
+
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
+
+        logging.warning("User did not select any files to compress!")
+        colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
+        time.sleep(1)
+        logging.info("Proceeding to main menu")
+        PatchIt.main()
+
+    # The user selected files for Patch creation
     else:
-        logging.info("Ask for mod version")
-        createver = input("Version: ")
-        logging.info("Ask for mod author")
-        createauthor = input("Author: ")
-        logging.info("Proceeding to patchDesc().")
-        # See def patchDesc() above.
-        patchDesc()
+        writePatch()
 
-        # Draw (then withdraw) the root Tk window
-        logging.info("Drawing root Tk window")
-        root = Tk()
-        logging.info("Withdrawing root Tk window")
-        root.withdraw()
 
-        # Overwrite root display settings
-        logging.info("Overwrite root settings to (basically) completely hide it")
-        root.overrideredirect(True)
-        root.geometry('0x0+0+0')
-
-        # Show window again, lift it so it can recieve the focus
-        # Otherwise, it is behind the console window
-        root.deiconify()
-        root.lift()
-        root.focus_force()
-
-        # The files to be compressed
-        # TODO: Make dialog active window automatically and do the same to main window when closed.
-        inputfiles = filedialog.askdirectory(
-        parent=root,
-        title="Select the files you wish to compress:"
-        )
-
-        # The user clicked the cancel button
-        if len(inputfiles) == 0:
-
-            # Give focus back to console window
-            logging.info("Give focus back to console window")
-            root.destroy()
-
-            logging.warning("User did not select any files to compress!")
-            colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
-            time.sleep(1)
-            logging.info("Proceeding to main menu")
-            PatchIt.main()
+def writePatch():
+    '''Writes and compresses PatchIt! Patch'''
 
         # The user selected a folder to compress
-        else:
-
-            # Give focus back to console window
-            logging.info("Give focus back to console window")
-            root.destroy()
-            try:
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
+        try:
                 logging.info("User selected files at {0} for Patch compression".format(inputfiles))
                 # Check for and delete thumbs.db
                 logging.info("Proceed to delThumbs()")
