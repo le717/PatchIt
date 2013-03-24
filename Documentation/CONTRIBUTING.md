@@ -12,6 +12,10 @@ Python Versions `<=` 3.2 are not supported, and a version check will prevent it 
 * Beta builds and the final release will be compiled into x86 and x64 Windows EXEs using [cx_freeze](http://cx-freeze.sourceforge.net). 
 [py2exe](http://www.py2exe.org) does not support Python 3.3, so it cannot be used.
 * Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
+* Sometime in the V1.1.0 Stable development, a wrapper for JrMasterModelBuilder's [JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor) will 
+be added for extraction and recompressing of *LEGO.JAM*. A [custom build](https://github.com/le717/JAM-Extractor) of the JAM Extractor will be used for this 
+purpose, unless the changes made are merged into the original version. Either way, you will need to download *JAMExtacrtor.py* and place it in the root 
+**PatchIt!* folder so everything will load.
 
 Where to Start
 --------------
