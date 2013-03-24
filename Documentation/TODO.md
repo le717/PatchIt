@@ -3,8 +3,8 @@ PatchIt! TODO List
 
 An (incomplete) list of everything that needs to be done in **PatchIt!**, listed in no particular order, as well as new, upcoming features and current bugs.
 
-* **BUG!** Why do some Shell Colors keep breaking?
-* **BUG!** Sometimes Patch cannot be saved in a Dropbox folder
+* **BUG** Why do some Shell Colors keep breaking?
+* **BUG** Sometimes Patch cannot be saved in a Dropbox folder
 * *NEW!* Modern PiP file creation code
 * *NEW!* Automatic LEGO.JAM extraction (upon user approval)
 * *NEW!* Expert LEGO Racers gameplay tips

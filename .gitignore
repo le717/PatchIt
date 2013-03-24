@@ -191,6 +191,7 @@ PatchItOld.py
 *.txt
 *.ini
 #*.py
+JAMExtractor.py
 settings
 *.log
 *.PiP
