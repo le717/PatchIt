@@ -87,6 +87,7 @@ def patchInfo():
     logging.info('Type "exit" in the "Name:" field to cancel the Patch Creation process.')
     print('Type "exit" in the "Name:" field to cancel.', end="\n")
 
+    logging.info("Ask for Patch name")
     name = input("\nName: ")
 
     # I want to quit the process
@@ -98,15 +99,18 @@ def patchInfo():
         PatchIt.main()
 
     # I want to continue on
-    logging.info("Ask for mod version")
+    logging.info("Ask for Patch version")
     version = input("Version: ")
 
-    logging.info("Ask for mod author")
+    logging.info("Ask for Patch author")
     author = input("Author: ")
 
-    logging.info("Switching to patchDesc().")
-    # See def patchDesc() above.
-    patchDesc()
+##    logging.info("Switching to patchDesc().")
+##    # See def patchDesc() above.
+##    patchDesc()
+
+    logging.info("Ask for Patch description")
+    desc = input("Description: ")
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -176,23 +180,22 @@ def writePatch(patchfiles, name, version, author, desc):
             print("modtype", file=patch)
             print("LEGO Racers", file=patch)
             print("[DESCRIPTION]", file=patch)
-            print("{0}".format(desc), file=patch)
+            print("{0}".format(desc), file=patch, end="")
 
-            logging.info('''
-
-                    // PatchIt! PiP file format V1.1, developed by le717 and rioforce
-                    [ZIP]
-                    {0]{1}.zip
-                    [GENERAL]
-                    {2}
-                    {3}
-                    {4}
-                    Mod Type
-                    LEGO Racers
-                    [DESCRIPTION]
-                    {5}
-
-                        '''.format(name, version, author, version, name, desc))
+##        logging.info('''
+##                // PatchIt! PiP file format V1.1, developed by le717 and rioforce
+##                [ZIP]
+##                {0]{1}.zip
+##                [GENERAL]
+##                {2}
+##                {3}
+##                {4}
+##                Mod Type
+##                LEGO Racers
+##                [DESCRIPTION]
+##                {5}
+##                '''.format(name, version, author, version, name, desc)
+##                )
 
         # Compress the files
         logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))
@@ -209,10 +212,9 @@ def writePatch(patchfiles, name, version, author, desc):
 
         # Move the Patch and ZIP to the folder the compressed files came from
         logging.info("Moving {0} from {1} to {2}".format(thepatch, os.getcwd(), patchfiles))
-        movepatch = shutil.move(thepatch, inputfiles)
+        shutil.move(thepatch, patchfiles)
         logging.info("Moving {0} from {1} to {2}".format(newzipfile, os.getcwd(), patchfiles))
-        movezip = shutil.move(newzipfile, patchfiles)
-        time.sleep(0.5)
+        shutil.move(newzipfile, patchfiles)
 
         # The Patch was created sucessfully!
         logging.info("Exit code '0'")
