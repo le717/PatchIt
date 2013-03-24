@@ -125,7 +125,13 @@ def main():
     logging.info("Display menu to user")
     menuopt = input("\n> ")
     while True:
-        if menuopt.lower() == "c":
+        if menuopt.lower() == 'e':
+            logging.warning('"It''s a trap!')
+            webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
+            logging.info("PatchIt! is shutting down with a proper Python exit routine to remind the user never to do this again. :P")
+            os._exit(0)
+
+        elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
             time.sleep(0.5)
             # Call the Patch Creation module

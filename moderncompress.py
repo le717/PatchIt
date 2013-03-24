@@ -182,21 +182,6 @@ def writePatch(patchfiles, name, version, author, desc):
             print("[DESCRIPTION]", file=patch)
             print("{0}".format(desc), file=patch, end="")
 
-##        logging.info('''
-##                // PatchIt! PiP file format V1.1, developed by le717 and rioforce
-##                [ZIP]
-##                {0]{1}.zip
-##                [GENERAL]
-##                {2}
-##                {3}
-##                {4}
-##                Mod Type
-##                LEGO Racers
-##                [DESCRIPTION]
-##                {5}
-##                '''.format(name, version, author, version, name, desc)
-##                )
-
         # Compress the files
         logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))
         zipfile = shutil.make_archive(patchfiles, format="zip", root_dir=patchfiles)
@@ -227,6 +212,12 @@ def writePatch(patchfiles, name, version, author, desc):
         logging.warning("{0} does not have the rights to save {1} {2}".format(PatchIt.app, name, version))
         colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
         # TODO: Delete incomplete .PiP file here?
+
+    # .PiP and/or .zip already exists
+    except FileExistsError:
+        logging.info("Error number '183'")
+        logging.warning("{0}{1}.PiP or .zip already exists at {2} or {3}!".format(name, version, patchfiles, os.getcwd()))
+        colors.pc("\n{0}{1}.PiP or {2}{3}.zip already exists!\nCheck either {4} or\n{5} for the files,\nand move or delete them if necessary.\n".format(name, version, name, version, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error / any exceptions not handled
     except Exception:
