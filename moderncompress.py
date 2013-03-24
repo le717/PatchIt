@@ -131,7 +131,6 @@ def patchInfo():
     root.focus_force()
 
     # The files to be compressed
-    # TODO: Make dialog active window automatically and do the same to main window when closed.
     patchfiles = filedialog.askdirectory(
     parent=root,
     title="Select the files you wish to compress"
