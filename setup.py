@@ -40,7 +40,7 @@ build_exe_options = {"build_exe": destfolder,
                      "optimize": 1,
                      "icon": "Icons/PatchItIcon.ico",
                      "compressed": True,
-                     "includes": ["modernextract", "moderncompress", "legacyextract", "thescore", "gametips", , "handlejam", "color"],
+                     "includes": ["modernextract", "moderncompress", "legacyextract", "thescore", "gametips", "handlejam", "color"],
 }
 
 setup(

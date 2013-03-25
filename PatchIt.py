@@ -128,8 +128,14 @@ def main():
     while True:
         if menuopt.lower() == 'e':
             logging.warning('"It''s a trap!')
+            colors.pc("\nOoh, you shouldn't have done that, Sir!", color.FG_LIGHT_RED)
+            time.sleep(2)
+            colors.pc("\n\nNow you must face...", color.FG_LIGHT_RED)
+            time.sleep(4)
+            colors.pc("\n\nTHE COW!", color.FG_LIGHT_RED)
+            time.sleep(0.3)
             webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
-            logging.info("PatchIt! is shutting down with a proper Python exit routine to remind the user never to do this again. :P")
+            logging.info("PatchIt! is shutting down without a proper Python exit routine (os._exit(0)) to remind the user never to do this again. :P")
             os._exit(0)
 
         elif menuopt.lower() == "c":
