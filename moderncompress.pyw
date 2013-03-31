@@ -4,7 +4,7 @@
     PatchIt! -  the standard yet simple way to packaging and install mods for LEGO Racers
     Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
 
-    This program is free software: you can redistribute it and/or modify
+    PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
@@ -15,7 +15,7 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with PatchIt!  If not, see <http://www.gnu.org/licenses/>.
+    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 # PatchIt! V1.1.0 Unstable Modern Patch Creation code
 
@@ -37,18 +37,16 @@ def delThumbs(patchfiles):
     for root, dir, files in os.walk(patchfiles):
         for item in files:
 
-            # I've heard of a ethumbs.db file once before...
-            if item.lower().endswith(".db"):
+            """Uncomment this to target all *.db files"""
+            #if item.lower().endswith(".db"):
+            if item.lower() == "thumbs.db":
                 logging.warning("Thumbs.db has been found!")
 
-                '''Uncomment this to target just thumbs.db'''
-                #if item.lower() == "thumbs.db":
-
-                '''This will print upon every instance of thumbs.db. Not good. TODO: Fix it!'''
+                """This will print upon every instance of thumbs.db. Not good. TODO: Fix it!"""
                 #print('''\nI found Thumbs.db in your files. I will delete it for you in a few seconds.
 #Don't worry, Windows will recreate it.\n''')
 
-                '''Actually delete the file(s)'''
+                """Actually delete the file(s)"""
                 logging.info("Deleting Thumbs.db (don't worry, Windows will recreate it. ;))")
                 os.unlink(os.path.join(root, item))
 
@@ -56,27 +54,6 @@ def delThumbs(patchfiles):
 
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
-
-def patchDesc():
-    '''Mod Description input and length check'''
-
-    # Because I can't see how to do it any other way
-    global desc
-    logging.info("Ask for mod description")
-    desc = input("Description: ")
-
-    # 162 characters will mess up PatchIt! entirely
-    if len(desc) > 161:
-            logging.warning("The description is too longer - longer than 161 characters!")
-            colors.pc("\nYour description is too long! Please write it a bit shorter.\n", color.FG_LIGHT_RED)
-            # Loop back through the input if it is longer
-            logging.info("Loop back through for shorter description (patchDesc())")
-            patchDesc()
-    else:
-        logging.info("Your description fits into the 161 character limit")
-        logging.info("Proceed back to writePatch()")
-        # It fits into the limit, send it back to writepatch()
-        return desc
 
 def patchInfo():
     '''Asks for PatchIt! Patch details'''
@@ -105,10 +82,6 @@ def patchInfo():
 
     logging.info("Ask for Patch author")
     author = input("Author: ")
-
-##    logging.info("Switching to patchDesc().")
-##    # See def patchDesc() above.
-##    patchDesc()
 
     logging.info("Ask for Patch description")
     desc = input("Description: ")
@@ -167,7 +140,7 @@ def writePatch(patchfiles, name, version, author, desc):
         logging.info("Switching to delThumbs(patchfiles)")
         delThumbs(patchfiles)
 
-        # Write PiP file format, as defined in Documentation/PiP Format.md
+        # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0}{1}.PiP with Patch details using UTF-8 encoding".format(name, version))
         with open("{0}{1}.PiP".format(name, version), 'wt', encoding='utf-8') as patch:
             print("// PatchIt! PiP file format V1.1, developed by le717 and rioforce", file=patch)
@@ -211,7 +184,6 @@ def writePatch(patchfiles, name, version, author, desc):
         logging.info("Error number '13'")
         logging.warning("{0} does not have the rights to save {1} {2}".format(PatchIt.app, name, version))
         colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
-        # TODO: Delete incomplete .PiP file here?
 
     # .PiP and/or .zip already exists
     except FileExistsError:
@@ -219,7 +191,7 @@ def writePatch(patchfiles, name, version, author, desc):
         logging.warning("{0}{1}.PiP or .zip already exists at {2} or {3}!".format(name, version, patchfiles, os.getcwd()))
         colors.pc("\n{0}{1}.PiP or {2}{3}.zip already exists!\nCheck either {4} or\n{5} for the files,\nand move or delete them if necessary.\n".format(name, version, name, version, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
 
-    # Python itself had some I/O error / any exceptions not handled
+    # Python itself had some I/O error/any exceptions not handled
     except Exception:
         logging.info("Unknown error number")
         logging.warning("{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version))
