@@ -202,4 +202,5 @@ settings
 Testing/
 Compile/
 Logs/
-License/*
+License/
+gpl-3.0.fr.txt
