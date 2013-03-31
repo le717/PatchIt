@@ -10,9 +10,9 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "1.0.3"
-#define MyAppVerName "PatchIt! Version 1.0.3 Stable"
-#define MyInstallerName "PatchIt!-Version-1.0.3-Stable"
+#define MyAppVersion "1.1.0"
+#define MyAppVerName "PatchIt! Version 1.1.0 Unstable"
+#define MyInstallerName "PatchIt!-Version-1.1.0-Unstable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -34,7 +34,7 @@ SetupIconFile=..\Icons\PatchItIcon.ico
 WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
-OutputDir=Here Lie the Installer
+OutputDir=.\
 OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
 Uninstallable=not PortableInstall
@@ -79,7 +79,7 @@ Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
 Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked; Check: not PortableInstall
 
 [Registry]
-; Registry strings are always hard-coded (NO ISPP) to ensure everything works correctly.
+; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
 Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
 
 
@@ -91,9 +91,9 @@ Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreve
 ; Favicon for HTML Readme
 Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! settings file (with first-run set to 0)
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\lrsettings"; DestDir: "{app}"; Flags: ignoreversion
 ; Again for Settings_Reset switch
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\lrsettings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
 ; 64-bit Windows build
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build

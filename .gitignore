@@ -192,7 +192,7 @@ PatchItOld.py
 *.ini
 #*.py
 JAMExtractor.py
-settings
+*settings
 *.log
 *.PiP
 *.~is

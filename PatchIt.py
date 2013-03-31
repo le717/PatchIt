@@ -29,15 +29,34 @@ import color, color.colors as colors
 from tkinter import (filedialog, Tk)
 # App Logging modules
 import logging, thescore
+# Command-line arguments
+import argparse
 
 # Global variables
 app = "PatchIt!"
 majver = "Version 1.1.0"
 minver = "Unstable"
 creator = "Triangle717"
-game = "LEGO Racers"
+
+lrgame = "LEGO Racers"
+locogame = "LEGO LOCO"
 
 # ------------ Begin PatchIt! Initialization ------------ #
+
+def cmdArgs():
+    '''PatchIt! Command-line Arguments'''
+
+    # Command-line arguments parser
+    parser = argparse.ArgumentParser(description="{0} {1} Command-line arguments".format(app, majver))
+    parser.add_argument("-t", "--testing",
+    help="Enable {0} Experiential features".format(app),
+    action="store_true")
+    args = parser.parse_args()
+
+    # Declare force parameter (-t, --testing) as global for use in other places.
+    global testing
+    testing = args.testing
+
 
 def preload():
     '''Python 3.3.0 and PatchIt! first-run check'''
@@ -76,10 +95,10 @@ def preload():
     else:
         logging.info("You are running Python 3.3.0 or greater. PatchIt! will continue.")
         # The settings file does not exist
-        if not os.path.exists('settings'):
+        if not os.path.exists('lrsettings'):
             logging.warning("Settings file does not exist!")
-            logging.info("Proceeding to write PatchIt! settings (writeSettings())")
-            writeSettings()
+            logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
+            writeSettingsLR()
 
         # The settings file does exist
         else:
@@ -87,7 +106,7 @@ def preload():
             # Settings file does not need to be opened to use linecache
 
             logging.info("Reading line 3 for first-run info")
-            firstrun = linecache.getline('settings', 3)
+            firstrun = linecache.getline('lrsettings', 3)
 
             # Remove \n, \r, \t, or any of the like
             logging.info("Cleaning up line text")
@@ -101,8 +120,8 @@ def preload():
             # "" if file is empty or non-existant
             if firstrun == "0" or firstrun == "":
                 logging.warning('''First-run info not found!
-                Proceeding to write PatchIt! settings (writeSettings())''')
-                writeSettings()
+                Proceeding to write PatchIt! settings (writeSettingsLR())''')
+                writeSettingsLR()
             # Any other number (Default, 1) means it has been run before
             else:
                 logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
@@ -154,10 +173,32 @@ def main():
 
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
-            # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
-            time.sleep(0.5)
-            logging.info("Calling PatchIt! Settings (readSettings())")
-            readSettings()
+
+            if not testing:
+                # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
+                time.sleep(0.5)
+                logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
+                readSettingsLR()
+
+            else:
+                print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
+                print('''
+[r] LEGO Racers
+[l] LEGO LOCO''')
+
+                settingsopt = input("\n\n> ")
+
+                if settingsopt.lower() == "r":
+                    # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
+                    time.sleep(0.5)
+                    logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
+                    readSettingsLR()
+                elif settingsopt.lower() == "l":
+                    print("LOCO Settings")
+                    raise SystemExit
+                else:
+                    main()
+
 
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
@@ -179,44 +220,47 @@ def main():
 
 # ------------ Begin PatchIt! Settings ------------ #
 
-# ----- Begin PatchIt! Settings Reading ----- #
+# ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
-def readSettings():
-    '''Read PatchIt! settings'''
+def readSettingsLR():
+    '''Read PatchIt! LEGO Racers settings'''
 
     # The settings file does not exist
-    if not os.path.exists('settings'):
+    if not os.path.exists('lrsettings'):
 
         logging.warning("Settings file does not exist!")
-        logging.info("Proceeding to write PatchIt! settings (writeSettings())")
-        writeSettings()
+        logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
+        writeSettingsLR()
+
     # The setting file does exist
-    elif os.path.exists('settings'):
+    elif os.path.exists('lrsettings'):
 
         logging.info("Settings file does exist")
-        # The defined installation was not confirmed by gameCheck()
-        if gameCheck() == False:
+        # The defined installation was not confirmed by gameCheckLR()
+        if gameCheckLR() == False:
             time.sleep(0.5)
 
             # Use path defined in gamecheck() for messages
             logging.warning("LEGO Racers installation was not found!".format(definedgamepath))
-            colors.pc("\nCannot find {0} installation at {1}!\n".format(game, definedgamepath), color.FG_LIGHT_RED)
+            colors.pc("\nCannot find {0} installation at {1}!\n".format(lrgame, definedgamepath), color.FG_LIGHT_RED)
+
             # Go write the settings file
-            writeSettings()
+            logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
+            writeSettingsLR()
 
         # The defined installation was confirmed by gamecheck()
         else:
             time.sleep(0.5)
             logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
-            print('\n{0} installation found at "{1}"!\n'.format(game, definedgamepath) + r"Would you like to change this? (y\N)")
+            print('\n{0} installation found at "{1}"!\n'.format(lrgame, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
                 time.sleep(0.5)
-                logging.info("Proceeding to write PatchIt! settings (writeSettings())")
-                writeSettings()
+                logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
+                writeSettingsLR()
 
                 # No, I do not want to change the defined installation
             else:
@@ -226,12 +270,12 @@ def readSettings():
                 logging.info("Proceeding to main menu")
                 main()
 
-# ----- End PatchIt! Settings Reading ----- #
+# ----- End PatchIt! LEGO Racers Settings Reading ----- #
 
-# ----- Begin PatchIt! Settings Writing ----- #
+# ----- Begin PatchIt! LEGO Racers Settings Writing ----- #
 
-def writeSettings():
-    '''Write PatchIt! settings'''
+def writeSettingsLR():
+    '''Write PatchIt! LEGO Racers settings'''
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -254,12 +298,11 @@ def writeSettings():
     logging.info("Display folder selection dialog for LEGO Racers installation")
     newgamepath = filedialog.askdirectory(
     parent=root,
-    title="Please select your {0} installation".format(game)
+    title="Please select your {0} installation".format(lrgame)
     )
 
     # The user clicked the cancel button
     if len(newgamepath) == 0:
-
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
@@ -279,12 +322,12 @@ def writeSettings():
         root.destroy()
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'settings' for writing with UTF-8 encoding")
-        with open('settings', 'wt', encoding='utf-8') as settings:
+        logging.info("Open 'lrsettings' for writing with UTF-8 encoding")
+        with open('lrsettings', 'wt', encoding='utf-8') as settings:
 
-            # As defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
+            # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
-            print("// PatchIt! V1.1.x Settings", file=settings)
+            print("// PatchIt! V1.1.x LEGO Racers Settings", file=settings)
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
@@ -306,20 +349,20 @@ def writeSettings():
 
             logging.info("Closing file")
             settings.close()
-            logging.info("Proceeding to PatchIt! Settings (readSettings())")
-            readSettings()
+            logging.info("Proceeding to PatchIt! LEGO Racers Settings (readSettingsLR())")
+            readSettingsLR()
 
-# ----- End PatchIt! Settings Writing ----- #
+# ----- End PatchIt! LEGO Racers Settings Writing ----- #
 
 # ----- Begin LEGO Racers Installation Check ----- #
 
-def gameCheck():
+def gameCheckLR():
     '''Confirm LEGO Racers installation'''
 
     # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO Racers installation")
     global definedgamepath
-    definedgamepath = linecache.getline('settings', 5)
+    definedgamepath = linecache.getline('lrsettings', 5)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
@@ -352,5 +395,7 @@ def gameCheck():
 if __name__ == "__main__":
     # Write window title (since there is no GUI)
     os.system("title {0} {1} {2}".format(app, majver, minver))
-    # Run preload() to begin PatchIt! Initialization
+
+    # Run PatchIt! Initialization
+    cmdArgs()
     preload()
