@@ -48,14 +48,14 @@ def cmdArgs():
 
     # Command-line arguments parser
     parser = argparse.ArgumentParser(description="{0} {1} Command-line arguments".format(app, majver))
-    parser.add_argument("-t", "--testing",
+    parser.add_argument("-t", "--test",
     help="Enable {0} Experiential features".format(app),
     action="store_true")
     args = parser.parse_args()
 
-    # Declare force parameter (-t, --testing) as global for use in other places.
-    global testing
-    testing = args.testing
+    # Declare force parameter (-t, --test) as global for use in other places.
+    global test
+    testing = args.test
 
 
 def preload():
@@ -174,7 +174,7 @@ def main():
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
 
-            if not testing:
+            if not test:
                 # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
                 time.sleep(0.5)
                 logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
