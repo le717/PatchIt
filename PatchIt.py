@@ -330,9 +330,9 @@ def gameCheck():
     definedgamepath = definedgamepath.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
-    if os.path.exists(os.path.join(definedgamepath, "GAMEDATA")) and os.path.exists(os.path.join(definedgamepath, "MENUDATA"))\
-    and os.path.exists(os.path.join(definedgamepath, "LEGORacers.exe")):
-        logging.info("GAMEDATA, MENUDATA, and LEGORacers.exe were found at {0}".format(definedgamepath))
+    if os.path.exists(os.path.join(definedgamepath, "legoracers.exe".lower())) and os.path.exists(os.path.join(definedgamepath, "lego.jam".lower()))\
+    and os.path.exists(os.path.join(definedgamepath, "goldp.dll".lower())):
+        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(definedgamepath))
         return True
 
     # If the settings file was externally edited and the path was removed
@@ -342,7 +342,7 @@ def gameCheck():
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("GAMEDATA, MENUDATA, and LEGORacers.exe were not found at {0}!".format(definedgamepath))
+        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(definedgamepath))
         return False
 
 # ----- End LEGO Racers Installation Check ----- #
