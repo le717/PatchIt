@@ -18,3 +18,8 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 # PatchIt! V1.1.0 Unstable JAM Handling Code
+
+def main():
+    print("handlejam.main()")
+    raise SystemExit
+

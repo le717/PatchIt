@@ -23,6 +23,8 @@ import sys, os, linecache # General use modules
 import webbrowser, time
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
+# JAM Extractor wrapper
+import handlejam
 # Colored shell text
 import color, color.colors as colors
 # File/Folder Dialog Boxes
@@ -55,7 +57,7 @@ def cmdArgs():
 
     # Declare force parameter (-t, --test) as global for use in other places.
     global test
-    testing = args.test
+    test = args.test
 
 
 def preload():
@@ -167,38 +169,15 @@ def main():
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
             time.sleep(0.5)
-            logging.info("Calling Patch Installation module (extract.checkPatch())")
+
             # Call the Patch Installation module
+            logging.info("Calling Patch Installation module (extract.checkPatch())")
             extract.checkPatch()
 
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
-
-            if not test:
-                # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
-                time.sleep(0.5)
-                logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
-                readSettingsLR()
-
-            else:
-                print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
-                print('''
-[r] LEGO Racers
-[l] LEGO LOCO''')
-
-                settingsopt = input("\n\n> ")
-
-                if settingsopt.lower() == "r":
-                    # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
-                    time.sleep(0.5)
-                    logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
-                    readSettingsLR()
-                elif settingsopt.lower() == "l":
-                    print("LOCO Settings")
-                    raise SystemExit
-                else:
-                    main()
-
+            logging.info("Calling PatchIt! Settings Menu (Settings())")
+            Settings()
 
         elif menuopt.lower() == "q":
             # Blank space (\n) makes everything nice and neat
@@ -208,6 +187,17 @@ def main():
             logging.info('''PatchIt! is shutting down
             ''')
             raise SystemExit
+
+
+        if menuopt.lower() == "j":
+            if test:
+                logging.info("User pressed '[j] JAM Extractor'")
+                time.sleep(0.5)
+                # Call the JAM Extractor wrapper module
+                logging.info("Calling JAM Extractor wrapper module (handlejam.main())")
+                handlejam.main()
+            else:
+                main()
 
         # Undefined input
         else:
@@ -219,6 +209,35 @@ def main():
 
 
 # ------------ Begin PatchIt! Settings ------------ #
+
+
+def Settings():
+    '''PatchIt! Settings Menu'''
+
+    if not test:
+        # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
+        time.sleep(0.5)
+        logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
+        readSettingsLR()
+
+    elif test:
+        print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
+        print('''
+[r] LEGO Racers
+[l] LEGO LOCO''')
+
+        settingsopt = input("\n\n> ")
+
+        if settingsopt.lower() == "r":
+            time.sleep(0.5)
+            logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
+            readSettingsLR()
+        elif settingsopt.lower() == "l":
+            print("LOCO Settings")
+            raise SystemExit
+        else:
+            main()
+
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
