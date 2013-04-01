@@ -138,6 +138,7 @@ def preload():
 def main():
     '''PatchIt! Menu Layout'''
 
+    # Blank space (\n) makes everything nice and neat
     colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
     print('''\nPlease make a selection:\n
 [c] Create a PatchIt! Patch
@@ -180,7 +181,6 @@ def main():
             Settings()
 
         elif menuopt.lower() == "q":
-            # Blank space (\n) makes everything nice and neat
             logging.info("User pressed '[q] Quit'")
             colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
             time.sleep(3)
