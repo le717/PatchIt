@@ -97,10 +97,10 @@ def preload():
     else:
         logging.info("You are running Python 3.3.0 or greater. PatchIt! will continue.")
         # The settings file does not exist
-        if not os.path.exists('lrsettings'):
+        if not os.path.exists('lrsettings') or not os.path.exists('locosettings'):
             logging.warning("Settings file does not exist!")
-            logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
-            writeSettingsLR()
+            logging.info("Proceeding to write PatchIt! settings (Settings())")
+            Settings()
 
         # The settings file does exist
         else:
