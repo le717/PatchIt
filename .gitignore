@@ -184,9 +184,13 @@ pip-log.txt
 ########
 
 Windows/Here Lie the Installer/
+Compile/
+Logs/
+License/
+Settings/
+Testing/
 listtips.py
 #*.psd
-#*.html
 PatchItOld.py
 *.txt
 *.ini
@@ -199,8 +203,4 @@ JAMExtractor.py
 *.blend
 *.blend1
 *.blend2
-Testing/
-Compile/
-Logs/
-License/
 gpl-3.0.fr.txt
