@@ -4,7 +4,7 @@
     PatchIt! -  the standard yet simple way to packaging and install mods for LEGO Racers
     Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
 
-    PatchIt!is free software: you can redistribute it and/or modify
+    PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1 Unstable Legacy Patch Installation code
+# PatchIt! V1.1.0 Unstable Legacy Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import PatchIt, linecache, gametips, zipfile, os
@@ -87,7 +87,7 @@ def readPatch(installpatch):
         # Read the settings file for installation (LEGO Racers directory)
         # Updated in semi-accordance with PatchIt! Dev-log #6
         logging.info("Reading line 5 of settings for LEGO Racers installation")
-        installpath = linecache.getline('settings', 5)
+        installpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
 
         # Create a valid folder path
         logging.info("Cleaning up installation text")

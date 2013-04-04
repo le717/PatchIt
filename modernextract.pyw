@@ -219,7 +219,7 @@ def installModernPatch(patch, name, version, author):
 
     # Read the settings file for installation (LEGO Racers directory)
     logging.info("Reading line 5 of settings for LEGO Racers installation")
-    installationpath = linecache.getline('settings', 5)
+    installationpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
 
     # Create a valid folder path
     logging.info("Cleaning up installation text")
