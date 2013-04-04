@@ -1,3 +1,23 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    This file is part of PatchIt!
+;
+;    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+;    Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
+;
+;    PatchIt! is free software: you can redistribute it and/or modify
+;    it under the terms of the GNU General Public License as published by
+;    the Free Software Foundation, either version 3 of the License, or
+;    (at your option) any later version.
+;
+;    PatchIt! is distributed in the hope that it will be useful,
+;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;    GNU General Public License for more details.
+;
+;    You should have received a copy of the GNU General Public License
+;    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; PatchIt! Windows Installer
 ; Copyright © 2013 Triangle717
 ; http://Triangle717.WordPress.com
@@ -82,7 +102,6 @@ Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked; Check: not PortableI
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
 Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
 
-
 [Files]
 ; PatchIt! Icon
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
@@ -90,10 +109,14 @@ Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion  
 ; Favicon for HTML Readme
 Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
-; PatchIt! settings file (with first-run set to 0)
-Source: "..\Compile\lrsettings"; DestDir: "{app}"; Flags: ignoreversion
+; PatchIt! LEGO Racers settings file
+Source: "..\Compile\Settings\LRsettings"; DestDir: "{app}"; Flags: ignoreversion
 ; Again for Settings_Reset switch
-Source: "..\Compile\lrsettings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\Settings\LRsettings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
+; PatchIt! LEGO LOCO settings file
+Source: "..\Compile\Settings\LOCOsettings"; DestDir: "{app}"; Flags: ignoreversion
+; Again for Settings_Reset switch
+Source: "..\Compile\Settings\LOCOsettings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
 ; 64-bit Windows build
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
@@ -108,10 +131,14 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipifsilent; Description: "View Readme"
 
-[InstallDelete]
+[UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
 Type: filesandordirs; Name: "{app}\tcl"
 Type: filesandordirs; Name: "{app}\tk"
+
+[InstallDelete]
+; Remove PatchIt V1.0.x settings file
+Type: files; Name: "{app}\settings"
 
 [Code]   
 // Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         
