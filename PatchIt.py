@@ -40,10 +40,26 @@ majver = "Version 1.1.0"
 minver = "Unstable"
 creator = "Triangle717"
 
+# GLobal game settings
 lrgame = "LEGO Racers"
 locogame = "LEGO LOCO"
+lrsettings = "LRsettings"
+locosettings = "LOCOsettings"
 
 # ------------ Begin PatchIt! Initialization ------------ #
+
+def PyVerCheck():
+    '''Python 3.3.0 Version Check'''
+    if sys.version_info < (3,3,0):
+        colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
+
+        # Don't open browser immediately
+        time.sleep(2)
+        webbrowser.open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
+
+        # Close PatchIt!
+        time.sleep(3)
+        raise SystemExit
 
 def cmdArgs():
     '''PatchIt! Command-line Arguments'''
@@ -59,10 +75,10 @@ def cmdArgs():
     global test
     test = args.test
 
-
 def preload():
-    '''Python 3.3.0 and PatchIt! first-run check'''
+    '''PatchIt! first-run check'''
 
+    logging.info("You are running Python 3.3.0 or greater.")
     logging.info("Begin logging to {0}".format(thescore.logging_file))
     logging.info('''
                                 #############################################
@@ -77,58 +93,41 @@ def preload():
                                 #############################################
                                 '''.format(app, majver, minver, creator))
 
-     # You need to have at least Python 3.3.0 to run PatchIt!
-    if sys.version_info < (3,3,0):
-        logging.warning("You are not running Python 3.3.0 or higher!\nYou need to get a newer version to run PatchIt!")
-        colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
-
-        # Don't open browser immediately
-        time.sleep(2)
-        logging.info("Open new tab in web browser to http://python.org/download")
-        webbrowser.open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
-
-        # Close PatchIt!
-        logging.info("Display message for three seconds")
-        time.sleep(3)
-        logging.info("PatchIt! is shutting down.")
-        raise SystemExit
-
-    # You are running >= Python 3.3.0
-    else:
-        logging.info("You are running Python 3.3.0 or greater. PatchIt! will continue.")
-        # The settings file does not exist
-        if not os.path.exists('lrsettings') or not os.path.exists('locosettings'):
-            logging.warning("Settings file does not exist!")
-            logging.info("Proceeding to write PatchIt! settings (Settings())")
-            Settings()
+    # One of the settings files do not exist
+    if not os.path.exists(lrsettings) or not os.path.exists(locosettings):
+        logging.warning("Settings file does not exist!")
+        logging.info("Proceeding to write PatchIt! settings (Settings())")
+        Settings()
 
         # The settings file does exist
-        else:
-            logging.info("Settings file does exist")
-            # Settings file does not need to be opened to use linecache
+        # TODO: Figure out a new first-run check
 
-            logging.info("Reading line 3 for first-run info")
-            firstrun = linecache.getline('lrsettings', 3)
-
-            # Remove \n, \r, \t, or any of the like
-            logging.info("Cleaning up line text")
-            firstrun = firstrun.strip()
-
-             # Always clear cache after reading
-            logging.info("Clearing first-run cache...")
-            linecache.clearcache()
-
-            # '0' defines a first-run
-            # "" if file is empty or non-existant
-            if firstrun == "0" or firstrun == "":
-                logging.warning('''First-run info not found!
-                Proceeding to write PatchIt! settings (writeSettingsLR())''')
-                writeSettingsLR()
-            # Any other number (Default, 1) means it has been run before
-            else:
-                logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
-                # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
-                main()
+##        else:
+##            logging.info("Settings file does exist")
+##            # Settings file does not need to be opened to use linecache
+##
+##            logging.info("Reading line 3 for first-run info")
+##            firstrun = linecache.getline('lrsettings', 3)
+##
+##            # Remove \n, \r, \t, or any of the like
+##            logging.info("Cleaning up line text")
+##            firstrun = firstrun.strip()
+##
+##             # Always clear cache after reading
+##            logging.info("Clearing first-run cache...")
+##            linecache.clearcache()
+##
+##            # '0' defines a first-run
+##            # "" if file is empty or non-existant
+##            if firstrun == "0" or firstrun == "":
+##                logging.warning('''First-run info not found!
+##                Proceeding to write PatchIt! settings (writeSettingsLR())''')
+##                writeSettingsLR()
+##            # Any other number (Default, 1) means it has been run before
+##            else:
+##                logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
+##                # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
+##                main()
 
 # ------------ End PatchIt! Initialization ------------ #
 
@@ -416,5 +415,6 @@ if __name__ == "__main__":
     os.system("title {0} {1} {2}".format(app, majver, minver))
 
     # Run PatchIt! Initialization
+    PyVerCheck()
     cmdArgs()
     preload()
