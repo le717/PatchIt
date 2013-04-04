@@ -89,14 +89,21 @@ Revision History
 ----------------
 
 * 1.1 Draft 3: March 16, 2013
-> Added Game field, re-purpose of Mod Type field
+
+> Added Game field, re-purposing of Mod Type field
+
 * 1.1 Draft 2: March 5 & 6, 2013
-> Improvement on Draft 1, Added Mod Type (complete details not yet available)
+
+> Improvement on Draft 1, Added Mod Type field (complete details not yet available)
+
 * 1.1 Draft 1: March 3, 2013
+
 > Rewrite of format, outlined in [PatchIt! Dev-log #5](http://wp.me/p1V5ge-yl)
+
 * 1.0.1: February 20, 2013
 * 1.0: February 18, 2013
 * Draft 3: February 15, 2013
 * Draft 2: February 8, 2013
 * Draft 1: February 2, 2013
+
 > First design
