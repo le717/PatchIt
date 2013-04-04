@@ -129,6 +129,21 @@ def patchInfo():
         logging.info("Switching to to writePatch(patchfiles, name, version, author, desc)")
         writePatch(patchfiles, name, version, author, desc)
 
+def gameSelect():
+    '''Select what game this Patch is for'''
+
+    print("\nWhat game is this Patch created for?".format(lrgame, locogame))
+    print('''
+[r] LEGO Racers
+[l] LEGO LOCO''')
+    game_select = input("\n\n> ")
+
+    if game_select.lower() == "r":
+        game_type = "LEGO Racers"
+        return game_type
+    elif game_select.lower() == "l":
+        game_type = "LEGO LOCO"
+        return game_type
 
 def writePatch(patchfiles, name, version, author, desc):
     '''Writes and compresses PatchIt! Patch'''
