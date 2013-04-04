@@ -388,7 +388,7 @@ def LRWriteSettings():
 
             # Run check for 1999 or 2001 version of Racers
             logging.info("Run LRVerCheck(newgamepath) to check what version of Racers user has")
-            LRVerCheck(newgamepath)
+            LRVer = LRVerCheck(newgamepath)
 
             logging.info("Write brief comment telling what version of Racers this is")
             logging.info("Write LEGO Racers version to seventh line (killing the new line ending)")
@@ -442,16 +442,17 @@ def LRGameCheck():
         logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(definedgamepath))
         return False
 
-def LRVerCheck(newgamepath):
+def LRVerCheck(new_racers_game):
     '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
 
-    global LRVer
-    if not os.path.exists(os.path.join(newgamepath, "legoracers.icd".lower())):
+    if not os.path.exists(os.path.join(new_racers_game, "legoracers.icd".lower())):
         logging.info("LEGORacers.icd was not found, this is the 2001 release")
         LRVer = "2001"
-    elif os.path.exists(os.path.join(newgamepath, "legoracers.icd".lower())):
+        return LRVer
+    elif os.path.exists(os.path.join(new_racers_game, "legoracers.icd".lower())):
         logging.info("LEGORacers.icd was found, this is the 1999 release")
         LRVer = "1999"
+        return LRVer
 
 # ----- End LEGO Racers Installation & Version Check ----- #
 
@@ -596,10 +597,7 @@ def LOCOWriteSettings():
 # ----- Begin LEGO LOCO Installation & Version Check ----- #
 
 def LOCOGameCheck():
-    '''Confirm LEGO Racers installation
-
-    TODO: Actually check for files to confirm LOCO installation, instead of
-    trying to find Racers files which LOCO will not ever have'''
+    '''Confirm LEGO LOCO installation'''
 
     # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
@@ -614,20 +612,22 @@ def LOCOGameCheck():
     logging.info("Cleaning up installation text")
     loco_path = loco_path.strip()
 
+    exe_folder = os.path.join("exe".upper())
+
      # The only three items needed to confirm a LEGO LOCO installation.
-    if os.path.exists(os.path.join(loco_path, "legoracers.exe".lower())) and os.path.exists(os.path.join(loco_path, "lego.jam".lower()))\
-    and os.path.exists(os.path.join(loco_path, "goldp.dll".lower())):
-        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(loco_path))
+    if os.path.exists(os.path.join(loco_path, exe_folder, "loco.exe".lower())) and os.path.exists(os.path.join(loco_path, exe_folder, "lego.ini".lower()))\
+    and os.path.exists(os.path.join(loco_path, "art-res".lower())):
+        logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(loco_path))
         return True
 
     # If the settings file was externally edited and the path was removed
     elif len(loco_path) == 0:
-        logging.warning("LEGO LOCO installation is empty!")
+        logging.warning("LEGO LOCO installation written in {0} is empty!".format(locosettings))
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(loco_path))
+        logging.warning("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(loco_path))
         return False
 
 # ----- End LEGO LOCO Installation Check ----- #
