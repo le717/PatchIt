@@ -268,7 +268,7 @@ def readSettingsLR():
         if gameCheckLR() == False:
             time.sleep(0.5)
 
-            # Use path defined in gamecheck() for messages
+            # Use path defined in gameCheckLR() for messages
             logging.warning("LEGO Racers installation was not found!".format(definedgamepath))
             colors.pc("\nCannot find {0} installation at {1}!\n".format(lrgame, definedgamepath), color.FG_LIGHT_RED)
 
@@ -276,7 +276,7 @@ def readSettingsLR():
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
             writeSettingsLR()
 
-        # The defined installation was confirmed by gamecheck()
+        # The defined installation was confirmed by gameCheckLR()
         else:
             time.sleep(0.5)
             logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
@@ -385,7 +385,7 @@ def writeSettingsLR():
 
 # ----- End PatchIt! LEGO Racers Settings Writing ----- #
 
-# ----- Begin LEGO Racers Installation Check ----- #
+# ----- Begin LEGO Racers Installation & Version Check ----- #
 
 def gameCheckLR():
     '''Confirm LEGO Racers installation'''
@@ -419,7 +419,63 @@ def gameCheckLR():
         logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(definedgamepath))
         return False
 
-# ----- End LEGO Racers Installation Check ----- #
+
+def VerCheckLR():
+    '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
+    pass
+
+# ----- End LEGO Racers Installation & Version Check ----- #
+
+# ----- Begin PatchIt! LEGO LOCO Settings Reading ----- #
+
+def readSettingsLOCO():
+    '''Read PatchIt! LEGO LOCO settings'''
+
+    # The settings file does not exist
+    if not os.path.exists(os.path.join(settings, locosettings)):
+        logging.warning("LEGO Racers Settings does not exist!")
+        logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
+        writeSettingsLR()
+
+    # The setting file does exist
+    elif os.path.exists(os.path.join(settings, lrsettings)):
+        logging.info("LEGO LOCO Settings does exist")
+        # The defined installation was not confirmed by gameCheckLOCO()
+        if gameCheckLOCO() == False:
+            time.sleep(0.5)
+
+            # Use path defined in gameCheckLOCO() for messages
+            logging.warning("LEGO LOCO installation was not found!".format(definedgamepath))
+            colors.pc("\nCannot find {0} installation at {1}!\n".format(locogame, definedgamepath), color.FG_LIGHT_RED)
+
+            # Go write the settings file
+            logging.info("Proceeding to write PatchIt! LEGO LOCO settings (writeSettingsLOCO())")
+            writeSettingsLOCO()
+
+        # The defined installation was confirmed by gameCheckLOCO()
+        else:
+            time.sleep(0.5)
+            logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
+            print('\n{0} installation found at "{1}"!\n'.format(locogame, definedgamepath) + r"Would you like to change this? (y\N)")
+            changepath = input("\n\n> ")
+
+            # Yes, I want to change the defined installation
+            if changepath.lower() == "y":
+                logging.info("User wants to change defined LEGO LOCO installation")
+                time.sleep(0.5)
+                logging.info("Proceeding to write PatchIt! LEGO LOCO settings (writeSettingsLOCO())")
+                writeSettingsLOCO()
+
+                # No, I do not want to change the defined installation
+            else:
+                logging.info("User does not want to change defined LEGO LOCO installation or pressed an undefined key")
+                # Sleep for 1 second before kicking back to the menu.
+                time.sleep(1)
+                logging.info("Proceeding to main menu")
+                main()
+
+# ----- End PatchIt! LEGO LOCO Settings Reading ----- #
+
 
 # ------------ End PatchIt! Settings ------------ #
 
