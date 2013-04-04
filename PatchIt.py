@@ -228,8 +228,8 @@ def Settings():
     if not test:
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
         time.sleep(0.5)
-        logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
-        readSettingsLR()
+        logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
+        LRReadSettings()
 
     elif test:
         print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
@@ -241,8 +241,8 @@ def Settings():
 
         if settingsopt.lower() == "r":
             time.sleep(0.5)
-            logging.info("Calling PatchIt! LEGO Racers Settings (readSettingsLR())")
-            readSettingsLR()
+            logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
+            LRReadSettings()
         elif settingsopt.lower() == "l":
             print("LOCO Settings")
             raise SystemExit
@@ -252,43 +252,43 @@ def Settings():
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
-def readSettingsLR():
+def LRReadSettings():
     '''Read PatchIt! LEGO Racers settings'''
 
     # The settings file does not exist
     if not os.path.exists(os.path.join(settings, lrsettings)):
         logging.warning("LEGO Racers Settings does not exist!")
-        logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
-        writeSettingsLR()
+        logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
+        LRWriteSettings()
 
     # The setting file does exist
     elif os.path.exists(os.path.join(settings, lrsettings)):
         logging.info("LEGO Racers Settings does exist")
-        # The defined installation was not confirmed by gameCheckLR()
-        if gameCheckLR() == False:
+        # The defined installation was not confirmed by LRGameCheck()
+        if LRGameCheck() == False:
             time.sleep(0.5)
 
             # Use path defined in gameCheckLR() for messages
-            logging.warning("LEGO Racers installation was not found!".format(definedgamepath))
-            colors.pc("\nCannot find {0} installation at {1}!\n".format(lrgame, definedgamepath), color.FG_LIGHT_RED)
+            logging.warning("LEGO Racers installation was not found! at {0}".format(definedgamepath))
+            colors.pc("\nCannot find {0} installation at\n{1}!\n".format(lrgame, definedgamepath), color.FG_LIGHT_RED)
 
             # Go write the settings file
-            logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
-            writeSettingsLR()
+            logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
+            LRWriteSettings()
 
         # The defined installation was confirmed by gameCheckLR()
         else:
             time.sleep(0.5)
             logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
-            print('\n{0} installation found at "{1}"!\n'.format(lrgame, definedgamepath) + r"Would you like to change this? (y\N)")
+            print('\n{0} installation found at\n"{1}"!\n\n'.format(lrgame, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
                 time.sleep(0.5)
-                logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
-                writeSettingsLR()
+                logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
+                LRWriteSettings()
 
                 # No, I do not want to change the defined installation
             else:
@@ -302,7 +302,7 @@ def readSettingsLR():
 
 # ----- Begin PatchIt! LEGO Racers Settings Writing ----- #
 
-def writeSettingsLR():
+def LRWriteSettings():
     '''Write PatchIt! LEGO Racers settings'''
 
     # Draw (then withdraw) the root Tk window
@@ -380,14 +380,14 @@ def writeSettingsLR():
 
             logging.info("Closing file")
             racers_file.close()
-            logging.info("Proceeding to PatchIt! LEGO Racers Settings (readSettingsLR())")
-            readSettingsLR()
+            logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
+            LRReadSettings()
 
 # ----- End PatchIt! LEGO Racers Settings Writing ----- #
 
 # ----- Begin LEGO Racers Installation & Version Check ----- #
 
-def gameCheckLR():
+def LRGameCheck():
     '''Confirm LEGO Racers installation'''
 
     # global it is can be used in other messages
@@ -420,9 +420,14 @@ def gameCheckLR():
         return False
 
 
-def VerCheckLR():
+def LRVerCheck(definedgamepath):
     '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
-    pass
+    raise SystemExit
+
+    if not os.path.exists(os.path.join(definedgamepath, "legoracers.icd".lower())):
+        return "2001"
+    elif os.path.exists(os.path.join(definedgamepath, "legoracers.icd".lower())):
+        return "1999"
 
 # ----- End LEGO Racers Installation & Version Check ----- #
 
