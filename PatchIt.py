@@ -94,10 +94,21 @@ def preload():
                                 '''.format(app, majver, minver, creator))
 
     # One of the settings files do not exist
-    if not os.path.exists(lrsettings) or not os.path.exists(locosettings):
-        logging.warning("Settings file does not exist!")
+    if not os.path.exists(lrsettings):
+        logging.warning("LEGO Racers settings file does not exist!")
         logging.info("Proceeding to write PatchIt! settings (Settings())")
         Settings()
+
+    elif not os.path.exists(locosettings):
+        if test:
+            logging.warning("LEGO LOCO settings file does not exist!")
+            logging.info("Proceeding to write PatchIt! settings (Settings())")
+            Settings()
+        else:
+            main()
+
+    else:
+        main()
 
         # The settings file does exist
         # TODO: Figure out a new first-run check
@@ -244,14 +255,14 @@ def readSettingsLR():
     '''Read PatchIt! LEGO Racers settings'''
 
     # The settings file does not exist
-    if not os.path.exists('lrsettings'):
+    if not os.path.exists(lrsettings):
 
         logging.warning("Settings file does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
         writeSettingsLR()
 
     # The setting file does exist
-    elif os.path.exists('lrsettings'):
+    elif os.path.exists(lrsettings):
 
         logging.info("Settings file does exist")
         # The defined installation was not confirmed by gameCheckLR()
@@ -340,8 +351,8 @@ def writeSettingsLR():
         root.destroy()
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'lrsettings' for writing with UTF-8 encoding")
-        with open('lrsettings', 'wt', encoding='utf-8') as settings:
+        logging.info("Open 'LRsettings' for writing with UTF-8 encoding")
+        with open(lrsettings, 'wt', encoding='utf-8') as settings:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
@@ -380,7 +391,7 @@ def gameCheckLR():
     # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO Racers installation")
     global definedgamepath
-    definedgamepath = linecache.getline('lrsettings', 5)
+    definedgamepath = linecache.getline(lrsettings, 5)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
