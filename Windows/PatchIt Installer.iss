@@ -46,7 +46,7 @@ AppPublisher={#MyAppPublisher}
 AppCopyright=© 2013 {#MyAppPublisher}
 LicenseFile=..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
-DefaultDirName={pf}\PatchIt
+DefaultDirName={code:InstallPath}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 ; Installer Graphics
@@ -151,4 +151,15 @@ end;
 function PortableInstall: Boolean;
 begin
   Result := ExpandConstant('{param:portable|0}') = '1';
+end;
+
+/// Code based on Launchy Inno Setup installer
+// http://launchy.svn.sourceforge.net/viewvc/launchy/trunk/Launchy_QT/win/installer/SETUP.iss
+function InstallPath(Param: String): String;
+begin
+  if PortableInstall then
+    Result := ExpandConstant('{src}')
+  else
+    Result := ExpandConstant('{pf}');
+  Result := Result + '\PatchIt';
 end;
