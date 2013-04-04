@@ -349,6 +349,8 @@ def LRWriteSettings():
         logging.info("Give focus back to console window")
         root.destroy()
 
+        # Create Settings directory if it does not exist
+        logging.info("Creating Settings directory")
         if not os.path.exists(settings):
             os.mkdir(settings)
 
@@ -368,20 +370,29 @@ def LRWriteSettings():
             print("1", file=racers_file)
 
             logging.info("Write brief comment explaining what the folder path means")
-            # end="" So \n will not be written
-            logging.info("Write new LEGO Racers installation to fifth line (killing the new line ending)")
+
+            logging.info("Write new LEGO Racers installation to fifth line")
             print("# Your LEGO Racers installation path", file=racers_file)
-            print(newgamepath, file=racers_file, end="")
+            print(newgamepath, file=racers_file)
+
+            # Run check for 1999 or 2001 version of Racers
+            LRVerCheck(newgamepath)
+            logging.info("Write brief comment telling what version of Racers this is")
+
+            logging.info("Write LEGO Racers version to seventh line (killing the new line ending)")
+            print("# Your version of LEGO Racers", file=racers_file)
+            # end="" So \n will not be written
+            print(LRVer, file=racers_file, end="")
 
             '''Removing "settings.close()" breaks the entire first-run code.
             Once it writes the path, PatchIt! closes, without doing as much
             as running the path through gamecheck() nor going back to main()
             Possible TODO: Find out why this is happening and remove it if possible.'''
 
-            logging.info("Closing file")
-            racers_file.close()
-            logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
-            LRReadSettings()
+        logging.info("Closing file")
+        racers_file.close()
+        logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
+        LRReadSettings()
 
 # ----- End PatchIt! LEGO Racers Settings Writing ----- #
 
@@ -420,47 +431,50 @@ def LRGameCheck():
         return False
 
 
-def LRVerCheck(definedgamepath):
+def LRVerCheck(newgamepath):
     '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
-    raise SystemExit
+##    raise SystemExit
 
-    if not os.path.exists(os.path.join(definedgamepath, "legoracers.icd".lower())):
-        return "2001"
-    elif os.path.exists(os.path.join(definedgamepath, "legoracers.icd".lower())):
-        return "1999"
+    global LRVer
+    if not os.path.exists(os.path.join(newgamepath, "legoracers.icd".lower())):
+        LRVer = "2001"
+##        return False
+    elif os.path.exists(os.path.join(newgamepath, "legoracers.icd".lower())):
+        LRVer = "1999"
+##        return True
 
 # ----- End LEGO Racers Installation & Version Check ----- #
 
 # ----- Begin PatchIt! LEGO LOCO Settings Reading ----- #
 
-def readSettingsLOCO():
+def LOCOReadSettings():
     '''Read PatchIt! LEGO LOCO settings'''
 
     # The settings file does not exist
     if not os.path.exists(os.path.join(settings, locosettings)):
-        logging.warning("LEGO Racers Settings does not exist!")
-        logging.info("Proceeding to write PatchIt! LEGO Racers settings (writeSettingsLR())")
-        writeSettingsLR()
+        logging.warning("LEGO LOCO Settings does not exist!")
+        logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
+        LOCOWriteSettings()
 
     # The setting file does exist
     elif os.path.exists(os.path.join(settings, lrsettings)):
         logging.info("LEGO LOCO Settings does exist")
-        # The defined installation was not confirmed by gameCheckLOCO()
-        if gameCheckLOCO() == False:
+        # The defined installation was not confirmed by LOCOGameCheck()
+        if LOCOGameCheck() == False:
             time.sleep(0.5)
 
-            # Use path defined in gameCheckLOCO() for messages
+            # Use path defined in LOCOGameCheck() for messages
             logging.warning("LEGO LOCO installation was not found!".format(definedgamepath))
             colors.pc("\nCannot find {0} installation at {1}!\n".format(locogame, definedgamepath), color.FG_LIGHT_RED)
 
             # Go write the settings file
-            logging.info("Proceeding to write PatchIt! LEGO LOCO settings (writeSettingsLOCO())")
-            writeSettingsLOCO()
+            logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
+            LOCOWriteSettings()
 
         # The defined installation was confirmed by gameCheckLOCO()
         else:
             time.sleep(0.5)
-            logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
+            logging.info("LEGO LOCO installation was found at {0}.".format(definedgamepath))
             print('\n{0} installation found at "{1}"!\n'.format(locogame, definedgamepath) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
@@ -468,8 +482,8 @@ def readSettingsLOCO():
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO LOCO installation")
                 time.sleep(0.5)
-                logging.info("Proceeding to write PatchIt! LEGO LOCO settings (writeSettingsLOCO())")
-                writeSettingsLOCO()
+                logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
+                LOCOWriteSettings()
 
                 # No, I do not want to change the defined installation
             else:
