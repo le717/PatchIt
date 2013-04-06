@@ -1,11 +1,7 @@
 PatchIt! .PiP Format
 ====================
 
-<<<<<<< HEAD
 **THIS DOCUMENT IS INCOMPLETE! The file format outlined in this document is not yet finalized, and is subject to change.**
-=======
-**THIS DOCUMENT IS INCOMPLETE! The file format detailed herein is not yet finalized, and is subject to change.**
->>>>>>> 6a04d30853d9ac588b60df19bd25c6cb11a9875a
 
 General Information
 -------------------
