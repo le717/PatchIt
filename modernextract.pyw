@@ -153,10 +153,10 @@ def readModernPatch(patch):
     version = linecache.getline(patch, 6)
     logging.info("Reading line 5 of {0} for author".format(patch))
     author = linecache.getline(patch, 5)
-##    logging.info("Reading line 8 of {0} for mod type".format(patch))
-##    modtype = linecache.getline(patch, 8)
-##    logging.info("Reading line 9 of {0} for game".format(patch))
-##    modtype = linecache.getline(patch, 9)
+##    logging.info("Reading line 8 of {0} for MP".format(patch))
+##    mp = linecache.getline(patch, 8)
+##    logging.info("Reading line 9 of {0} for Game".format(patch))
+##    game = linecache.getline(patch, 9)
     logging.info("Reading lines 10-12 of {0} for description".format(patch))
 
     # Read lines 11-13, or until there is no more text
