@@ -19,8 +19,8 @@
 """
 # PatchIt! V1.1.0 Unstable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
-import sys, os, linecache # General use modules
-import webbrowser, time
+# General use modules
+import sys, os, linecache, webbrowser, time
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
 # JAM Extractor wrapper
@@ -39,7 +39,7 @@ app = "PatchIt!"
 majver = "Version 1.1.0"
 minver = "Unstable"
 creator = "Triangle717"
-settings = "Settings"
+settingsfol = "Settings"
 
 # GLobal game settings
 lrgame = "LEGO Racers"
@@ -59,12 +59,12 @@ def cmdArgs():
     action="store_true")
     args = parser.parse_args()
 
-    # Declare force parameter (-t, --test) as global for use in other places.
+    # Declare test parameter (-t, --test) as global for use in other places.
     global test
     test = args.test
 
 def preload():
-    '''PatchIt! first-run check'''
+    '''PatchIt! first-run checks'''
 
     logging.info("You are running Python 3.3.0 or greater.")
     logging.info("Begin logging to {0}".format(thescore.logging_file))
@@ -82,14 +82,40 @@ def preload():
                                 '''.format(app, majver, minver, creator))
 
     # One of the settings files do not exist
-    if not os.path.exists(settings):
+    if not os.path.exists(settingsfol):
         logging.warning("PatchIt! Settings do not exist!")
         logging.info("Proceeding to write PatchIt! settings (Settings())")
         Settings()
 
-    else:
-        logging.info("Switch to main menu")
-        main()
+    # The LEGO Racers settings do exist (inplied else block here)
+    if os.path.exists(os.path.join(settingsfol, lrsettings)):
+        logging.info("LEGO Racers Settings do exist")
+        # Settings file does not need to be opened to use linecache
+
+        logging.info("Reading line 3 for first-run info")
+        lr_firstrun = linecache.getline(os.path.join(settingsfol, lrsettings), 3)
+
+        # Always clear cache after reading
+        logging.info("Clearing first-run cache...")
+        linecache.clearcache()
+
+        # '0' defines a first-run
+        # "" if file is empty or non-existant
+        # \n means the file was edied, but all other text is still in place
+        if lr_firstrun == "0" or lr_firstrun == "" or lr_firstrun == "\n":
+            logging.warning("PatchIt! has never been run!")
+            logging.info("Proceeding to write PatchIt! settings (Settings())")
+            Settings()
+
+        # Any other number (Default, 1) means it has been run before
+        else:
+            logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
+            # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
+            main()
+
+##    else:
+##        logging.info("Switch to main menu")
+##        main()
 
 ##    if not os.path.exists(os.path.join(settings, lrsettings)):
 ##        logging.warning("LEGO Racers settings file does not exist!")
@@ -107,36 +133,6 @@ def preload():
 ##
 ##    else:
 ##        main()
-
-        # The settings file does exist
-        # TODO: Figure out a new first-run check
-
-##        else:
-##            logging.info("Settings file does exist")
-##            # Settings file does not need to be opened to use linecache
-##
-##            logging.info("Reading line 3 for first-run info")
-##            firstrun = linecache.getline('lrsettings', 3)
-##
-##            # Remove \n, \r, \t, or any of the like
-##            logging.info("Cleaning up line text")
-##            firstrun = firstrun.strip()
-##
-##             # Always clear cache after reading
-##            logging.info("Clearing first-run cache...")
-##            linecache.clearcache()
-##
-##            # '0' defines a first-run
-##            # "" if file is empty or non-existant
-##            if firstrun == "0" or firstrun == "":
-##                logging.warning('''First-run info not found!
-##                Proceeding to write PatchIt! settings (writeSettingsLR())''')
-##                writeSettingsLR()
-##            # Any other number (Default, 1) means it has been run before
-##            else:
-##                logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
-##                # Does not sleep, for user doesn't know about this unless it is run on < 3.3.0
-##                main()
 
 # ------------ End PatchIt! Initialization ------------ #
 
@@ -254,19 +250,19 @@ def LRReadSettings():
     '''Read PatchIt! LEGO Racers settings'''
 
     # The settings file does not exist
-    if not os.path.exists(os.path.join(settings, lrsettings)):
+    if not os.path.exists(os.path.join(settingsfol, lrsettings)):
         logging.warning("LEGO Racers Settings does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
         LRWriteSettings()
 
     # The setting file does exist
-    elif os.path.exists(os.path.join(settings, lrsettings)):
+    elif os.path.exists(os.path.join(settingsfol, lrsettings)):
         logging.info("LEGO Racers Settings does exist")
         # The defined installation was not confirmed by LRGameCheck()
         if LRGameCheck() == False:
             time.sleep(0.5)
 
-            # Use path defined in gameCheckLR() for messages
+            # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found! at {0}".format(definedgamepath))
             colors.pc("\nCannot find {0} installation at\n{1}!\n".format(lrgame, definedgamepath), color.FG_LIGHT_RED)
 
@@ -274,7 +270,7 @@ def LRReadSettings():
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
             LRWriteSettings()
 
-        # The defined installation was confirmed by gameCheckLR()
+        # The defined installation was confirmed by LRGameCheck()
         else:
             time.sleep(0.5)
             logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
@@ -354,7 +350,7 @@ def LRWriteSettings():
 
         # Write settings, using UTF-8 encoding
         logging.info("Open 'LRsettings' for writing with UTF-8 encoding")
-        with open(os.path.join(settings, lrsettings), 'wt', encoding='utf-8') as racers_file:
+        with open(os.path.join(settingsfol, lrsettings), 'wt', encoding='utf-8') as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
@@ -403,7 +399,7 @@ def LRGameCheck():
     # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO Racers installation")
     global definedgamepath
-    definedgamepath = linecache.getline(os.path.join(settings, lrsettings), 5)
+    definedgamepath = linecache.getline(os.path.join(settingsfol, lrsettings), 5)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
