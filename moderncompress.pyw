@@ -174,7 +174,7 @@ def writePatch(patchfiles, name, version, author, desc, which_game):
             print(author, file=patch)
             print(version, file=patch)
             print(name, file=patch)
-            print("modtype", file=patch)
+            print("MP", file=patch)
             print(which_game, file=patch)
             print("[DESCRIPTION]", file=patch)
             print("{0}".format(desc), file=patch, end="")
