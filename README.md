@@ -2,7 +2,7 @@ PatchIt!
 ========
 
 This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by Triangle717 to be the standard yet simple way to
-packaging and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
+package and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
 
 The Plan
 --------

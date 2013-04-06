@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to packaging and install mods for LEGO Racers
+    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
     Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
 
     This program is free software: you can redistribute it and/or modify
@@ -40,7 +40,15 @@ build_exe_options = {"build_exe": destfolder,
                      "optimize": 1,
                      "icon": "Icons/PatchItIcon.ico",
                      "compressed": True,
-                     "includes": ["modernextract", "moderncompress", "legacyextract", "thescore", "gametips", "handlejam", "color"],
+                     "includes": [
+                     "modernextract",
+                     "moderncompress",
+                     "legacyextract",
+                     "thescore",
+                     "gametips",
+                     "handlejam",
+                     "patchit",
+                     "color"],
 }
 
 setup(
@@ -50,5 +58,5 @@ setup(
     description = "PatchIt! Version {0} {1}, copyright 2013 Triangle717".format(majver, minver),
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("PatchIt.py")]
+    executables = [Executable("PyVerCheck.py", targetName="PatchIt.exe")]
 )

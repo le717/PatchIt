@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to packaging and install mods for LEGO Racers
+    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
     Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -76,7 +76,7 @@ def patchInfo():
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
-    # I want to continue on
+    # I want to continue on (implied else block)
     logging.info("Ask for Patch version")
     version = input("Version: ")
 
@@ -85,6 +85,10 @@ def patchInfo():
 
     logging.info("Ask for Patch description")
     desc = input("Description: ")
+
+    # Get what game this patch is for
+    logging.info("Switching to gameSelect() for game selection")
+    which_game = gameSelect()
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -106,7 +110,7 @@ def patchInfo():
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
     parent=root,
-    title="Select the files you wish to compress"
+    title="Select the files you wish to compress into your Patch"
     )
 
     # The user clicked the cancel button
@@ -126,26 +130,31 @@ def patchInfo():
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
-        logging.info("Switching to to writePatch(patchfiles, name, version, author, desc)")
-        writePatch(patchfiles, name, version, author, desc)
+        logging.info("Switching to to writePatch(patchfiles, name, version, author, desc, which_game)")
+        writePatch(patchfiles, name, version, author, desc, which_game)
 
 def gameSelect():
     '''Select what game this Patch is for'''
 
-    print("\nWhat game is this Patch created for?".format(lrgame, locogame))
+    logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
+    print("\nWhat game is this Patch created for?")
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO''')
     game_select = input("\n\n> ")
 
     if game_select.lower() == "r":
-        game_type = "LEGO Racers"
-        return game_type
+        logging.info("User selected LEGO Racers")
+        which_game = "LEGO Racers"
+        logging.info("Returning which_game variable")
+        return which_game
     elif game_select.lower() == "l":
-        game_type = "LEGO LOCO"
-        return game_type
+        logging.info("User selected LEGO LOCO")
+        which_game = "LEGO LOCO"
+        logging.info("Returning which_game variable")
+        return which_game
 
-def writePatch(patchfiles, name, version, author, desc):
+def writePatch(patchfiles, name, version, author, desc, which_game):
     '''Writes and compresses PatchIt! Patch'''
 
     # The user selected a folder to compress
@@ -166,7 +175,7 @@ def writePatch(patchfiles, name, version, author, desc):
             print(version, file=patch)
             print(name, file=patch)
             print("modtype", file=patch)
-            print("LEGO Racers", file=patch)
+            print(which_game, file=patch)
             print("[DESCRIPTION]", file=patch)
             print("{0}".format(desc), file=patch, end="")
 

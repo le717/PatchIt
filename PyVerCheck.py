@@ -17,35 +17,32 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Unstable JAM Handling Code
+import sys, os, webbrowser, time
 
-# File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
+app = "PatchIt!"
+majver = "Version 1.1.0"
+minver = "Unstable"
 
-def main():
-    print("handlejam.main()")
+# Write window title (since there is no GUI)
+os.system("title {0} {1} {2}".format(app, majver, minver))
+
+# User is not running Python 3.3.0
+if sys.version_info < (3,3,0):
+    sys.stdout.write("\nYou need to download Python 3.3.0 to run {0} {1} {2}.\n".format(app, majver, minver))
+
+    # Don't open browser immediately
+    time.sleep(2)
+    webbrowser.open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
+
+    # Close PatchIt!
     raise SystemExit
 
-    # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
-    root = Tk()
-    logging.info("Withdrawing root Tk window")
-    root.withdraw()
+# (Implied else block here)
+# The user is running Python 3.3.0, import PatchIt
+import PatchIt
+if __name__ == "__main__":
+    # Run PatchIt! Initialization
+    PatchIt.cmdArgs()
+    PatchIt.preload()
 
-    # Overwrite root display settings
-    logging.info("Overwrite root settings to (basically) completely hide it")
-    root.overrideredirect(True)
-    root.geometry('0x0+0+0')
-
-    # Show window again, lift it so it can recieve the focus
-    # Otherwise, it is behind the console window
-    root.deiconify()
-    root.lift()
-    root.focus_force()
-
-    # The files to be compressed
-    jam_files = filedialog.askdirectory(
-    parent=root,
-    title="Where are your extracted LEGO.JAM files locatedn?" #WRONG, WRONG, WRONG!
-    )
 

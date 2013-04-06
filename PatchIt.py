@@ -49,19 +49,6 @@ locosettings = "LOCOsettings"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
-def PyVerCheck():
-    '''Python 3.3.0 Version Check'''
-    if sys.version_info < (3,3,0):
-        colors.pc("\nYou need to download Python 3.3.0 or greater to run {0} {1} {2}.".format(app, majver, minver), color.FG_LIGHT_RED)
-
-        # Don't open browser immediately
-        time.sleep(2)
-        webbrowser.open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
-
-        # Close PatchIt!
-        time.sleep(3)
-        raise SystemExit
-
 def cmdArgs():
     '''PatchIt! Command-line Arguments'''
 
@@ -634,12 +621,3 @@ def LOCOGameCheck():
 
 
 # ------------ End PatchIt! Settings ------------ #
-
-if __name__ == "__main__":
-    # Write window title (since there is no GUI)
-    os.system("title {0} {1} {2}".format(app, majver, minver))
-
-    # Run PatchIt! Initialization
-    PyVerCheck()
-    cmdArgs()
-    preload()
