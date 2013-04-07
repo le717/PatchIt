@@ -8,7 +8,8 @@ Requirements
 
 ### Application Requirements
 
-* **PatchIt!** is written in **[Python 3.3.0](http://www.python.org/download)**. You will need to have a complete installation of Python `>=` 3.3.0 to edit and run *PatchIt!*. 
+* **PatchIt!** is written in **[Python 3.3.1](http://www.python.org/download)**. You will need to have a complete installation of Python `>=` 3.3.1 to edit and 
+run **PatchIt!**. 
 Python Versions `<=` 3.2 are not supported, and a version check will prevent it from running on lower versions.
 
 * **Inno Setup 5.5.2 Unicode** or later is required to create the Windows installer. An ISPP check will prevent it on running on lower versions.
