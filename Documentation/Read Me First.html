@@ -179,9 +179,18 @@ was being violated)</li>
 <!-- <li>Enabled reading, writing, and installation check for <span class="italic">LEGO LOCO</span></li> -->
 <li>Added <code>Documentation/Settings.md</code></li>
 <li>Added Expert level <span class="italic">LEGO Racers</span> gameplay tips, as sorted by JimbobJeffers, thus finally adding all gameplay tips</li>
-<!-- <li>Moved importing of <code>handlejam.pyw</code> into <code>--test</code> command-line parameter</li> -->
+<li>Moved importing of <code>handlejam.pyw</code> into <code>--test</code> command-line parameter</li>
 <li class="bold">Update minimum Python version to 3.3.1</li>
-<li>Added new "shebang" line to <code>RunIt.py</code> and <code>setup.py</code> to take advantage of new <span class="italic">Python Launcher for Windows</span>, introduced in Python 3.3.1</li>
+<li>Added new "shebang" line to <code>RunIt.py</code> and <code>setup.py</code> to take advantage of new <span class="italic">Python Launcher for Windows
+</span>, introduced in Python 3.3.1</li>
+<li>Updated logger message when switching to <span class="bold">PatchIt!</span> main menu</li>
+<li>Added GNU GPL V3 block to <code>color/colors.py</code></li>
+<li>Finished work on Legacy Patch Extraction <code>legacyextract.pyw</code>. It will not be updated any more</li>
+<!-- <li>Created question to ask for the resolution the <span class="italic">LEGO LOCO</span> map was created with</li> -->
+<!-- <li><span class="italic">LEGO LOCO</span> map resolution is now written into a Modern Patch, using the MP field</li> -->
+<li>Spilt Patch selection for Modern Patch Installation routine (<code>modernextract.pyw</code>) from <code>checkPatch()</code> to <code>selectPatch()
+</code></li>
+<li>Changed <code>checkPatch()</code> function to require a patch to be passed to it; required due to previous change</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 

@@ -59,21 +59,21 @@ def patchInfo():
     '''Asks for PatchIt! Patch details'''
 
     logging.info("Create a PatchIt! Patch")
-    colors.pc("\nCreate a PatchIt! Patch\n", color.FG_LIGHT_YELLOW)
+    colors.pc("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
-    logging.info('Type "exit" in the "Name:" field to cancel the Patch Creation process.')
-    print('Type "exit" in the "Name:" field to cancel.', end="\n")
+    logging.info('Type "q" in the "Name:" field to cancel the Patch Creation process.')
+    colors.pc('Type "q" in the "Name:" field to cancel.', color.FG_WHITE)
 
     logging.info("Ask for Patch name")
     name = input("\nName: ")
 
     # I want to quit the process
-    if name.lower() == "exit":
+    if name.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.pc("\nCanceling creation of {0} Patch\n".format(PatchIt.app), color.FG_LIGHT_RED)
+        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
         time.sleep(0.5)
-        logging.info("Proceeding to main menu")
+        logging.info("Switching to main menu")
         PatchIt.main()
 
     # I want to continue on (implied else block)
@@ -88,7 +88,10 @@ def patchInfo():
 
     # Get what game this patch is for
     logging.info("Switching to gameSelect() for game selection")
-    which_game = gameSelect()
+    game = gameSelect()
+
+    if game == "LEGO LOCO":
+        map_res = LOCORes()
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -131,7 +134,7 @@ def patchInfo():
         logging.info("Give focus back to console window")
         root.destroy()
         logging.info("Switching to to writePatch(patchfiles, name, version, author, desc, which_game)")
-        writePatch(patchfiles, name, version, author, desc, which_game)
+        writePatch(patchfiles, name, version, author, desc, map_res, game)
 
 def gameSelect():
     '''Select what game this Patch is for'''
@@ -145,16 +148,51 @@ def gameSelect():
 
     if game_select.lower() == "r":
         logging.info("User selected LEGO Racers")
-        which_game = "LEGO Racers"
+        game = "LEGO Racers"
         logging.info("Returning which_game variable")
-        return which_game
+        return game
     elif game_select.lower() == "l":
         logging.info("User selected LEGO LOCO")
-        which_game = "LEGO LOCO"
+        game = "LEGO LOCO"
         logging.info("Returning which_game variable")
-        return which_game
+        return game
 
-def writePatch(patchfiles, name, version, author, desc, which_game):
+def LOCORes():
+    '''Enter the resolution this LOCO map was created with'''
+
+    logging.info("What resoultion was this map created with?")
+    print('''\nWhat resolution was this LEGO LOCO map created with?
+Hint: if you are unsure, it will most likely be either
+
+800x600,
+1024x768,
+1920x1024''')
+    colors.pc('\nType "0" in the "Width:" field to cancel.', color.FG_WHITE)
+
+    try:
+        # int() because screen resolution is not expressed in decimial numbers nor words, but numbers
+        res_horz = int(input("\nWidth: "))
+
+        # Allow the user to cancel the Patch Creation
+        # TODO: if user cancels it, go back to main menu or beginning of Patch Creation process?
+        if res_horz == 0:
+            logging.warning("User canceled PatchIt! Patch Creation!")
+            colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
+            time.sleep(0.5)
+            logging.info("Switching to main menu")
+            PatchIt.main()
+
+        res_vert = int(input("\nHeight: "))
+        map_res = "{0}x{1}".format(res_horz, res_vert)
+        return map_res
+
+    except ValueError:
+        logging.warning("User entered an invalid number!")
+        logging.info("Looping back through LOCORes()")
+        LOCORes()
+
+
+def writePatch(patchfiles, name, version, author, desc, mp, game):
     '''Writes and compresses PatchIt! Patch'''
 
     # The user selected a folder to compress
@@ -174,8 +212,8 @@ def writePatch(patchfiles, name, version, author, desc, which_game):
             print(author, file=patch)
             print(version, file=patch)
             print(name, file=patch)
-            print("MP", file=patch)
-            print(which_game, file=patch)
+            print(mp, file=patch)
+            print(game, file=patch)
             print("[DESCRIPTION]", file=patch)
             print("{0}".format(desc), file=patch, end="")
 
@@ -224,7 +262,7 @@ def writePatch(patchfiles, name, version, author, desc, which_game):
     finally:
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
         time.sleep(2)
-        logging.info("Proceeding to main menu")
+        logging.info("Switching to main menu")
         PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #

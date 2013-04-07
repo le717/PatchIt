@@ -137,8 +137,8 @@ def main():
             time.sleep(0.5)
 
             # Call the Patch Installation module
-            logging.info("Calling Patch Installation module (extract.checkPatch())")
-            extract.checkPatch()
+            logging.info("Calling Patch Installation module (extract.selectPatch())")
+            extract.selectPatch()
 
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
@@ -259,7 +259,7 @@ def LRReadSettings():
                 logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
                 # Sleep for 1 second before kicking back to the menu.
                 time.sleep(1)
-                logging.info("Switch to main menu")
+                logging.info("Switching to main menu")
                 main()
 
 # ----- End PatchIt! LEGO Racers Settings Reading ----- #
@@ -302,7 +302,7 @@ def LRWriteSettings():
         logging.warning("User did not select a new LEGO Racers installation!")
         time.sleep(1)
 
-        logging.info("Switch to main menu")
+        logging.info("Switching to main menu")
         main()
 
     # The user selected a folder
@@ -436,7 +436,7 @@ def CheckLRSettings():
 
         # Any other number (Default == 1) means it has been run before
         else:
-            logging.info("First-run info found, this is not the first-run. Proceeding to main menu.")
+            logging.info("First-run info found, this is not the first-run. Switching to main menu.")
             # Does not sleep, for user doesn't know about this
             return True
 
@@ -488,7 +488,7 @@ def LOCOReadSettings():
                 logging.info("User does not want to change defined LEGO LOCO installation or pressed an undefined key")
                 # Sleep for 1 second before kicking back to the menu.
                 time.sleep(1)
-                logging.info("Switch to main menu")
+                logging.info("Switching to main menu")
                 main()
 
 # ----- End PatchIt! LEGO LOCO Settings Reading ----- #
@@ -531,7 +531,7 @@ def LOCOWriteSettings():
         logging.warning("User did not select a new LEGO LOCO installation!")
         time.sleep(1)
 
-        logging.info("Switch to main menu")
+        logging.info("Switching to main menu")
         main()
 
     # The user selected a folder

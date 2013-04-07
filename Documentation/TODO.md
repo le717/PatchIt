@@ -8,7 +8,6 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**, listed
 * **BUG** Sometimes Patch cannot be saved in a Dropbox folder
 * *NEW!* Modern PiP file creation code
 * *NEW!* Automatic LEGO.JAM extraction (upon user approval)
-* *NEW!* Expert LEGO Racers gameplay tips
 * *NEW!* Complete Tkinter GUI (postponed until later release)
 * *NEW!* Cross-platform Compatibility (not until GUI, shell colors are Windows-only)
 * IDEA? *.PiP file shell registration. If user clicks a PiP file, it will automatically load **PatchIt** and run the Patch Installation module.

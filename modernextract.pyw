@@ -29,17 +29,15 @@ from tkinter import (filedialog, Tk)
 # App Logging module
 import logging
 
-# ------------ Begin PatchIt! Patch Identification  ------------ #
+# ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
-def checkPatch():
-    '''Select a PatchIt! Patch, checks if file uses
-        the modern or legacy format,
-        or if it is a PatchIt! Patch at all'''
+def selectPatch():
+    '''Select a PatchIt! Patch'''
 
     print("\nInstall a PatchIt! Patch\n")
     logging.info("Install a PatchIt! Patch")
 
-    # PiP label for Patch selection dialog box
+        # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
 
     # Draw (then withdraw) the root Tk window
@@ -78,7 +76,7 @@ def checkPatch():
         colors.pc("\nCould not find a PatchIt! patch to read!\n", color.FG_LIGHT_RED)
         time.sleep(1)
 
-        logging.info("Proceeding to main menu")
+        logging.info("Switching to main menu")
         PatchIt.main()
 
     # The user selected a patch
@@ -89,55 +87,61 @@ def checkPatch():
         logging.info("Give focus back to console window")
         root.destroy()
 
+        # Pass selected file to Patch Identification process
+        logging.info("Switching to checkPatch(patch)")
+        checkPatch(patch)
+
+def checkPatch(patch):
+    '''Checks if Patch uses the modern or legacy format,
+        or if it is a PatchIt! Patch at all'''
+
         # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
         # Also check if it uses the modern or legacy format, as defined in
         # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-        logging.info("Reading line 1 of {0} for PiP validity check and Patch format"
-        .format(patch))
-        validline = linecache.getline(patch, 1)
-        logging.info("The validity line reads\n\n{0}".format(validline))
+    logging.info("Reading line 1 of {0} for PiP validity check and Patch format".format(patch))
+    validline = linecache.getline(patch, 1)
+    logging.info("The validity line reads\n\n{0}".format(validline))
 
-        # It's a legacy Patch
-        if validline == "// PatchIt! Patch format, created by le717 and rioforce.\n":
-            logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
-            colors.pc('''{0} is a legacy PatchIt! Patch.
+    # It's a legacy Patch
+    if validline == "// PatchIt! Patch format, created by le717 and rioforce.\n":
+        logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
+        colors.pc('''{0} is a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
-It may be best to check if a newer version of this mod is available.\n'''.format(patch), color.FG_LIGHT_GREEN)
+It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_LIGHT_GREEN)
 
-            # Dump PiP validity cache after reading
-            logging.info("Clearing PiP validity cache...")
-            linecache.clearcache()
+        # Dump PiP validity cache after reading
+        logging.info("Clearing PiP validity cache...")
+        linecache.clearcache()
 
-            # Give them time to actually read the message.
-            time.sleep(5)
-            logging.info("Switching to legacy PatchIt! Patch Installation routine (legacyextract.readpatch(patch))")
-            legacyextract.readPatch(patch)
-            # raise SystemExit
+        # Give them time to actually read the message.
+        time.sleep(5)
+        logging.info("Switching to legacy PatchIt! Patch Installation routine (legacyextract.readpatch(patch))")
+        legacyextract.readPatch(patch)
 
-        # It's a modern Patch
-        elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
-            logging.info("{0} is a modern PatchIt! Patch".format(patch))
+    # It's a modern Patch
+    elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+        logging.info("{0} is a modern PatchIt! Patch".format(patch))
 
-            # Dump PiP validity cache after reading
-            logging.info("Clearing PiP validity cache...")
-            linecache.clearcache()
+        # Dump PiP validity cache after reading
+        logging.info("Clearing PiP validity cache...")
+        linecache.clearcache()
 
-            logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(patch))")
-            readModernPatch(patch)
+        logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(patch))")
+        readModernPatch(patch)
 
-        # It's not a Patch at all! D:
-        elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
-            logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-            colors.pc("{0} is not a valid PatchIt! Patch!\n".format(patch), color.FG_LIGHT_RED)
+    # It's not a Patch at all! D:
+    elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+        logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
+        colors.pc("{0} is not a valid PatchIt! Patch!\n".format(patch), color.FG_LIGHT_RED)
 
-            # Dump PiP validity cache after reading
-            logging.info("Clearing PiP validity cache...")
-            linecache.clearcache()
-            time.sleep(1)
-            logging.info("Proceeding to main menu")
-            PatchIt.main()
+        # Dump PiP validity cache after reading
+        logging.info("Clearing PiP validity cache...")
+        linecache.clearcache()
+        time.sleep(1)
+        logging.info("Switching to main menu")
+        PatchIt.main()
 
-# ------------ End PatchIt! Patch Identification  ------------ #
+# ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
@@ -206,7 +210,7 @@ Version {1}
         logging.warning("User does not want to install {0} {1}!".format(name, version))
         print("\nCanceling installation of {0} {1}...".format(name, version))
         time.sleep(1)
-        logging.info("Proceeding to main menu")
+        logging.info("Switching to main menu")
         PatchIt.main()
 
     else:
@@ -252,7 +256,7 @@ def installModernPatch(patch, name, version, author):
         # Installation was sucessful!
         logging.info("Error (exit) number '0'")
         logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
-        print("\n{0} {1} sucessfully installed!\n".format(name, version))
+        print('\n{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath))
 
         # Log ZIP closure although it was closed automatically by with
         logging.info("Closing {0}".format(ziparchive))
@@ -290,7 +294,7 @@ If the error continues, contact {6}and ask for a fixed version.'''
     finally:
         # Sleep for 4.5 seconds after displaying installation result before kicking back to the PatchIt! menu.
         time.sleep(4.5)
-        logging.info("Proceeding to main menu")
+        logging.info("Switching to main menu")
         PatchIt.main()
 
 # ------------ End PatchIt! Patch Installation ------------ #
