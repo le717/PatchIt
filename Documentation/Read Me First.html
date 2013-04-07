@@ -119,11 +119,11 @@ PatchIt! Dev-log #7</a>)</li>
 <li>Changed versioning scheme: three digit version number, separated by periods,<br>
 "Stable" keyword for releases, "Unstable" keyword for work-in-progress builds</li>
 <li>Updated <code>Documentation/CONTRIBUTING.md</code></li>
-<li>Wrote <span class="bold">PatchIt!</span> Windows compiling instructions (<code>Documentation/CONTRIBUTING.md</code>)</li>
+<li>Wrote <span class="bold">PatchIt!</span> Windows EXE compiling instructions (<code>Documentation/CONTRIBUTING.md</code>)</li>
 <li>Updated <code>Documentation/TODO.md</code></li>
 <li>Make Modern Patch selection dialog box the active window, give it back to console window when done</li>
 <li>Make <span class="italic">LEGO Racers</span> installation selection dialog box the active window, give it back to console window when done</li>
-<li>Added Intermediate level <span class="italic">LEGO Racers</span> gameplay tips, with help from JimbobJeffers</li>
+<li>Added Intermediate level <span class="italic">LEGO Racers</span> gameplay tips, as sorted by JimbobJeffers</li>
 <li>Updated <span class="bold">PatchIt!</span> Windows compiling instructions (<code>Documentation/CONTRIBUTING.md</code>) to use <code>setup.py</code>, 
 deleted <code>build.bat</code></li>
 <li>Lots of cleanup on <code>import</code> statements</li>
@@ -143,20 +143,22 @@ updated accordingly</li>
 <li>Added command-line arguments parser</li>
 <li>Renamed settings file from <code>settings</code> to <code>LRsettings</code> for expansion, code and installer changed accordingly</li>
 <li>Inno Setup installer now saves compiled EXE to the same folder as the script (<code>\Windows</code>)</li>
-<!-- <li>Added <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span>  Settings option, activated by running <code>--test</code> 
+<!-- <li>Added <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span> Settings option, activated by running <code>--test</code> 
 parameter</li> -->
 <!-- <li>Changed condition for initial settings writing: if LRsettings or LOCOsettings does not exist, write one. If one does exist, continue on.</li> -->
 <li>Added global game variables</li>
 <li>Spilt Python 3.3.0 version check from <code>preload()</code> to <code>PyVerCheck()</code></li>
 <li>Removed logger from <code>PyVerCheck()</code></li>
 <li>Updated code to use new <span class="italic">LEGO Racers</span> game setting variable</li>
-<li>Moved settings files to new <code>Settings</code> folder, code changed accordingly</li>
+<li>Moved settings file<!-- s --> to new <code>Settings</code> folder, code changed accordingly</li>
 <!-- <li>Added reading of <span class="italic">LEGO LOCO</span> settings file</li> -->
-<li>Created <span class="italic">LEGO Racers</span> version check</li>
+<li>Created <span class="italic">LEGO Racers</span> version check (<code>LRVerCheck()</code>)</li>
 <li>Lots of function renaming for consistency</li>
 <!-- <li>Same consistency renaming on <span class="italic">LEGO LOCO</span> functions</li> -->
-<li>Incorporated <span class="italic">LEGO Racers</span> version check into settings writing</li>
-<li>Added ability to adapt installation path if portable install parameter was passed or not</li>
+<li>Incorporated <span class="italic">LEGO Racers</span> version check into <code>settings</code> writing</li>
+<li>If <code>/PORTABLE=1</code> is passed to the installer, by default <span class="bold">PatchIt!</span> will be installed to a subfolder in the location of 
+the installer, rather than Program Files <br>(without this change, goal #3 of <span class="bold">PatchIt!</span>, have a completely portable installation, 
+was being violated)</li>
 <li>Fixed some HTML errors, proper favicon</li>
 <!-- <li>Added writing of <span class="italic">LEGO LOCO</span> settings file (<code>Settings\LOCOsettings</code>)</li> -->
 <!-- <li>Added <span class="italic">LEGO LOCO</span> settings writing</li> -->
@@ -175,7 +177,9 @@ parameter</li> -->
 <li>Renamed <code>PyVerCheck.py</code> to <code>RunIt.py</code>
 <li>Renamed <code>PatchIt.py</code> to <code>PatchIt.pyw</code>, as <span class="bold">PatchIt!</span> now has to be run via <code>RunIt.py</code></li>
 <!-- <li>Enabled reading, writing, and installation check for <span class="italic">LEGO LOCO</span></li> -->
-<li>Created <code>Documentation/Settings.md</code></li>
+<li>Added <code>Documentation/Settings.md</code></li>
+<li>Added Expert level <span class="italic">LEGO Racers</span> gameplay tips, as sorted by JimbobJeffers, thus finally adding all gameplay tips</li>
+<!-- <li>Moved importing of <code>handlejam.pyw</code> into <code>--test</code> command-line parameter</li> -->
 <li>LEGOs in space? More later!</li>
 </ul>
 

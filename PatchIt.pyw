@@ -23,8 +23,6 @@
 import sys, os, linecache, webbrowser, time
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
-# JAM Extractor wrapper
-import handlejam
 # Colored shell text
 import color, color.colors as colors
 # File/Folder Dialog Boxes
@@ -158,6 +156,8 @@ def main():
 
         if menuopt.lower() == "j":
             if test:
+                # JAM Extractor wrapper
+                import handlejam
                 logging.info("User pressed '[j] JAM Extractor'")
                 time.sleep(0.5)
                 # Call the JAM Extractor wrapper module
