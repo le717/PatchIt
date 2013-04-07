@@ -157,10 +157,10 @@ def readModernPatch(patch):
     version = linecache.getline(patch, 6)
     logging.info("Reading line 5 of {0} for author".format(patch))
     author = linecache.getline(patch, 5)
-##    logging.info("Reading line 8 of {0} for MP".format(patch))
-##    mp = linecache.getline(patch, 8)
-##    logging.info("Reading line 9 of {0} for Game".format(patch))
-##    game = linecache.getline(patch, 9)
+    logging.info("Reading line 8 of {0} for MP".format(patch))
+    mp = linecache.getline(patch, 8)
+    logging.info("Reading line 9 of {0} for Game".format(patch))
+    game = linecache.getline(patch, 9)
     logging.info("Reading lines 10-12 of {0} for description".format(patch))
 
     # Read lines 11-13, or until there is no more text
@@ -176,30 +176,41 @@ def readModernPatch(patch):
     logging.info("Clearing PiP file cache...")
     linecache.clearcache()
 
+    # Clean up the mod info
     logging.info("Cleaning up mod name")
     name = name.rstrip("\n")
     logging.info("Cleaning up mod version")
     version = version.strip("\n")
-    logging.info("Cleaning up mod version")
-    desc  = desc.strip()
+    logging.info("Cleaning up mod description")
+    desc  = desc.strip("\n")
+    logging.info("Cleaning up MP field")
+    mp  = mp.strip("\n")
+    logging.info("Cleaning up game field")
+    game  = game.strip("\n")
 
     # Display all the info
     logging.info("Display all mod info")
 
-    mod_info = '''\n{0}
+    # If the MP field reads LEGO LOCO
+    if game == "LEGO LOCO":
+        mod_info = '''\n{0}
 Version {1}
-{2}
-"{3}"'''.format(name, version, author, desc)
+Author: {2}
+{3}, {4} {5}
 
-    logging.info(mod_info)
+"{6}"'''.format(name, version, author, game, "running at", mp, desc)
 
+    # If the MP reads LEGO Racers, or it has been tampered with
+    else: # elif game == "LEGO Racers":
+        mod_info = '''\n{0}
+Version {1}
+Author: {2}
+{3}
+
+"{4}"'''.format(name, version, author, game, desc)
+
+    # Display the info, no matter what the MP says
     print(mod_info, end="\n")
-
-    # Strip the name and version to put all the text on one line
-##    # logging.info("Cleaning up mod name")
-##    # name = name.strip("\n")
-##    # logging.info("Cleaning up mod version")
-##    # version = version.strip("\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))

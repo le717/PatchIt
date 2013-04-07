@@ -105,7 +105,7 @@ def main():
 
     # Blank space (\n) makes everything nice and neat
     colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
-    print('''\nPlease make a selection:\n
+    print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
