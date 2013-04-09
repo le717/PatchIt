@@ -20,7 +20,7 @@
 # PatchIt! V1.1.0 Unstable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # General use modules
-import sys, os, linecache, webbrowser, time
+import os, linecache, webbrowser, time, platform
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
 # Colored shell text
@@ -64,7 +64,8 @@ def cmdArgs():
 def preload():
     '''PatchIt! first-run checks'''
 
-    logging.info("You are running Python 3.3.0 or greater.")
+    logging.info("You are running Python 3.3.1 or greater.")
+    logging.info("You are running {0} {1}.".format(platform.platform(), platform.machine()))
     logging.info("Begin logging to {0}".format(thescore.logging_file))
     logging.info('''
                                 #############################################
@@ -88,7 +89,7 @@ def preload():
     # The PatchIt! settings folder does exist (implied else block here)
 
     if test:
-        if CheckLRSettings() == True and CheckLOCOSettings() == True:
+        if CheckLRSettings() == True or CheckLOCOSettings() == True:
             main()
 
     elif not test:

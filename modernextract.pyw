@@ -227,14 +227,22 @@ Author: {2}
     else:
         # Yes, I do want to install it!
         logging.info("User does want to install {0} {1}.".format(name, version))
-        installModernPatch(patch, name, version, author)
+        installModernPatch(patch, name, version, author, game)
 
-def installModernPatch(patch, name, version, author):
+def installModernPatch(patch, name, version, author, game):
     '''Installs a Modern PatchIt! Patch'''
 
-    # Read the settings file for installation (LEGO Racers directory)
-    logging.info("Reading line 5 of settings for LEGO Racers installation")
-    installationpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
+    # This is a LEGO Racers patch, read the Racers settings
+    if game == "LEGO Racers":
+        # Read the settings file for installation (LEGO Racers directory)
+        logging.info("Reading line 5 of settings for LEGO Racers installation")
+        installationpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
+
+    # Thid is a LEGO LOCO patch, read the LOCO settings
+    elif game == "LEGO LOCO":
+        # Read the settings file for installation (LEGO LOCO directory)
+        logging.info("Reading line 5 of settings for LEGO Racers installation")
+        installationpath = linecache.getline(os.path.join("Settings", "LOCOsettings"), 5)
 
     # Create a valid folder path
     logging.info("Cleaning up installation text")
@@ -254,9 +262,10 @@ def installModernPatch(patch, name, version, author):
     ziplocation = patch.rstrip("{0}{1}{2}".format(name, version, ".PiP"))
     logging.info("Locate ZIP archive at {0}".format(ziplocation))
 
-    # Display the Racers game tips
-    logging.info("Display LEGO Racers gameplay tip")
-    colors.pc(random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
+    # Display the Racers game tips only if this is a Racers patch
+    if game == "LEGO Racers":
+        logging.info("Display LEGO Racers gameplay tip")
+        colors.pc(random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
 
     try:
         # Actually extract the ZIP archive
