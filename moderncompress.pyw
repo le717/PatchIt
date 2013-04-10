@@ -91,7 +91,10 @@ def patchInfo():
     game = gameSelect()
 
     if game == "LEGO LOCO":
-        map_res = LOCORes()
+        mp = LOCORes()
+    else:
+        mp = "MP"
+
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -134,7 +137,7 @@ def patchInfo():
         logging.info("Give focus back to console window")
         root.destroy()
         logging.info("Switching to to writePatch(patchfiles, name, version, author, desc, which_game)")
-        writePatch(patchfiles, name, version, author, desc, map_res, game)
+        writePatch(patchfiles, name, version, author, desc, mp, game)
 
 def gameSelect():
     '''Select what game this Patch is for'''
@@ -149,17 +152,19 @@ def gameSelect():
     if game_select.lower() == "r":
         logging.info("User selected LEGO Racers")
         game = "LEGO Racers"
-        logging.info("Returning which_game variable")
+        logging.info("Returning game variable")
         return game
+
     elif game_select.lower() == "l":
         logging.info("User selected LEGO LOCO")
         game = "LEGO LOCO"
-        logging.info("Returning which_game variable")
+        logging.info("Returning game variable")
         return game
 
 def LOCORes():
     '''Enter the resolution this LOCO map was created with'''
 
+    # TODO: add message about custom resolutions
     logging.info("What resoultion was this map created with?")
     print('''\nWhat resolution was this LEGO LOCO map created with?
 Hint: if you are unsure, it will most likely be either
@@ -183,8 +188,9 @@ Hint: if you are unsure, it will most likely be either
             PatchIt.main()
 
         res_vert = int(input("\nHeight: "))
-        map_res = "{0}x{1}".format(res_horz, res_vert)
-        return map_res
+        mp = "{0}x{1}".format(res_horz, res_vert)
+        logging.info("Returning mp variable")
+        return mp
 
     except ValueError:
         logging.warning("User entered an invalid number!")

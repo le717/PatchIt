@@ -178,38 +178,30 @@ def readModernPatch(patch):
 
     # Clean up the mod info
     logging.info("Cleaning up mod name")
-    name = name.rstrip("\n")
+    name = name.strip()
+    logging.info("Cleaning up mod author")
+    author =author.strip()
     logging.info("Cleaning up mod version")
-    version = version.strip("\n")
+    version = version.strip()
     logging.info("Cleaning up mod description")
-    desc  = desc.strip("\n")
+    desc  = desc.strip()
     logging.info("Cleaning up MP field")
-    mp  = mp.strip("\n")
+    mp  = mp.strip()
     logging.info("Cleaning up game field")
-    game  = game.strip("\n")
+    game  = game.strip()
 
     # Display all the info
     logging.info("Display all mod info")
 
-    # If the MP field reads LEGO LOCO
-    if game == "LEGO LOCO":
-        mod_info = '''\n{0}
-Version {1}
-Author: {2}
-{3}, {4} {5}
 
-"{6}"'''.format(name, version, author, game, "running at", mp, desc)
-
-    # If the MP reads LEGO Racers, or it has been tampered with
-    else: # elif game == "LEGO Racers":
-        mod_info = '''\n{0}
-Version {1}
+    mod_info = '''\n{0}
+Version: {1}
 Author: {2}
-{3}
+Game: {3}
 
 "{4}"'''.format(name, version, author, game, desc)
 
-    # Display the info, no matter what the MP says
+    # Display the info
     print(mod_info, end="\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
@@ -227,22 +219,23 @@ Author: {2}
     else:
         # Yes, I do want to install it!
         logging.info("User does want to install {0} {1}.".format(name, version))
-        installModernPatch(patch, name, version, author, game)
+        logging.info("Proceeding to installModernPatch(patch, name, version, author, game, mp)")
+        installModernPatch(patch, name, version, author, game, mp)
 
-def installModernPatch(patch, name, version, author, game):
+def installModernPatch(patch, name, version, author, game, mp):
     '''Installs a Modern PatchIt! Patch'''
 
-    # This is a LEGO Racers patch, read the Racers settings
-    if game == "LEGO Racers":
-        # Read the settings file for installation (LEGO Racers directory)
-        logging.info("Reading line 5 of settings for LEGO Racers installation")
-        installationpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
-
-    # Thid is a LEGO LOCO patch, read the LOCO settings
-    elif game == "LEGO LOCO":
+    # This is a LEGO LOCO patch, read the LOCO settings
+    if game == "LEGO LOCO":
         # Read the settings file for installation (LEGO LOCO directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
         installationpath = linecache.getline(os.path.join("Settings", "LOCOsettings"), 5)
+
+    # This is a LEGO Racers patch, read the Racers settings
+    else: # if game == "LEGO Racers":
+        # Read the settings file for installation (LEGO Racers directory)
+        logging.info("Reading line 5 of settings for LEGO Racers installation")
+        installationpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
 
     # Create a valid folder path
     logging.info("Cleaning up installation text")
@@ -266,6 +259,12 @@ def installModernPatch(patch, name, version, author, game):
     if game == "LEGO Racers":
         logging.info("Display LEGO Racers gameplay tip")
         colors.pc(random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
+
+    elif game == "LEGO LOCO":
+        logging.info("Display resolution the LEGO LOCO map was created with")
+        colors.pc('''\nHeads up! {0} {1} was created using {2} resolution.
+It may be best to play LEGO LOCO in that same resolution to avoid
+cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
 
     try:
         # Actually extract the ZIP archive

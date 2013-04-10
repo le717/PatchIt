@@ -21,10 +21,10 @@
 
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
+import PatchIt, time, logging
 
-def main():
-    print("handlejam.main()")
-    raise SystemExit
+def compressJAM():
+    '''Passes the proper parameters to compress LEGO.JAM'''
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -46,6 +46,26 @@ def main():
     # The files to be compressed
     jam_files = filedialog.askdirectory(
     parent=root,
-    title="Where are your extracted LEGO.JAM files locatedn?" #WRONG, WRONG, WRONG!
+    title="Where are your extracted LEGO.JAM files located?" #WRONG, WRONG, WRONG!
     )
+
+def main():
+
+    logging.info("Display JAM Extractor menu to user")
+    print('''\nPlease make a selection:\n
+[e] Extract LEGO.JAM
+[c] Compress LEGO.JAM''')
+    jam_opt = input("\n\n> ")
+
+    # Nothing here is complete, so redirect back to PatchIt! menu
+##    if jam_opt.lower() == "e" or jam_opt.lower() == "c":
+    if jam_opt.lower():
+        logging.warning("Whoops! That feature hasn't been added yet.")
+        print("\nWhoops! That feature hasn't been added yet.")
+        time.sleep(0.5)
+        logging.info("Switching to PatchIt! main menu")
+        PatchIt.main()
+
+##    if jam_opt.lower() == "b"
+
 

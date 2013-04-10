@@ -20,7 +20,7 @@
 # PatchIt! V1.1.0 Unstable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # General use modules
-import os, linecache, webbrowser, time, platform
+import sys, os, linecache, webbrowser, time, platform
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
 # Colored shell text
@@ -64,8 +64,14 @@ def cmdArgs():
 def preload():
     '''PatchIt! first-run checks'''
 
-    logging.info("You are running Python 3.3.1 or greater.")
-    logging.info("You are running {0} {1}.".format(platform.platform(), platform.machine()))
+    # Check if Python is x86 or x64, taken from Python help file (platform module)
+    if sys.maxsize > 2**32:
+        py_arch = "x64"
+    else:
+        py_arch = "x86"
+
+
+    logging.info("You are running Python {0} {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info("Begin logging to {0}".format(thescore.logging_file))
     logging.info('''
                                 #############################################
@@ -105,17 +111,26 @@ def main():
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
-    colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
-    print('''Please make a selection:\n
+    colors.pc("\nHello, and welcome to {0} {1} {2},\ncopyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    if not test:
+        logging.info("Display normal menu to user")
+        print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
 [q] Quit''')
-    logging.info("Display menu to user")
+    elif test:
+        print('''Please make a selection:\n
+[c] Create a PatchIt! Patch
+[i] Install a PatchIt! Patch
+[j] JAM Extractor
+[s] PatchIt! Settings
+[q] Quit''')
+    logging.info("Display --testing menu to user")
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == 'e':
-            logging.warning('"It''s a trap!')
+            logging.warning('"It''s a trap!"')
             colors.pc("\nOoh, you shouldn't have done that, Sir!", color.FG_LIGHT_RED)
             time.sleep(2)
             colors.pc("\n\nNow you must face...", color.FG_LIGHT_RED)
@@ -129,6 +144,7 @@ def main():
         elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
             time.sleep(0.5)
+
             # Call the Patch Creation module
             logging.info("Calling Patch Compression module (compress.patchInfo())")
             compress.patchInfo()
