@@ -60,8 +60,13 @@ All **PatchIt!** downloads are hosted on this project, each one in a separate [A
 
 > [Direct Download](https://github.com/le717/PatchIt/raw/V1.0Stable/Windows/PatchIt!%20Version%201.0%20Stable.exe)
 
-* [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released February 2, 2013
-* [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released January 26, 2013
+* **PatchIt!** Version 1.0 Beta 2 (Unstable) - Released February 2, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0b2)
+
+* **PatchIt!** Version 1.0 Beta 1 (Unstable) - Released January 26, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0b1)
 
 Credit
 ------
