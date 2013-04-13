@@ -1,8 +1,9 @@
+#!python3
 """
     This file is part of PatchIt!
 
     PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
-    Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
+    Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Unstable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
+# PatchIt! V1.1.0 Unstable, created 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # General use modules
 import sys, os, linecache, webbrowser, time, platform
@@ -66,12 +67,12 @@ def preload():
 
     # Check if Python is x86 or x64, taken from Python help file (platform module)
     if sys.maxsize > 2**32:
-        py_arch = "x64"
+        py_arch = "AMD64"
     else:
         py_arch = "x86"
 
 
-    logging.info("You are running Python {0} {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
+    logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info("Begin logging to {0}".format(thescore.logging_file))
     logging.info('''
                                 #############################################
@@ -111,7 +112,7 @@ def main():
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
-    colors.pc("\nHello, and welcome to {0} {1} {2},\ncopyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    colors.pc("\nHello, and welcome to {0} {1} {2},\ncreated 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
     if not test:
         logging.info("Display normal menu to user")
         print('''Please make a selection:\n

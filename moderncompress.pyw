@@ -2,7 +2,7 @@
     This file is part of PatchIt!
 
     PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
-    Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
+    Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -86,10 +86,26 @@ def patchInfo():
     logging.info("Ask for Patch description")
     desc = input("Description: ")
 
-    # Get what game this patch is for
-    logging.info("Switching to gameSelect() for game selection")
-    game = gameSelect()
+    # Get what game this Patch is for
+    logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
 
+    print("\nWhich game is this Patch created for?")
+    print('''
+[r] LEGO Racers
+[l] LEGO LOCO''')
+    game_select = input("\n\n> ")
+
+    # It's an LR Patch
+    if game_select.lower() == "r":
+        logging.info("User selected LEGO Racers")
+        game = "LEGO Racers"
+
+    # It's an LOCO Patch
+    elif game_select.lower() == "l":
+        logging.info("User selected LEGO LOCO")
+        game = "LEGO LOCO"
+
+    # If it is a LOCO patch, get the resolution the map was created in (it matters!)
     if game == "LEGO LOCO":
         mp = LOCORes()
     else:
@@ -126,7 +142,7 @@ def patchInfo():
         root.destroy()
 
         logging.warning("User did not select any files to compress!")
-        colors.pc("\nCannot find any files to compress!\n", color.FG_LIGHT_RED)
+        colors.pc("\nCannot find any files to compress!", color.FG_LIGHT_RED)
         time.sleep(1)
         logging.info("Switching to to main menu")
         PatchIt.main()
@@ -139,39 +155,20 @@ def patchInfo():
         logging.info("Switching to to writePatch(patchfiles, name, version, author, desc, which_game)")
         writePatch(patchfiles, name, version, author, desc, mp, game)
 
-def gameSelect():
-    '''Select what game this Patch is for'''
-
-    logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
-    print("\nWhat game is this Patch created for?")
-    print('''
-[r] LEGO Racers
-[l] LEGO LOCO''')
-    game_select = input("\n\n> ")
-
-    if game_select.lower() == "r":
-        logging.info("User selected LEGO Racers")
-        game = "LEGO Racers"
-        logging.info("Returning game variable")
-        return game
-
-    elif game_select.lower() == "l":
-        logging.info("User selected LEGO LOCO")
-        game = "LEGO LOCO"
-        logging.info("Returning game variable")
-        return game
-
 def LOCORes():
     '''Enter the resolution this LOCO map was created with'''
 
     # TODO: add message about custom resolutions
     logging.info("What resoultion was this map created with?")
     print('''\nWhat resolution was this LEGO LOCO map created with?
-Hint: if you are unsure, it will most likely be either
+Hint: if you are unsure, it will most likely be either''')
 
+    colors.pc('''
 800x600,
 1024x768,
-1920x1024''')
+1920x1024
+
+If you used a custom resolution, be sure to enter that in the fields below.''', color.FG_LIGHT_MAGENTA)
     colors.pc('\nType "0" in the "Width:" field to cancel.', color.FG_WHITE)
 
     try:
@@ -192,6 +189,7 @@ Hint: if you are unsure, it will most likely be either
         logging.info("Returning mp variable")
         return mp
 
+    # A valid resolution was not entered
     except ValueError:
         logging.warning("User entered an invalid number!")
         logging.info("Looping back through LOCORes()")

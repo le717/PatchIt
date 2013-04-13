@@ -3,7 +3,7 @@
     This file is part of PatchIt!
 
     PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
-    Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
+    Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
