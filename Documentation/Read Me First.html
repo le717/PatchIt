@@ -160,40 +160,39 @@ updated accordingly</li>
 <li>Added command-line arguments parser</li>
 <li>Renamed settings file from <code>settings</code> to <code>LRsettings</code> for expansion, code and installer changed accordingly</li>
 <li>Inno Setup installer now saves compiled EXE to the same folder as the script (<code>\Windows</code>)</li>
-<!-- <li>Added <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span> Settings option, activated by running <code>--test</code>
-parameter</li> -->
-<!-- <li>Changed condition for initial settings writing: if LRsettings or LOCOsettings does not exist, write one. If one does exist, continue on.</li> -->
+<li>Added <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span> Settings option, activated by running <code>--test</code>
+parameter</li>
+<li>Changed condition for initial settings writing: if LRsettings or LOCOsettings do not exist, write one. If one does exist, continue on.</li>
 <li>Added global game variables</li>
 <li>Spilt Python 3.3.0 version check from <code>preload()</code> to <code>PyVerCheck()</code></li>
 <li>Removed logger from <code>PyVerCheck()</code></li>
 <li>Updated code to use new <span class="italic">LEGO Racers</span> game setting variable</li>
-<li>Moved settings file<!-- s --> to new <code>Settings</code> folder, code changed accordingly</li>
-<!-- <li>Added reading of <span class="italic">LEGO LOCO</span> settings file</li> -->
+<li>Moved settings files to new <code>Settings</code> folder, code changed accordingly</li>
+<li>Added reading of <span class="italic">LEGO LOCO</span> settings file</li>
 <li>Created <span class="italic">LEGO Racers</span> version check (<code>LRVerCheck()</code>)</li>
 <li>Lots of function renaming for consistency</li>
-<!-- <li>Same consistency renaming on <span class="italic">LEGO LOCO</span> functions</li> -->
+<li>Same consistency renaming on <span class="italic">LEGO LOCO</span> functions</li>
 <li>Incorporated <span class="italic">LEGO Racers</span> version check into <code>settings</code> writing</li>
 <li>If <code>/PORTABLE=1</code> is passed to the installer, by default <span class="bold">PatchIt!</span> will be installed to a subfolder in the location of
 the installer, rather than Program Files <br>(without this change, goal #3 of <span class="bold">PatchIt!</span>, have a completely portable installation,
 was being violated)</li>
 <li>Fixed some HTML errors, proper favicon</li>
-<!-- <li>Added writing of <span class="italic">LEGO LOCO</span> settings file (<code>Settings\LOCOsettings</code>)</li> -->
-<!-- <li>Added <span class="italic">LEGO LOCO</span> settings writing</li> -->
-<li>Changed condition for initial settings writing<!-- (again) -->: If Settings folder does not exist upon launch, run process to create settings</li>
-<!-- <li>Added <span class="italic">LEGO LOCO</span> installation check</li> -->
+<li>Added writing of <span class="italic">LEGO LOCO</span> settings file (<code>Settings\LOCOsettings</code>)</li>
+<li>Changed condition for initial settings writing (again): If Settings folder does not exist upon launch, run process to create settings</li>
+<li>Added <span class="italic">LEGO LOCO</span> installation check</li>
 <li>Cleaned up <span class="italic">LEGO Racers</span> version check</li>
-<!-- <li>Added game selection into Modern Patch Creation</li> -->
+<li>Added game selection into Modern Patch Creation</li>
 <li>Greatly improved Python 3.3.0 version check, removed <code>PyVerCheck()</code> from <code>PatchIt.py</code></li>
 <li>Fixed <code>setup.py</code> to correctly name the compiled EXE</li>
 <li>Minor change to app branding</li>
 <li>Small variable rename for clarity</li>
-<li>Recreated<!-- <span class="italic">LEGO Racers</span> --> first-run check</li>
+<li>Recreated <span class="italic">LEGO Racers</span> first-run check</li>
 <li>Updated <code>moderncompress.pyw</code> and <code>modernextract.pyw</code> to conform with PiP Format V1.1 Draft 3 r1</li>
-<!-- <li>Created <span class="italic">LEGO LOCO</span> first-run check</li> -->
-<li>Spilt first run check<!-- s --> from <code>preload()</code> into separate function<!-- s --></li>
+<li>Created <span class="italic">LEGO LOCO</span> first-run check</li>
+<li>Spilt first run checks from <code>preload()</code> into separate functions</li>
 <li>Renamed <code>PyVerCheck.py</code> to <code>RunIt.py</code>
 <li>Renamed <code>PatchIt.py</code> to <code>PatchIt.pyw</code>, as <span class="bold">PatchIt!</span> now has to be run via <code>RunIt.py</code></li>
-<!-- <li>Enabled reading, writing, and installation check for <span class="italic">LEGO LOCO</span></li> -->
+<li>Enabled reading, writing, and installation check for <span class="italic">LEGO LOCO</span></li>
 <li>Added <code>Documentation/Settings.md</code></li>
 <li>Added Expert level <span class="italic">LEGO Racers</span> gameplay tips, as sorted by JimbobJeffers, thus finally adding all gameplay tips</li>
 <li>Moved importing of <code>handlejam.pyw</code> into <code>--test</code> command-line parameter</li>
@@ -203,43 +202,42 @@ was being violated)</li>
 <li>Updated logger message when switching to <span class="bold">PatchIt!</span> main menu</li>
 <li>Added GNU GPL V3 block to <code>color/colors.py</code></li>
 <li>Finished work on Legacy Patch Extraction <code>legacyextract.pyw</code>. It will not be updated any more</li>
-<!-- <li>Created question to ask for the resolution the <span class="italic">LEGO LOCO</span> map was created with</li> -->
-<!-- <li><span class="italic">LEGO LOCO</span> map resolution is now written into a Modern Patch, using the MP field</li> -->
+<li>Created question to ask for the resolution the <span class="italic">LEGO LOCO</span> map was created with</li>
+<li><span class="italic">LEGO LOCO</span> map resolution is now written into a Modern Patch, using the MP field</li>
 <li>Spilt Patch selection for Modern Patch Installation routine (<code>modernextract.pyw</code>) from <code>checkPatch()</code> to <code>selectPatch()
 </code></li>
 <li>Changed <code>checkPatch()</code> function to require a patch to be passed to it; required due to previous change</li>
 <li>Enabled reading of new MP and Game fields in Modern PiP Format</li>
-<!-- <li>Added conditional display of Patch info, depending on the value of the Game field</li> -->
 <li>Removed rewriting of Patch into log file</li>
 <li>Added display of "Author:" in Patch info display</li>
 <li>Improved display of all Patch info using various methods</li>
 <li>Windows version and architecture is written into log</li>
-<!-- <li>Changed condition for writing settings files: if <code>CheckLRSettings()</code> or <code>CheckLOCOSettings()</code> return True, go to menu; else, write  -->
-<!-- settings (was originally if both returned true)</li> -->
-<!-- <li>If Game field in Patch reads <span class="italic">LEGO Racers</span>, open <code>LRsettings</code> for installation path, else if <span class="italic"> -->
-<!-- LEGO LOCO</span>, open <code>LOCOsettings</code> for installation path</li> -->
+<li>Changed condition for writing settings files: if <code>CheckLRSettings()</code> or <code>CheckLOCOSettings()</code> return True, go to menu; else, write 
+settings (was originally if both returned true)</li>
+<li>If Game field in Patch reads <span class="italic">LEGO Racers</span>, open <code>LRsettings</code> for installation path, else if <span class="italic">
+LEGO LOCO</span>, open <code>LOCOsettings</code> for installation path</li>
 <li>Display <span class="italic">LEGO Racers</span> gameplay tips only if Game field in Patch reads <span class="italic">LEGO Racers</span></li>
 <li>Python version and architecture is written into log</li>
 <li>Display different main menu depending or wither or not the <code>--test</code> parameter was passed</li>
 <li>Added display of "Game:" in Patch info display</li>
-<!-- <li>Display resolution the <span class="italic">LEGO LOCO</span> map was created with in place of the <span class="italic">LEGO Racers</span> gameplay tips -->
-<!-- </li> -->
+<li>Display resolution the <span class="italic">LEGO LOCO</span> map was created with in place of the <span class="italic">LEGO Racers</span> gameplay tips
+</li>
 <li>Added cleanup of Mod author field in Patch</li>
 <li>Check if user is using x86 or x64 Python, write result to log</li>
 <li>Added menu to <code>handlejam.pyw</code>, redirect any input to <span class="bold">PatchIt!</span> main menu (nothing in the script is complete)</li>
-<!-- <li>If Patch is created for <span class="italic">LEGO Racers</span>, write <code>MP</code> in the MP field.</li> -->
+<li>If Patch is created for <span class="italic">LEGO Racers</span>, write <code>MP</code> in the MP field</li>
 <li>Codenames for all releases, both past and future</li>
-<!-- <li>Simplified Game selection code</li> -->
-<!-- <li>Added message about <span class="italic">LEGO LOCO</span> custom resolutions</li> -->
+<li>Simplified Game selection code in Modern Patch Creation </li>
+<li>Added message about <span class="italic">LEGO LOCO</span> custom resolutions</li>
 <li>Renamed <code>colors</code> folder to <code>Colors</code>, code updated accordingly</li>
 <li>Cleaned up switch to <span class="bold">PatchIt!</span> main menu</li>
 <li>Fixed error with <code>delThumbs()</code> deleting <code>Thumbs.db</code> in more folders than it should</li>
 <li>Renamed some variables (they were a throwback to pre-V1.0 Stable days)</li>
 <li>Updated installer to automatically uninstall <span class="bold">PatchIt!</span> V1.0.x releases before installing the current one</li>
 <li>Updated installer to move <span class="bold">PatchIt!</span> V1.0.x log to a different installer, rather than deleting or appending to it</li>
-<!-- <li>Removed writing of <span class="italic">LEGO LOCO</span> settings from <code>--test</code> parameter</li> -->
+<li>Removed writing of <span class="italic">LEGO LOCO</span> settings from <code>--test</code> parameter, preparing for official announcement</li>
 <li>Added direct download link of releases to <code>README.md</code></li>
-<li>Updated <code>Read Me First.html</code> with<!-- info about <span class="italic">LEGO LOCO</span>, as well as --> various corrections</li>
+<li>Updated <code>Read Me First.html</code> with info about <span class="italic">LEGO LOCO</span>, as well as various other corrections</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
