@@ -3,27 +3,33 @@ PatchIt! Extras
 
 **PatchIt!** Extras are simply optional downloads that make **PatchIt!** more enjoyable.
 
-Why would you download a *LEGO Racers* mod installer and not have anything to install?  Answer: you wouldn't! So I've provided a few mod packs
+Why would you download a mod installer and not have anything to install?  Answer: you wouldn't! So I've provided a few mod packs
 to get you started. ![](http://s0.wp.com/wp-includes/images/smilies/icon_smile.gif?raw=true)
 
-Texture Packs
--------------
+LEGO Racers
+-----------
 
-### Nyan Cat-Athon
+### Texture Packs
+
+#### Nyan Cat-Athon
 
 This mod, originally created by JimbobJeffers and with improvements by myself, reskins the Knightmare-Athon track to be [Nyan Cat](http://www.youtube.com/watch?v=QH2-TGUlwu4) themed. 
 Complete with custom music of the Nyan Cat's theme song, this mod will be sure to either please your inner cat, or anger your inner dog.
 
-[Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Nyan%20Cat-AthonV1.1.zip)
+[Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Nyan_Cat-AthonV1.1.zip)
 
-### Royally Crafted Raceway
+#### Royally Crafted Raceway
 This interesting mod, created by Segatendo, reskins Royal Knights Raceway with Minecraft textures, 
 reflecting the calm/creative side of Minecraft, creating possibly the calmest mod available for this track!
 Royally Crafted Raceway is so calm that it might even calm you down enough to win the race. :P
 
 
-[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Royally%20Crafted%20RacewayV1.0.zip)
+[Download Royally Crafted Raceway (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Royally_Crafted_RacewayV1.0.zip)
 
+LEGO LOCO
+---------
+
+### Maps
 
 Credits
 -------
