@@ -1,6 +1,8 @@
 PatchIt!
 ========
 
+![](https://raw.github.com/le717/PatchIt/master/Icons/PatchItLogo.png?raw=true)
+
 This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by Triangle717 to be the standard yet simple way to
 package and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
 
@@ -34,7 +36,9 @@ Downloads
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
-* [**PatchIt!** Version 1.0.3 Stable](https://github.com/le717/PatchIt/tree/V1.0.3Stable) - Released March 11, 2013
+* **PatchIt!** Version 1.0.3 Stable - Released March 11, 2013 
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0.3Stable)
+> [Direct Download](https://github.com/le717/PatchIt/raw/master/Windows/PatchIt!%20Version%201.0.3%20Stable.exe)
 * [**PatchIt!** Version 1.0.2 Stable](https://github.com/le717/PatchIt/tree/V1.0.2Stable) - Released March 5, 2013
 * [**PatchIt!** Version 1.0.1 Stable](https://github.com/le717/PatchIt/tree/V1.0.1Stable) - Released March 2, 2013
 * [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February 21, 2013
@@ -43,4 +47,4 @@ All **PatchIt!** downloads are hosted on this project, each one in a separate [A
 
 Credit
 ------
-***PatchIt!* is copyright 2013 Triangle717, and released under the GNU General Public License Version 3.**
+***PatchIt!* is created 2013 Triangle717, and released under the GNU General Public License Version 3.**

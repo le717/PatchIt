@@ -2,7 +2,7 @@
 ;    This file is part of PatchIt!
 ;
 ;    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
-;    Copyright 2013 Triangle717 <http://triangle717.wordpress.com>
+;    Created 2013 Triangle717 <http://triangle717.wordpress.com>
 ;
 ;    PatchIt! is free software: you can redistribute it and/or modify
 ;    it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; PatchIt! Windows Installer
-; Copyright © 2013 Triangle717
+; Created 2013 Triangle717
 ; http://Triangle717.WordPress.com
 ; Written with Inno Setup 5.5.2 Unicode
 
@@ -43,7 +43,7 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-AppCopyright=© 2013 {#MyAppPublisher}
+AppCopyright=Created 2013 {#MyAppPublisher}
 LicenseFile=..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
 DefaultDirName={code:InstallPath}
@@ -106,7 +106,7 @@ Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFla
 ; PatchIt! Icon
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; HTML Readme
-Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion  
+Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
 ; Favicon for HTML Readme
 Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! LEGO Racers settings file
@@ -121,6 +121,8 @@ Source: "..\Compile\Settings\LOCOsettings"; DestDir: "{app}"; Flags: ignoreversi
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
+; Move the PatchIt! 1.0.x Logs out of the way; The user may still want them 
+Source: "{app}\Logs\*"; DestDir: "{app}\PatchIt10xLogs"; Flags: external ignoreversion onlyifdestfileexists
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -135,6 +137,10 @@ Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipif
 ; Because for some reason, these are not getting deleted at uninstall
 Type: filesandordirs; Name: "{app}\tcl"
 Type: filesandordirs; Name: "{app}\tk"
+
+[UninstallRun]
+; Uninstall PatchIt! 1.0.x installations
+Filename: "{app}\unins*.*"; Flags: skipifdoesntexist
 
 [InstallDelete]
 ; Remove PatchIt V1.0.x settings file

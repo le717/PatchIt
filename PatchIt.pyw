@@ -72,8 +72,8 @@ def preload():
         py_arch = "x86"
 
 
-    logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info("Begin logging to {0}".format(thescore.logging_file))
+    logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################
                                         {0} {1} {2}
@@ -95,13 +95,10 @@ def preload():
 
     # The PatchIt! settings folder does exist (implied else block here)
 
-    if test:
-        if CheckLRSettings() == True or CheckLOCOSettings() == True:
-            main()
-
-    elif not test:
-        if CheckLRSettings() == True:
-            main()
+    # If the Racers or LOCO settings check come back True, go to menu.
+    # No need for a False check; that is written into the functions already
+    if CheckLRSettings() == True or CheckLOCOSettings() == True:
+        main()
 
 # ------------ End PatchIt! Initialization ------------ #
 
@@ -182,6 +179,7 @@ def main():
                 logging.info("Calling JAM Extractor wrapper module (handlejam.main())")
                 handlejam.main()
             else:
+                logging.info("User pressed an undefined key")
                 main()
 
         # Undefined input
@@ -199,37 +197,31 @@ def main():
 def Settings():
     '''PatchIt! Settings Menu'''
 
-    if not test:
+    print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
+    print('''
+[r] LEGO Racers
+[l] LEGO LOCO''')
+    settingsopt = input("\n\n> ")
+
+    # Run LEGO Racers settings
+    if settingsopt.lower() == "r":
         # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
         time.sleep(0.5)
+        logging.info("User choose LEGO Racers")
         logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
         LRReadSettings()
 
-    elif test:
-        print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
-        print('''
-[r] LEGO Racers
-[l] LEGO LOCO''')
-        settingsopt = input("\n\n> ")
+    # Run LOCO settings
+    elif settingsopt.lower() == "l":
+        logging.info("User choose LEGO LOCO")
+        logging.info("Proceeding to PatchIt! LEGO LOCO Settings (LOCOReadSettings())")
+        LOCOReadSettings()
 
-        # Run LEGO Racers settings
-        if settingsopt.lower() == "r":
-            time.sleep(0.5)
-            logging.info("User choose LEGO Racers")
-            logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
-            LRReadSettings()
-
-        # Run LOCO settings
-        elif settingsopt.lower() == "l":
-            logging.info("User choose LEGO LOCO")
-            logging.info("Proceeding to PatchIt! LEGO LOCO Settings (LOCOReadSettings())")
-            LOCOReadSettings()
-
-        # Undefined input
-        else:
-            logging.info("User pressed an undefined key")
-            logging.info("Switching to main menu")
-            main()
+    # Undefined input
+    else:
+        logging.info("User pressed an undefined key")
+        logging.info("Switching to main menu")
+        main()
 
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
@@ -246,13 +238,14 @@ def LRReadSettings():
     # The setting file does exist
     elif os.path.exists(os.path.join(settingsfol, lrsettings)):
         logging.info("LEGO Racers Settings does exist")
+
         # The defined installation was not confirmed by LRGameCheck()
         if LRGameCheck() == False:
             time.sleep(0.5)
 
             # Use path defined in LRGameCheck() for messages
-            logging.warning("LEGO Racers installation was not found! at {0}".format(definedgamepath))
-            colors.pc("\nCannot find {0} installation at\n{1}!\n".format(lrgame, definedgamepath), color.FG_LIGHT_RED)
+            logging.warning("LEGO Racers installation was not found! at {0}".format(racers_path))
+            colors.pc("\nCannot find {0} installation at\n{1}!\n".format(lrgame, racers_path), color.FG_LIGHT_RED)
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
@@ -261,8 +254,8 @@ def LRReadSettings():
         # The defined installation was confirmed by LRGameCheck()
         else:
             time.sleep(0.5)
-            logging.info("LEGO Racers installation was found at {0}.".format(definedgamepath))
-            print('\n{0} installation found at\n"{1}"!\n\n'.format(lrgame, definedgamepath) + r"Would you like to change this? (y\N)")
+            logging.info("LEGO Racers installation was found at {0}.".format(racers_path))
+            print('\n{0} installation found at\n"{1}"!\n\n'.format(lrgame, racers_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -306,13 +299,13 @@ def LRWriteSettings():
 
     # Select the LEGO Racers installation
     logging.info("Display folder selection dialog for LEGO Racers installation")
-    newgamepath = filedialog.askdirectory(
+    new_racers_game = filedialog.askdirectory(
     parent=root,
     title="Please select your {0} installation".format(lrgame)
     )
 
     # The user clicked the cancel button
-    if len(newgamepath) == 0:
+    if len(new_racers_game) == 0:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
@@ -325,7 +318,7 @@ def LRWriteSettings():
 
     # The user selected a folder
     else:
-        logging.info("User selected a new LEGO Racers installation at {0}".format(newgamepath))
+        logging.info("User selected a new LEGO Racers installation at {0}".format(new_racers_game))
 
         # Give focus back to console window
         logging.info("Give focus back to console window")
@@ -355,11 +348,11 @@ def LRWriteSettings():
 
             logging.info("Write new LEGO Racers installation to fifth line")
             print("# Your LEGO Racers installation path", file=racers_file)
-            print(newgamepath, file=racers_file)
+            print(new_racers_game, file=racers_file)
 
             # Run check for 1999 or 2001 version of Racers
             logging.info("Run LRVerCheck(newgamepath) to check what version of Racers user has")
-            LRVer = LRVerCheck(newgamepath)
+            LRVer = LRVerCheck(new_racers_game)
 
             logging.info("Write brief comment telling what version of Racers this is")
             logging.info("Write LEGO Racers version to seventh line (killing the new line ending)")
@@ -386,8 +379,8 @@ def LRGameCheck():
 
     # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO Racers installation")
-    global definedgamepath
-    definedgamepath = linecache.getline(os.path.join(settingsfol, lrsettings), 5)
+    global racers_path
+    racers_path = linecache.getline(os.path.join(settingsfol, lrsettings), 5)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
@@ -395,22 +388,22 @@ def LRGameCheck():
 
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
-    definedgamepath = definedgamepath.strip()
+    racers_path = racers_path.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
-    if os.path.exists(os.path.join(definedgamepath, "legoracers.exe".lower())) and os.path.exists(os.path.join(definedgamepath, "lego.jam".lower()))\
-    and os.path.exists(os.path.join(definedgamepath, "goldp.dll".lower())):
-        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(definedgamepath))
+    if os.path.exists(os.path.join(racers_path, "legoracers.exe".lower())) and os.path.exists(os.path.join(racers_path, "lego.jam".lower()))\
+    and os.path.exists(os.path.join(racers_path, "goldp.dll".lower())):
+        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(racers_path))
         return True
 
     # If the settings file was externally edited and the path was removed
-    elif len(definedgamepath) == 0:
+    elif len(racers_path) == 0:
         logging.warning("LEGO Racers installation is empty!")
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(definedgamepath))
+        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(racers_path))
         return False
 
 def LRVerCheck(new_racers_game):
@@ -475,6 +468,7 @@ def LOCOReadSettings():
     # The setting file does exist
     elif os.path.exists(os.path.join(settingsfol, locosettings)):
         logging.info("LEGO LOCO Settings does exist")
+
         # The defined installation was not confirmed by LOCOGameCheck()
         if LOCOGameCheck() == False:
             time.sleep(0.5)
@@ -582,7 +576,7 @@ def LOCOWriteSettings():
 
             logging.info("Write brief comment explaining what the folder path means")
 
-            logging.info("Write new LEGO Racers installation to fifth line (killing the new line ending)")
+            logging.info("Write new LEGO LOCO installation to fifth line (killing the new line ending)")
             print("# Your LEGO LOCO installation path", file=loco_file)
             print(new_loco_game, file=loco_file, end="")
 
@@ -616,6 +610,7 @@ def LOCOGameCheck():
     logging.info("Cleaning up installation text")
     loco_path = loco_path.strip()
 
+    # You have NO idea how much this small variable helps the code below
     exe_folder = os.path.join("exe".upper())
 
      # The only three items needed to confirm a LEGO LOCO installation.
