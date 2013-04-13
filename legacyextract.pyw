@@ -25,7 +25,7 @@ from os.path import exists, join
 from random import choice
 from time import sleep
 # Colored text
-import color, color.colors as colors
+import Color as color, Color.colors as colors
 # GUI! :D
 import tkinter
 from tkinter import filedialog

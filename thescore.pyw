@@ -23,7 +23,7 @@
 # http://www.swaroopch.com/notes/Python
 
 import os, logging, time
-import color, color.colors as colors
+import Color as color, Color.colors as colors
 
 # ------------ Begin PatchIt! Logging Code ------------ #
 

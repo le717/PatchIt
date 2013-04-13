@@ -25,7 +25,7 @@ import sys, os, linecache, webbrowser, time, platform
 # Patch Creation and Installation modules
 import modernextract as extract, moderncompress as compress
 # Colored shell text
-import color, color.colors as colors
+import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 # App Logging modules
@@ -127,7 +127,7 @@ def main():
 [j] JAM Extractor
 [s] PatchIt! Settings
 [q] Quit''')
-    logging.info("Display --testing menu to user")
+        logging.info("Display --testing menu to user")
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == 'e':

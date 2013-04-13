@@ -21,7 +21,7 @@
 
 import PatchIt, os, shutil, time
 # Colored shell text
-import color, color.colors as colors
+import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 # App Logging modules
@@ -33,22 +33,17 @@ def delThumbs(patchfiles):
     '''Checks for and Deletes Thumbs.db'''
 
     # Traversing the files in each subfolder..
-    logging.info("Walking through {0}...".format(patchfiles))
-    for root, dir, files in os.walk(patchfiles):
-        for item in files:
+    logging.info("Walking through {0}, looking for Thumbs.db".format(patchfiles))
+    for root, dirs, files in os.walk(patchfiles):
 
-            """Uncomment this to target all *.db files"""
-            #if item.lower().endswith(".db"):
-            if item.lower() == "thumbs.db":
-                logging.warning("Thumbs.db has been found!")
+        # Thumbs.db was found
+        if 'Thumbs.db' in files:
+            logging.warning("Thumbs.db has been found in " + root + "!")
+            colors.pc('\nThumbs.db has been found in\n"{0}"\nIt will be deleted in a few seconds.\nDon''t worry, Windows will recreate it.'.format(root), color.FG_LIGHT_RED)
 
-                """This will print upon every instance of thumbs.db. Not good. TODO: Fix it!"""
-                #print('''\nI found Thumbs.db in your files. I will delete it for you in a few seconds.
-#Don't worry, Windows will recreate it.\n''')
+            # Delete Thumbs.db
+            os.unlink(os.path.join(root, "Thumbs.db"))
 
-                """Actually delete the file(s)"""
-                logging.info("Deleting Thumbs.db (don't worry, Windows will recreate it. ;))")
-                os.unlink(os.path.join(root, item))
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
 
@@ -145,7 +140,6 @@ def patchInfo():
         colors.pc("\nCannot find any files to compress!", color.FG_LIGHT_RED)
         time.sleep(1)
         logging.info("Switching to to main menu")
-        PatchIt.main()
 
     # The user selected files for Patch creation
     else:
@@ -182,7 +176,6 @@ If you used a custom resolution, be sure to enter that in the fields below.''', 
             colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
             time.sleep(0.5)
             logging.info("Switching to main menu")
-            PatchIt.main()
 
         res_vert = int(input("\nHeight: "))
         mp = "{0}x{1}".format(res_horz, res_vert)
@@ -267,6 +260,5 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
         time.sleep(2)
         logging.info("Switching to main menu")
-        PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #

@@ -23,7 +23,7 @@ import os, time, linecache, random
 import PatchIt, legacyextract
 import gametips, zipfile
 # Colored shell text
-import color, color.colors as colors
+import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 # App Logging module
@@ -73,11 +73,10 @@ def selectPatch():
         root.destroy()
 
         logging.warning("User did not select a PatchIt! Patch for installation!")
-        colors.pc("\nCould not find a PatchIt! patch to read!\n", color.FG_LIGHT_RED)
+        colors.pc("\nCould not find a PatchIt! patch to read!", color.FG_LIGHT_RED)
         time.sleep(1)
 
         logging.info("Switching to main menu")
-        PatchIt.main()
 
     # The user selected a patch
     else:
@@ -100,10 +99,12 @@ def checkPatch(patch):
         # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
     logging.info("Reading line 1 of {0} for PiP validity check and Patch format".format(patch))
     validline = linecache.getline(patch, 1)
+    logging.info("Cleaning up validity line")
+    validline = validline.strip()
     logging.info("The validity line reads\n\n{0}".format(validline))
 
     # It's a legacy Patch
-    if validline == "// PatchIt! Patch format, created by le717 and rioforce.\n":
+    if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
         colors.pc('''{0} is a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
@@ -119,7 +120,7 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         legacyextract.readPatch(patch)
 
     # It's a modern Patch
-    elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+    elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
         logging.info("{0} is a modern PatchIt! Patch".format(patch))
 
         # Dump PiP validity cache after reading
@@ -130,7 +131,7 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         readModernPatch(patch)
 
     # It's not a Patch at all! D:
-    elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+    elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc("{0} is not a valid PatchIt! Patch!\n".format(patch), color.FG_LIGHT_RED)
 
@@ -139,7 +140,6 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         linecache.clearcache()
         time.sleep(1)
         logging.info("Switching to main menu")
-        PatchIt.main()
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -214,7 +214,6 @@ Game: {3}
         print("\nCanceling installation of {0} {1}...".format(name, version))
         time.sleep(1)
         logging.info("Switching to main menu")
-        PatchIt.main()
 
     else:
         # Yes, I do want to install it!
@@ -314,6 +313,5 @@ If the error continues, contact {6}and ask for a fixed version.'''
         # Sleep for 4.5 seconds after displaying installation result before kicking back to the PatchIt! menu.
         time.sleep(4.5)
         logging.info("Switching to main menu")
-        PatchIt.main()
 
 # ------------ End PatchIt! Patch Installation ------------ #
