@@ -34,13 +34,10 @@ LEGO LOCO
 Credits
 -------
 
-***Nyan Cat-Athon* mod created by JimbobJeffers, rehosted with permission. *Royally Crafted Raceway* mod created by Segatendo, rehosted with permission.**
+***Nyan Cat-Athon* was created by JimbobJeffers, rehosted with permission. *Royally Crafted Raceway* was created by Segatendo, rehosted with permission.**
 
 ***The Nyan Cat* was created by [PRguitarman](http://www.prguitarman.com/index.php?id=348), and [saraj00n](http://www.youtube.com/user/saraj00n).**
 
 **[Minecraft](http://minecraft.net/) is created by Mojang, and is in no way, shape, or form, affiliated with or involved in the development of PatchIt!**
 
 **Majong © 2009-2013. "Minecraft" is a trademark of Notch Development AB**.
-
-
-
