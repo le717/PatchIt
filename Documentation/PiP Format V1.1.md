@@ -1,7 +1,7 @@
-PatchIt! .PiP Format
+PatchIt! PiP Format
 ====================
 
-**THIS DOCUMENT IS INCOMPLETE! The file format outlined in this document is not yet finalized, and is subject to change.**
+**THIS DOCUMENT IS INCOMPLETE! While the file format outlined in this document is final, complete documentation has yet to be written.**
 
 General Information
 -------------------
@@ -26,12 +26,12 @@ that **must** match **PatchIt!**'s internal version exactly to confirm it is a v
 * Legacy (V1.0.1) patches are determined by lookin for that version's validity line, and if found, is installed using the legacy installation method.
 * Only Modern (post-V1.0.1) patches are written. Legacy patches are installed only for backward compatibility purposes. Legacy Patches are not and will not be 
 written anymore.  
-* The *MP* field
-* The *Game* field
+* The *MP* (or *M*ulti-*P*urpose) field contains various Patch info.
+* The *Game* field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
 * The Description of the mod is written on the last three lines. Unlike V1.0.1, this layout does not have an 161 character limit.
 * The ZIP archive and the PiP file uses the mod's name and version as the filename.
 
-**The PiP file layout can be found [below.](#pip-file-format-version-11-draft-3-r1-layout)**
+**The PiP file layout can be found [below.](#pip-version-11-file-format-layouts)**
 
 #### PiP ZIP Archive Layout
 
@@ -46,7 +46,10 @@ The same goes for files that are scattered in the root of the archive. If *ENGLI
 
 **An example ZIP archive layout can be found below.**
 
-### PiP File Format Version 1.1 Draft 3 r1 Layout
+PiP Version 1.1 File Format Layouts
+-----------------------------------
+
+### General PiP File Format Version 1.1 Layout
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
@@ -64,10 +67,28 @@ This is the second line of a description
 This is the third line of a description
 ```
 
-### Example ZIP Archive Layout
+### Example LEGO Racers PiP File Format Version 1.1 Layout
 
 ```
-NameVersion.zip/
+// PatchIt! PiP file format V1.1, developed by le717 and rioforce
+[ZIP]
+Racing Machine 1.0.1.zip
+[GENERAL]
+Jackson
+1.0.1
+Racing Machine
+MP
+LEGO Racers
+[DESCRIPTION]
+Racing Machine is a example LEGO Racers PatchIt! Patch
+It does not exist, and unless someone makes it,
+IT NEVER WILL. :)
+```
+
+### Example LEGO Racers ZIP Archive Layout
+
+```
+Racing Machine 1.0.1.zip/
     GAMEDATA/
         RACEC2R0/
 			KMT.BMP
@@ -85,29 +106,82 @@ NameVersion.zip/
 	builder.tun
 ```
 
+### Example LEGO LOCO PiP File Format Version 1.1 Layout
+
+```
+// PatchIt! PiP file format V1.1, developed by le717 and rioforce
+[ZIP]
+Happy Trains 5.8.zip
+[GENERAL]
+Thomas
+5.8
+Happy Trains
+1920x1280
+LEGO LOCO
+[DESCRIPTION]
+I like trains! I really do!
+My name is Thomas, just like Thomas the Tank Engine!
+That is why I made this example PatchIt! Patch.
+```
+
+### Example LEGO LOCO ZIP Archive Layout
+
+```
+Happy Trains 5.8.zip/
+    art-res/
+        backdrop/
+			HappyTrain.bmp
+			AngryTrain.bmp
+		video/
+			music.wav
+        SAVEGAME/
+            HappyTrain.sav
+            AngryTrain.sav
+    Video/
+		locoIntr.avi
+```
+
 Revision History
 ----------------
 
+* 1.1 Final : April 14, 2013
+
+> * Finalized PiP Format 1.1 
+> * Added description of MP and Game fields
+> * Added example LEGO LOCO and LEGO Racers PiP Patches
+
 * 1.1 Draft 3 r1: April 6, 2013
 
-> Renamed Mod Type field to MP ('M'ulti-'P'urpose) field.
+> * Renamed Mod Type field to MP ('M'ulti-'P'urpose) field.
 
 * 1.1 Draft 3: March 16, 2013
 
-> Added Game field, re-purposing of Mod Type field
+> * Added Game field, re-purposing of Mod Type field
 
 * 1.1 Draft 2: March 5 & 6, 2013
 
-> Improvement on Draft 1, Added Mod Type field (complete details not yet available)
+> * Improvement on Draft 1, Added Mod Type field (complete details not yet available)
 
 * 1.1 Draft 1: March 3, 2013
 
-> Rewrite of format, outlined in [PatchIt! Dev-log #5](http://wp.me/p1V5ge-yl)
+> * Rewrite of format, outlined in [PatchIt! Dev-log #5](http://wp.me/p1V5ge-yl)
 
 * 1.0.1: February 20, 2013
+
+> * Coming Soon
+
 * 1.0: February 18, 2013
+
+> * Coming Soon
+
 * Draft 3: February 15, 2013
+
+> * Coming Soon
+
 * Draft 2: February 8, 2013
+
+> * Coming Soon
+
 * Draft 1: February 2, 2013
 
-> First design
+> * First design

@@ -1,4 +1,4 @@
-#!python3
+#! python3
 """
     This file is part of PatchIt!
 
@@ -28,9 +28,9 @@ minver = "Unstable"
 # Write window title (since there is no GUI)
 os.system("title {0} {1} {2}".format(app, majver, minver))
 
-# User is not running Python 3.3.1
-if sys.version_info < (3,3,1):
-    sys.stdout.write("\nYou need to download Python 3.3.1 to run {0} {1} {2}.\n".format(app, majver, minver))
+# User is not running Python 3.3.0
+if sys.version_info < (3,3,0):
+    sys.stdout.write("\nYou are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n".format(sys.version[0:5], app, majver, minver))
 
     # Don't open browser immediately
     time.sleep(2)
