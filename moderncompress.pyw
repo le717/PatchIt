@@ -26,6 +26,7 @@ import Color as color, Color.colors as colors
 from tkinter import (filedialog, Tk)
 # App Logging modules
 import logging
+import re
 
 # ------------ Begin Thumbs.db Check And Delete Code ------------ #
 
@@ -47,6 +48,37 @@ def delThumbs(patchfiles):
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
 
+def charCheck(strg, search=re.compile(r'[^a-z0-9.]').search):
+    '''Check if an invalid character was entered or not'''
+
+    # This returns True if everything is valid, and False if it isn't
+    return not bool(search(strg))
+
+def patchName():
+    '''Ask for Patch Name'''
+
+    logging.info("Ask for Patch name (patchName())")
+    name = input("\nName: ")
+
+    # I want to quit the process
+    if name.lower() == "q":
+        logging.warning("User canceled PatchIt! Patch Creation!")
+        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
+        time.sleep(0.5)
+        logging.info("Switching to main menu")
+        PatchIt.main()
+
+    # No invalid characters were entered
+    if charCheck(name) == True:
+        logging.info("All characters in Patch name are allowed")
+        global name
+
+    # An invalid character was entered
+    else:
+        # Loop back through the Patch Name Process
+        logging.warning("TODO: WRITE MESSAGE")
+        patchName()
+
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
@@ -60,20 +92,12 @@ def patchInfo():
     logging.info('Type "q" in the "Name:" field to cancel the Patch Creation process.')
     colors.pc('Type "q" in the "Name:" field to cancel.', color.FG_WHITE)
 
-    logging.info("Ask for Patch name")
-    name = input("\nName: ")
+    logging.info("Ask for Patch name (patchName())")
+    patchName()
 
-    # I want to quit the process
-    if name.lower() == "q":
-        logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
-        time.sleep(0.5)
-        logging.info("Switching to main menu")
-        PatchIt.main()
-
-    # I want to continue on (implied else block)
     logging.info("Ask for Patch version")
     version = input("Version: ")
+##    patchVersion()
 
     logging.info("Ask for Patch author")
     author = input("Author: ")

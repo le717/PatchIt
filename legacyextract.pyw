@@ -87,7 +87,7 @@ def readPatch(installpatch):
         # Read the settings file for installation (LEGO Racers directory)
         # Updated in semi-accordance with PatchIt! Dev-log #6
         logging.info("Reading line 5 of settings for LEGO Racers installation")
-        installpath = linecache.getline(os.path.join("Settings", "LRsettings"), 5)
+        installpath = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
 
         # Create a valid folder path
         logging.info("Cleaning up installation text")

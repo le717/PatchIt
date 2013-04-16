@@ -12,11 +12,11 @@
 
     PatchIt! is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with PatchIt!  If not, see <http://www.gnu.org/licenses/>.
+    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 # PatchIt! setup script using cx_Freeze.
 # Taken from https://github.com/Lyrositor/EBPatcher
@@ -31,10 +31,10 @@ import sys, platform
 if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 
 # Compile into the proper folder depending on the architecture
-if platform.architecture('64bit'):
-    destfolder = "Compile/Windows64"
-elif platform.architecture('32bit'):
+if platform.architecture('32bit'):
     destfolder = "Compile/Windows32"
+elif platform.architecture('64bit'):
+    destfolder = "Compile/Windows64"
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
@@ -56,8 +56,8 @@ setup(
     name = "PatchIt!",
     version = "{0} {1}".format(majver, minver),
     author = "Triangle717",
-    description = "PatchIt! Version {0} {1}, copyright 2013 Triangle717".format(majver, minver),
+    description = "PatchIt! Version {0} {1}, created 2013 Triangle717".format(majver, minver),
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("PyVerCheck.py", targetName="PatchIt.exe")]
+    executables = [Executable("RunIt.py", targetName="PatchIt.exe")]
 )

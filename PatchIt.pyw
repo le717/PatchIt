@@ -1,4 +1,3 @@
-#!python3
 """
     This file is part of PatchIt!
 
@@ -43,8 +42,8 @@ settingsfol = "Settings"
 # GLobal game settings
 lrgame = "LEGO Racers"
 locogame = "LEGO LOCO"
-lrsettings = "LRsettings"
-locosettings = "LOCOsettings"
+lrsettings = "Racers.cfg"
+locosettings = "LOCO.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
