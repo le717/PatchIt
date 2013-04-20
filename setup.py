@@ -31,10 +31,10 @@ import sys, platform
 if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 
 # Compile into the proper folder depending on the architecture
-if platform.architecture('32bit'):
-    destfolder = "Compile/Windows32"
-elif platform.architecture('64bit'):
+if platform.architecture('64bit'):
     destfolder = "Compile/Windows64"
+elif platform.architecture('32bit'):
+    destfolder = "Compile/Windows32"
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,

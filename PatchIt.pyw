@@ -28,7 +28,7 @@ import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 # App Logging modules
-import logging, thescore
+import logging
 # Command-line arguments
 import argparse
 
@@ -64,14 +64,14 @@ def cmdArgs():
 def preload():
     '''PatchIt! first-run checks'''
 
-    # Check if Python is x86 or x64, taken from Python help file (platform module)
-    if sys.maxsize > 2**32:
+    # Check if Python is x86 or x64
+    if platform.architecture('64bit'):
         py_arch = "AMD64"
-    else:
+    elif platform.architecture('32bit'):
         py_arch = "x86"
 
-
-    logging.info("Begin logging to {0}".format(thescore.logging_file))
+    logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
+    logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################

@@ -18,7 +18,9 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Unstable Python Version Check and PatchIt! Launcher
+# PatchIt! V1.1.0 Unstable Python Version Check, PatchIt! Logger, and PatchIt! Launcher
+# logging.BasicConfig code based on example from A Byte of Python
+# http://www.swaroopch.com/notes/Python
 import sys, os, webbrowser, time
 
 app = "PatchIt!"
@@ -34,16 +36,67 @@ if sys.version_info < (3,3,0):
 
     # Don't open browser immediately
     time.sleep(2)
-    webbrowser.open_new_tab("http://python.org/download") # New tab, raise browser window (if possible)
+    webbrowser.open_new_tab("http://python.org/download/") # New tab, raise browser window (if possible)
 
     # Close PatchIt!
     raise SystemExit
 
 # (Implied else block here)
-# The user is running Python 3.3.1, import PatchIt
+# The user is running Python 3.3.1,
+
+import logging
+import Color as color, Color.colors as colors
+
+# ------------ Begin PatchIt! Logging Code ------------ #
+
+def appLoggingFolder():
+    '''Checks for (and creates) PatchIt! Logs folder'''
+
+    try:
+        # The Logs folder does not exist in the current directory
+        if not os.path.exists(os.path.join(os.getcwd(), "Logs")):
+
+            # Create the Logs folder
+            logsfolder = os.mkdir(os.path.join(os.getcwd(), "Logs"))
+
+    except PermissionError:
+        colors.pc("\nPatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.", color.FG_LIGHT_RED)
+        # Display message long enough so user can read it
+        time.sleep(5)
+        # Close program
+        raise SystemExit
+
+def logConfig():
+    '''Set Logging Settings'''
+    try:
+
+    # -- Begin Logging Config -- #
+
+        logging.basicConfig(
+            level = logging.DEBUG,
+            format = "%(asctime)s : %(levelname)s : %(message)s",
+            filename = logging_file,
+            filemode = 'a+',
+        )
+
+    # -- End Logging Config -- #
+
+    # PatchIt! does not have the rights to set the Log Config
+    except PermissionError:
+        colors.pc("\nPatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.", color.FG_LIGHT_RED)
+
+        # Display message long enough so user can read it
+        time.sleep(5)
+        # Close program
+        raise SystemExit
+
+
 import PatchIt
 if __name__ == "__main__":
     # Run PatchIt! Initialization
+    appLoggingFolder()
+    logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
+    logConfig()
     PatchIt.cmdArgs()
     PatchIt.preload()
 

@@ -24,8 +24,9 @@ import PatchIt, os, shutil, time
 import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
-# App Logging modules
+# App Logging module
 import logging
+# Character Check
 import re
 
 # ------------ Begin Thumbs.db Check And Delete Code ------------ #
@@ -40,6 +41,7 @@ def delThumbs(patchfiles):
         # Thumbs.db was found
         if 'Thumbs.db' in files:
             logging.warning("Thumbs.db has been found in " + root + "!")
+            # TODO: This STILL repeats itself every time Thumbs.db is found...
             colors.pc('\nThumbs.db has been found in\n"{0}"\nIt will be deleted in a few seconds.\nDon''t worry, Windows will recreate it.'.format(root), color.FG_LIGHT_RED)
 
             # Delete Thumbs.db
@@ -48,7 +50,10 @@ def delThumbs(patchfiles):
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
 
-def charCheck(strg, search=re.compile(r'[^a-z0-9.]').search):
+
+# ------------ Begin Name and Version Character Checks ------------ #
+
+def charCheck(strg, search=re.compile(r'[^A-Za-z0-9.]').search):
     '''Check if an invalid character was entered or not'''
 
     # This returns True if everything is valid, and False if it isn't
@@ -57,13 +62,12 @@ def charCheck(strg, search=re.compile(r'[^a-z0-9.]').search):
 def patchName():
     '''Ask for Patch Name'''
 
-    logging.info("Ask for Patch name (patchName())")
-    name = input("\nName: ")
+    name = input("Name: ")
 
     # I want to quit the process
     if name.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
+        colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_LIGHT_RED)
         time.sleep(0.5)
         logging.info("Switching to main menu")
         PatchIt.main()
@@ -71,13 +75,38 @@ def patchName():
     # No invalid characters were entered
     if charCheck(name) == True:
         logging.info("All characters in Patch name are allowed")
-        global name
+        return name
 
     # An invalid character was entered
     else:
+        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+        logging.warning("There were illegal characters in the Patch name!")
+
         # Loop back through the Patch Name Process
-        logging.warning("TODO: WRITE MESSAGE")
+        logging.info("Looping back through patchName()")
         patchName()
+
+def patchVersion():
+    '''Ask for Patch Version'''
+
+    logging.info("Ask for Patch version (patchVersion())")
+    version = input("Version: ")
+
+    # No invalid characters were entered
+    if charCheck(version) == True:
+        logging.info("All characters in Patch version are allowed")
+        return version
+
+    # An invalid character was entered
+    else:
+        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+        logging.warning("There were illegal characters in the Patch version!")
+
+        # Loop back through the Patch Version Process
+        logging.info("Looping back through patchVersion()")
+        patchVersion()
+
+# ------------ End Name and Version Character Checks ------------ #
 
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
@@ -90,14 +119,13 @@ def patchInfo():
 
     # Tells the user how to cancel the process
     logging.info('Type "q" in the "Name:" field to cancel the Patch Creation process.')
-    colors.pc('Type "q" in the "Name:" field to cancel.', color.FG_WHITE)
+    colors.pc('Type "q" in the "Name:" field to cancel.\n', color.FG_WHITE)
 
     logging.info("Ask for Patch name (patchName())")
-    patchName()
+    name = patchName()
 
-    logging.info("Ask for Patch version")
-    version = input("Version: ")
-##    patchVersion()
+    logging.info("Ask for Patch version (patchVersion())")
+    version = patchVersion()
 
     logging.info("Ask for Patch author")
     author = input("Author: ")
@@ -119,16 +147,17 @@ def patchInfo():
         logging.info("User selected LEGO Racers")
         game = "LEGO Racers"
 
+        # Value for MP field
+        mp = "MP"
+
     # It's an LOCO Patch
     elif game_select.lower() == "l":
         logging.info("User selected LEGO LOCO")
         game = "LEGO LOCO"
 
-    # If it is a LOCO patch, get the resolution the map was created in (it matters!)
-    if game == "LEGO LOCO":
-        mp = LOCORes()
-    else:
-        mp = "MP"
+        # Get the resolution the map was created in (it matters!) for the MP field
+        logging.info("Switching to LOCORes(name) to get map resolution")
+        mp = LOCORes(name)
 
 
     # Draw (then withdraw) the root Tk window
@@ -173,44 +202,34 @@ def patchInfo():
         logging.info("Switching to to writePatch(patchfiles, name, version, author, desc, which_game)")
         writePatch(patchfiles, name, version, author, desc, mp, game)
 
-def LOCORes():
+def LOCORes(name):
     '''Enter the resolution this LOCO map was created with'''
 
-    # TODO: add message about custom resolutions
-    logging.info("What resoultion was this map created with?")
-    print('''\nWhat resolution was this LEGO LOCO map created with?
-Hint: if you are unsure, it will most likely be either''')
+    logging.info("What resolution was this LEGO LOCO map created with?")
+    print('''\nWhat resolution was "{0}" created with?
+Hint: if you are unsure, it will most likely be either'''.format(name))
 
     colors.pc('''
 800x600,
 1024x768,
 1920x1024
 
-If you used a custom resolution, be sure to enter that in the fields below.''', color.FG_LIGHT_MAGENTA)
-    colors.pc('\nType "0" in the "Width:" field to cancel.', color.FG_WHITE)
+If you used a custom resolution, be sure to enter that into the fields below.''', color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because screen resolution is not expressed in decimial numbers nor words, but numbers
         res_horz = int(input("\nWidth: "))
-
-        # Allow the user to cancel the Patch Creation
-        # TODO: if user cancels it, go back to main menu or beginning of Patch Creation process?
-        if res_horz == 0:
-            logging.warning("User canceled PatchIt! Patch Creation!")
-            colors.pc("\nCanceling creation of {0} Patch".format(PatchIt.app), color.FG_LIGHT_RED)
-            time.sleep(0.5)
-            logging.info("Switching to main menu")
-
-        res_vert = int(input("\nHeight: "))
+        res_vert = int(input("Height: "))
         mp = "{0}x{1}".format(res_horz, res_vert)
         logging.info("Returning mp variable")
         return mp
 
     # A valid resolution was not entered
     except ValueError:
+        colors.pc("You have entered a non-numerical character!")
         logging.warning("User entered an invalid number!")
         logging.info("Looping back through LOCORes()")
-        LOCORes()
+        LOCORes(name)
 
 
 def writePatch(patchfiles, name, version, author, desc, mp, game):
