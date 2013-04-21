@@ -62,6 +62,7 @@ UninstallDisplayIcon={app}\PatchItIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
+; TODO: If if this is fixed yet!
 UninstallDisplaySize=16252928
 ; Compression
 Compression=lzma/ultra
@@ -75,6 +76,7 @@ RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 ; This is required because Inno is having issues figuring out how large the files are. :|
+; TODO: If if this is fixed yet!
 ExtraDiskSpaceRequired=16252928
 
 [Languages]
@@ -107,21 +109,20 @@ Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFla
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; HTML Readme
 Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
-; Favicon for HTML Readme
-Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! LEGO Racers settings file
-Source: "..\Compile\Settings\LRsettings"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 ; Again for Settings_Reset switch
-Source: "..\Compile\Settings\LRsettings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset
 ; PatchIt! LEGO LOCO settings file
-Source: "..\Compile\Settings\LOCOsettings"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 ; Again for Settings_Reset switch
-Source: "..\Compile\Settings\LOCOsettings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset
 ; 64-bit Windows build
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
 ; Move the PatchIt! 1.0.x Logs out of the way; The user may still want them 
+; TODO: Check if this works properly
 Source: "{app}\Logs\*"; DestDir: "{app}\PatchIt10xLogs"; Flags: external ignoreversion onlyifdestfileexists
 
 [Icons]
@@ -140,10 +141,12 @@ Type: filesandordirs; Name: "{app}\tk"
 
 [UninstallRun]
 ; Uninstall PatchIt! 1.0.x installations
+; TODO: Check if this works properly
 Filename: "{app}\unins*.*"; Flags: skipifdoesntexist
 
 [InstallDelete]
 ; Remove PatchIt V1.0.x settings file
+; TODO: Check if this works properly
 Type: files; Name: "{app}\settings"
 
 [Code]   
