@@ -47,9 +47,10 @@ a:hover { text-decoration: underline; }
 </table>
 <a name="Intro"></a>
 <h2>Introduction</h2>
-<p>This is the Readme for <span class="bold">PatchIt!</span>, a <a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a>
-application intended to provide a standard yet simple way to package and install mods for the 1999 High Voltage Software PC game <span class="italic">LEGO
-Racers</span>.<a name="How"></a>
+<p class="center">This is the Readme for <span class="bold">PatchIt!</span>, standard and simple way to package and install mods for the 1999 High Voltage 
+Software PC game <span class="italic">LEGO Racers</span>, written purely in 
+<a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a>.</p>
+<a name="How"></a>
 
 <h2>Usage</h2>
 
@@ -72,9 +73,10 @@ important, for if it is played in a different resolution, some elements may be c
 
 <h4 class="italic">Be Careful!</h4>
 <p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>), 
-back-slash (<code>\</code>),and forward-slash (<code>/</code>)<br> are not permitted as filenames, and entering these into the <code>Name:</code> and <code>
-Version:</code> fields will have undesired effects on your computer.<br>They are only permitted in the <code>Author:</code> and <code>Description:</code> 
-fields, where no harm will be done.</p>
+back-slash (<code>\</code>),and forward-slash (<code>/</code>)<br> are not permitted in the <code>Name:</code> and <code>Version:</code> fields, due to 
+internal Windows restrictions.<br>As of <span class="bold">PatchIt! 1.1.0 Stable</span>, these characters are not permitted, and entering them will prompt you 
+to enter vaild characters.<br>You can learn more about this issue and it's fix <a href="https://github.com/le717/PatchIt/issues/3" target="_blank">here</a>.
+</p>
 
 <h3>First Run</h3>
 <p>Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked to set up the required Settings. The steps below will walk you 
