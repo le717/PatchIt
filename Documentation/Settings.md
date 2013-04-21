@@ -11,16 +11,30 @@ General Information
 * Data for each game **PatchIt!** support is saved in a separate *.cfg* under the *Settings* folder
 * Each file uses the name of the supported game (sans LEGO). 
 
-LEGO Racers Settings
---------------------
+Example LEGO Racers Settings
+----------------------------
 
 * Filename: *Racers.cfg*
 
-*Coming Soon* 
+```
+// PatchIt! V1.1.x LEGO Racers Settings
+# Ensures the first-run process will be skipped next time
+1
+# Your LEGO Racers installation path
+C:/Users/Public/Racers
+# Your version of LEGO Racers
+2001
+```
 
-LEGO LOCO Settings
-------------------
+Example LEGO LOCO Settings
+--------------------------
 
 * Filename: *LOCO.cfg*
 
-*Coming Soon*
+```
+// PatchIt! V1.1.x LEGO LOCO Settings
+# Ensures the first-run process will be skipped next time
+1
+# Your LEGO LOCO installation path
+C:/Users/Public/LOCO
+```
