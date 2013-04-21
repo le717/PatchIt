@@ -32,7 +32,7 @@
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.1.0"
 #define MyAppVerName "PatchIt! Version 1.1.0 Unstable"
-#define MyInstallerName "PatchIt!-Version-1.1.0-Unstable"
+#define MyInstallerName "PatchIt-Version-1.1.0-Unstable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -54,6 +54,7 @@ SetupIconFile=..\Icons\PatchItIcon.ico
 WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
+; Hint: The same folder as this script
 OutputDir=.\
 OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
@@ -62,7 +63,7 @@ UninstallDisplayIcon={app}\PatchItIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
-; TODO: If if this is fixed yet!
+; TODO: Check if this is fixed yet!
 UninstallDisplaySize=16252928
 ; Compression
 Compression=lzma/ultra
@@ -76,7 +77,7 @@ RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 ; This is required because Inno is having issues figuring out how large the files are. :|
-; TODO: If if this is fixed yet!
+; TODO: Check if this is fixed yet!
 ExtraDiskSpaceRequired=16252928
 
 [Languages]
@@ -117,13 +118,13 @@ Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: igno
 Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 ; Again for Settings_Reset switch
 Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset
-; 64-bit Windows build
+; 64-bit Windows build                                                     
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
-; Move the PatchIt! 1.0.x Logs out of the way; The user may still want them 
-; TODO: Check if this works properly
-Source: "{app}\Logs\*"; DestDir: "{app}\PatchIt10xLogs"; Flags: external ignoreversion onlyifdestfileexists
+; Move the PatchIt! 1.0.x Logs out of the way; The user may still want them
+; TODO: Rename the folder, rather than just make a copy of it                                                  
+Source: "{app}\Logs\*.*"; DestDir: "{app}\PatchIt10xLogs"; Flags: external skipifsourcedoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -139,14 +140,9 @@ Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipif
 Type: filesandordirs; Name: "{app}\tcl"
 Type: filesandordirs; Name: "{app}\tk"
 
-[UninstallRun]
-; Uninstall PatchIt! 1.0.x installations
-; TODO: Check if this works properly
-Filename: "{app}\unins*.*"; Flags: skipifdoesntexist
 
 [InstallDelete]
 ; Remove PatchIt V1.0.x settings file
-; TODO: Check if this works properly
 Type: files; Name: "{app}\settings"
 
 [Code]   
