@@ -1,7 +1,7 @@
 PatchIt! Extras
 ===============
 
-**PatchIt!** Extras are simply optional downloads that make **PatchIt!** more enjoyable.
+**PatchIt! Extras** are simply optional downloads that make **PatchIt!** more enjoyable.
 
 Why would you download a mod installer and not have anything to install?  Answer: you wouldn't! So I've provided a few mod packs
 to get you started. ![](http://s0.wp.com/wp-includes/images/smilies/icon_smile.gif?raw=true)
@@ -19,6 +19,7 @@ Complete with custom music of the Nyan Cat's theme song, this mod will be sure t
 [Download Nyan Cat-Athon (Direct link)](https://github.com/le717/PatchIt/raw/Extras/Nyan_Cat-AthonV1.1.zip)
 
 #### Royally Crafted Raceway
+
 This interesting mod, created by Segatendo, reskins Royal Knights Raceway with Minecraft textures, 
 reflecting the calm/creative side of Minecraft, creating possibly the calmest mod available for this track!
 Royally Crafted Raceway is so calm that it might even calm you down enough to win the race. :P
@@ -29,12 +30,24 @@ Royally Crafted Raceway is so calm that it might even calm you down enough to wi
 LEGO LOCO
 ---------
 
-### Maps
+## Maps
+
+### Nimbus Station
+
+This map created by PANGOLIN2 is an recreation of Nimbus Station from LEGO Universe. It features Nimbus Plaza, Red Blocks, The Racetrack, and much more!
+**PatchIt! V1.1.0 Stable + only**
+
+[Download Nimbus Station (Direct link)](https://github.com/le717/PatchIt/raw/Extras/)
+
 
 Credits
 -------
 
-***Nyan Cat-Athon* was created by JimbobJeffers, rehosted with permission. *Royally Crafted Raceway* was created by Segatendo, rehosted with permission.**
+* ***Nyan Cat-Athon* was created by JimbobJeffers, rehosted with permission.**
+
+* ***Royally Crafted Raceway* was created by Segatendo, rehosted with permission.**
+
+* ***Nimbus Station* was created by PANGOLIN2, rehosted with permission.**
 
 ***The Nyan Cat* was created by [PRguitarman](http://www.prguitarman.com/index.php?id=348), and [saraj00n](http://www.youtube.com/user/saraj00n).**
 
