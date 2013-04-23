@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
     Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -64,14 +64,6 @@ def patchName():
 
     name = input("Name: ")
 
-    # I want to quit the process
-    if name.lower() == "q":
-        logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_LIGHT_RED)
-        time.sleep(0.5)
-        logging.info("Switching to main menu")
-        PatchIt.main()
-
     # No invalid characters were entered
     if charCheck(name) == True:
         logging.info("All characters in Patch name are allowed")
@@ -118,25 +110,13 @@ def patchInfo():
     colors.pc("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
-    logging.info('Type "q" in the "Name:" field to cancel the Patch Creation process.')
-    colors.pc('Type "q" in the "Name:" field to cancel.\n', color.FG_WHITE)
-
-    logging.info("Ask for Patch name (patchName())")
-    name = patchName()
-
-    logging.info("Ask for Patch version (patchVersion())")
-    version = patchVersion()
-
-    logging.info("Ask for Patch author")
-    author = input("Author: ")
-
-    logging.info("Ask for Patch description")
-    desc = input("Description: ")
+    logging.info('Type "q" in the next field to cancel the Patch Creation process.')
+    colors.pc('Type "q" in the next field to cancel.\n', color.FG_WHITE)
 
     # Get what game this Patch is for
     logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
 
-    print("\nWhich game is this Patch created for?")
+    print("Which game is this Patch created for?")
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO''')
@@ -154,6 +134,29 @@ def patchInfo():
     elif game_select.lower() == "l":
         logging.info("User selected LEGO LOCO")
         game = "LEGO LOCO"
+
+     # I want to quit the process
+    elif game_select.lower() == "q":
+        logging.warning("User canceled PatchIt! Patch Creation!")
+        colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_LIGHT_RED)
+        time.sleep(0.5)
+        logging.info("Switching to main menu")
+        PatchIt.main()
+
+    logging.info("Ask for Patch name (patchName())")
+    print("\n")
+    name = patchName()
+
+    logging.info("Ask for Patch version (patchVersion())")
+    version = patchVersion()
+
+    logging.info("Ask for Patch author")
+    author = input("Author: ")
+
+    logging.info("Ask for Patch description")
+    desc = input("Description: ")
+
+    if game == "LEGO LOCO":
 
         # Get the resolution the map was created in (it matters!) for the MP field
         logging.info("Switching to LOCORes(name) to get map resolution")

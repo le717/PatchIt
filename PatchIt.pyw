@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
     Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -77,7 +77,7 @@ def preload():
                                 #############################################
                                         {0} {1} {2}
                                         Copyright 2013 {3}
-                                        TheWritingsofPatchIt.log
+                                            PatchIt.log
 
 
                                     If you run into a bug, open an issue at
@@ -161,8 +161,6 @@ def main():
 
         elif menuopt.lower() == "q":
             logging.info("User pressed '[q] Quit'")
-            colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
-            time.sleep(3)
             logging.info('''PatchIt! is shutting down
             ''')
             raise SystemExit

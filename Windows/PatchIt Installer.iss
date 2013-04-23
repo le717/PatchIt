@@ -111,20 +111,18 @@ Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; HTML Readme
 Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
 ; PatchIt! LEGO Racers settings file
-Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
-; Again for Settings_Reset switch
-Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion   
 ; PatchIt! LEGO LOCO settings file
 Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
-; Again for Settings_Reset switch
-Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset
+
+; Repeated for Settings_Reset switch
+Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Permissions: users-modify; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Permissions: users-modify; Flags: ignoreversion; Tasks: Settings_Reset
+
 ; 64-bit Windows build                                                     
 Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
-; Move the PatchIt! 1.0.x Logs out of the way; The user may still want them
-; TODO: Rename the folder, rather than just make a copy of it                                                  
-Source: "{app}\Logs\*.*"; DestDir: "{app}\PatchIt10xLogs"; Flags: external skipifsourcedoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"

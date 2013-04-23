@@ -2,7 +2,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
     Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     This program is free software: you can redistribute it and/or modify
@@ -25,16 +25,17 @@
 
 from cx_Freeze import setup, Executable
 from PatchIt import majver, minver
-import sys, platform
+import sys
 
 # Append build to the arguments. Just type "python setup.py" and it will compile
 if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 
 # Compile into the proper folder depending on the architecture
-if platform.architecture('64bit'):
-    destfolder = "Compile/Windows64"
-if platform.architecture('32bit'):
+# Based on code from the Python help file (platform module) and my own tests
+if sys.maxsize == 2147483647:
     destfolder = "Compile/Windows32"
+else:
+    destfolder = "Compile/Windows64"
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,

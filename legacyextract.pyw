@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
     Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -109,7 +109,7 @@ def readPatch(installpatch):
 
         # Display the Racers game tips
         logging.info("Display LEGO Racers gameplay tip")
-        colors.pc(choice(gametips.gametips), color.FG_LIGHT_GREEN)
+        colors.pc("\nHere's a tip!\n" + choice(gametips.gametips), color.FG_LIGHT_GREEN)
         try:
             # Actually extract the ZIP archive
             logging.info("Extract {0} to {1}".format(installzipfile, installpath))

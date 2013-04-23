@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
     Created 2013 Triangle717 <http://triangle717.wordpress.com>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -37,7 +37,7 @@ def selectPatch():
     print("\nInstall a PatchIt! Patch\n")
     logging.info("Install a PatchIt! Patch")
 
-        # PiP label for Patch selection dialog box
+    # PiP label for Patch selection dialog box
     fileformat = [("PatchIt! Patch", "*.PiP")]
 
     # Draw (then withdraw) the root Tk window
@@ -202,7 +202,12 @@ Game: {3}
 "{4}"'''.format(name, version, author, game, desc)
 
     # Display the info
-    print(mod_info, end="\n")
+    print('''\n{0}
+Version: {1}
+Author: {2}
+Game: {3}
+
+"{4}"'''.format(name, version, author, game, desc), end="\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))
@@ -251,13 +256,13 @@ def installModernPatch(patch, name, version, author, game, mp):
     ziparchive = ziparchive.rstrip("\n")
 
     # Find the ZIP archive
-    ziplocation = patch.rstrip("{0}{1}{2}".format(name, version, ".PiP"))
+    ziplocation = patch.rstrip("/{0}{1}.PiP".format(name, version))
     logging.info("Locate ZIP archive at {0}".format(ziplocation))
 
     # Display the Racers game tips only if this is a Racers patch
     if game == "LEGO Racers":
         logging.info("Display LEGO Racers gameplay tip")
-        colors.pc(random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
+        colors.pc("\nHere's a tip!\n" + random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
 
     elif game == "LEGO LOCO":
         logging.info("Display resolution the LEGO LOCO map was created with")
@@ -268,7 +273,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
     try:
         # Actually extract the ZIP archive
         logging.info("Extract {0} to {1}".format(ziparchive, installationpath))
-        with zipfile.ZipFile(ziplocation + ziparchive, "r") as extractzip:
+        with zipfile.ZipFile(os.path.join(ziplocation, ziparchive), "r") as extractzip:
             extractzip.extractall(path=installationpath)
 
         # Installation was sucessful!

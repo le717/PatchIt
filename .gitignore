@@ -195,7 +195,7 @@ listtips.py
 PatchItOld.py
 *.txt
 *.ini
-#*.py
+*.py
 JAMExtractor.py
 *settings
 *.log
