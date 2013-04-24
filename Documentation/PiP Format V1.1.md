@@ -26,7 +26,8 @@ that **must** match **PatchIt!**'s internal version exactly to confirm it is a v
 * Legacy (V1.0.1) patches are determined by lookin for that version's validity line, and if found, is installed using the legacy installation method.
 * Only Modern (post-V1.0.1) patches are written. Legacy patches are installed only for backward compatibility purposes. Legacy Patches are not and will not be 
 written anymore.  
-* The *MP* (or *M*ulti-*P*urpose) field contains various Patch info.
+* The *MP* ( **M** ulti **P** urpose) field contains various Patch info. For *LEGO LOCO* Patches, it contains the resolution the map was created with.
+For *LEGO Racers* Patches, it currently writes *MP*, as there is not a vaild input for that game yet.
 * The *Game* field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
 * The Description of the mod is written on the last three lines. Unlike V1.0.1, this layout does not have an 161 character limit.
 * The ZIP archive and the PiP file uses the mod's name and version as the filename.
@@ -44,7 +45,7 @@ The same goes for files that are scattered in the root of the archive. If *ENGLI
 *C:\Program Files\LEGO Racer\ENGLISH.SRF*
 **PatchIt!** does not and will never attempt to pull all the files from a subfolder or scattered files and attempt to install them in the proper locations. 
 
-**An example ZIP archive layout can be found below.**
+**Example ZIP archive layouts can be found [below.](https://github.com/le717/PatchIt/edit/rewrite/Documentation/PiP%20Format%20V1.1.md#example-zip-archive-layouts)**
 
 PiP Version 1.1 File Format Layouts
 -----------------------------------
@@ -85,6 +86,28 @@ It does not exist, and unless someone makes it,
 IT NEVER WILL. :)
 ```
 
+
+### Example LEGO LOCO PiP File Format Version 1.1 Layout
+
+```
+// PatchIt! PiP file format V1.1, developed by le717 and rioforce
+[ZIP]
+Happy Trains 5.8.zip
+[GENERAL]
+Thomas
+5.8
+Happy Trains
+1920x1280
+LEGO LOCO
+[DESCRIPTION]
+I like trains! I really do!
+My name is Thomas, just like Thomas the Tank Engine!
+That is why I made this example PatchIt! Patch.
+```
+
+Example ZIP Archive Layouts
+---------------------------
+
 ### Example LEGO Racers ZIP Archive Layout
 
 ```
@@ -104,24 +127,6 @@ Racing Machine 1.0.1.zip/
 		MAINMENU.MIB
     theme.tun
 	builder.tun
-```
-
-### Example LEGO LOCO PiP File Format Version 1.1 Layout
-
-```
-// PatchIt! PiP file format V1.1, developed by le717 and rioforce
-[ZIP]
-Happy Trains 5.8.zip
-[GENERAL]
-Thomas
-5.8
-Happy Trains
-1920x1280
-LEGO LOCO
-[DESCRIPTION]
-I like trains! I really do!
-My name is Thomas, just like Thomas the Tank Engine!
-That is why I made this example PatchIt! Patch.
 ```
 
 ### Example LEGO LOCO ZIP Archive Layout
