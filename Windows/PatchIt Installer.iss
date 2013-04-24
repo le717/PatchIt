@@ -106,23 +106,23 @@ Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked; Check: not PortableI
 Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
 
 [Files]
-; PatchIt! Icon
+; Readme and Icon
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
-; HTML Readme
 Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
-; PatchIt! LEGO Racers settings file
-Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion   
-; PatchIt! LEGO LOCO settings file
+
+; Settings files
+Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 
 ; Repeated for Settings_Reset switch
 Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Permissions: users-modify; Flags: ignoreversion; Tasks: Settings_Reset
 Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Permissions: users-modify; Flags: ignoreversion; Tasks: Settings_Reset
 
-; 64-bit Windows build                                                     
-Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
+
+; 64-bit Windows build                                                     
+Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64 
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -140,7 +140,8 @@ Type: filesandordirs; Name: "{app}\tk"
 
 
 [InstallDelete]
-; Remove PatchIt V1.0.x settings file
+; Remove V1.0.x settings file
+; Not doing so breaks V1.1.x
 Type: files; Name: "{app}\settings"
 
 [Code]   
