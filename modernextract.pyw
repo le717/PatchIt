@@ -274,7 +274,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
         # Installation was sucessful!
         logging.info("Error (exit) number '0'")
         logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
-        print('\n{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath))
+        print('{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath))
 
         # Log ZIP closure although it was closed automatically by with
         logging.info("Closing {0}".format(ziparchive))
@@ -292,7 +292,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
 
-If the error continues, contact {6}and ask for a fixed version.'''
+If the error continues, contact {6} and ask for a fixed version.'''
         .format(name, version, name, version, name, version, author), color.FG_LIGHT_RED)
         # There has to be an easier way to format the message without repeating name/version 3 times each...
 

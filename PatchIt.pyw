@@ -197,7 +197,8 @@ def Settings():
     print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
     print('''
 [r] LEGO Racers
-[l] LEGO LOCO''')
+[l] LEGO LOCO
+[b] Back''')
     settingsopt = input("\n\n> ")
 
     # Run LEGO Racers settings

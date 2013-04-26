@@ -62,7 +62,7 @@ def main():
     print('''\nPlease make a selection:\n
 [e] Extract LEGO.JAM
 [c] Compress LEGO.JAM
-[q] Quit''')
+[b] Back''')
     jam_opt = input("\n\n> ")
 
     # Nothing here is complete, so redirect back to PatchIt! menu

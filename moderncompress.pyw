@@ -282,7 +282,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # The Patch was created sucessfully!
         logging.info("Exit code '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name, version, patchfiles))
-        print("\n{0} patch for {1} Version: {2} created and saved to\n{3}!\n".format(PatchIt.app, name, version, patchfiles))
+        print('\n{0} patch for {1} Version: {2} created and saved to\n"{3}"\n'.format(PatchIt.app, name, version, patchfiles))
 
     # The user does not have the rights to write a PiP in that location
     except PermissionError:

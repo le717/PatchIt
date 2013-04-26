@@ -47,8 +47,8 @@ a:hover { text-decoration: underline; }
 </table>
 <a name="Intro"></a>
 <h2>Introduction</h2>
-<p class="center">This is the Readme for <span class="bold">PatchIt!</span>, standard and simple way to package and install mods for the 1999 High Voltage 
-Software PC game <span class="italic">LEGO Racers</span>, written purely in 
+<p class="center">This is the Readme for <span class="bold">PatchIt!</span>, standard and simple way to package and install mods for the 1999 High Voltage
+Software PC game <span class="italic">LEGO Racers</span>, written purely in
 <a href="http://python.org" target="_blank" title="Python (Programming Language)">Python 3</a>.</p>
 <a name="How"></a>
 
@@ -57,7 +57,7 @@ Software PC game <span class="italic">LEGO Racers</span>, written purely in
 <h3>Patch Installation</h3>
 <p>To install a <span class="bold">PatchIt!</span> compatible mod, simply load <span class="bold">PatchIt!</span>, press the 'i' key, select the PiP file,
 and after reading the mod information, confirm the installation. <span class="bold">PatchIt!</span> will automatically install it into your <span class=
-"italic">LEGO Racers</span> game. If you need a patch to install, jump down to the <a href="#MoreInfo">Resources</a> section to download one! If you are 
+"italic">LEGO Racers</span> game. If you need a patch to install, jump down to the <a href="#MoreInfo">Resources</a> section to download one! If you are
 unsure about everything you need to do to successfully install a Patch, an awesome tutorial by JimbobJeffers on what to do is in the Resources section.</p>
 
 <h3>Patch Creation</h3>
@@ -68,24 +68,24 @@ automatically deleted to avoid an error when someone installs your patch. Don't 
 Both items use your mod's name and version for the filename, and will be located in the same folder as your uncompressed modded files.
 Check the the PiP Format documentation (linked in the Resources section below) for complete details.</p>
 
-<p>If you have made a <span class="italic">LEGO LOCO</span> Patch, you will need to enter the screen resolution you used to create the map. This is 
+<p>If you have made a <span class="italic">LEGO LOCO</span> Patch, you will need to enter the screen resolution you used to create the map. This is
 important, for if it is played in a different resolution, some elements may be cut off, destroying the hard work you put into making it.</p>
 
 <h4 class="italic">Be Careful!</h4>
-<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>), 
-back-slash (<code>\</code>),and forward-slash (<code>/</code>)<br> are not permitted in the <code>Name:</code> and <code>Version:</code> fields, due to 
-internal Windows restrictions.<br>As of <span class="bold">PatchIt! 1.1.0 Stable</span>, these characters are not permitted, and entering them will prompt you 
+<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>),
+back-slash (<code>\</code>),and forward-slash (<code>/</code>)<br> are not permitted in the <code>Name:</code> and <code>Version:</code> fields, due to
+internal Windows restrictions.<br>As of <span class="bold">PatchIt! 1.1.0 Stable</span>, these characters are not permitted, and entering them will prompt you
 to enter vaild characters.<br>You can learn more about this issue and it's fix <a href="https://github.com/le717/PatchIt/issues/3" target="_blank">here</a>.
 </p>
 
 <h3>First Run</h3>
-<p>Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked to set up the required Settings. The steps below will walk you 
+<p>Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked to set up the required Settings. The steps below will walk you
 through the process, or you can figure it out yourself.
 <br>You will only need to do this once, as <span class="bold">PatchIt!</span> is smart enough to know if you have already run it.</p><a name="Racers"></a>
 
 <h3>Changing your LEGO Racers Installation</h3>
 <p>If you need to change your defined <span class="italic">LEGO Racers</span> installation, you can do it in a minute. Load <span class="bold">PatchIt!
-</span>, press the 's' key, then the 'r key, and point it to your <span class="italic">LEGO Racers</span> installation. If it confirms a valid installation, 
+</span>, press the 's' key, then the 'r key, and point it to your <span class="italic">LEGO Racers</span> installation. If it confirms a valid installation,
 press the 'n' key, and you're off! If it can't be verified, you'll need to enter it again.</p>
 
 <h4 class="italic">Good To Know!</h4>
@@ -93,9 +93,9 @@ press the 'n' key, and you're off! If it can't be verified, you'll need to enter
 </code><a name="LOCO"></a>
 
 <h3>Changing your LEGO LOCO Installation</h3>
-<p>If you need to change your defined <span class="italic">LEGO LOCO</span> installation, you can do it just as easily as you would change your 
-<span class="italic">LEGO Racers</span> installation. Just load <span class="bold">PatchIt!</span>, press the 's' key, then the 'l' key and point it to your 
-<span class="italic">LEGO LOCO</span> installation. If it confirms a valid installation, press the 'n' key, and you're off! If a valid installation cannot be 
+<p>If you need to change your defined <span class="italic">LEGO LOCO</span> installation, you can do it just as easily as you would change your
+<span class="italic">LEGO Racers</span> installation. Just load <span class="bold">PatchIt!</span>, press the 's' key, then the 'l' key and point it to your
+<span class="italic">LEGO LOCO</span> installation. If it confirms a valid installation, press the 'n' key, and you're off! If a valid installation cannot be
 can't verified, you'll need to enter it again.</p>
 
 <h4 class="italic">Good To Know!</h4>
@@ -213,7 +213,7 @@ was being violated)</li>
 <li>Added display of "Author:" in Patch info display</li>
 <li>Improved display of all Patch info using various methods</li>
 <li>Windows version and architecture is written into log</li>
-<li>Changed condition for writing settings files: if <code>CheckLRSettings()</code> or <code>CheckLOCOSettings()</code> return True, go to menu; else, write 
+<li>Changed condition for writing settings files: if <code>CheckLRSettings()</code> or <code>CheckLOCOSettings()</code> return True, go to menu; else, write
 settings (was originally if both returned true)</li>
 <li>If Game field in Patch reads <span class="italic">LEGO Racers</span>, open <code>LRsettings</code> for installation path, else if <span class="italic">
 LEGO LOCO</span>, open <code>LOCOsettings</code> for installation path</li>
@@ -242,7 +242,7 @@ LEGO LOCO</span>, open <code>LOCOsettings</code> for installation path</li>
 <li>Finalized PiP Format 1.1</li>
 <li>Updated "shebang" line to proper format</li>
 <li>Minor updates to <code>setup.py</code></li>
-<li>Renamed settings files from <code>LRsettings</code> and <code>LOCOsettings</code> to <code>Racers.cfg</code> and <code>LOCO.cfg</code> respectively, 
+<li>Renamed settings files from <code>LRsettings</code> and <code>LOCOsettings</code> to <code>Racers.cfg</code> and <code>LOCO.cfg</code> respectively,
 Patch Installation modules updated accordingly</li>
 <li>Created <code>Documentation/Settings.md</code></li>
 <li>Added invalid character check when asking for Patch Name during Patch Creation</li>
@@ -260,6 +260,10 @@ Patch Installation modules updated accordingly</li>
 <li>Added "Here's a tip!" before <span class="italic">LEGO Racers</span> gameplay tip during Patch Installation modules (per suggestion from tester)</li>
 <li>Created <span class="bold">PatchIt!</span> Standalone Uninstaller (<code>Windows/Uninstaller.pyw</code>)
 to be released separately and possibly used in Installer</li>
+<li>Fixed small error in Patch Installation failure message (per report from tester)</li>
+<li>Removed explanation point in Patch Creation complete message (per suggestion from tester)</li>
+<li>Added <code>[b] Back</code> to settings menu and JAM Extractor wrapper(per suggestion from tester)</li>
+<li>Removed new line ending on <span class="italic">LEGO Racers</span> gameplay tips (created too much blank space)</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
@@ -311,7 +315,7 @@ to be released separately and possibly used in Installer</li>
 <li>Added new <span class="italic">LEGO Racers</span> gameplay tips, with help from Xiron</li>
 <li>Changed color of <span class="italic">LEGO Racers</span> gameplay tips from Light Cyan to Light Green</li>
 <li>Overall clean up to HTML</li>
-<li>Removed <code>print()</code> function that was supposed to be displayed when <span class="bold">PatchIt!</span> itself was imported as a module (it was 
+<li>Removed <code>print()</code> function that was supposed to be displayed when <span class="bold">PatchIt!</span> itself was imported as a module (it was
 actually being displayed upon launch after being compiled into an EXE)</li>
 </ul>
 
@@ -445,11 +449,11 @@ faster.</p><br><br>
 <p>The following sites and programs may be helpful to you and in your use of <span class="bold">PatchIt!</span>
 <ul>
 <li><a href="https://github.com/le717/PatchIt/tree/master/Documentation" target="_blank"><span class="bold">PatchIt!</span> Documentation</a></li>
-<li><a href="https://github.com/le717/PatchIt/tree/Extras#patchit-extras" target="_blank"><span class="bold">PatchIt!</span> Extras: Patches to get you 
+<li><a href="https://github.com/le717/PatchIt/tree/Extras#patchit-extras" target="_blank"><span class="bold">PatchIt!</span> Extras: Patches to get you
 started!</a></li>
 <li><a href="https://github.com/JrMasterModelBuilder/JAM-Extractor" target="_blank"><span class="italic">LEGO Racers</span> JAM Extractor: Extracts and
 builds LEGO.JAM</a></li>
-<li><a href="http://www.rockraidersunited.org/topic/4630-setting-upinstalling-a-lego-racers-mod/" target="_blank">Setting Up/Installing a LEGO 
+<li><a href="http://www.rockraidersunited.org/topic/4630-setting-upinstalling-a-lego-racers-mod/" target="_blank">Setting Up/Installing a LEGO
 Racers Mod - Tutorial by JimbobJeffers</a></li>
 <li><a href="http://rockraidersunited.org" target="_blank">Rock Raiders United: The only place to learn everything you need to know about <span class="italic"
 >LEGO Racers</span> modding</a></li>
