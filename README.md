@@ -31,10 +31,14 @@ Contributing
 
 If you would like to contribute to the development of **PatchIt!**, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
-Downloads
----------
+The current Travis CI build for the `rewrite` is:
 
 [![Build Status](https://travis-ci.org/le717/PatchIt.png)](https://travis-ci.org/le717/PatchIt)
+
+(If the build status reports failed, that is incorrect. There is code Travis CI does not support, thus declaring fail. ;))
+
+Downloads
+---------
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
