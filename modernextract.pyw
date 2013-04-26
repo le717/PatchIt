@@ -202,12 +202,7 @@ Game: {3}
 "{4}"'''.format(name, version, author, game, desc)
 
     # Display the info
-    print('''\n{0}
-Version: {1}
-Author: {2}
-Game: {3}
-
-"{4}"'''.format(name, version, author, game, desc), end="\n")
+    print(mod_info, end="\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))

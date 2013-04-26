@@ -19,7 +19,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Recursive Standalone Uninstaller V0.9
+# PatchIt! Recursive Standalone Uninstaller V0.9.1
 
 import os
 import time
@@ -41,7 +41,10 @@ def main():
     # TODO: Make it go to recursive uninstaller for checking of other installations
     # I've seen unins001.exe exists and not unins000.exe before.
     else:
-        raise SystemExit
+        # Sleep just a litte to avoid an error
+        time.sleep(1.5)
+        # Go to recursive uninstaller
+        second_main()
 
 def second_main():
     '''Recursive PatchIt! Uninstaller'''
@@ -79,5 +82,3 @@ def second_main():
 # Run Uninstaller
 if __name__ == "__main__":
     main()
-
-
