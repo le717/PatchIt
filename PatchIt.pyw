@@ -77,7 +77,7 @@ def preload():
                                 #############################################
                                         {0} {1} {2}
                                         Copyright 2013 {3}
-                                            PatchIt.log
+                                                PatchIt.log
 
 
                                     If you run into a bug, open an issue at

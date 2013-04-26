@@ -81,7 +81,6 @@ def patchName():
 def patchVersion():
     '''Ask for Patch Version'''
 
-    logging.info("Ask for Patch version (patchVersion())")
     version = input("Version: ")
 
     # No invalid characters were entered
@@ -202,7 +201,16 @@ def patchInfo():
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
-        logging.info("Switching to to writePatch(patchfiles, name, version, author, desc, which_game)")
+        logging.info("User selected files at {0} for Patch compression".format(patchfiles))
+        logging.info('''The final Patch details are:
+{0}
+Version: {1}
+Author: {2}
+Game: {3}
+{4}
+
+"{5}"'''.format(name, version, author, game, mp, desc))
+        logging.info("Switching to writePatch(patchfiles, name, version, author, desc, mp, game)")
         writePatch(patchfiles, name, version, author, desc, mp, game)
 
 def LOCORes(name):
@@ -224,6 +232,7 @@ If you used a custom resolution, be sure to enter that into the fields below.'''
         res_horz = int(input("\nWidth: "))
         res_vert = int(input("Height: "))
         mp = "{0}x{1}".format(res_horz, res_vert)
+        logging.info("This map was the {0} resolution".format(mp))
         logging.info("Returning mp variable")
         return mp
 
@@ -240,7 +249,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
 
     # The user selected a folder to compress
     try:
-        logging.info("User selected files at {0} for Patch compression".format(patchfiles))
         # Check for and delete thumbs.db
         logging.info("Switching to delThumbs(patchfiles)")
         delThumbs(patchfiles)
@@ -280,25 +288,25 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         shutil.move(newzipfile, patchfiles)
 
         # The Patch was created sucessfully!
-        logging.info("Exit code '0'")
+        logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name, version, patchfiles))
         print('\n{0} patch for {1} Version: {2} created and saved to\n"{3}"\n'.format(PatchIt.app, name, version, patchfiles))
 
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
-        logging.info("Error number '13'")
+        logging.warning("Error number '13'")
         logging.warning("{0} does not have the rights to save {1} {2}".format(PatchIt.app, name, version))
         colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
 
     # .PiP and/or .zip already exists
     except FileExistsError:
-        logging.info("Error number '183'")
+        logging.warning("Error number '183'")
         logging.warning("{0}{1}.PiP or .zip already exists at {2} or {3}!".format(name, version, patchfiles, os.getcwd()))
         colors.pc("\n{0}{1}.PiP or {2}{3}.zip already exists!\nCheck either {4} or\n{5} for the files,\nand move or delete them if necessary.\n".format(name, version, name, version, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
-        logging.info("Unknown error number")
+        logging.warning("Unknown error number")
         logging.warning("{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version))
         colors.pc("\n{0} ran into an unknown error while trying to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
 

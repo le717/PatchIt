@@ -101,7 +101,7 @@ def checkPatch(patch):
     validline = linecache.getline(patch, 1)
     logging.info("Cleaning up validity line")
     validline = validline.strip()
-    logging.info("The validity line reads\n\n{0}".format(validline))
+    logging.info("The validity line reads\n{0}".format(validline))
 
     # It's a legacy Patch
     if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
@@ -272,7 +272,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
             extractzip.extractall(path=installationpath)
 
         # Installation was sucessful!
-        logging.info("Error (exit) number '0'")
+        logging.warning("Error (exit) number '0'")
         logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
         print('{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath))
 
@@ -281,7 +281,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
 
     # For some reason, it cannot find the ZIP archive
     except FileNotFoundError:
-        logging.info("Error number '2'")
+        logging.warning("Error number '2'")
 
         # Strip the ID text for a smoother error message
         logging.info("Cleaning up Version and Author text")
@@ -298,14 +298,14 @@ If the error continues, contact {6} and ask for a fixed version.'''
 
     # The user does not have the rights to install to that location.
     except PermissionError:
-        logging.info("Error number '13'")
-        logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, name, version, installationpath))
+        logging.warning("Error number '13'")
+        logging.warning("{0} does not have the rights to install {1} {2} to {3}".format(PatchIt.app, name, version, installationpath))
         colors.pc("\n{0} does not have the rights to install {1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
-        logging.info("Unknown error number")
-        logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, name, version, installationpath))
+        logging.warning("Unknown error number")
+        logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}".format(PatchIt.app, name, version, installationpath))
         colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # This is run no matter if an exception was raised nor not.
