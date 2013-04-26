@@ -34,7 +34,7 @@ If you would like to contribute to the development of **PatchIt!**, please be su
 Downloads
 ---------
 
-https://travis-ci.org/le717/PatchIt.png?branch=rewrites
+"!https://travis-ci.org/le717/PatchIt.png!?branch=rewrite":https://travis-ci.org/le717/PatchIt
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
