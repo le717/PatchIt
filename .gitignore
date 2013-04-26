@@ -194,6 +194,7 @@ listtips.py
 #*.psd
 PatchItOld.py
 *.txt
+!requirements.txt
 *.ini
 *.py
 JAMExtractor.py
