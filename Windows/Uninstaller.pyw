@@ -20,6 +20,7 @@
 """
 
 # PatchIt! Uninstaller V1.0.1
+# Contains code contributed by JrMasterModelBuilder
 
 import os
 import time
