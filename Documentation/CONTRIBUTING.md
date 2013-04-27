@@ -6,17 +6,18 @@ If you would like to contribute to the development of **PatchIt!**, please read 
 Requirements
 ------------
 
-### Application Requirements
+### Dependencies
 
 * **PatchIt!** is written in **[Python 3.3.1](http://www.python.org/download)**. You will need to have a complete installation of Python `>=` 3.3.0 to edit and 
 run **PatchIt!**. 
 Python Versions `<=` 3.2 are not supported, and a version check will prevent it from running on lower versions.
 
-* **Inno Setup 5.5.2 Unicode** or later is required to create the Windows installer. An ISPP check will prevent it on running on lower versions.
+* **Inno Setup 5.5.2 Unicode** or later is required to create the Windows installer. An ISPP check will prevent it on running on lower versions, 
+and the script itself uses UTF-8 encoding.
 
-* Releases are compiled into x86 and x64 Windows EXEs using **[cx_freeze](http://cx-freeze.sourceforge.net)**. 
+* Releases are compiled into x86 and x64 Windows EXEs using **[cx_Freeze](http://cx-freeze.sourceforge.net)**. 
 
-### Misc Requirements
+### Miscellaneous Notes
 
 * No external packages or dependencies are needed for the ZIP archive functions, as they are implemented using native Python modules, namely ZipFile and shutil.
 
@@ -24,10 +25,8 @@ Python Versions `<=` 3.2 are not supported, and a version check will prevent it 
 
 * Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
  
-* Sometime in the development of V1.1.0 Stable a wrapper for JrMasterModelBuilder's **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** will 
-be added for extraction and recompressing of *LEGO.JAM*. A [custom build](https://github.com/le717/JAM-Extractor) of the JAM Extractor will be used for this 
-purpose, unless the changes made are merged into the original version. Either way, you will need to download
-*JAMExtractor.py* and place it in the root **PatchIt!** folder so everything will load.
+* Sometime in the development of V1.1.0 Stable a wrapper for JrMasterModelBuilder's **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
+will be added for extraction and recompressing of *LEGO.JAM*. The newest release of the JAM Extractor will be used for this purpose.
 
 Where to Start
 --------------
@@ -46,7 +45,7 @@ Building PatchIt!
 
 ### Windows EXEs
 
-As mentioned above, **PatchIt!** is compiled into Windows EXE using cx_freeze. If you would like to compile your own build of **PatchIt**, follow these steps.
+As mentioned above, **PatchIt!** is compiled into Windows EXE using cx_Freeze. If you would like to compile your own build of **PatchIt**, follow these steps.
 
 * Clone the **PatchIt!** Git repository by typing the following command:
 
@@ -61,10 +60,12 @@ Replace *master* with the branch or tagged release you wish to download.
 cd PatchIt
 python setup.py
 ```
-Depending on the Python architecture, your newly created EXEs will be located at either *PatchIt\Compile\Windows32* 
-or under *PatchIt\Compile\Windows64*. 
+Depending on the Python architecture, your newly created EXEs will be located at either `PatchIt\Compile\Windows32` 
+or under `PatchIt\Compile\Windows64`. 
 
 ### Inno Setup Windows Installer
+
+* Open `Windows\PatchIt Installer.iss` in Inno Setup
 
 *Coming Soon.*
 

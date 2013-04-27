@@ -19,13 +19,13 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Recursive Standalone Uninstaller V0.9.1
+# PatchIt! Recursive Standalone Uninstaller V1.0
 
 import os
 import time
 import subprocess
 
-def main():
+def single_uninstall():
     ''' Uninstalls Single PatchIt! Installation'''
 
     # If a single installation exists
@@ -37,48 +37,41 @@ def main():
         # Go to recursive uninstaller
         second_main()
 
-    # Single installation does not exists, close
-    # TODO: Make it go to recursive uninstaller for checking of other installations
-    # I've seen unins001.exe exists and not unins000.exe before.
+    # Single installation does not exist
     else:
         # Sleep just a litte to avoid an error
         time.sleep(1.5)
         # Go to recursive uninstaller
-        second_main()
+        loop_uninstall()
 
-def second_main():
+
+def loop_uninstall():
     '''Recursive PatchIt! Uninstaller'''
 
     # Used for recursion
     i = 1
 
-    # Exe name
-    exe_name = "unins00" + str(i) + ".exe"
-
-    # If another installation exists
-    if os.path.exists(os.path.join(os.getcwd(), exe_name)):
-        # Run uninstaller
-        subprocess.call(os.path.join(os.getcwd(), exe_name))
-        # Sleep just a litte to avoid an error
-        time.sleep(1.5)
-
-        # Add 1 to the file name
+    # It is assumed another installation exists
+    while os.path.exists("unins00" + str(i) + ".exe"):
+        # Sleep a little to avoid uninstallation error
+        time.sleep(3)
+        # Run the uninstaller
+        subprocess.call("unins00" + str(i) + ".exe")
+        # Update uninstaller names
         i += 1
-        # Redefine the Exe name
-        new_exe_name = "unins00" + str(i) + ".exe"
-        # Run uninstaller
-        subprocess.call(os.path.join(os.getcwd(), new_exe_name))
-        # Sleep just a litte to avoid an error
-        time.sleep(1.5)
+        # The while loop continues until unins009.exe
+        # Unknown what happens after unins009.exe, but if you have that many installations...
 
-        # Loop back through to uninstall any other installations
-        # Up to unins009.exe
-        second_main()
-
-    # Another installation does not exist
-    else:
+    # If we assumed incorrectly and another installation doesn't exist, or
+    # if all the installations have been uninstalled
+    if not os.path.exists("unins00" + str(i) + ".exe"):
+        # Close program
         raise SystemExit
+
+
+
+
 
 # Run Uninstaller
 if __name__ == "__main__":
-    main()
+    single_uninstall()

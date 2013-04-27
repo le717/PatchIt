@@ -25,7 +25,7 @@
 
 ; If any version below the specified version is used for compiling, this error will be shown.
 #if VER < EncodeVer(5,5,2)
-  #error You must use Inno Setup 5.5.2 or newer to compile this script
+  #error You must use Inno Setup 5.5.2 (u) or newer to compile this script
 #endif
 
 [Define]
@@ -88,6 +88,7 @@ Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\L
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
+; TODO: Add French and Dutch ConfirmUninstall
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences
@@ -108,7 +109,9 @@ Name: "Shell"; Description: "{cm:Shell}"; Flags: unchecked; Check: not PortableI
 
 [Registry]
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
+; Run as Admin
 Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
+; Shell extension
 Root: "HKCR"; Subkey: "PatchIt_PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt! Patch"; Flags: uninsdeletekey; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt_PiP"; Flags: uninsdeletekey; Tasks: Shell
 Root: "HKCR"; Subkey: "PatchIt_PiP\DefaultIcon"; ValueType: string; ValueName: ; ValueData: "{app}\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
