@@ -79,6 +79,8 @@ ArchitecturesAllowed=x86 x64 ia64
 ; This is required because Inno is having issues figuring out how large the files are. :|
 ; TODO: Check if this is fixed yet!
 ExtraDiskSpaceRequired=16252928
+; Required for creating Shell extension
+ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -88,7 +90,11 @@ Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\L
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
-; TODO: Add French and Dutch ConfirmUninstall
+english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
+francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
+francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
+nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
+nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences
