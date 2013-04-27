@@ -1,7 +1,7 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ï»¿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;    This file is part of PatchIt!
 ;
-;    PatchIt! -  the standard yet simple way to package and install mods for LEGO Racers
+;    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
 ;    Created 2013 Triangle717 <http://triangle717.wordpress.com>
 ;
 ;    PatchIt! is free software: you can redistribute it and/or modify
@@ -86,25 +86,36 @@ Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\Li
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
-english.BeveledLabel={#MyAppVerName}
+BeveledLabel={#MyAppVerName}
+english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences
-francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
+francais.Settings_Reset=RÃ©initialiser {#MyAppName} prÃ©fÃ©rences
 nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
 english.Admin=Run {#MyAppName} with Administrator Rights
-francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
+francais.Admin=ExÃ©cuter {#MyAppName} avec des droits administrateur
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten
+english.Shell=Associate .PiP File With {#MyAppName}
+francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+nederlands.Shell=AssociÃ«ren .PiP File Met {#MyAppName} 
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableInstall
 Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
 Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked; Check: not PortableInstall
+Name: "Shell"; Description: "{cm:Shell}"; Flags: unchecked; Check: not PortableInstall
 
 [Registry]
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
 Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
-
+Root: "HKCR"; Subkey: "PatchIt_PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt! Patch"; Flags: uninsdeletekey; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt_PiP"; Flags: uninsdeletekey; Tasks: Shell
+Root: "HKCR"; Subkey: "PatchIt_PiP\DefaultIcon"; ValueType: string; ValueName: ; ValueData: "{app}\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: "PatchIt_PiP\shell"; ValueType: string; ValueName: ; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
+Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open\command"; ValueType: string; ValueName: ; ValueData: "{app}\PatchIt.exe -open %1"; Flags: uninsdeletevalue; Tasks: Shell
+                                                                                 
 [Files]
 ; Readme and Icon
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion

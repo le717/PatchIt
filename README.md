@@ -35,7 +35,7 @@ The current Travis CI build for the `rewrite` is:
 
 [![Build Status](https://travis-ci.org/le717/PatchIt.png)](https://travis-ci.org/le717/PatchIt)
 
-(If the build status reports failed, that is incorrect. There is code Travis CI does not support, thus declaring fail. ;))
+(If the build status reports failed, that is incorrect. There is code Travis CI does not support (namely shell colors), thus declaring fail. ;))
 
 Downloads
 ---------

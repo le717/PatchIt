@@ -65,10 +65,11 @@ def preload():
     '''PatchIt! first-run checks'''
 
     # Check if Python is x86 or x64
-    if platform.architecture('64bit'):
-        py_arch = "AMD64"
-    elif platform.architecture('32bit'):
+    # Based on code from the Python help file (platform module) and my own tests
+    if sys.maxsize == 2147483647:
         py_arch = "x86"
+    else:
+        py_arch = "AMD64"
 
     logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
