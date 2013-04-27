@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! Recursive Uninstaller setup script using cx_Freeze.
+# PatchIt! Uninstaller setup script using cx_Freeze.
 # Taken from https://github.com/Lyrositor/EBPatcher
 # and https://github.com/JrMasterModelBuilder/JAM-Extractor
 # With changes by Triangle717
@@ -37,10 +37,10 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "../Icons/PatchItIcon.ico"}
 
 setup(
-    name = "PatchIt! Recursive Uninstaller",
+    name = "PatchIt! Uninstaller",
     version = "V1.0.1",
     author = "Triangle717",
-    description = "PatchIt! Recursive Uninstaller Version 1.0.1",
+    description = "PatchIt! Uninstaller Version 1.0.1",
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
     executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe")]

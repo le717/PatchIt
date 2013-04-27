@@ -19,7 +19,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Recursive Uninstaller V1.0.1
+# PatchIt! Uninstaller V1.0.1
 
 import os
 import time
@@ -35,8 +35,8 @@ def single_uninstall():
         subprocess.call(os.path.join(os.getcwd(), "unins000.exe"))
         # Sleep just a litte to avoid an error
         time.sleep(1.5)
-        # Go to recursive uninstaller
-        print("\nSwitching to Recursive Uninstaller")
+        # Go to looping uninstaller
+        print("\nSwitching to Looping Uninstaller")
         loop_uninstall()
 
     # Single installation does not exist
@@ -44,16 +44,16 @@ def single_uninstall():
         print("\nunins000.exe does not exist")
         # Sleep just a litte to avoid an error
         time.sleep(1.5)
-        # Go to recursive uninstaller
-        print("\nSwitching to Recursive Uninstaller")
+        # Go to looping uninstaller
+        print("\nSwitching to Looping Uninstaller")
         loop_uninstall()
 
 
 def loop_uninstall():
-    '''Recursive PatchIt! Uninstaller
+    '''Looping PatchIt! Uninstaller
     Code contributed by JrMasterModelBuilder'''
 
-    # Used for recursion
+    # Used for looping
     i = 1
 
     # It is assumed another installation exists
