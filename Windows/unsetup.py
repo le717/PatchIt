@@ -33,13 +33,14 @@ if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 destfolder = "Compile"
 
 build_exe_options = {"build_exe": destfolder,
+                     "includes": ["subprocess"],
                      "icon": "../Icons/PatchItIcon.ico"}
 
 setup(
     name = "PatchIt! Recursive Uninstaller",
-    version = "V1.0",
+    version = "V1.0.1",
     author = "Triangle717",
-    description = "PatchIt! Recursive Uninstaller Version 1.0",
+    description = "PatchIt! Recursive Uninstaller Version 1.0.1",
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
     executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe")]

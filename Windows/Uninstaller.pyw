@@ -19,7 +19,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Recursive Uninstaller V1.0
+# PatchIt! Recursive Uninstaller V1.0.1
 
 import os
 import time
@@ -30,48 +30,50 @@ def single_uninstall():
 
     # If a single installation exists
     if os.path.exists(os.path.join(os.getcwd(), "unins000.exe")):
+        print("\nRunning unins000.exe...")
         # Run uninstaller
         subprocess.call(os.path.join(os.getcwd(), "unins000.exe"))
         # Sleep just a litte to avoid an error
         time.sleep(1.5)
         # Go to recursive uninstaller
-        second_main()
+        print("\nSwitching to Recursive Uninstaller")
+        loop_uninstall()
 
     # Single installation does not exist
     else:
+        print("\nunins000.exe does not exist")
         # Sleep just a litte to avoid an error
         time.sleep(1.5)
         # Go to recursive uninstaller
+        print("\nSwitching to Recursive Uninstaller")
         loop_uninstall()
 
 
 def loop_uninstall():
-    '''Recursive PatchIt! Uninstaller'''
+    '''Recursive PatchIt! Uninstaller
+    Code contributed by JrMasterModelBuilder'''
 
     # Used for recursion
     i = 1
 
     # It is assumed another installation exists
-    while os.path.exists("unins00" + str(i) + ".exe"):
-        # Sleep a little to avoid uninstallation error
-        time.sleep(3)
-        # Run the uninstaller
-        subprocess.call("unins00" + str(i) + ".exe")
-        # Update uninstaller names
+    while i < 1000:
+        exe_name  ="unins" + str(i).zfill(3) + ".exe"
+        if os.path.exists(exe_name):
+
+            # Run the uninstaller
+            print("\nRuinning {0}...".format(exe_name))
+            subprocess.call(exe_name)
+            # Sleep a little to avoid uninstallation error
+            time.sleep(2)
+
+        # Update uninstaller name
         i += 1
-        # The while loop continues until unins009.exe
-        # Unknown what happens after unins009.exe, but if you have that many installations...
 
-    # If we assumed incorrectly and another installation doesn't exist, or
-    # if all the installations have been uninstalled
-    if not os.path.exists("unins00" + str(i) + ".exe"):
-        # Close program
-        raise SystemExit
+if not os.path.exists("PatchIt.exe"):
+    print("\nThis is not a valid PatchIt! installation!\n")
+    raise SystemExit
 
-
-
-
-
-# Run Uninstaller
+# Run Uninstaller if this is a valid PatchIt! Installation
 if __name__ == "__main__":
     single_uninstall()
