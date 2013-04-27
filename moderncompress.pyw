@@ -47,11 +47,14 @@ def delThumbs(patchfiles):
             # Delete Thumbs.db
             os.unlink(os.path.join(root, "Thumbs.db"))
 
+    else:
+        logging.warning("Could not find Thumbs.db!")
+
 
 # ------------ End Thumbs.db Check And Delete Code ------------ #
 
 
-# ------------ Begin Name and Version Character Checks ------------ #
+# ------------ Begin Patch Info Character and Length Checks ------------ #
 
 def charCheck(strg, search=re.compile(r'[^A-Za-z0-9.]').search):
     '''Check if an invalid character was entered or not'''
@@ -64,40 +67,98 @@ def patchName():
 
     name = input("Name: ")
 
-    # No invalid characters were entered
-    if charCheck(name) == True:
-        logging.info("All characters in Patch name are allowed")
-        return name
-
     # An invalid character was entered
-    else:
-        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+    if charCheck(name) == False:
         logging.warning("There were illegal characters in the Patch name!")
+        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
         patchName()
+
+    # No characters were entered
+    elif len(name) == 0:
+        logging.warning("The Patch name field was left blank!")
+        colors.pc("\nThe Name field must be filled out!", color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Name Process
+        logging.info("Looping back through patchName()")
+        patchName()
+
+    # An invalid character was not entered/the field was filled out
+    else:
+        logging.info("All characters in Patch name are allowed")
+        logging.info("The name field was filled out")
+        return name
 
 def patchVersion():
     '''Ask for Patch Version'''
 
     version = input("Version: ")
 
-    # No invalid characters were entered
-    if charCheck(version) == True:
-        logging.info("All characters in Patch version are allowed")
-        return version
-
     # An invalid character was entered
-    else:
-        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+    if charCheck(version) == False:
         logging.warning("There were illegal characters in the Patch version!")
+        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
         patchVersion()
 
-# ------------ End Name and Version Character Checks ------------ #
+    # No characters were entered
+    elif len(version) == 0:
+        logging.warning("The Patch version field was left blank!")
+        colors.pc("\nThe Version field must be filled out!", color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Version Process
+        logging.info("Looping back through patchVersion()")
+        patchVersion()
+
+    # An invalid character was not entered/the field was filled out
+    else:
+        logging.info("All characters in Patch version are allowed")
+        logging.info("The version field was filled out")
+        return version
+
+def patchAuthor():
+    '''Ask for Patch Author'''
+
+    author = input("Author: ")
+
+    # No characters were entered
+    if len(author) == 0:
+        logging.warning("The Patch author field was left blank!")
+        colors.pc("\nThe Author field must be filled out!", color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Author Process
+        logging.info("Looping back through patchAuthor()")
+        patchAuthor()
+
+    # The field was filled out
+    else:
+        logging.info("The author field was filled out")
+        return author
+
+def patchDesc():
+    '''Ask for Patch Author'''
+
+    desc = input("Description: ")
+
+    # No characters were entered
+    if len(desc) == 0:
+        logging.warning("The Patch description field was left blank!")
+        colors.pc("\nThe Description field must be filled out!", color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Author Process
+        logging.info("Looping back through patchDesc()")
+        patchDesc()
+
+    # The field was filled out
+    else:
+        logging.info("The description field was filled out")
+        return desc
+
+# ------------ End Patch Info Character and Length Checks ------------ #
 
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
@@ -118,7 +179,8 @@ def patchInfo():
     print("Which game is this Patch created for?")
     print('''
 [r] LEGO Racers
-[l] LEGO LOCO''')
+[l] LEGO LOCO
+[q] Back''')
     game_select = input("\n\n> ")
 
     # It's an LR Patch
@@ -149,11 +211,11 @@ def patchInfo():
     logging.info("Ask for Patch version (patchVersion())")
     version = patchVersion()
 
-    logging.info("Ask for Patch author")
-    author = input("Author: ")
+    logging.info("Ask for Patch author (patchAuthor())")
+    author = patchAuthor()
 
-    logging.info("Ask for Patch description")
-    desc = input("Description: ")
+    logging.info("Ask for Patch descriptoin (patchDesc())")
+    desc = patchDesc()
 
     if game == "LEGO LOCO":
 

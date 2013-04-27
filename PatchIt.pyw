@@ -199,7 +199,7 @@ def Settings():
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO
-[b] Back''')
+[q] Quit''')
     settingsopt = input("\n\n> ")
 
     # Run LEGO Racers settings
