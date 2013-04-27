@@ -192,11 +192,10 @@ Testing/
 TheTesterGroup/
 listtips.py
 #*.psd
-PatchItOld.py
 *.txt
-!requirements.txt
 *.ini
 *.py
+!Windows/unsetup.py
 JAMExtractor.py
 *settings
 *.log

@@ -19,7 +19,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Recursive Standalone Uninstaller V1.0
+# PatchIt! Recursive Uninstaller V1.0
 
 import os
 import time
