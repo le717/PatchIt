@@ -254,22 +254,25 @@ def installModernPatch(patch, name, version, author, game, mp):
     ziplocation = patch.rstrip("/{0}{1}.PiP".format(name, version))
     logging.info("Locate ZIP archive at {0}".format(ziplocation))
 
-    # Display the Racers game tips only if this is a Racers patch
-    if game == "LEGO Racers":
-        logging.info("Display LEGO Racers gameplay tip")
-        colors.pc("\nHere's a tip!\n" + random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
-
-    elif game == "LEGO LOCO":
-        logging.info("Display resolution the LEGO LOCO map was created with")
-        colors.pc('''\nHeads up! {0} {1} was created using {2} resolution.
-It may be best to play LEGO LOCO in that same resolution to avoid
-cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
-
     try:
         # Actually extract the ZIP archive
         logging.info("Extract {0} to {1}".format(ziparchive, installationpath))
         with zipfile.ZipFile(os.path.join(ziplocation, ziparchive), "r") as extractzip:
             extractzip.extractall(path=installationpath)
+
+        # Display gameplay tip/MP only if Patch was sucessful
+
+        # Display the Racers gameplay tip
+        if game == "LEGO Racers":
+            logging.info("Display LEGO Racers gameplay tip")
+            colors.pc("\nHere's a tip!\n" + random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
+
+        # Display the LEGO LOCO map resolution.
+        elif game == "LEGO LOCO":
+            logging.info("Display resolution the LEGO LOCO map was created with")
+            colors.pc('''\nHeads up! {0} {1} was created using {2} resolution.
+It may be best to play LEGO LOCO in that same resolution to avoid
+cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
 
         # Installation was sucessful!
         logging.warning("Error (exit) number '0'")
@@ -288,7 +291,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
         version = version.lstrip("Version: ")
         author = author.lstrip("Author: ")
         logging.warning("Unable to find {0} at {1}!".format(ziparchive, ziplocation))
-        colors.pc('''Cannot find files for {0} {1}!
+        colors.pc('''\nCannot find Patch files for {0} {1}!
 Make sure {2}{3}.zip and {4}{5}.PiP
 are in the same folder, and try again.
 
