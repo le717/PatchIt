@@ -1,8 +1,6 @@
 PatchIt!
 ========
 
-![](https://raw.github.com/le717/PatchIt/master/Icons/PatchItLogo.png?raw=true)
-
 This is the readme to **PatchIt!**, the standard and simple way to package and install mods for the 1999 High Voltage Software PC game *LEGO Racers*, written 
 purely in [Python 3](http://www.python.org).
 
@@ -31,11 +29,11 @@ Contributing
 
 If you would like to contribute to the development of **PatchIt!**, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
-The current Travis CI build for the `rewrite` is:
+The current Travis build for the current branch is:
 
 [![Build Status](https://travis-ci.org/le717/PatchIt.png)](https://travis-ci.org/le717/PatchIt)
 
-(If the build status reports failed, that is incorrect. There is code Travis CI does not support (namely shell colors), thus declaring fail. ;))
+(If the build status reports failed, that is incorrect. There is code Travis does not support (namely shell colors), thus declaring fail.)
 
 Downloads
 ---------
