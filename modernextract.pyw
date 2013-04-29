@@ -292,12 +292,11 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
         author = author.lstrip("Author: ")
         logging.warning("Unable to find {0} at {1}!".format(ziparchive, ziplocation))
         colors.pc('''\nCannot find Patch files for {0} {1}!
-Make sure {2}{3}.zip and {4}{5}.PiP
+Make sure {0}{1}.zip and {0}{1}.PiP
 are in the same folder, and try again.
 
-If the error continues, contact {6} and ask for a fixed version.'''
-        .format(name, version, name, version, name, version, author), color.FG_LIGHT_RED)
-        # There has to be an easier way to format the message without repeating name/version 3 times each...
+If the error continues, contact {2} and ask for a fixed version.'''
+        .format(name, version, author), color.FG_LIGHT_RED)
 
     # The user does not have the rights to install to that location.
     except PermissionError:
