@@ -5,4 +5,4 @@ python:
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
 script: python ./Windows/Uninstaller.pyw
-script: python RunIt.py
+# script: python RunIt.py
