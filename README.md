@@ -34,12 +34,37 @@ Downloads
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
-* [**PatchIt!** Version 1.0.3 Stable](https://github.com/le717/PatchIt/tree/V1.0.3Stable) - Released March 11, 2013
-* [**PatchIt!** Version 1.0.2 Stable](https://github.com/le717/PatchIt/tree/V1.0.2Stable) - Released March 5, 2013
-* [**PatchIt!** Version 1.0.1 Stable](https://github.com/le717/PatchIt/tree/V1.0.1Stable) - Released March 2, 2013
-* [**PatchIt!** Version 1.0 Stable](https://github.com/le717/PatchIt/tree/V1.0Stable) - Released February 21, 2013
-* [**PatchIt!** Version 1.0 Beta 2 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b2) - Released February 2, 2013
-* [**PatchIt!** Version 1.0 Beta 1 (Unstable)](https://github.com/le717/PatchIt/tree/V1.0b1) - Released January 26, 2013
+* **PatchIt!** Version 1.0.3 Stable - Released March 11, 2013 
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0.3Stable)
+
+> [Direct Download](https://github.com/le717/PatchIt/raw/V1.0.3Stable/Windows/PatchIt!%20Version%201.0.3%20Stable.exe)
+
+* **PatchIt!** Version 1.0.2 Stable - Released March 5, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.02Stable)
+
+> [Direct Download](https://github.com/le717/PatchIt/raw/V1.02Stable/Windows/PatchIt!%20Version%201.0.2%20Stable.exe)
+
+* **PatchIt!** Version 1.0.1 Stable - Released March 2, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0.1Stable)
+
+> [Direct Download](https://github.com/le717/PatchIt/raw/V1.0.1Stable/Windows/PatchIt!%20Version%201.0.1%20Stable.exe)
+
+* **PatchIt!** Version 1.0 Stable - Released February 21, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0Stable)
+
+> [Direct Download](https://github.com/le717/PatchIt/raw/V1.0Stable/Windows/PatchIt!%20Version%201.0%20Stable.exe)
+
+* **PatchIt!** Version 1.0 Beta 2 (Unstable) - Released February 2, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0b2)
+
+* **PatchIt!** Version 1.0 Beta 1 (Unstable) - Released January 26, 2013
+
+> [Source Code](https://github.com/le717/PatchIt/tree/V1.0b1)
 
 Credit
 ------
