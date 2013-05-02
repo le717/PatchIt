@@ -35,14 +35,14 @@ WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
-OutputBaseFilename={#MyAppInstallerName}
+OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
-Uninstallable= not PortableCheck
+Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\PatchItIcon.ico
 CreateUninstallRegKey=not PortableCheck
 UninstallDisplayName={#MyAppName}
 ; This is required because Inno is having issues figuring out how large the files are. :|
-UninstallDisplaySize=16252928
+UninstallDisplaySize=16269312
 ; Compression
 Compression=lzma/ultra
 SolidCompression=True
@@ -55,7 +55,7 @@ RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 ; This is required because Inno is having issues figuring out how large the files are. :|
-ExtraDiskSpaceRequired=16252928
+ExtraDiskSpaceRequired=16269312
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -105,7 +105,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipifsilent; Description: "View Readme"
 
-[InstallDelete]
+[UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
 Type: filesandordirs; Name: "{app}\tcl"
 Type: filesandordirs; Name: "{app}\tk"
