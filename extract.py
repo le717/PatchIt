@@ -1,4 +1,4 @@
-# PatchIt! V1.0.3 Stable Patch Installation code
+# PatchIt! V1.0.3.1 Stable Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
 import linecache
@@ -6,6 +6,7 @@ import PatchIt
 import gametips
 import zipfile
 import os
+import webbrowser
 from os.path import exists, join
 from random import choice
 from time import sleep
@@ -59,8 +60,25 @@ def readPatch():
         logging.info("Reading line 1 of {0} for PiP validity check".format(installpatch))
         confirmpatch = linecache.getline(installpatch, 1)
 
+
+        # This is an modern (V1.1) Patch. They are not supported below PatchIt! V1.1.0.                    
+        if confirmpatch == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n":
+            logging.warning("{0} is a modern PatchIt patch!\n".format(installpatch))
+            colors.pc("You are trying to install a PatchIt! Patch that is not supported by\nPatchIt! {0} {1}! ".format(PatchIt.majver, PatchIt.minver), color.FG_LIGHT_RED)
+            colors.pc("\nYou need to download a newer version of PatchIt! to install this patch.\n", color.FG_LIGHT_RED)
+            sleep(4)
+            # Open webbrowser to prompt user to download a newer version.
+            webbrowser.open_new_tab("https://github.com/le717/PatchIt#downloads")
+
+            # Dump PiP validity cache after reading
+            logging.info("Clearing PiP validity cache...")
+            linecache.clearcache()
+            sleep(1)
+            logging.info("Proceeding to main menu")
+            PatchIt.main()
+        			
         # It's not a patch! D:
-        if confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n": # Validity check
+        elif confirmpatch != "// PatchIt! Patch format, created by le717 and rioforce.\n":
             logging.warning("{0} is not a valid PatchIt patch!\n".format(installpatch))
             colors.pc("{0} is not a valid PatchIt patch!".format(installpatch), color.FG_LIGHT_RED)
 

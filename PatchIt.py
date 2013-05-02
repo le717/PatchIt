@@ -16,7 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# PatchIt! V1.0.3 Stable, copyright 2013 Triangle717 (http://triangle717.wordpress.com)
+# PatchIt! V1.0.3.1 Stable, created 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # Import only certain items instead of "the whole toolbox"
 import sys, os, linecache # General use modules
@@ -37,7 +37,7 @@ import thescore
 
 # Global variables
 app = "PatchIt!"
-majver = "Version 1.0.3"
+majver = "Version 1.0.3.1"
 minver = "Stable"
 creator = "Triangle717"
 game = "LEGO Racers"
@@ -50,7 +50,7 @@ def preload():
     logging.info('''
                                 #############################################
                                         {0} {1} {2}
-                                        Copyright 2013 {3}
+                                        Created 2013 {3}
                                         TheWritingsofPatchIt.log
 
 
@@ -120,7 +120,7 @@ def preload():
 
 def main():
     '''PatchIt! Menu Layout'''
-    colors.pc("\nHello, and welcome to {0} {1} {2}, copyright 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    colors.pc("\nHello, and welcome to {0} {1} {2}, created 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
     print('''\nPlease make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
@@ -312,5 +312,7 @@ def gameCheck():
 # ------------ End PatchIt! Settings ------------ #
 
 if __name__ == "__main__":
+    # Write window title
+    os.system("title {0} {1} {2}".format(app, majver, minver))
     # Run preload() to begin PatchIt! Initialization
     preload()

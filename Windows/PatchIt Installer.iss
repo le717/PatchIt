@@ -10,10 +10,11 @@
 
 [Define]
 #define MyAppName "PatchIt!"
-#define MyAppVersion "1.0.3"
-#define MyAppVerName "PatchIt! Version 1.0.3 Stable"
+#define MyAppVersion "1.0.3.1"
+#define MyAppVerName "PatchIt! Version 1.0.3.1 Stable"
+#define MyInstallerName "PatchIt-Version-1.0.3.1-Stable"
 #define MyAppPublisher "Triangle717"
-#define MyAppURL "http://triangle717.wordpress.com"
+#define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
 
 [Setup]
@@ -34,7 +35,7 @@ WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 OutputDir=Here Lie the Installer
-OutputBaseFilename={#MyAppVerName}
+OutputBaseFilename={#MyAppInstallerName}
 ; Uninstallation stuff
 Uninstallable= not PortableCheck
 UninstallDisplayIcon={app}\PatchItIcon.ico
@@ -62,7 +63,13 @@ Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\Li
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
-english.BeveledLabel={#MyAppVerName}
+BeveledLabel={#MyAppVerName}
+english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
+english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
+francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
+francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
+nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
+nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences

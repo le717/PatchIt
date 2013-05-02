@@ -126,7 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-#*.exe
+*.exe
 *.msi
 *.com
 *.bat
@@ -184,14 +184,15 @@ pip-log.txt
 ########
 
 Windows/Here Lie the Installer/
+TheTesterGroup/
 listtips.py
 #*.psd
 #*.html
 PatchItOld.py
-#*.txt
+*.txt
 *.ini
-#*.py
-settings
+*.py
+*settings
 *.log
 *.PiP
 *.~is
