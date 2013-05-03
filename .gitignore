@@ -179,9 +179,9 @@ pip-log.txt
 *.tar
 *.gz
 
-########
+##########
 ## Misc.
-########
+##########
 
 Windows/Here Lie the Installer/
 Compile/
@@ -192,7 +192,12 @@ Testing/
 Archive/
 TheTesterGroup/
 listtips.py
-#*.psd
+
+##########
+## Files
+##########
+
+*.psd
 *.txt
 *.ini
 *.py
@@ -205,5 +210,6 @@ JAMExtractor.py
 *.~is
 *.blend
 *.blend1
+*.html
 *.blend2
 gpl-3.0.fr.txt
