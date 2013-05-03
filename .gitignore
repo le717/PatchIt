@@ -189,6 +189,7 @@ Logs/
 License/
 Settings/
 Testing/
+Archive/
 TheTesterGroup/
 listtips.py
 #*.psd
@@ -199,6 +200,7 @@ listtips.py
 JAMExtractor.py
 *settings
 *.log
+*.php
 *.PiP
 *.~is
 *.blend
