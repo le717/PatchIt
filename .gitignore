@@ -200,6 +200,7 @@ PatchItOld.py
 *.blend1
 *.blend2
 *.php
+*.html
 Testing/
 Compile/
 Logs/
