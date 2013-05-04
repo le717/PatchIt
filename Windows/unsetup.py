@@ -44,5 +44,5 @@ setup(
     description = "PatchIt! Uninstaller Version 1.0.1",
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("Uninstaller.py", targetName="PiUninstaller.exe")]
+    executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe")]
 )
