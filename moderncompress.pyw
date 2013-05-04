@@ -19,7 +19,10 @@
 """
 # PatchIt! V1.1.0 Unstable Modern Patch Creation code
 
-import PatchIt, os, shutil, time
+import PatchIt
+import os
+import shutil
+import time
 # Colored shell text
 import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes

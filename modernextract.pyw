@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
 
@@ -19,15 +20,22 @@
 """
 # PatchIt! V1.1.0 Unstable Modern Patch Installation code
 
-import os, time, linecache, random
-import PatchIt, legacyextract
-import gametips, zipfile
+import os
+import time
+import linecache
+import zipfile
+import random
+
+# Logging module
+import logging
+
+import PatchIt
+import legacyextract
+import gametips
 # Colored shell text
 import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
-# App Logging module
-import logging
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -184,7 +192,7 @@ def readModernPatch(patch):
     logging.info("Cleaning up mod version")
     version = version.strip()
     logging.info("Cleaning up mod description")
-    desc  = desc.strip()
+    desc = desc.strip()
     logging.info("Cleaning up MP field")
     mp  = mp.strip()
     logging.info("Cleaning up game field")
@@ -295,7 +303,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
 Make sure {0}{1}.zip and {0}{1}.PiP
 are in the same folder, and try again.
 
-If the error continues, contact {2} and ask for a fixed version.'''
+If this error continues, contact {2} and ask for a fixed version.'''
         .format(name, version, author), color.FG_LIGHT_RED)
 
     # The user does not have the rights to install to that location.

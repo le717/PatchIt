@@ -1,4 +1,5 @@
 #! python3
+# -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
 
@@ -50,7 +51,7 @@ build_exe_options = {"build_exe": destfolder,
                      "handlejam",
                      "patchit",
                      "color"],
-}
+                     }
 
 setup(
     name = "PatchIt!",
@@ -59,5 +60,4 @@ setup(
     description = "PatchIt! Version {0} {1}, created 2013 Triangle717".format(majver, minver),
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("RunIt.py", targetName="PatchIt.exe")]
-)
+    executables = [Executable("RunIt.py", targetName="PatchIt.exe")])

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
 
@@ -21,8 +22,11 @@
 
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
-import PatchIt, time, logging
-import os, linecache
+import PatchIt
+import time
+import logging
+import os
+import linecache
 import JAMExtractor
 
 def compressJAM():

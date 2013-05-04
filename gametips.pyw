@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # PatchIt! V1.1.0 Stable LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 

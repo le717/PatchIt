@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
 
@@ -20,9 +21,15 @@
 # PatchIt! V1.1.0 Unstable, created 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # General use modules
-import sys, os, linecache, webbrowser, time, platform
+import sys
+import os
+import linecache
+import webbrowser
+import time
+import platform
 # Patch Creation and Installation modules
-import modernextract as extract, moderncompress as compress
+import modernextract as extract
+import moderncompress as compress
 # Colored shell text
 import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
@@ -136,9 +143,8 @@ def main():
             colors.pc("\n\nTHE COW!", color.FG_LIGHT_RED)
             time.sleep(0.3)
             webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
-            logging.info("PatchIt! is shutting down without a proper Python exit routine (os._exit(0)) to remind the user never to do this again. :P")
-            os._exit(0)
-
+            logging.info("PatchIt! is shutting down to remind the user never to do this again. :P")
+            raise SystemExit
         elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
             time.sleep(0.5)

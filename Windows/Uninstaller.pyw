@@ -1,4 +1,5 @@
 #! python3
+# -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
 
@@ -70,10 +71,6 @@ def loop_uninstall():
 
         # Update uninstaller name
         i += 1
-
-if not os.path.exists("PatchIt.exe"):
-    print("\nThis is not a valid PatchIt! installation!\n")
-    raise SystemExit
 
 # Run Uninstaller if this is a valid PatchIt! Installation
 if __name__ == "__main__":
