@@ -34,7 +34,7 @@ if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 destfolder = "Compile"
 
 build_exe_options = {"build_exe": destfolder,
-                     "includes": ["subprocess"],
+                     "includes": ["subprocess", "re"],
                      "icon": "../Icons/PatchItIcon.ico"}
 
 setup(

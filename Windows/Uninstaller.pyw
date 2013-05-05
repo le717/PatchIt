@@ -24,17 +24,18 @@
 # Contains code contributed by JrMasterModelBuilder
 
 import os
+import sys
 import time
 import subprocess
 
-def single_uninstall():
+def single_uninstall(folderpath):
     ''' Uninstalls Single PatchIt! Installation'''
 
     # If a single installation exists
-    if os.path.exists(os.path.join(os.getcwd(), "unins000.exe")):
+    if os.path.exists(os.path.join(folderpath, "unins000.exe")):
         print("\nRunning unins000.exe...")
         # Run uninstaller
-        subprocess.call(os.path.join(os.getcwd(), "unins000.exe"))
+        subprocess.call(os.path.join(folderpath, "unins000.exe"))
         # Sleep just a litte to avoid an error
         time.sleep(1.5)
         # Go to looping uninstaller
@@ -72,6 +73,16 @@ def loop_uninstall():
         # Update uninstaller name
         i += 1
 
-# Run Uninstaller if this is a valid PatchIt! Installation
+    # Close once everything is uninstalled
+    print("\nEverything is uninstalled, closing")
+    raise SystemExit
+
+# Run Uninstaller 
 if __name__ == "__main__":
-    single_uninstall()
+    try:
+        # The user entered the path to the PatchIt! installations
+        folderpath = sys.argv[1]
+        single_uninstall(folderpath)
+    # The user did not enter a path, use current directory
+    except Exception:
+        single_uninstall(os.getcwd())
