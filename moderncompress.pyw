@@ -41,6 +41,13 @@ def delThumbs(patchfiles):
     logging.info("Walking through {0}, looking for Thumbs.db".format(patchfiles))
     for root, dirs, files in os.walk(patchfiles):
 
+        # Limits the amount of folders to walk through
+        # GAMEDATA has 26 subfolders in all,
+        # but MENUDATA as 35, so we do 35
+        # to ensure all folders are checked
+        if root.count(os.path.sep) >= 35:
+            break
+
         # Thumbs.db was found
         if 'Thumbs.db' in files:
             logging.warning("Thumbs.db has been found in " + root + "!")
@@ -183,7 +190,7 @@ def patchInfo():
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO
-[q] Back''')
+[q] Quit''')
     game_select = input("\n\n> ")
 
     # It's an LR Patch
@@ -200,7 +207,7 @@ def patchInfo():
         game = "LEGO LOCO"
 
      # I want to quit the process
-    elif game_select.lower() == "q":
+    else: #elif game_select.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_LIGHT_RED)
         time.sleep(0.5)
@@ -355,7 +362,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # The Patch was created sucessfully!
         logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name, version, patchfiles))
-        print('\n{0} patch for {1} Version: {2} created and saved to\n"{3}"\n'.format(PatchIt.app, name, version, patchfiles))
+        colors.pc('\n{0} patch for {1} Version: {2} created and saved to\n"{3}"\n'.format(PatchIt.app, name, version, patchfiles), color.FG_LIGHT_GREEN)
 
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
@@ -364,6 +371,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
 
     # .PiP and/or .zip already exists
+    # TODO: Is this the correct error? I have a feeling it is wrong...
     except FileExistsError:
         logging.warning("Error number '183'")
         logging.warning("{0}{1}.PiP or .zip already exists at {2} or {3}!".format(name, version, patchfiles, os.getcwd()))

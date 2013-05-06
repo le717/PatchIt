@@ -55,7 +55,7 @@ def selectPatch():
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings to (basically) completely hide it")
+    logging.info("Overwrite root settings to completely hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
@@ -81,7 +81,7 @@ def selectPatch():
         root.destroy()
 
         logging.warning("User did not select a PatchIt! Patch for installation!")
-        colors.pc("\nCould not find a PatchIt! patch to read!", color.FG_LIGHT_RED)
+        colors.pc("\nCould not find a PatchIt! Patch to read!", color.FG_LIGHT_RED)
         time.sleep(1)
 
         logging.info("Switching to main menu")
@@ -114,7 +114,7 @@ def checkPatch(patch):
     # It's a legacy Patch
     if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
-        colors.pc('''{0} is a legacy PatchIt! Patch.
+        colors.pc('''{0}\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_LIGHT_GREEN)
 

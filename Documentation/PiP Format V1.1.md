@@ -165,7 +165,7 @@ Revision History
 
 * 1.1 Draft 2: March 5 & 6, 2013
 
-> * Improvement on Draft 1, Added Mod Type field (complete details not yet available)
+> * Added Mod Type field, outlined in [PatchIt! Dev-log #8](http://wp.me/p1V5ge-JN)
 
 * 1.1 Draft 1: March 3, 2013
 

@@ -71,13 +71,6 @@ Check the the PiP Format documentation (linked in the Resources section below) f
 <p>If you have made a <span class="italic">LEGO LOCO</span> Patch, you will need to enter the screen resolution you used to create the map. This is
 important, for if it is played in a different resolution, some elements may be cut off, destroying the hard work you put into making it.</p>
 
-<h4 class="italic">Be Careful!</h4>
-<p id="careful">A few special characters, such as a colon (<code>:</code>), semicolon (<code>;</code>), question mark (<code>?</code>),
-back-slash (<code>\</code>),and forward-slash (<code>/</code>)<br> are not permitted in the <code>Name:</code> and <code>Version:</code> fields, due to
-internal Windows restrictions.<br>As of <span class="bold">PatchIt! 1.1.0 Stable</span>, these characters are not permitted, and entering them will prompt you
-to enter vaild characters.<br>You can learn more about this issue and it's fix <a href="https://github.com/le717/PatchIt/issues/3" target="_blank">here</a>.
-</p>
-
 <h3>First Run</h3>
 <p>Upon running <span class="bold">PatchIt!</span> for the first time, you will be asked to set up the required Settings. The steps below will walk you
 through the process, or you can figure it out yourself.
@@ -245,7 +238,8 @@ LEGO LOCO</span>, open <code>LOCOsettings</code> for installation path</li>
 <li>Renamed settings files from <code>LRsettings</code> and <code>LOCOsettings</code> to <code>Racers.cfg</code> and <code>LOCO.cfg</code> respectively,
 Patch Installation modules updated accordingly</li>
 <li>Created <code>Documentation/Settings.md</code></li>
-<li>Added invalid character check when asking for Patch Name during Patch Creation</li>
+<li>Added invalid character check when asking for Patch Name during Patch Creation (see <a href="https://github.com/le717/PatchIt/issues/3" target="_blank">
+Issue #3</a>)</li>
 <li>Fixed invalid character check to support uppercase letters</li>
 <li>Renamed <code>TheWritingsofPatchIt.log</code> to just <code>PatchIt.log</code></li>
 <li>Merged <code>thescore.pyw</code> into <code>RunIt.py</code>, deleted <code>thescore.pyw</code></li>
