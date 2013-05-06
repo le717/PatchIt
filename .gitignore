@@ -186,7 +186,7 @@ pip-log.txt
 Windows/Here Lie the Installer/
 TheTesterGroup/
 listtips.py
-#*.psd
+*.psd
 #*.html
 PatchItOld.py
 *.txt
@@ -200,6 +200,7 @@ PatchItOld.py
 *.blend1
 *.blend2
 *.php
+*.ico
 *.html
 Testing/
 Compile/
