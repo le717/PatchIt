@@ -114,69 +114,69 @@ francais.Shell=Associer fichier. PiP Avec {#MyAppName}
 nederlands.Shell=Associëren .PiP File Met {#MyAppName} 
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableInstall
-Name: "Shell"; Description: "{cm:Shell}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableInstall
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+Name: Shell; Description: {cm:Shell}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
 
-Name: "Admin"; Description: "{cm:Admin}"; Check: not PortableInstall
-Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked     
+Name: Admin; Description: {cm:Admin}; Check: not PortableInstall
+Name: Settings_Reset; Description: {cm:Settings_Reset}; Flags: unchecked     
 
 [Registry]
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
 ; Run as Admin for this user only
-Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
+Root: HKCU; Subkey: Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\PatchIt.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; Tasks: Admin
 
 ; Shell extension
-Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt_PiP"; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: "PatchIt_PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt! Patch"; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: "PatchIt_PiP\DefaultIcon"; ValueType: string; ValueName: ; ValueData: "{app}\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
-Root: "HKCR"; Subkey: "PatchIt_PiP\shell"; ValueType: string; ValueName: ; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
-Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open\command"; ValueType: string; ValueName: ; ValueData: "{app}\PatchIt.exe -open %1"; Flags: uninsdeletevalue; Tasks: Shell                                                                     
+Root: HKCR; Subkey: .PiP; ValueType: string; ValueName: ; ValueData: PatchIt_PiP; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP; ValueType: string; ValueName: ; ValueData: PatchIt! Patch; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe -open %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
 
-[Files]  
+[Files]
 ; PatchIt! Uninstaller
-Source: "Compile\PiUninstaller.exe"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "Compile\_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "Compile\library.zip"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "Compile\python33.dll"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "Compile\select.pyd"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
 
 ; Readme and Icon
-Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion isreadme
+Source: ..\Icons\PatchItIcon.ico; DestDir: {app}; Flags: ignoreversion
+Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
 
 ; Settings files
-Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
-Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
+; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion
+; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Flags: ignoreversion
 
 ; Repeated for Settings_Reset switch
-Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
-Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
+; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
+; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
 
 ; 32-bit Windows build
-Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
+Source: ..\Compile\Windows32\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
 
 ; 64-bit Windows build
-Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+Source: ..\Compile\Windows64\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
-Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\PatchItIcon.ico"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Tasks: desktopicon
+Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\PatchItIcon.ico; Comment: Run {#MyAppVerName}
+Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}; IconFilename: {app}\PatchItIcon.ico
+Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\PatchItIcon.ico; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
+Filename: {app}\{#MyAppExeName}; Flags: nowait postinstall runascurrentuser skipifsilent; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}
 
 [UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
-Type: filesandordirs; Name: "{app}\tcl"
-Type: filesandordirs; Name: "{app}\tk"  
+Type: filesandordirs; Name: {app}\tcl
+Type: filesandordirs; Name: {app}\tk  
 
 [InstallDelete]
 ; Remove V1.0.x settings file
 ; Not doing so breaks V1.1.x
-Type: files; Name: "{app}\settings"
+Type: files; Name: {app}\settings
 
 [Code]   
 // Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         

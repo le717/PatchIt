@@ -34,7 +34,7 @@ if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 display = "Win32GUI"
 
 # Output folder
-destfolder = "Compile"
+destfolder = "Uninstaller"
 
 build_exe_options = {"build_exe": destfolder,
                      "includes": ["subprocess", "re"],
