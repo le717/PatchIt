@@ -126,7 +126,8 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-#*.exe
+*.exe
+!Windows/PatchIt-Uninstaller.exe
 *.msi
 *.com
 *.bat
@@ -171,7 +172,7 @@ pip-log.txt
 ## Archives
 #############
 
-#I don't want to upload any archives.
+# I don't want to upload any archives.
 *.zip
 *.rar
 *.7z
