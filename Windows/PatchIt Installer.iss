@@ -28,7 +28,14 @@
   #error You must use Inno Setup 5.5.2 (u) or newer to compile this script
 #endif
 
-[Define]
+; TODO: Merge these two checks
+
+#ifdef UNICODE
+  ; Do nothing, since Unicode is needed to compile
+#else
+  #error You must use Inno Setup 5.5.2 (u) or newer to compile this script
+#endif
+
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.1.0"
 #define MyAppVerName "PatchIt! Version 1.1.0 Unstable"
@@ -62,13 +69,13 @@ Uninstallable=not PortableInstall
 UninstallDisplayIcon={app}\PatchItIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
-; This is required because Inno is having issues figuring out how large the files are. :|
-; TODO: Check if this is fixed yet!
+; This is required so Inno can correctly report the installation size.
 UninstallDisplaySize=16252928
 ; Compression
-Compression=lzma/ultra
+Compression=lzma2/ultra64
 SolidCompression=True
 InternalCompressLevel=ultra
+LZMAUseSeparateProcess=yes
 ; From top to bottom: Allows installation to C:\ (and the like),
 ; Explicitly set Admin rights, no other languages, do not restart upon finishing.
 AllowRootDirectory=yes
@@ -76,8 +83,7 @@ PrivilegesRequired=admin
 RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
-; This is required because Inno is having issues figuring out how large the files are. :|
-; TODO: Check if this is fixed yet!
+; This is required so Inno can correctly report the installation size.
 ExtraDiskSpaceRequired=16252928
 ; Required for creating Shell extension
 ChangesAssociations=True
@@ -103,46 +109,56 @@ nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
 english.Admin=Run {#MyAppName} with Administrator Rights
 francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten
-english.Shell=Associate .PiP File With {#MyAppName}
+english.Shell=Associate .PiP File with {#MyAppName}
 francais.Shell=Associer fichier. PiP Avec {#MyAppName}
 nederlands.Shell=Associëren .PiP File Met {#MyAppName} 
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableInstall
-Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
-Name: "Admin"; Description: "{cm:Admin}"; Flags: unchecked; Check: not PortableInstall
-Name: "Shell"; Description: "{cm:Shell}"; Flags: unchecked; Check: not PortableInstall
+Name: "Shell"; Description: "{cm:Shell}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableInstall
+
+Name: "Admin"; Description: "{cm:Admin}"; Check: not PortableInstall
+Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked     
 
 [Registry]
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
-; Run as Admin
+; Run as Admin for this user only
 Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
+
 ; Shell extension
 Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt_PiP"; Flags: uninsdeletekey; Tasks: Shell
 Root: "HKCR"; Subkey: "PatchIt_PiP"; ValueType: string; ValueName: ; ValueData: "PatchIt! Patch"; Flags: uninsdeletekey; Tasks: Shell
 Root: "HKCR"; Subkey: "PatchIt_PiP\DefaultIcon"; ValueType: string; ValueName: ; ValueData: "{app}\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: "PatchIt_PiP\shell"; ValueType: string; ValueName: ; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open\command"; ValueType: string; ValueName: ; ValueData: "{app}\PatchIt.exe -open %1"; Flags: uninsdeletevalue; Tasks: Shell
-                                                                                 
-[Files]
+Root: "HKCR"; Subkey: "PatchIt_PiP\shell\open\command"; ValueType: string; ValueName: ; ValueData: "{app}\PatchIt.exe -open %1"; Flags: uninsdeletevalue; Tasks: Shell                                                                     
+
+[Files]  
+; PatchIt! Uninstaller
+Source: "Compile\PiUninstaller.exe"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "Compile\_bz2.pyd"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "Compile\library.zip"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "Compile\python33.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "Compile\select.pyd"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "Compile\unicodedata.pyd"; DestDir: "{app}"; Flags: ignoreversion
+
 ; Readme and Icon
 Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 ; Settings files
 Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion
 
 ; Repeated for Settings_Reset switch
-Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Permissions: users-modify; Flags: ignoreversion; Tasks: Settings_Reset
-Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Permissions: users-modify; Flags: ignoreversion; Tasks: Settings_Reset
+Source: "..\Compile\Settings\Racers.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
+Source: "..\Compile\Settings\LOCO.cfg"; DestDir: "{app}\Settings"; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
 
 ; 32-bit Windows build
 Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
 
-; 64-bit Windows build                                                     
-Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64 
+; 64-bit Windows build
+Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
@@ -151,13 +167,11 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
-Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipifsilent; Description: "View Readme"
 
 [UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
 Type: filesandordirs; Name: "{app}\tcl"
-Type: filesandordirs; Name: "{app}\tk"
-
+Type: filesandordirs; Name: "{app}\tk"  
 
 [InstallDelete]
 ; Remove V1.0.x settings file
@@ -177,7 +191,7 @@ begin
   Result := ExpandConstant('{param:portable|0}') = '1';
 end;
 
-/// Code based on Launchy Inno Setup installer
+// Code based on Launchy Inno Setup installer
 // http://launchy.svn.sourceforge.net/viewvc/launchy/trunk/Launchy_QT/win/installer/SETUP.iss
 function InstallPath(Param: String): String;
 begin
@@ -187,3 +201,18 @@ begin
     Result := ExpandConstant('{pf}');
   Result := Result + '\PatchIt';
 end;
+
+// Uninstalls previous versions of PatchIt! before instaling the current one
+// Code based on examples in Inno Setup help file and scripts on the Internet
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+  ResultCode: Integer;
+begin
+  ExtractTemporaryFile('PiUninstaller.exe');
+  ExtractTemporaryFile('python33.dll');
+  ExtractTemporaryFile('library.zip');
+  ExtractTemporaryFile('_bz2.pyd');
+  ExtractTemporaryFile('select.pyd');
+  ExtractTemporaryFile('unicodedata.pyd');
+  if Exec(ExpandConstant('{tmp}\PiUninstaller.exe'), ExpandConstant('"{app}"'), '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+  end;

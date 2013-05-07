@@ -102,11 +102,11 @@ can't verified, you'll need to enter it again.</p>
 (Released ?? ??, 2013)<br>
 <ul>
 <li>Added <code>build.bat</code> for compiling <span class="bold">PatchIt!</span></li>
-<li>Removed spaces in Installer output name (provides a better download link when uploaded to GitHub)</li>
-<li>Added <code>Run with Administrator Rights</code> option to Installer, with French and Dutch translations</li>
-<li>Added Installer Portable Switch to <code>Run with Administrator Rights</code> option, Desktop icon</li>
+<li>Removed spaces in installer output name (provides a better download link when uploaded to GitHub)</li>
+<li>Added <code>Run with Administrator Rights</code> option to installer, with French and Dutch translations</li>
+<li>Added installer Portable Switch to <code>Run with Administrator Rights</code> option, Desktop icon</li>
 <li>Added PiP Format Revision History Dates</li>
-<li>Added dashes to Installer output name (it's better than no spaces)</li>
+<li>Added dashes to installer output name (it's better than no spaces)</li>
 <li>Added window title using name, major version, minor version</li>
 <li>Updated <span class="bold">PatchIt!</span> <code>settings</code> file in partial accordance with <a href="http://wp.me/p1V5ge-yB" target="_blank">
 PatchIt! Dev-log #6</a></li>
@@ -253,7 +253,7 @@ Issue #3</a>)</li>
 <li>Moved Game selection before asking for Patch Creation details; moved key to quit Patch Creation process to Game selection</li>
 <li>Added "Here's a tip!" before <span class="italic">LEGO Racers</span> gameplay tip during Patch Installation modules (per suggestion from tester)</li>
 <li>Created <span class="bold">PatchIt! Uninstaller</span> (<code>Windows/Uninstaller.pyw</code>)
-to be released separately and possibly used in Installer</li>
+to be released separately andd used in installer</li>
 <li>Fixed small error in Patch Installation failure message (per report from tester)</li>
 <li>Removed explanation point in Patch Creation complete message (per suggestion from tester)</li>
 <li>Added <code>[b] Back</code> to settings menu and JAM Extractor wrapper (per suggestion from tester)</li>
@@ -284,6 +284,13 @@ updated accordingly</li>
 <li>Changed <span class="bold">PatchIt! Uninstaller</span> behavior: if a folder path is passed after the Exe name, it uninstalls <span class="bold">PatchIt!
 </span> from that folder; if no folder path is give, it uses the current directory</li>
 <li>Fixed <span class="bold">PatchIt! Uninstaller</span> compile script (<code>Windows/unsetup.py</code>)</li>
+<li>Added window title to <span class="bold">PatchIt! Uninstaller</span>, uses working directory for title</li>
+<li>Fixed shebang line in <span class="bold">PatchIt! Uninstaller</span> compile script, added line to remove window completely in compiled Exe</li>
+<li>Added Unicode Inno Setup check into installer</li>
+<li>Increased compression strength for installer</li>
+<li>Rearranged <code>[Tasks]</code> options in installer</li>
+<li><code>Run PatchIt! with Administrator Rights</code> option enabled by default</li>
+<li>Incorporated <span class="bold">PatchIt! Uninstaller</span> into installer, checks for and uninstalls previous installations of <span class="bold">PatchIt!</span> before installing the current version</li>
 <li>LEGOs in space? More later!</li>
 </ul>
 
@@ -318,7 +325,7 @@ newer version of <span class="bold">PatchIt!</span> to install it</li>
 <li>Minor changes to <code>PatchIt.py</code></li>
 <li>Set <code>Read Me First.html</code> to use UTF-8 encoding</li>
 <li>Added favicon for <code>Read Me First.html</code></li>
-<li>Added Portable Switch to Installer (pass <code>/PORTABLE=1</code> at the command-line)</li>
+<li>Added Portable Switch to installer (pass <code>/PORTABLE=1</code> at the command-line)</li>
 </ul>
 
 <strong>1.0.2 Stable</strong><br>
@@ -326,7 +333,7 @@ newer version of <span class="bold">PatchIt!</span> to install it</li>
 (Released March 5, 2013)<br>
 <ul>
 <li>Colorized <span class="italic">LEGO Racers</span> gameplay tips</li>
-<li>Fixed small Installer errors</li>
+<li>Fixed small installer errors</li>
 <li>Commented <code>Thumbs.db</code> deletion code</li>
 <li>Change import options for <code>os</code> module</li>
 <li>Added App Logging code for main <span class="bold">PatchIt!</span> module</li>
@@ -356,8 +363,8 @@ actually being displayed upon launch after being compiled into an EXE)</li>
 (Released March 2, 2013)<br>
 <ul>
 <li>Readme.html now opens when installation is complete</li>
-<li>Added Settings reset option to Windows Installer</li>
-<li>Added French and Dutch languages to Windows Installer</li>
+<li>Added Settings reset option to Windows installer</li>
+<li>Added French and Dutch languages to Windows installer</li>
 <li>Version bump</li>
 <li>Added <code>FileNotFoundError</code> exception to Patch Installation</li>
 <li>Changed App exit message</li>
@@ -399,7 +406,7 @@ actually being displayed upon launch after being compiled into an EXE)</li>
 <li>Enabled cancellation of patch installation</li>
 <li>Removed <code>settings file</code> writing in <code>preload()</code></li>
 <li>Added <span class="italic">LEGO Racers</span> gameplay tips</li>
-<li>Created <a href="http://www.innosetup.com" title="Inno Setup" target="_blank">Inno Setup</a> Windows Installer</li>
+<li>Created <a href="http://www.innosetup.com" title="Inno Setup" target="_blank">Inno Setup</a> Windows installer</li>
 <li>New <span class="bold">PatchIt!</span> Application Icon created by <a href="http://rioforce.wordpress.com" target="_blank" title="rioforce">rioforce</a>
 (Thanks!)</li>
 <li>Added "files for compression" input</li>
@@ -434,7 +441,7 @@ actually being displayed upon launch after being compiled into an EXE)</li>
 <li>Added PiP file description length check</li>
 <li>Wrote and updated script comments</li>
 <li>Small <code>preload()</code>, internal edits</li>
-<li>Major Installer script update</li>
+<li>Major installer script update</li>
 <li>Corrected <span class="bold">PatchIt!</span> ICO file</li>
 <li>Wrote <span class="bold">PatchIt!</span> usage documentation</li>
 <li>Created <span class="bold">PatchIt! Compatible</span> sticker</li>

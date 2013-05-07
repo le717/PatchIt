@@ -50,8 +50,7 @@ build_exe_options = {"build_exe": destfolder,
                      "gametips",
                      "handlejam",
                      "patchit",
-                     "color"],
-                     }
+                     "color"]}
 
 setup(
     name = "PatchIt!",

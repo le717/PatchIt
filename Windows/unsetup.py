@@ -1,4 +1,4 @@
-#! python3.3-32
+#! python3-32
 # -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
@@ -30,6 +30,9 @@ import sys
 # Append build to the arguments. Just type "python setup.py" and it will compile
 if len(sys.argv) == 1: sys.argv[1:] = ["build"]
 
+# Hides any text from the console window
+display = "Win32GUI"
+
 # Output folder
 destfolder = "Compile"
 
@@ -44,5 +47,5 @@ setup(
     description = "PatchIt! Uninstaller Version 1.0.1",
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe")]
+    executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe", base=display)]
 )

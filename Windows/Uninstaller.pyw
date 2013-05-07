@@ -82,7 +82,9 @@ if __name__ == "__main__":
     try:
         # The user entered the path to the PatchIt! installations
         folderpath = sys.argv[1]
+        os.system("title " + folderpath)
         single_uninstall(folderpath)
     # The user did not enter a path, use current directory
     except Exception:
+        os.system("title " +  os.getcwd())
         single_uninstall(os.getcwd())
