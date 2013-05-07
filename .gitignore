@@ -202,7 +202,6 @@ listtips.py
 *.ini
 *.py
 !Windows/unsetup.py
-!Windows/Uninstaller
 JAMExtractor.py
 *settings
 *.log
