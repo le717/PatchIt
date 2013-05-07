@@ -202,7 +202,6 @@ listtips.py
 *.ini
 *.py
 !Windows/unsetup.py
-!Windows/PatchIt-Uninstaller.exe
 JAMExtractor.py
 *settings
 *.log
