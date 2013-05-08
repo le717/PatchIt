@@ -20,7 +20,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Uninstaller V1.0.1
+# PatchIt! Uninstaller V1.0.2
 # Contains code contributed by JrMasterModelBuilder
 
 import os
@@ -33,26 +33,26 @@ def single_uninstall(folderpath):
 
     # If a single installation exists
     if os.path.exists(os.path.join(folderpath, "unins000.exe")):
-        print("\nRunning unins000.exe...")
+        print("\nRunning unins000.exe")
         # Run uninstaller
         subprocess.call(os.path.join(folderpath, "unins000.exe"))
         # Sleep just a litte to avoid an error
-        time.sleep(1.5)
+        time.sleep(2)
         # Go to looping uninstaller
         print("\nSwitching to Looping Uninstaller")
-        loop_uninstall()
+        loop_uninstall(folderpath)
 
     # Single installation does not exist
     else:
         print("\nunins000.exe does not exist")
         # Sleep just a litte to avoid an error
-        time.sleep(1.5)
+        time.sleep(2)
         # Go to looping uninstaller
         print("\nSwitching to Looping Uninstaller")
-        loop_uninstall()
+        loop_uninstall(folderpath)
 
 
-def loop_uninstall():
+def loop_uninstall(folderpath):
     '''Looping PatchIt! Uninstaller
     Code contributed by JrMasterModelBuilder'''
 
@@ -62,11 +62,11 @@ def loop_uninstall():
     # It is assumed another installation exists
     while i < 1000:
         exe_name  ="unins" + str(i).zfill(3) + ".exe"
-        if os.path.exists(exe_name):
+        if os.path.exists(os.path.join(folderpath, exe_name)):
 
             # Run the uninstaller
-            print("\nRuinning {0}...".format(exe_name))
-            subprocess.call(exe_name)
+            print("\nRuinning {0}".format(exe_name))
+            subprocess.call(os.path.join(folderpath, exe_name))
             # Sleep a little to avoid uninstallation error
             time.sleep(2)
 
@@ -74,17 +74,19 @@ def loop_uninstall():
         i += 1
 
     # Close once everything is uninstalled
-    print("\nEverything is uninstalled, closing")
+    print("\nAll PatchIt! installations had been removed")
     raise SystemExit
 
 # Run Uninstaller 
 if __name__ == "__main__":
     try:
-        # The user entered the path to the PatchIt! installations
+        # The user entered a path to the PatchIt! installations
         folderpath = sys.argv[1]
+    # The user did not enter a path, use current directory
+    except IndexError:
+        folderpath = os.getcwd()
+        # Run uninstaller using folder path
+    finally:
         os.system("title " + folderpath)
         single_uninstall(folderpath)
-    # The user did not enter a path, use current directory
-    except Exception:
-        os.system("title " +  os.getcwd())
-        single_uninstall(os.getcwd())
+        

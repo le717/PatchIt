@@ -1,4 +1,4 @@
-#! python3-32
+#! python3.3-32
 # -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
@@ -42,9 +42,9 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name = "PatchIt! Uninstaller",
-    version = "V1.0.1",
+    version = "V1.0.2",
     author = "Triangle717",
-    description = "PatchIt! Uninstaller Version 1.0.1",
+    description = "PatchIt! Uninstaller Version 1.0.2",
     license = "GNU GPLv3",
     options = {"build_exe": build_exe_options},
     executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe", base=display)]

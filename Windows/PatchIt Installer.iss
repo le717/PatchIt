@@ -19,23 +19,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; PatchIt! Windows Installer
-; Created 2013 Triangle717
-; http://Triangle717.WordPress.com
 ; Written with Inno Setup 5.5.2 Unicode
 
 ; If any version below the specified version is used for compiling, this error will be shown.
 #if VER < EncodeVer(5,5,2)
-  #error You must use Inno Setup 5.5.2 (u) or newer to compile this script
+  #error You must use Inno Setup 5.5.2 or newer to compile this script
 #endif
 
-; TODO: Merge these two checks
+; If non-Unicode Inno Setup is used
 
 #ifdef UNICODE
   ; Do nothing, since Unicode is needed to compile
 #else
-  #error You must use Inno Setup 5.5.2 (u) or newer to compile this script
-#endif
-
+  #error You must use Unicode Inno Setup to compile this script
+#endif   
+       
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.1.0"
 #define MyAppVerName "PatchIt! Version 1.1.0 Unstable"
@@ -111,7 +109,7 @@ francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten
 english.Shell=Associate .PiP File with {#MyAppName}
 francais.Shell=Associer fichier. PiP Avec {#MyAppName}
-nederlands.Shell=Associëren .PiP File Met {#MyAppName} 
+nederlands.Shell=Associëren .PiP File Met {#MyAppName}
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
