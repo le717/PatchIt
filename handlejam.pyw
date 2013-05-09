@@ -20,14 +20,20 @@
 """
 # PatchIt! V1.1.0 Unstable JAM Handling Code
 
-# File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
-import PatchIt
+
+import os
 import time
 import logging
-import os
 import linecache
+
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
+
+import PatchIt
 import JAMExtractor
+
+# Colored shell text
+import Color as color, Color.colors as colors
 
 def compressJAM():
     '''Passes the proper parameters to compress LEGO.JAM'''
@@ -89,12 +95,15 @@ def extractJAM():
     '''Passes the proper parameters to extract LEGO.JAM'''
     pass
 
+    # The Racers settings (required for extraction) does not exist
+    if not os.path.exist(os.path.join("Settings", "Racers.cfg")):
+        colors.pc("The LEGO Racers settings do not exist!\nPlease create it, then try to extract LEGO.JAM", color.FG_LIGHT_RED)
+
+    # Get location of Racers installation
     JAM_location = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
+    # This
     JAM_file = os.path.join(JAM_location, "LEGO.JAM")
     if os.path.exists(JAM_file):
         JAMExtractor.extract(JAM_file)
     elif not os.path.exists(JAM_file):
         raise SystemExit
-
-findExtractor()
-JAMName()

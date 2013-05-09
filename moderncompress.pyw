@@ -66,7 +66,7 @@ def delThumbs(patchfiles):
 
 # ------------ Begin Patch Info Character and Length Checks ------------ #
 
-def charCheck(strg, search=re.compile(r'[^A-Za-z0-9.]').search):
+def charCheck(strg, search=re.compile(r'[^A-Za-z0-9. ]').search):
     '''Check if an invalid character was entered or not'''
 
     # This returns True if everything is valid, and False if it isn't
@@ -228,7 +228,6 @@ def patchInfo():
     desc = patchDesc()
 
     if game == "LEGO LOCO":
-
         # Get the resolution the map was created in (it matters!) for the MP field
         logging.info("Switching to LOCORes(name) to get map resolution")
         mp = LOCORes(name)
@@ -275,13 +274,15 @@ def patchInfo():
         root.destroy()
         logging.info("User selected files at {0} for Patch compression".format(patchfiles))
         logging.info('''The final Patch details are:
+
 {0}
 Version: {1}
 Author: {2}
 Game: {3}
 {4}
 
-"{5}"'''.format(name, version, author, game, mp, desc))
+"{5}"
+'''.format(name, version, author, game, mp, desc))
         logging.info("Switching to writePatch(patchfiles, name, version, author, desc, mp, game)")
         writePatch(patchfiles, name, version, author, desc, mp, game)
 
@@ -369,6 +370,9 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.warning("Error number '13'")
         logging.warning("{0} does not have the rights to save {1} {2}".format(PatchIt.app, name, version))
         colors.pc("\n{0} does not have the rights to create {1} {2}!\n".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
+        # Delete incomplete PiP
+        logging.info('Deleting incomplete Patch ("{0}{1}.PiP")'.format(name, version))
+        os.unlink(os.path.join(os.getcwd(), "{0}{1}.PiP".format(name, version)))
 
     # .PiP and/or .zip already exists
     # TODO: Is this the correct error? I have a feeling it is wrong...

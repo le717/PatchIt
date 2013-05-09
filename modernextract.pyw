@@ -285,7 +285,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
         # Installation was sucessful!
         logging.warning("Error (exit) number '0'")
         logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
-        print('{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath))
+        colors.pc('{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath), color.FG_LIGHT_GREEN)
 
         # Log ZIP closure although it was closed automatically by with
         logging.info("Closing {0}".format(ziparchive))

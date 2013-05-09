@@ -186,12 +186,12 @@ pip-log.txt
 Windows/Here Lie the Installer/
 Compile/
 Logs/
+!Windows/Uninstaller/*
 License/
 Settings/
 Testing/
 Archive/
 TheTesterGroup/
-listtips.py
 
 ##########
 ## Files
@@ -203,6 +203,7 @@ listtips.py
 *.py
 !Windows/unsetup.py
 JAMExtractor.py
+listtips.py
 *settings
 *.log
 *.php
