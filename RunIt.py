@@ -26,7 +26,7 @@ import sys, os, webbrowser, time
 
 app = "PatchIt!"
 majver = "Version 1.1.0"
-minver = "Unstable"
+minver = "RC2"
 
 # Write window title (since there is no GUI)
 os.system("title {0} {1} {2}".format(app, majver, minver))

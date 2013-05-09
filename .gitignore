@@ -187,6 +187,7 @@ Windows/Here Lie the Installer/
 Compile/
 Logs/
 !Windows/Uninstaller/*
+Windows/Uninstall*/*
 License/
 Settings/
 Testing/

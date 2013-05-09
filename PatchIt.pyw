@@ -42,7 +42,7 @@ import argparse
 # Global variables
 app = "PatchIt!"
 majver = "Version 1.1.0"
-minver = "Unstable"
+minver = "RC2"
 creator = "Triangle717"
 settingsfol = "Settings"
 
@@ -116,7 +116,7 @@ def main():
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
-    colors.pc("\nHello, and welcome to {0} {1} {2},\ncreated 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    colors.pc("\nHello, and welcome to {0} {1} {2}\ncreated 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
     if not test:
         logging.info("Display normal menu to user")
         print('''Please make a selection:\n
