@@ -113,7 +113,7 @@ nederlands.Shell=Associëren .PiP File Met {#MyAppName}
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
-; Name: Shell; Description: {cm:Shell}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+Name: Shell; Description: {cm:Shell}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
 
 Name: Admin; Description: {cm:Admin}; Check: not PortableInstall
 Name: Settings_Reset; Description: {cm:Settings_Reset}; Flags: unchecked     
@@ -145,12 +145,12 @@ Source: ..\Icons\PatchItIcon.ico; DestDir: {app}; Flags: ignoreversion
 Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
 
 ; Settings files
-Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion
-Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Flags: ignoreversion
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion
 
 ; Settings files for Settings_Reset switch
-Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
-Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion 
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion 
 
 ; 32-bit Windows build
 Source: ..\Compile\Windows32\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32

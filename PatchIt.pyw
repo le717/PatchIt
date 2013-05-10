@@ -166,9 +166,6 @@ def preload():
 
     # The PatchIt! settings folder does exist (implied else block here)
 
-    # Initialize command-line arguments
-    Args()
-
     # If the Racers or LOCO settings check come back True, go to menu.
     # No need for a False check; that is written into the functions already
     if CheckLRSettings() == True or CheckLOCOSettings() == True:
