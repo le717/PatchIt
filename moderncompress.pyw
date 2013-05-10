@@ -209,7 +209,7 @@ def patchInfo():
      # I want to quit the process
     else: #elif game_select.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_LIGHT_RED)
+        colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_WHITE)
         time.sleep(0.5)
         logging.info("Switching to main menu")
         PatchIt.main()

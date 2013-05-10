@@ -29,8 +29,10 @@ import random
 # Logging module
 import logging
 
+# Main PatchIt! module, legacy instalation code
 import PatchIt
 import legacyextract
+# LEGO Racers gameplay tips
 import gametips
 # Colored shell text
 import Color as color, Color.colors as colors
@@ -114,7 +116,7 @@ def checkPatch(patch):
     # It's a legacy Patch
     if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
-        colors.pc('''{0}\nis a legacy PatchIt! Patch.
+        colors.pc('''\n{0}\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_LIGHT_GREEN)
 
@@ -141,13 +143,14 @@ It may be best to check if a newer version of this mod is available.'''.format(p
     # It's not a Patch at all! D:
     elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        colors.pc("{0} is not a valid PatchIt! Patch!\n".format(patch), color.FG_LIGHT_RED)
+        colors.pc("\n{0} is not a valid PatchIt! Patch!".format(patch), color.FG_LIGHT_RED)
 
         # Dump PiP validity cache after reading
         logging.info("Clearing PiP validity cache...")
         linecache.clearcache()
         time.sleep(1)
         logging.info("Switching to main menu")
+        PatchIt.main()
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -219,9 +222,10 @@ Game: {3}
     # No, I do not want to install the patch
     if confirminstall.lower() != "y":
         logging.warning("User does not want to install {0} {1}!".format(name, version))
-        print("\nCanceling installation of {0} {1}...".format(name, version))
+        colors.pc("\nCanceling installation of {0} {1}...".format(name, version), color.FG_WHITE)
         time.sleep(1)
         logging.info("Switching to main menu")
+        PatchIt.main()
 
     else:
         # Yes, I do want to install it!
@@ -323,5 +327,6 @@ If this error continues, contact {2} and ask for a fixed version.'''
         # Sleep for 4.5 seconds after displaying installation result before kicking back to the PatchIt! menu.
         time.sleep(4.5)
         logging.info("Switching to main menu")
+        PatchIt.main()
 
 # ------------ End PatchIt! Patch Installation ------------ #

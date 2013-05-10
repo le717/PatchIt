@@ -129,7 +129,7 @@ Root: HKCU; Subkey: Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\
 ; Root: HKCR; Subkey: PatchIt_PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
 ; Root: HKCR; Subkey: PatchIt_PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
 ; Root: HKCR; Subkey: PatchIt_PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-; Root: HKCR; Subkey: PatchIt_PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe -open %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
+; Root: HKCR; Subkey: PatchIt_PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
 
 [Files]
 ; PatchIt! Uninstaller

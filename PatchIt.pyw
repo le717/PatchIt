@@ -60,7 +60,7 @@ locosettings = "LOCO.cfg"
 ##    # Command-line arguments parser
 ##    parser = argparse.ArgumentParser(description="{0} {1} Command-line arguments".format(app, majver))
 ##    parser.add_argument("-t", "--test",
-##    help="Enable {0} Experiential features".format(app),
+##    help="Enable {0} Experimental features".format(app),
 ##    action="store_true")
 ##    args = parser.parse_args()
 ##
@@ -71,13 +71,41 @@ locosettings = "LOCO.cfg"
 def Args():
     '''PatchIt! Command-line Arguments'''
 
+    # Declare test parameter (-t, --test) as global for use in other places
     global test
     test = False
+    # The shell extension
+    shell = []
+
     for i in range(1, len(sys.argv)):
         argument = sys.argv[i]
-        if argument == "--test" or "-t":
-            test = True
 
+        # Arguments lists
+        test_params = ["--test", "-t"]
+        help_params = ["--help", "-h"]
+
+        for value in test_params:
+            # If the test parameter is passed
+            if argument == value:
+                test = True
+                logging.info("The test parameter (--test, -t) was passed, enabling experimental features")
+
+            # A file was passed
+            else:
+                shell.append(argument)
+
+    # Process file or run program, depending on parameters
+    if len(shell) > 0:
+        for file in shell:
+            # If it is a file, switch to Patch Installation
+            if os.path.isfile(file):
+                logging.info("A file path was passed, switching to extract.checkPatch()")
+                extract.checkPatch(file)
+            # It was a directory, or a non-existant file
+            else:
+                logging.warning("Either an invalid file path or no other parameters were passed!")
+                # Do nothing, preload() takes over from here
+                pass
 
 def preload():
     '''PatchIt! first-run checks'''
@@ -112,6 +140,9 @@ def preload():
         Settings()
 
     # The PatchIt! settings folder does exist (implied else block here)
+
+    # Initialize command-line arguments
+    Args()
 
     # If the Racers or LOCO settings check come back True, go to menu.
     # No need for a False check; that is written into the functions already
