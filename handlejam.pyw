@@ -64,7 +64,7 @@ def compressJAM():
     if len(jam_files) == 0:
         raise SystemExit
 
-    JAMExtractor.build(jam_files)
+##    JAMExtractor.build(jam_files)
 
 def main():
 
@@ -76,13 +76,14 @@ def main():
     jam_opt = input("\n\n> ")
 
     # Nothing here is complete, so redirect back to PatchIt! menu
+    if input:
 ##    if jam_opt.lower() == "e" or jam_opt.lower() == "c":
-    if jam_opt.lower() == "e":
-        extractJAM()
+##    if jam_opt.lower() == "e":
+##        extractJAM()
 
 ##    elif jam_opt.lower() == "c":
 
-    else: #if jam_opt.lower():
+##    else: #if jam_opt.lower():
         logging.warning("Whoops! That feature hasn't been added yet.")
         print("\nWhoops! That feature hasn't been added yet.")
         time.sleep(0.5)
@@ -96,7 +97,7 @@ def extractJAM():
     pass
 
     # The Racers settings (required for extraction) does not exist
-    if not os.path.exist(os.path.join("Settings", "Racers.cfg")):
+    if not os.path.exists(os.path.join("Settings", "Racers.cfg")):
         colors.pc("The LEGO Racers settings do not exist!\nPlease create it, then try to extract LEGO.JAM", color.FG_LIGHT_RED)
 
     # Get location of Racers installation

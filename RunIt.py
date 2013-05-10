@@ -98,7 +98,8 @@ if __name__ == "__main__":
     appLoggingFolder()
     logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
     logConfig()
-    PatchIt.cmdArgs()
+##    PatchIt.cmdArgs()
+    PatchIt.Args()
     PatchIt.preload()
 
 

@@ -54,19 +54,30 @@ locosettings = "LOCO.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
-def cmdArgs():
+##def cmdArgs():
+##    '''PatchIt! Command-line Arguments'''
+##
+##    # Command-line arguments parser
+##    parser = argparse.ArgumentParser(description="{0} {1} Command-line arguments".format(app, majver))
+##    parser.add_argument("-t", "--test",
+##    help="Enable {0} Experiential features".format(app),
+##    action="store_true")
+##    args = parser.parse_args()
+##
+##    # Declare test parameter (-t, --test) as global for use in other places.
+##    global test
+##    test = args.test
+
+def Args():
     '''PatchIt! Command-line Arguments'''
 
-    # Command-line arguments parser
-    parser = argparse.ArgumentParser(description="{0} {1} Command-line arguments".format(app, majver))
-    parser.add_argument("-t", "--test",
-    help="Enable {0} Experiential features".format(app),
-    action="store_true")
-    args = parser.parse_args()
-
-    # Declare test parameter (-t, --test) as global for use in other places.
     global test
-    test = args.test
+    test = False
+    for i in range(1, len(sys.argv)):
+        argument = sys.argv[i]
+        if argument == "--test" or "-t":
+            test = True
+
 
 def preload():
     '''PatchIt! first-run checks'''
@@ -124,14 +135,15 @@ def main():
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
 [q] Quit''')
-    elif test:
+    if test:
+        logging.info("Display --test menu to user")
         print('''Please make a selection:\n
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [j] JAM Extractor
 [s] PatchIt! Settings
 [q] Quit''')
-        logging.info("Display --testing menu to user")
+
     menuopt = input("\n> ")
     while True:
         if menuopt.lower() == 'e':
@@ -145,6 +157,7 @@ def main():
             webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
             logging.info("PatchIt! is shutting down to remind the user never to do this again. :P")
             raise SystemExit
+
         elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
             time.sleep(0.5)
@@ -170,6 +183,10 @@ def main():
             logging.info("User pressed '[q] Quit'")
             logging.info('''PatchIt! is shutting down
             ''')
+            if test:
+                # If the test parameter was passed, display the message
+                colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
+                time.sleep(3)
             raise SystemExit
 
 
