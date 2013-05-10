@@ -83,6 +83,26 @@ def Args():
         # Arguments lists
         test_params = ["--test", "-t"]
         help_params = ["--help", "-h"]
+        shell_parms = ["--open", "-o"]
+
+        for value in help_params:
+            if argument == value:
+                logging.info("The help parameter (-t, --test) was passed, displaying help messages")
+                print("\n{0} {1} Command-line arguments".format(app, majver))
+                print('''
+Optional arguments
+==================
+
+-h, --help
+
+Display this help message and exit.
+
+-t, --test
+
+Enable PatchIt! experimental features''')
+                logging.info('''PatchIt! is shutting down
+                ''')
+                raise SystemExit
 
         for value in test_params:
             # If the test parameter is passed
