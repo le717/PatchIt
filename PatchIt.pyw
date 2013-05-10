@@ -515,10 +515,10 @@ def CheckLRSettings():
         logging.info("Clearing Racers first-run cache...")
         linecache.clearcache()
 
-        # '0' defines a first-run
-        # "" means file is empty or non-existant
+        # '0\n' defines a first-run
+        # len() == 0 means file is empty or non-existant
         # \n means the number was removed, but all other text is still in place
-        if lr_firstrun == "0" or lr_firstrun == "" or lr_firstrun == "\n":
+        if lr_firstrun == "0\n" or len(lr_firstrun) == 0 or lr_firstrun == "\n":
             logging.warning("PatchIt! has never been run!")
             logging.info("Proceeding to write PatchIt! settings (Settings())")
             Settings()
@@ -727,10 +727,10 @@ def CheckLOCOSettings():
         logging.info("Clearing LOCO first-run cache...")
         linecache.clearcache()
 
-        # '0' defines a first-run
-        # "" means file is empty or non-existant
+        # '0\n' defines a first-run
+        # len() == 0 means file is empty or non-existant
         # \n means the number was removed, but all other text is still in place
-        if loco_firstrun == "0" or loco_firstrun == "" or loco_firstrun == "\n":
+        if lr_firstrun == "0\n" or len(lr_firstrun) == 0 or lr_firstrun == "\n":
             logging.warning("PatchIt! has never been run!")
             logging.info("Proceeding to write PatchIt! settings (Settings())")
             Settings()

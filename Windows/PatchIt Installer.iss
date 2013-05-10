@@ -145,8 +145,8 @@ Source: ..\Icons\PatchItIcon.ico; DestDir: {app}; Flags: ignoreversion
 Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
 
 ; Settings files
-; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion
-; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Flags: ignoreversion
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Flags: ignoreversion
 
 ; Settings files for Settings_Reset switch
 Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Flags: ignoreversion; Tasks: Settings_Reset; Permissions: users-modify
