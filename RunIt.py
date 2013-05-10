@@ -36,17 +36,17 @@ if sys.version_info < (3,3,0):
     sys.stdout.write("\nYou are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n".format(sys.version[0:5], app, majver, minver))
 
     # Don't open browser immediately
-    time.sleep(2)
+    time.sleep(3)
     webbrowser.open_new_tab("http://python.org/download/") # New tab, raise browser window (if possible)
 
     # Close PatchIt!
     raise SystemExit
 
 # (Implied else block here)
-# The user is running Python 3.3.1,
-
+# The user is running Python 3.3.x, continue on
 import logging
 import Color as color, Color.colors as colors
+import PatchIt
 
 # ------------ Begin PatchIt! Logging Code ------------ #
 
@@ -91,13 +91,9 @@ def logConfig():
         # Close program
         raise SystemExit
 
-
-import PatchIt
 if __name__ == "__main__":
     # Run PatchIt! Initialization
     appLoggingFolder()
     logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
     logConfig()
     PatchIt.preload()
-
-

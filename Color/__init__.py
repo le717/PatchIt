@@ -1,3 +1,4 @@
+# Foreground (text only) colors
 FG_BLACK         = 0x00
 FG_BLUE          = 0x01
 FG_GREEN         = 0x02
@@ -16,7 +17,7 @@ FG_LIGHT_MAGENTA = 0x0D
 FG_LIGHT_YELLOW  = 0x0E
 FG_WHITE         = 0x0F
 
-
+# Background colors
 BG_BLACK         = 0x00
 BG_BLUE          = 0x10
 BG_GREEN         = 0x20

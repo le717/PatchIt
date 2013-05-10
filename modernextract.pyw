@@ -277,19 +277,19 @@ def installModernPatch(patch, name, version, author, game, mp):
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + random.choice(gametips.gametips), color.FG_LIGHT_GREEN)
+            colors.pc("\nHere's a tip!\n" + random.choice(gametips.gametips), color.FG_CYAN)
 
         # Display the LEGO LOCO map resolution.
         elif game == "LEGO LOCO":
             logging.info("Display resolution the LEGO LOCO map was created with")
             colors.pc('''\nHeads up! {0} {1} was created using {2} resolution.
 It may be best to play LEGO LOCO in that same resolution to avoid
-cutting off any elements.'''.format(name, version, mp), color.FG_LIGHT_GREEN)
+cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         # Installation was sucessful!
         logging.warning("Error (exit) number '0'")
         logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
-        colors.pc('{0} {1} sucessfully installed to\n"{2}"\n'.format(name, version, installationpath), color.FG_LIGHT_GREEN)
+        colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name, version, installationpath), color.FG_LIGHT_GREEN)
 
         # Log ZIP closure although it was closed automatically by with
         logging.info("Closing {0}".format(ziparchive))
