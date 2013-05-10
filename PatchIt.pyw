@@ -83,11 +83,12 @@ def Args():
         # Arguments lists
         test_params = ["--test", "-t"]
         help_params = ["--help", "-h"]
-        shell_parms = ["--open", "-o"]
 
         for value in help_params:
+            # If the help parameter was passed
             if argument == value:
                 logging.info("The help parameter (-t, --test) was passed, displaying help messages")
+                filename = os.path.basename(sys.argv[0])
                 print("\n{0} {1} Command-line arguments".format(app, majver))
                 print('''
 Optional arguments
@@ -99,7 +100,11 @@ Display this help message and exit.
 
 -t, --test
 
-Enable PatchIt! experimental features''')
+Enable PatchIt! experimental features.
+
+{0} //File Path//
+
+Confirm and install a PatchIt! Patch without going through the menu first.'''.format(filename))
                 logging.info('''PatchIt! is shutting down
                 ''')
                 raise SystemExit
@@ -110,7 +115,7 @@ Enable PatchIt! experimental features''')
                 test = True
                 logging.info("The test parameter (--test, -t) was passed, enabling experimental features")
 
-            # A file was passed
+            # A file path was passed
             else:
                 shell.append(argument)
 

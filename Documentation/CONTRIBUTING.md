@@ -12,8 +12,8 @@ Requirements
 run **PatchIt!**. 
 Python Versions `<=` 3.2 are not supported, and a version check will prevent it from running on lower versions.
 
-* **Inno Setup 5.5.2 Unicode** or later is required to create the Windows installer. An ISPP check will prevent it on running on lower versions, 
-and the script itself uses UTF-8 encoding.
+* **Inno Setup 5.5.2 Unicode** or later is required to create the Windows installer. An ISPP check will prevent it on running on lower versions 
+or non-Unicode Inno Setup.
 
 * Releases are compiled into x86 and x64 Windows EXEs using **[cx_Freeze](http://cx-freeze.sourceforge.net)**. 
 

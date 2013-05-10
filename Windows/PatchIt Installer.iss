@@ -124,12 +124,12 @@ Name: Settings_Reset; Description: {cm:Settings_Reset}; Flags: unchecked
 Root: HKCU; Subkey: Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\PatchIt.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; Tasks: Admin
 
 ; Shell extension
-; Root: HKCR; Subkey: .PiP; ValueType: string; ValueName: ; ValueData: PatchIt_PiP; Flags: uninsdeletekey; Tasks: Shell
-; Root: HKCR; Subkey: PatchIt_PiP; ValueType: string; ValueName: ; ValueData: PatchIt! Patch; Flags: uninsdeletekey; Tasks: Shell
-; Root: HKCR; Subkey: PatchIt_PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
-; Root: HKCR; Subkey: PatchIt_PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
-; Root: HKCR; Subkey: PatchIt_PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-; Root: HKCR; Subkey: PatchIt_PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
+Root: HKCR; Subkey: .PiP; ValueType: string; ValueName: ; ValueData: PatchIt_PiP; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP; ValueType: string; ValueName: ; ValueData: PatchIt! Patch; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: PatchIt_PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
 
 [Files]
 ; PatchIt! Uninstaller
