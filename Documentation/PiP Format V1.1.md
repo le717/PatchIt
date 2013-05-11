@@ -1,36 +1,41 @@
-PatchIt! PiP Format
-====================
+PatchIt! PiP Format V1.1
+========================
 
 **THIS DOCUMENT IS INCOMPLETE! While the file format outlined in this document is final, complete documentation has yet to be written.**
 
 General Information
 -------------------
 
-In order for **PatchIt!** to install mod packs for *LEGO Racers*, it need to have some sort of patch file to read the mod information, such as name and 
-description, but as well as to know what ZIP archive to extract and install into the *LEGO Racers* game files. Enter the .PiP format: a plain text file 
-following an INI-esque design, but engineered so one can be written without the use of **PatchIt!**, and an accompanying standard ZIP archive containing the 
-mod files. This combination has been designed so a patch can be created simply and quickly, and can be easily edited outside of **PatchIt!**. For example, a 
-patch may have already been created but there was a typo in the information, or a file was not included in the archive. If **PatchIt!** was designed using 
-non-easily editable formats, the user would have to go through the patch creation process all over again. However, this is not the case. By using a plain text 
-file, they can open it in a UTF-8 supported text editor and correct the typo, or compress a new, corrected ZIP archive with an external program.
+In order for **PatchIt!** to install mod packs for *LEGO Racers* or maps for *LEGO LOCO*, it is required to have some sort of file to read the
+information, such as name and description, but as well as to know what ZIP archive to extract and install into the proper game files. 
+In other words, a Patch file.
+
+Enter the PiP format: a plain text file engineered so one can be written without the use of **PatchIt!**, and an accompanying ZIP archive containing the 
+Patch files. 
+
+This combination has been designed so a Patch can be created simply and quickly, and can be easily edited outside of **PatchIt!**. 
+For example, a Patch may have already been created but there was a typo in the information, or a file was not included in the archive.
+If **PatchIt!** was designed using non-easily editable formats, the user would have to go through the Patch Creation process all over again. 
+However, this is not the case. By using a plain text file, the creator can open it in a text editor and correct the typo, 
+or compress a new, corrected ZIP archive with an external program.
 
 Details
 -------
 
 #### PiP File Format
 
-* A PiP file is plain text. It stands for **P**atch **I**t **P**atch.
+* A PiP file is plain text. It stands for **P**atch **I**t! **P**atch.
 * A PiP file is written use UTF-8 encoding, and can be edited on any text editor that supports UTF-8 encoding.
-* As a validity test, each PiP file **must** have on line 1 a specific line of text (known as the validity line) 
-that **must** match **PatchIt!**'s internal version exactly to confirm it is a valid patch.
-* Legacy (V1.0.1) patches are determined by lookin for that version's validity line, and if found, is installed using the legacy installation method.
-* Only Modern (post-V1.0.1) patches are written. Legacy patches are installed only for backward compatibility purposes. Legacy Patches are not and will not be 
-written anymore.  
-* The *MP* ( **M** ulti **P** urpose) field contains various Patch info. For *LEGO LOCO* Patches, it contains the resolution the map was created with.
-For *LEGO Racers* Patches, it currently writes *MP*, as there is not a vaild input for that game yet.
-* The *Game* field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
-* The Description of the mod is written on the last three lines. Unlike V1.0.1, this layout does not have an 161 character limit.
-* The ZIP archive and the PiP file uses the mod's name and version as the filename.
+* As a validity test, each PiP file must have on line 1 a specific line of text (known as the validity line).
+  This line **must** match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
+* Legacy (V1.0.1) Patches are detected by looking for that version's validity line. If it is found, it is installed using the Legacy Installation routine.
+* Modern (V1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
+ Legacy Patches can not and will not be created by **PatchIt!** anymore.  
+* The **MP** (Multi Purpose) field contains various Patch info. For *LEGO LOCO* Patches, it contains the resolution the map was created with.
+For *LEGO Racers* Patches, it currently writes *MP*, as there is not inuse for that game yet.
+* The **Game** field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
+* The **Description** field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
+* The ZIP archive and the PiP file uses the Patch's name and version for their filenames.
 
 **The PiP file layout can be found [below.](#pip-version-11-file-format-layouts)**
 
@@ -148,6 +153,11 @@ Happy Trains 5.8.zip/
 
 Revision History
 ----------------
+
+* 1.1 Final : May 11, 2013 
+
+> * Updated General Information section
+> * Updated PiP File Format section
 
 * 1.1 Final : April 14, 2013
 
