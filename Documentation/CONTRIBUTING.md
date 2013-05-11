@@ -60,12 +60,12 @@ Replace *master* with the branch or tagged release you wish to download.
 cd PatchIt
 python setup.py
 ```
-Depending on the Python architecture, your newly created EXEs will be located at either `PatchIt\Compile\Windows32` 
-or under `PatchIt\Compile\Windows64`. 
+Depending on the Python architecture, your newly created EXEs will be located at `PatchIt\Compile\Windows32` or `PatchIt\Compile\Windows64`. 
 
 ### Inno Setup Windows Installer
 
-* Open `Windows\PatchIt Installer.iss` in Inno Setup
+* Open `Windows\PatchIt Installer.iss` in Inno Setup.
+* Make any changes to the script.
 
 *Coming Soon.*
 
