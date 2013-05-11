@@ -8,7 +8,8 @@ Details
 
 * The **PatchIt!** Settings files contains all the required info to install a Patch to the proper location.
 * The Settings files are written using UTF-8 encoding, and can be edited in any editor that supports UTF-8 encoding.
-* *TODO: Add info about first run check*
+* The third line of the Settings files defines the current state of the first-run check. In a fresh installation of **PatchIt!**,
+  the number is `0` (zero), meaning the settings have not been set up.
 * The *Settings* folder, in which the Settings files are saved, is located in the same directory as *PatchIt.exe*.
 * Data for each game **PatchIt!** support is saved in a separate ***.cfg*** in the *Settings* folder
 * Each file uses the name of the supported game (sans LEGO). 
