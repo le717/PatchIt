@@ -107,6 +107,7 @@ Enable PatchIt! experimental features.
 Confirm and install a PatchIt! Patch without going through the menu first.'''.format(filename))
                 logging.info('''PatchIt! is shutting down
                 ''')
+                time.sleep(10)
                 raise SystemExit
 
         for value in test_params:
@@ -169,6 +170,8 @@ def preload():
     # If the Racers or LOCO settings check come back True, go to menu.
     # No need for a False check; that is written into the functions already
     if CheckLRSettings() == True or CheckLOCOSettings() == True:
+        # Initialize command-line arguments
+        Args()
         main()
 
 # ------------ End PatchIt! Initialization ------------ #

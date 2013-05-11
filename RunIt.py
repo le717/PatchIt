@@ -48,6 +48,8 @@ import logging
 import Color as color, Color.colors as colors
 import PatchIt
 
+app_path = sys.argv[0].rstrip(os.path.basename(sys.argv[0]))
+
 # ------------ Begin PatchIt! Logging Code ------------ #
 
 def appLoggingFolder():
@@ -55,10 +57,10 @@ def appLoggingFolder():
 
     try:
         # The Logs folder does not exist in the current directory
-        if not os.path.exists(os.path.join(os.getcwd(), "Logs")):
+        if not os.path.exists(os.path.join(app_path, "Logs")):
 
             # Create the Logs folder
-            logsfolder = os.mkdir(os.path.join(os.getcwd(), "Logs"))
+            logsfolder = os.mkdir(os.path.join(app_path, "Logs"))
 
     except PermissionError:
         colors.pc("\nPatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.", color.FG_LIGHT_RED)
@@ -94,7 +96,8 @@ def logConfig():
 if __name__ == "__main__":
     # Run PatchIt! Initialization
     appLoggingFolder()
-    logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
+##    filename = os.path.basename(sys.argv[0])
+    logging_file = os.path.join(app_path, "Logs", 'PatchIt.log')
     logConfig()
     PatchIt.Args()
     PatchIt.preload()
