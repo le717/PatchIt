@@ -102,5 +102,6 @@ if __name__ == "__main__":
 ##    filename = os.path.basename(sys.argv[0])
     logging_file = os.path.join(app_path, "Logs", 'PatchIt.log')
     logConfig()
-    PatchIt.preload()
+    PatchIt.info()
     PatchIt.Args()
+    PatchIt.preload()

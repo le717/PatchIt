@@ -44,7 +44,13 @@ app = "PatchIt!"
 majver = "Version 1.1.0"
 minver = "RC2"
 creator = "Triangle717"
-settingsfol = os.path.join(sys.argv[0].rstrip(os.path.basename(sys.argv[0])), "Settings")
+
+# Name of PatchIt! Exe/Py
+filename = os.path.basename(sys.argv[0])
+# Location of PatchIt! Exe/Py
+appfolder = os.path.join(sys.argv[0].rstrip(filename))
+# Location of Settings folder
+settingsfol = os.path.join(sys.argv[0].rstrip(filename), "Settings")
 
 # GLobal game settings
 lrgame = "LEGO Racers"
@@ -68,10 +74,6 @@ locosettings = "LOCO.cfg"
 ##    global test
 ##    test = args.test
 
-def clearShell():
-    global shell
-    shell = []
-
 def Args():
     '''PatchIt! Command-line Arguments'''
 
@@ -93,8 +95,7 @@ def Args():
         for value in help_params:
             # If the help parameter was passed
             if argument == value:
-                logging.info("The help parameter (-t, --test) was passed, displaying help messages")
-                filename = os.path.basename(sys.argv[0])
+                logging.info("The help parameter (-h, --help) was passed, displaying help messages")
                 print("\n{0} {1} Command-line arguments".format(app, majver))
                 print('''
 Optional arguments
@@ -110,17 +111,18 @@ Enable PatchIt! experimental features.
 
 {0} //File Path//
 
-Confirm and install a PatchIt! Patch without going through the menu first.'''.format(filename))
+Confirm and install a PatchIt! Patch without going through the menu first.
+NOTE: Can not be combined with the --test parameter'''.format(filename))
+                time.sleep(10)
                 logging.info('''PatchIt! is shutting down
                 ''')
-                time.sleep(10)
                 raise SystemExit
 
         for value in test_params:
             # If the test parameter is passed
             if argument == value:
                 test = True
-                logging.info("The test parameter (--test, -t) was passed, enabling experimental features")
+                logging.info("The test parameter (-t, --test) was passed, enabling experimental features")
 
             # A file path was passed
             else:
@@ -133,14 +135,15 @@ Confirm and install a PatchIt! Patch without going through the menu first.'''.fo
             if os.path.isfile(file):
                 logging.info("A file path was passed, switching to extract.checkPatch()")
                 extract.checkPatch(file)
+
             # It was a directory, or a non-existant file
             else:
                 logging.warning("Either an invalid file path or no other parameters were passed!")
-                # Do nothing, preload() takes over from here
-                pass
+                # Switch to main menu
+                main()
 
-def preload():
-    '''PatchIt! first-run checks'''
+def info():
+    '''PatchIt! and System checks'''
 
     # Check if Python is x86 or x64
     # Based on code from the Python help file (platform module) and my own tests
@@ -149,7 +152,7 @@ def preload():
     else:
         py_arch = "AMD64"
 
-    logging_file = os.path.join(os.getcwd(), "Logs", 'PatchIt.log')
+    logging_file = os.path.join(appfolder, "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info('''
@@ -164,6 +167,10 @@ def preload():
                                     and attach this file for an easier fix!
                                 #############################################
                                 '''.format(app, majver, minver, creator))
+    pass
+
+def preload():
+    '''PatchIt! Settings checks'''
 
     # One of the settings files do not exist
     if not os.path.exists(settingsfol):
@@ -176,8 +183,7 @@ def preload():
     # If the Racers or LOCO settings check come back True, go to menu.
     # No need for a False check; that is written into the functions already
     if CheckLRSettings() == True or CheckLOCOSettings() == True:
-        # Initialize command-line arguments
-        Args()
+        # Switch to main menu
         main()
 
 # ------------ End PatchIt! Initialization ------------ #

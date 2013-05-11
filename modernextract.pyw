@@ -238,12 +238,18 @@ def installModernPatch(patch, name, version, author, game, mp):
 
     # This is a LEGO LOCO patch, read the LOCO settings
     if game == "LEGO LOCO":
+        if not os.path.exists(os.path.join(PatchIt.settingsfol, "LOCO.cfg")):
+            # TODO: Finish this exception
+            raise SystemExit
         # Read the settings file for installation (LEGO LOCO directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
         installationpath = linecache.getline(os.path.join("Settings", "LOCO.cfg"), 5)
 
     # This is a LEGO Racers patch, read the Racers settings
     else: # elif game == "LEGO Racers":
+        if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
+            # TODO: Finish this exception
+            raise SystemExit
         # Read the settings file for installation (LEGO Racers directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
         installationpath = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
