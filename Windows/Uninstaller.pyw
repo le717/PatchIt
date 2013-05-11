@@ -20,7 +20,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Uninstaller V1.0.2
+# PatchIt! Uninstaller V1.0.2.1
 # Contains code contributed by JrMasterModelBuilder
 
 import os
@@ -34,10 +34,10 @@ def single_uninstall(folderpath):
     # If a single installation exists
     if os.path.exists(os.path.join(folderpath, "unins000.exe")):
         print("\nRunning unins000.exe")
-        # Run uninstaller
-        subprocess.call(os.path.join(folderpath, "unins000.exe"))
+        # Run uninstaller, passing /SILENT to suppress confirmation boxes
+        subprocess.call([os.path.join(folderpath, "unins000.exe"), "/SILENT"])
         # Sleep just a litte to avoid an error
-        time.sleep(2)
+        time.sleep(1.5)
         # Go to looping uninstaller
         print("\nSwitching to Looping Uninstaller")
         loop_uninstall(folderpath)
@@ -46,7 +46,7 @@ def single_uninstall(folderpath):
     else:
         print("\nunins000.exe does not exist")
         # Sleep just a litte to avoid an error
-        time.sleep(2)
+        time.sleep(1.5)
         # Go to looping uninstaller
         print("\nSwitching to Looping Uninstaller")
         loop_uninstall(folderpath)
@@ -64,11 +64,11 @@ def loop_uninstall(folderpath):
         exe_name  ="unins" + str(i).zfill(3) + ".exe"
         if os.path.exists(os.path.join(folderpath, exe_name)):
 
-            # Run the uninstaller
+            # Run the uninstaller, passing /SILENT to suppress confirmation boxes
             print("\nRuinning {0}".format(exe_name))
-            subprocess.call(os.path.join(folderpath, exe_name))
+            subprocess.call([os.path.join(folderpath, exe_name), "/SILENT"])
             # Sleep a little to avoid uninstallation error
-            time.sleep(2)
+            time.sleep(1.5)
 
         # Update uninstaller name
         i += 1

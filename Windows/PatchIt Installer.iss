@@ -26,13 +26,12 @@
   #error You must use Inno Setup 5.5.2 or newer to compile this script
 #endif
 
-; If non-Unicode Inno Setup is used
-
 #ifdef UNICODE
   ; Do nothing, since Unicode is needed to compile
 #else
+  ; If non-Unicode (AKA ANSI) Inno Setup is used
   #error You must use Unicode Inno Setup to compile this script
-#endif   
+#endif 
        
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.1.0"
@@ -53,7 +52,7 @@ LicenseFile=..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
 DefaultDirName={code:InstallPath}
 DefaultGroupName={#MyAppName}
-AllowNoIcons=yes
+AllowNoIcons=True
 ; Installer Graphics
 SetupIconFile=..\Icons\PatchItIcon.ico
 WizardImageFile=..\Icons\PatchItSidebar.bmp

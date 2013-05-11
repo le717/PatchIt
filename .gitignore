@@ -126,7 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-*.exe
+#*.exe
 *.msi
 *.com
 *.bat
@@ -186,12 +186,12 @@ pip-log.txt
 Windows/Here Lie the Installer/
 Compile/
 Logs/
-!Windows/Uninstaller/*
+!Windows/Uninstaller/
 Windows/Uninstall*/*
 License/
 Settings/
 Testing/
-Archive/
+Archives/
 TheTesterGroup/
 
 ##########
@@ -207,6 +207,7 @@ JAMExtractor.py
 listtips.py
 *settings
 settings*/
+Windows/PatchIt-*
 *.log
 *.php
 *.PiP
