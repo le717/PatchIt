@@ -204,7 +204,7 @@ was being violated)</li>
 </span>, introduced in Python 3.3.1</li>
 <li>Updated logger message when switching to <span class="bold">PatchIt!</span> main menu</li>
 <li>Added GNU GPL V3 block to <code>color/colors.py</code></li>
-<li>Finished work on Legacy Patch Extraction <code>legacyextract.pyw</code>. It will not be updated any more</li>
+<li>Finished work on Legacy Patch Extraction <code>legacyextract.pyw</code>. It will not be updated any more (sans bug fixes)</li>
 <li>Created question to ask for the resolution the <span class="italic">LEGO LOCO</span> map was created with</li>
 <li><span class="italic">LEGO LOCO</span> map resolution is now written into a Modern Patch, using the MP field</li>
 <li>Spilt Patch selection for Modern Patch Installation routine (<code>modernextract.pyw</code>) from <code>checkPatch()</code> to <code>selectPatch()
@@ -328,7 +328,9 @@ Issue #3</a>)</li>
 <li>Broke <code>preload()</code> into two separate functions: <code>preload()</code> and <code>info()</code></li>
 <li>Fixed location of log as written in <code>PatchIt.log</code>
 <li>Added new <span class="bold">PatchIt!</span> executable name and location variables</li>
-<!-- <li>Added check in <code>modernextract.pyw</code> for existence of settings files</li> -->
+<li>Added check to modern and legacy Patch Installation routines for existence of settings files</li>
+<li>Added error message when user does not select an <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span> installation at all</li>
+<li>Changed location of initial directory when selecting an <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span> installation</li>
 <li>LEGOs in space? More later!</li>
 </ul></div></div>
 

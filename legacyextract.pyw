@@ -85,6 +85,12 @@ def readPatch(installpatch):
     else:
         logging.info("User does want to install {0} {1}.".format(installname, installver))
 
+        # The LEGO Racers settings do not exist
+        if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
+            logging.warning("Could not find LEGO Racers settings!")
+            logging.info("Switching to PatchIt.LRReadSettings()")
+            PatchIt.LRReadSettings()
+
         # Read the settings file for installation (LEGO Racers directory)
         # Updated in semi-accordance with PatchIt! Dev-log #6
         logging.info("Reading line 5 of settings for LEGO Racers installation")

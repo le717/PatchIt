@@ -118,7 +118,7 @@ def checkPatch(patch):
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
         colors.pc('''\n{0}\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
-It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_LIGHT_GREEN)
+It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_CYAN)
 
         # Dump PiP validity cache after reading
         logging.info("Clearing PiP validity cache...")
@@ -238,18 +238,26 @@ def installModernPatch(patch, name, version, author, game, mp):
 
     # This is a LEGO LOCO patch, read the LOCO settings
     if game == "LEGO LOCO":
+
+        # The LEGO LOCO settings do not exist
         if not os.path.exists(os.path.join(PatchIt.settingsfol, "LOCO.cfg")):
-            # TODO: Finish this exception
-            raise SystemExit
+            logging.warning("Could not find LEGO LOCO settings!")
+            logging.info("Switching to PatchIt.LOCOReadSettings()")
+            PatchIt.LOCOReadSettings()
+
         # Read the settings file for installation (LEGO LOCO directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
         installationpath = linecache.getline(os.path.join("Settings", "LOCO.cfg"), 5)
 
     # This is a LEGO Racers patch, read the Racers settings
     else: # elif game == "LEGO Racers":
+
+        # The LEGO Racers settings do not exist
         if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
-            # TODO: Finish this exception
-            raise SystemExit
+            logging.warning("Could not find LEGO Racers settings!")
+            logging.info("Switching to PatchIt.LRReadSettings()")
+            PatchIt.LRReadSettings()
+
         # Read the settings file for installation (LEGO Racers directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
         installationpath = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)

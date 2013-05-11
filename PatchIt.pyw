@@ -391,7 +391,8 @@ def LRWriteSettings():
     logging.info("Display folder selection dialog for LEGO Racers installation")
     new_racers_game = filedialog.askdirectory(
     parent=root,
-    title="Please select your {0} installation".format(lrgame)
+    title="Please select your {0} installation".format(lrgame),
+    initialdir=appfolder
     )
 
     # The user clicked the cancel button
@@ -401,6 +402,7 @@ def LRWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO Racers installation!")
+        colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
         time.sleep(1)
 
         logging.info("Switching to main menu")
@@ -621,7 +623,8 @@ def LOCOWriteSettings():
     logging.info("Display folder selection dialog for LEGO LOCO installation")
     new_loco_game = filedialog.askdirectory(
     parent=root,
-    title="Please select your {0} installation".format(locogame)
+    title="Please select your {0} installation".format(locogame),
+    initialdir=appfolder
     )
 
     # The user clicked the cancel button
@@ -631,6 +634,7 @@ def LOCOWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO LOCO installation!")
+        colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
         time.sleep(1)
 
         logging.info("Switching to main menu")
