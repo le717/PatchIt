@@ -1,15 +1,14 @@
 PatchIt! Settings Files
 =======================
 
-**THIS DOCUMENT IS INCOMPLETE! While the file format outlined in this document is final, complete documentation has yet to be written.**
-
 Details
 -------
 
 * The **PatchIt!** Settings files contains all the required info to install a Patch to the proper location.
 * The Settings files are written using UTF-8 encoding, and can be edited in any editor that supports UTF-8 encoding.
 * The third line of the Settings files defines the current state of the first-run check. In a fresh installation of **PatchIt!**,
-  the number is `0` (zero), meaning the settings have not been set up.
+  the number is `0` (zero), meaning the settings have not been set up. After a game installation is selected, the number is changed to `1`, 
+  meaning it is complete.
 * The *Settings* folder, in which the Settings files are saved, is located in the same directory as *PatchIt.exe*.
 * Data for each game **PatchIt!** support is saved in a separate ***.cfg*** in the *Settings* folder
 * Each file uses the name of the supported game (sans LEGO). 
