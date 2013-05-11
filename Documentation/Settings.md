@@ -1,7 +1,7 @@
 PatchIt! Settings Files
 =======================
 
-**THIS DOCUMENT IS INCOMPLETE! The file formats outlined in this document are not yet finalized, and are subject to change.**
+**THIS DOCUMENT IS INCOMPLETE! While the file format outlined in this document is final, complete documentation has yet to be written.**
 
 General Information
 -------------------
