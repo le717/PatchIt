@@ -3,12 +3,14 @@ PatchIt! Settings Files
 
 **THIS DOCUMENT IS INCOMPLETE! While the file format outlined in this document is final, complete documentation has yet to be written.**
 
-General Information
--------------------
+Details
+-------
 
-* The **PatchIt!** Settings files contain all the required info needed to install a Patch and where to install it.
-* The *Settings* folder, in which the files are saved, is located in the same directory as ***PatchIt.exe***.
-* Data for each game **PatchIt!** support is saved in a separate ***.cfg*** under the *Settings* folder
+* The **PatchIt!** Settings files contains all the required info to install a Patch to the proper location.
+* The Settings files are written using UTF-8 encoding, and can be edited in any editor that supports UTF-8 encoding.
+* *TODO: Add info about first run check*
+* The *Settings* folder, in which the Settings files are saved, is located in the same directory as *PatchIt.exe*.
+* Data for each game **PatchIt!** support is saved in a separate ***.cfg*** in the *Settings* folder
 * Each file uses the name of the supported game (sans LEGO). 
 
 Example LEGO Racers Settings
@@ -21,7 +23,7 @@ Example LEGO Racers Settings
 # Ensures the first-run process will be skipped next time
 1
 # Your LEGO Racers installation path
-C:/Users/Public/Racers
+C:/Program Files (x86)/LEGO Media/Games/LEGO Racers
 # Your version of LEGO Racers
 2001
 ```
@@ -36,5 +38,5 @@ Example LEGO LOCO Settings
 # Ensures the first-run process will be skipped next time
 1
 # Your LEGO LOCO installation path
-C:/Users/Public/LOCO
+C:/Program Files/LEGO Media/LEGO LOCO
 ```
