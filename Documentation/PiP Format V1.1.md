@@ -32,7 +32,7 @@ Details
 * Modern (V1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
  Legacy Patches can not and will not be created by **PatchIt!** anymore.  
 * The **MP** (Multi Purpose) field contains various Patch info. For *LEGO LOCO* Patches, it contains the resolution the map was created with.
-For *LEGO Racers* Patches, it currently writes *MP*, as there is not inuse for that game yet.
+For *LEGO Racers* Patches, it currently writes *MP*, as there is not a use for that game yet.
 * The **Game** field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
 * The **Description** field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
 * The ZIP archive and the PiP file uses the Patch's name and version for their filenames.
