@@ -206,6 +206,7 @@ TheTesterGroup/
 JAMExtractor.py
 listtips.py
 *settings
+settings*/
 *.log
 *.php
 *.PiP

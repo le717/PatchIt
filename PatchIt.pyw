@@ -44,7 +44,7 @@ app = "PatchIt!"
 majver = "Version 1.1.0"
 minver = "RC2"
 creator = "Triangle717"
-settingsfol = "Settings"
+settingsfol = os.path.join(sys.argv[0].rstrip(os.path.basename(sys.argv[0])), "Settings")
 
 # GLobal game settings
 lrgame = "LEGO Racers"
@@ -68,8 +68,14 @@ locosettings = "LOCO.cfg"
 ##    global test
 ##    test = args.test
 
+def clearShell():
+    global shell
+    shell = []
+
 def Args():
     '''PatchIt! Command-line Arguments'''
+
+    logging.debug("Command-line arguments processor started")
 
     # Declare test parameter (-t, --test) as global for use in other places
     global test

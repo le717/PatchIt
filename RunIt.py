@@ -22,7 +22,10 @@
 # PatchIt! V1.1.0 Unstable Python Version Check, PatchIt! Logger, and PatchIt! Launcher
 # logging.BasicConfig code based on example from A Byte of Python
 # http://www.swaroopch.com/notes/Python
-import sys, os, webbrowser, time
+import sys
+import os
+import webbrowser
+import time
 
 app = "PatchIt!"
 majver = "Version 1.1.0"
@@ -99,5 +102,5 @@ if __name__ == "__main__":
 ##    filename = os.path.basename(sys.argv[0])
     logging_file = os.path.join(app_path, "Logs", 'PatchIt.log')
     logConfig()
-    PatchIt.Args()
     PatchIt.preload()
+    PatchIt.Args()
