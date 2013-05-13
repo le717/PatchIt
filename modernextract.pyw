@@ -116,7 +116,7 @@ def checkPatch(patch):
     # It's a legacy Patch
     if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
-        colors.pc('''\n{0}\nis a legacy PatchIt! Patch.
+        colors.pc('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_CYAN)
 
@@ -143,7 +143,7 @@ It may be best to check if a newer version of this mod is available.'''.format(p
     # It's not a Patch at all! D:
     elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        colors.pc("\n{0} is not a valid PatchIt! Patch!".format(patch), color.FG_LIGHT_RED)
+        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
 
         # Dump PiP validity cache after reading
         logging.info("Clearing PiP validity cache...")
@@ -318,7 +318,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         author = author.lstrip("Author: ")
         logging.warning("Unable to find {0} at {1}!".format(ziparchive, ziplocation))
         colors.pc('''\nCannot find Patch files for {0} {1}!
-Make sure {0}{1}.zip and {0}{1}.PiP
+Make sure "{0}{1}.zip" and "{0}{1}.PiP"
 are in the same folder, and try again.
 
 If this error continues, contact {2} and ask for a fixed version.'''
