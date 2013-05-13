@@ -114,14 +114,15 @@ def readPatch(installpatch):
         ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
         logging.info("Found ZIP archive at {0}".format(ziplocation))
 
-        # Display the Racers game tips
-        logging.info("Display LEGO Racers gameplay tip")
-        colors.pc("\nHere's a tip!\n" + choice(gametips.gametips), color.FG_LIGHT_GREEN)
         try:
             # Actually extract the ZIP archive
             logging.info("Extract {0} to {1}".format(installzipfile, installpath))
             with zipfile.ZipFile(ziplocation + installzipfile, "r") as extractzip:
                 extractzip.extractall(path=installpath)
+
+            # Display the Racers game tips
+            logging.info("Display LEGO Racers gameplay tip")
+            colors.pc("\nHere's a tip!\n" + choice(gametips.gametips), color.FG_LIGHT_GREEN)
 
             # Installation was sucessful!
             logging.info("Error (exit) number '0'")
