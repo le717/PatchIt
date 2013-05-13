@@ -202,6 +202,7 @@ TheTesterGroup/
 *.txt
 *.ini
 *.py
+*.iss
 !Windows/unsetup.py
 JAMExtractor.py
 listtips.py

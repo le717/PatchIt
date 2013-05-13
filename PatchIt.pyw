@@ -23,21 +23,23 @@
 # General use modules
 import sys
 import os
+import time
 import linecache
 import webbrowser
-import time
 import platform
+
+# App Logging
+import logging
+
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
+
 # Patch Creation and Installation modules
 import modernextract as extract
 import moderncompress as compress
+
 # Colored shell text
 import Color as color, Color.colors as colors
-# File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
-# App Logging modules
-import logging
-# Command-line arguments
-import argparse
 
 # Global variables
 app = "PatchIt!"
@@ -59,20 +61,6 @@ lrsettings = "Racers.cfg"
 locosettings = "LOCO.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
-
-##def cmdArgs():
-##    '''PatchIt! Command-line Arguments'''
-##
-##    # Command-line arguments parser
-##    parser = argparse.ArgumentParser(description="{0} {1} Command-line arguments".format(app, majver))
-##    parser.add_argument("-t", "--test",
-##    help="Enable {0} Experimental features".format(app),
-##    action="store_true")
-##    args = parser.parse_args()
-##
-##    # Declare test parameter (-t, --test) as global for use in other places.
-##    global test
-##    test = args.test
 
 def Args():
     '''PatchIt! Command-line Arguments'''
