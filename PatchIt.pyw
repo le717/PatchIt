@@ -112,7 +112,9 @@ Enable PatchIt! experimental features.
 {0} //File Path//
 
 Confirm and install a PatchIt! Patch without going through the menu first.
-NOTE: Can not be combined with the --test parameter'''.format(filename))
+
+NOTE: If --test parameter is to be passed in addition to a file path,
+it must come after the file path.'''.format(filename))
                 time.sleep(10)
                 logging.info('''PatchIt! is shutting down
                 ''')
@@ -122,10 +124,12 @@ NOTE: Can not be combined with the --test parameter'''.format(filename))
             # If the test parameter is passed
             if argument == value:
                 test = True
+                os.system("title {0} {1} {2} - Experimental Mode".format(app, majver, minver))
                 logging.info("The test parameter (-t, --test) was passed, enabling experimental features")
 
             # A file path was passed
             else:
+                logging.info("The shell extension was invoked")
                 shell.append(argument)
 
     # Process file or run program, depending on parameters
