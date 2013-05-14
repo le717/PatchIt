@@ -89,7 +89,7 @@ def Args():
             if argument == value:
                 logging.info("The help parameter (-h, --help) was passed, displaying help messages")
                 print("\n{0} {1} Command-line arguments".format(app, majver))
-                print('''
+                print(r'''
 Optional arguments
 ==================
 
@@ -101,7 +101,7 @@ Display this help message and exit.
 
 Enable PatchIt! experimental features.
 
-{0} //File Path//
+{0} \\File Path\\
 
 Confirm and install a PatchIt! Patch without going through the menu first.
 
@@ -193,6 +193,11 @@ def about():
     root = tk.Tk()
     root.title("About {0} {1}".format(app, majver))
     root.minsize("400", "165")
+
+    root.deiconify()
+    root.lift()
+    root.focus_force()
+
     frame = ttk.Frame(root, padding="5 5 5 5")
     frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
     frame.columnconfigure(0, weight=0)
@@ -206,10 +211,12 @@ def about():
 package and install mods for LEGO Racers"
 '''.format(app, majver, minver)).grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
-    close = ttk.Button(frame, text="Close", command=main).grid(column=1, row=1)
+    close = ttk.Button(frame, default="active", text="Close", command=lambda:(root.destroy(), main())).grid(column=1, row=1)
+    # TODO: Bind <Return> to close button
     github = ttk.Button(frame, text="GitHub Project", command=lambda:webbrowser.open_new_tab("http://bit.ly/PatchIt")).grid(column=0, row=1)
     creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://Triangle717.WordPress.com")).grid(column=2, row=1)
     for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
+
     root.mainloop()
 
 # ------------ End PatchIt! About Box  ------------ #
@@ -232,6 +239,7 @@ def main():
     if test:
         logging.info("Display --test menu to user")
         print('''Please make a selection:\n
+[a] About PatchIt!
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [j] JAM Extractor
@@ -240,7 +248,51 @@ def main():
 
     menuopt = input("\n> ")
     while True:
-        if menuopt.lower() == 'e':
+
+        if menuopt.lower() == "a":
+            logging.info("User pressed '[a] About PatchIt!'")
+            logging.info("Calling About Box (about())")
+            about()
+
+        # Patch Creation
+        elif menuopt.lower() == "c":
+            logging.info("User pressed '[c] Create a PatchIt! Patch'")
+            time.sleep(0.5)
+
+            # Call the Patch Creation module
+            logging.info("Calling Patch Compression module (compress.patchInfo())")
+            compress.patchInfo()
+
+        # Patch Installation
+        elif menuopt.lower() == "i":
+            logging.info("User pressed '[i] Install a PatchIt! Patch'")
+            time.sleep(0.5)
+
+            # Call the Patch Installation module
+            logging.info("Calling Patch Installation module (extract.selectPatch())")
+            extract.selectPatch()
+
+        # JAM Extractor wrapper
+        elif menuopt.lower() == "j":
+            if test:
+                import handlejam
+                logging.info("User pressed '[j] JAM Extractor'")
+                time.sleep(0.5)
+                # Call the JAM Extractor wrapper module
+                logging.info("Calling JAM Extractor wrapper module (handlejam.main())")
+                handlejam.main()
+            else:
+                logging.info("User pressed an undefined key")
+                main()
+
+        # PatchIt! Settings
+        elif menuopt.lower() == "s":
+            logging.info("User pressed '[s] PatchIt! Settings'")
+            logging.info("Calling PatchIt! Settings Menu (Settings())")
+            Settings()
+
+        # Easter egg. :P
+        elif menuopt.lower() == 'e':
             logging.warning('"It''s a trap!"')
             colors.pc("\nOoh, you shouldn't have done that, Sir!", color.FG_LIGHT_RED)
             time.sleep(2)
@@ -252,30 +304,7 @@ def main():
             logging.info("PatchIt! is shutting down to remind the user never to do this again. :P")
             raise SystemExit
 
-        elif menuopt.lower() == "a":
-            about()
-
-        elif menuopt.lower() == "c":
-            logging.info("User pressed '[c] Create a PatchIt! Patch'")
-            time.sleep(0.5)
-
-            # Call the Patch Creation module
-            logging.info("Calling Patch Compression module (compress.patchInfo())")
-            compress.patchInfo()
-
-        elif menuopt.lower() == "i":
-            logging.info("User pressed '[i] Install a PatchIt! Patch'")
-            time.sleep(0.5)
-
-            # Call the Patch Installation module
-            logging.info("Calling Patch Installation module (extract.selectPatch())")
-            extract.selectPatch()
-
-        elif menuopt.lower() == "s":
-            logging.info("User pressed '[s] PatchIt! Settings'")
-            logging.info("Calling PatchIt! Settings Menu (Settings())")
-            Settings()
-
+        # Close PatchIt!
         elif menuopt.lower() == "q":
             logging.info("User pressed '[q] Quit'")
             logging.info('''PatchIt! is shutting down
@@ -285,20 +314,6 @@ def main():
                 colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
                 time.sleep(3)
             raise SystemExit
-
-
-        if menuopt.lower() == "j":
-            if test:
-                # JAM Extractor wrapper
-                import handlejam
-                logging.info("User pressed '[j] JAM Extractor'")
-                time.sleep(0.5)
-                # Call the JAM Extractor wrapper module
-                logging.info("Calling JAM Extractor wrapper module (handlejam.main())")
-                handlejam.main()
-            else:
-                logging.info("User pressed an undefined key")
-                main()
 
         # Undefined input
         else:
