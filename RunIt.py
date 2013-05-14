@@ -31,6 +31,9 @@ app = "PatchIt!"
 majver = "Version 1.1.0"
 minver = "RC2"
 
+# Write window title (since there is no GUI)
+os.system("title {0} {1} {2}".format(app, majver, minver))
+
 # User is not running Python 3.3.0
 if sys.version_info < (3,3,0):
     sys.stdout.write("\nYou are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n".format(sys.version[0:5], app, majver, minver))
@@ -95,8 +98,6 @@ def logConfig():
 
 if __name__ == "__main__":
     # Run PatchIt! Initialization
-    # Write window title (since there is no GUI)
-    os.system("title {0} {1} {2}".format(app, majver, minver))
     appLoggingFolder()
     logging_file = os.path.join(app_path, "Logs", 'PatchIt.log')
     logConfig()

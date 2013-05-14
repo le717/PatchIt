@@ -31,8 +31,12 @@ import platform
 # App Logging
 import logging
 
+
+import tkinter as tk
+from tkinter import ttk
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
+
 
 # Patch Creation and Installation modules
 import modernextract as extract
@@ -181,6 +185,36 @@ def preload():
 # ------------ End PatchIt! Initialization ------------ #
 
 
+# ------------ Begin PatchIt! About Box  ------------ #
+
+def about():
+    '''Tkinter About Box'''
+
+    root = tk.Tk()
+    root.title("About {0} {1}".format(app, majver))
+    root.minsize("400", "165")
+    frame = ttk.Frame(root, padding="5 5 5 5")
+    frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+    frame.columnconfigure(0, weight=0)
+    frame.rowconfigure(0, weight=1)
+
+    label = ttk.Label(frame, text='''            {0} {1} {2}
+
+            Created 2013 Triangle717
+
+"PatchIt! - The standard and simple way to
+package and install mods for LEGO Racers"
+'''.format(app, majver, minver)).grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+
+    close = ttk.Button(frame, text="Close", command=main).grid(column=1, row=1)
+    github = ttk.Button(frame, text="GitHub Project", command=lambda:webbrowser.open_new_tab("http://bit.ly/PatchIt")).grid(column=0, row=1)
+    creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://Triangle717.WordPress.com")).grid(column=2, row=1)
+    for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
+    root.mainloop()
+
+# ------------ End PatchIt! About Box  ------------ #
+
+
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
 def main():
@@ -217,6 +251,9 @@ def main():
             webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
             logging.info("PatchIt! is shutting down to remind the user never to do this again. :P")
             raise SystemExit
+
+        elif menuopt.lower() == "a":
+            about()
 
         elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
