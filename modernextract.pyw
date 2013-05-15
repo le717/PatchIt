@@ -87,6 +87,7 @@ def selectPatch():
         time.sleep(1)
 
         logging.info("Switching to main menu")
+        PatchIt.main()
 
     # The user selected a patch
     else:
