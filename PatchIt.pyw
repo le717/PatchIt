@@ -191,18 +191,23 @@ def about():
     '''Tkinter About Box'''
 
     root = tk.Tk()
+    # Window title
     root.title("About {0} {1}".format(app, majver))
+    # The box cannot be any smaller than this
     root.minsize("400", "165")
 
+    # Give it focus
     root.deiconify()
     root.lift()
     root.focus_force()
 
     frame = ttk.Frame(root, padding="5 5 5 5")
     frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
-    frame.columnconfigure(0, weight=0)
+    frame.columnconfigure(0, weight=1)
     frame.rowconfigure(0, weight=1)
 
+    # Displayed text
+    # TODO: Eh, needs work, like displaying of the PatchIt! Logo
     label = ttk.Label(frame, text='''            {0} {1} {2}
 
             Created 2013 Triangle717
@@ -211,12 +216,24 @@ def about():
 package and install mods for LEGO Racers"
 '''.format(app, majver, minver)).grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
-    close = ttk.Button(frame, default="active", text="Close", command=lambda:(root.destroy(), main())).grid(column=1, row=1)
-    # TODO: Bind <Return> to close button
+    #pi_logo = tk.PhotoImage(frame, file="TkImage.gif")
+    #label['left'] = pi_logo
+
+    def close_about(*args):
+        '''Closes the About Window'''
+        root.destroy()
+        main()
+
+    # Close About Window button
+    close = ttk.Button(frame, default="active", text="Close", command=close_about).grid(column=1, row=1)
+    # GitHub Project Button
     github = ttk.Button(frame, text="GitHub Project", command=lambda:webbrowser.open_new_tab("http://bit.ly/PatchIt")).grid(column=0, row=1)
+    # Creator's website button
     creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://Triangle717.WordPress.com")).grid(column=2, row=1)
     for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
-
+    # Binds the Return ("Enter") key, closes the About Window
+    root.bind('<Return>', close_about)
+    # Make it load
     root.mainloop()
 
 # ------------ End PatchIt! About Box  ------------ #
@@ -232,6 +249,7 @@ def main():
     if not test:
         logging.info("Display normal menu to user")
         print('''Please make a selection:\n
+[a] About PatchIt!
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
@@ -248,7 +266,7 @@ def main():
 
     menuopt = input("\n> ")
     while True:
-
+        # About PatchIt! box
         if menuopt.lower() == "a":
             logging.info("User pressed '[a] About PatchIt!'")
             logging.info("Calling About Box (about())")
