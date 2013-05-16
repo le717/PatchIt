@@ -63,7 +63,7 @@ OutputDir=.\
 OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
 Uninstallable=not PortableInstall
-UninstallDisplayIcon={app}\PatchItIcon.ico
+UninstallDisplayIcon={app}\Icons\PatchItIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; This is required so Inno can correctly report the installation size.
@@ -124,7 +124,7 @@ Root: HKCU; Subkey: Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\
 
 ; Shell extension
 Root: HKCR; Subkey: .PiP; ValueType: string; ValueName: ; ValueData: PatchIt! Patch; Flags: uninsdeletekey; Tasks: Shell
-Root: HKCR; Subkey: .PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: .PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\Icons\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
 Root: HKCR; Subkey: .PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
 Root: HKCR; Subkey: .PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
 Root: HKCR; Subkey: .PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
@@ -139,7 +139,7 @@ Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
 Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
 
 ; Readme and Icon
-Source: ..\Icons\PatchItIcon.ico; DestDir: {app}; Flags: ignoreversion
+Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
 
 ; Settings files
@@ -157,9 +157,9 @@ Source: ..\Compile\Windows32\*; DestDir: {app}; Flags: ignoreversion recursesubd
 Source: ..\Compile\Windows64\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 
 [Icons]
-Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\PatchItIcon.ico; Comment: Run {#MyAppVerName}
-Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}; IconFilename: {app}\PatchItIcon.ico
-Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\PatchItIcon.ico; Tasks: desktopicon
+Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Comment: Run {#MyAppVerName}
+Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}; IconFilename: {app}\Icons\PatchItIcon.ico
+Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Tasks: desktopicon
 
 [Run]
 Filename: {app}\{#MyAppExeName}; Flags: nowait postinstall runascurrentuser skipifsilent; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}

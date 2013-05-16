@@ -234,6 +234,7 @@ package and install mods for LEGO Racers"
     # Binds the Return ("Enter") key, closes the About Window
     root.bind('<Return>', close_about)
     # Make it load
+    root.iconbitmap("Icons/PatchItIcon.ico")
     root.mainloop()
 
 # ------------ End PatchIt! About Box  ------------ #
