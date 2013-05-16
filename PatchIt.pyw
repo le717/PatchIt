@@ -201,23 +201,32 @@ def about():
     root.lift()
     root.focus_force()
 
-    frame = ttk.Frame(root, padding="5 5 5 5")
+    frame = ttk.Frame(root, padding="7 7 7 7")
     frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
     frame.columnconfigure(0, weight=1)
     frame.rowconfigure(0, weight=1)
 
+    # PatchIt! Logo
+    pi_logo = tk.PhotoImage(file="Icons/PiTk.gif")
+    image_frame = ttk.Label(root)
+    image_frame['image'] = pi_logo
+    image_frame.grid(column=0, row=0, sticky=tk.N, pady="7")
+
     # Displayed text
-    # TODO: Eh, needs work, like displaying of the PatchIt! Logo
-    label = ttk.Label(frame, text='''            {0} {1} {2}
+    label = ttk.Label(frame, text='''
+
+
+
+
+
+            {0} {1} {2}
 
             Created 2013 Triangle717
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(app, majver, minver)).grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
-
-    #pi_logo = tk.PhotoImage(frame, file="TkImage.gif")
-    #label['left'] = pi_logo
+'''.format(app, majver, minver))
+    label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
         '''Closes the About Window'''

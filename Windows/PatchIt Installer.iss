@@ -140,6 +140,7 @@ Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreve
 
 ; Readme and Icon
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
+Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
 
 ; Settings files
