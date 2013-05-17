@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Unstable Modern Patch Installation code
+# PatchIt! V1.1.0 Stable Modern Patch Installation code
 
 import os
 import time
@@ -117,6 +117,8 @@ def checkPatch(patch):
         logging.info("Cleaning up validity line")
         validline = validline.strip()
         logging.info("The validity line reads\n{0}".format(validline))
+
+    # The "Patch" was encoding in something other than UTF-8 or ANSI
     except UnicodeDecodeError:
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)

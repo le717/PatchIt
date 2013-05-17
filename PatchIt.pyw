@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Unstable, created 2013 Triangle717 (http://triangle717.wordpress.com)
+# PatchIt! V1.1.0 Stable, created 2013 Triangle717 (http://triangle717.wordpress.com)
 
 # General use modules
 import sys
@@ -48,7 +48,7 @@ import Color as color, Color.colors as colors
 # Global variables
 app = "PatchIt!"
 majver = "Version 1.1.0"
-minver = "RC2"
+minver = "Stable"
 creator = "Triangle717"
 
 # Name of PatchIt! Exe/Py
