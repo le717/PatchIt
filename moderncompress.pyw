@@ -86,6 +86,15 @@ def patchName():
         logging.info("Looping back through patchName()")
         patchName()
 
+    # The field was longer than 80 characters
+    elif len(name) >= 81:
+        logging.warning("The Patch name was more than 80 characters!")
+        colors.pc("\nThe Name field must be 80 characters or less!", color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Name Process
+        logging.info("Looping back through patchName()")
+        patchName()
+
     # No characters were entered
     elif len(name) == 0:
         logging.warning("The Patch name field was left blank!")
@@ -94,6 +103,7 @@ def patchName():
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
         patchName()
+
 
     # An invalid character was not entered/the field was filled out
     else:
@@ -110,6 +120,15 @@ def patchVersion():
     if charCheck(version) == False:
         logging.warning("There were illegal characters in the Patch version!")
         colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Version Process
+        logging.info("Looping back through patchVersion()")
+        patchVersion()
+
+    # The field was longer than 12 characters
+    elif len(name) >= 13:
+        logging.warning("The Patch version was more than 12 characters!")
+        colors.pc("\nThe Version field must be 12 characters or less!", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")

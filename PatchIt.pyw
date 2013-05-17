@@ -338,9 +338,10 @@ def main():
             logging.info('''PatchIt! is shutting down
             ''')
             if test:
-                # If the test parameter was passed, display the message
-                colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
-                time.sleep(3)
+                # If the test parameter was passed, skip the message
+                raise SystemExit
+            colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
+            time.sleep(3)
             raise SystemExit
 
         # Undefined input
@@ -474,7 +475,7 @@ def LRWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO Racers installation!")
-        colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
+        #colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
         time.sleep(1)
 
         logging.info("Switching to main menu")
@@ -706,7 +707,7 @@ def LOCOWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO LOCO installation!")
-        colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
+        #colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
         time.sleep(1)
 
         logging.info("Switching to main menu")
