@@ -197,7 +197,9 @@ Revision History
 
 * Draft 2: February 8, 2013
 
-> * Coming Soon
+> * Updated validity line
+> * Removed [Misc] header, moved Version field below Name field
+> * Added PiP File Format Details
 
 * Draft 1: February 2, 2013
 
