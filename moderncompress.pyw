@@ -87,13 +87,13 @@ def patchName():
         patchName()
 
     # The field was longer than 80 characters
-    elif len(name) >= 81:
-        logging.warning("The Patch name was more than 80 characters!")
-        colors.pc("\nThe Name field must be 80 characters or less!", color.FG_LIGHT_RED)
-
-        # Loop back through the Patch Name Process
-        logging.info("Looping back through patchName()")
-        patchName()
+##    elif len(name) >= 81:
+##        logging.warning("The Patch name was more than 80 characters!")
+##        colors.pc("\nThe Name field must be 80 characters or less!", color.FG_LIGHT_RED)
+##
+##        # Loop back through the Patch Name Process
+##        logging.info("Looping back through patchName()")
+##        patchName()
 
     # No characters were entered
     elif len(name) == 0:
@@ -126,13 +126,13 @@ def patchVersion():
         patchVersion()
 
     # The field was longer than 12 characters
-    elif len(name) >= 13:
-        logging.warning("The Patch version was more than 12 characters!")
-        colors.pc("\nThe Version field must be 12 characters or less!", color.FG_LIGHT_RED)
-
-        # Loop back through the Patch Version Process
-        logging.info("Looping back through patchVersion()")
-        patchVersion()
+##    elif len(name) >= 13:
+##        logging.warning("The Patch version was more than 12 characters!")
+##        colors.pc("\nThe Version field must be 12 characters or less!", color.FG_LIGHT_RED)
+##
+##        # Loop back through the Patch Version Process
+##        logging.info("Looping back through patchVersion()")
+##        patchVersion()
 
     # No characters were entered
     elif len(version) == 0:
