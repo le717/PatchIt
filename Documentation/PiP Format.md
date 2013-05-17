@@ -29,7 +29,7 @@ MENUDATA\ENGLISH would go under MENUDATA\ENGLISH, and so on. If your ZIP archive
 the game and not the files. So, if your archive is laid out like *MyMod1.zip\MyMod1\GAMEDATA* and your game is located at *C:\Program Files\LEGO Racers*, it 
 will be installed as *C:\Program Files\LEGO Racers\MyMod1\**. 
 The same goes for files that are scattered in the root of the archive. If *ENGLISH.SRF* is located in the root of the archive, it will be installed to *C:\Program Files\LEGO Racer\ENGLISH.SRF*
-**PatchIt!** does not and will never attempt to pull all the files from a subfolder or scattered files and attempt to install them in the proper locations. 
+**PatchIt!** does not and will never attempt to pull all the files from a sub-folder or scattered files and attempt to install them in the proper locations. 
 
 **An example ZIP archive layout can be found below.**
 
