@@ -85,11 +85,13 @@ Revision History
 
 * Draft 3: February 15, 2013
 
-> *
+> * Renamed `Creator` field to `Author`
 
 * Draft 2: February 8, 2013
 
-> *
+> * Updated validity line
+> * Removed `[Misc]` header, moved `Version` field below `Name` field
+> * Added PiP File Format Details
 
 * Draft 1: February 2, 2013
 
