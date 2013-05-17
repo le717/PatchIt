@@ -188,7 +188,7 @@ Compile/
 Logs/
 !Windows/Uninstaller/
 Windows/Uninstall*/*
-License/
+License/*
 Settings/
 Testing/
 Archives/
