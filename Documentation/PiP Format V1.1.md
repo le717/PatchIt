@@ -31,10 +31,10 @@ Details
 * Legacy (V1.0.1) Patches are detected by looking for that version's validity line. If it is found, it is installed using the Legacy Installation routine.
 * Modern (V1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
  Legacy Patches can not and will not be created by **PatchIt!** anymore.  
-* The **MP** (Multi Purpose) field contains various Patch info. For *LEGO LOCO* Patches, it contains the resolution the map was created with.
+* The `MP` (Multi Purpose) field contains various Patch info. For *LEGO LOCO* Patches, it contains the resolution the map was created with.
 For *LEGO Racers* Patches, it currently writes *MP*, as there is not a use for that game yet.
-* The **Game** field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
-* The **Description** field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
+* The `Game` field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
+* The `Description` field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
 * The ZIP archive and the PiP file uses the Patch's name and version for their filenames.
 
 **The PiP file layout can be found [below.](#pip-version-11-file-format-layouts)**
@@ -154,28 +154,33 @@ Happy Trains 5.8.zip/
 Revision History
 ----------------
 
-* 1.1 Final : May 11, 2013 
+* 1.1 Final: May 16, 2013
+
+> * Finished PiP Format 1.0 history
+> * Minor text improvements
+
+* 1.1 Final: May 11, 2013 
 
 > * Updated General Information section
 > * Updated PiP File Format section
 
-* 1.1 Final : April 14, 2013
+* 1.1 Final: April 14, 2013
 
 > * Finalized PiP Format 1.1 
-> * Added description of MP and Game fields
+> * Added description of `MP` and `Game` fields
 > * Added example LEGO LOCO and LEGO Racers PiP Patches
 
 * 1.1 Draft 3 r1: April 6, 2013
 
-> * Renamed Mod Type field to MP ('M'ulti-'P'urpose) field.
+> * Renamed `Mod Type` field to `MP` (Multi Purpose) field.
 
 * 1.1 Draft 3: March 16, 2013
 
-> * Added Game field, re-purposing of Mod Type field
+> * Added `Game` field, re-purposing of `Mod Type` field
 
 * 1.1 Draft 2: March 5 & 6, 2013
 
-> * Added Mod Type field, outlined in [PatchIt! Dev-log #8](http://wp.me/p1V5ge-JN)
+> * Added `Mod Type` field, outlined in [PatchIt! Dev-log #8](http://wp.me/p1V5ge-JN)
 
 * 1.1 Draft 1: March 3, 2013
 
@@ -184,7 +189,7 @@ Revision History
 * 1.0.1: February 20, 2013
 
 > * Added example ZIP Archive layout
-> * Updated to address 161 character limit in Description field
+> * Updated to address 161 character limit in `Description` field
 
 * 1.0: February 18, 2013
 
@@ -193,12 +198,12 @@ Revision History
 
 * Draft 3: February 15, 2013
 
-> * Coming Soon
+> * Renamed `Creator` field to `Author`
 
 * Draft 2: February 8, 2013
 
 > * Updated validity line
-> * Removed [Misc] header, moved Version field below Name field
+> * Removed `[Misc]` header, moved `Version` field below `Name` field
 > * Added PiP File Format Details
 
 * Draft 1: February 2, 2013
