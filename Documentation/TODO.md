@@ -9,5 +9,4 @@ An (incomplete) list of everything that needs to be done in **PatchIt!**, listed
 * *NEW!* Complete Tkinter GUI (postponed until later release)
 * *NEW!* Cross-platform Compatibility (not until GUI, shell colors are Windows-only)
 * Write compiling directions for Inno Setup Installer
-* Write PiP Format V1.0.1 Revision History
 * Any TODO items scattered around in any of the scripts
