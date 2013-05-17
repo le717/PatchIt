@@ -74,7 +74,23 @@ Revision History
 ----------------
 
 * 1.0.1: February 20, 2013
+
+> * Added example ZIP Archive layout
+> * Updated to address 161 character limit in Description field
+
 * 1.0: February 18, 2013
+
+> * Added ZIP Archive section
+> * Finalized PiP Format
+
 * Draft 3: February 15, 2013
+
+> *
+
 * Draft 2: February 8, 2013
+
+> *
+
 * Draft 1: February 2, 2013
+
+> * First design
