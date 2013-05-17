@@ -105,14 +105,28 @@ def checkPatch(patch):
     '''Checks if Patch uses the modern or legacy format,
         or if it is a PatchIt! Patch at all'''
 
+    try:
         # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
         # Also check if it uses the modern or legacy format, as defined in
         # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-    logging.info("Reading line 1 of {0} for PiP validity check and Patch format".format(patch))
-    validline = linecache.getline(patch, 1)
-    logging.info("Cleaning up validity line")
-    validline = validline.strip()
-    logging.info("The validity line reads\n{0}".format(validline))
+        logging.info("Reading line 1 of {0} for PiP validity check and Patch format".format(patch))
+        with open(patch, "rt", encoding="utf-8") as f:
+            line = f.readlines()[0]
+            validline = "".join(line)
+
+        logging.info("Cleaning up validity line")
+        validline = validline.strip()
+        logging.info("The validity line reads\n{0}".format(validline))
+    except UnicodeDecodeError:
+        logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
+        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
+
+        # Dump PiP validity cache after reading
+        logging.info("Clearing PiP validity cache...")
+        linecache.clearcache()
+        time.sleep(1)
+        logging.info("Switching to main menu")
+        PatchIt.main()
 
     # It's a legacy Patch
     if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
@@ -142,6 +156,7 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         readModernPatch(patch)
 
     # It's not a Patch at all! D:
+    # Same message as the UnicodeDecodeError exception
     elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)

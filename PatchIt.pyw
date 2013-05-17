@@ -110,6 +110,7 @@ it must come after the file path.'''.format(filename))
                 time.sleep(10)
                 logging.info('''PatchIt! is shutting down
                 ''')
+                logging.shutdown()
                 raise SystemExit
 
         for value in test_params:
@@ -330,6 +331,7 @@ def main():
             time.sleep(0.3)
             webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
             logging.info("PatchIt! is shutting down to remind the user never to do this again. :P")
+            logging.shutdown()
             raise SystemExit
 
         # Close PatchIt!
@@ -339,9 +341,11 @@ def main():
             ''')
             if test:
                 # If the test parameter was passed, skip the message
+                logging.shutdown()
                 raise SystemExit
             colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
             time.sleep(3)
+            logging.shutdown()
             raise SystemExit
 
         # Undefined input

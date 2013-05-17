@@ -79,10 +79,10 @@ def appLoggingFolder():
     # -- Begin Logging Config -- #
 
         logging.basicConfig(
-            level = logging.DEBUG,
-            format = "%(asctime)s : %(levelname)s : %(message)s",
-            filename =  os.path.join(app_path, "Logs", 'PatchIt.log'),
-            filemode = 'a+',
+            level=logging.DEBUG,
+            format="%(asctime)s : %(levelname)s : %(message)s",
+            filename=os.path.join(app_path, "Logs", 'PatchIt.log'),
+            filemode='a+'
         )
 
     # -- End Logging Config -- #
