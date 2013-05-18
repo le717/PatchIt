@@ -67,7 +67,7 @@ UninstallDisplayIcon={app}\Icons\PatchItIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; This is required so Inno can correctly report the installation size.
-UninstallDisplaySize=20971520
+UninstallDisplaySize=31457280
 ; Compression
 Compression=lzma2/ultra64
 SolidCompression=True
@@ -81,7 +81,7 @@ RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
 ; This is required so Inno can correctly report the installation size.
-ExtraDiskSpaceRequired=20971520
+ExtraDiskSpaceRequired=31457280
 ; Required for creating Shell extension
 ChangesAssociations=True
 

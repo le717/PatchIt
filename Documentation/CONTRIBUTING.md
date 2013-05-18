@@ -8,7 +8,7 @@ Requirements
 
 ### Dependencies
 
-* **PatchIt!** is written in **[Python 3.3.1](http://www.python.org/download)**. You will need to have a complete installation of Python `>=` 3.3.0 to edit and 
+* **PatchIt!** is written with **[Python 3.3](http://www.python.org/download)**. You will need to have a complete installation of x86 and x64 Python `>=` 3.3.0 or later to edit and 
 run **PatchIt!**. 
 Python Versions `<=` 3.2 are not supported, and a version check will prevent it from running on lower versions.
 
@@ -19,14 +19,14 @@ or non-Unicode Inno Setup.
 
 ### Miscellaneous Notes
 
-* No external packages or dependencies are needed for the ZIP archive functions, as they are implemented using native Python modules, namely ZipFile and shutil.
+* No external packages or dependencies are needed for the ZIP archive functions, as they are implemented using native Python modules, namely `ZipFile` and `shutil`.
 
 * [py2exe](http://www.py2exe.org) does not support Python 3.3, so it cannot be used.
 
 * Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
  
 * Sometime in the development of V1.1.0 Stable a wrapper for JrMasterModelBuilder's **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
-will be added for extraction and recompressing of *LEGO.JAM*. The newest release of the JAM Extractor will be used for this purpose.
+will be added for extraction and recompressing of `LEGO.JAM`. The newest release of the JAM Extractor will be used for this purpose.
 
 Where to Start
 --------------
@@ -60,7 +60,16 @@ Replace *master* with the branch or tagged release you wish to download.
 cd PatchIt
 python setup.py
 ```
-Depending on the Python architecture, your newly created EXEs will be located at `PatchIt\Compile\Windows32` or `PatchIt\Compile\Windows64`. 
+Depending on the Python architecture, your newly created EXEs will be located at `PatchIt\Compile\Windows32` or `PatchIt\Compile\Windows64`.
+
+* You'll also need to compile the **PatchIt! Uninstaller**. Compile it by running the following command:
+
+```
+cd PatchIt\Windows
+python setup.py
+```
+
+It will be compiled to `PatchIt\Windows\Uninstaller`. **NOTE:** The **PatchIt! Uninstaller** requires Python 3.3 x86 to compile.
 
 ### Inno Setup Windows Installer
 
@@ -68,4 +77,3 @@ Depending on the Python architecture, your newly created EXEs will be located at
 * Make any changes to the script.
 
 *Coming Soon.*
-
