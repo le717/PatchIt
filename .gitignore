@@ -189,7 +189,7 @@ Compile/
 Logs/
 !Windows/Uninstaller/
 Windows/Uninstall*/*
-License/*
+!License/
 Settings/
 Testing/
 Archives/
@@ -200,7 +200,8 @@ TheTesterGroup/
 ##########
 
 *.psd
-*.txt
+#*.txt
+gh-pages.txt
 *.ini
 #*.py
 !.pyw
@@ -220,4 +221,4 @@ Windows/PatchIt-*
 *.html
 *.blend2
 
-gpl-v3-fr.txt
+#gpl-v3-fr.txt
