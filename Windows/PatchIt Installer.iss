@@ -1,6 +1,24 @@
+ï»¿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    This file is part of PatchIt!
+;
+;    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+;    Created 2013 Triangle717 <http://triangle717.wordpress.com>
+;
+;    PatchIt! is free software: you can redistribute it and/or modify
+;    it under the terms of the GNU General Public License as published by
+;    the Free Software Foundation, either version 3 of the License, or
+;    (at your option) any later version.
+;
+;    PatchIt! is distributed in the hope that it will be useful,
+;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;    GNU General Public License for more details.
+;
+;    You should have received a copy of the GNU General Public License
+;    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; PatchIt! Windows Installer
-; Copyright © 2013 Triangle717
-; http://triangle717.wordpress.com
 ; Written with Inno Setup 5.5.2 Unicode
 
 ; If any version below the specified version is used for compiling, this error will be shown.
@@ -8,11 +26,17 @@
   #error You must use Inno Setup 5.5.2 or newer to compile this script
 #endif
 
-[Define]
+#ifdef UNICODE
+  ; Do nothing, since Unicode is needed to compile
+#else
+  ; If non-Unicode (AKA ANSI) Inno Setup is used
+  #error You must use Unicode Inno Setup to compile this script
+#endif 
+       
 #define MyAppName "PatchIt!"
-#define MyAppVersion "1.0.3.1"
-#define MyAppVerName "PatchIt! Version 1.0.3.1 Stable"
-#define MyInstallerName "PatchIt-Version-1.0.3.1-Stable"
+#define MyAppVersion "1.1.0"
+#define MyAppVerName "PatchIt! Version 1.1.0 Stable"
+#define MyInstallerName "PatchIt-110-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -23,30 +47,32 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-AppCopyright=© 2013 {#MyAppPublisher}
+AppCopyright=Created 2013 {#MyAppPublisher}
 LicenseFile=..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
-DefaultDirName={pf}\PatchIt
+DefaultDirName={code:InstallPath}
 DefaultGroupName={#MyAppName}
-AllowNoIcons=yes
+AllowNoIcons=True
 ; Installer Graphics
 SetupIconFile=..\Icons\PatchItIcon.ico
 WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
-OutputDir=Here Lie the Installer
+; Hint: The same folder as this script
+OutputDir=.\
 OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
-Uninstallable=not PortableCheck
-UninstallDisplayIcon={app}\PatchItIcon.ico
-CreateUninstallRegKey=not PortableCheck
+Uninstallable=not PortableInstall
+UninstallDisplayIcon={app}\Icons\PatchItIcon.ico
+CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
-; This is required because Inno is having issues figuring out how large the files are. :|
-UninstallDisplaySize=16269312
+; This is required so Inno can correctly report the installation size.
+UninstallDisplaySize=21681659
 ; Compression
-Compression=lzma/ultra
+Compression=lzma2/ultra64
 SolidCompression=True
 InternalCompressLevel=ultra
+LZMAUseSeparateProcess=yes
 ; From top to bottom: Allows installation to C:\ (and the like),
 ; Explicitly set Admin rights, no other languages, do not restart upon finishing.
 AllowRootDirectory=yes
@@ -54,70 +80,135 @@ PrivilegesRequired=admin
 RestartIfNeededByRun=no
 ArchitecturesInstallIn64BitMode=x64 ia64
 ArchitecturesAllowed=x86 x64 ia64
-; This is required because Inno is having issues figuring out how large the files are. :|
-ExtraDiskSpaceRequired=16269312
+; This is required so Inno can correctly report the installation size.
+ExtraDiskSpaceRequired=21681659
+; Required for creating Shell extension
+ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-3.0.fr.txt"
+Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt"
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
 english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
-francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
-francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
+francais.UninstalledAll={#MyAppVerName} a Ã©tÃ© correctement dÃ©sinstallÃ© de cet ordinateur.
+francais.ConfirmUninstall=Voulez-vous vraiment dÃ©sinstaller complÃ¨tement {#MyAppVerName} ainsi que tous ses composants ?
 nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
 nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences
-francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
+francais.Settings_Reset=RÃ©initialiser {#MyAppName} prÃ©fÃ©rences
 nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
+english.Admin=Run {#MyAppName} with Administrator Rights
+francais.Admin=ExÃ©cuter {#MyAppName} avec des droits administrateur
+nederlands.Admin=Run {#MyAppName} met beheerdersrechten
+english.Shell=Associate .PiP File with {#MyAppName}
+francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+nederlands.Shell=AssociÃ«ren .PiP File Met {#MyAppName}
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "Settings_Reset"; Description: "{cm:Settings_Reset}"; Flags: unchecked
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+Name: Shell; Description: {cm:Shell}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+
+Name: Admin; Description: {cm:Admin}; Check: not PortableInstall
+Name: Settings_Reset; Description: {cm:Settings_Reset}; Flags: unchecked     
+
+[Registry]
+; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
+; Run as Admin for this user only
+Root: HKCU; Subkey: Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\PatchIt.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; Tasks: Admin
+
+; Shell extension
+Root: HKCR; Subkey: .PiP; ValueType: string; ValueName: ; ValueData: PatchIt! Patch; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: .PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\Icons\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: .PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
+Root: HKCR; Subkey: .PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
+Root: HKCR; Subkey: .PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
 
 [Files]
-; PatchIt! Icon
-Source: "..\Icons\PatchItIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
-; HTML Readme
-Source: "..\Documentation\Read Me First.html"; DestDir: "{app}"; Flags: ignoreversion  
-; Favicon for HTML Readme
-Source: "..\Icons\favicon.png"; DestDir: "{app}"; Flags: ignoreversion
-; PatchIt! settings file (with first-run set to 0)
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
-; Again for Settings_Reset switch
-Source: "..\Compile\settings"; DestDir: "{app}"; Flags: ignoreversion; Tasks: Settings_Reset
-; 64-bit Windows build
-Source: "..\Compile\Windows64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+; PatchIt! Uninstaller
+Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+
+; Readme and Icon
+Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
+Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
+Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
+
+; Settings files
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+
+; Settings files for Settings_Reset switch
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+
 ; 32-bit Windows build
-Source: "..\Compile\Windows32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
+Source: ..\Compile\Windows32\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
+
+; 64-bit Windows build
+Source: ..\Compile\Windows64\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
-Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\PatchItIcon.ico"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\PatchItIcon.ico"; Tasks: desktopicon
+Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Comment: Run {#MyAppVerName}
+Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}; IconFilename: {app}\Icons\PatchItIcon.ico
+Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
-Filename: "{app}\Read Me First.html"; Flags: nowait postinstall shellexec skipifsilent; Description: "View Readme"
+Filename: {app}\{#MyAppExeName}; Flags: nowait postinstall runascurrentuser skipifsilent; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}
 
 [UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
-Type: filesandordirs; Name: "{app}\tcl"
-Type: filesandordirs; Name: "{app}\tk"
+Type: filesandordirs; Name: {app}\tcl
+Type: filesandordirs; Name: {app}\tk  
 
-[Code]                                                                                            
+[InstallDelete]
+; Remove V1.0.x settings file
+; Not doing so breaks V1.1.x
+Type: files; Name: {app}\settings
+
+[Code]   
+// Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         
 function IsWin32: Boolean;
 begin
  Result := not IsWin64;
 end;
 
 // Portable Switch taken from https://github.com/jrsoftware/issrc/blob/master/setup.iss
-function PortableCheck: Boolean;
+function PortableInstall: Boolean;
 begin
   Result := ExpandConstant('{param:portable|0}') = '1';
 end;
+
+// Code based on Launchy Inno Setup installer
+// http://launchy.svn.sourceforge.net/viewvc/launchy/trunk/Launchy_QT/win/installer/SETUP.iss
+function InstallPath(Param: String): String;
+begin
+  if PortableInstall then
+    Result := ExpandConstant('{src}\PatchIt Portable')
+  else
+    Result := ExpandConstant('{pf}\PatchIt');
+end;
+
+// Uninstalls previous versions of PatchIt! before instaling the current one
+// Code based on examples in Inno Setup help file and scripts on the Internet
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+  ResultCode: Integer;
+begin
+  ExtractTemporaryFile('PiUninstaller.exe');
+  ExtractTemporaryFile('python33.dll');
+  ExtractTemporaryFile('library.zip');
+  ExtractTemporaryFile('_bz2.pyd');
+  ExtractTemporaryFile('select.pyd');
+  ExtractTemporaryFile('unicodedata.pyd');
+  if Exec(ExpandConstant('{tmp}\PiUninstaller.exe'), ExpandConstant('"{app}"'), '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+  end;
