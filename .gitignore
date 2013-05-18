@@ -126,7 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-#*.exe
+*.exe
 *.msi
 *.com
 *.bat
@@ -212,6 +212,7 @@ listtips.py
 *settings
 settings*/
 Windows/PatchIt-*
+!Windows/*.exe
 *.log
 *.php
 *.PiP

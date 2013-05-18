@@ -120,14 +120,14 @@ Name: Settings_Reset; Description: {cm:Settings_Reset}; Flags: unchecked
 [Registry]
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
 ; Run as Admin for this user only
-Root: HKCU; Subkey: Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\PatchIt.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; Tasks: Admin
+Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\PatchIt.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletevalue; Tasks: Admin
 
 ; Shell extension
-Root: HKCR; Subkey: .PiP; ValueType: string; ValueName: ; ValueData: PatchIt! Patch; Flags: uninsdeletekey; Tasks: Shell
-Root: HKCR; Subkey: .PiP\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\Icons\PatchItIcon.ico; Flags: uninsdeletevalue; Tasks: Shell
-Root: HKCR; Subkey: .PiP\shell; ValueType: string; ValueName: ; ValueData: open; Flags: uninsdeletevalue; Tasks: Shell
-Root: HKCR; Subkey: .PiP\shell\open; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-Root: HKCR; Subkey: .PiP\shell\open\command; ValueType: string; ValueName: ; ValueData: {app}\PatchIt.exe %1; Flags: uninsdeletevalue; Tasks: Shell                                                                     
+Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueData: "PatchIt! Patch"; Flags: uninsdeletekey; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\DefaultIcon"; ValueType: string; ValueData: "{app}\Icons\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\shell"; ValueType: string; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe %1"; Flags: uninsdeletevalue; Tasks: Shell
 
 [Files]
 ; PatchIt! Uninstaller
