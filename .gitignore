@@ -203,6 +203,7 @@ PatchItOld.py
 *.php
 *.ico
 *.html
+*.iss
 Settings*/
 Windows/Uninstaller*/
 Testing/
