@@ -126,7 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-*.exe
+#*.exe
 *.msi
 *.com
 *.bat
@@ -187,8 +187,7 @@ Windows/Here Lie the Installer/
 Compile/
 !Color/
 Logs/
-!Windows/Uninstaller/
-Windows/Uninstall*/*
+Windows/Uninstaller/
 !License/
 Settings/
 Testing/
