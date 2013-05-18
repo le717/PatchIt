@@ -36,7 +36,7 @@
 #define MyAppName "PatchIt!"
 #define MyAppVersion "1.1.0"
 #define MyAppVerName "PatchIt! Version 1.1.0 Stable"
-#define MyInstallerName "PatchIt-Version-1.1.0-Stable"
+#define MyInstallerName "PatchIt-110-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -193,10 +193,9 @@ end;
 function InstallPath(Param: String): String;
 begin
   if PortableInstall then
-    Result := ExpandConstant('{src}')
+    Result := ExpandConstant('{src}\PatchIt Portable')
   else
-    Result := ExpandConstant('{pf}');
-  Result := Result + '\PatchIt';
+    Result := ExpandConstant('{pf}\PatchIt');
 end;
 
 // Uninstalls previous versions of PatchIt! before instaling the current one
@@ -205,7 +204,6 @@ function PrepareToInstall(var NeedsRestart: Boolean): String;
 var
   ResultCode: Integer;
 begin
-// TODO: Can I use ExtractTemporaryFiles(Uninstaller/*) ?
   ExtractTemporaryFile('PiUninstaller.exe');
   ExtractTemporaryFile('python33.dll');
   ExtractTemporaryFile('library.zip');
