@@ -10,7 +10,6 @@
 *.dbproj merge=union
 
 # Standard to msysgit
-License/gpl-v3-fr.txt   diff=astextplain
 *.doc	 diff=astextplain
 *.DOC	 diff=astextplain
 *.docx diff=astextplain

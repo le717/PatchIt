@@ -1,15 +1,15 @@
 PatchIt!
 ========
 
-This is the readme to **PatchIt!**, the standard and simple way to package and install mods for the 1999 High Voltage Software PC game *LEGO Racers*, written 
-purely in [Python 3](http://www.python.org).
+This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by Triangle717 to be the standard and simple way to
+packaging and install mods for the 1999 High Voltage Software PC game *LEGO Racers*.
 
 The Plan
 --------
 
 Although *LEGO Racers* modding is still in it's early stages, many mods are already being developed, and there 
-needs to be a standard way to install them. Heavily influenced and based on **Patchman**, a mod installer for 
-the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** aims to be a standard yet simple way 
+needs to be a standard way to install them. Heavily influenced and based on **Patchman!**, a mod installer for 
+the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** aims to be a standard and simple way 
 to install *LEGO Racers* mods.
 
 How It Works
@@ -33,6 +33,18 @@ Downloads
 ---------
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
+
+* **PatchIt!** Version 1.1.0 Stable - Released May 18, 2013 
+
+> [Source Code](https://github.com/le717/PatchIt/tree/1.1.0)
+
+> [Direct Download](https://github.com/le717/PatchIt/raw/1.1.0/Windows/PatchIt-110-Stable.exe)
+
+* **PatchIt!** Version 1.0.3.1 Stable - Released May 2, 2013 
+
+> [Source Code](https://github.com/le717/PatchIt/tree/1.0.3.1)
+
+> [Direct Download](hhttps://github.com/le717/PatchIt/raw/1.0.3.1/Windows/PatchIt-Version-1.0.3.1-Stable.exe)
 
 * **PatchIt!** Version 1.0.3 Stable - Released March 11, 2013 
 
