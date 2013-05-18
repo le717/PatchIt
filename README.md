@@ -34,6 +34,12 @@ Downloads
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
 
+* **PatchIt!** Version 1.1.0 Stable - Released May 17, 2013 
+
+> [Source Code](https://github.com/le717/PatchIt/tree/1.1.0)
+
+> [Direct Download](hhttps://github.com/le717/PatchIt/raw/1.1.0/Windows/PatchIt-110-Stable.exe)
+
 * **PatchIt!** Version 1.0.3.1 Stable - Released May 2, 2013 
 
 > [Source Code](https://github.com/le717/PatchIt/tree/1.0.3.1)
