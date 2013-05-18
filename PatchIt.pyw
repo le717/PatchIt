@@ -221,8 +221,9 @@ def about():
 
 
             {0} {1} {2}
-
-            Created 2013 Triangle717
+               Released May 18, 2013
+               
+            Created 2013 Triangle717        
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
@@ -239,7 +240,7 @@ package and install mods for LEGO Racers"
     # GitHub Project Button
     github = ttk.Button(frame, text="GitHub Project", command=lambda:webbrowser.open_new_tab("http://bit.ly/PatchIt")).grid(column=0, row=1)
     # Creator's website button
-    creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://Triangle717.WordPress.com")).grid(column=2, row=1)
+    creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://wp.me/P1V5ge-I3")).grid(column=2, row=1)
     for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
     # Binds the Return ("Enter") key, closes the About Window
     root.bind('<Return>', close_about)
