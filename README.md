@@ -8,7 +8,7 @@ The Plan
 --------
 
 Although *LEGO Racers* modding is still in it's early stages, many mods are already being developed, and there 
-needs to be a standard way to install them. Heavily influenced and based on **Patchman**, a mod installer for 
+needs to be a standard way to install them. Heavily influenced and based on **Patchman!**, a mod installer for 
 the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** aims to be a standard and simple way 
 to install *LEGO Racers* mods.
 
@@ -38,7 +38,7 @@ All **PatchIt!** downloads are hosted on this project, each one in a separate [A
 
 > [Source Code](https://github.com/le717/PatchIt/tree/1.1.0)
 
-> [Direct Download](hhttps://github.com/le717/PatchIt/raw/1.1.0/Windows/PatchIt-110-Stable.exe)
+> [Direct Download](https://github.com/le717/PatchIt/raw/1.1.0/Windows/PatchIt-110-Stable.exe)
 
 * **PatchIt!** Version 1.0.3.1 Stable - Released May 2, 2013 
 
