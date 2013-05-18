@@ -1,4 +1,4 @@
-#################
+##################
 ## Eclipse
 #################
 
@@ -126,8 +126,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-*.exe
-!Windows/PatchIt-Uninstaller.exe
+#*.exe
 *.msi
 *.com
 *.bat
@@ -172,42 +171,53 @@ pip-log.txt
 ## Archives
 #############
 
-# I don't want to upload any archives.
-#*.zip
+#I don't want to upload any archives.
+*.zip
 *.rar
 *.7z
 *.cab
 *.tar
 *.gz
 
-########
+##########
 ## Misc.
-########
+##########
 
 Windows/Here Lie the Installer/
+Compile/
+!Color/
+Logs/
+!Windows/Uninstaller/
+Windows/Uninstall*/*
+License/*
+Settings/
+Testing/
+Archives/
 TheTesterGroup/
-listtips.py
+
+##########
+## Files
+##########
+
 *.psd
-#*.html
-PatchItOld.py
 *.txt
 *.ini
-*.py
+#*.py
+!.pyw
+*.iss
+!Windows/unsetup.py
+JAMExtractor.py
+listtips.py
 *settings
+settings*/
+Windows/PatchIt-*
 *.log
+*.php
 *.PiP
 *.~is
 *.blend
 *.blend1
-*.blend2
-*.php
-*.ico
 *.html
-*.iss
-Settings*/
-Windows/Uninstaller*/
-Testing/
-Compile/
-Logs/
-License/
-Archives/
+*.blend2
+
+gpl-v3-fr.txt
