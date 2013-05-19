@@ -171,7 +171,7 @@ pip-log.txt
 ## Archives
 #############
 
-#I don't want to upload any archives.
+# I don't want to upload any archives.
 *.zip
 *.rar
 *.7z
@@ -183,7 +183,7 @@ pip-log.txt
 ## Misc.
 ##########
 
-Windows/Uninstaller/
+Windows/Uninstaller*/*
 Compile/
 !Color/
 Logs/
