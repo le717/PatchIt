@@ -137,11 +137,8 @@ def checkPatch(patch):
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_CYAN)
 
-        # Dump PiP validity cache after reading
-        logging.info("Clearing PiP validity cache...")
-        linecache.clearcache()
-
         # Give them time to actually read the message.
+        # Switch to legacy Patch Installation routine
         time.sleep(5)
         logging.info("Switching to legacy PatchIt! Patch Installation routine (legacyextract.readpatch(patch))")
         legacyextract.readPatch(patch)
@@ -150,11 +147,8 @@ It may be best to check if a newer version of this mod is available.'''.format(p
     elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
         logging.info("{0} is a modern PatchIt! Patch".format(patch))
 
-        # Dump PiP validity cache after reading
-        logging.info("Clearing PiP validity cache...")
-        linecache.clearcache()
-
-        logging.info("Proceeding to modern PatchIt! Patch Installation routine (readModernPatch(patch))")
+        # Go to the (modern) Patch Installation method
+        logging.info("Proceeding to (modern) PatchIt! Patch Installation routine (readModernPatch(patch))")
         readModernPatch(patch)
 
     # It's not a Patch at all! D:
@@ -163,9 +157,7 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
 
-        # Dump PiP validity cache after reading
-        logging.info("Clearing PiP validity cache...")
-        linecache.clearcache()
+        # Switch to main menu
         time.sleep(1)
         logging.info("Switching to main menu")
         PatchIt.main()
@@ -179,51 +171,60 @@ def readModernPatch(patch):
     '''Reads PatchIt! Patch Details'''
 
     # Get all patch details
-    logging.info("Valid PatchIt! Patch selected")
-    logging.info("Reading line 7 of {0} for name".format(patch))
-    name = linecache.getline(patch, 7)
-    logging.info("Reading line 6 of {0} for version".format(patch))
-    version = linecache.getline(patch, 6)
-    logging.info("Reading line 5 of {0} for author".format(patch))
-    author = linecache.getline(patch, 5)
-    logging.info("Reading line 8 of {0} for MP".format(patch))
-    mp = linecache.getline(patch, 8)
-    logging.info("Reading line 9 of {0} for Game".format(patch))
+    with open(patch, "rt", encoding="utf-8") as file:
+        logging.info("Reading contents of Patch")
+        all_lines = file.readlines()[:]
+
+    # TODO: Assign Zip Archive, pass it to installModernPatch()
+
+    # Assign Patch Author
+    logging.info("Assigning line 5 of {0} to Author".format(patch))
+    author = all_lines[4]
+
+    # Assign Patch Version
+    logging.info("Assigning line 6 of {0} to Version".format(patch))
+    version = all_lines[5]
+
+    # Assign Patch Name
+    logging.info("Assigning line 7 of {0} to Name".format(patch))
+    name = all_lines[6]
+
+    # Assign Patch MP
+    logging.info("Assigning line 8 of {0} to MP".format(patch))
+    mp = all_lines[7]
+
+    # Assign Patch Game
     game = linecache.getline(patch, 9)
-    logging.info("Reading lines 10-12 of {0} for description".format(patch))
+    logging.info("Assigning line 9 of {0} to Game".format(patch))
+    game = all_lines[8]
 
-    # Read lines 11-13, or until there is no more text
-    with open(patch, 'rt', encoding='utf-8') as file:
-        while True:
-            desclines = file.readlines()[10:]
-            if len(desclines) == 0:
-                break
-            # Convert (and remove) list to string
-            desc = "".join(desclines)
+    # Assign Patch Description to lines 11-13,
+    # or until there is no more text
+    logging.info("Assigning lines 11-13 of {0} to Description".format(patch))
+    desc = all_lines[10:]
 
-    # Clear cache so file is completely re-read next time
-    logging.info("Clearing PiP file cache...")
-    linecache.clearcache()
+    # Convert (and remove) list to string
+    desc = "".join(desc)
 
-    # Clean up the mod info
-    logging.info("Cleaning up mod name")
+    # Clean up the Patch info
+    logging.info("Cleaning up Patch Name")
     name = name.strip()
-    logging.info("Cleaning up mod author")
+    logging.info("Cleaning up Patch Author")
     author =author.strip()
-    logging.info("Cleaning up mod version")
+    logging.info("Cleaning up Patch Version")
     version = version.strip()
-    logging.info("Cleaning up mod description")
+    logging.info("Cleaning up Patch Description")
     desc = desc.strip()
     logging.info("Cleaning up MP field")
     mp  = mp.strip()
-    logging.info("Cleaning up game field")
+    logging.info("Cleaning up Game field")
     game  = game.strip()
 
     # Display all the info
-    logging.info("Display all mod info")
+    logging.info("Display all Patch info")
 
 
-    mod_info = '''\n{0}
+    patch_info = '''\n{0}
 Version: {1}
 Author: {2}
 Game: {3}
@@ -231,7 +232,7 @@ Game: {3}
 "{4}"'''.format(name, version, author, game, desc)
 
     # Display the info
-    print(mod_info, end="\n")
+    print(patch_info, end="\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))

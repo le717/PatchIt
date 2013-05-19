@@ -47,8 +47,8 @@ import Color as color, Color.colors as colors
 
 # Global variables
 app = "PatchIt!"
-majver = "Version 1.1.0"
-minver = "Stable"
+majver = "Version 1.1.1"
+minver = "Unstable"
 creator = "Triangle717"
 
 # Name of PatchIt! Exe/Py
@@ -221,9 +221,9 @@ def about():
 
 
             {0} {1} {2}
-               Released May 18, 2013
-               
-            Created 2013 Triangle717        
+               Released ?? ??, 2013
+
+            Created 2013 Triangle717
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
