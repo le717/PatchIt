@@ -504,21 +504,20 @@ def LRWriteSettings():
             print("# Ensures the first-run process will be skipped next time", file=racers_file)
             print("1", file=racers_file)
 
-            logging.info("Write brief comment explaining what the folder path means")
-
-            logging.info("Write new LEGO Racers installation to fifth line")
-            print("# Your LEGO Racers installation path", file=racers_file)
-            print(new_racers_game, file=racers_file)
-
             # Run check for 1999 or 2001 version of Racers
             logging.info("Run LRVerCheck(newgamepath) to check what version of Racers user has")
+            logging.info("Write brief comment telling what version of Racers this is")
             LRVer = LRVerCheck(new_racers_game)
 
-            logging.info("Write brief comment telling what version of Racers this is")
-            logging.info("Write LEGO Racers version to seventh line (killing the new line ending)")
+            logging.info("Write LEGO Racers version to fifth line")
             print("# Your version of LEGO Racers", file=racers_file)
+            print(LRVer, file=racers_file)
+
+            logging.info("Write brief comment explaining what the folder path means")
+            logging.info("Write new LEGO Racers installation to seventh line (killing the new line ending)")
+            print("# Your LEGO Racers installation path", file=racers_file)
             # end="" So \n will not be written
-            print(LRVer, file=racers_file, end="")
+            print(new_racers_game, file=racers_file, end="")
 
             '''Removing "settings.close()" breaks the entire first-run code.
             Once it writes the path, PatchIt! closes, without doing as much
@@ -538,9 +537,9 @@ def LRGameCheck():
     '''Confirm LEGO Racers installation'''
 
     # global it is can be used in other messages
-    logging.info("Reading line 5 of settings for LEGO Racers installation")
+    logging.info("Reading line 7 of settings for LEGO Racers installation")
     global racers_path
-    racers_path = linecache.getline(os.path.join(settingsfol, lrsettings), 5)
+    racers_path = linecache.getline(os.path.join(settingsfol, lrsettings), 7)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
