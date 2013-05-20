@@ -175,7 +175,9 @@ def readModernPatch(patch):
         logging.info("Reading contents of Patch")
         all_lines = file.readlines()[:]
 
-    # TODO: Assign Zip Archive, pass it to installModernPatch()
+    # Assign Patch ZIP
+    logging.info("Assigning line 3 of {0} to Zip Archive".format(patch))
+    zip_archive = all_lines[2]
 
     # Assign Patch Author
     logging.info("Assigning line 5 of {0} to Author".format(patch))
@@ -207,6 +209,8 @@ def readModernPatch(patch):
     desc = "".join(desc)
 
     # Clean up the Patch info
+    logging.info("Cleaning up Zip Archive")
+    zip_archive = zip_archive.rstrip("\n")
     logging.info("Cleaning up Patch Name")
     name = name.strip()
     logging.info("Cleaning up Patch Author")
@@ -250,9 +254,9 @@ Game: {3}
         # Yes, I do want to install it!
         logging.info("User does want to install {0} {1}.".format(name, version))
         logging.info("Proceeding to installModernPatch(patch, name, version, author, game, mp)")
-        installModernPatch(patch, name, version, author, game, mp)
+        installModernPatch(patch, name, version, author, game, mp, zip_archive)
 
-def installModernPatch(patch, name, version, author, game, mp):
+def installModernPatch(patch, name, version, author, game, mp, zip_archive):
     '''Installs a Modern PatchIt! Patch'''
 
     # This is a LEGO LOCO patch, read the LOCO settings
@@ -284,16 +288,16 @@ def installModernPatch(patch, name, version, author, game, mp):
     # Create a valid folder path
     logging.info("Cleaning up installation text")
     installationpath = installationpath.rstrip("\n")
-    logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
-    ziparchive = linecache.getline(patch, 3)
+##    logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
+##    ziparchive = linecache.getline(patch, 3)
 
     # Again, clear cache so everything is completely re-read every time
     logging.info("Clearing settings file cache...")
     linecache.clearcache()
 
     # Create a vaild ZIP archive
-    logging.info("Cleaning up ZIP archive text")
-    ziparchive = ziparchive.rstrip("\n")
+##    logging.info("Cleaning up ZIP archive text")
+##    ziparchive = ziparchive.rstrip("\n")
 
     # Find the ZIP archive
     ziplocation = patch.rstrip("/{0}{1}.PiP".format(name, version))
@@ -301,8 +305,8 @@ def installModernPatch(patch, name, version, author, game, mp):
 
     try:
         # Actually extract the ZIP archive
-        logging.info("Extract {0} to {1}".format(ziparchive, installationpath))
-        with zipfile.ZipFile(os.path.join(ziplocation, ziparchive), "r") as extractzip:
+        logging.info("Extract {0} to {1}".format(zip_archive, installationpath))
+        with zipfile.ZipFile(os.path.join(ziplocation, zip_archive), "r") as extractzip:
             extractzip.extractall(path=installationpath)
 
         # Display gameplay tip/MP only if Patch was sucessful
@@ -325,7 +329,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name, version, installationpath), color.FG_LIGHT_GREEN)
 
         # Log ZIP closure although it was closed automatically by with
-        logging.info("Closing {0}".format(ziparchive))
+        logging.info("Closing {0}".format(zip_archive))
 
     # For some reason, it cannot find the ZIP archive
     except FileNotFoundError:
@@ -335,7 +339,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         logging.info("Cleaning up Version and Author text")
         version = version.lstrip("Version: ")
         author = author.lstrip("Author: ")
-        logging.warning("Unable to find {0} at {1}!".format(ziparchive, ziplocation))
+        logging.warning("Unable to find {0} at {1}!".format(zip_archive, ziplocation))
         colors.pc('''\nCannot find Patch files for {0} {1}!
 Make sure "{0}{1}.zip" and "{0}{1}.PiP"
 are in the same folder, and try again.
