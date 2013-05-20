@@ -57,6 +57,8 @@ filename = os.path.basename(sys.argv[0])
 appfolder = os.path.join(sys.argv[0].rstrip(filename))
 # Location of Settings folder
 settingsfol = os.path.join(sys.argv[0].rstrip(filename), "Settings")
+# PatchIt! App Icon
+appicon = os.path.join("Icons", "PatchItIcon.ico")
 
 # GLobal game settings
 lrgame = "LEGO Racers"
@@ -245,7 +247,7 @@ package and install mods for LEGO Racers"
     # Binds the Return ("Enter") key, closes the About Window
     root.bind('<Return>', close_about)
     # Make it load
-    root.iconbitmap("Icons/PatchItIcon.ico")
+    root.iconbitmap(appicon)
     root.mainloop()
 
 # ------------ End PatchIt! About Box  ------------ #
