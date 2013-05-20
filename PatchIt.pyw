@@ -289,7 +289,6 @@ def main():
         # Patch Creation
         elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
-            time.sleep(0.5)
 
             # Call the Patch Creation module
             logging.info("Calling Patch Compression module (compress.patchInfo())")
@@ -298,7 +297,6 @@ def main():
         # Patch Installation
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
-            time.sleep(0.5)
 
             # Call the Patch Installation module
             logging.info("Calling Patch Installation module (extract.selectPatch())")
@@ -309,7 +307,6 @@ def main():
             if test:
                 import handlejam
                 logging.info("User pressed '[j] JAM Extractor'")
-                time.sleep(0.5)
                 # Call the JAM Extractor wrapper module
                 logging.info("Calling JAM Extractor wrapper module (handlejam.main())")
                 handlejam.main()
@@ -347,14 +344,13 @@ def main():
                 logging.shutdown()
                 raise SystemExit
             colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
-            time.sleep(3)
+            time.sleep(1)
             logging.shutdown()
             raise SystemExit
 
         # Undefined input
         else:
             logging.info("User pressed an undefined key")
-            # Do not sleep here, since we are already on the menu
             main()
 
 # ------------ End PatchIt! Menu Layout ------------ #
@@ -375,8 +371,6 @@ def Settings():
 
     # Run LEGO Racers settings
     if settingsopt.lower() == "r":
-        # 0.5 second sleep makes it seem like the program is not bugged by running so fast.
-        time.sleep(0.5)
         logging.info("User choose LEGO Racers")
         logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
         LRReadSettings()
@@ -411,7 +405,6 @@ def LRReadSettings():
 
         # The defined installation was not confirmed by LRGameCheck()
         if LRGameCheck() == False:
-            time.sleep(0.5)
 
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found! at {0}".format(racers_path))
@@ -423,7 +416,6 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            time.sleep(0.5)
             logging.info("LEGO Racers installation was found at {0}.".format(racers_path))
             print('\n{0} installation found at\n"{1}"!\n\n'.format(lrgame, racers_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
@@ -431,15 +423,12 @@ def LRReadSettings():
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
-                time.sleep(0.5)
                 logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
                 LRWriteSettings()
 
                 # No, I do not want to change the defined installation
             else:
                 logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
-                # Sleep for 1 second before kicking back to the menu.
-                time.sleep(1)
                 logging.info("Switching to main menu")
                 main()
 
@@ -483,7 +472,6 @@ def LRWriteSettings():
 
         logging.warning("User did not select a new LEGO Racers installation!")
         #colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
-        time.sleep(1)
 
         logging.info("Switching to main menu")
         main()
@@ -643,7 +631,6 @@ def LOCOReadSettings():
 
         # The defined installation was not confirmed by LOCOGameCheck()
         if LOCOGameCheck() == False:
-            time.sleep(0.5)
 
             # Use path defined in LOCOGameCheck() for messages
             logging.warning("LEGO LOCO installation was not found!".format(loco_path))
@@ -655,7 +642,6 @@ def LOCOReadSettings():
 
         # The defined installation was confirmed by LOCOGameCheck()
         else:
-            time.sleep(0.5)
             logging.info("LEGO LOCO installation was found at {0}.".format(loco_path))
             print('\n{0} installation found at "{1}"!\n'.format(locogame, loco_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
@@ -663,15 +649,12 @@ def LOCOReadSettings():
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO LOCO installation")
-                time.sleep(0.5)
                 logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
                 LOCOWriteSettings()
 
                 # No, I do not want to change the defined installation
             else:
                 logging.info("User does not want to change defined LEGO LOCO installation or pressed an undefined key")
-                # Sleep for 1 second before kicking back to the menu.
-                time.sleep(1)
                 logging.info("Switching to main menu")
                 main()
 
@@ -715,7 +698,6 @@ def LOCOWriteSettings():
 
         logging.warning("User did not select a new LEGO LOCO installation!")
         #colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
-        time.sleep(1)
 
         logging.info("Switching to main menu")
         main()

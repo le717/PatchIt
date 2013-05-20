@@ -44,7 +44,7 @@ from tkinter import (filedialog, Tk)
 def selectPatch():
     '''Select a PatchIt! Patch'''
 
-    print("\nInstall a PatchIt! Patch\n")
+    colors.pc("\nInstall a PatchIt! Patch", color.FG_LIGHT_YELLOW)
     logging.info("Install a PatchIt! Patch")
 
     # PiP label for Patch selection dialog box
@@ -84,7 +84,7 @@ def selectPatch():
 
         logging.warning("User did not select a PatchIt! Patch for installation!")
         colors.pc("\nCould not find a PatchIt! Patch to read!", color.FG_LIGHT_RED)
-        time.sleep(1)
+        time.sleep(0.7)
 
         logging.info("Switching to main menu")
         PatchIt.main()
@@ -121,11 +121,9 @@ def checkPatch(patch):
     # The "Patch" was encoding in something other than UTF-8 or ANSI
     except UnicodeDecodeError:
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
 
-        # Dump PiP validity cache after reading
-        logging.info("Clearing PiP validity cache...")
-        linecache.clearcache()
         time.sleep(1)
         logging.info("Switching to main menu")
         PatchIt.main()
@@ -139,7 +137,7 @@ It may be best to check if a newer version of this mod is available.'''.format(p
 
         # Give them time to actually read the message.
         # Switch to legacy Patch Installation routine
-        time.sleep(5)
+        time.sleep(3)
         logging.info("Switching to legacy PatchIt! Patch Installation routine (legacyextract.readpatch(patch))")
         legacyextract.readPatch(patch)
 
@@ -210,7 +208,7 @@ def readModernPatch(patch):
 
     # Clean up the Patch info
     logging.info("Cleaning up Zip Archive")
-    zip_archive = zip_archive.rstrip("\n")
+    zip_archive = zip_archive.strip()
     logging.info("Cleaning up Patch Name")
     name = name.strip()
     logging.info("Cleaning up Patch Author")
@@ -246,7 +244,7 @@ Game: {3}
     if confirminstall.lower() != "y":
         logging.warning("User does not want to install {0} {1}!".format(name, version))
         colors.pc("\nCanceling installation of {0} {1}...".format(name, version), color.FG_WHITE)
-        time.sleep(1)
+        time.sleep(0.5)
         logging.info("Switching to main menu")
         PatchIt.main()
 
@@ -288,16 +286,10 @@ def installModernPatch(patch, name, version, author, game, mp, zip_archive):
     # Create a valid folder path
     logging.info("Cleaning up installation text")
     installationpath = installationpath.rstrip("\n")
-##    logging.info("Reading line 3 of {0} for ZIP archive".format(patch))
-##    ziparchive = linecache.getline(patch, 3)
 
     # Again, clear cache so everything is completely re-read every time
     logging.info("Clearing settings file cache...")
     linecache.clearcache()
-
-    # Create a vaild ZIP archive
-##    logging.info("Cleaning up ZIP archive text")
-##    ziparchive = ziparchive.rstrip("\n")
 
     # Find the ZIP archive
     ziplocation = patch.rstrip("/{0}{1}.PiP".format(name, version))
@@ -361,8 +353,8 @@ If this error continues, contact {2} and ask for a fixed version.'''
 
     # This is run no matter if an exception was raised nor not.
     finally:
-        # Sleep for 4.5 seconds after displaying installation result before kicking back to the PatchIt! menu.
-        time.sleep(4.5)
+        # Sleep for 2 seconds after displaying installation result before kicking back to the PatchIt! menu.
+        time.sleep(2)
         logging.info("Switching to main menu")
         PatchIt.main()
 

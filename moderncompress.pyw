@@ -66,11 +66,11 @@ def delThumbs(patchfiles):
 
 # ------------ Begin Patch Info Character and Length Checks ------------ #
 
-def charCheck(strg, search=re.compile(r'[^A-Za-z0-9. ]').search):
+def charCheck(text, search=re.compile(r'[^A-Za-z0-9. ]').search):
     '''Check if an invalid character was entered or not'''
 
     # This returns True if everything is valid, and False if it isn't
-    return not bool(search(strg))
+    return not bool(search(text))
 
 def patchName():
     '''Ask for Patch Name'''
@@ -229,7 +229,6 @@ def patchInfo():
     else: #elif game_select.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_WHITE)
-        time.sleep(0.5)
         logging.info("Switching to main menu")
         PatchIt.main()
 
@@ -251,7 +250,6 @@ def patchInfo():
         logging.info("Switching to LOCORes(name) to get map resolution")
         mp = LOCORes(name)
 
-
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = Tk()
@@ -259,7 +257,7 @@ def patchInfo():
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings to (basically) completely hide it")
+    logging.info("Overwrite root settings to basically hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
