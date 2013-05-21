@@ -71,7 +71,7 @@ locosettings = "LOCO.cfg"
 def Args():
     '''PatchIt! Command-line Arguments'''
 
-    logging.debug("Command-line arguments processor started")
+    logging.info("Command-line arguments processor started")
 
     # Declare test parameter (-t, --test) as global for use in other places
     global test
@@ -121,6 +121,7 @@ it must come after the file path.'''.format(exe_name))
                 test = True
                 os.system("title {0} {1} {2} - Experimental Mode".format(app, majver, minver))
                 logging.info("The test parameter (-t, --test) was passed, enabling experimental features")
+##                preload()
 
             # A file path was passed
             else:
@@ -166,7 +167,6 @@ def info():
                                     and attach this file for an easier fix!
                                 #############################################
                                 '''.format(app, majver, minver, creator))
-    pass
 
 def preload():
     '''PatchIt! Settings checks'''
@@ -361,7 +361,7 @@ def Settings():
 [r] LEGO Racers
 [l] LEGO LOCO
 [q] Quit''')
-    settingsopt = input("\n\n> ")
+    settingsopt = input("\n> ")
 
     # Run LEGO Racers settings
     if settingsopt.lower() == "r":
