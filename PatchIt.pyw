@@ -398,11 +398,14 @@ def LRReadSettings():
         logging.info("LEGO Racers Settings does exist")
 
         # The defined installation was not confirmed by LRGameCheck()
-        if LRGameCheck() == False:
+        if not LRGameCheck():
 
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found! at {0}".format(racers_path))
-            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(lrgame, racers_path), color.FG_LIGHT_RED)
+##            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(lrgame, racers_path), color.FG_LIGHT_RED)
+            root = tk.Tk()
+            root.withdraw()
+            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(lrgame, racers_path))
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
@@ -465,7 +468,7 @@ def LRWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO Racers installation!")
-        #colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
+        ##colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
 
         logging.info("Switching to main menu")
         main()
@@ -615,11 +618,14 @@ def LOCOReadSettings():
         logging.info("LEGO LOCO Settings does exist")
 
         # The defined installation was not confirmed by LOCOGameCheck()
-        if LOCOGameCheck() == False:
+        if not LOCOGameCheck():
 
             # Use path defined in LOCOGameCheck() for messages
             logging.warning("LEGO LOCO installation was not found!".format(loco_path))
-            colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(locogame, loco_path), color.FG_LIGHT_RED)
+##            colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(locogame, loco_path), color.FG_LIGHT_RED)
+            root = tk.Tk()
+            root.withdraw()
+            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(locogame, loco_path))
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
@@ -682,7 +688,7 @@ def LOCOWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO LOCO installation!")
-        #colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
+        ##colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
 
         logging.info("Switching to main menu")
         main()
