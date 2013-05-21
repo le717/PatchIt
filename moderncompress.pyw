@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Stable Modern Patch Creation code
+# PatchIt! V1.1.1 Unstable Modern Patch Creation code
 
 import PatchIt
 import os
