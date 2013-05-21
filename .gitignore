@@ -217,6 +217,7 @@ Windows/PatchIt-*
 *.blend
 *.blend1
 *.html
+!Read-Me-First.html
 *.blend2
 
 #gpl-v3-fr.txt
