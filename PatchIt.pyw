@@ -408,7 +408,7 @@ def LRReadSettings():
 
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found! at {0}".format(racers_path))
-            colors.pc("\nCannot find {0} installation at\n{1}!\n".format(lrgame, racers_path), color.FG_LIGHT_RED)
+            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(lrgame, racers_path), color.FG_LIGHT_RED)
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
@@ -495,14 +495,14 @@ def LRWriteSettings():
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
-            print("// PatchIt! V1.1.x LEGO Racers Settings", file=racers_file)
+            racers_file.write("// PatchIt! V1.1.x LEGO Racers Settings\n")
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
             logging.info("Write brief comment explaining what the number means")
             logging.info("Write '1' to line 3 to skip first-run next time")
-            print("# Ensures the first-run process will be skipped next time", file=racers_file)
-            print("1", file=racers_file)
+            racers_file.write("# Ensures the first-run process will be skipped next time\n")
+            racers_file.write("1\n")
 
             # Run check for 1999 or 2001 version of Racers
             logging.info("Run LRVerCheck(newgamepath) to check what version of Racers user has")
@@ -510,19 +510,19 @@ def LRWriteSettings():
             LRVer = LRVerCheck(new_racers_game)
 
             logging.info("Write LEGO Racers version to fifth line")
-            print("# Your version of LEGO Racers", file=racers_file)
-            print(LRVer, file=racers_file)
+            racers_file.write("# Your version of LEGO Racers\n")
+            racers_file.write(LRVer)
 
             logging.info("Write brief comment explaining what the folder path means")
             logging.info("Write new LEGO Racers installation to seventh line (killing the new line ending)")
-            print("# Your LEGO Racers installation path", file=racers_file)
-            # end="" So \n will not be written
-            print(new_racers_game, file=racers_file, end="")
+            racers_file.write("\n# Your LEGO Racers installation path\n")
+            racers_file.write(new_racers_game)
 
             '''Removing "settings.close()" breaks the entire first-run code.
             Once it writes the path, PatchIt! closes, without doing as much
             as running the path through gamecheck() nor going back to main()
-            Possible TODO: Find out why this is happening and remove it if possible.'''
+            TODO: This was happening in pre-1.1.0 days.
+            Check if this is still happening.'''
 
         logging.info("Closing file")
         racers_file.close()
@@ -633,7 +633,7 @@ def LOCOReadSettings():
 
             # Use path defined in LOCOGameCheck() for messages
             logging.warning("LEGO LOCO installation was not found!".format(loco_path))
-            colors.pc("\nCannot find {0} installation at {1}!\n".format(locogame, loco_path), color.FG_LIGHT_RED)
+            colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(locogame, loco_path), color.FG_LIGHT_RED)
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
@@ -720,25 +720,26 @@ def LOCOWriteSettings():
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
-            print("// PatchIt! V1.1.x LEGO LOCO Settings", file=loco_file)
+            loco_file.write("// PatchIt! V1.1.x LEGO LOCO Settings\n")
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
             logging.info("Write brief comment explaining what the number means")
             logging.info("Write '1' to line 3 to skip first-run next time")
-            print("# Ensures the first-run process will be skipped next time", file=loco_file)
-            print("1", file=loco_file)
+            loco_file.write("# Ensures the first-run process will be skipped next time\n")
+            loco_file.write("1\n")
 
             logging.info("Write brief comment explaining what the folder path means")
 
             logging.info("Write new LEGO LOCO installation to fifth line (killing the new line ending)")
-            print("# Your LEGO LOCO installation path", file=loco_file)
-            print(new_loco_game, file=loco_file, end="")
+            loco_file.write("# Your LEGO LOCO installation path\n")
+            loco_file.write(new_loco_game)
 
             '''Removing "settings.close()" breaks the entire first-run code.
             Once it writes the path, PatchIt! closes, without doing as much
             as running the path through gamecheck() nor going back to main()
-            Possible TODO: Find out why this is happening and remove it if possible.'''
+            TODO: This was happening in pre-1.1.0 days.
+            Check if this is still happening.'''
 
         logging.info("Closing file")
         loco_file.close()
