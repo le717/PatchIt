@@ -181,6 +181,12 @@ def preload():
 
     # If the Racers or LOCO settings check come back True, go to menu.
     # No need for a False check; that is written into the functions already
+
+    # If the LOCO settings exist, but Racers do not,
+    # the Racers check will shortcircuit the LOCO check,
+    # forcing you to see the "What Settings" menu
+    # everytime you run PatchIt!
+    # TODO: Fix this!
     if CheckLRSettings() or CheckLOCOSettings():
         # Switch to main menu
         main()
@@ -443,7 +449,7 @@ def LRWriteSettings():
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings to (basically) completely hide it")
+    logging.info("Overwrite root Tk window settings to basically hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
@@ -663,7 +669,7 @@ def LOCOWriteSettings():
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings to (basically) completely hide it")
+    logging.info("Overwrite root Tk window settings to basically hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
@@ -782,8 +788,8 @@ def CheckLOCOSettings():
     # The LEGO LOCO settings do exist (inplied else block here)
     elif os.path.exists(os.path.join(settingsfol, locosettings)):
         logging.info("LEGO LOCO Settings do exist")
-        # Settings file does not need to be opened to use linecache
 
+        # Settings file does not need to be opened to use linecache
         logging.info("Reading line 3 for LEGO LOCO first-run info")
         loco_first_run = linecache.getline(os.path.join(settingsfol, locosettings), 3)
         loco_first_run = loco_first_run.strip()
