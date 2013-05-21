@@ -121,7 +121,7 @@ it must come after the file path.'''.format(exe_name))
                 test = True
                 os.system("title {0} {1} {2} - Experimental Mode".format(app, majver, minver))
                 logging.info("The test parameter (-t, --test) was passed, enabling experimental features")
-##                preload()
+                preload()
 
             # A file path was passed
             else:
