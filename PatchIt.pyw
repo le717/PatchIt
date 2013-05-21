@@ -181,7 +181,7 @@ def preload():
 
     # If the Racers or LOCO settings check come back True, go to menu.
     # No need for a False check; that is written into the functions already
-    if CheckLRSettings() == True or CheckLOCOSettings() == True:
+    if CheckLRSettings() or CheckLOCOSettings():
         # Switch to main menu
         main()
 
@@ -339,12 +339,6 @@ def main():
             logging.info("User pressed '[q] Quit'")
             logging.info('''PatchIt! is shutting down
             ''')
-            if test:
-                # If the test parameter was passed, skip the message
-                logging.shutdown()
-                raise SystemExit
-            colors.pc("\nThank you for patching with {0}".format(app), color.FG_LIGHT_YELLOW)
-            time.sleep(1)
             logging.shutdown()
             raise SystemExit
 
@@ -590,25 +584,23 @@ def CheckLRSettings():
 
         # Settings file does not need to be opened to use linecache
         logging.info("Reading line 3 for LEGO Racers first-run info")
-        lr_firstrun = linecache.getline(os.path.join(settingsfol, lrsettings), 3)
+        lr_first_run = linecache.getline(os.path.join(settingsfol, lrsettings), 3)
+        lr_first_run = lr_first_run.strip()
 
         # Always clear cache after reading
         logging.info("Clearing Racers first-run cache...")
         linecache.clearcache()
 
-        # '0\n' defines a first-run
-        # len() == 0 means file is empty or non-existant
-        # \n means the number was removed, but all other text is still in place
-        if lr_firstrun == "0\n" or len(lr_firstrun) == 0 or lr_firstrun == "\n":
+        # '0' means this is a "first-run"
+        # len() >= 1 means file is not empty
+        if lr_first_run != "0" or len(lr_first_run) >= 1:
+            logging.info("First-run info found, this is not the first-run. Switching to main menu.")
+            return True
+        # Any other condition, we need to write the settings
+        else:
             logging.warning("PatchIt! has never been run!")
             logging.info("Proceeding to write PatchIt! settings (Settings())")
             Settings()
-
-        # Any other number (Default == 1) means it has been run before
-        else:
-            logging.info("First-run info found, this is not the first-run. Switching to main menu.")
-            # Does not sleep, for user doesn't know about this
-            return True
 
 # ----- End LEGO Racers Installation, Version and Settings Check ----- #
 
@@ -799,25 +791,23 @@ def CheckLOCOSettings():
         # Settings file does not need to be opened to use linecache
 
         logging.info("Reading line 3 for LEGO LOCO first-run info")
-        loco_firstrun = linecache.getline(os.path.join(settingsfol, locosettings), 3)
+        loco_first_run = linecache.getline(os.path.join(settingsfol, locosettings), 3)
+        loco_first_run = loco_first_run.strip()
 
         # Always clear cache after reading
         logging.info("Clearing LOCO first-run cache...")
         linecache.clearcache()
 
-        # '0\n' defines a first-run
-        # len() == 0 means file is empty or non-existant
-        # \n means the number was removed, but all other text is still in place
-        if lr_firstrun == "0\n" or len(lr_firstrun) == 0 or lr_firstrun == "\n":
+        # '0' means this is a "first-run"
+        # len() >= 1 means file is not empty
+        if loco_first_run != "0" or len(loco_first_run) >= 1:
+            logging.info("LOCO First-run info found; this is not the first-run. Switching to main menu.")
+            return True
+        # Any other condition, we need to write the settings
+        else:
             logging.warning("PatchIt! has never been run!")
             logging.info("Proceeding to write PatchIt! settings (Settings())")
             Settings()
-
-        # Any other number (Default == 1) means it has been run before
-        else:
-            logging.info("LOCO First-run info found; this is not the first-run. Switching to main menu.")
-            # Do not sleep, for user doesn't know about this
-            return True
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #
 
