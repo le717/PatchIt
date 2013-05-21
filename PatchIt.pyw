@@ -52,13 +52,13 @@ minver = "Unstable"
 creator = "Triangle717"
 
 # Name of PatchIt! Exe/Py
-filename = os.path.basename(sys.argv[0])
+exe_name = os.path.basename(sys.argv[0])
 # Location of PatchIt! Exe/Py
-appfolder = os.path.join(sys.argv[0].rstrip(filename))
+app_folder = os.path.join(sys.argv[0].rstrip(exe_name))
 # Location of Settings folder
-settingsfol = os.path.join(sys.argv[0].rstrip(filename), "Settings")
+settingsfol = os.path.join(sys.argv[0].rstrip(exe_name), "Settings")
 # PatchIt! App Icon
-appicon = os.path.join("Icons", "PatchItIcon.ico")
+app_icon = os.path.join("Icons", "PatchItIcon.ico")
 
 # GLobal game settings
 lrgame = "LEGO Racers"
@@ -108,7 +108,7 @@ Enable PatchIt! experimental features.
 Confirm and install a PatchIt! Patch without going through the menu first.
 
 NOTE: If --test parameter is to be passed in addition to a file path,
-it must come after the file path.'''.format(filename))
+it must come after the file path.'''.format(exe_name))
                 time.sleep(10)
                 logging.info('''PatchIt! is shutting down
                 ''')
@@ -151,7 +151,7 @@ def info():
     else:
         py_arch = "AMD64"
 
-    logging_file = os.path.join(appfolder, "Logs", 'PatchIt.log')
+    logging_file = os.path.join(app_folder, "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
     logging.info('''
@@ -247,7 +247,7 @@ package and install mods for LEGO Racers"
     # Binds the Return ("Enter") key, closes the About Window
     root.bind('<Return>', close_about)
     # Make it load
-    root.iconbitmap(appicon)
+    root.iconbitmap(app_icon)
     root.mainloop()
 
 # ------------ End PatchIt! About Box  ------------ #
@@ -461,7 +461,7 @@ def LRWriteSettings():
     new_racers_game = filedialog.askdirectory(
     parent=root,
     title="Please select your {0} installation".format(lrgame),
-    initialdir=appfolder
+    initialdir=app_folder
     )
 
     # The user clicked the cancel button
@@ -686,7 +686,7 @@ def LOCOWriteSettings():
     new_loco_game = filedialog.askdirectory(
     parent=root,
     title="Please select your {0} installation".format(locogame),
-    initialdir=appfolder
+    initialdir=app_folder
     )
 
     # The user clicked the cancel button

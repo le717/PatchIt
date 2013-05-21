@@ -61,7 +61,7 @@ import logging
 import Color as color, Color.colors as colors
 import PatchIt
 
-app_path = sys.argv[0].rstrip(os.path.basename(sys.argv[0]))
+app_folder = sys.argv[0].rstrip(os.path.basename(sys.argv[0]))
 
 
 # ------------ Begin PatchIt! Logging Code ------------ #
@@ -71,17 +71,17 @@ def appLoggingFolder():
 
     try:
         # The Logs folder does not exist in the current directory
-        if not os.path.exists(os.path.join(app_path, "Logs")):
+        if not os.path.exists(os.path.join(app_folder, "Logs")):
 
             # Create the Logs folder
-            logsfolder = os.mkdir(os.path.join(app_path, "Logs"))
+            logsfolder = os.mkdir(os.path.join(app_folder, "Logs"))
 
     # -- Begin Logging Config -- #
 
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s : %(levelname)s : %(message)s",
-            filename=os.path.join(app_path, "Logs", 'PatchIt.log'),
+            filename=os.path.join(app_folder, "Logs", 'PatchIt.log'),
             filemode='a+'
         )
 
