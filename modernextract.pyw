@@ -326,6 +326,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
     # For some reason, it cannot find the ZIP archive
     except FileNotFoundError:
         logging.warning("Error number '2'")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
 
         # Strip the ID text for a smoother error message
         logging.info("Cleaning up Version and Author text")
@@ -342,12 +343,14 @@ If this error continues, contact {2} and ask for a fixed version.'''
     # The user does not have the rights to install to that location.
     except PermissionError:
         logging.warning("Error number '13'")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning("{0} does not have the rights to install {1} {2} to {3}".format(PatchIt.app, name, version, installationpath))
         colors.pc("\n{0} does not have the rights to install {1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.warning("Unknown error number")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}".format(PatchIt.app, name, version, installationpath))
         colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
 

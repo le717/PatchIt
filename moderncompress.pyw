@@ -328,8 +328,9 @@ If you used a custom resolution, be sure to enter that into the fields below.'''
 
     # A valid resolution was not entered
     except ValueError:
-        colors.pc("You have entered a non-numerical character!")
         logging.warning("User entered an invalid number!")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+        colors.pc("You have entered a non-numerical character!")
         logging.info("Looping back through LOCORes()")
         LOCORes(name)
 
@@ -385,6 +386,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
         logging.warning("Error number '13'")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning("{0} does not have the rights to create {1} {2}".format(PatchIt.app, name, version))
         colors.pc("\n{0} does not have the rights to create {1} {2}!".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
         # Delete incomplete PiP
@@ -394,12 +396,14 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     # .PiP and/or .zip already exists
     except shutil.Error:
         logging.warning("shutil.Error")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(thepatch, thezipfile, patchfiles, os.getcwd()))
         colors.pc('\n{0} or {1} already exists!\nCheck either "{2}"\nor "{3}"\nfor the files, and move or delete them if necessary.'.format(thepatch, thezipfile, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
         logging.warning("Unknown error number")
+        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning("{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version))
         colors.pc("\n{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
 
