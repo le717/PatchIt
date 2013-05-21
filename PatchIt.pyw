@@ -512,14 +512,8 @@ def LRWriteSettings():
             racers_file.write("\n# Your LEGO Racers installation path\n")
             racers_file.write(new_racers_game)
 
-            '''Removing "settings.close()" breaks the entire first-run code.
-            Once it writes the path, PatchIt! closes, without doing as much
-            as running the path through gamecheck() nor going back to main()
-            TODO: This was happening in pre-1.1.0 days.
-            Check if this is still happening.'''
-
-        logging.info("Closing file")
-        racers_file.close()
+        # Log closure of file (although the with handle did it for us)
+        logging.info("Closing Racers.cfg")
         logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
         LRReadSettings()
 
@@ -727,14 +721,8 @@ def LOCOWriteSettings():
             loco_file.write("# Your LEGO LOCO installation path\n")
             loco_file.write(new_loco_game)
 
-            '''Removing "settings.close()" breaks the entire first-run code.
-            Once it writes the path, PatchIt! closes, without doing as much
-            as running the path through gamecheck() nor going back to main()
-            TODO: This was happening in pre-1.1.0 days.
-            Check if this is still happening.'''
-
-        logging.info("Closing file")
-        loco_file.close()
+        # Log closure of file (although the with handle did it for us)
+        logging.info("Closing LOCO.cfg")
         logging.info("Proceeding to PatchIt! LEGO LOCO Settings (LOCOReadSettings())")
         LOCOReadSettings()
 
