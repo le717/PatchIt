@@ -31,12 +31,10 @@ import platform
 # App Logging
 import logging
 
-
 import tkinter as tk
 from tkinter import ttk
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
-
 
 # Patch Creation and Installation modules
 import modernextract as extract
@@ -210,6 +208,7 @@ def about():
     root.lift()
     root.focus_force()
 
+    # Frame settings
     frame = ttk.Frame(root, padding="7 7 7 7")
     frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
     frame.columnconfigure(0, weight=1)
