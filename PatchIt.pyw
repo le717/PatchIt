@@ -201,7 +201,8 @@ def about():
     # Window title
     root.title("About {0} {1}".format(app, majver))
     # The box cannot be any smaller than this
-    root.minsize("400", "165")
+    root.minsize("420", "260")
+    root.maxsize("420", "260")
 
     # Give it focus
     root.deiconify()

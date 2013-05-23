@@ -41,7 +41,7 @@ app = "PatchIt!"
 majver = "Version 1.1.1"
 minver = "Unstable"
 
-# User is not running Python 3.3.0
+# User is not running < Python 3.3.0
 if sys.version_info < (3,3,0):
     root = tk.Tk()
     root.withdraw()
