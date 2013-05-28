@@ -52,7 +52,7 @@ creator = "Triangle717"
 # Name of PatchIt! Exe/Py
 exe_name = os.path.basename(sys.argv[0])
 # Location of PatchIt! Exe/Py
-app_folder = os.path.join(sys.argv[0].rstrip(exe_name))
+app_folder = sys.argv[0].rstrip(exe_name)
 # Location of Settings folder
 settingsfol = os.path.join(sys.argv[0].rstrip(exe_name), "Settings")
 # PatchIt! App Icon
