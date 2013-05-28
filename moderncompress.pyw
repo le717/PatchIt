@@ -283,6 +283,7 @@ def patchInfo():
         colors.pc("\nCannot find any files to compress!", color.FG_LIGHT_RED)
         time.sleep(1)
         logging.info("Switching to to main menu")
+        PatchIt.main()
 
     # The user selected files for Patch creation
     else:
