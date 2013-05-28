@@ -411,5 +411,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
         time.sleep(2)
         logging.info("Switching to main menu")
+        PatchIt.main()
 
 # ------------ End PatchIt! Patch Creation ------------ #
