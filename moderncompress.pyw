@@ -352,17 +352,17 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(thepatch))
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
-            print("// PatchIt! PiP file format V1.1, developed by le717 and rioforce", file=patch)
-            print("[ZIP]", file=patch)
-            print("{0}".format(thezipfile), file=patch)
-            print("[GENERAL]", file=patch)
-            print(author, file=patch)
-            print(version, file=patch)
-            print(name, file=patch)
-            print(mp, file=patch)
-            print(game, file=patch)
-            print("[DESCRIPTION]", file=patch)
-            print("{0}".format(desc), file=patch, end="")
+            patch.write("// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n")
+            patch.write("[ZIP]\n")
+            patch.write(thezipfile + "\n")
+            patch.write("[GENERAL]\n")
+            patch.write(author + "\n")
+            patch.write(version + "\n")
+            patch.write(name + "\n")
+            patch.write(mp + "\n")
+            patch.write(game + "\n")
+            patch.write("[DESCRIPTION]\n")
+            patch.write(desc)
 
         # Compress the files
         logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))

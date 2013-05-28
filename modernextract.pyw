@@ -77,7 +77,6 @@ def selectPatch():
 
     # The user clicked the cancel button
     if len(patch) == 0:
-
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
