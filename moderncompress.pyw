@@ -78,7 +78,7 @@ def patchName():
     name = input("Name: ")
 
     # An invalid character was entered
-    if charCheck(name) == False:
+    if not charCheck(name):
         logging.warning("There were illegal characters in the Patch name!")
         colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
 
@@ -117,7 +117,7 @@ def patchVersion():
     version = input("Version: ")
 
     # An invalid character was entered
-    if charCheck(version) == False:
+    if not charCheck(version):
         logging.warning("There were illegal characters in the Patch version!")
         colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
 

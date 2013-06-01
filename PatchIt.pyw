@@ -177,17 +177,25 @@ def preload():
 
     # The PatchIt! settings folder does exist (implied else block here)
 
-    # If the Racers or LOCO settings check come back True, go to menu.
-    # No need for a False check; that is written into the functions already
+    # Assign variables for easier access
+    hasLRSettings = CheckLRSettings()
+    hasLOCOSettings = CheckLOCOSettings()
 
-    # If the LOCO settings exist, but Racers do not,
-    # the Racers check will shortcircuit the LOCO check,
-    # forcing you to see the "What Settings" menu
-    # everytime you run PatchIt!
-    # TODO: Fix this!
-    if CheckLRSettings() or CheckLOCOSettings():
-        # Switch to main menu
+    # If the Racers settings is present but not LOCO,
+    # go to main menu
+    if hasLRSettings and not hasLOCOSettings:
         main()
+    # If the LOCO settings is present but not Racers,
+    # go to main menu
+    elif hasLOCOSettings and not hasLRSettings:
+        main()
+    # If both the Racers and LOCO settings are present,
+    # go to main menu
+    elif hasLRSettings and hasLRSettings:
+        main()
+    # Any other condition
+    else:
+        Settings()
 
 # ------------ End PatchIt! Initialization ------------ #
 
@@ -577,10 +585,10 @@ def LRVerCheck(new_racers_game):
 def CheckLRSettings():
     '''Checks if LEGO LOCO Settings and First-run info'''
 
-    # The LEGO Racers settings don't exist
+    # The LEGO Racers settings do not exist
     if not os.path.exists(os.path.join(settingsfol, lrsettings)):
         logging.warning("LEGO Racers Settings do not exist!")
-        Settings()
+        return False
 
     elif os.path.exists(os.path.join(settingsfol, lrsettings)):
         logging.info("LEGO Racers Settings do exist")
@@ -599,11 +607,11 @@ def CheckLRSettings():
         if lr_first_run != "0" or len(lr_first_run) >= 1:
             logging.info("First-run info found, this is not the first-run. Switching to main menu.")
             return True
-        # Any other condition, we need to write the settings
+        # Any other condition, return False
         else:
             logging.warning("PatchIt! has never been run!")
-            logging.info("Proceeding to write PatchIt! settings (Settings())")
-            Settings()
+            logging.info("Returning False..")
+            return False
 
 # ----- End LEGO Racers Installation, Version and Settings Check ----- #
 
@@ -780,10 +788,10 @@ def LOCOGameCheck():
 def CheckLOCOSettings():
     '''Checks if LEGO LOCO Settings and First-run info'''
 
-    # The LEGO LOCO settings don't exist
+    # The LEGO LOCO settings do not exist
     if not os.path.exists(os.path.join(settingsfol, locosettings)):
         logging.warning("LEGO LOCO Settings do not exist!")
-        Settings()
+        return False
 
     # The LEGO LOCO settings do exist (inplied else block here)
     elif os.path.exists(os.path.join(settingsfol, locosettings)):
@@ -803,11 +811,11 @@ def CheckLOCOSettings():
         if loco_first_run != "0" or len(loco_first_run) >= 1:
             logging.info("LOCO First-run info found; this is not the first-run. Switching to main menu.")
             return True
-        # Any other condition, we need to write the settings
+        # Any other condition, return False
         else:
             logging.warning("PatchIt! has never been run!")
-            logging.info("Proceeding to write PatchIt! settings (Settings())")
-            Settings()
+            logging.info("Returning False..")
+            return False
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #
 
