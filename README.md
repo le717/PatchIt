@@ -80,4 +80,4 @@ All **PatchIt!** downloads are hosted on this project, each one in a separate [A
 
 Credit
 ------
-***PatchIt!* is created 2013 Triangle717, and released under the GNU General Public License Version 3.**
+***PatchIt!* is created 2013 Triangle717, and released under the [GNU General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**
