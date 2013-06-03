@@ -175,6 +175,10 @@ Type: filesandordirs; Name: {app}\tk
 ; Not doing so breaks V1.1.x
 Type: files; Name: {app}\settings
 
+[Dirs]
+; So the Settings do not ever get uninstalled
+Name: "{app}\Settings"; Flags: uninsneveruninstall
+
 [Code]   
 // Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         
 function IsWin32: Boolean;
