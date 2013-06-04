@@ -22,6 +22,7 @@
 import PatchIt
 import os
 import shutil
+import tarfile
 import time
 # Colored shell text
 import Color as color, Color.colors as colors
@@ -32,36 +33,10 @@ import logging
 # Character Check
 import re
 
-# ------------ Begin Thumbs.db Check And Delete Code ------------ #
-
-def delThumbs(patchfiles):
-    '''Checks for and Deletes Thumbs.db'''
-
-    # Traversing the files in each subfolder..
-    logging.info("Walking through {0}, looking for Thumbs.db".format(patchfiles))
-    for root, dirs, files in os.walk(patchfiles):
-
-        # Limits the amount of folders to walk through
-        # GAMEDATA has 26 subfolders in all,
-        # but MENUDATA as 35, so we do 35
-        # to ensure all folders are checked
-        if root.count(os.path.sep) >= 35:
-            break
-
-        # Thumbs.db was found
-        if 'Thumbs.db' in files:
-            logging.warning("Thumbs.db has been found in " + root + "!")
-            # TODO: This STILL repeats itself every time Thumbs.db is found...
-            colors.pc('\nThumbs.db has been found in\n"{0}"\nIt will be deleted in a few seconds.\nDon''t worry, Windows will recreate it.'.format(root), color.FG_LIGHT_RED)
-
-            # Delete Thumbs.db
-            os.unlink(os.path.join(root, "Thumbs.db"))
-
-    else:
-        logging.warning("Could not find Thumbs.db!")
+# ------------ Begin Illegal File Check ------------ #
 
 
-# ------------ End Thumbs.db Check And Delete Code ------------ #
+# ------------ End Illegal File Check ------------ #
 
 
 # ------------ Begin Patch Info Character and Length Checks ------------ #
@@ -339,12 +314,7 @@ If you used a custom resolution, be sure to enter that into the fields below.'''
 def writePatch(patchfiles, name, version, author, desc, mp, game):
     '''Writes and compresses PatchIt! Patch'''
 
-    # The user selected a folder to compress
     try:
-        # Check for and delete thumbs.db
-        logging.info("Switching to delThumbs(patchfiles)")
-        delThumbs(patchfiles)
-
         # Declare the Patch and ZIP filenames
         thepatch = "{0}{1}.PiP".format(name, version)
         thezipfile = "{0}{1}.zip".format(name, version)
