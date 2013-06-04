@@ -35,6 +35,19 @@ import re
 
 # ------------ Begin Illegal File Check ------------ #
 
+def illegalFiles(file):
+    '''Checks for files to exclude from the Patch Archive'''
+    # False means add the files
+    illegal = False
+    # The files to exclude
+    blacklist = [".exe", ".msi", ".msp", ".com", ".jar", ".db", ".ps", ".py", ".pyw", ".au3", ".bat"]
+    for item in blacklist:
+        # Look for the illegal files
+        if file.find(item) > -1:
+            # It was found, change variable to True
+            illegal = True
+    # Return variable
+    return illegal
 
 # ------------ End Illegal File Check ------------ #
 

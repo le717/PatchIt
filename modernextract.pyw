@@ -24,6 +24,7 @@ import os
 import time
 import linecache
 import zipfile
+import tarfile
 import random
 
 # Logging module
@@ -174,7 +175,7 @@ def readModernPatch(patch):
 
     # Assign Patch ZIP
     logging.info("Assigning line 3 of {0} to Zip Archive".format(patch))
-    zip_archive = all_lines[2]
+    patch_archive = all_lines[2]
 
     # Assign Patch Author
     logging.info("Assigning line 5 of {0} to Author".format(patch))
@@ -206,8 +207,8 @@ def readModernPatch(patch):
     desc = "".join(desc)
 
     # Clean up the Patch info
-    logging.info("Cleaning up Zip Archive")
-    zip_archive = zip_archive.strip()
+    logging.info("Cleaning up Patch Archive")
+    patch_archive = patch_archive.strip()
     logging.info("Cleaning up Patch Name")
     name = name.strip()
     logging.info("Cleaning up Patch Author")
@@ -237,10 +238,10 @@ Game: {3}
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))
-    confirminstall = input("\n> ")
+    confirm_install = input("\n> ")
 
     # No, I do not want to install the patch
-    if confirminstall.lower() != "y":
+    if confirm_install.lower() != "y":
         logging.warning("User does not want to install {0} {1}!".format(name, version))
         colors.pc("\nCanceling installation of {0} {1}...".format(name, version), color.FG_WHITE)
         time.sleep(0.5)
@@ -250,15 +251,14 @@ Game: {3}
     else:
         # Yes, I do want to install it!
         logging.info("User does want to install {0} {1}.".format(name, version))
-        logging.info("Proceeding to installModernPatch(patch, name, version, author, game, mp)")
-        installModernPatch(patch, name, version, author, game, mp, zip_archive)
+        logging.info("Proceeding to installModernPatch()")
+        installModernPatch(patch, name, version, author, game, mp, patch_archive)
 
-def installModernPatch(patch, name, version, author, game, mp, zip_archive):
+def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     '''Installs a Modern PatchIt! Patch'''
 
     # This is a LEGO LOCO patch, read the LOCO settings
     if game == "LEGO LOCO":
-
         # The LEGO LOCO settings do not exist
         if not os.path.exists(os.path.join(PatchIt.settingsfol, "LOCO.cfg")):
             logging.warning("Could not find LEGO LOCO settings!")
@@ -267,11 +267,10 @@ def installModernPatch(patch, name, version, author, game, mp, zip_archive):
 
         # Read the settings file for installation (LEGO LOCO directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
-        installationpath = linecache.getline(os.path.join("Settings", "LOCO.cfg"), 5)
+        install_path = linecache.getline(os.path.join("Settings", "LOCO.cfg"), 5)
 
     # This is a LEGO Racers patch, read the Racers settings
     else: # elif game == "LEGO Racers":
-
         # The LEGO Racers settings do not exist
         if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
             logging.warning("Could not find LEGO Racers settings!")
@@ -280,28 +279,28 @@ def installModernPatch(patch, name, version, author, game, mp, zip_archive):
 
         # Read the settings file for installation (LEGO Racers directory)
         logging.info("Reading line 7 of settings for LEGO Racers installation")
-        installationpath = linecache.getline(os.path.join("Settings", "Racers.cfg"), 7)
+        install_path = linecache.getline(os.path.join("Settings", "Racers.cfg"), 7)
 
     # Create a valid folder path
-    logging.info("Cleaning up installation text")
-    installationpath = installationpath.rstrip("\n")
+    logging.info("Cleaning up installation path")
+    install_path = install_path.rstrip()
 
     # Again, clear cache so everything is completely re-read every time
     logging.info("Clearing settings file cache...")
     linecache.clearcache()
 
-    # Find the ZIP archive
-    ziplocation = patch.rstrip("/{0}{1}.PiP".format(name, version))
-    logging.info("Locate ZIP archive at {0}".format(ziplocation))
+    # Find the TAR archive
+    patch_location = patch.rstrip("/{0}{1}.PiP".format(name, version))
+    logging.info("Locate TAR archive at {0}".format(patch_location))
 
     try:
-        # Actually extract the ZIP archive
-        logging.info("Extract {0} to {1}".format(zip_archive, installationpath))
-        with zipfile.ZipFile(os.path.join(ziplocation, zip_archive), "r") as extractzip:
-            extractzip.extractall(path=installationpath)
+        # Actually extract the TAR archive
+        logging.info("Extracting {0} to {1}".format(patch_archive, install_path))
 
-        # Display gameplay tip/MP only if Patch was sucessful
+        with tarfile.open(os.path.join(patch_location, patch_archive), "r") as extractzip:
+            extractzip.extractall(install_path)
 
+        # Display gameplay tip/MP only if Patch was sucessfully installed
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
@@ -316,13 +315,13 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         # Installation was sucessful!
         logging.warning("Error (exit) number '0'")
-        logging.info("{0} {1} sucessfully installed to {2}".format(name, version, installationpath))
-        colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name, version, installationpath), color.FG_LIGHT_GREEN)
+        logging.info("{0} {1} sucessfully installed to {2}".format(name, version, install_path))
+        colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name, version, install_path), color.FG_LIGHT_GREEN)
 
-        # Log ZIP closure although it was closed automatically by with
-        logging.info("Closing {0}".format(zip_archive))
+        # Log Archive closure although it was closed automatically by with
+        logging.info("Closing {0}".format(patch_archive))
 
-    # For some reason, it cannot find the ZIP archive
+    # For some reason, it cannot find the Patch archive
     except FileNotFoundError:
         logging.warning("Error number '2'")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
@@ -331,9 +330,9 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         logging.info("Cleaning up Version and Author text")
         version = version.lstrip("Version: ")
         author = author.lstrip("Author: ")
-        logging.warning("Unable to find {0} at {1}!".format(zip_archive, ziplocation))
+        logging.warning("Unable to find {0} at {1}!".format(patch_archive, patch_location))
         colors.pc('''\nCannot find Patch files for {0} {1}!
-Make sure "{0}{1}.zip" and "{0}{1}.PiP"
+Make sure "{0}{1}.tar" and "{0}{1}.PiP"
 are in the same folder, and try again.
 
 If this error continues, contact {2} and ask for a fixed version.'''
@@ -343,15 +342,15 @@ If this error continues, contact {2} and ask for a fixed version.'''
     except PermissionError:
         logging.warning("Error number '13'")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("{0} does not have the rights to install {1} {2} to {3}".format(PatchIt.app, name, version, installationpath))
-        colors.pc("\n{0} does not have the rights to install {1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
+        logging.warning("PatchIt! does not have the rights to install {0} {1} to {2}".format(name, version, install_path))
+        colors.pc("\nPatchIt! does not have the rights to install {0} {1} to\n{2}!\n".format(name, version, install_path), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}".format(PatchIt.app, name, version, installationpath))
-        colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to\n{3}!\n".format(PatchIt.app, name, version, installationpath), color.FG_LIGHT_RED)
+        logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}".format(name, version, install_path))
+        colors.pc("\nPatchIt! ran into an unknown error while trying to install\n{0} {1} to\n{2}!\n".format(name, version, install_path), color.FG_LIGHT_RED)
 
     # This is run no matter if an exception was raised nor not.
     finally:
