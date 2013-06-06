@@ -27,6 +27,7 @@ import time
 import linecache
 import webbrowser
 import platform
+import subprocess
 
 # App Logging
 import logging
@@ -66,7 +67,7 @@ locosettings = "LOCO.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
-def Args():
+def args():
     '''PatchIt! Command-line Arguments'''
 
     logging.info("Command-line arguments processor started")
@@ -334,19 +335,10 @@ def main():
             logging.info("Calling PatchIt! Settings Menu (Settings())")
             Settings()
 
-        # Easter egg. :P
+        # Easter egg
         elif menuopt.lower() == 'e':
-            logging.warning('"It''s a trap!"')
-            colors.pc("\nOoh, you shouldn't have done that, Sir!", color.FG_LIGHT_RED)
-            time.sleep(2)
-            colors.pc("\n\nNow you must face...", color.FG_LIGHT_RED)
-            time.sleep(4)
-            colors.pc("\n\nTHE COW!", color.FG_LIGHT_RED)
-            time.sleep(0.3)
-            webbrowser.open_new_tab("http://triangle717.files.wordpress.com/2013/03/fabulandcow.jpg")
-            logging.info("PatchIt! is shutting down to remind the user never to do this again. :P")
-            logging.shutdown()
-            raise SystemExit
+            logging.info("User pressed the 'e' key")
+            easteregg()
 
         # Close PatchIt!
         elif menuopt.lower() == "q":
@@ -360,6 +352,19 @@ def main():
         else:
             logging.info("User pressed an undefined key")
             main()
+
+def easteregg(*args):
+    '''Hehehe'''
+    root = tk.Tk()
+    root.withdraw()
+    root.iconbitmap(app_icon)
+    tk.messagebox.showerror("Uh-oh", "That was bad.")
+    tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
+    view_cow = tk.messagebox.askquestion("Uh-oh", "Would you like see your punishment for pressing that key?")
+    subprocess.call([os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")], shell=True)
+    logging.info("PatchIt! is shutting down.")
+    logging.shutdown()
+    raise SystemExit
 
 # ------------ End PatchIt! Menu Layout ------------ #
 

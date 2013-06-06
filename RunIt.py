@@ -105,5 +105,5 @@ if __name__ == "__main__":
     # Write window title (since there is no GUI in PatchIt! itself)
     os.system("title {0} {1} {2}".format(app, majver, minver))
     PatchIt.info()
-    PatchIt.Args()
+    PatchIt.args()
     PatchIt.preload()

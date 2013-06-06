@@ -289,7 +289,7 @@ Game: {3}
 
 "{5}"
 '''.format(name, version, author, game, mp, desc))
-        logging.info("Switching to writePatch(patchfiles, name, version, author, desc, mp, game)")
+        logging.info("Switching to writePatch()")
         writePatch(patchfiles, name, version, author, desc, mp, game)
 
 def LOCORes(name):
@@ -328,17 +328,17 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     '''Writes and compresses PatchIt! Patch'''
 
     try:
-        # Declare the Patch and ZIP filenames
+        # Declare the Patch PiP and Archive filenames
         thepatch = "{0}{1}.PiP".format(name, version)
-        thezipfile = "{0}{1}.zip".format(name, version)
-        logging.info("The final file names are {0} and {1}".format(thepatch, thezipfile))
+        thearchive = "{0}{1}.tar".format(name, version)
+        logging.info("The final file names are {0} and {1}".format(thepatch, thearchive))
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(thepatch))
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
             patch.write("// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n")
             patch.write("[ZIP]\n")
-            patch.write(thezipfile + "\n")
+            patch.write(thearchive + "\n")
             patch.write("[GENERAL]\n")
             patch.write(author + "\n")
             patch.write(version + "\n")
@@ -352,15 +352,15 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))
         zipfile = shutil.make_archive(patchfiles, format="zip", root_dir=patchfiles)
 
-        # Rename the ZIP archive to createnamecreationver.zip, as defined in Documentation/PiP Format V1.1.md
-        logging.info("Rename ZIP archive to {0}, as defined in {1}".format(thezipfile, "Documentation/PiP Format V1.1.md"))
-        newzipfile = os.replace(zipfile, thezipfile)
+        # Rename the Patch Archive to namever.tar, as defined in Documentation/PiP Format V1.1.md
+        logging.info("Rename Patch Archive to {0}, as defined in {1}".format(thearchive, "Documentation/PiP Format V1.1.md"))
+        newzipfile = os.replace(zipfile, thearchive)
 
-        # Move the Patch and ZIP to the folder the compressed files came from
+        # Move the Patch and Archive to the folder the compressed files came from
         logging.info("Moving {0} from {1} to {2}".format(thepatch, os.getcwd(), patchfiles))
         shutil.move(thepatch, patchfiles)
-        logging.info("Moving {0} from {1} to {2}".format(thezipfile, os.getcwd(), patchfiles))
-        shutil.move(thezipfile, patchfiles)
+        logging.info("Moving {0} from {1} to {2}".format(thearchive, os.getcwd(), patchfiles))
+        shutil.move(thearchive, patchfiles)
 
         # The Patch was created sucessfully!
         logging.info("Error (exit) number '0'")
@@ -371,8 +371,8 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     except PermissionError:
         logging.warning("Error number '13'")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("{0} does not have the rights to create {1} {2}".format(PatchIt.app, name, version))
-        colors.pc("\n{0} does not have the rights to create {1} {2}!".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
+        logging.warning("PatchIt! does not have the rights to create {0} {1}".format(name, version))
+        colors.pc("\nPatchIt! does not have the rights to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
         # Delete incomplete PiP
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
         os.unlink(os.path.join(os.getcwd(), "{0}".format(thepatch)))
@@ -381,15 +381,15 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     except shutil.Error:
         logging.warning("shutil.Error")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(thepatch, thezipfile, patchfiles, os.getcwd()))
-        colors.pc('\n{0} or {1} already exists!\nCheck either "{2}"\nor "{3}"\nfor the files, and move or delete them if necessary.'.format(thepatch, thezipfile, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
+        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(thepatch, thearchive, patchfiles, os.getcwd()))
+        colors.pc('\n{0} or {1} already exists!\nCheck either "{2}"\nor "{3}"\nfor the files, and move or delete them if necessary.'.format(thepatch, thearchive, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version))
-        colors.pc("\n{0} ran into an unknown error while trying to create {1} {2}!".format(PatchIt.app, name, version), color.FG_LIGHT_RED)
+        logging.warning("PatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version))
+        colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
 
     finally:
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
