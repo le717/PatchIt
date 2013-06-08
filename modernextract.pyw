@@ -194,7 +194,6 @@ def readModernPatch(patch):
     mp = all_lines[7]
 
     # Assign Patch Game
-    game = linecache.getline(patch, 9)
     logging.info("Assigning line 9 of {0} to Game".format(patch))
     game = all_lines[8]
 
@@ -297,8 +296,8 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         # Actually extract the TAR archive
         logging.info("Extracting {0} to {1}".format(patch_archive, install_path))
 
-        with tarfile.open(os.path.join(patch_location, patch_archive), "r") as extractzip:
-            extractzip.extractall(install_path)
+        with tarfile.open(os.path.join(patch_location, patch_archive), "r") as tar_file:
+            tar_file.extractall(install_path)
 
         # Display gameplay tip/MP only if Patch was sucessfully installed
         # Display the Racers gameplay tip
