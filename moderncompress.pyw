@@ -35,20 +35,6 @@ import re
 
 # ------------ Begin Illegal File Check ------------ #
 
-def illegalFiles(file):
-    '''Checks for files to exclude from the Patch Archive'''
-    # False means add the files
-    illegal = False
-    # The files to exclude
-    blacklist = [".exe", ".msi", ".msp", ".com", ".jar", ".db", ".ps", ".py", ".pyw", ".au3", ".bat"]
-    for item in blacklist:
-        # Look for the illegal files
-        if file.find(item) > -1:
-            # It was found, change variable to True
-            illegal = True
-    # Return variable
-    return illegal
-
 # ------------ End Illegal File Check ------------ #
 
 
@@ -338,15 +324,15 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
             patch.write("// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n")
             patch.write("[ZIP]\n")
-            patch.write(thearchive + "\n")
+            patch.write("{0}\n".format(thearchive))
             patch.write("[GENERAL]\n")
-            patch.write(author + "\n")
-            patch.write(version + "\n")
-            patch.write(name + "\n")
-            patch.write(mp + "\n")
-            patch.write(game + "\n")
+            patch.write("{0}\n".format(author))
+            patch.write("{0}\n".format(version))
+            patch.write("{0}\n".format(name))
+            patch.write("{0}\n".format(mp))
+            patch.write("{0}\n".format(game))
             patch.write("[DESCRIPTION]\n")
-            patch.write(desc)
+            patch.write("{0}\n".format(desc))
 
         # Compress the files
         logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))

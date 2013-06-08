@@ -201,7 +201,7 @@ TheTesterGroup/
 #*.txt
 gh-pages.txt
 *.ini
-#*.py
+*.py
 !.pyw
 #*.iss
 !Windows/unsetup.py
