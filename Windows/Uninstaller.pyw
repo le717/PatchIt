@@ -75,8 +75,8 @@ def loop_uninstall(folderpath):
 
     # Close once everything is uninstalled
     print("\nAll PatchIt! installations had been removed")
-    raise SystemExit
-
+    raise SystemExit(0)
+    
 # Run Uninstaller 
 if __name__ == "__main__":
     try:

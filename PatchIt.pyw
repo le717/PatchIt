@@ -112,7 +112,7 @@ it must come after the file path.'''.format(exe_name))
                 logging.info('''PatchIt! is shutting down
                 ''')
                 logging.shutdown()
-                raise SystemExit
+                raise SystemExit(0)
 
         for value in test_params:
             # If the test parameter is passed
@@ -346,8 +346,8 @@ def main():
             logging.info('''PatchIt! is shutting down
             ''')
             logging.shutdown()
-            raise SystemExit
-
+            raise SystemExit(0)
+        
         # Undefined input
         else:
             logging.info("User pressed an undefined key")
@@ -364,7 +364,7 @@ def easteregg(*args):
     subprocess.call([os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")], shell=True)
     logging.info("PatchIt! is shutting down.")
     logging.shutdown()
-    raise SystemExit
+    raise SystemExit(0)
 
 # ------------ End PatchIt! Menu Layout ------------ #
 
