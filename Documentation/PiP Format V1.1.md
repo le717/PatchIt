@@ -39,8 +39,9 @@ For *LEGO Racers* Patches, it currently writes *MP*, as there is not a use for t
 
 **The PiP file layout can be found [below.](#pip-version-11-file-format-layouts)**
 
-#### PiP ZIP Archive Layout
+#### PatchIt! PiA Archive Layout
 
+* The ZIP archive is saved with an *.PiA* file extension.
 * The ZIP archive containing the modded files must be in the same folder as the .PiP file.
 * The ZIP archive needs to be laid out in the same way the game would use them. For example: Any TUN audio would go in the root of the archive. Anything under 
 MENUDATA\ENGLISH would go under MENUDATA\ENGLISH, and so on. If your ZIP archive contains a folder that contains the files, the folder will be installed into 
@@ -50,7 +51,7 @@ The same goes for files that are scattered in the root of the archive. If *ENGLI
 *C:\Program Files\LEGO Racer\ENGLISH.SRF*
 **PatchIt!** does not and will never attempt to pull all the files from a sub-folder or scattered files and attempt to install them in the proper locations. 
 
-**Example ZIP archive layouts can be found [below.](https://github.com/le717/PatchIt/edit/rewrite/Documentation/PiP%20Format%20V1.1.md#example-zip-archive-layouts)**
+**Example PiA archive layouts can be found [below.](#example-pia-archive-layouts)**
 
 PiP Version 1.1 File Format Layouts
 -----------------------------------
@@ -60,7 +61,7 @@ PiP Version 1.1 File Format Layouts
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [ZIP]
-NameVersion.zip
+NameVersion.PiA
 [GENERAL]
 Author
 Version
@@ -78,7 +79,7 @@ This is the third line of a description
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [ZIP]
-Racing Machine 1.0.1.zip
+Racing Machine 1.0.1.PiA
 [GENERAL]
 Jackson
 1.0.1
@@ -97,7 +98,7 @@ IT NEVER WILL. :)
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [ZIP]
-Happy Trains 5.8.zip
+Happy Trains 5.8.PiA
 [GENERAL]
 Thomas
 5.8
@@ -110,13 +111,13 @@ My name is Thomas, just like Thomas the Tank Engine!
 That is why I made this example PatchIt! Patch.
 ```
 
-Example ZIP Archive Layouts
+Example PiA Archive Layouts
 ---------------------------
 
-### Example LEGO Racers ZIP Archive Layout
+### Example LEGO Racers ZIP Archive Layout ###
 
 ```
-Racing Machine 1.0.1.zip/
+Racing Machine 1.0.1.PiA/
     GAMEDATA/
         RACEC2R0/
 			KMT.BMP
@@ -134,10 +135,10 @@ Racing Machine 1.0.1.zip/
 	builder.tun
 ```
 
-### Example LEGO LOCO ZIP Archive Layout
+### Example LEGO LOCO PiA Archive Layout ###
 
 ```
-Happy Trains 5.8.zip/
+Happy Trains 5.8.PiA/
     art-res/
         backdrop/
 			HappyTrain.bmp
@@ -153,6 +154,11 @@ Happy Trains 5.8.zip/
 
 Revision History
 ----------------
+
+* 1.1.1 Draft 1: June 17, 2013
+
+> * Changed zIP archive to use *.PiA* extension
+> * Updated examples with *.PiA* extension
 
 * 1.1 Final: May 16, 2013
 
