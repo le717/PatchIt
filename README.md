@@ -17,11 +17,11 @@ How It Works
 
 The three main goals for **PatchIt!** are as follows:
 
-* Ask for the *LEGO Racers* installation, ensure one exists at that location, and store it as a plain text file in the same folder as **PatchIt!** to be used 
+* Ask for the *LEGO Racers* installation, ensure one exists at that location, and store it in an open file format in the **PatchIt!** installation to be used 
 as the mod installation directory, and to create a completely portable (thumb-drive) application.
 * Create a **PatchIt!** patch by entering the mod name, version, author, and description, and point it to the modded files. Automatically compress the files 
-into a normal ZIP archive, and write the details to a plain text patch file (.PiP), using the name and version for the filenames.
-* Install a **PatchIt!** patch by selecting the .PiP file, confirm the installation, and automatically decompress the ZIP archive directly into the *LEGO 
+into an open archive format, and write the details to an open file format containing the details (.PiP), using the name and version for the filenames.
+* Install a **PatchIt!** patch by selecting the .PiP file, confirm the installation, and automatically decompress the Patch archive directly into the *LEGO 
 Racers* installation.
 
 Contributing
