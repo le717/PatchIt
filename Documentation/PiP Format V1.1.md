@@ -114,7 +114,7 @@ That is why I made this example PatchIt! Patch.
 Example PiA Archive Layouts
 ---------------------------
 
-### Example LEGO Racers ZIP Archive Layout ###
+### Example LEGO Racers PiA Archive Layout ###
 
 ```
 Racing Machine 1.0.1.PiA/
