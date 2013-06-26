@@ -90,7 +90,9 @@ def args():
             if argument == value:
                 logging.info("The help parameter (-h, --help) was passed, displaying help messages")
                 print("\n{0} {1} Command-line arguments".format(app, majver))
-                print(r'''
+                # Use input rather than print so user can close the window ay anytime,
+                # rather than it closing after 10 seconds
+                input(r'''
 Optional arguments
 ==================
 
@@ -107,8 +109,9 @@ Enable PatchIt! experimental features.
 Confirm and install a PatchIt! Patch without going through the menu first.
 
 NOTE: If --test parameter is to be passed in addition to a file path,
-it must come after the file path.'''.format(exe_name))
-                time.sleep(10)
+it must come after the file path.
+
+Press the Enter key to close.'''.format(exe_name))
                 logging.info('''PatchIt! is shutting down
                 ''')
                 logging.shutdown()
