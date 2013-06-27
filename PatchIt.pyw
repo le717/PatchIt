@@ -215,6 +215,8 @@ def about():
     # The box cannot be any smaller than this
     root.minsize("420", "260")
     root.maxsize("420", "260")
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
 
     # Give it focus
     root.deiconify()
@@ -223,7 +225,7 @@ def about():
 
     # Frame settings
     frame = ttk.Frame(root, padding="7 7 7 7")
-    frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+    frame.grid(column=0, row=0, sticky=(tk.N, tk.S, tk.E, tk.W))
     frame.columnconfigure(0, weight=1)
     frame.rowconfigure(0, weight=1)
 
@@ -256,14 +258,21 @@ package and install mods for LEGO Racers"
         main()
 
     # Close About Window button
-    close = ttk.Button(frame, default="active", text="Close", command=close_about).grid(column=1, row=1)
+    close = ttk.Button(frame, default="active", text="Close", command=close_about)
+    close.grid(column=1, row=1, sticky=tk.N, pady="7")
     # GitHub Project Button
-    github = ttk.Button(frame, text="GitHub Project", command=lambda:webbrowser.open_new_tab("http://bit.ly/PatchIt")).grid(column=0, row=1)
+    github = ttk.Button(frame, text="GitHub", command=lambda:webbrowser.open_new_tab("http://git.io/PatchIt"))
+    github.grid(column=0, row=1, sticky=tk.N, pady="7")
     # Creator's website button
-    creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://wp.me/P1V5ge-I3")).grid(column=2, row=1)
+    creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://wp.me/P1V5ge-I3"))
+    creator_site.grid(column=2, row=1, sticky=tk.N, pady="7")
+
+    # Small bit of padding around the elements
     for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
+
     # Binds the Return ("Enter") key, closes the About Window
     root.bind('<Return>', close_about)
+
     # Make it load
     root.iconbitmap(app_icon)
     root.mainloop()
@@ -350,7 +359,7 @@ def main():
             ''')
             logging.shutdown()
             raise SystemExit(0)
-        
+
         # Undefined input
         else:
             logging.info("User pressed an undefined key")
