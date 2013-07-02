@@ -198,8 +198,7 @@ TheTesterGroup/
 ##########
 
 *.psd
-#*.txt
-gh-pages.txt
+*.txt
 *.ini
 .py
 !.pyw
@@ -208,10 +207,7 @@ gh-pages.txt
 JAMExtractor.py
 listtips.py
 *settings
-settings*/
-Windows/PatchIt-*
 *.log
-*.php
 *.PiP
 *.~is
 *.blend
@@ -219,5 +215,7 @@ Windows/PatchIt-*
 *.html
 !Read-Me-First.html
 *.blend2
+Windows/PatchIt-*
+Windows/PatchIt-*
 
 #gpl-v3-fr.txt
