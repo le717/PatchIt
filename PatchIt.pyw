@@ -53,11 +53,11 @@ creator = "Triangle717"
 # Name of PatchIt! Exe/Py
 exe_name = os.path.basename(sys.argv[0])
 # Location of PatchIt! Exe/Py
-app_folder = sys.argv[0].rstrip(exe_name)
+app_folder = os.path.dirname(sys.argv[0])
 # Location of Settings folder
-settingsfol = os.path.join(sys.argv[0].rstrip(exe_name), "Settings")
+settingsfol = os.path.join(app_folder, "Settings")
 # PatchIt! App Icon
-app_icon = os.path.join("Icons", "PatchItIcon.ico")
+app_icon = os.path.join(app_folder, "Icons", "PatchItIcon.ico")
 
 # GLobal game settings
 lrgame = "LEGO Racers"
@@ -86,11 +86,11 @@ def args():
         help_params = ["--help", "-h"]
 
         for value in help_params:
-            # If the help parameter was passed
+            # If the help parameter was given
             if argument == value:
-                logging.info("The help parameter (-h, --help) was passed, displaying help messages")
+                logging.info("The help parameter (-h, --help) was given, displaying help messages")
                 print("\n{0} {1} Command-line arguments".format(app, majver))
-                # Use input rather than print so user can close the window ay anytime,
+                # Use input rather than print so user can close the window at anytime,
                 # rather than it closing after 10 seconds
                 input(r'''
 Optional arguments
@@ -108,7 +108,7 @@ Enable PatchIt! experimental features.
 
 Confirm and install a PatchIt! Patch without going through the menu first.
 
-NOTE: If --test parameter is to be passed in addition to a file path,
+NOTE: If --test parameter is to be given in addition to a file path,
 it must come after the file path.
 
 Press the Enter key to close.'''.format(exe_name))
@@ -118,14 +118,14 @@ Press the Enter key to close.'''.format(exe_name))
                 raise SystemExit(0)
 
         for value in test_params:
-            # If the test parameter is passed
+            # If the test parameter is given
             if argument == value:
                 test = True
                 os.system("title {0} {1} {2} - Experimental Mode".format(app, majver, minver))
-                logging.info("The test parameter (-t, --test) was passed, enabling experimental features")
+                logging.info("The test parameter (-t, --test) was given, enabling experimental features")
                 preload()
 
-            # A file path was passed
+            # A file path was given
             else:
                 logging.info("The shell extension was invoked")
                 shell.append(argument)
@@ -135,12 +135,12 @@ Press the Enter key to close.'''.format(exe_name))
         for file in shell:
             # If it is a file, switch to Patch Installation
             if os.path.isfile(file):
-                logging.info("A file path was passed, switching to extract.checkPatch()")
+                logging.info("A file path was given, switching to extract.checkPatch()")
                 extract.checkPatch(file)
 
             # It was a directory, or a non-existant file
             else:
-                logging.warning("Either an invalid file path or no other parameters were passed!")
+                logging.warning("Either an invalid file path or no other parameters were given!")
                 # Switch to main menu
                 main()
 
@@ -189,14 +189,17 @@ def preload():
     # go to main menu
     if hasLRSettings and not hasLOCOSettings:
         main()
+
     # If the LOCO settings is present but not Racers,
     # go to main menu
     elif hasLOCOSettings and not hasLRSettings:
         main()
+
     # If both the Racers and LOCO settings are present,
     # go to main menu
     elif hasLRSettings and hasLRSettings:
         main()
+
     # Any other condition
     else:
         Settings()
@@ -215,8 +218,6 @@ def about():
     # The box cannot be any smaller than this
     root.minsize("420", "260")
     root.maxsize("420", "260")
-    root.columnconfigure(0, weight=1)
-    root.rowconfigure(0, weight=1)
 
     # Give it focus
     root.deiconify()
@@ -226,8 +227,6 @@ def about():
     # Frame settings
     frame = ttk.Frame(root, padding="7 7 7 7")
     frame.grid(column=0, row=0, sticky=(tk.N, tk.S, tk.E, tk.W))
-    frame.columnconfigure(0, weight=1)
-    frame.rowconfigure(0, weight=1)
 
     # PatchIt! Logo
     pi_logo = tk.PhotoImage(file="Icons/PiTk.gif")
@@ -270,7 +269,7 @@ package and install mods for LEGO Racers"
     # Small bit of padding around the elements
     for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
 
-    # Binds the Return ("Enter") key, closes the About Window
+    # Bind the Return ("Enter") key to close the About Window
     root.bind('<Return>', close_about)
 
     # Make it load
@@ -310,7 +309,7 @@ def main():
         # About PatchIt! box
         if menuopt.lower() == "a":
             logging.info("User pressed '[a] About PatchIt!'")
-            logging.info("Calling About Box (about())")
+            logging.info("Opening About Box (about())")
             about()
 
         # Patch Creation
@@ -454,7 +453,7 @@ def LRReadSettings():
                 logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
                 LRWriteSettings()
 
-                # No, I do not want to change the defined installation
+            # No, I do not want to change the defined installation
             else:
                 logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
                 logging.info("Switching to main menu")
@@ -624,10 +623,11 @@ def CheckLRSettings():
         if lr_first_run != "0" or len(lr_first_run) >= 1:
             logging.info("First-run info found, this is not the first-run. Switching to main menu.")
             return True
+
         # Any other condition, return False
         else:
             logging.warning("PatchIt! has never been run!")
-            logging.info("Returning False..")
+            logging.info("Returning False.")
             return False
 
 # ----- End LEGO Racers Installation, Version and Settings Check ----- #
@@ -783,11 +783,8 @@ def LOCOGameCheck():
     logging.info("Cleaning up installation text")
     loco_path = loco_path.strip()
 
-    # You have NO idea how much this small variable helps the code below
-    exe_folder = os.path.join("exe".upper())
-
      # The only three items needed to confirm a LEGO LOCO installation.
-    if os.path.exists(os.path.join(loco_path, exe_folder, "loco.exe".lower())) and os.path.exists(os.path.join(loco_path, exe_folder, "lego.ini".lower()))\
+    if os.path.exists(os.path.join(loco_path, "exe".upper(), "loco.exe".lower())) and os.path.exists(os.path.join(loco_path, "exe".upper(), "lego.ini".lower()))\
     and os.path.exists(os.path.join(loco_path, "art-res".lower())):
         logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(loco_path))
         return True
@@ -828,10 +825,11 @@ def CheckLOCOSettings():
         if loco_first_run != "0" or len(loco_first_run) >= 1:
             logging.info("LOCO First-run info found; this is not the first-run. Switching to main menu.")
             return True
+
         # Any other condition, return False
         else:
             logging.warning("PatchIt! has never been run!")
-            logging.info("Returning False..")
+            logging.info("Returning False.")
             return False
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #

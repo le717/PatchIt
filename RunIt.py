@@ -61,8 +61,8 @@ import logging
 import Color as color, Color.colors as colors
 import PatchIt
 
-app_folder = sys.argv[0].rstrip(os.path.basename(sys.argv[0]))
-
+# Location of PatchIt!
+app_folder = os.path.dirname(sys.argv[0])
 
 # ------------ Begin PatchIt! Logging Code ------------ #
 
@@ -70,19 +70,23 @@ def appLoggingFolder():
     '''Checks for (and creates) PatchIt! Logs folder'''
 
     try:
-        # The Logs folder does not exist in the current directory
-        if not os.path.exists(os.path.join(app_folder, "Logs")):
+        # Location of Logs folder
+        logs_folder = os.path.join(app_folder, "Logs")
+
+        # The Logs folder does not exist
+        if not os.path.exists(logs_folder):
 
             # Create the Logs folder
-            logsfolder = os.mkdir(os.path.join(app_folder, "Logs"))
+            logs_folder = os.mkdir(logs_folder)
 
     # -- Begin Logging Config -- #
 
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s : %(levelname)s : %(message)s",
-            filename=os.path.join(app_folder, "Logs", 'PatchIt.log'),
-            filemode='a+'
+            filename=os.path.join(logs_folder, 'PatchIt.log'),
+            # "a" so the Logs is appended to and not overwritten
+            filemode='a'
         )
 
     # -- End Logging Config -- #
@@ -102,7 +106,7 @@ if __name__ == "__main__":
     # Run PatchIt! Initialization
     appLoggingFolder()
 
-    # Write window title (since there is no GUI in PatchIt! itself)
+    # Write window title (since there is no GUI in PatchIt! itself (yet))
     os.system("title {0} {1} {2}".format(app, majver, minver))
     PatchIt.info()
     PatchIt.args()

@@ -30,15 +30,18 @@ import random
 # Logging module
 import logging
 
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
+
 # Main PatchIt! module, legacy instalation code
 import PatchIt
 import legacyextract
+
 # LEGO Racers gameplay tips
 import gametips
+
 # Colored shell text
 import Color as color, Color.colors as colors
-# File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -171,6 +174,8 @@ def readModernPatch(patch):
     # Get all patch details
     with open(patch, "rt", encoding="utf-8") as file:
         logging.info("Reading contents of Patch")
+        # Global so the data from it can be deleted after installation
+        global all_lines
         all_lines = file.readlines()[:]
 
     # Assign Patch ZIP
@@ -341,18 +346,21 @@ If this error continues, contact {2} and ask for a fixed version.'''
     except PermissionError:
         logging.warning("Error number '13'")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("PatchIt! does not have the rights to install {0} {1} to {2}".format(name, version, install_path))
-        colors.pc("\nPatchIt! does not have the rights to install {0} {1} to\n{2}!\n".format(name, version, install_path), color.FG_LIGHT_RED)
+        logging.warning('PatchIt! does not have the rights to install "{0} {1}" to {2}'.format(name, version, install_path))
+        colors.pc('\nPatchIt! does not have the rights to install\n"{0} {1}" to\n{2}!\n'.format(name, version, install_path), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}".format(name, version, install_path))
-        colors.pc("\nPatchIt! ran into an unknown error while trying to install\n{0} {1} to\n{2}!\n".format(name, version, install_path), color.FG_LIGHT_RED)
+        logging.warning('PatchIt! ran into an unknown error while trying to install "{0} {1}" to {2}'.format(name, version, install_path))
+        colors.pc('\nPatchIt! ran into an unknown error while trying to install\n"{0} {1}" to\n{2}!\n'.format(name, version, install_path), color.FG_LIGHT_RED)
 
     # This is run no matter if an exception was raised nor not.
     finally:
+        # Delete all PiP data to free up resources
+        del all_lines[:]
+        logging.info("Deleting all data from {0}{1}.PiP".format(name, version))
         # Sleep for 2 seconds after displaying installation result before kicking back to the PatchIt! menu.
         time.sleep(2)
         logging.info("Switching to main menu")

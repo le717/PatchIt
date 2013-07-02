@@ -60,7 +60,7 @@ def patchName():
         logging.info("Looping back through patchName()")
         patchName()
 
-    # The field was longer than 80 characters
+##    # The field was longer than 80 characters
 ##    elif len(name) >= 81:
 ##        logging.warning("The Patch name was more than 80 characters!")
 ##        colors.pc("\nThe Name field must be 80 characters or less!", color.FG_LIGHT_RED)
@@ -99,7 +99,7 @@ def patchVersion():
         logging.info("Looping back through patchVersion()")
         patchVersion()
 
-    # The field was longer than 12 characters
+##    # The field was longer than 12 characters
 ##    elif len(name) >= 13:
 ##        logging.warning("The Patch version was more than 12 characters!")
 ##        colors.pc("\nThe Version field must be 12 characters or less!", color.FG_LIGHT_RED)
@@ -361,14 +361,14 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         colors.pc("\nPatchIt! does not have the rights to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
         # Delete incomplete PiP
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
-        os.unlink(os.path.join(os.getcwd(), "{0}".format(thepatch)))
+        os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
 
     # .PiP and/or .zip already exists
     except shutil.Error:
         logging.warning("shutil.Error")
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(thepatch, thearchive, patchfiles, os.getcwd()))
-        colors.pc('\n{0} or {1} already exists!\nCheck either "{2}"\nor "{3}"\nfor the files, and move or delete them if necessary.'.format(thepatch, thearchive, patchfiles, os.getcwd()), color.FG_LIGHT_RED)
+        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(thepatch, thearchive, patchfiles,PatchIt.app_folder))
+        colors.pc('\n{0} or {1} already exists!\nCheck either "{2}"\nor "{3}"\nfor the files, and move or delete them if necessary.'.format(thepatch, thearchive, patchfiles, PatchIt.app_folder), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
