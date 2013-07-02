@@ -38,7 +38,7 @@ import PatchIt
 from Patch import legacyextract
 
 # LEGO Racers gameplay tips
-from Patch import gametips
+from Patch import racingtips
 
 # Colored shell text
 import Color as color, Color.colors as colors
@@ -308,7 +308,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + random.choice(gametips.gametips), color.FG_CYAN)
+            colors.pc("\nHere's a tip!\n" + random.choice(racingtips.gametips), color.FG_CYAN)
 
         # Display the LEGO LOCO map resolution.
         elif game == "LEGO LOCO":

@@ -22,7 +22,7 @@
 
 # Import only certain items instead of "the whole toolbox"
 import PatchIt, linecache, zipfile, os
-from Patch import gametips
+from Patch import racingtips
 from os.path import exists, join
 from random import choice
 from time import sleep
@@ -123,7 +123,7 @@ def readPatch(installpatch):
 
             # Display the Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + choice(gametips.gametips), color.FG_LIGHT_GREEN)
+            colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips), color.CYAN)
 
             # Installation was sucessful!
             logging.info("Error (exit) number '0'")
