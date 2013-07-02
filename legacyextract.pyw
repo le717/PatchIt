@@ -18,16 +18,17 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Stable Legacy Patch Installation code
+# PatchIt! V1.1.1 Stable Legacy Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
-import PatchIt, linecache, gametips, zipfile, os
+import PatchIt, linecache, zipfile, os
+from Patch import gametips
 from os.path import exists, join
 from random import choice
 from time import sleep
 # Colored text
 import Color as color, Color.colors as colors
-# GUI! :D
+# File/folder dialog boxes
 import tkinter
 from tkinter import filedialog
 # App Logging module

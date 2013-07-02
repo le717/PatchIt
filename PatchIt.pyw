@@ -38,8 +38,8 @@ from tkinter import ttk
 from tkinter import (filedialog, Tk)
 
 # Patch Creation and Installation modules
-import modernextract as extract
-import moderncompress as compress
+from Patch import modernextract as extract
+from Patch import moderncompress as compress
 
 # Colored shell text
 import Color as color, Color.colors as colors

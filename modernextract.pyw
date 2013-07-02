@@ -35,10 +35,10 @@ from tkinter import (filedialog, Tk)
 
 # Main PatchIt! module, legacy instalation code
 import PatchIt
-import legacyextract
+from Patch import legacyextract
 
 # LEGO Racers gameplay tips
-import gametips
+from Patch import gametips
 
 # Colored shell text
 import Color as color, Color.colors as colors
