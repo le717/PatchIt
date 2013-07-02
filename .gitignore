@@ -203,7 +203,7 @@ gh-pages.txt
 *.ini
 .py
 !.pyw
-#*.iss
+*.iss
 !Windows/unsetup.py
 JAMExtractor.py
 listtips.py
