@@ -57,26 +57,45 @@ def file_check(path):
     ".dmg", ".fat", ".ntfs", ".cab", ".iso", ".xz", ".nrg", ".bin"
     ]
 
+    # --- Begin Temporary Folder Configuration -- #
+
     # Temporary folder for illegal files
     temp_folder = "PatchIt Temporary Folder"
 
     # The directorty above the Patch files
     one_folder_up = os.path.dirname(path)
 
+    # The full location to the temporary folder
+    temp_location = os.path.join(one_folder_up, temp_folder)
+
     # If the temporary folder does not exist, create it
-    if not os.path.exists(os.path.join(one_folder_up, temp_folder)):
-        os.mkdir(os.path.join(one_folder_up, temp_folder))
+    if not os.path.exists(temp_location):
+        os.mkdir(temp_location)
+
+    # --- End Temporary Folder Configuration -- #
+
+    # --- Begin Illegal File Scan -- #
 
     # Traversing the reaches of the folder...
     for root, dirnames, filenames in os.walk(path):
+
+        # If any subfolders exists, remake them in the temp location
+        for folder in dirnames:
+            os.makedirs(os.path.join(temp_location, folder))
+
         # Get the index and string of each item in the list
         for index, string in enumerate(filenames):
+
             # Split the filename into name and extension
             name, ext = os.path.splitext(string)
+
             # If the extension is found in the blacklist...
             if ext in blacklist:
+
                 # Join the folder path to the file to the filename
                 illegal_file = os.path.join(root, string)
+
+    # --- End Illegal File Scan -- #
 
     raise SystemExit
 
