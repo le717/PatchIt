@@ -46,7 +46,14 @@ def file_check():
     # Programs
     "exe", "pif", "application", "gadget", "msi", "msp", "com", "scr", "hta", "cpl", "msc", "jar",
     # Scripts
-    ""]
+    "bat", "cmd", "vb", "vbs", "vbe", "js", "jse", "ws", "wsf", "wsc", "wsh", "ps1", "ps1xml", "ps2",
+    "ps2xml", "psc1", "psc2", "msh", "msh1", "msh2", "mshxml", "msh1xml", "msh2xml", "py", "au3",
+    # Shortcuts\Registry
+    "scf", "lnk", "inf" "reg",
+    # Office Macros
+    "doc", "xls", "ppt", "docm", "dotm", "xlsm", "xltm", "pptm", "potm", "ppam", "ppsm", "sldm"
+    ]
+
     for root, dirname, filename in os.walk(os.getcwd()):
         pass
 
