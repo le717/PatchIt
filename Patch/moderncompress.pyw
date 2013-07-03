@@ -75,40 +75,50 @@ def file_check(path):
 
     # Traversing the reaches of the Patch files...
     for root, dirnames, filenames in os.walk(path):
+        try:
+            # Copy entire directory (every last folder/file) to the temp location
+            shutil.copytree(root, temp_location)
+        except FileExistsError:
+            # shutil.copytree is throwing an error after everything
+            # is copied (yes, I checked. Everything is copied),
+            # and this supresses that error
+            pass
 
-        # Remove the literal list from the filelist
-         for file in files:
-            try:
-                # Copy entire directory (every last folder/file) to the temp location
-                shutil.copytree(root, temp_location)
-            except FileExistsError:
-                # shutil.copytree is throwing an error after everything
-                # is copied (yes, I checked. Everything is copied),
-                # and this supresses that error
-                pass
+    # Get the index and string of each item in the list
+    for index, string in enumerate(filenames):
 
-         # Get the index and string of each item in the list
-         for index, string in enumerate(files):
+        # Split the filename into name and extension
+        name, ext = os.path.splitext(string)
 
-            # Split the filename into name and extension
-            name, ext = os.path.splitext(string)
+        # If an illegal file is found, as idenifyed by the extension,
+        if ext in blacklist:
+            # Get the full path to it
+            illegal_file = os.path.join(root, string)
 
-            # If an illegal file is found, as idenifyed by the extension,
-            if ext in blacklist:
-                # Get the full path to it
-                illegal_file = os.path.join(root, string)
-
-                print(illegal_file)
-                # and remove the illegal files from the Patch files!
-                os.unlink(illegal_file)
+            print(illegal_file)
+            # and remove the illegal files from the Patch files!
+            os.unlink(illegal_file)
 
     # --- End Illegal File Scan -- #
 
     raise SystemExit
 
-def restore_files():
+def restore_files(path):
     '''Moves illegal files from the temporary location back to their
     original location'''
+
+    # --- Begin Temporary Folder Configuration -- #
+
+    # Temporary folder for illegal files
+    temp_folder = "PatchIt Temporary Folder"
+
+    # The directory above the Patch files
+    one_folder_up = os.path.dirname(path)
+
+    # The full location to the temporary folder
+    temp_location = os.path.join(one_folder_up, temp_folder)
+
+    # --- End Temporary Folder Configuration -- #
     pass
 
 
