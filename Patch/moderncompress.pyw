@@ -80,10 +80,8 @@ def file_check(path):
             # Copy entire directory (every last folder/file) to the temp location
             logging.info("Moving all files back from {0} to {1}".format(root, temp_location))
             distutils.dir_util.copy_tree(root, temp_location)
-        except Exception:
-            # I don't exactly know if/what error distutils.dir_util.copy_tree
-            # throws, so I just have to wing it by dumping any tracebacks to
-            # the log and silently passing it until I know for sure what is raised.
+        except DistutilsFileError:
+            # Dump any error tracebacks to the log.
             logging.warning("Unknown error number")
             logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
             pass
@@ -125,10 +123,9 @@ def restore_files(path):
         # Copy entire directory (every last folder/file) to the temp location
         logging.info("Moving all files back from {0} to {1}".format(temp_location, path))
         distutils.dir_util.copy_tree(temp_location, path)
-    except Exception:
-       # Again, I don't exactly know if/what error distutils.dir_util.copy_tree
-       # throws, so I just have to wing it by dumping any tracebacks to
-       # the log and silently passing it until I know for sure what is raised.
+        distutils.dir_util.remove_tree(temp_location)
+    except DistutilsFileError:
+       # Dump any error tracebacks to the log.
        logging.warning("Unknown error number")
        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
        pass
