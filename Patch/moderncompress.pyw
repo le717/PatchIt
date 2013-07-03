@@ -37,13 +37,24 @@ import re
 
 def file_check():
     '''Checks for, and moves illegal files to a temporary location'''
-    for root, dirname, filename in os.walk():
+
+    # List of illegal files, taken from
+    # http://www.howtogeek.com/137270/50-file-extensions-that-are-potentially-dangerous-on-windows/
+    # and http://windows.microsoft.com/en-US/windows-vista/Recognizing-dangerous-file-types
+
+    blacklist = [
+    # Programs
+    "exe", "pif", "application", "gadget", "msi", "msp", "com", "scr", "hta", "cpl", "msc", "jar",
+    # Scripts
+    ""]
+    for root, dirname, filename in os.walk(os.getcwd()):
         pass
 
 def restore_files():
     '''Moves illegal files from the temporary location back to their
     original location'''
     pass
+
 
 # ------------ End Illegal File Check ------------ #
 
