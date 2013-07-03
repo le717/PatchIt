@@ -44,14 +44,17 @@ def file_check(path):
 
     blacklist = [
     # Programs
-    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar",
+    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar", ".dll"
     # Scripts
     ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2",
-    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".au3",
-    # Shortcuts\Registry
-    ".scf", ".lnk", ".inf" ".reg",
+    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
+    # Shortcuts\Registry\Misc
+    ".scf", ".lnk", ".inf" ".reg", ".db",
     # Office Macros
-    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm"
+    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm",
+    # Archives
+    ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2", ".bzip2", "gzip", ".tgz", ".rpm", ".deb",
+    ".dmg", ".fat", ".ntfs", ".cab", ".iso", ".xz", ".nrg", ".bin"
     ]
 
     # Temporary folder for illegal files
@@ -64,8 +67,18 @@ def file_check(path):
     if not os.path.exists(os.path.join(one_folder_up, temp_folder)):
         os.mkdir(os.path.join(one_folder_up, temp_folder))
 
-    #for root, dirname, filename in os.walk(path):
-        #for item in blacklist:
+    # Traversing the reaches of the folder...
+    for root, dirnames, filenames in os.walk(path):
+        # Get the index and string of each item in the list
+        for index, string in enumerate(filenames):
+            # Split the filename into name and extension
+            name, ext = os.path.splitext(string)
+            # If the extension is found in the blacklist...
+            if ext in blacklist:
+                # Join the folder path to the file to the filename
+                illegal_file = os.path.join(root, string)
+
+    raise SystemExit
 
 def restore_files():
     '''Moves illegal files from the temporary location back to their
