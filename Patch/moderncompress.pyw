@@ -269,7 +269,7 @@ def patchInfo(*args):
     )
 
     # The user clicked the cancel button
-    if len(patchfiles) == 0:
+    if not patchfiles:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()

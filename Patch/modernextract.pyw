@@ -80,7 +80,7 @@ def selectPatch(*args):
     filetypes=fileformat)
 
     # The user clicked the cancel button
-    if len(patch) == 0:
+    if not patch:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()

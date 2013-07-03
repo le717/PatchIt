@@ -492,7 +492,7 @@ def LRWriteSettings():
     )
 
     # The user clicked the cancel button
-    if len(new_racers_game) == 0:
+    if not new_racers_game:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
@@ -577,7 +577,7 @@ def LRGameCheck():
         return True
 
     # If the settings file was externally edited and the path was removed
-    elif len(racers_path) == 0:
+    elif not racers_path:
         logging.warning("LEGO Racers installation is empty!")
         return False
 
@@ -713,7 +713,7 @@ def LOCOWriteSettings():
     )
 
     # The user clicked the cancel button
-    if len(new_loco_game) == 0:
+    if not new_loco_game:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
@@ -790,7 +790,7 @@ def LOCOGameCheck():
         return True
 
     # If the settings file was externally edited and the path was removed
-    elif len(loco_path) == 0:
+    elif not loco_path:
         logging.warning("LEGO LOCO installation written in {0} is empty!".format(locosettings))
         return False
 
