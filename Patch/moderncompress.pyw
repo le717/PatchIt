@@ -49,6 +49,7 @@ def file_check(path):
     # Scripts
     ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2",
     ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
+    ".pyd", ".pyo",
     # Shortcuts\Registry\Misc
     ".scf", ".lnk", ".inf" ".reg", ".db",
     # Office Macros
@@ -60,6 +61,7 @@ def file_check(path):
 
     # --- Begin Temporary Folder Configuration -- #
 
+    global temp_folder, one_folder_up, temp_location
     # Temporary folder for illegal files
     temp_folder = "PatchIt Temporary Folder"
 
@@ -78,9 +80,9 @@ def file_check(path):
     for root, dirnames, filenames in os.walk(path):
         try:
             # Copy entire directory (every last folder/file) to the temp location
-            logging.info("Moving all files back from {0} to {1}".format(root, temp_location))
+            logging.info("Moving all files from {0} to {1}".format(root, temp_location))
             distutils.dir_util.copy_tree(root, temp_location)
-        except DistutilsFileError:
+        except Exception:
             # Dump any error tracebacks to the log.
             logging.warning("Unknown error number")
             logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
@@ -98,6 +100,7 @@ def file_check(path):
             illegal_file = os.path.join(root, string)
 
             # and remove the illegal files from the Patch files!
+            logging.info("An illegal file has been found!")
             os.unlink(illegal_file)
 
     # --- End Illegal File Scan -- #
@@ -109,13 +112,13 @@ def restore_files(path):
     # --- Begin Temporary Folder Configuration -- #
 
     # Temporary folder for illegal files
-    temp_folder = "PatchIt Temporary Folder"
+##    temp_folder = "PatchIt Temporary Folder"
 
     # The directory above the Patch files
-    one_folder_up = os.path.dirname(path)
+##    one_folder_up = os.path.dirname(path)
 
     # The full location to the temporary folder
-    temp_location = os.path.join(one_folder_up, temp_folder)
+##    temp_location = os.path.join(one_folder_up, temp_folder)
 
     # --- End Temporary Folder Configuration -- #
 
@@ -124,7 +127,7 @@ def restore_files(path):
         logging.info("Moving all files back from {0} to {1}".format(temp_location, path))
         distutils.dir_util.copy_tree(temp_location, path)
         distutils.dir_util.remove_tree(temp_location)
-    except DistutilsFileError:
+    except Exception:
        # Dump any error tracebacks to the log.
        logging.warning("Unknown error number")
        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
@@ -476,7 +479,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
 
     finally:
         # Run function to restore all the files in the Patch files
-        logging.info("Running restore_files() to move all illeagl files back")
+        logging.info("Running restore_files() to move all illegal files back")
         restore_files(patchfiles)
         # Change the working directory back to the location of PatchIt!
         logging.info("Changing the working directory to {0}".format(PatchIt.app_folder))
