@@ -35,6 +35,16 @@ import re
 
 # ------------ Begin Illegal File Check ------------ #
 
+def file_check():
+    '''Checks for, and moves illegal files to a temporary location'''
+    for root, dirname, filename in os.walk():
+        pass
+
+def restore_files():
+    '''Moves illegal files from the temporary location back to their
+    original location'''
+    pass
+
 # ------------ End Illegal File Check ------------ #
 
 
@@ -319,6 +329,10 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         thearchive = "{0}{1}.tar".format(name, version)
         logging.info("The final file names are {0} and {1}".format(thepatch, thearchive))
 
+        # Change the working directory to the Patch Files directory
+        logging.info("Changing the working directory to {0}".format(patchfiles))
+        os.chdir(patchfiles)
+
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(thepatch))
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
@@ -341,12 +355,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Rename the Patch Archive to namever.tar, as defined in Documentation/PiP Format V1.1.md
         logging.info("Rename Patch Archive to {0}, as defined in {1}".format(thearchive, "Documentation/PiP Format V1.1.md"))
         newzipfile = os.replace(zipfile, thearchive)
-
-        # Move the Patch and Archive to the folder the compressed files came from
-        logging.info("Moving {0} from {1} to {2}".format(thepatch, os.getcwd(), patchfiles))
-        shutil.move(thepatch, patchfiles)
-        logging.info("Moving {0} from {1} to {2}".format(thearchive, os.getcwd(), patchfiles))
-        shutil.move(thearchive, patchfiles)
 
         # The Patch was created sucessfully!
         logging.info("Error (exit) number '0'")
@@ -378,6 +386,9 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
 
     finally:
+        # Change the working directory back to the location of PatchIt!
+        logging.info("Changing the working directory to {0}".format(PatchIt.app_folder))
+        os.chdir(PatchIt.app_folder)
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
         time.sleep(2)
         logging.info("Switching to main menu")
