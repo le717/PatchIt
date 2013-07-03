@@ -24,6 +24,7 @@ import os
 import shutil
 import tarfile
 import time
+import distutils.dir_util
 # Colored shell text
 import Color as color, Color.colors as colors
 # File/Folder Dialog Boxes
@@ -77,11 +78,14 @@ def file_check(path):
     for root, dirnames, filenames in os.walk(path):
         try:
             # Copy entire directory (every last folder/file) to the temp location
-            shutil.copytree(root, temp_location)
-        except FileExistsError:
-            # shutil.copytree is throwing an error after everything
-            # is copied (yes, I checked. Everything is copied),
-            # and this supresses that error
+            logging.info("Moving all files back from {0} to {1}".format(root, temp_location))
+            distutils.dir_util.copy_tree(root, temp_location)
+        except Exception:
+            # I don't exactly know if/what error distutils.dir_util.copy_tree
+            # throws, so I just have to wing it by dumping any tracebacks to
+            # the log and silently passing it until I know for sure what is raised.
+            logging.warning("Unknown error number")
+            logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
             pass
 
     # Get the index and string of each item in the list
@@ -95,13 +99,10 @@ def file_check(path):
             # Get the full path to it
             illegal_file = os.path.join(root, string)
 
-            print(illegal_file)
             # and remove the illegal files from the Patch files!
             os.unlink(illegal_file)
 
     # --- End Illegal File Scan -- #
-
-    raise SystemExit
 
 def restore_files(path):
     '''Moves illegal files from the temporary location back to their
@@ -119,8 +120,18 @@ def restore_files(path):
     temp_location = os.path.join(one_folder_up, temp_folder)
 
     # --- End Temporary Folder Configuration -- #
-    pass
 
+    try:
+        # Copy entire directory (every last folder/file) to the temp location
+        logging.info("Moving all files back from {0} to {1}".format(temp_location, path))
+        distutils.dir_util.copy_tree(temp_location, path)
+    except Exception:
+       # Again, I don't exactly know if/what error distutils.dir_util.copy_tree
+       # throws, so I just have to wing it by dumping any tracebacks to
+       # the log and silently passing it until I know for sure what is raised.
+       logging.warning("Unknown error number")
+       logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+       pass
 
 # ------------ End Illegal File Check ------------ #
 
@@ -407,6 +418,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.info("The final file names are {0} and {1}".format(thepatch, thearchive))
 
         # Run ilegal file check
+        logging.info("Running file_check() to check for and remove illegal files.")
         file_check(patchfiles)
 
         # Change the working directory to the Patch Files directory
@@ -466,6 +478,9 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
 
     finally:
+        # Run function to restore all the files in the Patch files
+        logging.info("Running restore_files() to move all illeagl files back")
+        restore_files(patchfiles)
         # Change the working directory back to the location of PatchIt!
         logging.info("Changing the working directory to {0}".format(PatchIt.app_folder))
         os.chdir(PatchIt.app_folder)
