@@ -44,14 +44,14 @@ def file_check(path):
 
     blacklist = [
     # Programs
-    "exe", "pif", "application", "gadget", "msi", "msp", "com", "scr", "hta", "cpl", "msc", "jar",
+    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar",
     # Scripts
-    "bat", "cmd", "vb", "vbs", "vbe", "js", "jse", "ws", "wsf", "wsc", "wsh", "ps1", "ps1xml", "ps2",
-    "ps2xml", "psc1", "psc2", "msh", "msh1", "msh2", "mshxml", "msh1xml", "msh2xml", "py", "au3",
+    ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2",
+    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".au3",
     # Shortcuts\Registry
-    "scf", "lnk", "inf" "reg",
+    ".scf", ".lnk", ".inf" ".reg",
     # Office Macros
-    "doc", "xls", "ppt", "docm", "dotm", "xlsm", "xltm", "pptm", "potm", "ppam", "ppsm", "sldm"
+    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm"
     ]
 
     # Temporary folder for illegal files
@@ -64,8 +64,8 @@ def file_check(path):
     if not os.path.exists(os.path.join(one_folder_up, temp_folder)):
         os.mkdir(os.path.join(one_folder_up, temp_folder))
 
-   # for root, dirname, filename in os.walk(path):
-    #    for item in blacklist:
+    #for root, dirname, filename in os.walk(path):
+        #for item in blacklist:
 
 def restore_files():
     '''Moves illegal files from the temporary location back to their
