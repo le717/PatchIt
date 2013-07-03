@@ -66,7 +66,7 @@ def compressJAM():
 
 ##    JAMExtractor.build(jam_files)
 
-def main():
+def main(*args):
 
     logging.info("Display JAM Extractor menu to user")
     print('''\nPlease make a selection:\n

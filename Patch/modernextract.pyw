@@ -45,7 +45,7 @@ import Color as color, Color.colors as colors
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
-def selectPatch():
+def selectPatch(*args):
     '''Select a PatchIt! Patch'''
 
     colors.pc("\nInstall a PatchIt! Patch", color.FG_LIGHT_YELLOW)

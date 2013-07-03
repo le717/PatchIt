@@ -187,7 +187,7 @@ def patchDesc():
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
 
-def patchInfo():
+def patchInfo(*args):
     '''Asks for PatchIt! Patch details'''
 
     logging.info("Create a PatchIt! Patch")

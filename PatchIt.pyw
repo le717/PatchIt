@@ -209,7 +209,7 @@ def preload():
 
 # ------------ Begin PatchIt! About Box  ------------ #
 
-def about():
+def about(*args):
     '''Tkinter About Box'''
 
     root = tk.Tk()
@@ -281,7 +281,7 @@ package and install mods for LEGO Racers"
 
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
-def main():
+def main(*args):
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
@@ -383,7 +383,7 @@ def easteregg(*args):
 # ------------ Begin PatchIt! Settings ------------ #
 
 
-def Settings():
+def Settings(*args):
     '''PatchIt! Settings Menu'''
 
     print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
