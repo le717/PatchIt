@@ -35,7 +35,7 @@ import re
 
 # ------------ Begin Illegal File Check ------------ #
 
-def file_check():
+def file_check(path):
     '''Checks for, and moves illegal files to a temporary location'''
 
     # List of illegal files, taken from
@@ -54,8 +54,18 @@ def file_check():
     "doc", "xls", "ppt", "docm", "dotm", "xlsm", "xltm", "pptm", "potm", "ppam", "ppsm", "sldm"
     ]
 
-    for root, dirname, filename in os.walk(os.getcwd()):
-        pass
+    # Temporary folder for illegal files
+    temp_folder = "PatchIt Temporary Folder"
+
+    # The directorty above the Patch files
+    one_folder_up = os.path.dirname(path)
+
+    # If the temporary folder does not exist, create it
+    if not os.path.exists(os.path.join(one_folder_up, temp_folder)):
+        os.mkdir(os.path.join(one_folder_up, temp_folder))
+
+   # for root, dirname, filename in os.walk(path):
+    #    for item in blacklist:
 
 def restore_files():
     '''Moves illegal files from the temporary location back to their
@@ -346,6 +356,9 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         thepatch = "{0}{1}.PiP".format(name, version)
         thearchive = "{0}{1}.tar".format(name, version)
         logging.info("The final file names are {0} and {1}".format(thepatch, thearchive))
+
+        # Run ilegal file check
+        file_check(patchfiles)
 
         # Change the working directory to the Patch Files directory
         logging.info("Changing the working directory to {0}".format(patchfiles))
