@@ -19,10 +19,10 @@
 
     /* animated spoiler CSS by Bloggersentral.com */
     .spoilerbutton {display:block;margin:10px 0;}
-    .spoiler110 {overflow:hidden;background: #f5f5f5;}
-    .spoiler110 > div {-webkit-transition: all 0.2s ease;-moz-transition: margin 0.2s ease;-o-transition: all 0.2s ease;transition: margin 0.2s ease;}
-    .spoilerbutton[value="Show"] + .spoiler110 > div {margin-top:-350%;}
-    .spoilerbutton[value="Hide"] + .spoiler110 {padding:5px;} 
+    .spoiler {overflow:hidden;background: #f5f5f5;}
+    .spoiler > div {-webkit-transition: all 0.2s ease;-moz-transition: margin 0.2s ease;-o-transition: all 0.2s ease;transition: margin 0.2s ease;}
+    .spoilerbutton[value="Show"] + .spoiler > div {margin-top:-350%;}
+    .spoilerbutton[value="Hide"] + .spoiler {padding:5px;} 
     </style>
 </head>
 <body>
@@ -164,7 +164,7 @@ were getting short-circuited and not returning the proper values</li>
 "One Monster of a Release"<br>
 (Released May 18, 2013)<br>
 <input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
-<div class="spoiler110"><div>
+<div class="spoiler"><div>
 <ul>
 <li>Added <code>build.bat</code> for compiling <span class="bold">PatchIt!</span></li>
 <li>Removed spaces in installer output name (provides a better download link when uploaded to GitHub)</li>
@@ -416,6 +416,8 @@ action as <code>modernextract.pyw</code>)</li>
 <strong>1.0.3.1 Stable</strong><br>
 "Transition"<br>
 (Released May 2, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>Backported "created by" updates from 1.1.0 Stable</li>
 <li>Backported window title from 1.1.0 Stable</li>
@@ -423,11 +425,13 @@ action as <code>modernextract.pyw</code>)</li>
 newer version of <span class="bold">PatchIt!</span> to install it</li>
 <li>Backported some installer changes from 1.1.0 Stable</li>
 <li>Backported <code>setup.py</code> from 1.1.0 Stable</li>
-</ul>
+</ul></div></div>
 
 <strong>1.0.3 Stable</strong><br>
 "An Optimistic Outlook"<br>
 (Released March 11, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>Added <code>PermissionError</code> exception to App Logging module</li>
 <li>Removed <code>if exists or not exists</code> check for <code>settings</code> file</li>
@@ -445,11 +449,13 @@ newer version of <span class="bold">PatchIt!</span> to install it</li>
 <li>Set <code>Read Me First.html</code> to use UTF-8 encoding</li>
 <li>Added favicon for <code>Read Me First.html</code></li>
 <li>Added Portable Switch to installer (pass <code>/PORTABLE=1</code> at the command-line)</li>
-</ul>
+</ul></div></div>
 
 <strong>1.0.2 Stable</strong><br>
 "Keeping a record"<br>
 (Released March 5, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>Colorized <span class="italic">LEGO Racers</span> gameplay tips</li>
 <li>Fixed small installer errors</li>
@@ -475,11 +481,13 @@ newer version of <span class="bold">PatchIt!</span> to install it</li>
 <li>Overall clean up to HTML</li>
 <li>Removed <code>print()</code> function that was supposed to be displayed when <span class="bold">PatchIt!</span> itself was imported as a module (it was
 actually being displayed upon launch after being compiled into an EXE)</li>
-</ul>
+</ul></div></div>
 
 <strong>1.0.1 Stable</strong><br>
 "Keep your Thumbs out of the way, and nobody gets hurt"<br>
 (Released March 2, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>Readme.html now opens when installation is complete</li>
 <li>Added Settings reset option to Windows installer</li>
@@ -500,11 +508,13 @@ actually being displayed upon launch after being compiled into an EXE)</li>
 <li>Fixed clearcache functions</li>
 <li><code>Thumbs.db</code> is automatically deleted if found (Fixes <code>PermissionError</code> during Patch installation)</li>
 <li>Fixed Uninstallation Icon and Installation Size value</li>
-</ul>
+</ul></div></div>
 
 <strong>1.0 Stable</strong><br>
 "Stable at last!"<br>
 (Released February 21, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>Cleaned up <code>check()</code> and <code>write()</code> functions</li>
 <li>First draft of PiP patch layout</li>
@@ -566,11 +576,13 @@ actually being displayed upon launch after being compiled into an EXE)</li>
 <li>Created <span class="bold">PatchIt! Compatible</span> sticker</li>
 <li>Updated HTML Change log</li>
 <li>Fixed x86 and x64 installation issue</li>
-</ul>
+</ul></div></div>
 
 <strong>1.0 Beta 2</strong><br>
 "This is code, rewritten"<br>
 (Released February 2, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>Completely rewrote the code base</li>
 <li>App settings are now saved to a text file</li>
@@ -585,14 +597,16 @@ actually being displayed upon launch after being compiled into an EXE)</li>
 <li>Small code cleanup</li>
 <li>Added Python 3.3 version check</li>
 <li>Version bump</li>
-</ul>
+</ul></div></div>
 
 <strong>1.0 Beta 1</strong><br>
 "A 30 minute hack"<br>
 (Released January 26, 2013)<br>
+<input class="spoilerbutton" type="button" value="Show" onclick="this.value=this.value=='Show'?'Hide':'Show';">
+<div class="spoiler"><div>
 <ul>
 <li>First version, based on very sloppy, hacky code with 7-zip (7za.exe) dependency for ZIP extraction and creation.</li>
-</ul><a name="Help"></a>
+</ul></div></div><a name="Help"></a>
 
 <h2>Support</h2>
 <p>To request a feature, submit a code patch, or download a new release of <span class="bold">PatchIt!</span>, please go to <a title="
