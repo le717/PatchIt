@@ -43,14 +43,15 @@ For *LEGO Racers* Patches, it currently writes *MP*, as there is not a use for t
 
 * PiA stands for <strong>P</strong>atch<strong>I</strong>t! <strong>A</strong>rchive.
 * A PiA archive is a standard LZMA compressed TAR archive. 
-* The PiA archive containing the modded files must be in the same folder as the .PiP file.
-* The PiA archive needs to be laid out in the same way the game would use them. For example: Any TUN audio would go in the root of the archive. Anything under 
-MENUDATA\ENGLISH would go under MENUDATA\ENGLISH, and so on. If your ZIP archive contains a folder that contains the files, the folder will be installed into 
-the game and not the files. So, if your archive is laid out like *MyMod1.zip\MyMod1\GAMEDATA* and your game is located at *C:\Program Files\LEGO Racers*, it 
-will be installed as *C:\Program Files\LEGO Racers\MyMod1\**. 
-The same goes for files that are scattered in the root of the archive. If *ENGLISH.SRF* is located in the root of the archive, it will be installed to 
-*C:\Program Files\LEGO Racer\ENGLISH.SRF*
-**PatchIt!** does not and will never attempt to pull all the files from a sub-folder or scattered files and attempt to install them in the proper locations. 
+* The PiA archive must reside in the same directory as it's accompanying .PiP file for a successful installation.
+* The PiA archive must be laid out in the same way the intended game would use them. For example: 
+Any new *LEGO Racers* .TUN audio would go in the root of the archive, and any modified binary files that reside under `MENUDATA\ENGLISH` would belong in the MENUDATA\ENGLISH folder in the archive, and so on. 
+* If the PiA archive contains a folder that contains the laid out files rather than the files being laid out correctly, that folder will be installed into 
+the game and not into the proper locations. Example, if the archive is laid out like `MyMod1.PiA\MyMod1\GAMEDATA` and your game is located at
+`C:\Program Files\LEGO Racers`, the files will be installed as `C:\Program Files\LEGO Racers\MyMod1`. 
+The same goes for files that are scattered in the root of the archive. If `ENGLISH.SRF` is located in the root of the archive, it will be installed to 
+`C:\Program Files\LEGO Racers\ENGLISH.SRF`
+* **PatchIt!** does __not and will never__ attempt to install any files into their proper locations. 
 
 **Example PiA archive layouts can be found [below.](#example-pia-archive-layouts)**
 
@@ -160,6 +161,7 @@ Revision History
 
 > * Reworded sections of PiP File Format section
 > * Updated PiA Archive Layout section with new details
+> * Finished updating PiA Archive Layout section
 
 * 1.1.1 Draft 1: June 17, 2013
 
