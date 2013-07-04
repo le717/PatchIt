@@ -45,13 +45,14 @@ def file_check(path):
 
     blacklist = [
     # Programs
-    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar", ".dll",
+    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar",
     # Scripts
     ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2",
     ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
-    ".pyd", ".pyo",
+    # Resources
+    ".dll", ".icd", ".pyd", ".pyo",
     # Shortcuts\Registry\Misc
-    ".scf", ".lnk", ".inf" ".reg", ".db",
+    ".scf", ".lnk", ".inf", ".reg", ".db", ".PiP",
     # Office Macros
     ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm",
     # Archives
@@ -468,8 +469,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Run process to restore all the files in the Patch files
         logging.info("Running restore_files() to move all illegal files back")
         restore_files(patchfiles)
-        # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
-        time.sleep(2)
         logging.info("Switching to main menu")
         PatchIt.main()
 
