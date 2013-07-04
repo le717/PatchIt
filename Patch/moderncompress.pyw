@@ -57,7 +57,7 @@ def file_check(path):
     ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm",
     # Archives
     ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2", ".bzip2", "gzip", ".tgz", ".rpm", ".deb",
-    ".dmg", ".fat", ".ntfs", ".cab", ".iso", ".xz", ".nrg", ".bin"
+    ".dmg", ".fat", ".ntfs", ".cab", ".iso", ".xz", ".nrg", ".bin", ".PiA"
     ]
 
     # --- Begin Temporary Folder Configuration -- #
@@ -78,6 +78,7 @@ def file_check(path):
 
     # --- Begin Illegal File Scan -- #
 
+
     # Traversing the reaches of the Patch files...
     for root, dirnames, filenames in os.walk(path):
 
@@ -86,10 +87,7 @@ def file_check(path):
 
         # Get the index and string of each item in the list
         for index, string in enumerate(filenames):
-            logging.info("Getting the index and filename of all the files")
-
             # Split the filename into name and extension
-            logging.info("Spliting all filenames into basename and extension")
             name, ext = os.path.splitext(string)
 
             # If an illegal file is found, as identified by the extension,
@@ -399,7 +397,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     try:
         # Declare the Patch PiP and Archive filenames
         thepatch = "{0}{1}.PiP".format(name, version)
-        thearchive = "{0}{1}.tar".format(name, version)
+        thearchive = "{0}{1}.PiA".format(name, version)
         logging.info("The final file names are {0} and {1}".format(thepatch, thearchive))
 
         # Run ilegal file check
@@ -409,6 +407,11 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Change the working directory to the Patch Files directory
         logging.info("Changing the working directory to {0}".format(patchfiles))
         os.chdir(patchfiles)
+
+        # Compress the files
+        logging.info("Compress files located at {0} into an LZMA compressed TAR archive".format(patchfiles))
+        with tarfile.open(thearchive, "w:xz") as tar_file:
+            tar_file.add(patchfiles, "")
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(thepatch))
@@ -425,14 +428,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
             patch.write("[DESCRIPTION]\n")
             patch.write("{0}\n".format(desc))
 
-        # Compress the files
-        logging.info("Compress files located at {0} into a ZIP archive".format(patchfiles))
-        zipfile = shutil.make_archive(patchfiles, format="zip", root_dir=patchfiles)
-
-        # Rename the Patch Archive to namever.tar, as defined in Documentation/PiP Format V1.1.md
-        logging.info("Rename Patch Archive to {0}, as defined in {1}".format(thearchive, "Documentation/PiP Format V1.1.md"))
-        newzipfile = os.replace(zipfile, thearchive)
-
         # The Patch was created sucessfully!
         logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name, version, patchfiles))
@@ -444,9 +439,14 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning("PatchIt! does not have the rights to create {0} {1}".format(name, version))
         colors.pc("\nPatchIt! does not have the rights to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
-        # Delete incomplete PiP
+        # Delete incomplete files
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
-        os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
+        try:
+            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
+            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thearchive)))
+            # In case the file was never created in the first place
+        except FileNotFoundError:
+            pass
 
     # .PiP and/or .zip already exists
     except shutil.Error:
@@ -461,6 +461,13 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
         logging.warning("PatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version))
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
+        try:
+            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
+            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thearchive)))
+            # In case the file was never created in the first place
+        except FileNotFoundError:
+            pass
+
 
     finally:
         # Change the working directory back to the location of PatchIt!

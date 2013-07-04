@@ -293,12 +293,12 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     logging.info("Clearing settings file cache...")
     linecache.clearcache()
 
-    # Find the TAR archive
+    # Find the PiA archive
     patch_location = os.path.dirname(patch)
-    logging.info("Locate TAR archive at {0}".format(patch_location))
+    logging.info("Locate PiA archive at {0}".format(patch_location))
 
     try:
-        # Actually extract the TAR archive
+        # Actually extract the PiA archive
         logging.info("Extracting {0} to {1}".format(patch_archive, install_path))
 
         with tarfile.open(os.path.join(patch_location, patch_archive), "r") as tar_file:
@@ -336,7 +336,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         author = author.lstrip("Author: ")
         logging.warning("Unable to find {0} at {1}!".format(patch_archive, patch_location))
         colors.pc('''\nCannot find Patch files for {0} {1}!
-Make sure "{0}{1}.tar" and "{0}{1}.PiP"
+Make sure "{0}{1}.PiA" and "{0}{1}.PiP"
 are in the same folder, and try again.
 
 If this error continues, contact {2} and ask for a fixed version.'''
