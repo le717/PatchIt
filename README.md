@@ -1,5 +1,23 @@
-PatchIt!
+<p align="center">
+  <img src="Icons/PatchIt-Compatible.png" alt="PatchIt! Logo"/>
+</p>
+
+<p align="center">
+  <img src="Icons/PatchIt-Compatible-Small.png" alt="PatchIt! Logo"/>
+</p>
+
+<p align="center">
+  <img src="Icons/PiTk.gif" alt="PatchIt! Logo"/>
+</p>
+<p align="center">
+  <img src="Icons/PatchItLogo.png" alt="PatchIt! Logo"/>
+</p>
+PatchIt! 
 ========
+
+
+
+
 
 This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by [Triangle717](http://Triangle717.WordPress.com).
 
