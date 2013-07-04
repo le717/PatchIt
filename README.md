@@ -1,16 +1,12 @@
 <p align="center">
   <img src="http://triangle717.files.wordpress.com/2013/02/patchitlogo.png?w=250" alt="PatchIt! Logo"/>
 </p>
-
 PatchIt! 
 ========
-
-
 This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by [Triangle717](http://Triangle717.WordPress.com).
 
 What is PatchIt!
 ---------------
-
 Although *LEGO Racers* modding is still in it's early stages, many mods are already being developed, and there 
 needs to be a standard way to install them. Heavily influenced and based on **Patchman!**, a mod installer for 
 the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** is the standard and simple way to
@@ -18,7 +14,6 @@ package and install mods for the 1999 High Voltage Software PC game *LEGO Racers
 
 How It Works
 ------------
-
 The three main goals for **PatchIt!** are as follows:
 
 * Ask for the *LEGO Racers* installation, ensure one exists at that location, and store it in an open file format in the **PatchIt!** installation to be used 
@@ -30,12 +25,10 @@ Racers* installation.
 
 Contributing
 ------------
-
 If you would like to contribute to the development of **PatchIt!**, please be sure to read [*CONTRIBUTING.md*](Documentation/CONTRIBUTING.md)
 
 Downloads
 ---------
-
 * Don't forget to ![Star!](http://i81.servimg.com/u/f81/16/33/06/11/star11.png)
 
 All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
