@@ -7,25 +7,25 @@ General Information
 -------------------
 
 In order for **PatchIt!** to install mod packs for *LEGO Racers* or maps for *LEGO LOCO*, it is required to have some sort of file to read the
-information, such as name and description, but as well as to know what ZIP archive to extract and install into the proper game files. 
+information, such as name and description, but as well as to know what compressed archive to extract and install into the proper game files. 
 In other words, a Patch file.
 
-Enter the PiP format: a plain text file engineered so one can be written without the use of **PatchIt!**, and an accompanying ZIP archive containing the 
+Enter the PiP format: an open file format engineered so one can be written without the use of **PatchIt!**, and an accompanying PiA archive containing the 
 Patch files. 
 
 This combination has been designed so a Patch can be created simply and quickly, and can be easily edited outside of **PatchIt!**. 
 For example, a Patch may have already been created but there was a typo in the information, or a file was not included in the archive.
 If **PatchIt!** was designed using non-easily editable formats, the user would have to go through the Patch Creation process all over again. 
 However, this is not the case. By using a plain text file, the creator can open it in a text editor and correct the typo, 
-or compress a new, corrected ZIP archive with an external program.
+or compress a new, corrected PiA archive with an external program.
 
 Details
 -------
 
 #### PiP File Format
 
-* A PiP file is plain text. It stands for **P**atch **I**t! **P**atch.
-* A PiP file is written use UTF-8 encoding, and can be edited on any text editor that supports UTF-8 encoding.
+* PiP stands for <strong>P</strong>atch<strong>I</strong>t! <strong>P</strong>atch.
+* A PiP file is a plain text file written with [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding, and can be edited on any text editor that supports such encoding.
 * As a validity test, each PiP file must have on line 1 a specific line of text (known as the validity line).
   This line **must** match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
 * Legacy (V1.0.1) Patches are detected by looking for that version's validity line. If it is found, it is installed using the Legacy Installation routine.
@@ -35,15 +35,16 @@ Details
 For *LEGO Racers* Patches, it currently writes *MP*, as there is not a use for that game yet.
 * The `Game` field tells what game a Patch was created for. It currently has two values: *LEGO Racers* and *LEGO LOCO*. 
 * The `Description` field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
-* The ZIP archive and the PiP file uses the Patch's name and version for their filenames.
+* Both the PiP file and PiA Archive uses the Patch's name and version for their filenames.
 
 **The PiP file layout can be found [below.](#pip-version-11-file-format-layouts)**
 
-#### PatchIt! PiA Archive Layout
+#### PiA Archive Layout
 
-* The ZIP archive is saved with an *.PiA* file extension.
-* The ZIP archive containing the modded files must be in the same folder as the .PiP file.
-* The ZIP archive needs to be laid out in the same way the game would use them. For example: Any TUN audio would go in the root of the archive. Anything under 
+* PiA stands for <strong>P</strong>atch<strong>I</strong>t! <strong>A</strong>rchive.
+* A PiA archive is a standard LZMA compressed TAR archive. 
+* The PiA archive containing the modded files must be in the same folder as the .PiP file.
+* The PiA archive needs to be laid out in the same way the game would use them. For example: Any TUN audio would go in the root of the archive. Anything under 
 MENUDATA\ENGLISH would go under MENUDATA\ENGLISH, and so on. If your ZIP archive contains a folder that contains the files, the folder will be installed into 
 the game and not the files. So, if your archive is laid out like *MyMod1.zip\MyMod1\GAMEDATA* and your game is located at *C:\Program Files\LEGO Racers*, it 
 will be installed as *C:\Program Files\LEGO Racers\MyMod1\**. 
@@ -155,9 +156,14 @@ Happy Trains 5.8.PiA/
 Revision History
 ----------------
 
+* 1.1.1 Draft 2: July 4, 2013
+
+> * Reworded sections of PiP File Format section
+> * Updated PiA Archive Layout section with new details
+
 * 1.1.1 Draft 1: June 17, 2013
 
-> * Changed zIP archive to use *.PiA* extension
+> * Changed ZIP archive to use *.PiA* extension
 > * Updated examples with *.PiA* extension
 
 * 1.1 Final: May 16, 2013
