@@ -55,15 +55,15 @@ exe_name = os.path.basename(sys.argv[0])
 # Location of PatchIt! Exe/Py
 app_folder = os.path.dirname(sys.argv[0])
 # Location of Settings folder
-settingsfol = os.path.join(app_folder, "Settings")
+settings_fol = os.path.join(app_folder, "Settings")
 # PatchIt! App Icon
 app_icon = os.path.join(app_folder, "Icons", "PatchItIcon.ico")
 
 # GLobal game settings
-lrgame = "LEGO Racers"
-locogame = "LEGO LOCO"
-lrsettings = "Racers.cfg"
-locosettings = "LOCO.cfg"
+LR_game = "LEGO Racers"
+LOCO_game = "LEGO LOCO"
+LR_settings = "Racers.cfg"
+LOCO_settings = "LOCO.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
@@ -174,7 +174,7 @@ def preload():
     '''PatchIt! Settings checks'''
 
     # One of the settings files do not exist
-    if not os.path.exists(settingsfol):
+    if not os.path.exists(settings_fol):
         logging.warning("PatchIt! Settings do not exist!")
         logging.info("Proceeding to write PatchIt! settings (Settings())")
         Settings()
@@ -386,7 +386,7 @@ def easteregg(*args):
 def Settings(*args):
     '''PatchIt! Settings Menu'''
 
-    print("\nDo you want to view your {0} or {1} settings?".format(lrgame, locogame))
+    print("\nDo you want to view your {0} or {1} settings?".format(LR_game, LOCO_game))
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO
@@ -418,24 +418,24 @@ def LRReadSettings():
     '''Read PatchIt! LEGO Racers settings'''
 
     # The settings file does not exist
-    if not os.path.exists(os.path.join(settingsfol, lrsettings)):
+    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.warning("LEGO Racers Settings does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
         LRWriteSettings()
 
     # The setting file does exist
-    elif os.path.exists(os.path.join(settingsfol, lrsettings)):
+    elif os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.info("LEGO Racers Settings does exist")
 
         # The defined installation was not confirmed by LRGameCheck()
         if not LRGameCheck():
 
             # Use path defined in LRGameCheck() for messages
-            logging.warning("LEGO Racers installation was not found! at {0}".format(racers_path))
-##            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(lrgame, racers_path), color.FG_LIGHT_RED)
+            logging.warning("LEGO Racers installation was not found! at {0}".format(LR_path))
+##            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(LR_game, LR_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
-            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(lrgame, racers_path))
+            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(LR_game, LR_path))
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
@@ -443,8 +443,8 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            logging.info("LEGO Racers installation was found at {0}.".format(racers_path))
-            print('\n{0} installation found at\n"{1}"!\n\n'.format(lrgame, racers_path) + r"Would you like to change this? (y\N)")
+            logging.info("LEGO Racers installation was found at {0}.".format(LR_path))
+            print('\n{0} installation found at\n"{1}"!\n\n'.format(LR_game, LR_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -487,7 +487,7 @@ def LRWriteSettings():
     logging.info("Display folder selection dialog for LEGO Racers installation")
     new_racers_game = filedialog.askdirectory(
     parent=root,
-    title="Please select your {0} installation".format(lrgame),
+    title="Please select your {0} installation".format(LR_game),
     initialdir=app_folder
     )
 
@@ -513,12 +513,12 @@ def LRWriteSettings():
 
         # Create Settings directory if it does not exist
         logging.info("Creating Settings directory")
-        if not os.path.exists(settingsfol):
-            os.mkdir(settingsfol)
+        if not os.path.exists(settings_fol):
+            os.mkdir(settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'LRsettings' for writing with UTF-8 encoding")
-        with open(os.path.join(settingsfol, lrsettings), 'wt', encoding='utf-8') as racers_file:
+        logging.info("Open 'LR_settings' for writing with UTF-8 encoding")
+        with open(os.path.join(settings_fol, LR_settings), 'wt', encoding='utf-8') as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
@@ -559,8 +559,8 @@ def LRGameCheck():
 
     # global it is can be used in other messages
     logging.info("Reading line 7 of settings for LEGO Racers installation")
-    global racers_path
-    racers_path = linecache.getline(os.path.join(settingsfol, lrsettings), 7)
+    global LR_path
+    LR_path = linecache.getline(os.path.join(settings_fol, LR_settings), 7)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
@@ -568,22 +568,22 @@ def LRGameCheck():
 
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
-    racers_path = racers_path.strip()
+    LR_path = LR_path.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
-    if os.path.exists(os.path.join(racers_path, "legoracers.exe".lower())) and os.path.exists(os.path.join(racers_path, "lego.jam".lower()))\
-    and os.path.exists(os.path.join(racers_path, "goldp.dll".lower())):
-        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(racers_path))
+    if os.path.exists(os.path.join(LR_path, "legoracers.exe".lower())) and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))\
+    and os.path.exists(os.path.join(LR_path, "goldp.dll".lower())):
+        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(LR_path))
         return True
 
     # If the settings file was externally edited and the path was removed
-    elif not racers_path:
+    elif not LR_path:
         logging.warning("LEGO Racers installation is empty!")
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(racers_path))
+        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(LR_path))
         return False
 
 def LRVerCheck(new_racers_game):
@@ -602,16 +602,16 @@ def CheckLRSettings():
     '''Checks if LEGO LOCO Settings and First-run info'''
 
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(settingsfol, lrsettings)):
+    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.warning("LEGO Racers Settings do not exist!")
         return False
 
-    elif os.path.exists(os.path.join(settingsfol, lrsettings)):
+    elif os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.info("LEGO Racers Settings do exist")
 
         # Settings file does not need to be opened to use linecache
         logging.info("Reading line 3 for LEGO Racers first-run info")
-        lr_first_run = linecache.getline(os.path.join(settingsfol, lrsettings), 3)
+        lr_first_run = linecache.getline(os.path.join(settings_fol, LR_settings), 3)
         lr_first_run = lr_first_run.strip()
 
         # Always clear cache after reading
@@ -639,24 +639,24 @@ def LOCOReadSettings():
     '''Read PatchIt! LEGO LOCO settings'''
 
     # The settings file does not exist
-    if not os.path.exists(os.path.join(settingsfol, locosettings)):
+    if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.warning("LEGO LOCO Settings does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
         LOCOWriteSettings()
 
     # The setting file does exist
-    elif os.path.exists(os.path.join(settingsfol, locosettings)):
+    elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.info("LEGO LOCO Settings does exist")
 
         # The defined installation was not confirmed by LOCOGameCheck()
         if not LOCOGameCheck():
 
             # Use path defined in LOCOGameCheck() for messages
-            logging.warning("LEGO LOCO installation was not found!".format(loco_path))
-##            colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(locogame, loco_path), color.FG_LIGHT_RED)
+            logging.warning("LEGO LOCO installation was not found!".format(LOCO_path))
+##            colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(LOCO_game, LOCO_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
-            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(locogame, loco_path))
+            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(LOCO_game, LOCO_path))
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
@@ -664,8 +664,8 @@ def LOCOReadSettings():
 
         # The defined installation was confirmed by LOCOGameCheck()
         else:
-            logging.info("LEGO LOCO installation was found at {0}.".format(loco_path))
-            print('\n{0} installation found at "{1}"!\n'.format(locogame, loco_path) + r"Would you like to change this? (y\N)")
+            logging.info("LEGO LOCO installation was found at {0}.".format(LOCO_path))
+            print('\n{0} installation found at "{1}"!\n'.format(LOCO_game, LOCO_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -708,7 +708,7 @@ def LOCOWriteSettings():
     logging.info("Display folder selection dialog for LEGO LOCO installation")
     new_loco_game = filedialog.askdirectory(
     parent=root,
-    title="Please select your {0} installation".format(locogame),
+    title="Please select your {0} installation".format(LOCO_game),
     initialdir=app_folder
     )
 
@@ -734,12 +734,12 @@ def LOCOWriteSettings():
 
         # Create Settings directory if it does not exist
         logging.info("Creating Settings directory")
-        if not os.path.exists(settingsfol):
-            os.mkdir(settingsfol)
+        if not os.path.exists(settings_fol):
+            os.mkdir(settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'LOCOsettings' for writing with UTF-8 encoding")
-        with open(os.path.join(settingsfol, locosettings), 'wt', encoding='utf-8') as loco_file:
+        logging.info("Open 'LOCO_settings' for writing with UTF-8 encoding")
+        with open(os.path.join(settings_fol, LOCO_settings), 'wt', encoding='utf-8') as loco_file:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
@@ -772,8 +772,8 @@ def LOCOGameCheck():
 
     # global it is can be used in other messages
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
-    global loco_path
-    loco_path = linecache.getline(os.path.join(settingsfol, locosettings), 5)
+    global LOCO_path
+    LOCO_path = linecache.getline(os.path.join(settings_fol, LOCO_settings), 5)
 
     # Clear cache so settings file is completely re-read everytime
     logging.info("Clearing installation cache...")
@@ -781,39 +781,39 @@ def LOCOGameCheck():
 
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
-    loco_path = loco_path.strip()
+    LOCO_path = LOCO_path.strip()
 
      # The only three items needed to confirm a LEGO LOCO installation.
-    if os.path.exists(os.path.join(loco_path, "exe".upper(), "loco.exe".lower())) and os.path.exists(os.path.join(loco_path, "exe".upper(), "lego.ini".lower()))\
-    and os.path.exists(os.path.join(loco_path, "art-res".lower())):
-        logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(loco_path))
+    if os.path.exists(os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower())) and os.path.exists(os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower()))\
+    and os.path.exists(os.path.join(LOCO_path, "art-res".lower())):
+        logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(LOCO_path))
         return True
 
     # If the settings file was externally edited and the path was removed
-    elif not loco_path:
-        logging.warning("LEGO LOCO installation written in {0} is empty!".format(locosettings))
+    elif not LOCO_path:
+        logging.warning("LEGO LOCO installation written in {0} is empty!".format(LOCO_settings))
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(loco_path))
+        logging.warning("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(LOCO_path))
         return False
 
 def CheckLOCOSettings():
     '''Checks if LEGO LOCO Settings and First-run info'''
 
     # The LEGO LOCO settings do not exist
-    if not os.path.exists(os.path.join(settingsfol, locosettings)):
+    if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.warning("LEGO LOCO Settings do not exist!")
         return False
 
     # The LEGO LOCO settings do exist (inplied else block here)
-    elif os.path.exists(os.path.join(settingsfol, locosettings)):
+    elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.info("LEGO LOCO Settings do exist")
 
         # Settings file does not need to be opened to use linecache
         logging.info("Reading line 3 for LEGO LOCO first-run info")
-        loco_first_run = linecache.getline(os.path.join(settingsfol, locosettings), 3)
+        loco_first_run = linecache.getline(os.path.join(settings_fol, LOCO_settings), 3)
         loco_first_run = loco_first_run.strip()
 
         # Always clear cache after reading

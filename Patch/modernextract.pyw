@@ -264,26 +264,26 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     # This is a LEGO LOCO patch, read the LOCO settings
     if game == "LEGO LOCO":
         # The LEGO LOCO settings do not exist
-        if not os.path.exists(os.path.join(PatchIt.settingsfol, "LOCO.cfg")):
+        if not os.path.exists(os.path.join(PatchIt.settings_fol, "LOCO.cfg")):
             logging.warning("Could not find LEGO LOCO settings!")
             logging.info("Switching to PatchIt.LOCOReadSettings()")
             PatchIt.LOCOReadSettings()
 
         # Read the settings file for installation (LEGO LOCO directory)
         logging.info("Reading line 5 of settings for LEGO Racers installation")
-        install_path = linecache.getline(os.path.join("Settings", "LOCO.cfg"), 5)
+        install_path = linecache.getline(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), 5)
 
     # This is a LEGO Racers patch, read the Racers settings
     else: # elif game == "LEGO Racers":
         # The LEGO Racers settings do not exist
-        if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
+        if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
             logging.warning("Could not find LEGO Racers settings!")
             logging.info("Switching to PatchIt.LRReadSettings()")
             PatchIt.LRReadSettings()
 
         # Read the settings file for installation (LEGO Racers directory)
         logging.info("Reading line 7 of settings for LEGO Racers installation")
-        install_path = linecache.getline(os.path.join("Settings", "Racers.cfg"), 7)
+        install_path = linecache.getline(os.path.join(PatchIt.settings_fol, "Racers.cfg"), 7)
 
     # Create a valid folder path
     logging.info("Cleaning up installation path")
@@ -294,7 +294,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     linecache.clearcache()
 
     # Find the TAR archive
-    patch_location = patch.rstrip("/{0}{1}.PiP".format(name, version))
+    patch_location = os.path.dirname(patch)
     logging.info("Locate TAR archive at {0}".format(patch_location))
 
     try:
