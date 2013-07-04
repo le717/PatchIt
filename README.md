@@ -2,15 +2,9 @@
   <img src="Icons/PatchIt-Compatible.png" alt="PatchIt! Logo"/>
 </p>
 
-<p align="center">
-  <img src="Icons/PatchIt-Compatible-Small.png" alt="PatchIt! Logo"/>
-</p>
 
 <p align="center">
-  <img src="Icons/PiTk.gif" alt="PatchIt! Logo"/>
-</p>
-<p align="center">
-  <img src="Icons/PatchItLogo.png" alt="PatchIt! Logo"/>
+  <img src="http://triangle717.files.wordpress.com/2013/02/patchitlogo.png?w=250" alt="PatchIt! Logo"/>
 </p>
 PatchIt! 
 ========
