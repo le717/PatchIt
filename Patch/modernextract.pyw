@@ -26,6 +26,8 @@ import linecache
 import zipfile
 import tarfile
 import random
+import traceback
+import sys
 
 # Logging module
 import logging
@@ -105,39 +107,58 @@ def selectPatch(*args):
         checkPatch(patch)
 
 def checkPatch(patch):
-    '''Checks if Patch uses the modern or legacy format,
-        or if it is a PatchIt! Patch at all'''
+    '''Checks if Patch uses the proper encoding,
+    if it is an modern or legacy Patch,
+    or if it is a PatchIt! Patch at all'''
 
-    try:
-        # Confirm that this is a patch, as defined in Documentation/PiP Format.md'
-        # Also check if it uses the modern or legacy format, as defined in
-        # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-        logging.info("Reading line 1 of {0} for PiP validity check and Patch format".format(patch))
-        with open(patch, "rt", encoding="utf-8") as f:
-            line = f.readlines()[0]
-            validline = "".join(line)
+    # Check encoding of Patch file
+    with open(patch, "rb") as encode_check:
+        encoding = encode_check.readline(3)
 
-        logging.info("Cleaning up validity line")
-        validline = validline.strip()
-        logging.info("The validity line reads\n{0}".format(validline))
 
-    # The "Patch" was encoding in something other than UTF-8 or ANSI
-    except UnicodeDecodeError:
-        logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+    if (# The "Patch" uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The "Patch" uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The "Patch" uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        # It is not written using ANSI or UTF-8-NOBOM, go to main menu
+        logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
+        logging.warning("{0} is encoded in an unrecognized encoding!".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
 
         time.sleep(1)
         logging.info("Switching to main menu")
         PatchIt.main()
 
+    # It is written using ANSI or UTF-8-NOBOM, continue reading it
+    # (implied else block here)
+
+    # Confirm that this is a patch, as defined in Documentation/PiP Format.md
+    # Also check if it uses the modern or legacy format, as defined in
+    # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
+    logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(patch))
+    with open(patch, "rt", encoding="utf-8") as f:
+        lines = f.readlines()[0:2]
+        valid_line = "".join(lines[0])
+        archive_line = "".join(lines[1:])
+
+    logging.info("Cleaning up validity lines")
+    valid_line = valid_line.strip()
+    archive_line = archive_line.strip()
+    logging.info("The validity lines reads\n{0} and \n{1}".format(valid_line, archive_line))
+
     # It's a legacy Patch
-    if validline == "// PatchIt! Patch format, created by le717 and rioforce.":
+    if (valid_line == "// PatchIt! Patch format, created by le717 and rioforce."
+        and archive_line == "[General]"):
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
         colors.pc('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_CYAN)
 
+        # Delete validity lines from memory
+        del lines[:]
         # Give them time to actually read the message.
         # Switch to legacy Patch Installation routine
         time.sleep(3)
@@ -145,25 +166,44 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         legacyextract.readPatch(patch)
 
     # It's a modern Patch
-    elif validline == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
+    elif (valid_line == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
+        and archive_line == "[PiA]"):
         logging.info("{0} is a modern PatchIt! Patch".format(patch))
 
+        # Delete validity lines from memory
+        del lines[:]
         # Go to the (modern) Patch Installation method
         logging.info("Proceeding to (modern) PatchIt! Patch Installation routine (readModernPatch(patch))")
         readModernPatch(patch)
 
-    # It's not a Patch at all! D:
-    # Same message as the UnicodeDecodeError exception
-    elif validline != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce":
+    # It's a V1.1.0 transition Patch, a version that is NEVER to be used
+    elif (valid_line == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
+        and archive_line == "[ZIP]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
 
+        # Delete validity lines from memory
+        del lines[:]
         # Switch to main menu
         time.sleep(1)
         logging.info("Switching to main menu")
         PatchIt.main()
 
-# ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
+    # It's not a Patch at all! D:
+    # The same message as V1.1.0 Patch
+    elif (valid_line != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
+        and archive_line != "[PiA]"):
+        logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
+        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
+
+        # Delete validity lines from memory
+        del lines[:]
+        # Switch to main menu
+        time.sleep(1)
+        logging.info("Switching to main menu")
+        PatchIt.main()
+
+# ------------ End PatchIt! Patch Selection and Identification  ------------ #
 
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
