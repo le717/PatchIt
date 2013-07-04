@@ -45,7 +45,7 @@ def file_check(path):
 
     blacklist = [
     # Programs
-    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar", ".dll"
+    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar", ".dll",
     # Scripts
     ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2",
     ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
@@ -61,6 +61,7 @@ def file_check(path):
 
     # --- Begin Temporary Folder Configuration -- #
 
+    # Make the locations global for use in other locations
     global temp_folder, one_folder_up, temp_location
     # Temporary folder for illegal files
     temp_folder = "PatchIt Temporary Folder"
@@ -78,49 +79,32 @@ def file_check(path):
 
     # Traversing the reaches of the Patch files...
     for root, dirnames, filenames in os.walk(path):
-        try:
-            # Copy entire directory (every last folder/file) to the temp location
-            logging.info("Moving all files from {0} to {1}".format(root, temp_location))
-            distutils.dir_util.copy_tree(root, temp_location)
-        except Exception:
-            # Dump any error tracebacks to the log.
-            logging.warning("Unknown error number")
-            logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-            pass
 
-    # Get the index and string of each item in the list
-    for index, string in enumerate(filenames):
+        logging.info("Copying all contents of {0} to {1}".format(path, temp_location))
+        distutils.dir_util.copy_tree(path, temp_location)
 
-        # Split the filename into name and extension
-        name, ext = os.path.splitext(string)
+        # Get the index and string of each item in the list
+        for index, string in enumerate(filenames):
+            logging.info("Getting the index and filename of all the files")
 
-        # If an illegal file is found, as idenifyed by the extension,
-        if ext in blacklist:
-            # Get the full path to it
-            illegal_file = os.path.join(root, string)
+            # Split the filename into name and extension
+            logging.info("Spliting all filenames into basename and extension")
+            name, ext = os.path.splitext(string)
 
-            # and remove the illegal files from the Patch files!
-            logging.info("An illegal file has been found!")
-            os.unlink(illegal_file)
+            # If an illegal file is found, as identified by the extension,
+            if ext.lower() in blacklist:
+                logging.warning("An illegal file ({0}) has been found!".format(ext))
+                # Get the full path to it,
+                illegal_file = os.path.join(root, string)
+                # And remove it from the Patch files!
+                logging.info("Removing {0} from the Patch files".format(illegal_file))
+                os.unlink(illegal_file)
 
     # --- End Illegal File Scan -- #
 
 def restore_files(path):
     '''Moves illegal files from the temporary location back to their
     original location'''
-
-    # --- Begin Temporary Folder Configuration -- #
-
-    # Temporary folder for illegal files
-##    temp_folder = "PatchIt Temporary Folder"
-
-    # The directory above the Patch files
-##    one_folder_up = os.path.dirname(path)
-
-    # The full location to the temporary folder
-##    temp_location = os.path.join(one_folder_up, temp_folder)
-
-    # --- End Temporary Folder Configuration -- #
 
     try:
         # Copy entire directory (every last folder/file) to the temp location
@@ -478,12 +462,12 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
 
     finally:
-        # Run function to restore all the files in the Patch files
-        logging.info("Running restore_files() to move all illegal files back")
-        restore_files(patchfiles)
         # Change the working directory back to the location of PatchIt!
         logging.info("Changing the working directory to {0}".format(PatchIt.app_folder))
         os.chdir(PatchIt.app_folder)
+        # Run process to restore all the files in the Patch files
+        logging.info("Running restore_files() to move all illegal files back")
+        restore_files(patchfiles)
         # Sleep for 2 seconds after displaying creation result before kicking back to the PatchIt! menu.
         time.sleep(2)
         logging.info("Switching to main menu")
