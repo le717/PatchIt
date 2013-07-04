@@ -1,16 +1,9 @@
 <p align="center">
-  <img src="Icons/PatchIt-Compatible.png" alt="PatchIt! Logo"/>
-</p>
-
-
-<p align="center">
   <img src="http://triangle717.files.wordpress.com/2013/02/patchitlogo.png?w=250" alt="PatchIt! Logo"/>
 </p>
+
 PatchIt! 
 ========
-
-
-
 
 
 This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by [Triangle717](http://Triangle717.WordPress.com).
