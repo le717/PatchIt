@@ -571,8 +571,10 @@ def LRGameCheck():
     LR_path = LR_path.strip()
 
      # The only three items needed to confirm a LEGO Racers installation.
-    if os.path.exists(os.path.join(LR_path, "legoracers.exe".lower())) and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))\
-    and os.path.exists(os.path.join(LR_path, "goldp.dll".lower())):
+    if (os.path.exists(os.path.join(LR_path, "legoracers.exe".lower()))
+        and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))
+        and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))
+        ):
         logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(LR_path))
         return True
 
@@ -784,8 +786,10 @@ def LOCOGameCheck():
     LOCO_path = LOCO_path.strip()
 
      # The only three items needed to confirm a LEGO LOCO installation.
-    if os.path.exists(os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower())) and os.path.exists(os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower()))\
-    and os.path.exists(os.path.join(LOCO_path, "art-res".lower())):
+    if (os.path.exists(os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower()))
+        and os.path.exists(os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower()))
+        and os.path.exists(os.path.join(LOCO_path, "art-res".lower()))
+        ):
         logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(LOCO_path))
         return True
 
