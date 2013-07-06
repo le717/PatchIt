@@ -425,7 +425,7 @@ def LRReadSettings():
 
     # The setting file does exist
     elif os.path.exists(os.path.join(settings_fol, LR_settings)):
-        logging.info("LEGO Racers Settings does exist")
+        logging.info("LEGO Racers Settings do exist")
 
         # The defined installation was not confirmed by LRGameCheck()
         if not LRGameCheck():
@@ -517,7 +517,7 @@ def LRWriteSettings():
             os.mkdir(settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'LR_settings' for writing with UTF-8 encoding")
+        logging.info("Open 'LR_settings' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LR_settings), 'wt', encoding='utf-8') as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
@@ -557,15 +557,29 @@ def LRWriteSettings():
 def LRGameCheck():
     '''Confirm LEGO Racers installation'''
 
-    # global it is can be used in other messages
-    logging.info("Reading line 7 of settings for LEGO Racers installation")
+    # Check encoding of Settings file
+    logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LR_settings)))
+    with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (# The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        logging.warning("LEGO Racers Settings cannot be read!")
+        return False
+
+    # Mark it as global it is can be used in other messages
     global LR_path
-    LR_path = linecache.getline(os.path.join(settings_fol, LR_settings), 7)
+    logging.info("Reading line 7 of settings for LEGO Racers installation")
+    with open(os.path.join(settings_fol, LR_settings), "rt", encoding="utf-8") as f:
+        LR_path = f.readlines()[6]
 
-    # Clear cache so settings file is completely re-read everytime
-    logging.info("Clearing installation cache...")
-    linecache.clearcache()
-
+    # Remove the list from the string
+    LR_path = "".join(LR_path)
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
     LR_path = LR_path.strip()
@@ -629,7 +643,6 @@ def CheckLRSettings():
         # Any other condition, return False
         else:
             logging.warning("PatchIt! has never been run!")
-            logging.info("Returning False.")
             return False
 
 # ----- End LEGO Racers Installation, Version and Settings Check ----- #
@@ -740,7 +753,7 @@ def LOCOWriteSettings():
             os.mkdir(settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'LOCO_settings' for writing with UTF-8 encoding")
+        logging.info("Open 'LOCO_settings' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LOCO_settings), 'wt', encoding='utf-8') as loco_file:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
@@ -772,15 +785,29 @@ def LOCOWriteSettings():
 def LOCOGameCheck():
     '''Confirm LEGO LOCO installation'''
 
-    # global it is can be used in other messages
-    logging.info("Reading line 5 of settings for LEGO LOCO installation")
+    # Check encoding of Settings file
+    logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LOCO_settings)))
+    with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (# The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        logging.warning("LEGO LOCO Settings cannot be read!")
+        return False
+
+    # Mark it as global it is can be used in other messages
     global LOCO_path
-    LOCO_path = linecache.getline(os.path.join(settings_fol, LOCO_settings), 5)
+    logging.info("Reading line 5 of settings for LEGO LOCO installation")
+    with open(os.path.join(settings_fol, LOCO_settings), "rt", encoding="utf-8") as f:
+        LOCO_path = f.readlines()[4]
 
-    # Clear cache so settings file is completely re-read everytime
-    logging.info("Clearing installation cache...")
-    linecache.clearcache()
-
+    # Remove the list from the string
+    LOCO_path = "".join(LOCO_path)
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
     LOCO_path = LOCO_path.strip()
@@ -833,7 +860,6 @@ def CheckLOCOSettings():
         # Any other condition, return False
         else:
             logging.warning("PatchIt! has never been run!")
-            logging.info("Returning False.")
             return False
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #

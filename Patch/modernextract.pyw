@@ -112,6 +112,7 @@ def checkPatch(patch):
     or if it is a PatchIt! Patch at all'''
 
     # Check encoding of Patch file
+    logging.info("Checking encoding of {0}".format(patch))
     with open(patch, "rb") as encode_check:
         encoding = encode_check.readline(3)
 
