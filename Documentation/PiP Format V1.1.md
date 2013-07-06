@@ -1,7 +1,7 @@
 PatchIt! PiP Format V1.1
 ========================
 
-**THIS DOCUMENT IS INCOMPLETE! The file format detailed in this file is not yet finalized, and is subject to change.**
+**THIS DOCUMENT IS INCOMPLETE! While the format detailed in this file is mostly finalized, all details have not yet been added.**
 
 General Information
 -------------------
