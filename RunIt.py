@@ -20,7 +20,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! V1.1.0 Stable Python Version Check, PatchIt! Logger, and PatchIt! Launcher
+# PatchIt! V1.1.0 Unstable Python Version Check, PatchIt! Logger, and PatchIt! Launcher
 # logging.BasicConfig code based on example from A Byte of Python
 # http://www.swaroopch.com/notes/Python
 import sys
@@ -39,7 +39,7 @@ except ImportError:
 
 app = "PatchIt!"
 majver = "Version 1.1.0"
-minver = "Stable"
+minver = "Unstable"
 
 # User is not running Python 3.3.0
 if sys.version_info < (3,3,0):

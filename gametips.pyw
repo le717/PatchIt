@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# PatchIt! V1.1.0 Stable LEGO Racers Gameplay tips
+# PatchIt! V1.1.0 Unstable LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 
 # Tips 1 - 12: Beginner Level

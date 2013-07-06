@@ -199,7 +199,7 @@ TheTesterGroup/
 ##########
 
 *.psd
-#*.txt
+*.txt
 gh-pages.txt
 *.ini
 #*.py
@@ -210,6 +210,7 @@ JAMExtractor.py
 listtips.py
 *settings
 settings*/
+Windows/Uninstaller*/
 Windows/PatchIt-*
 !Windows/*.exe
 *.log
