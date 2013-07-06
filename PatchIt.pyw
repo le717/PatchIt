@@ -570,10 +570,12 @@ def LRGameCheck():
         or encoding == b"\xff\xfe/"):
 
         logging.warning("LEGO Racers Settings cannot be read!")
+
+        # Mark as global it is can be used in other messages
+        global LR_path
+        LR_path = " "
         return False
 
-    # Mark it as global it is can be used in other messages
-    global LR_path
     logging.info("Reading line 7 of settings for LEGO Racers installation")
     with open(os.path.join(settings_fol, LR_settings), "rt", encoding="utf-8") as f:
         LR_path = f.readlines()[6]
@@ -798,10 +800,11 @@ def LOCOGameCheck():
         or encoding == b"\xff\xfe/"):
 
         logging.warning("LEGO LOCO Settings cannot be read!")
+        # Mark as global it is can be used in other messages
+        global LOCO_path
+        LOCO_path = " "
         return False
 
-    # Mark it as global it is can be used in other messages
-    global LOCO_path
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
     with open(os.path.join(settings_fol, LOCO_settings), "rt", encoding="utf-8") as f:
         LOCO_path = f.readlines()[4]
