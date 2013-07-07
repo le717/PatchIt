@@ -569,14 +569,17 @@ def LRGameCheck():
         # The settings file uses UCS-2 Little Endian
         or encoding == b"\xff\xfe/"):
 
+        # The settings cannot be read
         logging.warning("LEGO Racers Settings cannot be read!")
 
         # Mark as global it is can be used in other messages
         global LR_path
+        # Define blank path, since we can't read the settings
         LR_path = " "
         return False
 
-    logging.info("Reading line 7 of settings for LEGO Racers installation")
+    # The settings can be read, so do it (implied else block here)
+    logging.info("Reading line 7 for LEGO Racers installation")
     with open(os.path.join(settings_fol, LR_settings), "rt", encoding="utf-8") as f:
         LR_path = f.readlines()[6]
 
@@ -624,17 +627,36 @@ def CheckLRSettings():
         logging.warning("LEGO Racers Settings do not exist!")
         return False
 
+    # The LEGO Racers settings do exist
     elif os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.info("LEGO Racers Settings do exist")
 
-        # Settings file does not need to be opened to use linecache
-        logging.info("Reading line 3 for LEGO Racers first-run info")
-        lr_first_run = linecache.getline(os.path.join(settings_fol, LR_settings), 3)
-        lr_first_run = lr_first_run.strip()
+        # Check encoding of Settings file
+        logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LR_settings)))
+        with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
+            encoding = encode_check.readline(3)
 
-        # Always clear cache after reading
-        logging.info("Clearing Racers first-run cache...")
-        linecache.clearcache()
+        if (# The settings file uses UTF-8-BOM encoding
+            encoding == b"\xef\xbb\xbf"
+            # The settings file uses UCS-2 Big Endian encoding
+            or encoding == b"\xfe\xff\x00"
+            # The settings file uses UCS-2 Little Endian
+            or encoding == b"\xff\xfe/"):
+
+            # The settings cannot be read, return False
+            logging.warning("LEGO Racers Settings cannot be read!")
+            return False
+
+        # The settings can be read, so do it (implied else block here)
+        logging.info("Reading line 3 for LEGO Racers first-run info")
+        with open(os.path.join(settings_fol, LR_settings), "rt", encoding="utf-8") as f:
+            lr_first_run = f.readlines()[2]
+
+        # Remove the list from the string
+        lr_first_run = "".join(lr_first_run)
+        # Strip the path to make it valid
+        logging.info("Cleaning up installation text")
+        lr_first_run = lr_first_run.strip()
 
         # '0' means this is a "first-run"
         # len() >= 1 means file is not empty
@@ -845,14 +867,32 @@ def CheckLOCOSettings():
     elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.info("LEGO LOCO Settings do exist")
 
-        # Settings file does not need to be opened to use linecache
-        logging.info("Reading line 3 for LEGO LOCO first-run info")
-        loco_first_run = linecache.getline(os.path.join(settings_fol, LOCO_settings), 3)
-        loco_first_run = loco_first_run.strip()
+        # Check encoding of Settings file
+        logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LOCO_settings)))
+        with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
+            encoding = encode_check.readline(3)
 
-        # Always clear cache after reading
-        logging.info("Clearing LOCO first-run cache...")
-        linecache.clearcache()
+        if (# The settings file uses UTF-8-BOM encoding
+            encoding == b"\xef\xbb\xbf"
+            # The settings file uses UCS-2 Big Endian encoding
+            or encoding == b"\xfe\xff\x00"
+            # The settings file uses UCS-2 Little Endian
+            or encoding == b"\xff\xfe/"):
+
+            # The settings cannot be read, return False
+            logging.warning("LEGO LOCO Settings cannot be read!")
+            return False
+
+        # The settings can be read, so do it (implied else block here)
+        logging.info("Reading line 3 for LEGO LOCO first-run info")
+        with open(os.path.join(settings_fol, LOCO_settings), "rt", encoding="utf-8") as f:
+            loco_first_run = f.readlines()[2]
+
+        # Remove the list from the string
+        loco_first_run = "".join(loco_first_run)
+        # Strip the path to make it valid
+        logging.info("Cleaning up installation text")
+        loco_first_run = loco_first_run.strip()
 
         # '0' means this is a "first-run"
         # len() >= 1 means file is not empty

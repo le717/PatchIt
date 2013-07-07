@@ -77,7 +77,7 @@ def appLoggingFolder():
         if not os.path.exists(logs_folder):
 
             # Create the Logs folder
-            logs_folder = os.mkdir(logs_folder)
+            os.mkdir(logs_folder)
 
     # -- Begin Logging Config -- #
 
