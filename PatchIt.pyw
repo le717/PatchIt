@@ -24,7 +24,6 @@
 import sys
 import os
 import time
-import linecache
 import webbrowser
 import platform
 import subprocess
