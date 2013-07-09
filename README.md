@@ -31,19 +31,8 @@ Downloads
 ---------
 * Don't forget to ![Star!](http://i81.servimg.com/u/f81/16/33/06/11/star11.png)
 
-All **PatchIt!** downloads are hosted on this project, each one in a separate [Annotated Tag](https://github.com/le717/PatchIt/tags). 
-
-* **PatchIt!** Version 1.1.0 Unstable - Released May 18, 2013 
-
-> [Source Code](https://github.com/le717/PatchIt/tree/1.1.0)
-
-> [Direct Download](https://github.com/le717/PatchIt/raw/1.1.0/Windows/PatchIt-110-Stable.exe)
-
-* **PatchIt!** Version 1.0.3.1 Stable - Released May 2, 2013 
-
-> [Source Code](https://github.com/le717/PatchIt/tree/1.0.3.1)
-
-> [Direct Download](hhttps://github.com/le717/PatchIt/raw/1.0.3.1/Windows/PatchIt-Version-1.0.3.1-Stable.exe)
+All **PatchIt!** downloads are hosted on this project. The newest download is available on the [Releases page](https://github.com/le717/PatchIt/releases).
+All legacy downloads are provided here.
 
 * **PatchIt!** Version 1.0.3 Stable - Released March 11, 2013 
 
