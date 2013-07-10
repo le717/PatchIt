@@ -77,7 +77,6 @@ def file_check(path):
 
     # --- End Temporary Folder Configuration -- #
 
-
     # --- Begin Illegal File Scan -- #
 
     # Traversing the reaches of the Patch files...
