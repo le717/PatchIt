@@ -20,13 +20,13 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! V1.1.0 Stable Python Version Check, PatchIt! Logger, and PatchIt! Launcher
+# PatchIt! V1.1.1 Stable Python Version Check,
+# PatchIt! Logger, and PatchIt! Launcher
 # logging.BasicConfig code based on example from A Byte of Python
 # http://www.swaroopch.com/notes/Python
 import sys
 import os
 import webbrowser
-import time
 
 try:
     # Python 3 import
@@ -42,11 +42,13 @@ majver = "Version 1.1.1"
 minver = "Unstable"
 
 # User is not running < Python 3.3.0
-if sys.version_info < (3,3,0):
+if sys.version_info < (3, 3, 0):
     root = tk.Tk()
     root.withdraw()
     root.iconbitmap("Icons/PatchItIcon.ico")
-    showerror("Unsupported Python Version!", "You are running Python {0}.\nYou need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n".format(sys.version[0:5], app, majver, minver))
+    showerror("Unsupported Python Version!", '''You are running Python {0}.
+You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
+    sys.version[0:5], app, majver, minver))
 
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
@@ -58,7 +60,6 @@ if sys.version_info < (3,3,0):
 # (Implied else block here)
 # The user is running Python 3.3.x, continue on
 import logging
-import Color as color, Color.colors as colors
 import PatchIt
 
 # Location of PatchIt!
