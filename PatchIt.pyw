@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.1 Unstable, created 2013 Triangle717 (http://triangle717.wordpress.com)
+# PatchIt! V1.1.1 Unstable Core Module
 
 # General use modules
 import sys
@@ -66,6 +66,7 @@ LOCO_settings = "LOCO.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
+
 def args():
     '''PatchIt! Command-line Arguments'''
 
@@ -89,8 +90,8 @@ def args():
             if argument == value:
                 logging.info("The help parameter (-h, --help) was given, displaying help messages")
                 print("\n{0} {1} Command-line arguments".format(app, majver))
-                # Use input rather than print so user can close the window at anytime,
-                # rather than it closing after 10 seconds
+                # Use input rather than print so user can close the window
+                # at anytime, rather than it closing after 10 seconds
                 input(r'''
 Optional arguments
 ==================
@@ -120,7 +121,8 @@ Press the Enter key to close.'''.format(exe_name))
             # If the test parameter is given
             if argument == value:
                 test = True
-                os.system("title {0} {1} {2} - Experimental Mode".format(app, majver, minver))
+                os.system("title {0} {1} {2} - Experimental Mode".format(
+                    app, majver, minver))
                 logging.info("The test parameter (-t, --test) was given, enabling experimental features")
                 preload()
 
@@ -143,11 +145,12 @@ Press the Enter key to close.'''.format(exe_name))
                 # Switch to main menu
                 main()
 
+
 def info():
     '''PatchIt! and System checks'''
 
     # Check if Python is x86 or x64
-    # Based on code from the Python help file (platform module) and my own tests
+    # Based on code from Python help for platform module and my own tests
     if sys.maxsize == 2147483647:
         py_arch = "x86"
     else:
@@ -206,10 +209,12 @@ def preload():
     else:
         Settings()
 
+
 # ------------ End PatchIt! Initialization ------------ #
 
 
 # ------------ Begin PatchIt! About Box  ------------ #
+
 
 def about(*args):
     '''Tkinter About Box'''
@@ -272,7 +277,8 @@ package and install mods for LEGO Racers"
     creator_site.grid(column=2, row=1, sticky=tk.N, pady="7")
 
     # Small bit of padding around the elements
-    for child in frame.winfo_children(): child.grid_configure(padx=2, pady=2)
+    for child in frame.winfo_children():
+        child.grid_configure(padx=2, pady=2)
 
     # Bind the Return ("Enter") key to close the About Window
     root.bind('<Return>', close_about)
@@ -281,16 +287,19 @@ package and install mods for LEGO Racers"
     root.iconbitmap(app_icon)
     root.mainloop()
 
+
 # ------------ End PatchIt! About Box  ------------ #
 
 
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
+
 def main(*args):
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
-    colors.pc("\nWelcome to {0} {1} {2}\ncreated 2013 {3}.".format(app, majver, minver, creator), color.FG_WHITE)
+    colors.pc("\nWelcome to {0} {1} {2}\ncreated 2013 {3}.".format(
+        app, majver, minver, creator), color.FG_WHITE)
     if not test:
         logging.info("Display normal menu to user")
         print('''Please make a selection:\n
@@ -383,6 +392,7 @@ def easteregg(*args):
     logging.shutdown()
     raise SystemExit(0)
 
+
 # ------------ End PatchIt! Menu Layout ------------ #
 
 
@@ -392,7 +402,8 @@ def easteregg(*args):
 def Settings(*args):
     '''PatchIt! Settings Menu'''
 
-    print("\nDo you want to view your {0} or {1} settings?".format(LR_game, LOCO_game))
+    print("\nDo you want to view your {0} or {1} settings?".format(
+        LR_game, LOCO_game))
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO
@@ -420,6 +431,7 @@ def Settings(*args):
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
+
 def LRReadSettings():
     '''Read PatchIt! LEGO Racers settings'''
 
@@ -437,11 +449,13 @@ def LRReadSettings():
         if not LRGameCheck():
 
             # Use path defined in LRGameCheck() for messages
-            logging.warning("LEGO Racers installation was not found! at {0}".format(LR_path))
+            logging.warning("LEGO Racers installation was not found at {0}"
+            .format(LR_path))
 ##            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(LR_game, LR_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
-            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(LR_game, LR_path))
+            tk.messagebox.showerror("Invalid installation!",
+            "Cannot find {0} installation at {1}".format(LR_game, LR_path))
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
@@ -449,8 +463,10 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            logging.info("LEGO Racers installation was found at {0}.".format(LR_path))
-            print('\n{0} installation found at\n"{1}"!\n\n'.format(LR_game, LR_path) + r"Would you like to change this? (y\N)")
+            logging.info("LEGO Racers installation was found at {0}.".format(
+                LR_path))
+            print('\n{0} installation found at\n"{1}"!\n\n'.format(
+                LR_game, LR_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -461,14 +477,17 @@ def LRReadSettings():
 
             # No, I do not want to change the defined installation
             else:
-                logging.info("User does not want to change defined LEGO Racers installation or pressed an undefined key")
+                logging.info('''User does not want to change the LEGO Racers
+                installation or pressed an undefined key''')
                 logging.info("Switching to main menu")
                 main()
+
 
 # ----- End PatchIt! LEGO Racers Settings Reading ----- #
 
 
 # ----- Begin PatchIt! LEGO Racers Settings Writing ----- #
+
 
 def LRWriteSettings():
     '''Write PatchIt! LEGO Racers settings'''
@@ -525,7 +544,8 @@ def LRWriteSettings():
 
         # Write settings, using UTF-8 encoding
         logging.info("Open 'LR_settings' for writing using UTF-8-NOBOM encoding")
-        with open(os.path.join(settings_fol, LR_settings), 'wt', encoding='utf-8') as racers_file:
+        with open(os.path.join(settings_fol, LR_settings),
+            'wt', encoding='utf-8') as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)
@@ -558,15 +578,19 @@ def LRWriteSettings():
         logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
         LRReadSettings()
 
+
 # ----- End PatchIt! LEGO Racers Settings Writing ----- #
 
+
 # ----- Begin LEGO Racers Installation, Version and Settings Check ----- #
+
 
 def LRGameCheck():
     '''Confirm LEGO Racers installation'''
 
     # Check encoding of Settings file
-    logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LR_settings)))
+    logging.info("Checking encoding of {0}".format(
+        os.path.join(settings_fol, LR_settings)))
     with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -588,7 +612,8 @@ def LRGameCheck():
 
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
-    with open(os.path.join(settings_fol, LR_settings), "rt", encoding="utf-8") as f:
+    with open(os.path.join(settings_fol, LR_settings),
+        "rt", encoding="utf-8") as f:
         LR_path = f.readlines()[6]
 
     # Remove the list from the string
@@ -602,7 +627,8 @@ def LRGameCheck():
         and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))
         and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))
         ):
-        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}".format(LR_path))
+        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}"
+        .format(LR_path))
         return True
 
     # If the settings file was externally edited and the path was removed
@@ -615,6 +641,7 @@ def LRGameCheck():
         logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(LR_path))
         return False
 
+
 def LRVerCheck(new_racers_game):
     '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
 
@@ -626,6 +653,7 @@ def LRVerCheck(new_racers_game):
         logging.info("LEGORacers.icd was found, this is the 1999 release")
         LRVer = "1999"
         return LRVer
+
 
 def CheckLRSettings():
     '''Checks if LEGO LOCO Settings and First-run info'''
@@ -640,11 +668,12 @@ def CheckLRSettings():
         logging.info("LEGO Racers Settings do exist")
 
         # Check encoding of Settings file
-        logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LR_settings)))
+        logging.info("Checking encoding of {0}".format(
+            os.path.join(settings_fol, LR_settings)))
         with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
             encoding = encode_check.readline(3)
 
-        if (# The settings file uses UTF-8-BOM encoding
+        if (  # The settings file uses UTF-8-BOM encoding
             encoding == b"\xef\xbb\xbf"
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
@@ -677,10 +706,12 @@ def CheckLRSettings():
             logging.warning("PatchIt! has never been run!")
             return False
 
+
 # ----- End LEGO Racers Installation, Version and Settings Check ----- #
 
 
 # ----- Begin PatchIt! LEGO LOCO Settings Reading ----- #
+
 
 def LOCOReadSettings():
     '''Read PatchIt! LEGO LOCO settings'''
@@ -712,7 +743,8 @@ def LOCOReadSettings():
         # The defined installation was confirmed by LOCOGameCheck()
         else:
             logging.info("LEGO LOCO installation was found at {0}.".format(LOCO_path))
-            print('\n{0} installation found at "{1}"!\n'.format(LOCO_game, LOCO_path) + r"Would you like to change this? (y\N)")
+            print('\n{0} installation found at "{1}"!\n'.format(
+                LOCO_game, LOCO_path) + r"Would you like to change this? (y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -723,14 +755,17 @@ def LOCOReadSettings():
 
                 # No, I do not want to change the defined installation
             else:
-                logging.info("User does not want to change defined LEGO LOCO installation or pressed an undefined key")
+                logging.info('''User does not want to change the LEGO LOCO
+                installation or pressed an undefined key''')
                 logging.info("Switching to main menu")
                 main()
+
 
 # ----- End PatchIt! LEGO LOCO Settings Reading ----- #
 
 
 # ----- Begin PatchIt! LEGO LOCO Settings Writing ----- #
+
 
 def LOCOWriteSettings():
     '''Write PatchIt! LEGO LOCO settings'''
@@ -787,7 +822,8 @@ def LOCOWriteSettings():
 
         # Write settings, using UTF-8 encoding
         logging.info("Open 'LOCO_settings' for writing using UTF-8-NOBOM encoding")
-        with open(os.path.join(settings_fol, LOCO_settings), 'wt', encoding='utf-8') as loco_file:
+        with open(os.path.join(settings_fol, LOCO_settings),
+            'wt', encoding='utf-8') as loco_file:
 
             # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
@@ -811,9 +847,12 @@ def LOCOWriteSettings():
         logging.info("Proceeding to PatchIt! LEGO LOCO Settings (LOCOReadSettings())")
         LOCOReadSettings()
 
+
 # ----- End PatchIt! LEGO LOCO Settings Writing ----- #
 
+
 # ----- Begin LEGO LOCO Installation and Settings Check ----- #
+
 
 def LOCOGameCheck():
     '''Confirm LEGO LOCO installation'''
@@ -823,7 +862,7 @@ def LOCOGameCheck():
     with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
-    if (# The settings file uses UTF-8-BOM encoding
+    if (  # The settings file uses UTF-8-BOM encoding
         encoding == b"\xef\xbb\xbf"
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
@@ -863,6 +902,7 @@ def LOCOGameCheck():
     else:
         logging.warning("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(LOCO_path))
         return False
+
 
 def CheckLOCOSettings():
     '''Checks if LEGO LOCO Settings and First-run info'''
@@ -913,6 +953,7 @@ def CheckLOCOSettings():
         else:
             logging.warning("PatchIt! has never been run!")
             return False
+
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #
 

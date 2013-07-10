@@ -67,6 +67,7 @@ app_folder = os.path.dirname(sys.argv[0])
 
 # ------------ Begin PatchIt! Logging Code ------------ #
 
+
 def appLoggingFolder():
     '''Checks for (and creates) PatchIt! Logs folder'''
 
@@ -96,10 +97,13 @@ def appLoggingFolder():
         root = tk.Tk()
         root.withdraw()
         root.iconbitmap("Icons/PatchItIcon.ico")
-        showerror("Insufficient User Rights!", "PatchIt! does not have the user rights to operate!\nPlease relaunch PatchIt! as an Administrator.")
+        showerror("Insufficient User Rights!",
+        '''PatchIt! does not have the user rights to operate!
+Please relaunch PatchIt! as an Administrator.''')
 
         # Close PatchIt! when user presses OK
         raise SystemExit(0)
+
 
 # ------------ End PatchIt! Logging Code ------------ #
 
