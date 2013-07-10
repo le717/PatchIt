@@ -43,7 +43,8 @@ from Patch import legacyextract
 from Patch import racingtips
 
 # Colored shell text
-import Color as color, Color.colors as colors
+import Color as color
+import Color.colors as colors
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -257,15 +258,15 @@ def readModernPatch(patch):
     logging.info("Cleaning up Patch Name")
     name = name.strip()
     logging.info("Cleaning up Patch Author")
-    author =author.strip()
+    author = author.strip()
     logging.info("Cleaning up Patch Version")
     version = version.strip()
     logging.info("Cleaning up Patch Description")
     desc = desc.strip()
     logging.info("Cleaning up MP field")
-    mp  = mp.strip()
+    mp = mp.strip()
     logging.info("Cleaning up Game field")
-    game  = game.strip()
+    game = game.strip()
 
     # Display all the info
     logging.info("Display all Patch info")
@@ -315,7 +316,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         install_path = linecache.getline(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), 5)
 
     # This is a LEGO Racers patch, read the Racers settings
-    else: # elif game == "LEGO Racers":
+    else:  # elif game == "LEGO Racers":
         # The LEGO Racers settings do not exist
         if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
             logging.warning("Could not find LEGO Racers settings!")

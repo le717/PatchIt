@@ -377,7 +377,7 @@ def easteregg(*args):
     root.iconbitmap(app_icon)
     tk.messagebox.showerror("Uh-oh", "That was bad.")
     tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
-    view_cow = tk.messagebox.askquestion("Uh-oh", "Would you like see your punishment for pressing that key?")
+    tk.messagebox.askquestion("Uh-oh", "Would you like see your punishment for pressing that key?")
     subprocess.call([os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")], shell=True)
     logging.info("PatchIt! is shutting down.")
     logging.shutdown()
