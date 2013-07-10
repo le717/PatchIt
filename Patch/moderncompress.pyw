@@ -26,7 +26,8 @@ import tarfile
 import time
 import distutils.dir_util
 # Colored shell text
-import Color as color, Color.colors as colors
+import Color as color
+import Color.colors as colors
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 # App Logging module
@@ -35,6 +36,7 @@ import logging
 import re
 
 # ------------ Begin Illegal File Check ------------ #
+
 
 def file_check(path):
     '''Checks for, and moves illegal files to a temporary location'''
@@ -78,11 +80,11 @@ def file_check(path):
 
     # --- Begin Illegal File Scan -- #
 
-
     # Traversing the reaches of the Patch files...
     for root, dirnames, filenames in os.walk(path):
 
-        logging.info("Copying all contents of {0} to {1}".format(path, temp_location))
+        logging.info("Copying all contents of {0} to {1}".format(path,
+        temp_location))
         distutils.dir_util.copy_tree(path, temp_location)
 
         # Get the index and string of each item in the list
@@ -101,31 +103,36 @@ def file_check(path):
 
     # --- End Illegal File Scan -- #
 
+
 def restore_files(path):
     '''Moves illegal files from the temporary location back to their
     original location'''
 
     try:
         # Copy entire directory (every last folder/file) to the temp location
-        logging.info("Moving all files back from {0} to {1}".format(temp_location, path))
+        logging.info("Moving all files back from {0} to {1}".format(temp_location,
+        path))
         distutils.dir_util.copy_tree(temp_location, path)
         distutils.dir_util.remove_tree(temp_location)
     except Exception:
-       # Dump any error tracebacks to the log.
-       logging.warning("Unknown error number")
-       logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-       pass
+        # Dump any error tracebacks to the log
+        logging.warning("Unknown error number")
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+           exc_info=True)
+        pass
 
 # ------------ End Illegal File Check ------------ #
 
 
 # ------------ Begin Patch Info Character and Length Checks ------------ #
 
+
 def charCheck(text, search=re.compile(r'[^A-Za-z0-9. ]').search):
     '''Check if an invalid character was entered or not'''
 
     # This returns True if everything is valid, and False if it isn't
     return not bool(search(text))
+
 
 def patchName():
     '''Ask for Patch Name'''
@@ -159,12 +166,12 @@ def patchName():
         logging.info("Looping back through patchName()")
         patchName()
 
-
     # An invalid character was not entered/the field was filled out
     else:
         logging.info("All characters in Patch name are allowed")
         logging.info("The name field was filled out")
         return name
+
 
 def patchVersion():
     '''Ask for Patch Version'''
@@ -204,6 +211,7 @@ def patchVersion():
         logging.info("The version field was filled out")
         return version
 
+
 def patchAuthor():
     '''Ask for Patch Author'''
 
@@ -222,6 +230,7 @@ def patchAuthor():
     else:
         logging.info("The author field was filled out")
         return author
+
 
 def patchDesc():
     '''Ask for Patch Author'''
@@ -242,10 +251,12 @@ def patchDesc():
         logging.info("The description field was filled out")
         return desc
 
+
 # ------------ End Patch Info Character and Length Checks ------------ #
 
 
 # ------------ Begin PatchIt! Patch Creation ------------ #
+
 
 def patchInfo(*args):
     '''Asks for PatchIt! Patch details'''
@@ -281,7 +292,7 @@ def patchInfo(*args):
         game = "LEGO LOCO"
 
      # I want to quit the process
-    else: #elif game_select.lower() == "q":
+    else:  # elif game_select.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_WHITE)
         logging.info("Switching to main menu")
@@ -301,7 +312,8 @@ def patchInfo(*args):
     desc = patchDesc()
 
     if game == "LEGO LOCO":
-        # Get the resolution the map was created in (it matters!) for the MP field
+        # Get the resolution the map was created in (it matters!)
+        # for the MP field
         logging.info("Switching to LOCORes(name) to get map resolution")
         mp = LOCORes(name)
 
@@ -345,7 +357,8 @@ def patchInfo(*args):
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
-        logging.info("User selected files at {0} for Patch compression".format(patchfiles))
+        logging.info("User selected files at {0} for Patch compression".format(
+            patchfiles))
         logging.info('''The final Patch details are:
 
 {0}
@@ -358,6 +371,7 @@ Game: {3}
 '''.format(name, version, author, game, mp, desc))
         logging.info("Switching to writePatch()")
         writePatch(patchfiles, name, version, author, desc, mp, game)
+
 
 def LOCORes(name):
     '''Enter the resolution this LOCO map was created with'''
@@ -374,7 +388,8 @@ Hint: if you are unsure, it will most likely be either'''.format(name))
 If you used a custom resolution, be sure to enter that into the fields below.''', color.FG_LIGHT_MAGENTA)
 
     try:
-        # int() because screen resolution is not expressed in decimial numbers nor words, but numbers
+        # int() because the screen resolution is not expressed in
+        # decimial numbers nor words, but whole numbers
         res_horz = int(input("\nWidth: "))
         res_vert = int(input("Height: "))
         mp = "{0}x{1}".format(res_horz, res_vert)
@@ -385,7 +400,8 @@ If you used a custom resolution, be sure to enter that into the fields below.'''
     # A valid resolution was not entered
     except ValueError:
         logging.warning("User entered an invalid number!")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
         colors.pc("You have entered a non-numerical character!")
         logging.info("Looping back through LOCORes()")
         LOCORes(name)
@@ -398,7 +414,8 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         # Declare the Patch PiP and Archive filenames
         thepatch = "{0}{1}.PiP".format(name, version)
         thearchive = "{0}{1}.PiA".format(name, version)
-        logging.info("The final file names are {0} and {1}".format(thepatch, thearchive))
+        logging.info("The final file names are {0} and {1}".format(thepatch,
+        thearchive))
 
         # Run ilegal file check
         logging.info("Running file_check() to check for and remove illegal files.")
@@ -414,7 +431,8 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
             tar_file.add(patchfiles, "")
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
-        logging.info("Write {0} with Patch details using UTF-8 encoding".format(thepatch))
+        logging.info("Write {0} with Patch details using UTF-8 encoding".format(
+            thepatch))
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
             patch.write("// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n")
             patch.write("[ZIP]\n")
@@ -430,15 +448,20 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
 
         # The Patch was created sucessfully!
         logging.info("Error (exit) number '0'")
-        logging.info("{0} Version: {1} created and saved to {2}".format(name, version, patchfiles))
-        colors.pc('\nPatchIt! patch for {0} Version: {1} created and saved to\n"{2}"'.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
+        logging.info("{0} Version: {1} created and saved to {2}".format(name,
+        version, patchfiles))
+        colors.pc('''\nPatchIt! patch for {0} Version: {1} created and saved to
+"{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
 
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
         logging.warning("Error number '13'")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning("PatchIt! does not have the rights to create {0} {1}".format(name, version))
-        colors.pc("\nPatchIt! does not have the rights to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
+        logging.warning("PatchIt! does not have the rights to create {0} {1}"
+        .format(name, version))
+        colors.pc("\nPatchIt! does not have the rights to create {0} {1}!"
+        .format(name, version), color.FG_LIGHT_RED)
         # Delete incomplete files
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
         try:
@@ -451,14 +474,20 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
     # .PiP and/or .zip already exists
     except shutil.Error:
         logging.warning("shutil.Error")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(thepatch, thearchive, patchfiles,PatchIt.app_folder))
-        colors.pc('\n{0} or {1} already exists!\nCheck either "{2}"\nor "{3}"\nfor the files, and move or delete them if necessary.'.format(thepatch, thearchive, patchfiles, PatchIt.app_folder), color.FG_LIGHT_RED)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
+        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(
+            thepatch, thearchive, patchfiles, PatchIt.app_folder))
+        colors.pc('''\n{0} or {1} already exists!
+    Check either "{2}"\nor "{3}"
+for the files, and move or delete them if necessary.'''.format(thepatch,
+     thearchive, patchfiles, PatchIt.app_folder), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
         logging.warning("Unknown error number")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
         logging.warning("PatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version))
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
         try:
@@ -467,7 +496,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
             # In case the file was never created in the first place
         except FileNotFoundError:
             pass
-
 
     finally:
         # Change the working directory back to the location of PatchIt!
@@ -478,5 +506,6 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         restore_files(patchfiles)
         logging.info("Switching to main menu")
         PatchIt.main()
+
 
 # ------------ End PatchIt! Patch Creation ------------ #

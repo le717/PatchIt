@@ -48,6 +48,7 @@ import Color.colors as colors
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
+
 def selectPatch(*args):
     '''Select a PatchIt! Patch'''
 
@@ -89,7 +90,8 @@ def selectPatch(*args):
         root.destroy()
 
         logging.warning("User did not select a PatchIt! Patch for installation!")
-        colors.pc("\nCould not find a PatchIt! Patch to read!", color.FG_LIGHT_RED)
+        colors.pc("\nCould not find a PatchIt! Patch to read!",
+            color.FG_LIGHT_RED)
         time.sleep(0.7)
 
         logging.info("Switching to main menu")
@@ -107,6 +109,7 @@ def selectPatch(*args):
         logging.info("Switching to checkPatch(patch)")
         checkPatch(patch)
 
+
 def checkPatch(patch):
     '''Checks if Patch uses the proper encoding,
     if it is an modern or legacy Patch,
@@ -117,8 +120,7 @@ def checkPatch(patch):
     with open(patch, "rb") as encode_check:
         encoding = encode_check.readline(3)
 
-
-    if (# The "Patch" uses UTF-8-BOM encoding
+    if (  # The "Patch" uses UTF-8-BOM encoding
         encoding == b"\xef\xbb\xbf"
         # The "Patch" uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
@@ -127,8 +129,10 @@ def checkPatch(patch):
 
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
         logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
-        logging.warning("{0} is encoded in an unrecognized encoding!".format(patch))
-        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
+        logging.warning("{0} is encoded in an unrecognized encoding!".format(
+            patch))
+        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
+            color.FG_LIGHT_RED)
 
         time.sleep(1)
         logging.info("Switching to main menu")
@@ -149,7 +153,8 @@ def checkPatch(patch):
     logging.info("Cleaning up validity lines")
     valid_line = valid_line.strip()
     archive_line = archive_line.strip()
-    logging.info("The validity lines reads\n{0} and \n{1}".format(valid_line, archive_line))
+    logging.info("The validity lines reads\n{0} and \n{1}".format(valid_line,
+    archive_line))
 
     # It's a legacy Patch
     if (valid_line == "// PatchIt! Patch format, created by le717 and rioforce."
@@ -157,7 +162,8 @@ def checkPatch(patch):
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
         colors.pc('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
-It may be best to check if a newer version of this mod is available.'''.format(patch), color.FG_CYAN)
+It may be best to check if a newer version of this mod is available.'''.format(
+    patch), color.FG_CYAN)
 
         # Delete validity lines from memory
         del lines[:]
@@ -182,7 +188,8 @@ It may be best to check if a newer version of this mod is available.'''.format(p
     elif (valid_line == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
         and archive_line == "[ZIP]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
+        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
+            color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
         del lines[:]
@@ -196,7 +203,8 @@ It may be best to check if a newer version of this mod is available.'''.format(p
     elif (valid_line != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
         and archive_line != "[PiA]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch), color.FG_LIGHT_RED)
+        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
+            color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
         del lines[:]
@@ -205,10 +213,12 @@ It may be best to check if a newer version of this mod is available.'''.format(p
         logging.info("Switching to main menu")
         PatchIt.main()
 
+
 # ------------ End PatchIt! Patch Selection and Identification  ------------ #
 
 
 # ------------ Begin PatchIt! Patch Installation ------------ #
+
 
 def readModernPatch(patch):
     '''Reads PatchIt! Patch Details'''
@@ -271,7 +281,6 @@ def readModernPatch(patch):
     # Display all the info
     logging.info("Display all Patch info")
 
-
     patch_info = '''\n{0}
 Version: {1}
 Author: {2}
@@ -283,13 +292,16 @@ Game: {3}
     print(patch_info, end="\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
-    print("\nDo you wish to install {0} {1}? {2}".format(name, version, r"(y\N)"))
+    print("\nDo you wish to install {0} {1}? {2}".format(name, version,
+    r"(y\N)"))
     confirm_install = input("\n> ")
 
     # No, I do not want to install the patch
     if confirm_install.lower() != "y":
-        logging.warning("User does not want to install {0} {1}!".format(name, version))
-        colors.pc("\nCanceling installation of {0} {1}...".format(name, version), color.FG_WHITE)
+        logging.warning("User does not want to install {0} {1}!".format(name,
+        version))
+        colors.pc("\nCanceling installation of {0} {1}...".format(name,
+        version), color.FG_WHITE)
         time.sleep(0.5)
         logging.info("Switching to main menu")
         PatchIt.main()
@@ -298,7 +310,9 @@ Game: {3}
         # Yes, I do want to install it!
         logging.info("User does want to install {0} {1}.".format(name, version))
         logging.info("Proceeding to installModernPatch()")
-        installModernPatch(patch, name, version, author, game, mp, patch_archive)
+        installModernPatch(patch, name, version, author, game, mp,
+            patch_archive)
+
 
 def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     '''Installs a Modern PatchIt! Patch'''
@@ -341,7 +355,8 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
 
     try:
         # Actually extract the PiA archive
-        logging.info("Extracting {0} to {1}".format(patch_archive, install_path))
+        logging.info("Extracting {0} to {1}".format(patch_archive,
+        install_path))
 
         with tarfile.open(os.path.join(patch_location, patch_archive), "r") as tar_file:
             tar_file.extractall(install_path)
@@ -350,7 +365,8 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + random.choice(racingtips.gametips), color.FG_CYAN)
+            colors.pc("\nHere's a tip!\n" + random.choice(racingtips.gametips),
+            color.FG_CYAN)
 
         # Display the LEGO LOCO map resolution.
         elif game == "LEGO LOCO":
@@ -361,8 +377,10 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         # Installation was sucessful!
         logging.warning("Error (exit) number '0'")
-        logging.info("{0} {1} sucessfully installed to {2}".format(name, version, install_path))
-        colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name, version, install_path), color.FG_LIGHT_GREEN)
+        logging.info("{0} {1} sucessfully installed to {2}".format(name,
+        version, install_path))
+        colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name,
+        version, install_path), color.FG_LIGHT_GREEN)
 
         # Log Archive closure although it was closed automatically by with
         logging.info("Closing {0}".format(patch_archive))
@@ -370,13 +388,15 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
     # For some reason, it cannot find the Patch archive
     except FileNotFoundError:
         logging.warning("Error number '2'")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
 
         # Strip the ID text for a smoother error message
         logging.info("Cleaning up Version and Author text")
         version = version.lstrip("Version: ")
         author = author.lstrip("Author: ")
-        logging.warning("Unable to find {0} at {1}!".format(patch_archive, patch_location))
+        logging.warning("Unable to find {0} at {1}!".format(patch_archive,
+        patch_location))
         colors.pc('''\nCannot find Patch files for {0} {1}!
 Make sure "{0}{1}.PiA" and "{0}{1}.PiP"
 are in the same folder, and try again.
@@ -387,25 +407,36 @@ If this error continues, contact {2} and ask for a fixed version.'''
     # The user does not have the rights to install to that location.
     except PermissionError:
         logging.warning("Error number '13'")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
         logging.warning('PatchIt! does not have the rights to install "{0} {1}" to {2}'.format(name, version, install_path))
-        colors.pc('\nPatchIt! does not have the rights to install\n"{0} {1}" to\n{2}!\n'.format(name, version, install_path), color.FG_LIGHT_RED)
+        colors.pc('''\nPatchIt! does not have the rights to install
+"{0} {1}" to
+{2}!
+'''.format(name, version, install_path), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.warning("Unknown error number")
-        logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
         logging.warning('PatchIt! ran into an unknown error while trying to install "{0} {1}" to {2}'.format(name, version, install_path))
-        colors.pc('\nPatchIt! ran into an unknown error while trying to install\n"{0} {1}" to\n{2}!\n'.format(name, version, install_path), color.FG_LIGHT_RED)
+        colors.pc('''\nPatchIt! ran into an unknown error while trying to install
+"{0} {1}" to
+{2}!
+'''.format(name, version, install_path),
+color.FG_LIGHT_RED)
 
     # This is run no matter if an exception was raised nor not.
     finally:
         # Delete all PiP data to free up resources
         del all_lines[:]
         logging.info("Deleting all data from {0}{1}.PiP".format(name, version))
-        # Sleep for 2 seconds after displaying installation result before kicking back to the PatchIt! menu.
+        # Sleep for 2 seconds after displaying installation result
+        # before kicking back to the PatchIt! menu.
         time.sleep(2)
         logging.info("Switching to main menu")
         PatchIt.main()
+
 
 # ------------ End PatchIt! Patch Installation ------------ #
