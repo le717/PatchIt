@@ -89,7 +89,7 @@ def readPatch(installpatch):
             installname, installver))
         print("\nCanceling installation of {0} {1}...".format(installname,
         installver))
-        sleep(1)
+        sleep(0.5)
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
@@ -121,7 +121,7 @@ def readPatch(installpatch):
         logging.info("Clearing settings file cache...")
         linecache.clearcache()
 
-        # Create a vaild ZIP archive
+        # Create a valid ZIP archive
         logging.info("Cleaning up ZIP archive text")
         installzipfile = installzipfile.rstrip("\n")
 
@@ -143,11 +143,11 @@ def readPatch(installpatch):
             colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips),
                 color.CYAN)
 
-            # Installation was sucessful!
+            # Installation was successful!
             logging.info("Error (exit) number '0'")
-            logging.info("{0} {1} sucessfully installed to {2}".format(installname,
+            logging.info("{0} {1} successfully installed to {2}".format(installname,
             installver, installpath))
-            print("\n{0} {1} sucessfully installed!\n".format(installname,
+            print("\n{0} {1} successfully installed!\n".format(installname,
             installver))
 
             # Log ZIP closure although it was closed automatically by with
@@ -186,9 +186,9 @@ If the error continues, contact {3} and ask for a fixed version.'''
 
         # This is run no matter if an exception was raised nor not.
         finally:
-            # Sleep for 4.5 seconds after displaying installation result before
-            # kicking back to the PatchIt! menu.
-            sleep(4.5)
+            # Sleep for 2 seconds after displaying installation result
+            # before kicking back to the PatchIt! menu.
+            sleep(2)
             logging.info("Proceeding to main menu")
             PatchIt.main()
 

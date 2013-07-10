@@ -308,7 +308,7 @@ def patchInfo(*args):
     logging.info("Ask for Patch author (patchAuthor())")
     author = patchAuthor()
 
-    logging.info("Ask for Patch descriptoin (patchDesc())")
+    logging.info("Ask for Patch description (patchDesc())")
     desc = patchDesc()
 
     if game == "LEGO LOCO":
@@ -389,7 +389,7 @@ If you used a custom resolution, be sure to enter that into the fields below.'''
 
     try:
         # int() because the screen resolution is not expressed in
-        # decimial numbers nor words, but whole numbers
+        # decimal numbers nor words, but whole numbers
         res_horz = int(input("\nWidth: "))
         res_vert = int(input("Height: "))
         mp = "{0}x{1}".format(res_horz, res_vert)
@@ -435,7 +435,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
             thepatch))
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
             patch.write("// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n")
-            patch.write("[ZIP]\n")
+            patch.write("[PiA]\n")
             patch.write("{0}\n".format(thearchive))
             patch.write("[GENERAL]\n")
             patch.write("{0}\n".format(author))
@@ -446,7 +446,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
             patch.write("[DESCRIPTION]\n")
             patch.write("{0}\n".format(desc))
 
-        # The Patch was created sucessfully!
+        # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name,
         version, patchfiles))

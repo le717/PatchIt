@@ -361,7 +361,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         with tarfile.open(os.path.join(patch_location, patch_archive), "r") as tar_file:
             tar_file.extractall(install_path)
 
-        # Display gameplay tip/MP only if Patch was sucessfully installed
+        # Display gameplay tip/MP only if Patch was successfully installed
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
@@ -375,9 +375,9 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
 It may be best to play LEGO LOCO in that same resolution to avoid
 cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
-        # Installation was sucessful!
+        # Installation was successful!
         logging.warning("Error (exit) number '0'")
-        logging.info("{0} {1} sucessfully installed to {2}".format(name,
+        logging.info("{0} {1} successfully installed to {2}".format(name,
         version, install_path))
         colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name,
         version, install_path), color.FG_LIGHT_GREEN)
