@@ -79,7 +79,7 @@ def readPatch(installpatch):
 
     logging.info("Do you Do you wish to install {0} {1}?".format(installname,
     installver))
-    print("\nDo you wish to install {0} {1}? {2}".format(installname, installver
+    print("\nDo you wish to install {0} {1}? {2}".format(installname, installver,
      r"(y\N)"))
     confirminstall = input("\n> ")
 
