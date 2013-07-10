@@ -21,13 +21,17 @@
 # PatchIt! V1.1.1 Stable Legacy Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
-import PatchIt, linecache, zipfile, os
+import PatchIt
+import linecache
+import zipfile
+import os
 from Patch import racingtips
 from os.path import exists, join
 from random import choice
 from time import sleep
 # Colored text
-import Color as color, Color.colors as colors
+import Color as color
+import Color.colors as colors
 # File/folder dialog boxes
 import tkinter
 from tkinter import filedialog
@@ -35,6 +39,7 @@ from tkinter import filedialog
 import logging
 
 # ------------ Begin Legacy PatchIt! Patch Installation ------------ #
+
 
 def readPatch(installpatch):
     '''Reads and Installs Legacy PatchIt! Patch'''
@@ -61,8 +66,10 @@ def readPatch(installpatch):
 
     # Display all the info
     logging.info("Display all mod info")
-    logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver, installauthor, installdesc))
-    print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor, installdesc), end="\n")
+    logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver,
+    installauthor, installdesc))
+    print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor,
+    installdesc), end="\n")
 
     # Clean up name and version to put all the text on one line
     logging.info("Cleaning up mod name")
@@ -70,21 +77,26 @@ def readPatch(installpatch):
     logging.info("Cleaning up mod version")
     installver = installver.strip("\n")
 
-    logging.info("Do you Do you wish to install {0} {1}?".format(installname, installver))
-    print("\nDo you wish to install {0} {1}? {2}".format(installname, installver, r"(y\N)"))
+    logging.info("Do you Do you wish to install {0} {1}?".format(installname,
+    installver))
+    print("\nDo you wish to install {0} {1}? {2}".format(installname, installver
+     r"(y\N)"))
     confirminstall = input("\n> ")
 
     # No, I do not want to install the patch
     if confirminstall.lower() != "y":
-        logging.warning("User does not want to install {0} {1}!".format(installname, installver))
-        print("\nCanceling installation of {0} {1}...".format(installname, installver))
+        logging.warning("User does not want to install {0} {1}!".format(
+            installname, installver))
+        print("\nCanceling installation of {0} {1}...".format(installname,
+        installver))
         sleep(1)
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
-        # Yes, I do want to install it!
+    # Yes, I do want to install it!
     else:
-        logging.info("User does want to install {0} {1}.".format(installname, installver))
+        logging.info("User does want to install {0} {1}.".format(installname,
+        installver))
 
         # The LEGO Racers settings do not exist
         if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
@@ -95,12 +107,14 @@ def readPatch(installpatch):
         # Read the settings file for installation (LEGO Racers directory)
         # Updated in semi-accordance with PatchIt! Dev-log #6
         logging.info("Reading line 7 of settings for LEGO Racers installation")
-        installpath = linecache.getline(os.path.join("Settings", "Racers.cfg"), 7)
+        installpath = linecache.getline(os.path.join("Settings", "Racers.cfg"),
+            7)
 
         # Create a valid folder path
         logging.info("Cleaning up installation text")
         installpath = installpath.rstrip("\n")
-        logging.info("Reading line 9 of {0} for ZIP archive".format(installpatch))
+        logging.info("Reading line 9 of {0} for ZIP archive".format(
+            installpatch))
         installzipfile = linecache.getline(installpatch, 9)
 
         # Again, clear cache
@@ -112,23 +126,29 @@ def readPatch(installpatch):
         installzipfile = installzipfile.rstrip("\n")
 
         # Find the ZIP archive
-        ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname, installver, ".PiP"))
+        ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname,
+        installver, ".PiP"))
         logging.info("Found ZIP archive at {0}".format(ziplocation))
 
         try:
             # Actually extract the ZIP archive
-            logging.info("Extract {0} to {1}".format(installzipfile, installpath))
-            with zipfile.ZipFile(ziplocation + installzipfile, "r") as extractzip:
+            logging.info("Extract {0} to {1}".format(installzipfile,
+            installpath))
+            with zipfile.ZipFile(ziplocation + installzipfile,
+                "r") as extractzip:
                 extractzip.extractall(path=installpath)
 
             # Display the Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips), color.CYAN)
+            colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips),
+                color.CYAN)
 
             # Installation was sucessful!
             logging.info("Error (exit) number '0'")
-            logging.info("{0} {1} sucessfully installed to {2}".format(installname, installver, installpath))
-            print("\n{0} {1} sucessfully installed!\n".format(installname, installver))
+            logging.info("{0} {1} sucessfully installed to {2}".format(installname,
+            installver, installpath))
+            print("\n{0} {1} sucessfully installed!\n".format(installname,
+            installver))
 
             # Log ZIP closure although it was closed automatically by with
             logging.info("Closing {0}".format(installzipfile))
@@ -141,15 +161,14 @@ def readPatch(installpatch):
             logging.info("Cleaning up Version and Author text")
             installver = installver.lstrip("Version: ")
             installauthor = installauthor.lstrip("Author: ")
-            logging.warning("Unable to find {0} at {1}!".format(installzipfile, ziplocation))
+            logging.warning("Unable to find {0} at {1}!".format(installzipfile,
+            ziplocation))
             colors.pc('''Cannot find files for {0} {1}!
-Make sure {2}{3}.zip and {4}{5}.PiP
+Make sure {0}{1}.zip and {0}{1}.PiP
 are in the same folder, and try again.
 
-If the error continues, contact {6}and ask for a fixed version.'''
-            .format(installname, installver, installname, installver, installname, installver, installauthor), color.FG_LIGHT_RED)
-            # There has to be an easier way to format the message without repeating installname/ver 3 times each...
-            # Sleep a bit longer so the error message can be read.
+If the error continues, contact {3} and ask for a fixed version.'''
+            .format(installname, installver, installauthor), color.FG_LIGHT_RED)
 
             # The user does not have the rights to install to that location.
         except PermissionError:
@@ -167,9 +186,11 @@ If the error continues, contact {6}and ask for a fixed version.'''
 
         # This is run no matter if an exception was raised nor not.
         finally:
-            # Sleep for 4.5 seconds after displaying installation result before kicking back to the PatchIt! menu.
+            # Sleep for 4.5 seconds after displaying installation result before
+            # kicking back to the PatchIt! menu.
             sleep(4.5)
             logging.info("Proceeding to main menu")
             PatchIt.main()
+
 
 # ------------ End Legacy PatchIt! Patch Installation ------------ #
