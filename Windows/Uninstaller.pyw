@@ -28,6 +28,7 @@ import sys
 import time
 import subprocess
 
+
 def single_uninstall(folderpath):
     ''' Uninstalls Single PatchIt! Installation'''
 
@@ -56,15 +57,16 @@ def loop_uninstall(folderpath):
     '''Looping PatchIt! Uninstaller
     Code contributed by JrMasterModelBuilder'''
 
-    # Used for looping
+    # Used to update exe name
     i = 1
 
     # It is assumed another installation exists
     while i < 1000:
-        exe_name  ="unins" + str(i).zfill(3) + ".exe"
+        exe_name = "unins" + str(i).zfill(3) + ".exe"
         if os.path.exists(os.path.join(folderpath, exe_name)):
 
-            # Run the uninstaller, passing /SILENT to suppress confirmation boxes
+            # Run the uninstaller, passing /SILENT to suppress
+            # confirmation boxes.
             print("\nRuinning {0}".format(exe_name))
             subprocess.call([os.path.join(folderpath, exe_name), "/SILENT"])
             # Sleep a little to avoid uninstallation error
@@ -76,8 +78,8 @@ def loop_uninstall(folderpath):
     # Close once everything is uninstalled
     print("\nAll PatchIt! installations had been removed")
     raise SystemExit(0)
-    
-# Run Uninstaller 
+
+# Run Uninstaller
 if __name__ == "__main__":
     try:
         # The user entered a path to the PatchIt! installations
@@ -89,4 +91,3 @@ if __name__ == "__main__":
     finally:
         os.system("title " + folderpath)
         single_uninstall(folderpath)
-        
