@@ -23,7 +23,6 @@
 # General use modules
 import sys
 import os
-import time
 import webbrowser
 import platform
 import subprocess
@@ -41,7 +40,8 @@ from Patch import modernextract as extract
 from Patch import moderncompress as compress
 
 # Colored shell text
-import Color as color, Color.colors as colors
+import Color as color
+import Color.colors as colors
 
 # Global variables
 app = "PatchIt!"
@@ -155,7 +155,9 @@ def info():
 
     logging_file = os.path.join(app_folder, "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
-    logging.info("You are running {0} Python {1} on {2} {3}.".format(py_arch, platform.python_version(), platform.machine(), platform.platform()))
+    logging.info("You are running {0} Python {1} on {2} {3}.".format(
+        py_arch, platform.python_version(), platform.machine(),
+         platform.platform()))
     logging.info('''
                                 #############################################
                                         {0} {1} {2}
@@ -168,6 +170,7 @@ def info():
                                     and attach this file for an easier fix!
                                 #############################################
                                 '''.format(app, majver, minver, creator))
+
 
 def preload():
     '''PatchIt! Settings checks'''
@@ -256,13 +259,16 @@ package and install mods for LEGO Racers"
         main()
 
     # Close About Window button
-    close = ttk.Button(frame, default="active", text="Close", command=close_about)
+    close = ttk.Button(frame, default="active", text="Close",
+         command=close_about)
     close.grid(column=1, row=1, sticky=tk.N, pady="7")
     # GitHub Project Button
-    github = ttk.Button(frame, text="GitHub", command=lambda:webbrowser.open_new_tab("http://git.io/PatchIt"))
+    github = ttk.Button(frame, text="GitHub",
+         command=lambda: webbrowser.open_new_tab("http://git.io/PatchIt"))
     github.grid(column=0, row=1, sticky=tk.N, pady="7")
     # Creator's website button
-    creator_site =  ttk.Button(frame, text="Triangle717", command=lambda:webbrowser.open_new_tab("http://wp.me/P1V5ge-I3"))
+    creator_site = ttk.Button(frame, text="Triangle717",
+         command=lambda: webbrowser.open_new_tab("http://wp.me/P1V5ge-I3"))
     creator_site.grid(column=2, row=1, sticky=tk.N, pady="7")
 
     # Small bit of padding around the elements
@@ -363,6 +369,7 @@ def main(*args):
             logging.info("User pressed an undefined key")
             main()
 
+
 def easteregg(*args):
     '''Hehehe'''
     root = tk.Tk()
@@ -460,6 +467,7 @@ def LRReadSettings():
 
 # ----- End PatchIt! LEGO Racers Settings Reading ----- #
 
+
 # ----- Begin PatchIt! LEGO Racers Settings Writing ----- #
 
 def LRWriteSettings():
@@ -519,7 +527,8 @@ def LRWriteSettings():
         logging.info("Open 'LR_settings' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LR_settings), 'wt', encoding='utf-8') as racers_file:
 
-            # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
+            # As partially defined in PatchIt! Dev-log #6
+            # (http://wp.me/p1V5ge-yB)
             logging.info("Write line denoting what program this file belongs to")
             racers_file.write("// PatchIt! V1.1.x LEGO Racers Settings\n")
 
@@ -561,7 +570,7 @@ def LRGameCheck():
     with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
-    if (# The settings file uses UTF-8-BOM encoding
+    if (  # The settings file uses UTF-8-BOM encoding
         encoding == b"\xef\xbb\xbf"
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
@@ -720,6 +729,7 @@ def LOCOReadSettings():
 
 # ----- End PatchIt! LEGO LOCO Settings Reading ----- #
 
+
 # ----- Begin PatchIt! LEGO LOCO Settings Writing ----- #
 
 def LOCOWriteSettings():
@@ -871,7 +881,7 @@ def CheckLOCOSettings():
         with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
             encoding = encode_check.readline(3)
 
-        if (# The settings file uses UTF-8-BOM encoding
+        if (  # The settings file uses UTF-8-BOM encoding
             encoding == b"\xef\xbb\xbf"
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
