@@ -2,7 +2,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO® Racers
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -323,7 +323,7 @@ def main(*args):
         # About PatchIt! box
         if menuopt.lower() == "a":
             logging.info("User pressed '[a] About PatchIt!'")
-            logging.info("Opening About Box (about())")
+            logging.info("Opening About Box")
             about()
 
         # Patch Creation
@@ -331,7 +331,7 @@ def main(*args):
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
 
             # Call the Patch Creation module
-            logging.info("Calling Patch Compression module (compress.patchInfo())")
+            logging.info("Calling Patch Compression module")
             compress.patchInfo()
 
         # Patch Installation
@@ -339,7 +339,7 @@ def main(*args):
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
 
             # Call the Patch Installation module
-            logging.info("Calling Patch Installation module (extract.selectPatch())")
+            logging.info("Calling Patch Installation module")
             extract.selectPatch()
 
         # JAM Extractor wrapper
@@ -348,7 +348,7 @@ def main(*args):
                 import handlejam
                 logging.info("User pressed '[j] JAM Extractor'")
                 # Call the JAM Extractor wrapper module
-                logging.info("Calling JAM Extractor wrapper module (handlejam.main())")
+                logging.info("Calling JAM Extractor wrapper module")
                 handlejam.main()
             else:
                 logging.info("User pressed an undefined key")
@@ -413,13 +413,13 @@ def Settings(*args):
     # Run LEGO Racers settings
     if settingsopt.lower() == "r":
         logging.info("User choose LEGO Racers")
-        logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
+        logging.info("Proceeding to PatchIt! LEGO Racers Settings")
         LRReadSettings()
 
     # Run LOCO settings
     elif settingsopt.lower() == "l":
         logging.info("User choose LEGO LOCO")
-        logging.info("Proceeding to PatchIt! LEGO LOCO Settings (LOCOReadSettings())")
+        logging.info("Proceeding to PatchIt! LEGO LOCO Settings")
         LOCOReadSettings()
 
     # Undefined input
@@ -438,7 +438,7 @@ def LRReadSettings():
     # The settings file does not exist
     if not os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.warning("LEGO Racers Settings does not exist!")
-        logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
+        logging.info("Proceeding to write PatchIt! LEGO Racers settings")
         LRWriteSettings()
 
     # The setting file does exist
@@ -451,14 +451,15 @@ def LRReadSettings():
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found at {0}"
             .format(LR_path))
-##            colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(LR_game, LR_path), color.FG_LIGHT_RED)
+            #colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(
+    #LR_game, LR_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
             "Cannot find {0} installation at {1}".format(LR_game, LR_path))
 
             # Go write the settings file
-            logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
+            logging.info("Proceeding to write PatchIt! LEGO Racers settings")
             LRWriteSettings()
 
         # The defined installation was confirmed by LRGameCheck()
@@ -472,7 +473,7 @@ def LRReadSettings():
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO Racers installation")
-                logging.info("Proceeding to write PatchIt! LEGO Racers settings (LRWriteSettings())")
+                logging.info("Proceeding to write PatchIt! LEGO Racers settings")
                 LRWriteSettings()
 
             # No, I do not want to change the defined installation
@@ -524,14 +525,16 @@ def LRWriteSettings():
         root.destroy()
 
         logging.warning("User did not select a new LEGO Racers installation!")
-        ##colors.pc("\nCould not find a LEGO Racers installation!", color.FG_LIGHT_RED)
+        #colors.pc("\nCould not find a LEGO Racers installation!",
+            #color.FG_LIGHT_RED)
 
         logging.info("Switching to main menu")
         main()
 
     # The user selected a folder
     else:
-        logging.info("User selected a new LEGO Racers installation at {0}".format(new_racers_game))
+        logging.info("User selected a new LEGO Racers installation at {0}"
+        .format(new_racers_game))
 
         # Give focus back to console window
         logging.info("Give focus back to console window")
@@ -575,7 +578,7 @@ def LRWriteSettings():
 
         # Log closure of file (although the with handle did it for us)
         logging.info("Closing Racers.cfg")
-        logging.info("Proceeding to PatchIt! LEGO Racers Settings (LRReadSettings())")
+        logging.info("Proceeding to PatchIt! LEGO Racers Settings")
         LRReadSettings()
 
 
@@ -719,7 +722,7 @@ def LOCOReadSettings():
     # The settings file does not exist
     if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.warning("LEGO LOCO Settings does not exist!")
-        logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
+        logging.info("Proceeding to write PatchIt! LEGO LOCO settings")
         LOCOWriteSettings()
 
     # The setting file does exist
@@ -730,19 +733,24 @@ def LOCOReadSettings():
         if not LOCOGameCheck():
 
             # Use path defined in LOCOGameCheck() for messages
-            logging.warning("LEGO LOCO installation was not found!".format(LOCO_path))
-##            colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(LOCO_game, LOCO_path), color.FG_LIGHT_RED)
+            logging.warning("LEGO LOCO installation was not found!".format(
+                LOCO_path))
+            #colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(
+                #LOCO_game, LOCO_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
-            tk.messagebox.showerror("Invalid installation!", "Cannot find {0} installation at {1}".format(LOCO_game, LOCO_path))
+            tk.messagebox.showerror("Invalid installation!",
+                "Cannot find {0} installation at {1}".format(
+                    LOCO_game, LOCO_path))
 
             # Go write the settings file
-            logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
+            logging.info("Proceeding to write PatchIt! LEGO LOCO settings")
             LOCOWriteSettings()
 
         # The defined installation was confirmed by LOCOGameCheck()
         else:
-            logging.info("LEGO LOCO installation was found at {0}.".format(LOCO_path))
+            logging.info("LEGO LOCO installation was found at {0}.".format(
+                LOCO_path))
             print('\n{0} installation found at "{1}"!\n'.format(
                 LOCO_game, LOCO_path) + r"Would you like to change this? (Y\N)")
             changepath = input("\n\n> ")
@@ -750,7 +758,7 @@ def LOCOReadSettings():
             # Yes, I want to change the defined installation
             if changepath.lower() == "y":
                 logging.info("User wants to change defined LEGO LOCO installation")
-                logging.info("Proceeding to write PatchIt! LEGO LOCO settings (LOCOWriteSettings())")
+                logging.info("Proceeding to write PatchIt! LEGO LOCO settings")
                 LOCOWriteSettings()
 
                 # No, I do not want to change the defined installation
@@ -809,7 +817,8 @@ def LOCOWriteSettings():
 
     # The user selected a folder
     else:
-        logging.info("User selected a new LEGO LOCO installation at {0}".format(new_loco_game))
+        logging.info("User selected a new LEGO LOCO installation at {0}".format(
+            new_loco_game))
 
         # Give focus back to console window
         logging.info("Give focus back to console window")
@@ -844,7 +853,7 @@ def LOCOWriteSettings():
 
         # Log closure of file (although the with handle did it for us)
         logging.info("Closing LOCO.cfg")
-        logging.info("Proceeding to PatchIt! LEGO LOCO Settings (LOCOReadSettings())")
+        logging.info("Proceeding to PatchIt! LEGO LOCO Settings")
         LOCOReadSettings()
 
 

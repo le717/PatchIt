@@ -2,7 +2,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO® Racers
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -170,7 +170,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         # Give them time to actually read the message.
         # Switch to legacy Patch Installation routine
         time.sleep(3)
-        logging.info("Switching to legacy PatchIt! Patch Installation routine (legacyextract.readpatch(patch))")
+        logging.info("Switching to legacy PatchIt! Patch Installation routine")
         legacyextract.readPatch(patch)
 
     # It's a modern Patch
@@ -181,7 +181,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         # Delete validity lines from memory
         del lines[:]
         # Go to the (modern) Patch Installation method
-        logging.info("Proceeding to (modern) PatchIt! Patch Installation routine (readModernPatch(patch))")
+        logging.info("Proceeding to (modern) PatchIt! Patch Installation routine")
         readModernPatch(patch)
 
     # It's a V1.1.0 transition Patch, a version that is NEVER to be used

@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO® Racers
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -47,19 +47,24 @@ def file_check(path):
 
     blacklist = [
     # Programs
-    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr", ".hta", ".cpl", ".msc", ".jar",
+    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr",
+    ".hta", ".cpl", ".msc", ".jar",
     # Scripts
-    ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2",
-    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
+    ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc",
+    ".wsh", ".ps1", ".ps1xml", ".ps2",
+    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml"
+     ".msh2xml", ".py", ".pyw", ".au3",
     # Resources
     ".dll", ".icd", ".pyd", ".pyo",
     # Shortcuts\Registry\Misc
     ".scf", ".lnk", ".inf", ".reg", ".db", ".PiP",
     # Office Macros
-    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm",
+    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm"
+     ".ppam", ".ppsm", ".sldm",
     # Archives
-    ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2", ".bzip2", "gzip", ".tgz", ".rpm", ".deb",
-    ".dmg", ".fat", ".ntfs", ".cab", ".iso", ".xz", ".nrg", ".bin", ".PiA"
+    ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2", ".bzip2",
+    "gzip", ".tgz", ".rpm", ".deb", ".dmg", ".fat", ".ntfs", ".cab", ".iso",
+     ".xz", ".nrg", ".bin", ".PiA"
     ]
 
     # --- Begin Temporary Folder Configuration -- #
@@ -93,11 +98,13 @@ def file_check(path):
 
             # If an illegal file is found, as identified by the extension,
             if ext.lower() in blacklist:
-                logging.warning("An illegal file ({0}) has been found!".format(ext))
+                logging.warning("An illegal file ({0}) has been found!".format(
+                    ext))
                 # Get the full path to it,
                 illegal_file = os.path.join(root, string)
                 # And remove it from the Patch files!
-                logging.info("Removing {0} from the Patch files".format(illegal_file))
+                logging.info("Removing {0} from the Patch files".format(
+                    illegal_file))
                 os.unlink(illegal_file)
 
     # --- End Illegal File Scan -- #
@@ -141,20 +148,22 @@ def patchName():
     # An invalid character was entered
     if not charCheck(name):
         logging.warning("There were illegal characters in the Patch name!")
-        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+        colors.pc("\nYou have entered an illegal character!",
+        color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
         patchName()
 
-##    # The field was longer than 80 characters
-##    elif len(name) >= 81:
-##        logging.warning("The Patch name was more than 80 characters!")
-##        colors.pc("\nThe Name field must be 80 characters or less!", color.FG_LIGHT_RED)
-##
-##        # Loop back through the Patch Name Process
-##        logging.info("Looping back through patchName()")
-##        patchName()
+    ## The field was longer than 80 characters
+    #elif len(name) >= 81:
+        #logging.warning("The Patch name was more than 80 characters!")
+        #colors.pc("\nThe Name field must be 80 characters or less!",
+        #color.FG_LIGHT_RED)
+
+        ## Loop back through the Patch Name Process
+        #logging.info("Looping back through patchName()")
+        #patchName()
 
     # No characters were entered
     elif len(name) == 0:
@@ -180,20 +189,22 @@ def patchVersion():
     # An invalid character was entered
     if not charCheck(version):
         logging.warning("There were illegal characters in the Patch version!")
-        colors.pc("\nYou have entered an illegal character!", color.FG_LIGHT_RED)
+        colors.pc("\nYou have entered an illegal character!",
+        color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
         patchVersion()
 
-##    # The field was longer than 12 characters
-##    elif len(name) >= 13:
-##        logging.warning("The Patch version was more than 12 characters!")
-##        colors.pc("\nThe Version field must be 12 characters or less!", color.FG_LIGHT_RED)
-##
-##        # Loop back through the Patch Version Process
-##        logging.info("Looping back through patchVersion()")
-##        patchVersion()
+    ## The field was longer than 12 characters
+    #elif len(name) >= 13:
+        #logging.warning("The Patch version was more than 12 characters!")
+        #colors.pc("\nThe Version field must be 12 characters or less!",
+        #color.FG_LIGHT_RED)
+
+        ## Loop back through the Patch Version Process
+        #logging.info("Looping back through patchVersion()")
+        #patchVersion()
 
     # No characters were entered
     elif len(version) == 0:
@@ -239,7 +250,8 @@ def patchDesc():
     # No characters were entered
     if len(desc) == 0:
         logging.warning("The Patch description field was left blank!")
-        colors.pc("\nThe Description field must be filled out!", color.FG_LIGHT_RED)
+        colors.pc("\nThe Description field must be filled out!",
+        color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
         logging.info("Looping back through patchDesc()")
@@ -384,8 +396,8 @@ Hint: if you are unsure, it will most likely be either'''.format(name))
 1024x768,
 1920x1024
 
-If you used a custom resolution, be sure to enter that into the fields below.'''
-, color.FG_LIGHT_MAGENTA)
+If you used a custom resolution, be sure to enter that into the fields below.''',
+ color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because the screen resolution is not expressed in
@@ -466,7 +478,8 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
         try:
             os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
-            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thearchive)))
+            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(
+                thearchive)))
             # In case the file was never created in the first place
         except FileNotFoundError:
             pass
@@ -492,14 +505,16 @@ for the files, and move or delete them if necessary.'''.format(thepatch,
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
         try:
             os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
-            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thearchive)))
+            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(
+                thearchive)))
             # In case the file was never created in the first place
         except FileNotFoundError:
             pass
 
     finally:
         # Change the working directory back to the location of PatchIt!
-        logging.info("Changing the working directory to {0}".format(PatchIt.app_folder))
+        logging.info("Changing the working directory to {0}".format(
+            PatchIt.app_folder))
         os.chdir(PatchIt.app_folder)
         # Run process to restore all the files in the Patch files
         logging.info("Running restore_files() to move all illegal files back")
