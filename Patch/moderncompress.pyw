@@ -384,7 +384,8 @@ Hint: if you are unsure, it will most likely be either'''.format(name))
 1024x768,
 1920x1024
 
-If you used a custom resolution, be sure to enter that into the fields below.''', color.FG_LIGHT_MAGENTA)
+If you used a custom resolution, be sure to enter that into the fields below.'''
+, color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because the screen resolution is not expressed in

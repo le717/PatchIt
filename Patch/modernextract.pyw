@@ -293,7 +293,7 @@ Game: {3}
 
     logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
     print("\nDo you wish to install {0} {1}? {2}".format(name, version,
-    r"(y\N)"))
+    r"(Y\N)"))
     confirm_install = input("\n> ")
 
     # No, I do not want to install the patch

@@ -466,7 +466,7 @@ def LRReadSettings():
             logging.info("LEGO Racers installation was found at {0}.".format(
                 LR_path))
             print('\n{0} installation found at\n"{1}"!\n\n'.format(
-                LR_game, LR_path) + r"Would you like to change this? (y\N)")
+                LR_game, LR_path) + r"Would you like to change this? (Y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
@@ -744,7 +744,7 @@ def LOCOReadSettings():
         else:
             logging.info("LEGO LOCO installation was found at {0}.".format(LOCO_path))
             print('\n{0} installation found at "{1}"!\n'.format(
-                LOCO_game, LOCO_path) + r"Would you like to change this? (y\N)")
+                LOCO_game, LOCO_path) + r"Would you like to change this? (Y\N)")
             changepath = input("\n\n> ")
 
             # Yes, I want to change the defined installation
