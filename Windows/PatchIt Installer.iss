@@ -34,9 +34,9 @@
 #endif 
        
 #define MyAppName "PatchIt!"
-#define MyAppVersion "1.1.0"
-#define MyAppVerName "PatchIt! Version 1.1.0 Stable"
-#define MyInstallerName "PatchIt-110-Stable"
+#define MyAppVersion "1.1.1"
+#define MyAppVerName "PatchIt! Version 1.1.1 Stable"
+#define MyInstallerName "PatchIt-111-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -78,8 +78,6 @@ LZMAUseSeparateProcess=yes
 AllowRootDirectory=yes
 PrivilegesRequired=admin
 RestartIfNeededByRun=no
-ArchitecturesInstallIn64BitMode=x64 ia64
-ArchitecturesAllowed=x86 x64 ia64
 ; This is required so Inno can correctly report the installation size.
 ExtraDiskSpaceRequired=31457280
 ; Required for creating Shell extension
@@ -87,27 +85,27 @@ ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt"
+;Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt"
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
 english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
-francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
-francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
+; francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
+; francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
 nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
 nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences
-francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
-nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
 english.Admin=Run {#MyAppName} with Administrator Rights
-francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
-nederlands.Admin=Run {#MyAppName} met beheerdersrechten
 english.Shell=Associate .PiP File with {#MyAppName}
-francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+; francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
+; francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
+; francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren  
+nederlands.Admin=Run {#MyAppName} met beheerdersrechten   
 nederlands.Shell=Associëren .PiP File Met {#MyAppName}
 
 [Tasks]
@@ -142,21 +140,19 @@ Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreve
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg; DestDir: {app}\Icons; Flags: ignoreversion
-Source: ..\Documentation\Read-Me-First.html; DestDir: {app}; Flags: ignoreversion isreadme
+Source: ..\Documentation\Readme\index.html; DestDir: {app}\Documentation; Flags: ignoreversion isreadme
+Source: ..\Documentation\Readme\*; Excludes: index.html; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; Settings files
-Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
-Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
 ; Settings files for Settings_Reset switch
-Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
-Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
 
-; 32-bit Windows build
-Source: ..\Compile\Windows32\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
-
-; 64-bit Windows build
-Source: ..\Compile\Windows64\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+; PatchIt! itself (a 32-bit Windows binary)
+Source: ..\Compile\Windows\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Comment: Run {#MyAppVerName}
@@ -181,11 +177,6 @@ Type: files; Name: {app}\settings
 Name: "{app}\Settings"; Flags: uninsneveruninstall
 
 [Code]   
-// Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         
-function IsWin32: Boolean;
-begin
- Result := not IsWin64;
-end;
 
 // Portable Switch taken from https://github.com/jrsoftware/issrc/blob/master/setup.iss
 function PortableInstall: Boolean;

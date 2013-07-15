@@ -45,7 +45,7 @@ import Color.colors as colors
 
 # Global variables
 app = "PatchIt!"
-majver = "Version 1.1.1"
+majver = "1.1.1"
 minver = "Unstable"
 creator = "Triangle717"
 
@@ -89,7 +89,7 @@ def args():
             # If the help parameter was given
             if argument == value:
                 logging.info("The help parameter (-h, --help) was given, displaying help messages")
-                print("\n{0} {1} Command-line arguments".format(app, majver))
+                print("\n{0} Version {1} Command-line arguments".format(app, majver))
                 # Use input rather than print so user can close the window
                 # at anytime, rather than it closing after 10 seconds
                 input(r'''
@@ -121,7 +121,7 @@ Press the Enter key to close.'''.format(exe_name))
             # If the test parameter is given
             if argument == value:
                 test = True
-                os.system("title {0} {1} {2} - Experimental Mode".format(
+                os.system("title {0} Version {1} {2} - Experimental Mode".format(
                     app, majver, minver))
                 logging.info("The test parameter (-t, --test) was given, enabling experimental features")
                 preload()
@@ -163,7 +163,7 @@ def info():
          platform.platform()))
     logging.info('''
                                 #############################################
-                                        {0} {1} {2}
+                                        {0} Version {1} {2}
                                         Copyright 2013 {3}
                                                 PatchIt.log
 
@@ -221,7 +221,7 @@ def about(*args):
 
     root = tk.Tk()
     # Window title
-    root.title("About {0} {1}".format(app, majver))
+    root.title("About {0} Version {1}".format(app, majver))
     # The box cannot be any smaller than this
     root.minsize("420", "260")
     root.maxsize("420", "260")
@@ -248,7 +248,7 @@ def about(*args):
 
 
 
-            {0} {1} {2}
+            {0} Version {1} {2}
                Released ?? ??, 2013
 
             Created 2013 Triangle717
@@ -298,7 +298,7 @@ def main(*args):
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
-    colors.pc("\nWelcome to {0} {1} {2}\ncreated 2013 {3}.".format(
+    colors.pc("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}.".format(
         app, majver, minver, creator), color.FG_WHITE)
     if not test:
         logging.info("Display normal menu to user")
