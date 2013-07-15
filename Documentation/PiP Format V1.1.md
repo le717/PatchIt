@@ -25,7 +25,8 @@ Details
 #### PiP File Format
 
 * PiP stands for <strong>P</strong>atch<strong>I</strong>t! <strong>P</strong>atch.
-* A PiP file is a plain text file written with [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding, and can be edited on any text editor that supports such encoding.
+* A PiP file is a plain text file written with [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding, and can be edited on any text 
+ editor that supports such encoding.
 * As a validity test, each PiP file must have on line 1 a specific line of text (known as the validity line).
   This line ***must** match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
 * In addition the the first line, the second line is also checked to determine if it is a valid Patch and what version Patch it is. 
