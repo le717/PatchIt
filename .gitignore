@@ -197,7 +197,7 @@ TheTesterGroup/
 ## Files
 ##########
 
-*.psd
+#*.psd
 *.txt
 *.ini
 .py
