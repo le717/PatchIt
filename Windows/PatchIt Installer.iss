@@ -85,15 +85,15 @@ ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-;Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt"
+Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt"
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
 english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
-; francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
-; francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
+francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
+francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
 nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
 nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
@@ -101,9 +101,9 @@ nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwij
 english.Settings_Reset=Reset {#MyAppName} Preferences
 english.Admin=Run {#MyAppName} with Administrator Rights
 english.Shell=Associate .PiP File with {#MyAppName}
-; francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
-; francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
-; francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
+francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
+francais.Shell=Associer fichier. PiP Avec {#MyAppName}
 nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren  
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten   
 nederlands.Shell=Associëren .PiP File Met {#MyAppName}
@@ -140,19 +140,18 @@ Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreve
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg; DestDir: {app}\Icons; Flags: ignoreversion
-Source: ..\Documentation\Readme\index.html; DestDir: {app}\Documentation; Flags: ignoreversion isreadme
-Source: ..\Documentation\Readme\*; Excludes: index.html; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; Settings files
-; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
-; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
 ; Settings files for Settings_Reset switch
-; Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
-; Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
 
 ; PatchIt! itself (a 32-bit Windows binary)
-Source: ..\Compile\Windows\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\Compile\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Comment: Run {#MyAppVerName}
@@ -160,7 +159,8 @@ Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}; Icon
 Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Tasks: desktopicon
 
 [Run]
-Filename: {app}\{#MyAppExeName}; Flags: nowait postinstall runascurrentuser skipifsilent; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}
+Filename: "{app}\Documentation\index.html"; Flags: nowait postinstall skipifsilent shellexec; Description: "View Readme"
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 
 [UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
@@ -176,8 +176,7 @@ Type: files; Name: {app}\settings
 ; So the Settings do not ever get uninstalled
 Name: "{app}\Settings"; Flags: uninsneveruninstall
 
-[Code]   
-
+[Code]  
 // Portable Switch taken from https://github.com/jrsoftware/issrc/blob/master/setup.iss
 function PortableInstall: Boolean;
 begin
