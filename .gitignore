@@ -121,7 +121,7 @@ UpgradeLog*.XML
 ############
 
 # Windows image file caches
-Thumbs.db
+*.db
 
 # Folder config file
 Desktop.ini
@@ -171,13 +171,14 @@ pip-log.txt
 ## Archives
 #############
 
-# I don't want to upload any archives.
+# I don't want ANY archives.
 *.zip
 *.rar
 *.7z
 *.cab
 *.tar
 *.gz
+*.PiA
 
 ##########
 ## Misc.
@@ -187,7 +188,7 @@ Windows/Uninstaller*/*
 Compile/
 !Color/
 Logs/
-#License/
+License/
 Settings/
 Testing*/
 Archives/
@@ -198,12 +199,11 @@ TheTesterGroup/
 ##########
 
 #*.psd
-#*.txt
+*.txt
 *.ini
 .py
 !.pyw
 *.iss
-!Windows/unsetup.py
 JAMExtractor.py
 listtips.py
 *settings
@@ -215,9 +215,9 @@ listtips.py
 #*.html
 !Read-Me-First.html
 *.blend2
+!Windows/unsetup.py
 Windows/PatchIt-*
 Windows/PatchIt-*
+License/gpl-v3-fr.txt
 Windows/Download.html
 PatchIt-Compatible.html
-rewrite.txt
-gh-pages.txt
