@@ -268,8 +268,9 @@ package and install mods for LEGO Racers"
          command=close_about)
     close.grid(column=1, row=1, sticky=tk.N, pady="7")
     # GitHub Project Button
-    github = ttk.Button(frame, text="GitHub",
-         command=lambda: webbrowser.open_new_tab("http://git.io/PatchIt"))
+    github = ttk.Button(frame, text="Website",
+         command=lambda:
+         webbrowser.open_new_tab("http://le717.github.io/PatchIt"))
     github.grid(column=0, row=1, sticky=tk.N, pady="7")
     # Creator's website button
     creator_site = ttk.Button(frame, text="Triangle717",
