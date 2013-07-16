@@ -187,7 +187,7 @@ Windows/Uninstaller*/*
 Compile/
 !Color/
 Logs/
-License/
+#License/
 Settings/
 Testing*/
 Archives/
@@ -198,7 +198,7 @@ TheTesterGroup/
 ##########
 
 #*.psd
-*.txt
+#*.txt
 *.ini
 .py
 !.pyw
@@ -212,10 +212,12 @@ listtips.py
 *.~is
 *.blend
 *.blend1
-*.html
+#*.html
 !Read-Me-First.html
 *.blend2
 Windows/PatchIt-*
 Windows/PatchIt-*
-
-#gpl-v3-fr.txt
+Windows/Download.html
+PatchIt-Compatible.html
+rewrite.txt
+gh-pages.txt
