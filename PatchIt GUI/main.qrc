@@ -3,6 +3,10 @@
     <file>Resources/SmallLogo.png</file>
     <file>Resources/PatchItLogo.png</file>
   </qresource>
+  <qresource prefix="game-icons">
+    <file>Resources/Logo2.png</file>
+    <file>Resources/Racers.png</file>
+  </qresource>
   <qresource prefix="GPL">
     <file>Resources/gplv3-88x31.png</file>
   </qresource>
