@@ -3,4 +3,7 @@
     <file>Resources/SmallLogo.png</file>
     <file>Resources/PatchItLogo.png</file>
   </qresource>
+  <qresource prefix="GPL">
+    <file>Resources/gplv3-88x31.png</file>
+  </qresource>
 </RCC>

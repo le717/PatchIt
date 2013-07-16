@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>332</width>
-    <height>302</height>
+    <height>354</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,7 +66,7 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>260</y>
+      <y>310</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -79,7 +79,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>260</y>
+      <y>310</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -92,7 +92,7 @@
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>260</y>
+      <y>310</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -111,7 +111,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;, it's code, and concepts created 2013&lt;span style=&quot; font-weight:600;&quot;&gt; Triangle717&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;, it's code, and concepts created 2013 &lt;a href=&quot;http://triangle717.wordpress.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Triangle717&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="about_rio_credit">
@@ -124,7 +124,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Logo, Graphics, Website, and GUI ©2013&lt;span style=&quot; font-weight:600;&quot;&gt; rioforce&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Logo, Graphics, Website, and GUI ©2013 &lt;a href=&quot;http://rioforce.wordpress.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;rioforce&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -138,6 +138,36 @@
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>265</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PatchIt! is open-source and
+released under the GPL V3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="about_logo_2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>260</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="main.qrc">:/GPL/Resources/gplv3-88x31.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="about_ver">
@@ -167,6 +197,8 @@
    <zorder>about_tri_credit</zorder>
    <zorder>about_rio_credit</zorder>
    <zorder>line</zorder>
+   <zorder>label</zorder>
+   <zorder>about_logo_2</zorder>
   </widget>
  </widget>
  <resources>
