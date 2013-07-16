@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>459</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>611</width>
+    <height>459</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>611</width>
+    <height>459</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="patchitlogo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>571</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="main.qrc">:/logo/Resources/PatchItLogo.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="version">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>110</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Consolas&quot;;</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Version 1.2 Stable&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="createbutton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>200</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Create a &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; patch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 16pt &quot;Consolas&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Create
+Patch</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="installbutton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>200</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Install a &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; patch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 16pt &quot;Consolas&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Install
+Patch</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editbutton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>200</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Edit a &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; patch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 16pt &quot;Consolas&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Edit
+Patch</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="jambutton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>280</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Load the JAM Extractor for LEGO&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;® &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Racers&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 16pt &quot;Consolas&quot;;</string>
+    </property>
+    <property name="text">
+     <string>JAM
+Extractor</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="settingsbutton">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>380</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Edit &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt! &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Settings</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="aboutbutton">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>380</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;About &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>About</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quitbutton">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>380</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Close &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Quit</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>611</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="createmenu"/>
+    <addaction name="editmenu"/>
+    <addaction name="installmenu"/>
+    <addaction name="separator"/>
+    <addaction name="jammenu"/>
+    <addaction name="separator"/>
+    <addaction name="quitmenu"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="settingsmenu"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="helpmenu"/>
+    <addaction name="separator"/>
+    <addaction name="aboutmenu"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="createmenu">
+   <property name="text">
+    <string>Create Patch</string>
+   </property>
+  </action>
+  <action name="editmenu">
+   <property name="text">
+    <string>Edit Patch</string>
+   </property>
+  </action>
+  <action name="installmenu">
+   <property name="text">
+    <string>Install Patch</string>
+   </property>
+  </action>
+  <action name="jammenu">
+   <property name="text">
+    <string>JAM Extractor</string>
+   </property>
+  </action>
+  <action name="quitmenu">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="settingsmenu">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="helpmenu">
+   <property name="text">
+    <string>PatchIt! Help</string>
+   </property>
+  </action>
+  <action name="aboutmenu">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="main.qrc"/>
+ </resources>
+ <connections/>
+</ui>

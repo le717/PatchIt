@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>Resources/SmallLogo.png</file>
+    <file>Resources/PatchItLogo.png</file>
+  </qresource>
+</RCC>
