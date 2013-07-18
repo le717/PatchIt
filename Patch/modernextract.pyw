@@ -35,7 +35,7 @@ import logging
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 
-# Main PatchIt! module, legacy instalation code
+# Main PatchIt! module, legacy installation code
 import PatchIt
 from Patch import legacyextract
 

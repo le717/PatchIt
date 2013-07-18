@@ -175,14 +175,16 @@ If the error continues, contact {3} and ask for a fixed version.'''
             logging.info("Error number '13'")
             logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
             logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
+            colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.
+            FG_LIGHT_RED)
 
         # Python itself had some I/O error / any exceptions not handled
         except Exception:
             logging.info("Unknown error number")
             logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
             logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.FG_LIGHT_RED)
+            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), 
+            color.FG_LIGHT_RED)
 
         # This is run no matter if an exception was raised nor not.
         finally:

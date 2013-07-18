@@ -341,7 +341,7 @@ def patchInfo(*args):
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
-    # Show window again, lift it so it can recieve the focus
+    # Show window again, lift it so it can receive the focus
     # Otherwise, it is behind the console window
     root.deiconify()
     root.lift()
@@ -431,7 +431,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         logging.info("The final file names are {0} and {1}".format(thepatch,
         thearchive))
 
-        # Run ilegal file check
+        # Run illegal file check
         logging.info("Running file_check() to check for and remove illegal files.")
         file_check(patchfiles)
 
@@ -487,7 +487,8 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         except FileNotFoundError:
             pass
 
-    # .PiP and/or .zip already exists
+    # .PiP and/or .PiA already exists
+    # Since shutil has been removed, can I change this to FileAlreadyExistsError?
     except shutil.Error:
         logging.warning("shutil.Error")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
