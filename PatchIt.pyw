@@ -2,7 +2,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO® Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -465,8 +465,6 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            logging.info("LEGO Racers installation was found at {0}.".format(
-                LR_path))
             print('\n{0} installation found at\n"{1}"!\n\n'.format(
                 LR_game, LR_path) + r"Would you like to change this? (Y\N)")
             changepath = input("\n\n> ")
@@ -547,7 +545,7 @@ def LRWriteSettings():
             os.mkdir(settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'LR_settings' for writing using UTF-8-NOBOM encoding")
+        logging.info("Open 'Racers.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LR_settings),
             'wt', encoding='utf-8') as racers_file:
 
@@ -564,7 +562,7 @@ def LRWriteSettings():
             racers_file.write("1\n")
 
             # Run check for 1999 or 2001 version of Racers
-            logging.info("Run LRVerCheck(newgamepath) to check what version of Racers user has")
+            logging.info("Run LRVerCheck() to check what version of Racers user has")
             logging.info("Write brief comment telling what version of Racers this is")
             LRVer = LRVerCheck(new_racers_game)
 
@@ -831,7 +829,7 @@ def LOCOWriteSettings():
             os.mkdir(settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'LOCO_settings' for writing using UTF-8-NOBOM encoding")
+        logging.info("Open 'LOCO.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LOCO_settings),
             'wt', encoding='utf-8') as loco_file:
 

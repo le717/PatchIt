@@ -81,17 +81,18 @@ def appLoggingFolder():
             # Create the Logs folder
             os.mkdir(logs_folder)
 
-    # -- Begin Logging Config -- #
+    # -- Begin Logging Configuration -- #
 
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s : %(levelname)s : %(message)s",
             filename=os.path.join(logs_folder, 'PatchIt.log'),
             # "a" so the Logs is appended to and not overwritten
+            # and is created if it does not exist
             filemode='a'
         )
 
-    # -- End Logging Config -- #
+    # -- End Logging Configuration -- #
 
     except PermissionError:
         root = tk.Tk()
