@@ -97,7 +97,9 @@ def file_check(path):
             name, ext = os.path.splitext(string)
 
             # If an illegal file is found, as identified by the extension,
-            if ext.lower() in blacklist:
+            # Check both ext and  ext.lower() so it is case insensitive
+            if (ext.lower() in blacklist or
+                ext in blacklist):
                 logging.warning("An illegal file ({0}) has been found!".format(
                     ext))
                 # Get the full path to it,
