@@ -1,7 +1,7 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO® Racers
+    PatchIt! -  the standard and simple way to package and install mods for LEGOÂ® Racers
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -52,15 +52,15 @@ def file_check(path):
     # Scripts
     ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc",
     ".wsh", ".ps1", ".ps1xml", ".ps2",
-    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml"
-     ".msh2xml", ".py", ".pyw", ".au3",
+    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml",
+    ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
     # Resources
     ".dll", ".icd", ".pyd", ".pyo",
     # Shortcuts\Registry\Misc
     ".scf", ".lnk", ".inf", ".reg", ".db", ".PiP",
     # Office Macros
-    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm", ".potm"
-     ".ppam", ".ppsm", ".sldm",
+    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm",
+    ".potm", ".ppam", ".ppsm", ".sldm",
     # Archives
     ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2", ".bzip2",
     "gzip", ".tgz", ".rpm", ".deb", ".dmg", ".fat", ".ntfs", ".cab", ".iso",
@@ -133,7 +133,7 @@ def restore_files(path):
 # ------------ Begin Patch Info Character and Length Checks ------------ #
 
 
-def charCheck(text, search=re.compile(r'[^A-Za-z0-9. ]').search):
+def charCheck(text, search=re.compile(r'[^A-Za-z0-9-. ]').search):
     '''Check if an invalid character was entered or not'''
 
     # This returns True if everything is valid, and False if it isn't
@@ -397,7 +397,7 @@ Hint: if you are unsure, it will most likely be either'''.format(name))
 1920x1024
 
 If you used a custom resolution, be sure to enter that into the fields below.''',
- color.FG_LIGHT_MAGENTA)
+color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because the screen resolution is not expressed in
@@ -475,6 +475,7 @@ def writePatch(patchfiles, name, version, author, desc, mp, game):
         colors.pc("\nPatchIt! does not have the rights to create {0} {1}!"
         .format(name, version), color.FG_LIGHT_RED)
         # Delete incomplete files
+        # TODO: The next few lines are a bit fishy...
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
         try:
             os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
