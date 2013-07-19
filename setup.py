@@ -51,7 +51,8 @@ build_exe_options = {"build_exe": destfolder,
                      "Patch/racingtips",
                      "handlejam",
                      "patchit",
-                     "color"]}
+                     "color",
+                     "re"]}
 
 setup(
     name = "PatchIt!",

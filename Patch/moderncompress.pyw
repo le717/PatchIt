@@ -32,7 +32,7 @@ import Color.colors as colors
 from tkinter import (filedialog, Tk)
 # App Logging module
 import logging
-# Character Check
+# Original Character Check
 #import re
 
 # ------------ Begin Illegal File Check ------------ #
