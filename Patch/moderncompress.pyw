@@ -458,10 +458,10 @@ Game: {3}
 "{5}"
 '''.format(name, version, author, game, mp, desc))
         logging.info("Switching to writePatch()")
-        writePatch(patchfiles, name, version, author, desc, mp, game)
+        writePatch(patchfiles, mp, game)
 
 
-def writePatch(patchfiles, name, version, author, desc, mp, game):
+def writePatch(patchfiles, mp, game):
     '''Writes and compresses PatchIt! Patch'''
 
     try:
