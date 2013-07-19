@@ -33,7 +33,7 @@ from tkinter import (filedialog, Tk)
 # App Logging module
 import logging
 # Character Check
-import re
+#import re
 
 # ------------ Begin Illegal File Check ------------ #
 
@@ -118,8 +118,8 @@ def restore_files(path):
 
     try:
         # Copy entire directory (every last folder/file) to the temp location
-        logging.info("Moving all files back from {0} to {1}".format(temp_location,
-        path))
+        logging.info("Moving all files back from {0} to {1}".format(
+            temp_location, path))
         distutils.dir_util.copy_tree(temp_location, path)
         distutils.dir_util.remove_tree(temp_location)
     except Exception:
@@ -135,38 +135,39 @@ def restore_files(path):
 # ------------ Begin Patch Info Character and Length Checks ------------ #
 
 
-# A list of all illegal characters
-global illegal_chars
-illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
+def charCheck(text):
+    '''Checks for invalid characters in text'''
 
-def charCheckRedo(text):
-    '''A rewrite of charCheck(), checks if an invalid character was entered or not'''
+    # A list of all illegal characters
+    illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
 
-
-    # Get each character in the text
+    # Mark as global to display invalid characters in messages
     global char
+    # Get each character in the text
     for char in text:
+        # A character was found
         if char in illegal_chars:
             return True
+        # A character was not found
         else:
             return False
-    #pass
 
+#def charCheck(text, search=re.compile(r'[^A-Za-z0-9-. ]').search):
+    #'''Check if an invalid character was entered or not'''
 
-def charCheck(text, search=re.compile(r'[^A-Za-z0-9-. ]').search):
-    '''Check if an invalid character was entered or not'''
-
-    # This returns True if everything is valid, and False if it isn't
-    return not bool(search(text))
+    ## This returns True if everything is valid, and False if it isn't
+    #return not bool(search(text))
 
 
 def patchName():
     '''Ask for Patch Name'''
 
+    # Mark as global to remove silly "None" error
+    global name
     name = input("Name: ")
 
     # An invalid character was entered
-    if not charCheck(name):
+    if charCheck(name):
         logging.warning("There were illegal characters in the Patch name!")
         colors.pc("\nYou have entered an illegal character!",
         color.FG_LIGHT_RED)
@@ -195,7 +196,7 @@ def patchName():
         patchName()
 
     # An invalid character was not entered/the field was filled out
-    else:
+    else:  # elif not charCheck(name)
         logging.info("All characters in Patch name are allowed")
         logging.info("The name field was filled out")
         return name
@@ -204,11 +205,12 @@ def patchName():
 def patchVersion():
     '''Ask for Patch Version'''
 
+    # Mark as global to remove silly "None" error
+    global version
     version = input("Version: ")
-    print(version)
 
     # An invalid character was entered
-    if not charCheck(version):
+    if charCheck(version):
         logging.warning("There were illegal characters in the Patch version!")
         colors.pc("\nYou have entered an illegal character!",
         color.FG_LIGHT_RED)
@@ -237,7 +239,7 @@ def patchVersion():
         patchVersion()
 
     # An invalid character was not entered/the field was filled out
-    else:
+    else:  # elif not charCheck(version):
         logging.info("All characters in Patch version are allowed")
         logging.info("The version field was filled out")
         return version
@@ -246,6 +248,8 @@ def patchVersion():
 def patchAuthor():
     '''Ask for Patch Author'''
 
+    # Mark as global to remove silly "None" error
+    global author
     author = input("Author: ")
 
     # No characters were entered
@@ -266,6 +270,8 @@ def patchAuthor():
 def patchDesc():
     '''Ask for Patch Author'''
 
+    # Mark as global to remove silly "None" error
+    global desc
     desc = input("Description: ")
 
     # No characters were entered
@@ -284,6 +290,56 @@ def patchDesc():
         return desc
 
 
+def MPField(game):
+    '''Sets the value for the MP field,
+    asks for map resolution for LEGO LOCO Patch'''
+
+    # Mark as global to remove silly "None" error
+    global mp
+
+    # If  Racers Patch, automaticlly assign MP field
+    if game == "LEGO Racers":
+        logging.info("Setting value for LEGO Racers MP field")
+        mp = "MP"
+        return mp
+
+    # This is a LOCO Patch (implied else block here)
+    # Get the resolution the map was created in (it matters!)
+
+    logging.info("What resolution was this LEGO LOCO map created with?")
+    print('''\nWhat resolution was "{0}" created with?
+Hint: if you are unsure, it will most likely be either'''.format(name))
+
+    colors.pc('''
+800x600,
+1024x768,
+1920x1024
+
+If you used a custom resolution, be sure to enter that into the fields below.''',
+color.FG_LIGHT_MAGENTA)
+
+    try:
+        # int() because the screen resolution is not expressed in
+        # decimal numbers nor words, but whole numbers
+        horz_res = int(input("\nWidth: "))
+        vert_res = int(input("Height: "))
+
+        # The final value
+        mp = "{0}x{1}".format(horz_res, vert_res)
+        logging.info("This map uses the {0} resolution".format(mp))
+        logging.info("Returning resolution")
+        return mp
+
+    # A valid resolution was not entered
+    except ValueError:
+        logging.warning("User entered an invalid number!")
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
+        colors.pc("You have entered a non-numerical character!")
+        logging.info("Looping back through MPField()")
+        MPField(game)
+
+
 # ------------ End Patch Info Character and Length Checks ------------ #
 
 
@@ -297,7 +353,6 @@ def patchInfo(*args):
     colors.pc("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
-    logging.info('Type "q" in the next field to cancel the Patch Creation process.')
     colors.pc('Type "q" in the next field to cancel.\n', color.FG_WHITE)
 
     # Get what game this Patch is for
@@ -315,9 +370,6 @@ def patchInfo(*args):
         logging.info("User selected LEGO Racers")
         game = "LEGO Racers"
 
-        # Value for MP field
-        mp = "MP"
-
     # It's an LOCO Patch
     elif game_select.lower() == "l":
         logging.info("User selected LEGO LOCO")
@@ -330,25 +382,28 @@ def patchInfo(*args):
         logging.info("Switching to main menu")
         PatchIt.main()
 
-    logging.info("Ask for Patch name (patchName())")
+    logging.info("Ask for Patch name")
     print("\n")
-    name = patchName()
-    print(name)
+    patchName()
 
-    logging.info("Ask for Patch version (patchVersion())")
-    version = patchVersion()
+    logging.info("Ask for Patch version")
+    patchVersion()
 
-    logging.info("Ask for Patch author (patchAuthor())")
-    author = patchAuthor()
+    logging.info("Ask for Patch author")
+    patchAuthor()
 
-    logging.info("Ask for Patch description (patchDesc())")
-    desc = patchDesc()
+    logging.info("Ask for Patch description")
+    patchDesc()
 
-    if game == "LEGO LOCO":
-        # Get the resolution the map was created in (it matters!)
-        # for the MP field
-        logging.info("Switching to LOCORes(name) to get map resolution")
-        mp = LOCORes(name)
+    logging.info("Switching to MPField() to get value of MP field")
+    MPField(game)
+
+    # Run function to select files for compression
+    selectPatchFiles(game, mp)
+
+
+def selectPatchFiles(game, mp):
+    '''Select the Patch fils for compression'''
 
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -357,7 +412,7 @@ def patchInfo(*args):
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings to basically hide it")
+    logging.info("Overwrite root settings so it will be hidden")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
@@ -404,41 +459,6 @@ Game: {3}
 '''.format(name, version, author, game, mp, desc))
         logging.info("Switching to writePatch()")
         writePatch(patchfiles, name, version, author, desc, mp, game)
-
-
-def LOCORes(name):
-    '''Enter the resolution this LOCO map was created with'''
-
-    logging.info("What resolution was this LEGO LOCO map created with?")
-    print('''\nWhat resolution was "{0}" created with?
-Hint: if you are unsure, it will most likely be either'''.format(name))
-
-    colors.pc('''
-800x600,
-1024x768,
-1920x1024
-
-If you used a custom resolution, be sure to enter that into the fields below.''',
-color.FG_LIGHT_MAGENTA)
-
-    try:
-        # int() because the screen resolution is not expressed in
-        # decimal numbers nor words, but whole numbers
-        res_horz = int(input("\nWidth: "))
-        res_vert = int(input("Height: "))
-        mp = "{0}x{1}".format(res_horz, res_vert)
-        logging.info("This map uses the {0} resolution".format(mp))
-        logging.info("Returning resolution")
-        return mp
-
-    # A valid resolution was not entered
-    except ValueError:
-        logging.warning("User entered an invalid number!")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
-        colors.pc("You have entered a non-numerical character!")
-        logging.info("Looping back through LOCORes()")
-        LOCORes(name)
 
 
 def writePatch(patchfiles, name, version, author, desc, mp, game):
