@@ -89,7 +89,8 @@ def args():
             # If the help parameter was given
             if argument == value:
                 logging.info("The help parameter (-h, --help) was given, displaying help messages")
-                print("\n{0} Version {1} Command-line arguments".format(app, majver))
+                print("\n{0} Version {1} Command-line arguments".format(app,
+                majver))
                 # Use input rather than print so user can close the window
                 # at anytime, rather than it closing after 10 seconds
                 input(r'''
@@ -121,8 +122,8 @@ Press the Enter key to close.'''.format(exe_name))
             # If the test parameter is given
             if argument == value:
                 test = True
-                os.system("title {0} Version {1} {2} - Experimental Mode".format(
-                    app, majver, minver))
+                os.system("title {0} Version {1} {2} - Experimental Mode"
+                .format(app, majver, minver))
                 logging.info("The test parameter (-t, --test) was given, enabling experimental features")
                 preload()
 
