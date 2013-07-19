@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PatchIt!</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="patchitlogo">
@@ -231,6 +231,9 @@ Extractor</string>
    <property name="text">
     <string>Create Patch</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="editmenu">
    <property name="text">
@@ -240,6 +243,9 @@ Extractor</string>
   <action name="installmenu">
    <property name="text">
     <string>Install Patch</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="jammenu">
@@ -251,6 +257,9 @@ Extractor</string>
    <property name="text">
     <string>Quit</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="settingsmenu">
    <property name="text">
@@ -261,15 +270,54 @@ Extractor</string>
    <property name="text">
     <string>PatchIt! Help</string>
    </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
   </action>
   <action name="aboutmenu">
    <property name="text">
     <string>About</string>
+   </property>
+   <property name="shortcut">
+    <string>F12</string>
    </property>
   </action>
  </widget>
  <resources>
   <include location="main.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>quitbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>517</x>
+     <y>412</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>quitmenu</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

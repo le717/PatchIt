@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>About</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="about_logo">
@@ -62,10 +62,10 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; vertical-align:sub;&quot;&gt;PatchIt! &lt;/span&gt;&lt;span style=&quot; font-size:14pt; vertical-align:sub;&quot;&gt;The standard and simple way &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; vertical-align:super;&quot;&gt;to package and install LEGO® Racers mods&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="PatchItWebsite">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>240</x>
       <y>310</y>
       <width>75</width>
       <height>23</height>
@@ -75,7 +75,7 @@
      <string>Website</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="Triangle717Website">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -88,10 +88,10 @@
      <string>Triangle717</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="CloseAbout">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>130</x>
       <y>310</y>
       <width>75</width>
       <height>23</height>
@@ -111,7 +111,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;, it's code, and concepts created 2013 &lt;a href=&quot;http://triangle717.wordpress.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Triangle717&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;PatchIt!, it's code, and concepts created 2013 &lt;a href=&quot;http://triangle717.wordpress.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Triangle717&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="about_rio_credit">
@@ -154,7 +154,7 @@
 released under the GPL V3</string>
     </property>
    </widget>
-   <widget class="QLabel" name="about_logo_2">
+   <widget class="QLabel" name="gpl_logo">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -188,21 +188,37 @@ released under the GPL V3</string>
    </widget>
    <zorder>about_logo</zorder>
    <zorder>about_name</zorder>
-   <zorder>about_ver</zorder>
    <zorder>about_quote</zorder>
    <zorder>about_ver</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>pushButton_3</zorder>
+   <zorder>PatchItWebsite</zorder>
+   <zorder>Triangle717Website</zorder>
+   <zorder>CloseAbout</zorder>
    <zorder>about_tri_credit</zorder>
    <zorder>about_rio_credit</zorder>
    <zorder>line</zorder>
    <zorder>label</zorder>
-   <zorder>about_logo_2</zorder>
+   <zorder>gpl_logo</zorder>
   </widget>
  </widget>
  <resources>
   <include location="main.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>CloseAbout</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
