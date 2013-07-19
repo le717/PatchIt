@@ -88,7 +88,7 @@ Patch</string>
      </rect>
     </property>
     <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Install a &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; patch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Install a &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;PatchIt!&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; patch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 16pt &quot;Consolas&quot;;</string>
@@ -128,7 +128,7 @@ Patch</string>
      </rect>
     </property>
     <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Load the JAM Extractor for LEGO&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;® &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Racers&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Load the JAM Extractor for LEGO&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;® &lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Racers&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 16pt &quot;Consolas&quot;;</string>
