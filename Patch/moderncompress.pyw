@@ -135,6 +135,24 @@ def restore_files(path):
 # ------------ Begin Patch Info Character and Length Checks ------------ #
 
 
+# A list of all illegal characters
+global illegal_chars
+illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
+
+def charCheckRedo(text):
+    '''A rewrite of charCheck(), checks if an invalid character was entered or not'''
+
+
+    # Get each character in the text
+    global char
+    for char in text:
+        if char in illegal_chars:
+            return True
+        else:
+            return False
+    #pass
+
+
 def charCheck(text, search=re.compile(r'[^A-Za-z0-9-. ]').search):
     '''Check if an invalid character was entered or not'''
 
@@ -187,6 +205,7 @@ def patchVersion():
     '''Ask for Patch Version'''
 
     version = input("Version: ")
+    print(version)
 
     # An invalid character was entered
     if not charCheck(version):
@@ -314,6 +333,7 @@ def patchInfo(*args):
     logging.info("Ask for Patch name (patchName())")
     print("\n")
     name = patchName()
+    print(name)
 
     logging.info("Ask for Patch version (patchVersion())")
     version = patchVersion()
@@ -407,8 +427,8 @@ color.FG_LIGHT_MAGENTA)
         res_horz = int(input("\nWidth: "))
         res_vert = int(input("Height: "))
         mp = "{0}x{1}".format(res_horz, res_vert)
-        logging.info("This map was the {0} resolution".format(mp))
-        logging.info("Returning mp variable")
+        logging.info("This map uses the {0} resolution".format(mp))
+        logging.info("Returning resolution")
         return mp
 
     # A valid resolution was not entered
