@@ -29,7 +29,7 @@
 <body>
 <h2>Change Log</h2>
 <strong>1.1.1 Unstable</strong><br>
-<em>Hitting the TARget</em><br>
+<em>"Hitting the TARget"</em><br>
 (Released ?? ??, 2013)<br>
 <ul>
 <li>Removed outdated <code>logging</code> messages and <code>linecache</code> functions from last minute change in <span class="bold">1.1.0 Stable</span></li>
@@ -225,14 +225,14 @@ was being violated)</li>
 <li>Windows version and architecture is written into log</li>
 <li>Changed condition for writing settings files: if <code>CheckLRSettings()</code> or <code>CheckLOCOSettings()</code> return True, go to menu; else, write
 settings (was originally if both returned true)</li>
-<li>If Game field in Patch reads <span class="italic">LEGO&reg; Racers</span>, open <code>LRsettings</code> for installation path, else if <span class="italic">
-LEGO&reg; LOCO</span>, open <code>LOCOsettings</code> for installation path</li>
+<li>If Game field in Patch reads <span class="italic">LEGO&reg; Racers</span>, open <code>LRsettings</code> for installation path, else if 
+<span class="italic">LEGO&reg; LOCO</span>, open <code>LOCOsettings</code> for installation path</li>
 <li>Display <span class="italic">LEGO&reg; Racers</span> gameplay tips only if Game field in Patch reads <span class="italic">LEGO&reg; Racers</span></li>
 <li>Python version and architecture is written into log</li>
 <li>Display different main menu depending or wither or not the <code>--test</code> parameter was passed</li>
 <li>Added display of "Game:" in Patch info display</li>
-<li>Display resolution the <span class="italic">LEGO&reg; LOCO</span> map was created with in place of the <span class="italic">LEGO&reg; Racers</span> gameplay tips
-</li>
+<li>Display resolution the <span class="italic">LEGO&reg; LOCO</span> map was created with in place of the <span class="italic">LEGO&reg; Racers</span> 
+gameplay tips</li>
 <li>Added cleanup of Mod author field in Patch</li>
 <li>Check if user is using x86 or x64 Python, write result to log</li>
 <li>Added menu to <code>handlejam.pyw</code>, redirect any input to <span class="bold">PatchIt!</span> main menu (nothing in the script is complete)</li>
@@ -287,8 +287,8 @@ to be released separately andd used in installer</li>
 <li>Added empty field exception on all Patch Info fields in Patch Creation</li>
 <li>Changed <code>[b] Back</code> display to <code>[q] Quit</code></li>
 <li>Updated <span class="bold">PatchIt! Uninstaller</span>, thanks to JrMasterModelBuilder</li>
-<li>Display <span class="italic">LEGO&reg; Racers</span> gameplay tip or <span class="italic">LEGO&reg; LOCO</span> map resolution only if Patch Installation was
-successful (per suggestion from tester)</li>
+<li>Display <span class="italic">LEGO&reg; Racers</span> gameplay tip or <span class="italic">LEGO&reg; LOCO</span> map resolution only if Patch Installation 
+was successful (per suggestion from tester)</li>
 <li>Simplified internal code for <code>FileNotFoundError</code> message</li>
 <li>Specified UTF-8 encoding on all scripts</li>
 <li>Un-daisy-chained <code>import</code> statements per PEP8</li>
@@ -337,8 +337,10 @@ Issue #3</a>)</li>
 <li>Fixed location of log as written in <code>PatchIt.log</code>
 <li>Added new <span class="bold">PatchIt!</span> executable name and location variables</li>
 <li>Added check to modern and legacy Patch Installation routines for existence of settings files</li>
-<li>Added error message when user does not select an <span class="italic">LEGO&reg; Racers</span> or <span class="italic">LEGO&reg; LOCO</span> installation at all</li>
-<li>Changed location of initial directory when selecting an <span class="italic">LEGO&reg; Racers</span> or <span class="italic">LEGO&reg; LOCO</span> installation</li>
+<li>Added error message when user does not select an <span class="italic">LEGO&reg; Racers</span> or <span class="italic">LEGO&reg; LOCO</span> installation 
+at all</li>
+<li>Changed location of initial directory when selecting an <span class="italic">LEGO&reg; Racers</span> or <span class="italic">LEGO&reg; LOCO</span> 
+installation</li>
 <li>Simplified Registry code for shell extension</li>
 <li>Use different window title if <code>--test</code> parameter is passed</li>
 <li>If both the shell extension and the <code>--test</code> parameter are to be invoked, <code>--test</code> must come <span class="italic">after</span> the 
