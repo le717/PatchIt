@@ -230,8 +230,8 @@ def readModernPatch(patch):
         global all_lines
         all_lines = file.readlines()[:]
 
-    # Assign Patch ZIP
-    logging.info("Assigning line 3 of {0} to Zip Archive".format(patch))
+    # Assign Patch PiA
+    logging.info("Assigning line 3 of {0} to PiA Archive".format(patch))
     patch_archive = all_lines[2]
 
     # Assign Patch Author
@@ -301,7 +301,7 @@ Game: {3}
         logging.warning("User does not want to install {0} {1}!".format(name,
         version))
         colors.pc("\nCanceling installation of {0} {1}...".format(name,
-        version), color.FG_WHITE)
+        version), color.FG_LIGHT_RED)
         time.sleep(0.5)
         logging.info("Switching to main menu")
         PatchIt.main()
