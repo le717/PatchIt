@@ -23,7 +23,6 @@
 import os
 import time
 import linecache
-import zipfile
 import tarfile
 import random
 import traceback
