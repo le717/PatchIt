@@ -70,26 +70,25 @@ def file_check(path):
     # --- Begin Temporary Folder Configuration -- #
 
     # Make the locations global for use in other locations
-    global temp_folder, one_folder_up, temp_location
+    global temp_folder, temp_location
+
     # Temporary folder for illegal files
     temp_folder = "PatchIt Temporary Folder"
 
-    # The directory above the Patch files
-    one_folder_up = os.path.dirname(path)
-
     # The full location to the temporary folder
-    temp_location = os.path.join(one_folder_up, temp_folder)
+    temp_location = os.path.join(path, temp_folder)
 
     # --- End Temporary Folder Configuration -- #
 
     # --- Begin Illegal File Scan -- #
 
-    # Traversing the reaches of the Patch files...
-    for root, dirnames, filenames in os.walk(path):
-
-        logging.info("Copying all contents of {0} to {1}".format(path,
+    # Copy files to temporary location
+    logging.info("Copying all contents of {0} to {1}".format(path,
         temp_location))
-        distutils.dir_util.copy_tree(path, temp_location)
+    distutils.dir_util.copy_tree(path, temp_location)
+
+    # Traversing the reaches of the (Temporary) Patch files...
+    for root, dirnames, filenames in os.walk(temp_location):
 
         # Get the index and string of each item in the list
         for index, string in enumerate(filenames):
@@ -112,15 +111,12 @@ def file_check(path):
     # --- End Illegal File Scan -- #
 
 
-def restore_files(path):
-    '''Moves illegal files from the temporary location back to their
-    original location'''
+def delete_files():
+    '''Deletes temporary folder created during compression'''
 
     try:
-        # Copy entire directory (every last folder/file) to the temp location
-        logging.info("Moving all files back from {0} to {1}".format(
-            temp_location, path))
-        distutils.dir_util.copy_tree(temp_location, path)
+        # Delete temporary directory
+        logging.info("Delete all files at {0}".format(temp_location))
         distutils.dir_util.remove_tree(temp_location)
     except Exception:
         # Dump any error tracebacks to the log
@@ -480,9 +476,10 @@ def writePatch(patchfiles, mp, game):
         os.chdir(patchfiles)
 
         # Compress the files
-        logging.info("Compress files located at {0} into an LZMA compressed TAR archive".format(patchfiles))
+        logging.info('''Compress files located at {0} into an LZMA compressed
+TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         with tarfile.open(thearchive, "w:xz") as tar_file:
-            tar_file.add(patchfiles, "")
+            tar_file.add(temp_location, "")
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(
@@ -557,12 +554,12 @@ for the files, and move or delete them if necessary.'''.format(thepatch,
 
     finally:
         # Change the working directory back to the location of PatchIt!
-        logging.info("Changing the working directory to {0}".format(
+        logging.info("Changing the working directory back to {0}".format(
             PatchIt.app_folder))
         os.chdir(PatchIt.app_folder)
         # Run process to restore all the files in the Patch files
-        logging.info("Running restore_files() to move all illegal files back")
-        restore_files(patchfiles)
+        logging.info("Running delete_files() to remove temporary folder")
+        delete_files()
         logging.info("Switching to main menu")
         PatchIt.main()
 
