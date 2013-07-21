@@ -171,7 +171,7 @@ def info():
 
                                     If you run into a bug, open an issue at
                                     https://github.com/le717/PatchIt/issues
-                                    and attach this file for an easier fix!
+                                    and attach this file for an quicker fix!
                                 #############################################
                                 '''.format(app, majver, minver, creator))
 
