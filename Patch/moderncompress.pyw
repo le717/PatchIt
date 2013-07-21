@@ -518,16 +518,6 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
         .format(name, version), color.FG_LIGHT_RED)
 
-        # Delete incomplete files
-        # TODO: The next few lines are a bit fishy...
-        logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
-        try:
-            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
-            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(
-                thearchive)))
-            # In case the file was never created in the first place
-        except FileNotFoundError:
-            pass
 
     # .PiP and/or .PiA already exists
     # Since shutil has been removed, can I change this to FileAlreadyExistsError?
@@ -558,9 +548,8 @@ PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
 .format(name, version))
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} (Version: {1})!".format(name, version), color.FG_LIGHT_RED)
         try:
-            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
-            os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(
-                thearchive)))
+            os.unlink("{0}".format(thepatch))
+            os.unlink("{0}".format(thearchive))
             # In case the file was never created in the first place
         except FileNotFoundError:
             pass
