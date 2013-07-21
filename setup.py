@@ -29,14 +29,16 @@ from PatchIt import majver, minver
 import sys
 import os
 
-# Append build to the arguments. Just type "python setup.py" and it will compile
-if len(sys.argv) == 1: sys.argv[1:] = ["build"]
+# Append build command to command-line arguments.
+# Just type "python setup.py" and it will freeze
+if len(sys.argv) == 1:
+    sys.argv[1:] = ["build"]
 
-# Compile 32-bit binary only, warn if trying to compile 64-bit
 if sys.maxsize == 2147483647:
-    destfolder = os.path.join("Compile", "Windows")
+    destfolder = os.path.join("Freeze", "Windows")
 else:
-    print("\n64-bit binaries are not compiled. Please recompile using 32-bit Python 3.3.")
+    input('''\n64-bit binaries are not frozen.
+Please freeze PatchIt! using 32-bit Python 3.3.''')
     raise SystemExit
 
 build_exe_options = {"build_exe": destfolder,
@@ -55,10 +57,10 @@ build_exe_options = {"build_exe": destfolder,
                      "re"]}
 
 setup(
-    name = "PatchIt!",
-    version = "{0}".format(majver),
-    author = "2013 Triangle717",
-    description = "PatchIt! Version {0} {1}".format(majver, minver),
-    license = "GNU GPLv3",
-    options = {"build_exe": build_exe_options},
-    executables = [Executable("RunIt.py", targetName="PatchIt.exe")])
+    name="PatchIt!",
+    version="{0}".format(majver),
+    author="2013 Triangle717",
+    description="PatchIt! Version {0} {1}".format(majver, minver),
+    license="GNU GPLv3",
+    options={"build_exe": build_exe_options},
+    executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
