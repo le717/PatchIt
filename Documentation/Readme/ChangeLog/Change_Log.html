@@ -110,13 +110,15 @@ Installation</li>
 <li>Small function and variable renames</li>
 <li>Workaround fix for bug with <code>None</code> replacing user input after an input check is hit</li>
 <li>Fixed color of "Cancel Installation" message (pre report from tester)</li>
-<li>Removed unused import of <code>zipfile</code> module in <code>modernextract.pyw</code></li>
+<li>Removed import of unused <code>zipfile</code> module in <code>modernextract.pyw</code></li>
 <li>Updated illegal files blacklist to sort through and compress temporary folder instead of selected files</li>
 <li>Changed location of temporary folder created for illegal files check, comments and logging messages updated accordingly</li>
 <li>Updated messages containing Patch Name and Version to automatically surround the version in parentheses and append <code>Version:</code> (per suggestion 
 from tester)</li>
 <li>Removed old code left over from <span class="bold">PatchIt! Version 1.0.<code>x</code></span> days</li>
 <li>Updated <code>FileNotFoundError</code> message with folder path of PiP file</li>
+<li>Updated logging messages to give a bit of whitespace around tracebacks</li>
+<li>Removed import of <code>traceback</code> and <code>sys</code> modules in <code>modernextract.pyw</code></li>
 <li>LEGOs in space? More later!</li>
 </ul>
 

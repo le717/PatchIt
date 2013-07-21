@@ -17,6 +17,10 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+    For YHWH so loved the world, that He gave His only begotten Son,
+    that whosoever believeth in Him should not perish, but have
+    everyalasting life. - John 3:16
 """
 # PatchIt! V1.1.1 Unstable Modern Patch Installation code
 
@@ -25,8 +29,6 @@ import time
 import linecache
 import tarfile
 import random
-import traceback
-import sys
 
 # Logging module
 import logging
@@ -376,8 +378,10 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         # Installation was successful!
         logging.warning("Error (exit) number '0'")
-        logging.info("{0} (Version: {1}) successfully installed to {2}".format(name,
-        version, install_path))
+        logging.info('''
+
+{0} (Version: {1}) successfully installed to {2}'''.format(
+    name, version, install_path))
         colors.pc('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(name,
         version, install_path), color.FG_LIGHT_GREEN)
 
@@ -387,10 +391,13 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
     # For some reason, it cannot find the Patch archive
     except FileNotFoundError:
         logging.warning("Error number '2'")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
+        logging.exception('''Oops! Something went wrong! Here's what happened
 
-        logging.warning("Unable to find {0} at {1}!".format(patch_archive,
+''', exc_info=True)
+
+        logging.warning('''
+
+Unable to find {0} at {1}!'''.format(patch_archive,
         patch_location))
         colors.pc('''\nCannot find Patch files for {0} (Version: {1})!
 Make sure "{2}" and "{3}"
@@ -407,9 +414,14 @@ If this error continues, contact {5} and ask for a fixed version.'''
     # The user does not have the rights to install to that location.
     except PermissionError:
         logging.warning("Error number '13'")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
-        logging.warning('PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'.format(name, version, install_path))
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+
+        logging.warning('''
+
+PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
+.format(name, version, install_path))
         colors.pc('''\nPatchIt! does not have the rights to install
 {0} (Version: {1}) to
 {2}!
@@ -418,12 +430,19 @@ If this error continues, contact {5} and ask for a fixed version.'''
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.warning("Unknown error number")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
-        logging.warning('PatchIt! ran into an unknown error while trying to install {0} (Version: {1}) to {2}'.format(name, version, install_path))
-        colors.pc('''\nPatchIt! ran into an unknown error while trying to install
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+
+        logging.warning('''
+
+PatchIt! had an unknown error while to installing {0} (Version: {1}) to {2}'''
+.format(name, version, install_path))
+        colors.pc('''
+PatchIt! ran into an unknown error while trying to install
 {0} (Version: {1}) to
-{2}!
+
+"{2}"
 '''.format(name, version, install_path),
 color.FG_LIGHT_RED)
 

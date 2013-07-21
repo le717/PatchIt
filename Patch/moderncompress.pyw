@@ -123,7 +123,6 @@ def delete_files():
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
            exc_info=True)
-        pass
 
 # ------------ End Illegal File Check ------------ #
 
@@ -329,8 +328,9 @@ color.FG_LIGHT_MAGENTA)
     # A valid resolution was not entered
     except ValueError:
         logging.warning("User entered an invalid number!")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
         colors.pc("You have entered a non-numerical character!")
         logging.info("Looping back through MPField()")
         MPField(game)
@@ -507,12 +507,17 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
         logging.warning("Error number '13'")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
-        logging.warning("PatchIt! does not have the rights to create {0} (Version: {1})"
-        .format(name, version))
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+        logging.warning('''
+
+PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
+    name, version))
+
         colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
         .format(name, version), color.FG_LIGHT_RED)
+
         # Delete incomplete files
         # TODO: The next few lines are a bit fishy...
         logging.info('Deleting incomplete Patch ({0})'.format(thepatch))
@@ -528,10 +533,14 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
     # Since shutil has been removed, can I change this to FileAlreadyExistsError?
     except shutil.Error:
         logging.warning("shutil.Error")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
-        logging.warning('{0} or {1} already exists at "{2}" or "{3}"!'.format(
-            thepatch, thearchive, patchfiles, PatchIt.app_folder))
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+        logging.warning('''
+
+{0} or {1} already exists at "{2}" or "{3}"!'''.format(thepatch, thearchive,
+    patchfiles, PatchIt.app_folder))
+
         colors.pc('''\n{0} or {1} already exists!
     Check either "{2}"\nor "{3}"
 for the files, and move or delete them if necessary.'''.format(thepatch,
@@ -540,9 +549,13 @@ for the files, and move or delete them if necessary.'''.format(thepatch,
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
         logging.warning("Unknown error number")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
-        logging.warning("PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!".format(name, version))
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+        logging.warning('''
+
+PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
+.format(name, version))
         colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} (Version: {1})!".format(name, version), color.FG_LIGHT_RED)
         try:
             os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
