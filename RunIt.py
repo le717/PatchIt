@@ -39,7 +39,7 @@ except ImportError:
 
 app = "PatchIt!"
 majver = "Version 1.1.1"
-minver = "Unstable"
+minver = "RC2"
 
 # User is not running < Python 3.3.0
 if sys.version_info < (3, 3, 0):

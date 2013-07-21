@@ -46,7 +46,7 @@ import Color.colors as colors
 # Global variables
 app = "PatchIt!"
 majver = "1.1.1"
-minver = "Unstable"
+minver = "RC2"
 creator = "Triangle717"
 
 # Name of PatchIt! Exe/Py
