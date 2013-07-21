@@ -78,7 +78,7 @@ def selectPatch(*args):
     logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
     patch = filedialog.askopenfilename(
     parent=root,
-    title="Please select a PatchIt! Patch",
+    title="Select a PatchIt! Patch",
     defaultextension=".PiP",
     filetypes=fileformat)
 
@@ -223,11 +223,11 @@ def readModernPatch(patch):
     '''Reads PatchIt! Patch Details'''
 
     # Get all patch details
-    with open(patch, "rt", encoding="utf-8") as file:
+    with open(patch, "rt", encoding="utf-8") as f:
         logging.info("Reading contents of Patch")
         # Global so the data from it can be deleted after installation
         global all_lines
-        all_lines = file.readlines()[:]
+        all_lines = f.readlines()[:]
 
     # Assign Patch PiA
     logging.info("Assigning line 3 of {0} to PiA Archive".format(patch))
@@ -288,18 +288,18 @@ Game: {3}
 "{4}"'''.format(name, version, author, game, desc)
 
     # Display the info
-    print(patch_info, end="\n")
+    print(patch_info)
 
-    logging.info("Do you Do you wish to install {0} {1}?".format(name, version))
-    print("\nDo you wish to install {0} {1}? {2}".format(name, version,
+    logging.info("Do you Do you wish to install {0} (Version: {1})?".format(name, version))
+    print("\nDo you wish to install {0} (Version: {1})? {2}".format(name, version,
     r"(Y\N)"))
     confirm_install = input("\n> ")
 
     # No, I do not want to install the patch
     if confirm_install.lower() != "y":
-        logging.warning("User does not want to install {0} {1}!".format(name,
+        logging.warning("User does not want to install {0} (Version: {1})!".format(name,
         version))
-        colors.pc("\nCanceling installation of {0} {1}...".format(name,
+        colors.pc("\nCanceling installation of {0} (Version: {1})".format(name,
         version), color.FG_LIGHT_RED)
         time.sleep(0.5)
         logging.info("Switching to main menu")
@@ -307,7 +307,7 @@ Game: {3}
 
     else:
         # Yes, I do want to install it!
-        logging.info("User does want to install {0} {1}.".format(name, version))
+        logging.info("User does want to install {0} (Version: {1}).".format(name, version))
         logging.info("Proceeding to installModernPatch()")
         installModernPatch(patch, name, version, author, game, mp,
             patch_archive)
@@ -376,9 +376,9 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         # Installation was successful!
         logging.warning("Error (exit) number '0'")
-        logging.info("{0} {1} successfully installed to {2}".format(name,
+        logging.info("{0} (Version: {1}) successfully installed to {2}".format(name,
         version, install_path))
-        colors.pc('{0} {1} sucessfully installed to\n"{2}"'.format(name,
+        colors.pc('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(name,
         version, install_path), color.FG_LIGHT_GREEN)
 
         # Log Archive closure although it was closed automatically by with
@@ -390,27 +390,28 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         logging.exception("Oops! Something went wrong! Here's what happened\n",
             exc_info=True)
 
-        # Strip the ID text for a smoother error message
-        logging.info("Cleaning up Version and Author text")
-        version = version.lstrip("Version: ")
-        author = author.lstrip("Author: ")
         logging.warning("Unable to find {0} at {1}!".format(patch_archive,
         patch_location))
-        colors.pc('''\nCannot find Patch files for {0} {1}!
-Make sure "{0}{1}.PiA" and "{0}{1}.PiP"
-are in the same folder, and try again.
+        colors.pc('''\nCannot find Patch files for {0} (Version: {1})!
+Make sure "{2}" and "{3}"
+are both located at
 
-If this error continues, contact {2} and ask for a fixed version.'''
-        .format(name, version, author), color.FG_LIGHT_RED)
+"{4}"
+
+and try again.
+
+If this error continues, contact {5} and ask for a fixed version.'''
+        .format(name, version, os.path.basename(patch),
+        patch_archive, patch_location, author), color.FG_LIGHT_RED)
 
     # The user does not have the rights to install to that location.
     except PermissionError:
         logging.warning("Error number '13'")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
             exc_info=True)
-        logging.warning('PatchIt! does not have the rights to install "{0} {1}" to {2}'.format(name, version, install_path))
+        logging.warning('PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'.format(name, version, install_path))
         colors.pc('''\nPatchIt! does not have the rights to install
-"{0} {1}" to
+{0} (Version: {1}) to
 {2}!
 '''.format(name, version, install_path), color.FG_LIGHT_RED)
 
@@ -419,9 +420,9 @@ If this error continues, contact {2} and ask for a fixed version.'''
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
             exc_info=True)
-        logging.warning('PatchIt! ran into an unknown error while trying to install "{0} {1}" to {2}'.format(name, version, install_path))
+        logging.warning('PatchIt! ran into an unknown error while trying to install {0} (Version: {1}) to {2}'.format(name, version, install_path))
         colors.pc('''\nPatchIt! ran into an unknown error while trying to install
-"{0} {1}" to
+{0} (Version: {1}) to
 {2}!
 '''.format(name, version, install_path),
 color.FG_LIGHT_RED)

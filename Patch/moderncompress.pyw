@@ -421,7 +421,7 @@ def selectPatchFiles(game, mp):
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
     parent=root,
-    title="Select the files you wish to compress into your Patch"
+    title="Select the files for {0} (Version: {1})".format(name, version)
     )
 
     # The user clicked the cancel button
@@ -501,7 +501,7 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name,
         version, patchfiles))
-        colors.pc('''\nPatchIt! patch for {0} Version: {1} created and saved to
+        colors.pc('''\nPatchIt! patch for {0} (Version: {1}) created and saved to
 "{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
 
     # The user does not have the rights to write a PiP in that location
@@ -509,9 +509,9 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.warning("Error number '13'")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
             exc_info=True)
-        logging.warning("PatchIt! does not have the rights to create {0} {1}"
+        logging.warning("PatchIt! does not have the rights to create {0} (Version: {1})"
         .format(name, version))
-        colors.pc("\nPatchIt! does not have the rights to create {0} {1}!"
+        colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
         .format(name, version), color.FG_LIGHT_RED)
         # Delete incomplete files
         # TODO: The next few lines are a bit fishy...
@@ -542,8 +542,8 @@ for the files, and move or delete them if necessary.'''.format(thepatch,
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
             exc_info=True)
-        logging.warning("PatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version))
-        colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} {1}!".format(name, version), color.FG_LIGHT_RED)
+        logging.warning("PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!".format(name, version))
+        colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} (Version: {1})!".format(name, version), color.FG_LIGHT_RED)
         try:
             os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(thepatch)))
             os.unlink(os.path.join(PatchIt.app_folder, "{0}".format(

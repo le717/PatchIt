@@ -300,7 +300,7 @@ def main(*args):
     '''PatchIt! Menu Layout'''
 
     # Blank space (\n) makes everything nice and neat
-    colors.pc("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}.".format(
+    colors.pc("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
         app, majver, minver, creator), color.FG_WHITE)
     if not test:
         logging.info("Display normal menu to user")
