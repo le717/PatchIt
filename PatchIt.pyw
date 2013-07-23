@@ -32,6 +32,7 @@ import subprocess
 # App Logging
 import logging
 
+# GUI library
 import tkinter as tk
 from tkinter import ttk
 # File/Folder Dialog Boxes
@@ -94,7 +95,7 @@ def args():
                 print("\n{0} Version {1} Command-line arguments".format(app,
                 majver))
                 # Use input rather than print so user can close the window
-                # at anytime, rather than it closing after 10 seconds
+                # at anytime, rather than it closing after x seconds
                 input(r'''
 Optional arguments
 ==================
@@ -142,7 +143,7 @@ Press the Enter key to close.'''.format(exe_name))
                 logging.info("A file path was given, switching to extract.checkPatch()")
                 extract.checkPatch(file)
 
-            # It was a directory, or a non-existant file
+            # It was a directory, or a non-existent file
             else:
                 logging.warning("Either an invalid file path or no other parameters were given!")
                 # Switch to main menu
@@ -334,34 +335,38 @@ def main(*args):
         elif menuopt.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
 
-            # Call the Patch Creation module
-            logging.info("Calling Patch Compression module")
+            # Run the Patch Creation process
+            logging.info("Running Patch Compression process")
             compress.patchInfo()
 
         # Patch Installation
         elif menuopt.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
 
-            # Call the Patch Installation module
-            logging.info("Calling Patch Installation module")
+            # Run the Patch Installation process
+            logging.info("Running Patch Installation process")
             extract.selectPatch()
 
         # JAM Extractor wrapper
         elif menuopt.lower() == "j":
+            # If Experimental Mode was activated
             if test:
                 import handlejam
                 logging.info("User pressed '[j] JAM Extractor'")
-                # Call the JAM Extractor wrapper module
-                logging.info("Calling JAM Extractor wrapper module")
+                
+                # Run the JAM Extractor wrapper
+                logging.info("Running JAM Extractor wrapper")
                 handlejam.main()
-            else:
+                
+              # The Experimental Mode was not activated
+              else:
                 logging.info("User pressed an undefined key")
                 main()
 
         # PatchIt! Settings
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
-            logging.info("Calling PatchIt! Settings Menu (Settings())")
+            logging.info("Running PatchIt! Settings Menu")
             Settings()
 
         # Easter egg
@@ -390,7 +395,8 @@ def easteregg(*args):
     root.iconbitmap(app_icon)
     tk.messagebox.showerror("Uh-oh", "That was bad.")
     tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
-    tk.messagebox.askquestion("Uh-oh", "Would you like see your punishment for pressing that key?")
+    tk.messagebox.askquestion("Uh-oh",
+        "Would you like see your punishment for pressing that key?")
     subprocess.call([os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")], shell=True)
     logging.info("PatchIt! is shutting down.")
     logging.shutdown()
@@ -455,8 +461,6 @@ def LRReadSettings():
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found at {0}"
             .format(LR_path))
-            #colors.pc('\nCannot find {0} installation at\n"{1}"!\n'.format(
-    #LR_game, LR_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
@@ -468,14 +472,14 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            print('\n{0} installation found at\n"{1}"!\n\n'.format(
-                LR_game, LR_path) + r"Would you like to change this? (Y\N)")
-            changepath = input("\n\n> ")
+            print('\n{0} installation found at\n\n"{1}"\n\n{2}'.format(
+                LR_game, LR_path, r"Would you like to change this? (Y\N)"))
+            change_racers_path = input("\n> ")
 
             # Yes, I want to change the defined installation
-            if changepath.lower() == "y":
-                logging.info("User wants to change defined LEGO Racers installation")
-                logging.info("Proceeding to write PatchIt! LEGO Racers settings")
+            if change_racers_path.lower() == "y":
+                logging.info("User wants to change their LEGO Racers installation")
+                logging.info("Proceeding to write new LEGO Racers settings")
                 LRWriteSettings()
 
             # No, I do not want to change the defined installation
@@ -502,11 +506,11 @@ def LRWriteSettings():
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root Tk window settings to basically hide it")
+    logging.info("Overwrite root Tk window settings to hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
-    # Show window again, lift it so it can recieve the focus
+    # Show window again, lift it so it can receive the focus
     # Otherwise, it is behind the console window
     root.deiconify()
     root.lift()
@@ -554,33 +558,33 @@ def LRWriteSettings():
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)
-            logging.info("Write line denoting what program this file belongs to")
+            logging.info("Write line telling what program this file belongs to")
             racers_file.write("// PatchIt! V1.1.x LEGO Racers Settings\n")
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
             logging.info("Write brief comment explaining what the number means")
-            logging.info("Write '1' to line 3 to skip first-run next time")
             racers_file.write("# Ensures the first-run process will be skipped next time\n")
+            logging.info("Write '1' to line 3 to skip first-run next time")
             racers_file.write("1\n")
 
             # Run check for 1999 or 2001 version of Racers
-            logging.info("Run LRVerCheck() to check what version of Racers user has")
-            logging.info("Write brief comment telling what version of Racers this is")
+            logging.info("Run LRVerCheck() to find the version of LEGO Racers")
             LRVer = LRVerCheck(new_racers_game)
 
-            logging.info("Write LEGO Racers version to fifth line")
+            logging.info("Write brief comment telling what version this is")
             racers_file.write("# Your version of LEGO Racers\n")
+            logging.info("Write game version to fifth line")
             racers_file.write(LRVer)
 
-            logging.info("Write brief comment explaining what the folder path means")
-            logging.info("Write new LEGO Racers installation to seventh line (killing the new line ending)")
+            logging.info("Write brief comment explaining the folder path")
             racers_file.write("\n# Your LEGO Racers installation path\n")
+            logging.info("Write new installation path to seventh line")
             racers_file.write(new_racers_game)
 
         # Log closure of file (although the with handle did it for us)
         logging.info("Closing Racers.cfg")
-        logging.info("Proceeding to PatchIt! LEGO Racers Settings")
+        logging.info("Proceeding to read LEGO Racers Settings")
         LRReadSettings()
 
 
@@ -691,7 +695,8 @@ def CheckLRSettings():
 
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO Racers first-run info")
-        with open(os.path.join(settings_fol, LR_settings), "rt", encoding="utf-8") as f:
+        with open(os.path.join(settings_fol, LR_settings), "rt",
+        encoding="utf-8") as f:
             lr_first_run = f.readlines()[2]
 
         # Remove the list from the string
@@ -737,8 +742,6 @@ def LOCOReadSettings():
             # Use path defined in LOCOGameCheck() for messages
             logging.warning("LEGO LOCO installation was not found!".format(
                 LOCO_path))
-            #colors.pc('\nCannot find {0} installation at "{1}"!\n'.format(
-                #LOCO_game, LOCO_path), color.FG_LIGHT_RED)
             root = tk.Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
@@ -753,14 +756,14 @@ def LOCOReadSettings():
         else:
             logging.info("LEGO LOCO installation was found at {0}.".format(
                 LOCO_path))
-            print('\n{0} installation found at "{1}"!\n'.format(
-                LOCO_game, LOCO_path) + r"Would you like to change this? (Y\N)")
-            changepath = input("\n\n> ")
+            print('\n{0} installation found at\n\n"{1}"\n\n{2}'.format(
+                LOCO_game, LOCO_path, r"Would you like to change this? (Y\N)"))
+            change_loco_path = input("\n> ")
 
             # Yes, I want to change the defined installation
-            if changepath.lower() == "y":
-                logging.info("User wants to change defined LEGO LOCO installation")
-                logging.info("Proceeding to write PatchIt! LEGO LOCO settings")
+            if change_loco_path.lower() == "y":
+                logging.info("User wants to change the LEGO LOCO installation")
+                logging.info("Proceeding to write new LEGO LOCO settings")
                 LOCOWriteSettings()
 
                 # No, I do not want to change the defined installation
@@ -787,11 +790,11 @@ def LOCOWriteSettings():
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root Tk window settings to basically hide it")
+    logging.info("Overwrite root Tk window settings to hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
-    # Show window again, lift it so it can recieve the focus
+    # Show window again, lift it so it can receive the focus
     # Otherwise, it is behind the console window
     root.deiconify()
     root.lift()
@@ -831,31 +834,31 @@ def LOCOWriteSettings():
         if not os.path.exists(settings_fol):
             os.mkdir(settings_fol)
 
-        # Write settings, using UTF-8 encoding
+        # Write settings, using UTF-8NOBOM encoding
         logging.info("Open 'LOCO.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LOCO_settings),
             'wt', encoding='utf-8') as loco_file:
 
-            # As partially defined in PatchIt! Dev-log #6 (http://wp.me/p1V5ge-yB)
-            logging.info("Write line denoting what program this file belongs to")
+            # As partially defined in PatchIt! Dev-log #6
+            # (http://wp.me/p1V5ge-yB)
+            logging.info("Write line telling what program this file belongs to")
             loco_file.write("// PatchIt! V1.1.x LEGO LOCO Settings\n")
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
-            logging.info("Write brief comment explaining what the number means")
-            logging.info("Write '1' to line 3 to skip first-run next time")
+            logging.info("Write comment explaining what the number means")
             loco_file.write("# Ensures the first-run process will be skipped next time\n")
+            logging.info("Write '1' to line 3 to skip first-run next time")
             loco_file.write("1\n")
 
-            logging.info("Write brief comment explaining what the folder path means")
-
-            logging.info("Write new LEGO LOCO installation to fifth line (killing the new line ending)")
+            logging.info("Write comment explaining the folder path")
             loco_file.write("# Your LEGO LOCO installation path\n")
+            logging.info("Write new installation path to fifth line")
             loco_file.write(new_loco_game)
 
         # Log closure of file (although the with handle did it for us)
         logging.info("Closing LOCO.cfg")
-        logging.info("Proceeding to PatchIt! LEGO LOCO Settings")
+        logging.info("Proceeding to read LEGO LOCO Settings")
         LOCOReadSettings()
 
 
@@ -887,7 +890,8 @@ def LOCOGameCheck():
         return False
 
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
-    with open(os.path.join(settings_fol, LOCO_settings), "rt", encoding="utf-8") as f:
+    with open(os.path.join(settings_fol, LOCO_settings),
+    "rt", encoding="utf-8") as f:
         LOCO_path = f.readlines()[4]
 
     # Remove the list from the string
@@ -923,7 +927,7 @@ def CheckLOCOSettings():
         logging.warning("LEGO LOCO Settings do not exist!")
         return False
 
-    # The LEGO LOCO settings do exist (inplied else block here)
+    # The LEGO LOCO settings do exist (implied else block here)
     elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.info("LEGO LOCO Settings do exist")
 
