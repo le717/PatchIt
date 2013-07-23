@@ -1,5 +1,6 @@
 #! python3.3-32
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
     This file is part of PatchIt!
 
@@ -58,5 +59,4 @@ setup(
     license="GNU GPLv3",
     option={"build_exe": build_exe_options},
     executables=[Executable("Uninstaller.pyw", targetName="PiUninstaller.exe",
-         base=display)]
-)
+         base=display)])

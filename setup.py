@@ -1,5 +1,6 @@
 #! python3.3-32
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
     This file is part of PatchIt!
 
