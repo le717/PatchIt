@@ -2,7 +2,9 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -183,7 +185,7 @@ If the error continues, contact {3} and ask for a fixed version.'''
             logging.info("Unknown error number")
             logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
             logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), 
+            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath),
             color.FG_LIGHT_RED)
 
         # This is run no matter if an exception was raised nor not.

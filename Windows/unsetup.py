@@ -3,7 +3,9 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     This program is free software: you can redistribute it and/or modify
@@ -27,25 +29,34 @@
 from cx_Freeze import setup, Executable
 import sys
 
-# Append build to the arguments. Just type "python setup.py" and it will compile
-if len(sys.argv) == 1: sys.argv[1:] = ["build"]
+# Append build command to command-line arguments.
+# Just type "python setup.py" and it will freeze
+if len(sys.argv) == 1:
+    sys.argv[1:] = ["build"]
 
 # Hides any text from the console window
 display = "Win32GUI"
 
-# Output folder
-destfolder = "Uninstaller"
+# If this is Python x86
+if sys.maxsize == 2147483647:
+    destfolder = "Uninstaller"
+# If this is Python x64
+else:
+    input('''\n64-bit binaries are not frozen.
+Please freeze PatchIt! Uninstaller using 32-bit Python 3.3.''')
+    raise SystemExit(0)
 
 build_exe_options = {"build_exe": destfolder,
                      "includes": ["subprocess", "re"],
                      "icon": "../Icons/PatchItIcon.ico"}
 
 setup(
-    name = "PatchIt! Uninstaller",
-    version = "1.0.2.1",
-    author = "2013 Triangle717",
-    description = "PatchIt! Uninstaller Version 1.0.2.1",
-    license = "GNU GPLv3",
-    options = {"build_exe": build_exe_options},
-    executables = [Executable("Uninstaller.pyw", targetName="PiUninstaller.exe", base=display)]
+    name="PatchIt! Uninstaller",
+    version="1.0.2.1",
+    author="2013 Triangle717",
+    description="PatchIt! Uninstaller Version 1.0.2.1",
+    license="GNU GPLv3",
+    option={"build_exe": build_exe_options},
+    executables=[Executable("Uninstaller.pyw", targetName="PiUninstaller.exe",
+         base=display)]
 )

@@ -3,7 +3,9 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     This program is free software: you can redistribute it and/or modify
@@ -34,12 +36,14 @@ import os
 if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
+# If this is Python x86
 if sys.maxsize == 2147483647:
     destfolder = os.path.join("Freeze", "Windows")
+# If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
 Please freeze PatchIt! using 32-bit Python 3.3.''')
-    raise SystemExit
+    raise SystemExit(0)
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,

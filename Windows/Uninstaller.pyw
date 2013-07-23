@@ -3,7 +3,9 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -22,6 +24,7 @@
 
 # PatchIt! Uninstaller V1.0.2.1
 # Contains code contributed by JrMasterModelBuilder
+# https://github.com/JrMasterModelBuilder
 
 import os
 import sys
@@ -37,7 +40,7 @@ def single_uninstall(folderpath):
         print("\nRunning unins000.exe")
         # Run uninstaller, passing /SILENT to suppress confirmation boxes
         subprocess.call([os.path.join(folderpath, "unins000.exe"), "/SILENT"])
-        # Sleep just a litte to avoid an error
+        # Sleep a little to avoid any uninstallation errors
         time.sleep(1.5)
         # Go to looping uninstaller
         print("\nSwitching to Looping Uninstaller")
@@ -69,7 +72,7 @@ def loop_uninstall(folderpath):
             # confirmation boxes.
             print("\nRuinning {0}".format(exe_name))
             subprocess.call([os.path.join(folderpath, exe_name), "/SILENT"])
-            # Sleep a little to avoid uninstallation error
+            # Sleep a little to avoid any uninstallation errors
             time.sleep(1.5)
 
         # Update uninstaller name
