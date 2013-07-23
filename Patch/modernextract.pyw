@@ -406,11 +406,25 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         encoding="utf-8") as f:
             install_path = f.readlines()[6]
 
-    # TODO: Add else block here in case the Game field says something else
+    # In case the Game field says something else
+    else:
+        logging.error("This Patch wants to be installed in an unsuppoted game!")
+        logging.info("Telling user about this unsupported game")
+        # Tell user about this
+        colors.pc('''\n{0} (Version: {1}) was created for {2}.
+PatchIt! only supports LEGO Racers and LEGO LOCO.
+You may want to contact {3} and ask them if this is an error,
+and request a proper Patch.'''.format(name, version, game, author),
+ color.FG_LIGHT_RED)
+
+        # Give the user time to read the mesage
+        time.sleep(5)
+        # Go back to the main menu
+        PatchIt.main()
 
     # Create a valid folder path
     logging.info("Cleaning up installation path")
-    install_path = install_path.rstrip()
+    install_path = install_path.strip()
 
     # Find the PiA archive
     patch_location = os.path.dirname(patch)
