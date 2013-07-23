@@ -23,7 +23,6 @@
 
 import PatchIt
 import os
-import shutil
 import tarfile
 import time
 import distutils.dir_util
@@ -74,8 +73,8 @@ def file_check(path):
     # Make the locations global for use in other locations
     global temp_folder, temp_location
 
-    # Temporary folder for illegal files
-    temp_folder = "PatchIt Temporary Folder"
+    # Temporary directory for compression
+    temp_folder = "PatchIt_Temp_Folder"
 
     # The full location to the temporary folder
     temp_location = os.path.join(path, temp_folder)
@@ -111,7 +110,11 @@ def file_check(path):
                         illegal_file))
                     os.unlink(illegal_file)
 
-    except PermissionError:
+    # Except some error occured, usually a PermissionError,
+    # or an distutils error, but other stuff can occur,
+    # so Exception so it is all caught
+    except Exception:
+        # Tracebacks are dumped to the log aready, so no need to repeat it here
         pass
 
     # --- End Illegal File Scan -- #
@@ -124,11 +127,15 @@ def delete_files():
         # Delete temporary directory
         logging.info("Delete all files at {0}".format(temp_location))
         distutils.dir_util.remove_tree(temp_location)
-    except Exception:
         # Dump any error tracebacks to the log
         logging.warning("Unknown error number")
         logging.exception("Oops! Something went wrong! Here's what happened\n",
-           exc_info=True)
+            exc_info=True)
+    # But in case the directory was not created
+    except FileNotFoundError:
+        logging.error('''The temporary directory was not found!
+It probably was created ealier.''')
+        pass
 
 # ------------ End Illegal File Check ------------ #
 
@@ -508,7 +515,7 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.info("{0} Version: {1} created and saved to {2}".format(name,
         version, patchfiles))
         colors.pc('''
-PatchIt! patch for {0} (Version: {1}) created and saved to
+{0} (Version: {1}) successfully created and saved to
 "{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
 
     # The user does not have the rights to write a PiP in that location
@@ -535,8 +542,9 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
 .format(name, version))
-        colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} (Version: {1})!"
-        .format(name, version), color.FG_LIGHT_RED)
+        colors.pc('''
+PatchIt! ran into an unknown error while trying to create
+{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)
         try:
             os.unlink("{0}".format(thepatch))
             os.unlink("{0}".format(thearchive))
