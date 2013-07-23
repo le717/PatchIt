@@ -8,14 +8,13 @@ Requirements
 
 ### Dependencies
 
-* Download and install [*Python 3.3.0*](http://python.org/download) or newer.
-Python Versions `<=` 3.2 are not supported, and a version check will prevent it from running on lower versions.
+* Download and install 32-bit [*Python 3.3.0*](http://python.org/download) or newer.
+Python Versions `<=` 3.2 or 64-bit Python are not supported, and a Python version (not architecture) check will prevent it from running on lower versions.
 
-* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for *Python 3.3* if you would like to compile binaries.
+* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for 32-bit *Python 3.3* if you would like to compile binaries.
 
 * Download and install [*Inno Setup 5.5.2 Unicode*](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
-An ISPP check will prevent it on running on lower versions 
-or ANSI Inno Setup.
+An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 
 ### Editing
 
@@ -29,7 +28,7 @@ or ANSI Inno Setup.
 
 ### Miscellaneous Notes
 
-* No external packages or dependencies are needed for the TAR archive functions, as it is implemented using the built-in `tarfile` Python module..
+* No external packages or dependencies are needed for the TAR archive functions, as it is implemented using the built-in `tarfile` Python module.
 
 * [py2exe](http://www.py2exe.org) does not support Python 3.3, so it cannot be used.
 
@@ -47,24 +46,19 @@ For Your Reading Pleasure
  
 * The PiP format V1.0.1 documentation can be found in [*PiP Format.md*](PiP%20Format.md).
 
-* Check any open [Issues](https://github.com/le717/PatchIt/issues), as they commonly contain reports of bugs or errors.
+* Check any open [Issues](https://github.com/le717/PatchIt/issues), as they commonly contain bug reports or errors.
 
 * A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold 
-until futher notice. If you have experence in Tkinter or PyQt5 and would like to help out in this area, you would be hardly be turned down . :wink:
+until futher notice. If you have experence in Tkinter or PyQt4/5 and would like to help out in this area, you would be hardly be turned down . :wink:
 
 Building PatchIt!
 -----------------
 
 ### Windows EXEs
 
-**PatchIt!** is compiled into x86 and x64 Windows Exes using cx_Freeze. If you would like to compile your own build of **PatchIt!**, follow these steps.
+**PatchIt!** is frozen into an x86 Windows Exe using cx_Freeze. If you would like to freeze your own build of **PatchIt!**, follow these steps.
 
-* Clone the **PatchIt!** Git repository by typing the following command:
-
-```
-git clone git://github.com/le717/PatchIt.git
-```
-Replace *master* with the branch or tagged release you wish to download.
+* Follow the steps for forking/cloning **PatchIt!** from [above](#editing).
 
 * Type the following command in a command prompt:
 
@@ -72,16 +66,16 @@ Replace *master* with the branch or tagged release you wish to download.
 cd PatchIt
 python setup.py
 ```
-Depending on the Python architecture, your newly created EXEs will be located at `PatchIt\Compile\Windows32` or `PatchIt\Compile\Windows64`.
+Your newly frozen Exe will be located at `PatchIt\Freeze\Windows`.
 
-* You'll also need to compile the **PatchIt! Uninstaller**. Compile it by running the following command:
+* You'll also need to freeze the **PatchIt! Uninstaller**. Compile it by running the following command:
 
 ```
 cd PatchIt\Windows
 python setup.py
 ```
 
-It will be compiled to `PatchIt\Windows\Uninstaller`. **NOTE:** The **PatchIt! Uninstaller** requires Python 3.3.1 x86 to compile.
+It will be compiled to `PatchIt\Windows\Uninstaller`.
 
 ### Inno Setup Windows Installer
 
