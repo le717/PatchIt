@@ -525,23 +525,6 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
         .format(name, version), color.FG_LIGHT_RED)
 
-    # .PiP and/or .PiA already exists
-    # Since shutil has been removed, can I change this to FileAlreadyExistsError
-    except shutil.Error:
-        logging.warning("shutil.Error")
-        logging.exception('''Oops! Something went wrong! Here's what happened
-
-''', exc_info=True)
-        logging.warning('''
-
-{0} or {1} already exists at "{2}" or "{3}"!'''.format(thepatch, thearchive,
-    patchfiles, PatchIt.app_folder))
-
-        colors.pc('''\n{0} or {1} already exists!
-    Check either "{2}"\nor "{3}"
-for the files, and move or delete them if necessary.'''.format(thepatch,
-     thearchive, patchfiles, PatchIt.app_folder), color.FG_LIGHT_RED)
-
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
         logging.warning("Unknown error number")
