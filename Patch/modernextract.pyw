@@ -159,9 +159,13 @@ def checkPatch(patch):
     logging.info("The validity lines reads\n{0} and \n{1}".format(valid_line,
     archive_line))
 
+    # The current validity line
+    current_valid_line = "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
+    # The PatchIt! 1.0.x validity line
+    orginal_valid_line = "// PatchIt! Patch format, created by le717 and rioforce."
+
     # It's a legacy Patch
-    if (valid_line == "// PatchIt! Patch format, created by le717 and rioforce."
-        and archive_line == "[General]"):
+    if (valid_line == orginal_valid_line and archive_line == "[General]"):
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
         colors.pc('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
@@ -177,8 +181,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         legacyextract.readPatch(patch)
 
     # It's a modern Patch
-    elif (valid_line == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
-        and archive_line == "[PiA]"):
+    elif (valid_line == current_valid_line and archive_line == "[PiA]"):
         logging.info("{0} is a modern PatchIt! Patch".format(patch))
 
         # Delete validity lines from memory
@@ -188,8 +191,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         readModernPatch(patch)
 
     # It's a V1.1.0 transition Patch, a version that is NEVER to be used
-    elif (valid_line == "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
-        and archive_line == "[ZIP]"):
+    elif (valid_line == current_valid_line and archive_line == "[ZIP]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
             color.FG_LIGHT_RED)
@@ -203,8 +205,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
 
     # It's not a Patch at all! D:
     # The same message as V1.1.0 Patch
-    elif (valid_line != "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
-        and archive_line != "[PiA]"):
+    elif (valid_line != current_valid_line and archive_line != "[PiA]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
             color.FG_LIGHT_RED)

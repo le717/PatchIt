@@ -44,8 +44,8 @@ def file_check(path):
     '''Checks for, and moves illegal files to a temporary location'''
 
     # List of illegal files, taken from
-    # http://www.howtogeek.com/137270/50-file-extensions-that-are-potentially-dangerous-on-windows/
-    # and http://windows.microsoft.com/en-US/windows-vista/Recognizing-dangerous-file-types
+    # http://www.howtogeek.com/137270/ and
+    # windows.microsoft.com/en-US/windows-vista/Recognizing-dangerous-file-types
 
     blacklist = [
     # Programs
@@ -102,8 +102,8 @@ def file_check(path):
                 # Check both ext and  ext.lower() so it is case insensitive
                 if (ext.lower() in blacklist or
                     ext in blacklist):
-                    logging.warning("An illegal file ({0}) has been found!".format(
-                        ext))
+                    logging.warning("An illegal file ({0}) has been found!"
+                    .format(ext))
                     # Get the full path to it,
                     illegal_file = os.path.join(root, string)
                     # And remove it from the Patch files!
@@ -316,7 +316,7 @@ Hint: if you are unsure, it will most likely be either'''.format(name))
 1024x768,
 1920x1024
 
-If you used a custom resolution, be sure to enter that into the fields below.''',
+If you used a custom resolution, be sure to enter that below.''',
 color.FG_LIGHT_MAGENTA)
 
     try:
@@ -474,7 +474,7 @@ def writePatch(patchfiles, mp, game):
         thearchive))
 
         # Run illegal file check
-        logging.info("Running file_check() to check for and remove illegal files.")
+        logging.info("Run file_check() to check for and remove illegal files.")
         file_check(patchfiles)
 
         # Change the working directory to the Patch Files directory
@@ -507,7 +507,8 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name,
         version, patchfiles))
-        colors.pc('''\nPatchIt! patch for {0} (Version: {1}) created and saved to
+        colors.pc('''
+PatchIt! patch for {0} (Version: {1}) created and saved to
 "{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
 
     # The user does not have the rights to write a PiP in that location
@@ -524,9 +525,8 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
         .format(name, version), color.FG_LIGHT_RED)
 
-
     # .PiP and/or .PiA already exists
-    # Since shutil has been removed, can I change this to FileAlreadyExistsError?
+    # Since shutil has been removed, can I change this to FileAlreadyExistsError
     except shutil.Error:
         logging.warning("shutil.Error")
         logging.exception('''Oops! Something went wrong! Here's what happened
@@ -552,7 +552,8 @@ for the files, and move or delete them if necessary.'''.format(thepatch,
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
 .format(name, version))
-        colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} (Version: {1})!".format(name, version), color.FG_LIGHT_RED)
+        colors.pc("\nPatchIt! ran into an unknown error while trying to create {0} (Version: {1})!"
+        .format(name, version), color.FG_LIGHT_RED)
         try:
             os.unlink("{0}".format(thepatch))
             os.unlink("{0}".format(thearchive))
