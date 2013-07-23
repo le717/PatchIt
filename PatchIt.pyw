@@ -475,8 +475,9 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            print('\n{0} installation found at\n\n"{1}"\n\n{2}'.format(
-                LR_game, LR_path, r"Would you like to change this? (Y\N)"))
+            print('\n{0} {1} release found at\n\n"{2}"\n\n{3}'.format(
+                LR_game, LR_ver, LR_path,
+                r"Would you like to change this? (Y\N)"))
             change_racers_path = input("\n> ")
 
             # Yes, I want to change the defined installation
@@ -533,10 +534,8 @@ def LRWriteSettings():
         logging.info("Give focus back to console window")
         root.destroy()
 
+        # Go back to the main menu
         logging.warning("User did not select a new LEGO Racers installation!")
-        #colors.pc("\nCould not find a LEGO Racers installation!",
-            #color.FG_LIGHT_RED)
-
         logging.info("Switching to main menu")
         main()
 
@@ -619,20 +618,28 @@ def LRGameCheck():
         # Mark as global it is can be used in other messages
         global LR_path
         # Define blank path, since we can't read the settings
-        LR_path = " "
+        LR_path = '" "'
         return False
 
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
     with open(os.path.join(settings_fol, LR_settings),
         "rt", encoding="utf-8") as f:
-        LR_path = f.readlines()[6]
+        lines = f.readlines()[:]
 
-    # Remove the list from the string
-    LR_path = "".join(LR_path)
+    # Get just the string from the list
+    # Mark as global it is can be used in other messages
+    global LR_ver
+    LR_ver = "".join(lines[4])
+    LR_path = "".join(lines[6])
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
     LR_path = LR_path.strip()
+    LR_ver = LR_ver.strip()
+
+    # Delete the reading to free up system resources
+    logging.info("Deleting raw reading of {0}".format(LR_settings))
+    del lines[:]
 
      # The only three items needed to confirm a LEGO Racers installation.
     if (os.path.exists(os.path.join(LR_path, "legoracers.exe".lower()))
@@ -896,7 +903,7 @@ def LOCOGameCheck():
         logging.warning("LEGO LOCO Settings cannot be read!")
         # Mark as global it is can be used in other messages
         global LOCO_path
-        LOCO_path = " "
+        LOCO_path = '" "'
         return False
 
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
