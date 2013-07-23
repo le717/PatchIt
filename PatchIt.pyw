@@ -602,6 +602,8 @@ def LRGameCheck():
     # Check encoding of Settings file
     logging.info("Checking encoding of {0}".format(
         os.path.join(settings_fol, LR_settings)))
+
+    # Open it, read just the area containing the byte mark
     with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -693,6 +695,8 @@ def CheckLRSettings():
         # Check encoding of Settings file
         logging.info("Checking encoding of {0}".format(
             os.path.join(settings_fol, LR_settings)))
+
+        # Open it, read just the area containing the byte mark
         with open(os.path.join(settings_fol, LR_settings),
         "rb") as encode_check:
             encoding = encode_check.readline(3)
@@ -890,6 +894,8 @@ def LOCOGameCheck():
     # Check encoding of Settings file
     logging.info("Check encoding of {0}".format(
         os.path.join(settings_fol, LOCO_settings)))
+
+    # Open it, read just the area containing the byte mark
     with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -953,6 +959,8 @@ def CheckLOCOSettings():
         # Check encoding of Settings file
         logging.info("Checking encoding of {0}".format(
             os.path.join(settings_fol, LOCO_settings)))
+
+        # Open it, read just the area containing the byte mark
         with open(os.path.join(settings_fol, LOCO_settings),
         "rb") as encode_check:
             encoding = encode_check.readline(3)
