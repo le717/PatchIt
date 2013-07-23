@@ -1,7 +1,9 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -82,31 +84,35 @@ def file_check(path):
 
     # --- Begin Illegal File Scan -- #
 
-    # Copy files to temporary location
-    logging.info("Copying all contents of {0} to {1}".format(path,
-        temp_location))
-    distutils.dir_util.copy_tree(path, temp_location)
+    try:
+        # Copy files to temporary location
+        logging.info("Copying all contents of {0} to {1}".format(path,
+            temp_location))
+        distutils.dir_util.copy_tree(path, temp_location)
 
-    # Traversing the reaches of the (Temporary) Patch files...
-    for root, dirnames, filenames in os.walk(temp_location):
+        # Traversing the reaches of the (Temporary) Patch files...
+        for root, dirnames, filenames in os.walk(temp_location):
 
-        # Get the index and string of each item in the list
-        for index, string in enumerate(filenames):
-            # Split the filename into name and extension
-            name, ext = os.path.splitext(string)
+            # Get the index and string of each item in the list
+            for index, string in enumerate(filenames):
+                # Split the filename into name and extension
+                name, ext = os.path.splitext(string)
 
-            # If an illegal file is found, as identified by the extension,
-            # Check both ext and  ext.lower() so it is case insensitive
-            if (ext.lower() in blacklist or
-                ext in blacklist):
-                logging.warning("An illegal file ({0}) has been found!".format(
-                    ext))
-                # Get the full path to it,
-                illegal_file = os.path.join(root, string)
-                # And remove it from the Patch files!
-                logging.info("Removing {0} from the Patch files".format(
-                    illegal_file))
-                os.unlink(illegal_file)
+                # If an illegal file is found, as identified by the extension,
+                # Check both ext and  ext.lower() so it is case insensitive
+                if (ext.lower() in blacklist or
+                    ext in blacklist):
+                    logging.warning("An illegal file ({0}) has been found!".format(
+                        ext))
+                    # Get the full path to it,
+                    illegal_file = os.path.join(root, string)
+                    # And remove it from the Patch files!
+                    logging.info("Removing {0} from the Patch files".format(
+                        illegal_file))
+                    os.unlink(illegal_file)
+
+    except PermissionError:
+        pass
 
     # --- End Illegal File Scan -- #
 
