@@ -150,8 +150,8 @@ def checkPatch(patch):
     logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(patch))
     with open(patch, "rt", encoding="utf-8") as f:
         lines = f.readlines()[0:2]
-        valid_line = "".join(lines[0])
-        archive_line = "".join(lines[1:])
+    valid_line = "".join(lines[0])
+    archive_line = "".join(lines[1:])
 
     logging.info("Cleaning up validity lines")
     valid_line = valid_line.strip()
