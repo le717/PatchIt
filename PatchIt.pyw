@@ -353,13 +353,13 @@ def main(*args):
             if test:
                 import handlejam
                 logging.info("User pressed '[j] JAM Extractor'")
-                
+
                 # Run the JAM Extractor wrapper
                 logging.info("Running JAM Extractor wrapper")
                 handlejam.main()
-                
+
               # The Experimental Mode was not activated
-              else:
+            else:
                 logging.info("User pressed an undefined key")
                 main()
 
