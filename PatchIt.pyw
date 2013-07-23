@@ -127,7 +127,8 @@ Press the Enter key to close.'''.format(exe_name))
                 test = True
                 os.system("title {0} Version {1} {2} - Experimental Mode"
                 .format(app, majver, minver))
-                logging.info("The test parameter (-t, --test) was given, enabling experimental features")
+                logging.info('''The test parameter was given,
+enabling Experimental Mode''')
                 preload()
 
             # A file path was given
@@ -145,7 +146,7 @@ Press the Enter key to close.'''.format(exe_name))
 
             # It was a directory, or a non-existent file
             else:
-                logging.warning("Either an invalid file path or no other parameters were given!")
+                logging.warning("Invalid path or no parameters were given!")
                 # Switch to main menu
                 main()
 
@@ -397,7 +398,9 @@ def easteregg(*args):
     tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
     tk.messagebox.askquestion("Uh-oh",
         "Would you like see your punishment for pressing that key?")
-    subprocess.call([os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")], shell=True)
+    subprocess.call([
+        os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")
+        ], shell=True)
     logging.info("PatchIt! is shutting down.")
     logging.shutdown()
     raise SystemExit(0)
@@ -478,7 +481,7 @@ def LRReadSettings():
 
             # Yes, I want to change the defined installation
             if change_racers_path.lower() == "y":
-                logging.info("User wants to change their LEGO Racers installation")
+                logging.info("User wants to change the Racers installation")
                 logging.info("Proceeding to write new LEGO Racers settings")
                 LRWriteSettings()
 
@@ -633,9 +636,8 @@ def LRGameCheck():
 
      # The only three items needed to confirm a LEGO Racers installation.
     if (os.path.exists(os.path.join(LR_path, "legoracers.exe".lower()))
-        and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))
-        and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))
-        ):
+    and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))
+    and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))):
         logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}"
         .format(LR_path))
         return True
@@ -654,11 +656,16 @@ def LRGameCheck():
 def LRVerCheck(new_racers_game):
     '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
 
-    if not os.path.exists(os.path.join(new_racers_game, "legoracers.icd".lower())):
+    # LEGORacers.icd was not found, this is a 2001 release
+    if not os.path.exists(
+        os.path.join(new_racers_game, "legoracers.icd".lower())):
         logging.info("LEGORacers.icd was not found, this is the 2001 release")
         LRVer = "2001"
         return LRVer
-    elif os.path.exists(os.path.join(new_racers_game, "legoracers.icd".lower())):
+
+    # LEGORacers.icd was found, this is a 1999 release
+    else:
+        # Log the result, send back the result
         logging.info("LEGORacers.icd was found, this is the 1999 release")
         LRVer = "1999"
         return LRVer
@@ -679,7 +686,8 @@ def CheckLRSettings():
         # Check encoding of Settings file
         logging.info("Checking encoding of {0}".format(
             os.path.join(settings_fol, LR_settings)))
-        with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
+        with open(os.path.join(settings_fol, LR_settings),
+        "rb") as encode_check:
             encoding = encode_check.readline(3)
 
         if (  # The settings file uses UTF-8-BOM encoding
@@ -707,8 +715,10 @@ def CheckLRSettings():
 
         # '0' means this is a "first-run"
         # len() >= 1 means file is not empty
-        if lr_first_run != "0" or len(lr_first_run) >= 1:
-            logging.info("First-run info found, this is not the first-run. Switching to main menu.")
+        if (lr_first_run != "0" or
+        len(lr_first_run) >= 1):
+            logging.info('''First-run info found, this is not the first-run.
+Switching to main menu.''')
             return True
 
         # Any other condition, return False
@@ -814,9 +824,8 @@ def LOCOWriteSettings():
         logging.info("Give focus back to console window")
         root.destroy()
 
+        # Go back to the main menu
         logging.warning("User did not select a new LEGO LOCO installation!")
-        ##colors.pc("\nCould not find a LEGO LOCO installation!", color.FG_LIGHT_RED)
-
         logging.info("Switching to main menu")
         main()
 
@@ -872,7 +881,8 @@ def LOCOGameCheck():
     '''Confirm LEGO LOCO installation'''
 
     # Check encoding of Settings file
-    logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LOCO_settings)))
+    logging.info("Check encoding of {0}".format(
+        os.path.join(settings_fol, LOCO_settings)))
     with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -900,17 +910,19 @@ def LOCOGameCheck():
     logging.info("Cleaning up installation text")
     LOCO_path = LOCO_path.strip()
 
-     # The only three items needed to confirm a LEGO LOCO installation.
+     # The only items needed to confirm a LEGO LOCO installation.
     if (os.path.exists(os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower()))
         and os.path.exists(os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower()))
         and os.path.exists(os.path.join(LOCO_path, "art-res".lower()))
         ):
-        logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}".format(LOCO_path))
+        logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}"
+        .format(LOCO_path))
         return True
 
     # If the settings file was externally edited and the path was removed
     elif not LOCO_path:
-        logging.warning("LEGO LOCO installation written in {0} is empty!".format(LOCO_settings))
+        logging.warning("LEGO LOCO installation written in {0} is empty!"
+        .format(LOCO_settings))
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
@@ -932,8 +944,10 @@ def CheckLOCOSettings():
         logging.info("LEGO LOCO Settings do exist")
 
         # Check encoding of Settings file
-        logging.info("Checking encoding of {0}".format(os.path.join(settings_fol, LOCO_settings)))
-        with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
+        logging.info("Checking encoding of {0}".format(
+            os.path.join(settings_fol, LOCO_settings)))
+        with open(os.path.join(settings_fol, LOCO_settings),
+        "rb") as encode_check:
             encoding = encode_check.readline(3)
 
         if (  # The settings file uses UTF-8-BOM encoding
@@ -949,7 +963,8 @@ def CheckLOCOSettings():
 
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO LOCO first-run info")
-        with open(os.path.join(settings_fol, LOCO_settings), "rt", encoding="utf-8") as f:
+        with open(os.path.join(settings_fol, LOCO_settings), "rt",
+             encoding="utf-8") as f:
             loco_first_run = f.readlines()[2]
 
         # Remove the list from the string
@@ -960,8 +975,10 @@ def CheckLOCOSettings():
 
         # '0' means this is a "first-run"
         # len() >= 1 means file is not empty
-        if loco_first_run != "0" or len(loco_first_run) >= 1:
-            logging.info("LOCO First-run info found; this is not the first-run. Switching to main menu.")
+        if (loco_first_run != "0"
+        or len(loco_first_run) >= 1):
+            logging.info('''First-run info found, this is not the first-run.
+Switching to main menu.''')
             return True
 
         # Any other condition, return False
