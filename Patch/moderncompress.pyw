@@ -127,15 +127,14 @@ def delete_files():
         # Delete temporary directory
         logging.info("Delete all files at {0}".format(temp_location))
         distutils.dir_util.remove_tree(temp_location)
-        # Dump any error tracebacks to the log
-        logging.warning("Unknown error number")
-        logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
+
     # But in case the directory was not created
     except FileNotFoundError:
+        # Dump any error tracebacks to the log
         logging.error('''The temporary directory was not found!
 It probably was created ealier.''')
-        pass
+        logging.exception("Oops! Something went wrong! Here's what happened\n",
+            exc_info=True)
 
 # ------------ End Illegal File Check ------------ #
 
