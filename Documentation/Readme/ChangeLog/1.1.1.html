@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<!-- Force IE to recognize HTML5 code -->
+	<!--[if IE]>
+		<script>/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)})@*/</script>
+	<![endif]-->
+    
+    <meta charset="UTF-8" />
+<link rel="icon" href="./Icons/PatchItIcon.ico" />
+    <title>PatchIt! Readme</title>
+    <style type="text/css">
+    table, h2, h3, h4, #careful, .center { text-align: center; }
+    .italic { font-style: italic; }
+    .bold { font-weight: bold; }
+    a { text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* animated spoiler CSS by Bloggersentral.com */
+    .spoilerbutton {display:block;margin:10px 0;}
+    .spoiler {overflow:hidden;background: #f5f5f5;}
+    .spoiler > div {-webkit-transition: all 0.2s ease;-moz-transition: margin 0.2s ease;-o-transition: all 0.2s ease;transition: margin 0.2s ease;}
+    .spoilerbutton[value="Show"] + .spoiler > div {margin-top:-350%;}
+    .spoilerbutton[value="Hide"] + .spoiler {padding:5px;} 
+    </style>
+</head>
+
+<body>
+<strong>1.1.1 Unstable</strong><br>
+<em>"Hitting the TARget"</em><br>
+(Released ?? ??, 2013)<br>
+<ul>
+<li>Removed outdated <code>logging</code> messages and <code>linecache</code> functions from last minute change in <span class="bold">1.1.0 Stable</span></li>
+<li>Improved method for reading Modern Patches</li>
+<li>Improved method of finding Patch Zip archive</li>
+<li>Changed welcome message on main menu</li>
+<li>Add global <code>appicon</code> variable</li>
+<li>Updated <code>Documentation/Settings.md</code> in accordance with <a href="https://github.com/le717/PatchIt/issues/7" target="_blank">Issue #7</a></li>
+<li>Improved application speed</li>
+<li>Small message and variable cleanup and renames</li>
+<li>Handled exceptions are now written to <code>PatchIt.log</code></li>
+<li>Updated <span class="italic">LEGO&reg; Racers</span> settings (<code>Racers.cfg</code>) in accordance with Issue #7</li>
+<li>Converted writing of <span class="italic">LEGO&reg; Racers</span> and <span class="italic">LEGO&reg; LOCO</span> settings to use non-Python 3 <code>
+print()</code> function</li>
+<li>Removed exit message once and for all</li>
+<li>Corrected variables related to the <span class="italic">LEGO&reg; Racers</span> settings check that ended up in the <span class="italic">LEGO&reg; LOCO
+</span> settings check</li>
+<li>Fixed massive bug with the first-run check not allowing only one settings file to be created (not everyone who owns <span class="italic">LEGO&reg; Racers
+</span> owns <span class="italic">LEGO&reg; LOCO</span>)</li>
+<li>Removed old code from pre-1.1.0 days required for the first-run to work properly</li>
+<li>Replaced invalid <span class="italic">LEGO&reg; Racers</span> and <span class="italic">LEGO&reg; LOCO</span> error messages with Tkinter error message 
+dialog</li>
+<li>Fixed <code>--test</code> parameter short-circuiting <code>preload()</code></li>
+<li>Set maxsize of About box, it can no longer be resized</li>
+<li>Fixed value of <code>app_folder</code> variable</li>
+<li>Converted writing of PiP File to use non-Python 3 <code>print()</code> function</li>
+<li>Fixed loop created when <span class="bold">PatchIt!</span> is run from the shell extension, a Patch is created, and an error occurs</li>
+<li>Fixed error in <code>preload()</code> where <span class="italic">LEGO&reg; Racers</span> and <span class="italic">LEGO&reg; LOCO</span> settings checks 
+were getting short-circuited and not returning the proper values</li>
+<li>Fixed character checks on <code>Name</code> and <code>Version</code> fields in Patch Creation to comply with PEP 8</li>
+<li>Fixed issue with Settings file getting uninstalled</li>
+<li>Removed <code>delThumbs()</code> function completely</li>
+<li>Replaced ZIP extraction code in Modern Patch Installation module with TAR extraction code</li>
+<li>Updated most of the logging messages and variables related to TAR extraction</li>
+<li>Updated most of the logging messages and variables related to TAR creation</li>
+<li>Updated easter egg with Tkinter GUI</li>
+<li>Updated method of writing PiP file</li>
+<li>Finished updating Modern Patch Installation modules</li>
+<li>Removed outdated line for reading Modern Patch</li>
+<li>Send <code>0</code> exit code at all proper <span class="bold">PatchIt!</span> closures</li>
+<li>Press the <code>Enter</code> key to close the <code>--help</code> parameter text instead of it closing after 10 seconds</li>
+<li>Patch Info is deleted after Modern Patch Installation to free up resources</li>
+<li>Moved Legacy Patch Installation and Modern Patch Creation and Installation and <span class="italic">LEGO&reg; Racers</span> gameplay tips to new
+<code>Patch</code> folder</li>
+<li>Renamed <code>Patch\gametips.pyw</code> to <code>Patch\racingtips.pyw</code>
+<li>Change the working directory to the directory of the Patch files before creating Patch</li>
+<li>Change the working directory to the directory of <span class="bold">PatchIt!</span> after creating Patch</li>
+<li>Removed code to move newly created Patch to proper location per two previous changes</li>
+<li>Changed method of detecting Cancel button in file/folder dialogs</li>
+<li>Added creation of temporary folder for illegal files in directory above Patch files</li>
+<li>Created blacklist of illegal files</li>
+<li>Created illegal file check in Patch Creation process</li>
+<li>Large variable names updates</li>
+<li>Replaced ZIP compression code in Patch Creation module with TAR compression code</li>
+<li>Renamed TAR archive from <code>.tar</code> to <code>.PiA</code> (<strong>P</strong>atch<strong>I</strong>t! <strong>A</strong>rchive)</li>
+<li>Update Modern Patch Installation messages with new <code>.PiA</code> file</li>
+<li>Updated PiP Format V1.1 with recent changes</li>
+<li>Wrote new method for non <code>UTF-8-NOBOM</code> encoding files (fixes bug with such files breaking Patch Validity check in Patch Installation process)
+</li>
+<li>Updated Patch Validity check to check use second line in PiP File Format</li>
+<li>Updated Patch Validity check with <span class="bold">PatchIt! Version 1.1.0</span> .PiP Format</li>
+<li>Updated <span class="italic">LEGO&reg; Racers</span> and <span class="italic">LEGO&reg; LOCO</span> settings file check with check from Patch Installation
+</li>
+<li>Updated <span class="italic">LEGO&reg; Racers</span> and <span class="italic">LEGO&reg; LOCO</span> settings first-run check with check from Patch 
+Installation</li>
+<li>Updated most of <span class="bold">PatchIt!</span> to comply with PEP 8 style guidelines</li>
+<li>Fixed error of writing of <span class="bold">PatchIt! Version 1.1.0</span> .PiP File</li>
+<li>Updated Legacy Installation process with speed improvements from Modern Installation process</li>
+<li>Updated scripts to better conform to PEP 8 style guidelines</li>
+<li>Changed all instances of <code>y\N</code> to <code>Y\N</code>, (per suggestion from tester)</li>
+<li>Updated logging messages in <code>PatchIt.pyw</code></li>
+<li>Removed 64-bit Windows binary from release</li>
+<li>Added brand new Readme, designed by rioforce</li>
+<li>Updated <code>GitHub</code> button in About box to say <code>Website</code> and link to the new <span class="bold">PatchIt!</span> website</li>
+<li>Fixed illegal character check to allow dashes (per report from tester)</li>
+<li>Fixed illegal file check to be case insensitive</li>
+<li>Rewrote invalid character check</li>
+<li>Small function and variable renames</li>
+<li>Workaround fix for bug with <code>None</code> replacing user input after an input check is hit</li>
+<li>Fixed color of "Cancel Installation" message (pre report from tester)</li>
+<li>Removed import of unused <code>zipfile</code> module in <code>modernextract.pyw</code></li>
+<li>Updated illegal files blacklist to sort through and compress temporary folder instead of selected files</li>
+<li>Changed location of temporary folder created for illegal files check, comments and logging messages updated accordingly</li>
+<li>Updated messages containing Patch Name and Version to automatically surround the version in parentheses and append <code>Version:</code> (per suggestion 
+from tester)</li>
+<li>Removed old code left over from <span class="bold">PatchIt! Version 1.0.<code>x</code></span> days</li>
+<li>Updated <code>FileNotFoundError</code> message with folder path of PiP file</li>
+<li>Updated logging messages to give a bit of whitespace around tracebacks</li>
+<li>Removed import of unused <code>traceback</code> and <code>sys</code> modules in <code>modernextract.pyw</code></li>
+<li>Removed fishy code while handling of a <code>PermissionError</code></li>
+<li>Fixed fishy code while handling of an <code>Exception</code></li>
+<li>Updated <code>setup.py</code> to conform to PEP 8</li>
+<li>Created new variables specifying validity lines</li>
+<li>Removed unneeded <code>shutil.Error</code> exception</li>
+<li>Removed import of unused <code>shutil</code> module in <code>moderncompress.pyw</code></li>
+<li>Renamed temporary folder used during Patch Creation</li>
+<li>Improved the success and <code>Exception</code> messages in Patch Creation</li>
+<li>Updated message that comes up when <span class="italic">LEGO Racers</span> or <span class="italic">LEGO LOCO</span> settings cannot be read due to am 
+invalid encoding</li>
+<li>Updated <span class="italic">LEGO Racers</span> installation confirmation message to give identified version of the game</li>
+<li>Added <span class="italic">LEGO Racers</span> and <span class="italic">LEGO LOCO</span> settings files encoding check in Modern Patch Installation process
+</li>
+<li>Changed reading of <span class="italic">LEGO Racers</span> and <span class="italic">LEGO LOCO</span> settings files to use standard <code>open()</code>,
+instead of the <code>linecache</code> module in Modern Patch Installation process</li>
+<li>Added check in Modern Patch Installation process to detect if a Patch was "created" for an unsupported game</li>
+<li>Fixed minor bug in settings files preload checks</li>
+<li>Minor updated wording in <span class="italic">LEGO Racers</span> installation confirmation message</li>
+<li>Added new <span class="bold">PatchIt!</span> General Settings, (<code>Settings\PatchIt.cfg</code>), currently contains version number of 
+<span class="bold">PatchIt!</span> release in use, will be expanded in  future release. <code>Documentation\Settings.md</code> updated with full details</li>
+<li>Fixed bug in blacklist caused by misplaced lines</li>
+<li>LEGOs in space? More later!</li>
+</ul>
+</body>
+</html>
