@@ -66,6 +66,7 @@ LR_game = "LEGO Racers"
 LOCO_game = "LEGO LOCO"
 LR_settings = "Racers.cfg"
 LOCO_settings = "LOCO.cfg"
+Pi_settings = "PatchIt.cfg"
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
@@ -195,6 +196,10 @@ def preload():
     hasLRSettings = CheckLRSettings()
     hasLOCOSettings = CheckLOCOSettings()
 
+    # Write general PatchIt! settings.
+    # A check is not needed for this, it is always written.
+    PiSettings()
+
     # If the Racers settings is present but not LOCO,
     # go to main menu
     if hasLRSettings and not hasLOCOSettings:
@@ -207,7 +212,7 @@ def preload():
 
     # If both the Racers and LOCO settings are present,
     # go to main menu
-    elif hasLRSettings and hasLRSettings:
+    elif hasLRSettings and hasLOCOSettings:
         main()
 
     # Any other condition
@@ -475,7 +480,7 @@ def LRReadSettings():
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            print('\n{0} {1} release found at\n\n"{2}"\n\n{3}'.format(
+            print('\nA {0} {1} release was found at\n\n"{2}"\n\n{3}'.format(
                 LR_game, LR_ver, LR_path,
                 r"Would you like to change this? (Y\N)"))
             change_racers_path = input("\n> ")
@@ -597,7 +602,7 @@ def LRWriteSettings():
 
 
 def LRGameCheck():
-    '''Confirm LEGO Racers installation'''
+    '''Confirms LEGO Racers installation'''
 
     # Check encoding of Settings file
     logging.info("Checking encoding of {0}".format(
@@ -889,7 +894,7 @@ def LOCOWriteSettings():
 
 
 def LOCOGameCheck():
-    '''Confirm LEGO LOCO installation'''
+    '''Confirms LEGO LOCO installation'''
 
     # Check encoding of Settings file
     logging.info("Check encoding of {0}".format(
@@ -1003,6 +1008,32 @@ Switching to main menu.''')
 
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #
+
+
+# ------------ Begin PatchIt! General Settings ------------ #
+
+
+def PiSettings():
+    '''Writes PatchIt! General Settings'''
+
+    # Writes general PatchIt! settings,
+    # Will be expanded with more data in a future release
+    with open(os.path.join(settings_fol, Pi_settings),
+        "wt", encoding="utf-8") as f:
+        logging.info("Write line telling what program this file belongs to")
+        f.write("// PatchIt! General Settings\n")
+
+        # Write comment stating identifying the line
+        logging.info("Writing comment identifying the line")
+        f.write("# The version of PatchIt! you have\n")
+
+        # Write the PatchIt! Major and Minor number,
+        # as defined in the majver and minver variables
+        logging.info("Writing version number of this copy of PatchIt")
+        f.write("{0} {1}".format(majver, minver))
+
+
+# ------------ End PatchIt! General Settings ------------ #
 
 
 # ------------ End PatchIt! Settings ------------ #
