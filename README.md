@@ -7,16 +7,16 @@ This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) applicat
 
 What is PatchIt!
 ---------------
-Although *LEGO Racers* modding is still in it's early stages, many mods are already being developed, and there 
+Although _LEGO Racers_ modding is still in it's early stages, many mods are already being developed, and there 
 needs to be a standard way to install them. Heavily influenced and based on **Patchman!**, a mod installer for 
-the 1999 Data Design Interactive PC game *LEGO Rock Raiders*, **PatchIt!** is the standard and simple way to
-package and install mods for the 1999 High Voltage Software PC game *LEGO Racers*
+the 1999 Data Design Interactive PC game _LEGO Rock Raiders_, **PatchIt!** is the standard and simple way to
+package and install mods for the 1999 High Voltage Software PC game _LEGO Racers_
 
 How It Works
 ------------
 The three main goals for **PatchIt!** are as follows:
 
-* Ask for the *LEGO Racers* installation, ensure one exists at that location, and store it in an open file format in the **PatchIt!** installation to be used 
+* Ask for the _LEGO Racers_ installation, ensure one exists at that location, and store it in an open file format in the **PatchIt!** installation to be used 
 as the mod installation directory, and to create a completely portable (thumb-drive) application.
 * Create a **PatchIt!** patch by entering the mod name, version, author, and description, and point it to the modded files. Automatically compress the files 
 into an open archive format, and write the details to an open file format containing the details (.PiP), using the name and version for the filenames.
@@ -66,6 +66,6 @@ All legacy downloads are provided here.
 
 > [Source Code](https://github.com/le717/PatchIt/tree/V1.0b1)
 
-Credit
-------
+License
+-------
 ***PatchIt!*, created 2013 Triangle717, and released under the [GNU General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**
