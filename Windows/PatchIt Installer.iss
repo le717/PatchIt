@@ -32,15 +32,16 @@
   ; If non-Unicode (AKA ANSI) Inno Setup is used
   #error You must use Unicode Inno Setup to compile this script
 #endif 
-       
-#define MyAppName "PatchIt!"
+
+; Global variables
+#define MyAppName "PatchIt!" 
 #define MyAppVersion "1.1.1"
 #define MyAppVerName "PatchIt! Version 1.1.1 Stable"
 #define MyInstallerName "PatchIt-111-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
-
+   
 [Setup]
 AppId={#MyAppVerName}
 AppName={#MyAppName}
