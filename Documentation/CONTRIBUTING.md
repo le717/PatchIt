@@ -34,8 +34,8 @@ An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 
 * Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
  
-* Sometime in the development of the V1.1.x series, a wrapper for @JrMasterModelBuilder's **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
-will be added for extraction and recompressing of `LEGO.JAM`. The newest release of the JAM Extractor will be used for this purpose.
+* Sometime in the development of the V1.1.x series, a wrapper for **@JrMasterModelBuilder**'s **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
+will be added for extraction and recompressing of `LEGO.JAM`. The newest release of the **JAM Extractor** will be used for this purpose.
 
 For Your Reading Pleasure
 -------------------------
@@ -45,7 +45,7 @@ For Your Reading Pleasure
 * The PiP format V1.0.1 documentation can be found in [*PiP Format.md*](PiP%20Format.md).
 * Check any open [Issues](https://github.com/le717/PatchIt/issues), as they commonly contain bug reports or errors.
 * A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold 
-until futher notice. If you have experence in Tkinter or PyQt4/5 and would like to help out in this area, you would be hardly be turned down . :wink:
+until futher notice. If you have experence in PyQt4/5 or Tkinter and would like to help out in this area, you would be hardly be turned down . :wink:
 
 Building PatchIt!
 -----------------
@@ -76,6 +76,6 @@ It will be frozen to `PatchIt\Windows\Uninstaller`.
 ### Inno Setup Windows Installer
 
 * Open `Windows\PatchIt Installer.iss` in the Inno Setup Compiler.
-* Make any changes to the script.
+* Make desired changes to the script, as long as it is clear you made them.
 
 *Coming Soon.*
