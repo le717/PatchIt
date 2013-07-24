@@ -26,16 +26,16 @@ Details
 
 * PiP stands for <strong>P</strong>atch<strong>I</strong>t! <strong>P</strong>atch.
 * A PiP file is a plain text file written with [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding, and can be edited on any text 
- editor that supports such encoding.
+editor that supports such encoding.
 * As a validity test, each PiP file must have on line 1 a specific line of text (known as the validity line).
-  This line ***must** match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
+This line ***must** match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
 * In addition the the first line, the second line is also checked to determine if it is a valid Patch and what version Patch it is. 
-  This line _**must**_ also match **PatchIt!**'s internal version exactly .
+This line _**must**_ also match **PatchIt!**'s internal version exactly.
 * Legacy (V1.0.1) Patches are detected by looking for that version's validity line. If it is found, it is installed using the Legacy Installation routine.
 * Modern (V1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
- Legacy Patches can not and will not be created by **PatchIt!** anymore.  
+Legacy Patches can not and will not be created by **PatchIt!** anymore.  
 * The `MP` (Multi Purpose) field contains various Patch info. For _LEGO® LOCO_ Patches, it contains the resolution the map was created with.
-  For _LEGO® Racers_ Patches, it currently writes _MP_, as there is not a use for that game yet.
+For _LEGO® Racers_ Patches, it currently writes _MP_, as there is not a use for that game yet.
 * The `Game` field tells what game a Patch was created for. It currently has two values: _LEGO® Racers_ and _LEGO® LOCO_. 
 * The `Description` field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
 * Both the PiP file and PiA Archive uses the Patch's name and version for their filenames.
@@ -48,13 +48,13 @@ Details
 * A PiA archive is a standard LZMA compressed TAR archive. 
 * The PiA archive must reside in the same directory as it's accompanying .PiP file for a successful installation.
 * The PiA archive must be laid out in the same way the intended game would use them. For example: 
-  Any new _LEGO® Racers_ .TUN audio would go in the root of the archive, and any modified binary files that reside under `MENUDATA\ENGLISH` would belong in the 
-  MENUDATA\ENGLISH folder in the archive, and so on. 
+Any new _LEGO® Racers_ .TUN audio would go in the root of the archive, and any modified binary files that reside under `MENUDATA\ENGLISH` would belong in the 
+MENUDATA\ENGLISH folder in the archive, and so on. 
 * If the PiA archive contains a folder that contains the laid out files rather than the files being laid out correctly, that folder will be installed into 
-  the game and not into the proper locations. Example, if the archive is laid out like `MyMod1.PiA\MyMod1\GAMEDATA` and your game is located at
-  `C:\Program Files\LEGO Racers`, the files will be installed as `C:\Program Files\LEGO Racers\MyMod1`. 
-  The same goes for files that are scattered in the root of the archive. If `ENGLISH.SRF` is located in the root of the archive, it will be installed to 
-  `C:\Program Files\LEGO Racers\ENGLISH.SRF`
+the game and not into the proper locations. Example, if the archive is laid out like `MyMod1.PiA\MyMod1\GAMEDATA` and your game is located at
+`C:\Program Files\LEGO Racers`, the files will be installed as `C:\Program Files\LEGO Racers\MyMod1`. 
+The same goes for files that are scattered in the root of the archive. If `ENGLISH.SRF` is located in the root of the archive, it will be installed to 
+`C:\Program Files\LEGO Racers\ENGLISH.SRF`
 * **PatchIt!** does **not and will never** attempt to install any files into their proper locations. 
 
 **Example PiA archive layouts can be found [below.](#example-pia-archive-layouts)**
@@ -166,7 +166,7 @@ Revision History
 > * Reworded sections of PiP File Format section
 > * Updated PiA Archive Layout section with new details
 > * Finished updating PiA Archive Layout section
-> * Changed `[ZIP]` header to `[PiA]` now serves as part of the validity check
+> * Changed `[ZIP]` header to `[PiA]`, now serves as part of the validity check
 
 * 1.1.1 Draft 1: June 17, 2013
 
