@@ -9,7 +9,7 @@ Details
 * The _Settings_ folder, in which the Settings files are saved, is located in the same directory as `PatchIt.exe`.
 * Data for each game **PatchIt!** support is saved in a separate `.cfg` in the _Settings_ folder
 * Each game Settings file uses the name of the supported game (except for the word `LEGO`). 
-* The third line of the game Settings files defines the current state of the first-run check. In a fresh installation of **PatchIt!**,
+* The third line of the game Settings files (`Racers.cfg` and `LOCO.cfg`) defines the current state of the first-run check. In a fresh installation of **PatchIt!**,
 the number is `0` (zero), meaning the settings have not been set up. After a game installation is selected, the number is changed to `1`, 
 meaning no action is needed.
 * The fifth line of the _LEGO® Racers_ settings contains the game's version release. It has two values: `1999` and `2001`. 
@@ -17,7 +17,7 @@ It detects the version by checking for the existence of `LEGORacers.icd`, which 
 There is no such check for _LEGO® LOCO_.
 * The seventh line contains the installation patch for the respective game. It is used during Patch Installation, as well as in
 various Settings checks.
-* The third line of _**PatchIt.cfg**_ contain the version of **PatchIt!** in use.
+* The third line of `PatchIt.cfg` contain the version of **PatchIt!** in use.
 
 General PatchIt! Settings
 -------------------------
