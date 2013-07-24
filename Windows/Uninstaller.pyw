@@ -44,16 +44,16 @@ def single_uninstall(folderpath):
         # Sleep a little to avoid any uninstallation errors
         time.sleep(1.5)
         # Go to looping uninstaller
-        print("\nSwitching to Looping Uninstaller")
+        print("\nSwitching to Looping Uninstaller.")
         loop_uninstall(folderpath)
 
     # Single installation does not exist
     else:
         print("\nunins000.exe does not exist")
-        # Sleep just a litte to avoid an error
+        # Sleep just a little to avoid an error
         time.sleep(1.5)
         # Go to looping uninstaller
-        print("\nSwitching to Looping Uninstaller")
+        print("\nSwitching to Looping Uninstaller.")
         loop_uninstall(folderpath)
 
 
@@ -80,7 +80,7 @@ def loop_uninstall(folderpath):
         i += 1
 
     # Close once everything is uninstalled
-    print("\nAll PatchIt! installations had been removed")
+    print("\nAll PatchIt! installations had been removed.")
     raise SystemExit(0)
 
 # Run Uninstaller
