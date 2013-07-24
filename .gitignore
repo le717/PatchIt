@@ -186,6 +186,7 @@ pip-log.txt
 
 Windows/Uninstaller*/*
 Compile/
+Freeze/
 !Color/
 Logs/
 License/
