@@ -11,7 +11,7 @@ Requirements
 * Download and install 32-bit [*Python 3.3.0*](http://python.org/download) or newer.
 Python Versions `<=` 3.2 or 64-bit Python are not supported, and a Python version (not architecture) check will prevent it from running on lower versions.
 
-* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for 32-bit *Python 3.3* if you would like to compile binaries.
+* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for 32-bit *Python 3.3* if you would like to freeze a binary.
 
 * Download and install [*Inno Setup 5.5.2 Unicode*](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
 An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
@@ -34,20 +34,16 @@ An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 
 * Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
  
-* Sometime in the development of the V1.1.x series, a wrapper for JrMasterModelBuilder's **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
+* Sometime in the development of the V1.1.x series, a wrapper for @JrMasterModelBuilder's **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
 will be added for extraction and recompressing of `LEGO.JAM`. The newest release of the JAM Extractor will be used for this purpose.
 
 For Your Reading Pleasure
 -------------------------
 
 * A (incomplete) of everything that needs to be done can be found under [*TODO.md*](https://github.com/le717/PatchIt/blob/rewrite/Documentation/TODO.md).
- 
 * The WIP PiP format V1.1 documentation can be found in [*PiP Format V1.1.md*](PiP%20Format%20V1.1.md).
- 
 * The PiP format V1.0.1 documentation can be found in [*PiP Format.md*](PiP%20Format.md).
-
 * Check any open [Issues](https://github.com/le717/PatchIt/issues), as they commonly contain bug reports or errors.
-
 * A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold 
 until futher notice. If you have experence in Tkinter or PyQt4/5 and would like to help out in this area, you would be hardly be turned down . :wink:
 
@@ -75,7 +71,7 @@ cd PatchIt\Windows
 python setup.py
 ```
 
-It will be compiled to `PatchIt\Windows\Uninstaller`.
+It will be frozen to `PatchIt\Windows\Uninstaller`.
 
 ### Inno Setup Windows Installer
 
