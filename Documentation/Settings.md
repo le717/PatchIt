@@ -12,9 +12,9 @@ Details
 * The third line of the Settings files defines the current state of the first-run check. In a fresh installation of **PatchIt!**,
 the number is `0` (zero), meaning the settings have not been set up. After a game installation is selected, the number is changed to `1`, 
 meaning no action is needed.
-* The fifth line of the _LEGO Racers_ settings contains the game's version release. It has two values: `1999` and `2001`. 
+* The fifth line of the _LEGO® Racers_ settings contains the game's version release. It has two values: `1999` and `2001`. 
 It detects the version by checking for the existence of `LEGORacers.icd`, which is present only in the 1999 release.
-There is no such check for _LEGO LOCO_.
+There is no such check for _LEGO® LOCO_.
 * The seventh line contains the installation patch for the respective game. It is used during Patch Installation, as well as in
 various Settings checks.
 
