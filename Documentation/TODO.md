@@ -2,7 +2,7 @@ PatchIt! TODO List
 ==================
 
 An (incomplete) list of everything that needs to be done in **PatchIt!**, listed in no particular order, as well as new, upcoming features and current bugs.
-However, [Issues](https://le717/PatchIt/issues) contain the newest, up-to-date info on bugs, features, and updates.
+However, [Issues](https://github.com/le717/PatchIt/issues) contain the newest, up-to-date info on bugs, features, and updates.
 * **BUG** Why do some Shell Colors keep breaking?
 * **BUG** Sometimes Patch cannot be saved in a Dropbox folder
 * *NEW!* Automatic LEGO.JAM extraction (upon user approval)
