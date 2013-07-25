@@ -148,8 +148,8 @@ enabling Experimental Mode''')
             # It was a directory, or a non-existent file
             else:
                 logging.warning("Invalid path or no parameters were given!")
-                # Switch to main menu
-                main()
+                # Do nothing, let RunIt.py do the work
+                pass
 
 
 def info():
@@ -463,6 +463,13 @@ def LRReadSettings():
     elif os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.info("LEGO Racers Settings do exist")
 
+        # The first-run check came back False,
+        # Go write the settings so we don't attempt to read a blank file
+        if not CheckLRSettings():
+            logging.warning('''The first-run check came back False!
+Writing LEGO Racers settings so we don't read an empty file.''')
+            LRWriteSettings()
+
         # The defined installation was not confirmed by LRGameCheck()
         if not LRGameCheck():
 
@@ -723,24 +730,22 @@ def CheckLRSettings():
         encoding="utf-8") as f:
             lr_first_run = f.readlines()[2]
 
-        # Remove the list from the string
-        lr_first_run = "".join(lr_first_run)
         # Strip the path to make it valid
         logging.info("Cleaning up installation text")
         lr_first_run = lr_first_run.strip()
 
         # '0' means this is a "first-run"
-        # len() >= 1 means file is not empty
-        if (lr_first_run != "0" or
-        len(lr_first_run) >= 1):
+        # "" means line is empty
+        if (lr_first_run.lower() == "0" or
+        lr_first_run.lower() == ""):
+            logging.warning("PatchIt! has never been run!")
+            return False
+
+        # Any other condition, return True
+        else:
             logging.info('''First-run info found, this is not the first-run.
 Switching to main menu.''')
             return True
-
-        # Any other condition, return False
-        else:
-            logging.warning("PatchIt! has never been run!")
-            return False
 
 
 # ----- End LEGO Racers Installation, Version and Settings Check ----- #
@@ -761,6 +766,13 @@ def LOCOReadSettings():
     # The setting file does exist
     elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.info("LEGO LOCO Settings does exist")
+
+        # The first-run check came back False,
+        # Go write the settings so we don't attempt to read a blank file
+        if not CheckLOCOSettings():
+            logging.warning('''The first-run check came back False!
+Writing LEGO LOCO settings so we don't read an empty file.''')
+            LOCOWriteSettings()
 
         # The defined installation was not confirmed by LOCOGameCheck()
         if not LOCOGameCheck():
@@ -987,24 +999,22 @@ def CheckLOCOSettings():
              encoding="utf-8") as f:
             loco_first_run = f.readlines()[2]
 
-        # Remove the list from the string
-        loco_first_run = "".join(loco_first_run)
         # Strip the path to make it valid
         logging.info("Cleaning up installation text")
         loco_first_run = loco_first_run.strip()
 
         # '0' means this is a "first-run"
-        # len() >= 1 means file is not empty
-        if (loco_first_run != "0"
-        or len(loco_first_run) >= 1):
+        # "" means line is empty
+        if (loco_first_run.lower() == "0" or
+        loco_first_run.lower() == ""):
+            logging.warning("PatchIt! has never been run!")
+            return False
+
+        # Any other condition, return True
+        else:
             logging.info('''First-run info found, this is not the first-run.
 Switching to main menu.''')
             return True
-
-        # Any other condition, return False
-        else:
-            logging.warning("PatchIt! has never been run!")
-            return False
 
 
 # ----- End LEGO LOCO Installation and Settings Check ----- #
