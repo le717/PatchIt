@@ -735,9 +735,9 @@ def CheckLRSettings():
         lr_first_run = lr_first_run.strip()
 
         # '0' means this is a "first-run"
-        # "" means line is empty
+        # '1' is the only valid value meaning the first-run has been completed
         if (lr_first_run.lower() == "0" or
-        lr_first_run.lower() == ""):
+        lr_first_run.lower() != "1"):
             logging.warning("PatchIt! has never been run!")
             return False
 
@@ -1004,9 +1004,9 @@ def CheckLOCOSettings():
         loco_first_run = loco_first_run.strip()
 
         # '0' means this is a "first-run"
-        # "" means line is empty
+        # '1' is the only valid value meaning the first-run has been completed
         if (loco_first_run.lower() == "0" or
-        loco_first_run.lower() == ""):
+        loco_first_run.lower() != "1"):
             logging.warning("PatchIt! has never been run!")
             return False
 
