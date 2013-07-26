@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://triangle717.files.wordpress.com/2013/02/patchitlogo.png?w=250" alt="PatchIt! Logo"/>
+  <img src="https://raw.github.com/le717/PatchIt/master/Icons/PatchItLogo.png" height="300" alt="PatchIt! Logo"/>
 </p>
 PatchIt! 
 ========
@@ -31,40 +31,7 @@ Downloads
 ---------
 * Don't forget to ![Star!](http://i81.servimg.com/u/f81/16/33/06/11/star11.png)
 
-All **PatchIt!** downloads are hosted on this project. The newest download is available on the [Releases page](https://github.com/le717/PatchIt/releases).
-All legacy downloads are provided here.
-
-* **PatchIt!** Version 1.0.3 Stable - Released March 11, 2013 
-
-> [Source Code](https://github.com/le717/PatchIt/tree/V1.0.3Stable)
-
-> [Direct Download](https://github.com/le717/PatchIt/raw/V1.0.3Stable/Windows/PatchIt!%20Version%201.0.3%20Stable.exe)
-
-* **PatchIt!** Version 1.0.2 Stable - Released March 5, 2013
-
-> [Source Code](https://github.com/le717/PatchIt/tree/V1.02Stable)
-
-> [Direct Download](https://github.com/le717/PatchIt/raw/V1.02Stable/Windows/PatchIt!%20Version%201.0.2%20Stable.exe)
-
-* **PatchIt!** Version 1.0.1 Stable - Released March 2, 2013
-
-> [Source Code](https://github.com/le717/PatchIt/tree/V1.0.1Stable)
-
-> [Direct Download](https://github.com/le717/PatchIt/raw/V1.0.1Stable/Windows/PatchIt!%20Version%201.0.1%20Stable.exe)
-
-* **PatchIt!** Version 1.0 Stable - Released February 21, 2013
-
-> [Source Code](https://github.com/le717/PatchIt/tree/V1.0Stable)
-
-> [Direct Download](https://github.com/le717/PatchIt/raw/V1.0Stable/Windows/PatchIt!%20Version%201.0%20Stable.exe)
-
-* **PatchIt!** Version 1.0 Beta 2 (Unstable) - Released February 2, 2013
-
-> [Source Code](https://github.com/le717/PatchIt/tree/V1.0b2)
-
-* **PatchIt!** Version 1.0 Beta 1 (Unstable) - Released January 26, 2013
-
-> [Source Code](https://github.com/le717/PatchIt/tree/V1.0b1)
+All **PatchIt!** downloads are hosted on this project, and are available on the [Releases page](https://github.com/le717/PatchIt/releases).
 
 License
 -------
