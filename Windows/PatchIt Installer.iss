@@ -1,7 +1,25 @@
 ﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;    In this manner, therefore, pray:
+;
+;     Our Father in heaven,
+;     Hallowed be Your name.
+;     Your kingdom come.
+;     Your will be done
+;     On earth as it is in heaven.
+;     Give us this day our daily bread.
+;     And forgive us our debts,
+;     As we forgive our debtors.
+;     And do not lead us into temptation,
+;     But deliver us from the evil one.
+;     For Yours is the kingdom and the power and the glory forever. Amen.
+;    - Matthew 6:9-13
+;
 ;    This file is part of PatchIt!
 ;
-;    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+;    PatchIt! - the standard and simple way to package and install mods
+;    for LEGO® Racers
+;
 ;    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 ;
 ;    PatchIt! is free software: you can redistribute it and/or modify
@@ -21,7 +39,8 @@
 ; PatchIt! Windows Installer
 ; Written with Inno Setup 5.5.2 Unicode
 
-; If any version below the specified version is used for compiling, this error will be shown.
+; If any version below the specified version is used for compiling, 
+; this error will be shown.
 #if VER < EncodeVer(5,5,2)
   #error You must use Inno Setup 5.5.2 or newer to compile this script
 #endif
@@ -73,7 +92,8 @@ SolidCompression=True
 InternalCompressLevel=ultra
 LZMAUseSeparateProcess=yes
 ; From top to bottom: Allows installation to C:\ (and the like),
-; Explicitly set Admin rights, no other languages, do not restart upon finishing.
+; Explicitly set Admin rights, no other languages, 
+; do not restart upon finishing.
 AllowRootDirectory=yes
 PrivilegesRequired=admin
 RestartIfNeededByRun=no

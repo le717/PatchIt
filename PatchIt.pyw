@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 """
+    Jesus said to him, “I am the way, the truth, and the life.
+    No one comes to YHWH except through Me. - John 14:6
+
     This file is part of PatchIt!
 
     PatchIt! - the standard and simple way to package and install mods
@@ -20,7 +23,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.1 Unstable Core Module
+# PatchIt! V1.1.1 Stable Core Module
 
 # General use modules
 import sys
@@ -49,7 +52,7 @@ import Color.colors as colors
 # Global variables
 app = "PatchIt!"
 majver = "1.1.1"
-minver = "RC2"
+minver = "Stable"
 creator = "Triangle717"
 
 # Name of PatchIt! Exe/Py

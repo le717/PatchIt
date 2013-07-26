@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 # <pep8-80 compliant>
 """
+    “And behold, I am coming quickly, and My reward is with Me,
+    to give to every one according to his work.
+    I am the Alpha and the Omega, the Beginning and the End,
+    the First and the Last.” - Revelation 22:12-13
+
     This file is part of PatchIt!
 
     PatchIt! - the standard and simple way to package and install mods
