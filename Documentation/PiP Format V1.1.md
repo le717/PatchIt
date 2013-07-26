@@ -163,7 +163,7 @@ Revision History
 
 * 1.1.1 Final: July 26, 2013
 
-> * Moved `Name`, `Version`, and `Author` fields to lines 5, 6, and 7, respectively
+> * Moved `Name`, and `Author` fields to lines 5 and 7, respectively
 > * Added `Name`, `Version`, and `Author` field descriptions
 > * Updated `MP` and `Game` field descriptions with line numbers
 
