@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+    In the beginning YHWH created the heaven and the earth. - Genesis 1:1
+
     This file is part of PatchIt!
 
     PatchIt! - the standard and simple way to package and install mods
@@ -23,22 +25,19 @@
 # PatchIt! V1.1.1 Stable Legacy Patch Installation code
 
 # Import only certain items instead of "the whole toolbox"
-import PatchIt
+import os
 import linecache
 import zipfile
-import os
-from Patch import racingtips
-from os.path import exists, join
 from random import choice
 from time import sleep
+# App Logging module
+import logging
+import PatchIt
+from Patch import racingtips
 # Colored text
 import Color as color
 import Color.colors as colors
-# File/folder dialog boxes
-import tkinter
-from tkinter import filedialog
-# App Logging module
-import logging
+
 
 # ------------ Begin Legacy PatchIt! Patch Installation ------------ #
 
@@ -55,7 +54,8 @@ def readPatch(installpatch):
     installver = linecache.getline(installpatch, 4)
     logging.info("Reading line 5 of {0} for mod author".format(installpatch))
     installauthor = linecache.getline(installpatch, 5)
-    logging.info("Reading line 7 of {0} for mod description".format(installpatch))
+    logging.info("Reading line 7 of {0} for mod description".format(
+        installpatch))
     installdesc = linecache.getline(installpatch, 7)
 
     # Strip the description for better display
@@ -71,7 +71,7 @@ def readPatch(installpatch):
     logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver,
     installauthor, installdesc))
     print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor,
-    installdesc), end="\n")
+    installdesc))
 
     # Clean up name and version to put all the text on one line
     logging.info("Cleaning up mod name")
@@ -81,8 +81,8 @@ def readPatch(installpatch):
 
     logging.info("Do you Do you wish to install {0} {1}?".format(installname,
     installver))
-    print("\nDo you wish to install {0} {1}? {2}".format(installname, installver,
-     r"(Y\N)"))
+    print("\nDo you wish to install {0} {1}? {2}".format(installname,
+    installver, r"(Y\N)"))
     confirminstall = input("\n> ")
 
     # No, I do not want to install the patch
@@ -147,8 +147,8 @@ def readPatch(installpatch):
 
             # Installation was successful!
             logging.info("Error (exit) number '0'")
-            logging.info("{0} {1} successfully installed to {2}".format(installname,
-            installver, installpath))
+            logging.info("{0} {1} successfully installed to {2}".format(
+                installname, installver, installpath))
             print("\n{0} {1} successfully installed!\n".format(installname,
             installver))
 
@@ -158,7 +158,10 @@ def readPatch(installpatch):
         # For some reason, it cannot find the ZIP archive
         except FileNotFoundError:
             logging.info("Error number '2'")
-            logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
+            logging.exception('''Oops! Something went wrong!
+Here's what happened
+''', exc_info=True)
+
             # Strip the PiP ID text for a smoother error message
             logging.info("Cleaning up Version and Author text")
             installver = installver.lstrip("Version: ")
@@ -175,17 +178,27 @@ If the error continues, contact {3} and ask for a fixed version.'''
             # The user does not have the rights to install to that location.
         except PermissionError:
             logging.info("Error number '13'")
-            logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-            logging.warning("{0} does not have the rights to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} does not have the rights to install {1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath), color.
-            FG_LIGHT_RED)
+            logging.exception('''Oops! Something went wrong!
+Here's what happened
+''', exc_info=True)
+            logging.warning('''{0} does not have the rights to install {1} {2}
+to
+{3}!'''.format(PatchIt.app, installname, installver, installpath))
+            colors.pc('''\n{0} does not have the rights to install {1} {2}
+to
+{3}!'''.format(PatchIt.app, installname, installver, installpath),
+color.FG_LIGHT_RED)
 
         # Python itself had some I/O error / any exceptions not handled
         except Exception:
             logging.info("Unknown error number")
-            logging.exception("Oops! Something went wrong! Here's what happened\n", exc_info=True)
-            logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(PatchIt.app, installname, installver, installpath),
+            logging.exception('''Oops! Something went wrong!
+Here's what happened
+''', exc_info=True)
+            logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(
+                PatchIt.app, installname, installver, installpath))
+            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(
+                PatchIt.app, installname, installver, installpath),
             color.FG_LIGHT_RED)
 
         # This is run no matter if an exception was raised nor not.

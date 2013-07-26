@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 # <pep8-80 compliant>
 """
+    But seek ye first the kingdom of YHWH,
+    and His righteousness; and all these things
+    shall be added unto you. - Matthew 6:33
+
     This file is part of PatchIt!
 
     PatchIt! - the standard and simple way to package and install mods
