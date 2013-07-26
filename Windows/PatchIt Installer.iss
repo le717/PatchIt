@@ -155,6 +155,7 @@ Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreve
 
 ; Readme and Icon
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
+Source: ..\Icons\favicon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
