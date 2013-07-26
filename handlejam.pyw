@@ -3,7 +3,7 @@
     This file is part of PatchIt!
 
     PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
-    Created 2013 Triangle717 <http://triangle717.wordpress.com>
+    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ def compressJAM():
 
 ##    JAMExtractor.build(jam_files)
 
-def main():
+def main(*args):
 
     logging.info("Display JAM Extractor menu to user")
     print('''\nPlease make a selection:\n

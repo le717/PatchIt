@@ -1,10 +1,18 @@
-#! python3
+#! python3.3-32
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
+    “And behold, I am coming quickly, and My reward is with Me,
+    to give to every one according to his work.
+    I am the Alpha and the Omega, the Beginning and the End,
+    the First and the Last.” - Revelation 22:12-13
+
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
-    Created 2013 Triangle717 <http://triangle717.wordpress.com>
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
+    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,16 +35,21 @@
 from cx_Freeze import setup, Executable
 from PatchIt import majver, minver
 import sys
+import os
 
-# Append build to the arguments. Just type "python setup.py" and it will compile
-if len(sys.argv) == 1: sys.argv[1:] = ["build"]
+# Append build command to command-line arguments.
+# Just type "python setup.py" and it will freeze
+if len(sys.argv) == 1:
+    sys.argv[1:] = ["build"]
 
-# Compile into the proper folder depending on the architecture
-# Based on code from the Python help file (platform module) and my own tests
+# If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = "Compile/Windows32"
+    destfolder = os.path.join("Freeze", "Windows")
+# If this is Python x64
 else:
-    destfolder = "Compile/Windows64"
+    input('''\n64-bit binaries are not frozen.
+Please freeze PatchIt! using 32-bit Python 3.3.''')
+    raise SystemExit(0)
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
@@ -44,19 +57,20 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "Icons/PatchItIcon.ico",
                      "compressed": True,
                      "includes": [
-                     "modernextract",
-                     "moderncompress",
-                     "legacyextract",
-                     "gametips",
+                     "Patch/modernextract",
+                     "Patch/moderncompress",
+                     "Patch/legacyextract",
+                     "Patch/racingtips",
                      "handlejam",
                      "patchit",
-                     "color"]}
+                     "color",
+                     "re"]}
 
 setup(
-    name = "PatchIt!",
-    version = "{0} {1}".format(majver, minver),
-    author = "Triangle717",
-    description = "PatchIt! Version {0} {1}, created 2013 Triangle717".format(majver, minver),
-    license = "GNU GPLv3",
-    options = {"build_exe": build_exe_options},
-    executables = [Executable("RunIt.py", targetName="PatchIt.exe")])
+    name="PatchIt!",
+    version="{0}".format(majver),
+    author="2013 Triangle717",
+    description="PatchIt! Version {0} {1}".format(majver, minver),
+    license="GNU GPLv3",
+    options={"build_exe": build_exe_options},
+    executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
