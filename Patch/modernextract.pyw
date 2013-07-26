@@ -178,7 +178,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         # Give them time to actually read the message.
         # Switch to legacy Patch Installation routine
         time.sleep(3)
-        logging.info("Switching to legacy PatchIt! Patch Installation routine")
+        logging.info("Switching to Legacy Patch Installation routine")
         legacyextract.readPatch(patch)
 
     # It's a modern Patch
@@ -188,7 +188,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         # Delete validity lines from memory
         del lines[:]
         # Go to the (modern) Patch Installation method
-        logging.info("Proceeding to (modern) PatchIt! Patch Installation routine")
+        logging.info("Proceeding to Modern Patch Installation routine")
         readModernPatch(patch)
 
     # It's a V1.1.0 transition Patch, a version that is NEVER to be used
@@ -239,17 +239,17 @@ def readModernPatch(patch):
     logging.info("Assigning line 3 of {0} to PiA Archive".format(patch))
     patch_archive = all_lines[2]
 
-    # Assign Patch Author
-    logging.info("Assigning line 5 of {0} to Author".format(patch))
-    author = all_lines[4]
+    # Assign Patch Name
+    logging.info("Assigning line 5 of {0} to Name".format(patch))
+    name = all_lines[4]
 
     # Assign Patch Version
     logging.info("Assigning line 6 of {0} to Version".format(patch))
     version = all_lines[5]
 
-    # Assign Patch Name
-    logging.info("Assigning line 7 of {0} to Name".format(patch))
-    name = all_lines[6]
+    # Assign Patch Author
+    logging.info("Assigning line 7 of {0} to Author".format(patch))
+    author = all_lines[6]
 
     # Assign Patch MP
     logging.info("Assigning line 8 of {0} to MP".format(patch))
