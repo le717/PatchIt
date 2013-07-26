@@ -360,10 +360,16 @@ def getRacersPath():
     # Read the settings file for installation (LEGO Racers directory)
     logging.info("Reading line 7 of settings for LEGO Racers installation")
 
-    with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
-    encoding="utf-8") as f:
-        racers_install_path = f.readlines()[6]
-        return racers_install_path
+    try:
+        with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
+        encoding="utf-8") as f:
+            racers_install_path = f.readlines()[6]
+            return racers_install_path
+
+    # It may exist, but it doesn't mean the path is set up
+    except IndexError:
+        logging.error("The LEGO Racers Installation has not been set up!")
+        PatchIt.LRWriteSettings()
 
 
 def getLOCOPath():
@@ -404,10 +410,17 @@ def getLOCOPath():
     # Read the settings file for installation (LEGO LOCO directory)
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
 
-    with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), "rt",
-    encoding="utf-8") as f:
-        loco_install_path = f.readlines()[4]
-        return loco_install_path
+    try:
+        with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), "rt",
+        encoding="utf-8") as f:
+            loco_install_path = f.readlines()[4]
+            return loco_install_path
+
+    # It may exist, but it doesn't mean the path is set up
+    except IndexError:
+        logging.error("The LEGO LOCO Installation has not been set up!")
+        PatchIt.LOCOWriteSettings()
+
 
 # ------------ End Game Installation Path Reading------------ #
 
