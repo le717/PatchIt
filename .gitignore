@@ -190,7 +190,7 @@ Freeze/
 !Color/
 Logs/
 License/
-#Settings/
+Settings/
 Testing*/
 Archives/
 TheTesterGroup/
@@ -222,3 +222,4 @@ Windows/PatchIt-*
 License/gpl-v3-fr.txt
 Windows/Download.html
 PatchIt-Compatible.html
+#Documentation/Readme/ChangeLog/1*
