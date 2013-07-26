@@ -333,7 +333,7 @@ def getRacersPath():
 
     # The LEGO Racers settings do exist (implied else block here)
 
-    # Check encoding of LOCO Settings file
+    # Check encoding of Racers Settings file
     logging.info("Check encoding of {0} before installation".format(
         os.path.join(PatchIt.settings_fol, "Racers.cfg")))
 
