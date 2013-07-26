@@ -1,8 +1,26 @@
 ﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;    In this manner, therefore, pray:
+;
+;     Our Father in heaven,
+;     Hallowed be Your name.
+;     Your kingdom come.
+;     Your will be done
+;     On earth as it is in heaven.
+;     Give us this day our daily bread.
+;     And forgive us our debts,
+;     As we forgive our debtors.
+;     And do not lead us into temptation,
+;     But deliver us from the evil one.
+;     For Yours is the kingdom and the power and the glory forever. Amen.
+;    - Matthew 6:9-13
+;
 ;    This file is part of PatchIt!
 ;
-;    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
-;    Created 2013 Triangle717 <http://triangle717.wordpress.com>
+;    PatchIt! - the standard and simple way to package and install mods
+;    for LEGO® Racers
+;
+;    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 ;
 ;    PatchIt! is free software: you can redistribute it and/or modify
 ;    it under the terms of the GNU General Public License as published by
@@ -21,7 +39,8 @@
 ; PatchIt! Windows Installer
 ; Written with Inno Setup 5.5.2 Unicode
 
-; If any version below the specified version is used for compiling, this error will be shown.
+; If any version below the specified version is used for compiling, 
+; this error will be shown.
 #if VER < EncodeVer(5,5,2)
   #error You must use Inno Setup 5.5.2 or newer to compile this script
 #endif
@@ -32,15 +51,16 @@
   ; If non-Unicode (AKA ANSI) Inno Setup is used
   #error You must use Unicode Inno Setup to compile this script
 #endif 
-       
-#define MyAppName "PatchIt!"
-#define MyAppVersion "1.1.0"
-#define MyAppVerName "PatchIt! Version 1.1.0 Stable"
-#define MyInstallerName "PatchIt-110-Stable"
+
+; Global variables
+#define MyAppName "PatchIt!" 
+#define MyAppVersion "1.1.1"
+#define MyAppVerName "PatchIt! Version 1.1.1 Stable"
+#define MyInstallerName "PatchIt-111-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
-
+   
 [Setup]
 AppId={#MyAppVerName}
 AppName={#MyAppName}
@@ -66,22 +86,17 @@ Uninstallable=not PortableInstall
 UninstallDisplayIcon={app}\Icons\PatchItIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
-; This is required so Inno can correctly report the installation size.
-UninstallDisplaySize=31457280
 ; Compression
 Compression=lzma2/ultra64
 SolidCompression=True
 InternalCompressLevel=ultra
 LZMAUseSeparateProcess=yes
 ; From top to bottom: Allows installation to C:\ (and the like),
-; Explicitly set Admin rights, no other languages, do not restart upon finishing.
+; Explicitly set Admin rights, no other languages, 
+; do not restart upon finishing.
 AllowRootDirectory=yes
 PrivilegesRequired=admin
 RestartIfNeededByRun=no
-ArchitecturesInstallIn64BitMode=x64 ia64
-ArchitecturesAllowed=x86 x64 ia64
-; This is required so Inno can correctly report the installation size.
-ExtraDiskSpaceRequired=31457280
 ; Required for creating Shell extension
 ChangesAssociations=True
 
@@ -101,13 +116,13 @@ nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwij
 
 [CustomMessages]
 english.Settings_Reset=Reset {#MyAppName} Preferences
-francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
-nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren
 english.Admin=Run {#MyAppName} with Administrator Rights
-francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
-nederlands.Admin=Run {#MyAppName} met beheerdersrechten
 english.Shell=Associate .PiP File with {#MyAppName}
+francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
+francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
 francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren  
+nederlands.Admin=Run {#MyAppName} met beheerdersrechten   
 nederlands.Shell=Associëren .PiP File Met {#MyAppName}
 
 [Tasks]
@@ -141,21 +156,19 @@ Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreve
 ; Readme and Icon
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
-Source: ..\Documentation\Read Me First.html; DestDir: {app}; Flags: ignoreversion isreadme
+Source: ..\Icons\cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg; DestDir: {app}\Icons; Flags: ignoreversion
+Source: ..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; Settings files
-Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
-Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\Freeze\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\Freeze\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
 ; Settings files for Settings_Reset switch
-Source: ..\Compile\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
-Source: ..\Compile\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\Freeze\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\Freeze\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
 
-; 32-bit Windows build
-Source: ..\Compile\Windows32\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin32
-
-; 64-bit Windows build
-Source: ..\Compile\Windows64\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: IsWin64
+; PatchIt! itself (a 32-bit Windows binary)
+Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Comment: Run {#MyAppVerName}
@@ -163,7 +176,8 @@ Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}; Icon
 Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\Icons\PatchItIcon.ico; Tasks: desktopicon
 
 [Run]
-Filename: {app}\{#MyAppExeName}; Flags: nowait postinstall runascurrentuser skipifsilent; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}
+Filename: "{app}\Documentation\index.html"; Flags: nowait postinstall skipifsilent shellexec; Description: "View Readme"
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 
 [UninstallDelete]
 ; Because for some reason, these are not getting deleted at uninstall
@@ -175,13 +189,11 @@ Type: filesandordirs; Name: {app}\tk
 ; Not doing so breaks V1.1.x
 Type: files; Name: {app}\settings
 
-[Code]   
-// Taken from CamStudio (http://camstudio.org) 2.6 r294 Inno Setup installer                                                                                         
-function IsWin32: Boolean;
-begin
- Result := not IsWin64;
-end;
+[Dirs]
+; So the Settings do not ever get uninstalled
+Name: "{app}\Settings"; Flags: uninsneveruninstall
 
+[Code]  
 // Portable Switch taken from https://github.com/jrsoftware/issrc/blob/master/setup.iss
 function PortableInstall: Boolean;
 begin

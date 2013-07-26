@@ -1,10 +1,13 @@
 #! python3
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
-    Created 2013 Triangle717 <http://triangle717.wordpress.com>
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
+    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,11 +25,13 @@
 
 # PatchIt! Uninstaller V1.0.2.1
 # Contains code contributed by JrMasterModelBuilder
+# https://github.com/JrMasterModelBuilder
 
 import os
 import sys
 import time
 import subprocess
+
 
 def single_uninstall(folderpath):
     ''' Uninstalls Single PatchIt! Installation'''
@@ -36,19 +41,19 @@ def single_uninstall(folderpath):
         print("\nRunning unins000.exe")
         # Run uninstaller, passing /SILENT to suppress confirmation boxes
         subprocess.call([os.path.join(folderpath, "unins000.exe"), "/SILENT"])
-        # Sleep just a litte to avoid an error
+        # Sleep a little to avoid any uninstallation errors
         time.sleep(1.5)
         # Go to looping uninstaller
-        print("\nSwitching to Looping Uninstaller")
+        print("\nSwitching to Looping Uninstaller.")
         loop_uninstall(folderpath)
 
     # Single installation does not exist
     else:
         print("\nunins000.exe does not exist")
-        # Sleep just a litte to avoid an error
+        # Sleep just a little to avoid an error
         time.sleep(1.5)
         # Go to looping uninstaller
-        print("\nSwitching to Looping Uninstaller")
+        print("\nSwitching to Looping Uninstaller.")
         loop_uninstall(folderpath)
 
 
@@ -56,28 +61,29 @@ def loop_uninstall(folderpath):
     '''Looping PatchIt! Uninstaller
     Code contributed by JrMasterModelBuilder'''
 
-    # Used for looping
+    # Used to update exe name
     i = 1
 
     # It is assumed another installation exists
     while i < 1000:
-        exe_name  ="unins" + str(i).zfill(3) + ".exe"
+        exe_name = "unins" + str(i).zfill(3) + ".exe"
         if os.path.exists(os.path.join(folderpath, exe_name)):
 
-            # Run the uninstaller, passing /SILENT to suppress confirmation boxes
+            # Run the uninstaller, passing /SILENT to suppress
+            # confirmation boxes.
             print("\nRuinning {0}".format(exe_name))
             subprocess.call([os.path.join(folderpath, exe_name), "/SILENT"])
-            # Sleep a little to avoid uninstallation error
+            # Sleep a little to avoid any uninstallation errors
             time.sleep(1.5)
 
         # Update uninstaller name
         i += 1
 
     # Close once everything is uninstalled
-    print("\nAll PatchIt! installations had been removed")
-    raise SystemExit
+    print("\nAll PatchIt! installations had been removed.")
+    raise SystemExit(0)
 
-# Run Uninstaller 
+# Run Uninstaller
 if __name__ == "__main__":
     try:
         # The user entered a path to the PatchIt! installations
@@ -89,4 +95,3 @@ if __name__ == "__main__":
     finally:
         os.system("title " + folderpath)
         single_uninstall(folderpath)
-        
