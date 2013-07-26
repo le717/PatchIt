@@ -319,92 +319,115 @@ Game: {3}
             patch_archive)
 
 
+# ------------ Begin Game Installation Path Reading------------ #
+
+
+def getRacersPath():
+    '''Gets LEGO Racers Installation Path'''
+
+    # The LEGO Racers settings do not exist
+    if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
+        logging.warning("Could not find LEGO Racers settings!")
+        logging.info("Switching to PatchIt.LRReadSettings()")
+        PatchIt.LRReadSettings()
+
+    # The LEGO Racers settings do exist (implied else block here)
+
+    # Check encoding of LOCO Settings file
+    logging.info("Check encoding of {0} before installation".format(
+        os.path.join(PatchIt.settings_fol, "Racers.cfg")))
+
+    # Open it, read just the area containing the byte mark
+    with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"),
+    "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (  # The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        # The settings cannot be read for installation,
+        # go write them so this Patch can be installed
+        logging.warning("LEGO Racers Settings cannot be read!")
+        logging.info("Switching to PatchIt.LRReadSettings()")
+        PatchIt.LRReadSettings()
+
+    # The LEGO Racers settings can be read (implied else block here)
+
+    # Read the settings file for installation (LEGO Racers directory)
+    logging.info("Reading line 7 of settings for LEGO Racers installation")
+
+    with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
+    encoding="utf-8") as f:
+        racers_install_path = f.readlines()[6]
+        return racers_install_path
+
+
+def getLOCOPath():
+    '''Gets LEGO LOCO Installation Path'''
+
+    # The LEGO LOCO settings do not exist
+    if not os.path.exists(os.path.join(PatchIt.settings_fol, "LOCO.cfg")):
+        logging.warning("Could not find LEGO LOCO settings!")
+        logging.info("Switching to PatchIt.LOCOReadSettings()")
+        PatchIt.LOCOReadSettings()
+
+    # The LEGO LOCO settings do exist (implied else block here)
+
+    # Check encoding of LOCO Settings file
+    logging.info("Check encoding of {0} before installation".format(
+        os.path.join(PatchIt.settings_fol, "LOCO.cfg")))
+
+    # Open it, read just the area containing the byte mark
+    with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"),
+    "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (  # The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        # The settings cannot be read for installation,
+        # go write them so this Patch can be installed
+        logging.warning("LEGO LOCO Settings cannot be read!")
+        logging.info("Switching to PatchIt.LOCOReadSettings()")
+        PatchIt.LOCOReadSettings()
+
+    # The LEGO LOCO settings can be read (implied else block here)
+
+    # Read the settings file for installation (LEGO LOCO directory)
+    logging.info("Reading line 5 of settings for LEGO LOCO installation")
+
+    with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), "rt",
+    encoding="utf-8") as f:
+        loco_install_path = f.readlines()[4]
+        return loco_install_path
+
+# ------------ End Game Installation Path Reading------------ #
+
+
 def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     '''Installs a Modern PatchIt! Patch'''
 
     # This is a LEGO LOCO patch, read the LOCO settings
     if game == "LEGO LOCO":
 
-        # The LEGO LOCO settings do not exist
-        if not os.path.exists(os.path.join(PatchIt.settings_fol, "LOCO.cfg")):
-            logging.warning("Could not find LEGO LOCO settings!")
-            logging.info("Switching to PatchIt.LOCOReadSettings()")
-            PatchIt.LOCOReadSettings()
-
-        # The LEGO LOCO settings do exist (implied else block here)
-
-        # Check encoding of LOCO Settings file
-        logging.info("Check encoding of {0} before installation".format(
-            os.path.join(PatchIt.settings_fol, "LOCO.cfg")))
-
-        # Open it, read just the area containing the byte mark
-        with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"),
-        "rb") as encode_check:
-            encoding = encode_check.readline(3)
-
-        if (  # The settings file uses UTF-8-BOM encoding
-            encoding == b"\xef\xbb\xbf"
-            # The settings file uses UCS-2 Big Endian encoding
-            or encoding == b"\xfe\xff\x00"
-            # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
-
-            # The settings cannot be read for installation,
-            # go write them so this Patch can be installed
-            logging.warning("LEGO LOCO Settings cannot be read!")
-            logging.info("Switching to PatchIt.LOCOReadSettings()")
-            PatchIt.LOCOReadSettings()
-
-        # The LEGO LOCO settings can be read (implied else block here)
-
-        # Read the settings file for installation (LEGO LOCO directory)
-        logging.info("Reading line 5 of settings for LEGO LOCO installation")
-
-        with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), "rt",
-        encoding="utf-8") as f:
-            install_path = f.readlines()[4]
+        # Run process to get the LOCO installation path
+        logging.info("Run getLOCOPath() to get installation path for LOCO")
+        install_path = getLOCOPath()
 
     # This is a LEGO Racers patch, read the Racers settings
     elif game == "LEGO Racers":
 
-        # The LEGO Racers settings do not exist
-        if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
-            logging.warning("Could not find LEGO Racers settings!")
-            logging.info("Switching to PatchIt.LRReadSettings()")
-            PatchIt.LRReadSettings()
-
-        # The LEGO Racers settings do exist (implied else block here)
-
-        # Check encoding of LOCO Settings file
-        logging.info("Check encoding of {0} before installation".format(
-            os.path.join(PatchIt.settings_fol, "Racers.cfg")))
-
-        # Open it, read just the area containing the byte mark
-        with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"),
-        "rb") as encode_check:
-            encoding = encode_check.readline(3)
-
-        if (  # The settings file uses UTF-8-BOM encoding
-            encoding == b"\xef\xbb\xbf"
-            # The settings file uses UCS-2 Big Endian encoding
-            or encoding == b"\xfe\xff\x00"
-            # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
-
-            # The settings cannot be read for installation,
-            # go write them so this Patch can be installed
-            logging.warning("LEGO Racers Settings cannot be read!")
-            logging.info("Switching to PatchIt.LRReadSettings()")
-            PatchIt.LRReadSettings()
-
-        # The LEGO Racers settings can be read (implied else block here)
-
-        # Read the settings file for installation (LEGO Racers directory)
-        logging.info("Reading line 7 of settings for LEGO Racers installation")
-
-        with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
-        encoding="utf-8") as f:
-            install_path = f.readlines()[6]
+        # Run process to get the Racers installation path
+        logging.info("Run getRacersPath() to get installation path for Racers")
+        install_path = getRacersPath()
 
     # In case the Game field says something else
     else:
@@ -435,7 +458,8 @@ and request a proper Patch.'''.format(name, version, game, author),
         logging.info("Extracting {0} to {1}".format(patch_archive,
         install_path))
 
-        with tarfile.open(os.path.join(patch_location, patch_archive), "r") as tar_file:
+        with tarfile.open(os.path.join(patch_location, patch_archive),
+             "r") as tar_file:
             tar_file.extractall(install_path)
 
         # Display gameplay tip/MP only if Patch was successfully installed
@@ -447,7 +471,7 @@ and request a proper Patch.'''.format(name, version, game, author),
 
         # Display the LEGO LOCO map resolution.
         elif game == "LEGO LOCO":
-            logging.info("Display resolution the LEGO LOCO map was created with")
+            logging.info("Display LEGO LOCO map resolution")
             colors.pc('''\nHeads up! {0} {1} was created using {2} resolution.
 It may be best to play LEGO LOCO in that same resolution to avoid
 cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
