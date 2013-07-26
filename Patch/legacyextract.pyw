@@ -101,27 +101,58 @@ def readPatch(installpatch):
         installver))
 
         # The LEGO Racers settings do not exist
-        if not os.path.exists(os.path.join(PatchIt.settingsfol, "Racers.cfg")):
+        if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
             logging.warning("Could not find LEGO Racers settings!")
             logging.info("Switching to PatchIt.LRReadSettings()")
             PatchIt.LRReadSettings()
 
-        # Read the settings file for installation (LEGO Racers directory)
-        # Updated in semi-accordance with PatchIt! Dev-log #6
-        logging.info("Reading line 7 of settings for LEGO Racers installation")
-        installpath = linecache.getline(os.path.join("Settings", "Racers.cfg"),
-            7)
+        # The LEGO Racers settings do exist (implied else block here)
 
-        # Create a valid folder path
-        logging.info("Cleaning up installation text")
-        installpath = installpath.rstrip("\n")
+        # Check encoding of Racers Settings file
+        logging.info("Check encoding of {0} before installation".format(
+            os.path.join(PatchIt.settings_fol, "Racers.cfg")))
+
+        # Open it, read just the area containing the byte mark
+        with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"),
+        "rb") as encode_check:
+            encoding = encode_check.readline(3)
+
+        if (  # The settings file uses UTF-8-BOM encoding
+            encoding == b"\xef\xbb\xbf"
+            # The settings file uses UCS-2 Big Endian encoding
+            or encoding == b"\xfe\xff\x00"
+            # The settings file uses UCS-2 Little Endian
+            or encoding == b"\xff\xfe/"):
+
+            # The settings cannot be read for installation,
+            # go write them so this Patch can be installed
+            logging.warning("LEGO Racers Settings cannot be read!")
+            logging.info("Switching to PatchIt.LRReadSettings()")
+            PatchIt.LRReadSettings()
+
+        # The LEGO Racers settings can be read (implied else block here)
+
+        # Read the settings file for installation (LEGO Racers directory)
+        logging.info("Reading line 7 of settings for LEGO Racers installation")
+
+        # Read the settings file for installation (LEGO Racers directory)
+         # Updated in semi-accordance with PatchIt! Dev-log #6
+        try:
+            with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
+            encoding="utf-8") as f:
+                installpath = f.readlines()[6]
+
+            # Create a valid folder path
+            logging.info("Cleaning up installation text")
+            installpath = installpath.rstrip("\n")
+
+        # It may exist, but it doesn't mean the path is set up
+        except IndexError:
+            logging.error("The LEGO Racers Installation has not been set up!")
+            PatchIt.LRWriteSettings()
         logging.info("Reading line 9 of {0} for ZIP archive".format(
             installpatch))
         installzipfile = linecache.getline(installpatch, 9)
-
-        # Again, clear cache
-        logging.info("Clearing settings file cache...")
-        linecache.clearcache()
 
         # Create a valid ZIP archive
         logging.info("Cleaning up ZIP archive text")
@@ -204,7 +235,7 @@ Here's what happened
         # This is run no matter if an exception was raised nor not.
         finally:
             # Sleep for 2 seconds after displaying installation result
-            # before kicking back to the PatchIt! menu.
+            # before kicking back to the main menu.
             sleep(2)
             logging.info("Proceeding to main menu")
             PatchIt.main()
