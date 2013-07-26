@@ -1,8 +1,6 @@
 PatchIt! PiP Format V1.1
 ========================
 
-**THIS DOCUMENT IS INCOMPLETE! While the format detailed in this file is mostly finalized, all details have not yet been added.**
-
 General Information
 -------------------
 
@@ -27,16 +25,18 @@ Details
 * PiP stands for <strong>P</strong>atch<strong>I</strong>t! <strong>P</strong>atch.
 * A PiP file is a plain text file written with [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding, and can be edited on any text 
 editor that supports such encoding.
+* A PiP file is completely case-sensitive.
 * As a validity test, each PiP file must have on line 1 a specific line of text (known as the validity line).
 This line ***must** match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
 * In addition the the first line, the second line is also checked to determine if it is a valid Patch and what version Patch it is. 
 This line _**must**_ also match **PatchIt!**'s internal version exactly.
 * Legacy (V1.0.1) Patches are detected by looking for that version's validity line. If it is found, it is installed using the Legacy Installation routine.
 * Modern (V1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
-Legacy Patches can not and will not be created by **PatchIt!** anymore.  
-* The `MP` (Multi Purpose) field contains various Patch info. For _LEGO® LOCO_ Patches, it contains the resolution the map was created with.
+Legacy Patches can not and will not be created by **PatchIt!** anymore.
+* The `Name`, `Version`, and `Author` fields, written on lines 5, 6, and 7 respectively, contain the Name, Version, and Author of the Patch.  
+* The `MP` (Multi Purpose) field, written on line 8, contains various Patch info. For _LEGO® LOCO_ Patches, it contains the resolution the map was created with.
 For _LEGO® Racers_ Patches, it currently writes _MP_, as there is not a use for that game yet.
-* The `Game` field tells what game a Patch was created for. It currently has two values: _LEGO® Racers_ and _LEGO® LOCO_. 
+* The `Game` field, written on line 9, tells what game a Patch was created for. It currently has two values: _LEGO® Racers_ and _LEGO® LOCO_. 
 * The `Description` field is written on the last three lines of a Patch. Unlike V1.0.1, it does not have an 161 character limit.
 * Both the PiP file and PiA Archive uses the Patch's name and version for their filenames.
 
@@ -69,9 +69,9 @@ PiP Version 1.1 File Format Layouts
 [PiA]
 NameVersion.PiA
 [GENERAL]
-Author
-Version
 Name
+Version
+Author
 MP
 Game
 [DESCRIPTION]
@@ -87,9 +87,9 @@ This is the third line of a description
 [PiA]
 Racing Machine 1.0.1.PiA
 [GENERAL]
-Jackson
-1.0.1
 Racing Machine
+1.0.1
+Jackson
 MP
 LEGO Racers
 [DESCRIPTION]
@@ -106,9 +106,9 @@ IT NEVER WILL. :)
 [PiA]
 Happy Trains 5.8.PiA
 [GENERAL]
-Thomas
-5.8
 Happy Trains
+5.8
+Thomas
 1920x1280
 LEGO LOCO
 [DESCRIPTION]
@@ -160,6 +160,12 @@ Happy Trains 5.8.PiA/
 
 Revision History
 ----------------
+
+* 1.1.1 Final: July 26, 2013
+
+> * Moved `Name`, `Version`, and `Author` fields to lines 5, 6, and 7, respectively
+> * Added `Name`, `Version`, and `Author` field descriptions
+> * Updated `MP` and `Game` field descriptions with line numbers
 
 * 1.1.1 Draft 2: July 4, 2013
 
