@@ -262,7 +262,7 @@ def about(*args):
 
 
             {0} Version {1} {2}
-               Released ?? ??, 2013
+               Released July 26, 2013
 
             Created 2013 Triangle717
 
