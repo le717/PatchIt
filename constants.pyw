@@ -26,6 +26,7 @@
 app = "PatchIt!"
 majver = "1.1.2"
 minver = "Unstable"
+creator = "Triangle717"
 
 # GLobal game data
 LR_game = "LEGO Racers"
