@@ -33,7 +33,7 @@
 # With changes by Triangle717
 
 from cx_Freeze import setup, Executable
-from PatchIt import majver, minver
+from constants import (majver, minver)
 import sys
 import os
 
