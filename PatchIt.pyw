@@ -51,8 +51,8 @@ import Color.colors as colors
 
 # Global variables
 app = "PatchIt!"
-majver = "1.1.1"
-minver = "Stable"
+majver = "1.1.2"
+minver = "Unstable"
 creator = "Triangle717"
 
 # Name of PatchIt! Exe/Py
@@ -446,7 +446,6 @@ def Settings(*args):
     # Undefined input
     else:
         logging.info("User pressed an undefined key")
-        logging.info("Switching to main menu")
         main()
 
 
@@ -505,7 +504,6 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             else:
                 logging.info('''User does not want to change the LEGO Racers
                 installation or pressed an undefined key''')
-                logging.info("Switching to main menu")
                 main()
 
 
@@ -551,7 +549,6 @@ def LRWriteSettings():
 
         # Go back to the main menu
         logging.warning("User did not select a new LEGO Racers installation!")
-        logging.info("Switching to main menu")
         main()
 
     # The user selected a folder
@@ -746,8 +743,7 @@ def CheckLRSettings():
 
         # Any other condition, return True
         else:
-            logging.info('''First-run info found, this is not the first-run.
-Switching to main menu.''')
+            logging.info("First-run info found, this is not the first-run")
             return True
 
 
@@ -811,7 +807,6 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             else:
                 logging.info('''User does not want to change the LEGO LOCO
                 installation or pressed an undefined key''')
-                logging.info("Switching to main menu")
                 main()
 
 
@@ -857,7 +852,6 @@ def LOCOWriteSettings():
 
         # Go back to the main menu
         logging.warning("User did not select a new LEGO LOCO installation!")
-        logging.info("Switching to main menu")
         main()
 
     # The user selected a folder
@@ -1017,8 +1011,7 @@ def CheckLOCOSettings():
 
         # Any other condition, return True
         else:
-            logging.info('''First-run info found, this is not the first-run.
-Switching to main menu.''')
+            logging.info("First-run info found, this is not the first-run")
             return True
 
 

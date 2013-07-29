@@ -96,7 +96,6 @@ def selectPatch(*args):
             color.FG_LIGHT_RED)
         time.sleep(0.7)
 
-        logging.info("Switching to main menu")
         PatchIt.main()
 
     # The user selected a patch
@@ -139,7 +138,6 @@ def checkPatch(patch):
             color.FG_LIGHT_RED)
 
         time.sleep(1)
-        logging.info("Switching to main menu")
         PatchIt.main()
 
     # It is written using ANSI or UTF-8-NOBOM, continue reading it
@@ -201,7 +199,6 @@ It may be best to check if a newer version of this mod is available.'''.format(
         del lines[:]
         # Switch to main menu
         time.sleep(1)
-        logging.info("Switching to main menu")
         PatchIt.main()
 
     # It's not a Patch at all! D:
@@ -215,7 +212,6 @@ It may be best to check if a newer version of this mod is available.'''.format(
         del lines[:]
         # Switch to main menu
         time.sleep(1)
-        logging.info("Switching to main menu")
         PatchIt.main()
 
 
@@ -308,7 +304,6 @@ Game: {3}
         colors.pc("\nCanceling installation of {0} (Version: {1})".format(name,
         version), color.FG_LIGHT_RED)
         time.sleep(0.5)
-        logging.info("Switching to main menu")
         PatchIt.main()
 
     else:
@@ -567,7 +562,6 @@ color.FG_LIGHT_RED)
         # Sleep for 2 seconds after displaying installation result
         # before kicking back to the PatchIt! menu.
         time.sleep(2)
-        logging.info("Switching to main menu")
         PatchIt.main()
 
 
