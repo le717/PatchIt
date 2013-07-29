@@ -22,7 +22,6 @@
 """
 # PatchIt! Constants
 
-
 # App name and version
 app = "PatchIt!"
 majver = "1.1.2"

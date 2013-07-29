@@ -35,6 +35,9 @@ import sys
 import os
 import webbrowser
 
+# PatchIt! Version Info
+from constants import (app, majver, minver)
+
 try:
     # Python 3 import
     import tkinter as tk
@@ -43,10 +46,6 @@ except ImportError:
     # Python 2 import
     import Tkinter as tk
     from tkMessageBox import showerror
-
-app = "PatchIt!"
-majver = "Version 1.1.2"
-minver = "Unstable"
 
 # User is not running < Python 3.3.0
 if sys.version_info < (3, 3, 0):

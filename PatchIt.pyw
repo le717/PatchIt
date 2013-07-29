@@ -49,11 +49,8 @@ from Patch import moderncompress as compress
 import Color as color
 import Color.colors as colors
 
-# Global variables
-app = "PatchIt!"
-majver = "1.1.2"
-minver = "Unstable"
-creator = "Triangle717"
+# PatchIt! Constants
+import constants
 
 # Name of PatchIt! Exe/Py
 exe_name = os.path.basename(sys.argv[0])
@@ -96,8 +93,8 @@ def args():
             # If the help parameter was given
             if argument == value:
                 logging.info("The help parameter (-h, --help) was given, displaying help messages")
-                print("\n{0} Version {1} Command-line arguments".format(app,
-                majver))
+                print("\n{0} Version {1} Command-line arguments".format(
+                    constants.app, constants.majver))
                 # Use input rather than print so user can close the window
                 # at anytime, rather than it closing after x seconds
                 input(r'''
@@ -130,7 +127,7 @@ Press the Enter key to close.'''.format(exe_name))
             if argument == value:
                 test = True
                 os.system("title {0} Version {1} {2} - Experimental Mode"
-                .format(app, majver, minver))
+                .format(constants.app, constants.majver, constants.minver))
                 logging.info('''The test parameter was given,
 enabling Experimental Mode''')
                 preload()
@@ -181,7 +178,9 @@ def info():
                                     https://github.com/le717/PatchIt/issues
                                     and attach this file for an quicker fix!
                                 #############################################
-                                '''.format(app, majver, minver, creator))
+                                '''.format(
+                                    constants.app, constants.majver,
+                                    constants.minver, constants.creator))
 
 
 def preload():
@@ -234,7 +233,7 @@ def about(*args):
 
     root = tk.Tk()
     # Window title
-    root.title("About {0} Version {1}".format(app, majver))
+    root.title("About {0} Version {1}".format(constants.app, constants.majver))
     # The box cannot be any smaller than this
     root.minsize("420", "260")
     root.maxsize("420", "260")
@@ -268,7 +267,7 @@ def about(*args):
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(app, majver, minver))
+'''.format(constants.app, constants.majver, constants.minver))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -313,7 +312,8 @@ def main(*args):
 
     # Blank space (\n) makes everything nice and neat
     colors.pc("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
-        app, majver, minver, creator), color.FG_WHITE)
+        constants.app, constants.majver, constants.minver, constants.creator),
+             color.FG_WHITE)
     if not test:
         logging.info("Display normal menu to user")
         print('''Please make a selection:\n
@@ -1039,7 +1039,7 @@ def PiSettings():
         # Write the PatchIt! Major and Minor number,
         # as defined in the majver and minver variables
         logging.info("Writing version number of this copy of PatchIt")
-        f.write("{0} {1}".format(majver, minver))
+        f.write("{0} {1}".format(constants.majver, constants.minver))
 
 
 # ------------ End PatchIt! General Settings ------------ #
