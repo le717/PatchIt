@@ -23,7 +23,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.1 Stable Core Module
+# PatchIt! V1.1.2 Unstable Core Module
 
 # General use modules
 import sys
@@ -255,7 +255,7 @@ def about(*args):
 
 
             {0} Version {1} {2}
-               Released July 26, 2013
+               Released ?? ??, 2013
 
             Created 2013 Triangle717
 

@@ -22,7 +22,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.1 Stable Modern Patch Creation code
+# PatchIt! V1.1.2 Unstable Modern Patch Creation code
 
 import PatchIt
 import os
@@ -296,6 +296,10 @@ def patchDesc():
 
     # The field was filled out
     else:
+        # Check for, and replace any horizontal bars with a new line
+        if "|" in desc:
+            desc = desc.replace("|", "\n")
+
         logging.info("The description field was filled out")
         return desc
 
