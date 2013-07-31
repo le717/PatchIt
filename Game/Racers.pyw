@@ -34,7 +34,7 @@ from tkinter import (filedialog, Tk)
 
 # PatchIt! Constants
 from constants import (LR_game, LR_settings, app_folder, settings_fol)
-from PatchIt import main
+import PatchIt
 
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
@@ -92,7 +92,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             else:
                 logging.info('''User does not want to change the LEGO Racers
                 installation or pressed an undefined key''')
-                main()
+                PatchIt.main()
 
 
 # ----- End PatchIt! LEGO Racers Settings Reading ----- #
@@ -137,7 +137,7 @@ def LRWriteSettings():
 
         # Go back to the main menu
         logging.warning("User did not select a new LEGO Racers installation!")
-        main()
+        PatchIt.main()
 
     # The user selected a folder
     else:

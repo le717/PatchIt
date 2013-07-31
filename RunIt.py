@@ -36,7 +36,7 @@ import os
 import webbrowser
 
 # PatchIt! Version Info
-from constants import (app, majver, minver)
+from constants import (app, majver, minver, app_folder)
 
 try:
     # Python 3 import
@@ -67,9 +67,6 @@ You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
 # The user is running Python 3.3.x, continue on
 import logging
 import PatchIt
-
-# Location of PatchIt!
-app_folder = os.path.dirname(sys.argv[0])
 
 # ------------ Begin PatchIt! Logging Code ------------ #
 
