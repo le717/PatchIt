@@ -22,6 +22,9 @@
 """
 # PatchIt! Constants
 
+import sys
+import os
+
 # App name and version
 app = "PatchIt!"
 majver = "1.1.2"
@@ -34,3 +37,12 @@ LOCO_game = "LEGO LOCO"
 LR_settings = "Racers.cfg"
 LOCO_settings = "LOCO.cfg"
 Pi_settings = "PatchIt.cfg"
+
+# Name of PatchIt! Exe/Py
+exe_name = os.path.basename(sys.argv[0])
+# Location of PatchIt! Exe/Py
+app_folder = os.path.dirname(sys.argv[0])
+# Location of Settings folder
+settings_fol = os.path.join(app_folder, "Settings")
+# PatchIt! App Icon
+app_icon = os.path.join(app_folder, "Icons", "PatchItIcon.ico")

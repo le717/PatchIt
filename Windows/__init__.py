@@ -1,1 +1,1 @@
-# Small file to let Python load scripts from this folder.
+# -*- coding: utf-8 -*-
