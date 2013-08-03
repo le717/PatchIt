@@ -24,19 +24,24 @@
 """
 # PatchIt! V1.1.1 Stable Legacy Patch Installation code
 
-# Import only certain items instead of "the whole toolbox"
+# General imports
 import os
 import linecache
 import zipfile
 from random import choice
 from time import sleep
+
 # App Logging module
 import logging
 import PatchIt
 from Patch import racingtips
+
 # Colored text
 import Color as color
 import Color.colors as colors
+
+# LEGO Racers settings
+from Game import Racers
 
 
 # ------------ Begin Legacy PatchIt! Patch Installation ------------ #

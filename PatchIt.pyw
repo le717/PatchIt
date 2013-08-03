@@ -49,6 +49,7 @@ from Patch import moderncompress as compress
 import Color as color
 import Color.colors as colors
 
+# LEGO Racers settings
 from Game import (Racers)
 
 # PatchIt! "Constants"
