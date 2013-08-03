@@ -91,7 +91,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             # No, I do not want to change the defined installation
             else:
                 logging.info('''User does not want to change the LEGO Racers
-                installation or pressed an undefined key''')
+installation or pressed an undefined key''')
                 PatchIt.main()
 
 
