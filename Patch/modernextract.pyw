@@ -26,6 +26,7 @@
 """
 # PatchIt! V1.1.2 Unstable Modern Patch Installation code
 
+# General imports
 import os
 import time
 import tarfile
@@ -37,8 +38,16 @@ import logging
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 
-# Main PatchIt! module, legacy installation code
+# Core PatchIt! module
 import PatchIt
+
+# LEGO Racers settings
+from Game import (Racers)
+
+# PatchIt! "Constants"
+import constants
+
+# Legacy installation process
 from Patch import legacyextract
 
 # LEGO Racers gameplay tips
@@ -47,6 +56,7 @@ from Patch import racingtips
 # Colored shell text
 import Color as color
 import Color.colors as colors
+
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -292,15 +302,16 @@ Game: {3}
     # Display the info
     print(patch_info)
 
-    logging.info("Do you Do you wish to install {0} (Version: {1})?".format(name, version))
-    print("\nDo you wish to install {0} (Version: {1})? {2}".format(name, version,
-    r"(Y\N)"))
+    logging.info("Do you Do you wish to install {0} (Version: {1})?".format(
+        name, version))
+    print("\nDo you wish to install {0} (Version: {1})? {2}".format(
+        name, version, r"(Y\N)"))
     confirm_install = input("\n> ")
 
     # No, I do not want to install the patch
     if confirm_install.lower() != "y":
-        logging.warning("User does not want to install {0} (Version: {1})!".format(name,
-        version))
+        logging.warning("User does not want to install {0} (Version: {1})!".format(
+            name, version))
         colors.pc("\nCanceling installation of {0} (Version: {1})".format(name,
         version), color.FG_LIGHT_RED)
         time.sleep(0.5)
@@ -308,7 +319,8 @@ Game: {3}
 
     else:
         # Yes, I do want to install it!
-        logging.info("User does want to install {0} (Version: {1}).".format(name, version))
+        logging.info("User does want to install {0} (Version: {1}).".format(
+            name, version))
         logging.info("Proceeding to installModernPatch()")
         installModernPatch(patch, name, version, author, game, mp,
             patch_archive)
@@ -321,19 +333,18 @@ def getRacersPath():
     '''Gets LEGO Racers Installation Path'''
 
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
+    if not os.path.exists(os.path.join(constants.settings_fol, constants.LR_settings)):
         logging.warning("Could not find LEGO Racers settings!")
-        logging.info("Switching to PatchIt.LRReadSettings()")
-        PatchIt.LRReadSettings()
+        Racers.LRReadSettings()
 
     # The LEGO Racers settings do exist (implied else block here)
 
     # Check encoding of Racers Settings file
     logging.info("Check encoding of {0} before installation".format(
-        os.path.join(PatchIt.settings_fol, "Racers.cfg")))
+        os.path.join(constants.settings_fol, constants.LR_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"),
+    with open(os.path.join(constants.settings_fol, constants.LR_settings),
     "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -347,8 +358,7 @@ def getRacersPath():
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
         logging.warning("LEGO Racers Settings cannot be read!")
-        logging.info("Switching to PatchIt.LRReadSettings()")
-        PatchIt.LRReadSettings()
+        Racers.LRReadSettings()
 
     # The LEGO Racers settings can be read (implied else block here)
 
@@ -356,22 +366,22 @@ def getRacersPath():
     logging.info("Reading line 7 of settings for LEGO Racers installation")
 
     try:
-        with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
-        encoding="utf-8") as f:
+        with open(os.path.join(constants.settings_fol, constants.LR_settings),
+        "rt", encoding="utf-8") as f:
             racers_install_path = f.readlines()[6]
             return racers_install_path
 
     # It may exist, but it doesn't mean the path is set up
     except IndexError:
         logging.error("The LEGO Racers Installation has not been set up!")
-        PatchIt.LRWriteSettings()
+        Racers.LRWriteSettings()
 
 
 def getLOCOPath():
     '''Gets LEGO LOCO Installation Path'''
 
     # The LEGO LOCO settings do not exist
-    if not os.path.exists(os.path.join(PatchIt.settings_fol, "LOCO.cfg")):
+    if not os.path.exists(os.path.join(constants.settings_fol, "LOCO.cfg")):
         logging.warning("Could not find LEGO LOCO settings!")
         logging.info("Switching to PatchIt.LOCOReadSettings()")
         PatchIt.LOCOReadSettings()
@@ -380,10 +390,10 @@ def getLOCOPath():
 
     # Check encoding of LOCO Settings file
     logging.info("Check encoding of {0} before installation".format(
-        os.path.join(PatchIt.settings_fol, "LOCO.cfg")))
+        os.path.join(constants.settings_fol, "LOCO.cfg")))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"),
+    with open(os.path.join(constants.settings_fol, "LOCO.cfg"),
     "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -406,7 +416,7 @@ def getLOCOPath():
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
 
     try:
-        with open(os.path.join(PatchIt.settings_fol, "LOCO.cfg"), "rt",
+        with open(os.path.join(constants.settings_fol, "LOCO.cfg"), "rt",
         encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
             return loco_install_path
@@ -490,8 +500,8 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
 {0} (Version: {1}) successfully installed to {2}'''.format(
     name, version, install_path))
-        colors.pc('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(name,
-        version, install_path), color.FG_LIGHT_GREEN)
+        colors.pc('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
+            name, version, install_path), color.FG_LIGHT_GREEN)
 
         # Log Archive closure although it was closed automatically by with
         logging.info("Closing {0}".format(patch_archive))
