@@ -36,7 +36,6 @@ from tkinter import (filedialog, Tk)
 from constants import (LR_game, LR_settings, app_folder, settings_fol)
 import PatchIt
 
-
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
 
@@ -226,8 +225,8 @@ def LRGameCheck():
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
     with open(os.path.join(settings_fol, LR_settings),
-              "rt", encoding="utf-8") as f:
-        lines = f.readlines()[:]
+              "rt", encoding="utf-8") as settings_confirm:
+        lines = settings_confirm.readlines()[:]
 
     # Get just the string from the list
     # Mark as global it is can be used in other messages
@@ -258,7 +257,8 @@ def LRGameCheck():
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(LR_path))
+        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(
+            LR_path))
         return False
 
 
@@ -315,8 +315,8 @@ def CheckLRSettings():
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO Racers first-run info")
         with open(os.path.join(settings_fol, LR_settings), "rt",
-                  encoding="utf-8") as f:
-            lr_first_run = f.readlines()[2]
+                  encoding="utf-8") as first_run_check:
+            lr_first_run = first_run_check.readlines()[2]
 
         # Strip the path to make it valid
         logging.info("Cleaning up installation text")
