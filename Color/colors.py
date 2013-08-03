@@ -51,7 +51,7 @@ handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
 reset = get_csbi_attributes(handle)
 
 
-def pc(t, c=0xf, n=True):
+def pc(t, c=0xf, nl=True):
     t = str(t)
     color(t, c, nl)
 
