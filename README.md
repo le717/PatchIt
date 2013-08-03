@@ -6,8 +6,7 @@ PatchIt!
 This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) application written by [Triangle717](http://Triangle717.WordPress.com).
 
 
-## The version of _PatchIt!_ in this branch is broken! Large restructuring is currently in progress, and some features may be broken, ##
-## work incorrectly, or unusable. The following list tells what areas are broken, and will be updated as they are fixed. ##
+#### The version of _PatchIt!_ in this branch is broken! Large restructuring is currently in progress, and some features may be broken, work incorrectly, or unusable. The following list tells what areas are broken, and will be updated as they are fixed. ####
 
 * Core Module
 * _LEGO® Racers_ Settings
