@@ -183,7 +183,7 @@ def preload():
     # The PatchIt! settings folder does exist (implied else block here)
 
     # Assign variables for easier access
-    hasLRSettings = CheckLRSettings()
+    hasLRSettings = Racers.CheckLRSettings()
     hasLOCOSettings = CheckLOCOSettings()
 
     # Write general PatchIt! settings.
@@ -424,7 +424,7 @@ def Settings(*args):
     if settingsopt.lower() == "r":
         logging.info("User choose LEGO Racers")
         logging.info("Proceeding to PatchIt! LEGO Racers Settings")
-        LRReadSettings()
+        Racers.LRReadSettings()
 
     # Run LOCO settings
     elif settingsopt.lower() == "l":
