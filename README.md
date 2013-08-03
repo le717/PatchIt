@@ -12,8 +12,10 @@ This is the readme to **PatchIt!**, a [Python 3](http://www.python.org) applicat
 * Core Module
 * _LEGO® Racers_ Settings
 * _LEGO® LOCO_ Settings
-* Modern Patch Creation
-* Modern Patch Installation
+* Modern Patch Creation - _LEGO® Racers_
+* Modern Patch Creation - _LEGO® LOCO_
+* Modern Patch Installation - _LEGO® Racers_
+* Modern Patch Installation - _LEGO® LOCO_
 * Legacy Patch Installation
 
 
