@@ -22,23 +22,30 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.1 Stable Legacy Patch Installation code
+# PatchIt! V1.1.2 Stable Legacy Patch Installation code
 
 # General imports
 import os
 import linecache
 import zipfile
+import time
 from random import choice
-from time import sleep
 
 # App Logging module
 import logging
-import PatchIt
-from Patch import racingtips
 
 # Colored text
 import Color as color
 import Color.colors as colors
+
+# So it can go back to the main menu
+import PatchIt
+
+# Gameplay tips
+from Patch import racingtips
+
+# PatchIt! "Constants"
+import constants
 
 # LEGO Racers settings
 from Game import Racers
@@ -96,7 +103,7 @@ def readPatch(installpatch):
             installname, installver))
         print("\nCanceling installation of {0} {1}...".format(installname,
         installver))
-        sleep(0.5)
+        time.sleep(0.5)
         logging.info("Proceeding to main menu")
         PatchIt.main()
 
@@ -106,19 +113,19 @@ def readPatch(installpatch):
         installver))
 
         # The LEGO Racers settings do not exist
-        if not os.path.exists(os.path.join(PatchIt.settings_fol, "Racers.cfg")):
+        if not os.path.exists(
+            os.path.join(constants.settings_fol, "Racers.cfg")):
             logging.warning("Could not find LEGO Racers settings!")
-            logging.info("Switching to PatchIt.LRReadSettings()")
-            PatchIt.LRReadSettings()
+            Racers.LRReadSettings()
 
         # The LEGO Racers settings do exist (implied else block here)
 
         # Check encoding of Racers Settings file
         logging.info("Check encoding of {0} before installation".format(
-            os.path.join(PatchIt.settings_fol, "Racers.cfg")))
+            os.path.join(constants.settings_fol, "Racers.cfg")))
 
         # Open it, read just the area containing the byte mark
-        with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"),
+        with open(os.path.join(constants.settings_fol, "Racers.cfg"),
         "rb") as encode_check:
             encoding = encode_check.readline(3)
 
@@ -132,8 +139,7 @@ def readPatch(installpatch):
             # The settings cannot be read for installation,
             # go write them so this Patch can be installed
             logging.warning("LEGO Racers Settings cannot be read!")
-            logging.info("Switching to PatchIt.LRReadSettings()")
-            PatchIt.LRReadSettings()
+            Racers.LRReadSettings()
 
         # The LEGO Racers settings can be read (implied else block here)
 
@@ -143,7 +149,7 @@ def readPatch(installpatch):
         # Read the settings file for installation (LEGO Racers directory)
          # Updated in semi-accordance with PatchIt! Dev-log #6
         try:
-            with open(os.path.join(PatchIt.settings_fol, "Racers.cfg"), "rt",
+            with open(os.path.join(constants.settings_fol, "Racers.cfg"), "rt",
             encoding="utf-8") as f:
                 installpath = f.readlines()[6]
 
@@ -154,7 +160,7 @@ def readPatch(installpatch):
         # It may exist, but it doesn't mean the path is set up
         except IndexError:
             logging.error("The LEGO Racers Installation has not been set up!")
-            PatchIt.LRWriteSettings()
+            Racers.LRWriteSettings()
         logging.info("Reading line 9 of {0} for ZIP archive".format(
             installpatch))
         installzipfile = linecache.getline(installpatch, 9)
@@ -179,7 +185,7 @@ def readPatch(installpatch):
             # Display the Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
             colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips),
-                color.CYAN)
+                color.FG_CYAN)
 
             # Installation was successful!
             logging.info("Error (exit) number '0'")
@@ -217,12 +223,12 @@ If the error continues, contact {3} and ask for a fixed version.'''
             logging.exception('''Oops! Something went wrong!
 Here's what happened
 ''', exc_info=True)
-            logging.warning('''{0} does not have the rights to install {1} {2}
+            logging.warning('''PatchIt! does not have the rights to install {0} {1}
 to
-{3}!'''.format(PatchIt.app, installname, installver, installpath))
-            colors.pc('''\n{0} does not have the rights to install {1} {2}
+{2}!'''.format(installname, installver, installpath))
+            colors.pc('''\nPatchIt! does not have the rights to install {0} {1}
 to
-{3}!'''.format(PatchIt.app, installname, installver, installpath),
+{2}!'''.format(installname, installver, installpath),
 color.FG_LIGHT_RED)
 
         # Python itself had some I/O error / any exceptions not handled
@@ -231,17 +237,17 @@ color.FG_LIGHT_RED)
             logging.exception('''Oops! Something went wrong!
 Here's what happened
 ''', exc_info=True)
-            logging.warning("{0} ran into an unknown error while trying to install {1} {2} to {3}!".format(
-                PatchIt.app, installname, installver, installpath))
-            colors.pc("\n{0} ran into an unknown error while trying to install\n{1} {2} to {3}!\n".format(
-                PatchIt.app, installname, installver, installpath),
+            logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}!".format(
+                installname, installver, installpath))
+            colors.pc("\nPatchIt! ran into an unknown error while trying to install\n{0} {1} to {2}!\n".format(
+                installname, installver, installpath),
             color.FG_LIGHT_RED)
 
         # This is run no matter if an exception was raised nor not.
         finally:
             # Sleep for 2 seconds after displaying installation result
             # before kicking back to the main menu.
-            sleep(2)
+            time.sleep(2)
             logging.info("Proceeding to main menu")
             PatchIt.main()
 
