@@ -174,7 +174,7 @@ def readPatch(installpatch):
             # Display the Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
             colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips),
-                color.CYAN)
+                color.FG_CYAN)
 
             # Installation was successful!
             logging.info("Error (exit) number '0'")
