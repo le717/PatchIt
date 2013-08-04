@@ -175,7 +175,7 @@ Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversio
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: Run {#MyAppVerName}
-Name: "{group}\{#MyAppName}\Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: View {#MyAppName} Readme
+Name: "{group}\{#MyAppName}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: View {#MyAppName} Readme
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PatchItIcon.ico"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Tasks: desktopicon
 
