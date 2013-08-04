@@ -61,6 +61,7 @@
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
    
+
 [Setup]
 AppId={#MyAppVerName}
 AppName={#MyAppName}
@@ -93,12 +94,13 @@ InternalCompressLevel=ultra
 LZMAUseSeparateProcess=yes
 ; From top to bottom: Allows installation to C:\ (and the like),
 ; Explicitly set Admin rights, no other languages, 
-; do not restart upon finishing.
+; do not restart upon finishing, express timestames in UTC
 AllowRootDirectory=yes
 PrivilegesRequired=admin
 RestartIfNeededByRun=no
 ; Required for creating Shell extension
 ChangesAssociations=True
+TimeStampsInUTC=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -173,7 +175,7 @@ Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversio
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: Run {#MyAppVerName}
-Name: "{group}\{#MyAppName}\Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: View {#MyAppName} Readme
+Name: "{group}\{#MyAppName}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: View {#MyAppName} Readme
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PatchItIcon.ico"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Tasks: desktopicon
 
