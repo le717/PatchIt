@@ -38,7 +38,7 @@ import logging
 import Color as color
 import Color.colors as colors
 
-# So it can go back to the main menu
+# Core PatchIt! module
 import PatchIt
 
 # Gameplay tips

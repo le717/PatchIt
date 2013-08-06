@@ -24,7 +24,6 @@
 """
 # PatchIt! V1.1.2 Unstable Modern Patch Creation code
 
-#import PatchIt
 # General imports
 import os
 import tarfile
@@ -41,11 +40,11 @@ from tkinter import (filedialog, Tk)
 # App Logging module
 import logging
 
-# LEGO Racers settings
-from Game import (Racers)
-
 # PatchIt! "Constants"
-import constants
+from constants import app_folder
+
+# Core PatchIt! module
+import PatchIt
 
 # ------------ Begin Illegal File Check ------------ #
 
@@ -328,7 +327,7 @@ def MPField(game):
 
     logging.info("What resolution was this LEGO LOCO map created with?")
     print('''\nWhat resolution was "{0}" created with?
-Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:ok
+Hint: if you are unsure, it will most likely be either'''.format(name))
 
     colors.pc('''
 800x600,
@@ -565,8 +564,8 @@ PatchIt! ran into an unknown error while trying to create
     finally:
         # Change the working directory back to the location of PatchIt!
         logging.info("Changing the working directory back to {0}".format(
-            PatchIt.app_folder))
-        os.chdir(PatchIt.app_folder)
+            app_folder))
+        os.chdir(app_folder)
         # Run process to restore all the files in the Patch files
         logging.info("Running delete_files() to remove temporary folder")
         delete_files()
