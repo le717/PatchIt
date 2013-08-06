@@ -135,14 +135,11 @@ def delete_files():
 
     try:
         # Delete temporary directory
-
-        #lint:disable
         logging.info("Delete all files at {0}".format(temp_location))
         distutils.dir_util.remove_tree(temp_location)
 
     # But in case the directory was not created
     except FileNotFoundError:
-        #lint:enable
 
         # Dump any error tracebacks to the log
         logging.error('''The temporary directory was not found!
@@ -418,7 +415,7 @@ def patchInfo(*args):
     MPField(game)
 
     # Run function to select files for compression
-    selectPatchFiles(game, mp)  # lint:ok
+    selectPatchFiles(game, mp)
 
 
 def selectPatchFiles(game, mp):
@@ -444,7 +441,7 @@ def selectPatchFiles(game, mp):
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
     parent=root,
-    title="Select the files for {0} (Version: {1})".format(name, version)  # lint:ok
+    title="Select the files for {0} (Version: {1})".format(name, version)
     )
 
     # The user clicked the cancel button
@@ -474,7 +471,7 @@ Game: {3}
 {4}
 
 "{5}"
-'''.format(name, version, author, game, mp, desc))  # lint:ok
+'''.format(name, version, author, game, mp, desc))
         logging.info("Switching to writePatch()")
         writePatch(patchfiles, mp, game)
 
@@ -484,8 +481,8 @@ def writePatch(patchfiles, mp, game):
 
     try:
         # Declare the Patch PiP and Archive filenames
-        thepatch = "{0}{1}.PiP".format(name, version)  # lint:ok
-        thearchive = "{0}{1}.PiA".format(name, version)  # lint:ok
+        thepatch = "{0}{1}.PiP".format(name, version)
+        thearchive = "{0}{1}.PiA".format(name, version)
         logging.info("The final file names are {0} and {1}".format(thepatch,
         thearchive))
 
@@ -499,9 +496,9 @@ def writePatch(patchfiles, mp, game):
 
         # Compress the files
         logging.info('''Compress files located at {0} into an LZMA compressed
-TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:ok
+TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         with tarfile.open(thearchive, "w:xz") as tar_file:
-            tar_file.add(temp_location, "")  # lint:ok
+            tar_file.add(temp_location, "")
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(
@@ -511,24 +508,24 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
             patch.write("[PiA]\n")
             patch.write("{0}\n".format(thearchive))
             patch.write("[GENERAL]\n")
-            patch.write("{0}\n".format(name))  # lint:ok
-            patch.write("{0}\n".format(version))  # lint:ok
-            patch.write("{0}\n".format(author))  # lint:ok
+            patch.write("{0}\n".format(name))
+            patch.write("{0}\n".format(version))
+            patch.write("{0}\n".format(author))
             patch.write("{0}\n".format(mp))
             patch.write("{0}\n".format(game))
             patch.write("[DESCRIPTION]\n")
-            patch.write("{0}\n".format(desc))  # lint:ok
+            patch.write("{0}\n".format(desc))
 
         # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
-        logging.info("{0} Version: {1} created and saved to {2}".format(name,  # lint:ok
-        version, patchfiles))  # lint:ok
+        logging.info("{0} Version: {1} created and saved to {2}".format(name,
+        version, patchfiles))
         colors.pc('''
 {0} (Version: {1}) successfully created and saved to
-"{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)  # lint:ok
+"{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
 
     # The user does not have the rights to write a PiP in that location
-    except PermissionError:  # lint:ok
+    except PermissionError:
         logging.warning("Error number '13'")
         logging.exception('''Oops! Something went wrong! Here's what happened
 
@@ -536,10 +533,10 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
         logging.warning('''
 
 PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
-    name, version))  # lint:ok
+    name, version))
 
         colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
-        .format(name, version), color.FG_LIGHT_RED)  # lint:ok
+        .format(name, version), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
@@ -550,15 +547,15 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         logging.warning('''
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
-.format(name, version))  # lint:ok
+.format(name, version))
         colors.pc('''
 PatchIt! ran into an unknown error while trying to create
-{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)  # lint:ok
+{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)
         try:
             os.unlink("{0}".format(thepatch))
             os.unlink("{0}".format(thearchive))
             # In case the file was never created in the first place
-        except FileNotFoundError:  # lint:ok
+        except FileNotFoundError:
             pass
 
     finally:
