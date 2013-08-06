@@ -24,20 +24,28 @@
 """
 # PatchIt! V1.1.2 Unstable Modern Patch Creation code
 
-import PatchIt
+#import PatchIt
+# General imports
 import os
 import tarfile
 import time
 import distutils.dir_util
+
 # Colored shell text
 import Color as color
 import Color.colors as colors
+
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
+
 # App Logging module
 import logging
-# Original Character Check
-#import re
+
+# LEGO Racers settings
+from Game import (Racers)
+
+# PatchIt! "Constants"
+import constants
 
 # ------------ Begin Illegal File Check ------------ #
 
@@ -128,11 +136,15 @@ def delete_files():
 
     try:
         # Delete temporary directory
+
+        #lint:disable
         logging.info("Delete all files at {0}".format(temp_location))
         distutils.dir_util.remove_tree(temp_location)
 
     # But in case the directory was not created
     except FileNotFoundError:
+        #lint:enable
+
         # Dump any error tracebacks to the log
         logging.error('''The temporary directory was not found!
 It probably was created ealier.''')
@@ -161,12 +173,6 @@ def charCheck(text):
         # A character was not found
         else:
             return False
-
-#def charCheck(text, search=re.compile(r'[^A-Za-z0-9-. ]').search):
-    #'''Check if an invalid character was entered or not'''
-
-    ## This returns True if everything is valid, and False if it isn't
-    #return not bool(search(text))
 
 
 def patchName():
@@ -322,7 +328,7 @@ def MPField(game):
 
     logging.info("What resolution was this LEGO LOCO map created with?")
     print('''\nWhat resolution was "{0}" created with?
-Hint: if you are unsure, it will most likely be either'''.format(name))
+Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:ok
 
     colors.pc('''
 800x600,
@@ -413,7 +419,7 @@ def patchInfo(*args):
     MPField(game)
 
     # Run function to select files for compression
-    selectPatchFiles(game, mp)
+    selectPatchFiles(game, mp)  # lint:ok
 
 
 def selectPatchFiles(game, mp):
@@ -439,7 +445,7 @@ def selectPatchFiles(game, mp):
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
     parent=root,
-    title="Select the files for {0} (Version: {1})".format(name, version)
+    title="Select the files for {0} (Version: {1})".format(name, version)  # lint:ok
     )
 
     # The user clicked the cancel button
@@ -469,7 +475,7 @@ Game: {3}
 {4}
 
 "{5}"
-'''.format(name, version, author, game, mp, desc))
+'''.format(name, version, author, game, mp, desc))  # lint:ok
         logging.info("Switching to writePatch()")
         writePatch(patchfiles, mp, game)
 
@@ -479,8 +485,8 @@ def writePatch(patchfiles, mp, game):
 
     try:
         # Declare the Patch PiP and Archive filenames
-        thepatch = "{0}{1}.PiP".format(name, version)
-        thearchive = "{0}{1}.PiA".format(name, version)
+        thepatch = "{0}{1}.PiP".format(name, version)  # lint:ok
+        thearchive = "{0}{1}.PiA".format(name, version)  # lint:ok
         logging.info("The final file names are {0} and {1}".format(thepatch,
         thearchive))
 
@@ -494,9 +500,9 @@ def writePatch(patchfiles, mp, game):
 
         # Compress the files
         logging.info('''Compress files located at {0} into an LZMA compressed
-TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
+TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:ok
         with tarfile.open(thearchive, "w:xz") as tar_file:
-            tar_file.add(temp_location, "")
+            tar_file.add(temp_location, "")  # lint:ok
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(
@@ -506,24 +512,24 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
             patch.write("[PiA]\n")
             patch.write("{0}\n".format(thearchive))
             patch.write("[GENERAL]\n")
-            patch.write("{0}\n".format(name))
-            patch.write("{0}\n".format(version))
-            patch.write("{0}\n".format(author))
+            patch.write("{0}\n".format(name))  # lint:ok
+            patch.write("{0}\n".format(version))  # lint:ok
+            patch.write("{0}\n".format(author))  # lint:ok
             patch.write("{0}\n".format(mp))
             patch.write("{0}\n".format(game))
             patch.write("[DESCRIPTION]\n")
-            patch.write("{0}\n".format(desc))
+            patch.write("{0}\n".format(desc))  # lint:ok
 
         # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
-        logging.info("{0} Version: {1} created and saved to {2}".format(name,
-        version, patchfiles))
+        logging.info("{0} Version: {1} created and saved to {2}".format(name,  # lint:ok
+        version, patchfiles))  # lint:ok
         colors.pc('''
 {0} (Version: {1}) successfully created and saved to
-"{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
+"{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)  # lint:ok
 
     # The user does not have the rights to write a PiP in that location
-    except PermissionError:
+    except PermissionError:  # lint:ok
         logging.warning("Error number '13'")
         logging.exception('''Oops! Something went wrong! Here's what happened
 
@@ -531,10 +537,10 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.warning('''
 
 PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
-    name, version))
+    name, version))  # lint:ok
 
         colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
-        .format(name, version), color.FG_LIGHT_RED)
+        .format(name, version), color.FG_LIGHT_RED)  # lint:ok
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
@@ -545,15 +551,15 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         logging.warning('''
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
-.format(name, version))
+.format(name, version))  # lint:ok
         colors.pc('''
 PatchIt! ran into an unknown error while trying to create
-{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)
+{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)  # lint:ok
         try:
             os.unlink("{0}".format(thepatch))
             os.unlink("{0}".format(thearchive))
             # In case the file was never created in the first place
-        except FileNotFoundError:
+        except FileNotFoundError:  # lint:ok
             pass
 
     finally:
