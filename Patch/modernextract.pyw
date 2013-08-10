@@ -42,7 +42,7 @@ from tkinter import (filedialog, Tk)
 import PatchIt
 
 # LEGO Racers settings
-from Game import (Racers)
+from Game import (Racers, LOCO)
 
 # PatchIt! "Constants"
 import constants
@@ -101,7 +101,7 @@ def selectPatch(*args):
         logging.info("Give focus back to console window")
         root.destroy()
 
-        logging.warning("User did not select a PatchIt! Patch for installation!")
+        logging.warning("User did not select a PatchIt! Patch to install!")
         colors.pc("\nCould not find a PatchIt! Patch to read!",
             color.FG_LIGHT_RED)
         time.sleep(0.7)
@@ -156,7 +156,8 @@ def checkPatch(patch):
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-    logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(patch))
+    logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(
+        patch))
     with open(patch, "rt", encoding="utf-8") as f:
         lines = f.readlines()[0:2]
     valid_line = "".join(lines[0])
@@ -207,6 +208,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
 
         # Delete validity lines from memory
         del lines[:]
+
         # Switch to main menu
         time.sleep(1)
         PatchIt.main()
@@ -310,8 +312,8 @@ Game: {3}
 
     # No, I do not want to install the patch
     if confirm_install.lower() != "y":
-        logging.warning("User does not want to install {0} (Version: {1})!".format(
-            name, version))
+        logging.warning("User does not want to install {0} (Version: {1})!"
+            .format(name, version))
         colors.pc("\nCanceling installation of {0} (Version: {1})".format(name,
         version), color.FG_LIGHT_RED)
         time.sleep(0.5)
@@ -333,7 +335,8 @@ def getRacersPath():
     '''Gets LEGO Racers Installation Path'''
 
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(constants.settings_fol, constants.LR_settings)):
+    if not os.path.exists(os.path.join(constants.settings_fol,
+    constants.LR_settings)):
         logging.warning("Could not find LEGO Racers settings!")
         Racers.LRReadSettings()
 
@@ -381,19 +384,19 @@ def getLOCOPath():
     '''Gets LEGO LOCO Installation Path'''
 
     # The LEGO LOCO settings do not exist
-    if not os.path.exists(os.path.join(constants.settings_fol, "LOCO.cfg")):
+    if not os.path.exists(os.path.join(constants.settings_fol,
+     constants.LOCO_settings)):
         logging.warning("Could not find LEGO LOCO settings!")
-        logging.info("Switching to PatchIt.LOCOReadSettings()")
-        PatchIt.LOCOReadSettings()
+        LOCO.LOCOReadSettings()
 
     # The LEGO LOCO settings do exist (implied else block here)
 
     # Check encoding of LOCO Settings file
     logging.info("Check encoding of {0} before installation".format(
-        os.path.join(constants.settings_fol, "LOCO.cfg")))
+        os.path.join(constants.settings_fol, constants.LOCO_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(constants.settings_fol, "LOCO.cfg"),
+    with open(os.path.join(constants.settings_fol, constants.LOCO_settings),
     "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -407,8 +410,7 @@ def getLOCOPath():
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
         logging.warning("LEGO LOCO Settings cannot be read!")
-        logging.info("Switching to PatchIt.LOCOReadSettings()")
-        PatchIt.LOCOReadSettings()
+        LOCO.LOCOReadSettings()
 
     # The LEGO LOCO settings can be read (implied else block here)
 
@@ -416,7 +418,8 @@ def getLOCOPath():
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
 
     try:
-        with open(os.path.join(constants.settings_fol, "LOCO.cfg"), "rt",
+        with open(os.path.join(constants.settings_fol, constants.LOCO_settings),
+             "rt",
         encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
             return loco_install_path
@@ -424,7 +427,7 @@ def getLOCOPath():
     # It may exist, but it doesn't mean the path is set up
     except IndexError:
         logging.error("The LEGO LOCO Installation has not been set up!")
-        PatchIt.LOCOWriteSettings()
+        LOCO.LOCOWriteSettings()
 
 
 # ------------ End Game Installation Path Reading------------ #
