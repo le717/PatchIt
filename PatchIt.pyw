@@ -38,8 +38,6 @@ import logging
 # GUI library
 import tkinter as tk
 from tkinter import ttk
-# File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
 
 # Patch Creation and Installation modules
 from Patch import modernextract as extract
@@ -50,13 +48,12 @@ import Color as color
 import Color.colors as colors
 
 # LEGO Racers settings
-from Game import (Racers)
+from Game import (Racers, LOCO)
 
 # PatchIt! "Constants"
 from constants import (
     app, majver, minver, creator, LR_game, LOCO_game,
-    LOCO_settings, exe_name, app_folder,
-    settings_fol, app_icon, Pi_settings)
+    exe_name, app_folder, settings_fol, app_icon, Pi_settings)
 
 
 # ------------ Begin PatchIt! Initialization ------------ #
@@ -185,7 +182,7 @@ def preload():
 
     # Assign variables for easier access
     hasLRSettings = Racers.CheckLRSettings()
-    hasLOCOSettings = CheckLOCOSettings()
+    hasLOCOSettings = LOCO.CheckLOCOSettings()
 
     # Write general PatchIt! settings.
     # A check is not needed for this, it is always written.
@@ -431,7 +428,7 @@ def Settings(*args):
     elif settingsopt.lower() == "l":
         logging.info("User choose LEGO LOCO")
         logging.info("Proceeding to PatchIt! LEGO LOCO Settings")
-        LOCOReadSettings()
+        LOCO.LOCOReadSettings()
 
     # Undefined input
     else:
