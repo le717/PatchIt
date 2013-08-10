@@ -225,14 +225,15 @@ def LRGameCheck():
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
     with open(os.path.join(settings_fol, LR_settings),
-              "rt", encoding="utf-8") as settings_confirm:
-        lines = settings_confirm.readlines()[:]
+              "rt", encoding="utf-8") as game_confirm:
+        lines = game_confirm.readlines()[:]
 
     # Get just the string from the list
     # Mark as global it is can be used in other messages
     global LR_ver
     LR_ver = "".join(lines[4])
     LR_path = "".join(lines[6])
+
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
     LR_path = LR_path.strip()
