@@ -90,10 +90,11 @@ def selectPatch(*args):
     # Select the patch file
     logging.info("Display file selection dialog for PatchIt! Patch (*.PiP)")
     patch = filedialog.askopenfilename(
-    parent=root,
-    title="Select a PatchIt! Patch",
-    defaultextension=".PiP",
-    filetypes=fileformat)
+        parent=root,
+        title="Select a PatchIt! Patch",
+        defaultextension=".PiP",
+        filetypes=fileformat
+    )
 
     # The user clicked the cancel button
     if not patch:

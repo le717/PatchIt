@@ -33,7 +33,7 @@ import tkinter as tk
 from tkinter import (filedialog, Tk)
 
 # PatchIt! Constants
-from constants import (LR_game, LR_settings, app_folder, settings_fol)
+from constants import (LR_game, LR_settings, settings_fol)
 import PatchIt
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
@@ -120,13 +120,20 @@ def LRWriteSettings():
     root.lift()
     root.focus_force()
 
+    # Limits the selection to LEGORacers.exe
+    racersexe = [("LEGORacers.exe", "*.exe")]
+
     # Select the LEGO Racers installation
     logging.info("Display folder selection dialog for LEGO Racers installation")
-    new_racers_game = filedialog.askdirectory(
+    new_racers_game = filedialog.askopenfilename(
         parent=root,
-        title="Please select your {0} installation".format(LR_game),
-        initialdir=app_folder
+        title="Where is LEGORacers.exe",
+        defaultextension=".exe",
+        filetypes=racersexe
     )
+
+    # Get the directory the Exe is in
+    new_racers_game = os.path.dirname(new_racers_game)
 
     # The user clicked the cancel button
     if not new_racers_game:

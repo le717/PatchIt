@@ -34,7 +34,7 @@ import tkinter as tk
 from tkinter import (filedialog, Tk)
 
 # PatchIt! Constants
-from constants import (LOCO_game, LOCO_settings, app_folder, settings_fol)
+from constants import (LOCO_game, LOCO_settings, settings_fol)
 import PatchIt
 
 
@@ -125,13 +125,20 @@ def LOCOWriteSettings():
     root.lift()
     root.focus_force()
 
+    # Limits the selection to LOCO.exe
+    locoexe = [("LOCO.exe", "*.exe")]
+
     # Select the LEGO LOCO installation
     logging.info("Display folder selection dialog for LEGO LOCO installation")
-    new_loco_game = filedialog.askdirectory(
+    new_loco_game = filedialog.askopenfilename(
         parent=root,
-        title="Please select your {0} installation".format(LOCO_game),
-        initialdir=app_folder
+        title="Where is LOCO.exe",
+        defaultextension=".exe",
+        filetypes=locoexe
     )
+
+    # Get the directory the Exe is in
+    new_loco_game = os.path.dirname(new_loco_game)
 
     # The user clicked the cancel button
     if not new_loco_game:
