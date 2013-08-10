@@ -23,6 +23,21 @@
 # PatchIt! LEGO LOCO Settings
 
 
+import os
+
+# App Logging
+import logging
+
+# GUI library
+import tkinter as tk
+# File/Folder Dialog Boxes
+from tkinter import (filedialog, Tk)
+
+# PatchIt! Constants
+from constants import (LOCO_game, LOCO_settings, app_folder, settings_fol)
+import PatchIt
+
+
 # ----- Begin PatchIt! LEGO LOCO Settings Reading ----- #
 
 
@@ -81,7 +96,7 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             else:
                 logging.info('''User does not want to change the LEGO LOCO
                 installation or pressed an undefined key''')
-                main()
+                PatchIt.main()
 
 
 # ----- End PatchIt! LEGO LOCO Settings Reading ----- #
@@ -126,7 +141,7 @@ def LOCOWriteSettings():
 
         # Go back to the main menu
         logging.warning("User did not select a new LEGO LOCO installation!")
-        main()
+        PatchIt.main()
 
     # The user selected a folder
     else:
@@ -202,11 +217,12 @@ def LOCOGameCheck():
 
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
     with open(os.path.join(settings_fol, LOCO_settings),
-              "rt", encoding="utf-8") as f:
-        LOCO_path = f.readlines()[4]
+              "rt", encoding="utf-8") as game_confirm:
+        LOCO_path = game_confirm.readlines()[4]
 
     # Remove the list from the string
     LOCO_path = "".join(LOCO_path)
+
     # Strip the path to make it valid
     logging.info("Cleaning up installation text")
     LOCO_path = LOCO_path.strip()
@@ -269,8 +285,8 @@ def CheckLOCOSettings():
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO LOCO first-run info")
         with open(os.path.join(settings_fol, LOCO_settings), "rt",
-             encoding="utf-8") as f:
-            loco_first_run = f.readlines()[2]
+             encoding="utf-8") as first_run_check:
+            loco_first_run = first_run_check.readlines()[2]
 
         # Strip the path to make it valid
         logging.info("Cleaning up installation text")
