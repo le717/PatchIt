@@ -152,13 +152,13 @@ def info():
 
     logging_file = os.path.join(app_folder, "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
-    logging.info("You are running {0} Python {1} on {2} {3}.".format(
-        py_arch, platform.python_version(), platform.machine(),
-         platform.platform()))
+    logging.info("You are running {0} {1} {2} on {3} {4}.".format(
+        platform.python_implementation(), py_arch, platform.python_version(),
+         platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################
                                         {0} Version {1} {2}
-                                        Copyright 2013 {3}
+                                          Created 2013 {3}
                                                 PatchIt.log
 
 
