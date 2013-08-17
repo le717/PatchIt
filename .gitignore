@@ -221,5 +221,6 @@ Windows/PatchIt-*
 Windows/PatchIt-*
 License/gpl-v3-fr.txt
 Windows/Download.html
+Updater/wget.py
 PatchIt-Compatible.html
 #Documentation/Readme/ChangeLog/1*

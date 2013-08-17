@@ -67,7 +67,7 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             # Use path defined in LOCOGameCheck() for messages
             logging.warning("LEGO LOCO installation was not found!".format(
                 LOCO_path))
-            root = tk.Tk()
+            root = Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
                 "Cannot find {0} installation at {1}".format(
