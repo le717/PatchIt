@@ -104,6 +104,7 @@ def file_check(path):
 
             # Get the index and string of each item in the list
             for index, string in enumerate(filenames):
+
                 # Split the filename into name and extension
                 name, ext = os.path.splitext(string)
 
@@ -113,8 +114,10 @@ def file_check(path):
                     ext in blacklist):
                     logging.warning("An illegal file ({0}) has been found!"
                     .format(ext))
+
                     # Get the full path to it,
                     illegal_file = os.path.join(root, string)
+
                     # And remove it from the Patch files!
                     logging.info("Removing {0} from the Patch files".format(
                         illegal_file))
@@ -128,6 +131,11 @@ def file_check(path):
         pass
 
     # --- End Illegal File Scan -- #
+
+
+#def cls():
+
+    #os.system('cls')
 
 
 def delete_files():
@@ -181,7 +189,7 @@ def patchName():
     # An invalid character was entered
     if charCheck(name):
         logging.warning("There were illegal characters in the Patch name!")
-        colors.pc("\nYou have entered an illegal character!",
+        colors.text("\nYou have entered an illegal character!",
         color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
@@ -191,7 +199,7 @@ def patchName():
     ## The field was longer than 80 characters
     #elif len(name) >= 81:
         #logging.warning("The Patch name was more than 80 characters!")
-        #colors.pc("\nThe Name field must be 80 characters or less!",
+        #colors.text("\nThe Name field must be 80 characters or less!",
         #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Name Process
@@ -201,7 +209,7 @@ def patchName():
     # No characters were entered
     elif len(name) == 0:
         logging.warning("The Patch name field was left blank!")
-        colors.pc("\nThe Name field must be filled out!", color.FG_LIGHT_RED)
+        colors.text("\nThe Name field must be filled out!", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
@@ -224,7 +232,7 @@ def patchVersion():
     # An invalid character was entered
     if charCheck(version):
         logging.warning("There were illegal characters in the Patch version!")
-        colors.pc("\nYou have entered an illegal character!",
+        colors.text("\nYou have entered an illegal character!",
         color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
@@ -234,7 +242,7 @@ def patchVersion():
     ## The field was longer than 12 characters
     #elif len(name) >= 13:
         #logging.warning("The Patch version was more than 12 characters!")
-        #colors.pc("\nThe Version field must be 12 characters or less!",
+        #colors.text("\nThe Version field must be 12 characters or less!",
         #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Version Process
@@ -244,7 +252,7 @@ def patchVersion():
     # No characters were entered
     elif len(version) == 0:
         logging.warning("The Patch version field was left blank!")
-        colors.pc("\nThe Version field must be filled out!", color.FG_LIGHT_RED)
+        colors.text("\nThe Version field must be filled out!", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
@@ -267,7 +275,7 @@ def patchAuthor():
     # No characters were entered
     if len(author) == 0:
         logging.warning("The Patch author field was left blank!")
-        colors.pc("\nThe Author field must be filled out!", color.FG_LIGHT_RED)
+        colors.text("\nThe Author field must be filled out!", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
         logging.info("Looping back through patchAuthor()")
@@ -289,7 +297,7 @@ def patchDesc():
     # No characters were entered
     if len(desc) == 0:
         logging.warning("The Patch description field was left blank!")
-        colors.pc("\nThe Description field must be filled out!",
+        colors.text("\nThe Description field must be filled out!",
         color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
@@ -326,7 +334,7 @@ def MPField(game):
     print('''\nWhat resolution was "{0}" created with?
 Hint: if you are unsure, it will most likely be either'''.format(name))
 
-    colors.pc('''
+    colors.text('''
 800x600,
 1024x768,
 1920x1024
@@ -352,7 +360,7 @@ color.FG_LIGHT_MAGENTA)
         logging.exception('''Oops! Something went wrong! Here's what happened
 
 ''', exc_info=True)
-        colors.pc("You have entered a non-numerical character!")
+        colors.text("You have entered a non-numerical character!")
         logging.info("Looping back through MPField()")
         MPField(game)
 
@@ -367,10 +375,10 @@ def patchInfo(*args):
     '''Asks for PatchIt! Patch details'''
 
     logging.info("Create a PatchIt! Patch")
-    colors.pc("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
+    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
-    colors.pc('Type "q" in the next field to cancel.\n', color.FG_WHITE)
+    colors.text('Type "q" in the next field to cancel.\n', color.FG_WHITE)
 
     # Get what game this Patch is for
     logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
@@ -395,7 +403,7 @@ def patchInfo(*args):
      # I want to quit the process
     else:  # elif game_select.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.pc("\nCanceling creation of PatchIt! Patch", color.FG_WHITE)
+        colors.text("\nCanceling creation of PatchIt! Patch", color.FG_WHITE)
         PatchIt.main()
 
     logging.info("Ask for Patch name")
@@ -451,7 +459,7 @@ def selectPatchFiles(game, mp):
         root.destroy()
 
         logging.warning("User did not select any files to compress!")
-        colors.pc("\nCannot find any files to compress!", color.FG_LIGHT_RED)
+        colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
         time.sleep(1)
         PatchIt.main()
 
@@ -520,7 +528,7 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.info("Error (exit) number '0'")
         logging.info("{0} Version: {1} created and saved to {2}".format(name,
         version, patchfiles))
-        colors.pc('''
+        colors.text('''
 {0} (Version: {1}) successfully created and saved to
 "{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
 
@@ -535,7 +543,7 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
 PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
     name, version))
 
-        colors.pc("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
+        colors.text("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
         .format(name, version), color.FG_LIGHT_RED)
 
     # Python itself had some I/O error/any exceptions not handled
@@ -548,7 +556,7 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
 .format(name, version))
-        colors.pc('''
+        colors.text('''
 PatchIt! ran into an unknown error while trying to create
 {0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)
         try:

@@ -21,9 +21,9 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! V1.0.1 Shell Text Colors code
+# PatchIt! V1.1.2 Shell Text Colors
 # Taken from https://github.com/imayhaveborkedit/lms-lrr-modding-system
-# and edited with Python 3 support
+# and updated with Python 3 support
 
 import ctypes
 
@@ -34,27 +34,19 @@ def get_csbi_attributes(handle):
     import struct
     csbi = ctypes.create_string_buffer(22)
     res = ctypes.windll.kernel32.GetConsoleScreenBufferInfo(handle, csbi)
+    assert res
 
     (bufx, bufy, curx, cury, wattr,
     left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh", csbi.raw)
     return wattr
 
 
-def color(text, color, nl=True):
+def text(text, color, nl=True):
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
     print(text)
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, reset)
     if nl:
-        print("")
+        print("", flush=True)  # lint:ok
 
 handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
 reset = get_csbi_attributes(handle)
-
-
-def pc(t, c=0xf, nl=True):
-    t = str(t)
-    color(t, c, nl)
-
-
-def info(i):
-    print(str(i))

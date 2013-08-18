@@ -64,7 +64,7 @@ import Color.colors as colors
 def selectPatch(*args):
     '''Select a PatchIt! Patch'''
 
-    colors.pc("\nInstall a PatchIt! Patch", color.FG_LIGHT_YELLOW)
+    colors.text("\nInstall a PatchIt! Patch", color.FG_LIGHT_YELLOW)
     logging.info("Install a PatchIt! Patch")
 
     # PiP label for Patch selection dialog box
@@ -103,7 +103,7 @@ def selectPatch(*args):
         root.destroy()
 
         logging.warning("User did not select a PatchIt! Patch to install!")
-        colors.pc("\nCould not find a PatchIt! Patch to read!",
+        colors.text("\nCould not find a PatchIt! Patch to read!",
             color.FG_LIGHT_RED)
         time.sleep(0.7)
 
@@ -145,7 +145,7 @@ def checkPatch(patch):
         logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
         logging.warning("{0} is encoded in an unrecognized encoding!".format(
             patch))
-        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
+        colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
             color.FG_LIGHT_RED)
 
         time.sleep(1)
@@ -178,7 +178,7 @@ def checkPatch(patch):
     # It's a legacy Patch
     if (valid_line == orginal_valid_line and archive_line == "[General]"):
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
-        colors.pc('''\n"{0}"\nis a legacy PatchIt! Patch.
+        colors.text('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''.format(
     patch), color.FG_CYAN)
@@ -204,7 +204,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
     # It's a V1.1.0 transition Patch, a version that is NEVER to be used
     elif (valid_line == current_valid_line and archive_line == "[ZIP]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
+        colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
             color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
@@ -218,7 +218,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
     # The same message as V1.1.0 Patch
     elif (valid_line != current_valid_line and archive_line != "[PiA]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
-        colors.pc('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
+        colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
             color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
@@ -315,7 +315,7 @@ Game: {3}
     if confirm_install.lower() != "y":
         logging.warning("User does not want to install {0} (Version: {1})!"
             .format(name, version))
-        colors.pc("\nCanceling installation of {0} (Version: {1})".format(name,
+        colors.text("\nCanceling installation of {0} (Version: {1})".format(name,
         version), color.FG_LIGHT_RED)
         time.sleep(0.5)
         PatchIt.main()
@@ -456,7 +456,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
         logging.error("This Patch wants to be installed in an unsuppoted game!")
         logging.info("Telling user about this unsupported game")
         # Tell user about this
-        colors.pc('''\n{0} (Version: {1}) was created for {2}.
+        colors.text('''\n{0} (Version: {1}) was created for {2}.
 PatchIt! only supports LEGO Racers and LEGO LOCO.
 You may want to contact {3} and ask them if this is an error,
 and request a proper Patch.'''.format(name, version, game, author),
@@ -488,13 +488,13 @@ and request a proper Patch.'''.format(name, version, game, author),
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + random.choice(racingtips.gametips),
+            colors.text("\nHere's a tip!\n" + random.choice(racingtips.gametips),
             color.FG_CYAN)
 
         # Display the LEGO LOCO map resolution.
         elif game == "LEGO LOCO":
             logging.info("Display LEGO LOCO map resolution")
-            colors.pc('''\nHeads up! {0} {1} was created using {2} resolution.
+            colors.text('''\nHeads up! {0} {1} was created using {2} resolution.
 It may be best to play LEGO LOCO in that same resolution to avoid
 cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
@@ -504,7 +504,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
 {0} (Version: {1}) successfully installed to {2}'''.format(
     name, version, install_path))
-        colors.pc('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
+        colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
             name, version, install_path), color.FG_LIGHT_GREEN)
 
         # Log Archive closure although it was closed automatically by with
@@ -521,7 +521,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
 Unable to find {0} at {1}!'''.format(patch_archive,
         patch_location))
-        colors.pc('''\nCannot find Patch files for {0} (Version: {1})!
+        colors.text('''\nCannot find Patch files for {0} (Version: {1})!
 Make sure "{2}" and "{3}"
 are both located at
 
@@ -544,7 +544,7 @@ If this error continues, contact {5} and ask for a fixed version.'''
 
 PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
 .format(name, version, install_path))
-        colors.pc('''\nPatchIt! does not have the rights to install
+        colors.text('''\nPatchIt! does not have the rights to install
 {0} (Version: {1}) to
 {2}!
 '''.format(name, version, install_path), color.FG_LIGHT_RED)
@@ -560,7 +560,7 @@ PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
 
 PatchIt! had an unknown error while to installing {0} (Version: {1}) to {2}'''
 .format(name, version, install_path))
-        colors.pc('''
+        colors.text('''
 PatchIt! ran into an unknown error while trying to install
 {0} (Version: {1}) to
 

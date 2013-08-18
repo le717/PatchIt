@@ -184,7 +184,7 @@ def readPatch(installpatch):
 
             # Display the Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
-            colors.pc("\nHere's a tip!\n" + choice(racingtips.gametips),
+            colors.text("\nHere's a tip!\n" + choice(racingtips.gametips),
                 color.FG_CYAN)
 
             # Installation was successful!
@@ -210,7 +210,7 @@ Here's what happened
             installauthor = installauthor.lstrip("Author: ")
             logging.warning("Unable to find {0} at {1}!".format(installzipfile,
             ziplocation))
-            colors.pc('''Cannot find files for {0} {1}!
+            colors.text('''Cannot find files for {0} {1}!
 Make sure {0}{1}.zip and {0}{1}.PiP
 are in the same folder, and try again.
 
@@ -226,7 +226,7 @@ Here's what happened
             logging.warning('''PatchIt! does not have the rights to install {0} {1}
 to
 {2}!'''.format(installname, installver, installpath))
-            colors.pc('''\nPatchIt! does not have the rights to install {0} {1}
+            colors.text('''\nPatchIt! does not have the rights to install {0} {1}
 to
 {2}!'''.format(installname, installver, installpath),
 color.FG_LIGHT_RED)
@@ -239,7 +239,7 @@ Here's what happened
 ''', exc_info=True)
             logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}!".format(
                 installname, installver, installpath))
-            colors.pc("\nPatchIt! ran into an unknown error while trying to install\n{0} {1} to {2}!\n".format(
+            colors.text("\nPatchIt! ran into an unknown error while trying to install\n{0} {1} to {2}!\n".format(
                 installname, installver, installpath),
             color.FG_LIGHT_RED)
 
