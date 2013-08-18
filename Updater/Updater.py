@@ -31,7 +31,11 @@ import wget
 #TODO: User-defined location (after searching in {pf}, of course
 settings_fol = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
 
+
+def main():
+    '''Updates PatchIt! to the newest version'''
+    pass
+
 if __name__ == "__main__":
     # Run updater
-    #main()
-    pass
+    main()
