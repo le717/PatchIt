@@ -22,10 +22,16 @@
 """
 # PatchIt! Updater
 
+import sys
 import os
 
 import wget
 
+# Location of PatchIt! Settings folder
+#TODO: User-defined location (after searching in {pf}, of course
+settings_fol = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
+
 if __name__ == "__main__":
     # Run updater
-    main()
+    #main()
+    pass
