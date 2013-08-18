@@ -22,7 +22,6 @@
 """
 # PatchIt! LEGO LOCO Settings
 
-
 import os
 
 # App Logging
@@ -31,7 +30,7 @@ import logging
 # GUI library
 import tkinter as tk
 # File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
+from tkinter import (Tk, filedialog)
 
 # PatchIt! Constants
 from constants import (LOCO_game, LOCO_settings, settings_fol)
@@ -125,16 +124,13 @@ def LOCOWriteSettings():
     root.lift()
     root.focus_force()
 
-    # Limits the selection to LOCO.exe
-    locoexe = [("LOCO.exe", "*.exe")]
-
     # Select the LEGO LOCO installation
     logging.info("Display folder selection dialog for LEGO LOCO installation")
     new_loco_game = filedialog.askopenfilename(
         parent=root,
         title="Where is LOCO.exe",
         defaultextension=".exe",
-        filetypes=locoexe
+        filetypes=[("LOCO.exe", "*.exe")]
     )
 
     # Get the directory the Exe is in

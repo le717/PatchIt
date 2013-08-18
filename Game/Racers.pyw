@@ -30,7 +30,7 @@ import logging
 # GUI library
 import tkinter as tk
 # File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
+from tkinter import (Tk, filedialog)
 
 # PatchIt! Constants
 from constants import (LR_game, LR_settings, settings_fol)
@@ -65,7 +65,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found at {0}"
             .format(LR_path))
-            root = tk.Tk()
+            root = Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
             "Cannot find {0} installation at {1}".format(LR_game, LR_path))
@@ -120,16 +120,13 @@ def LRWriteSettings():
     root.lift()
     root.focus_force()
 
-    # Limits the selection to LEGORacers.exe
-    racersexe = [("LEGORacers.exe", "*.exe")]
-
     # Select the LEGO Racers installation
     logging.info("Display folder selection dialog for LEGO Racers installation")
     new_racers_game = filedialog.askopenfilename(
         parent=root,
         title="Where is LEGORacers.exe",
         defaultextension=".exe",
-        filetypes=racersexe
+        filetypes=[("LEGORacers.exe", "*.exe")]
     )
 
     # Get the directory the Exe is in
