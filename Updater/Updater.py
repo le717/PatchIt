@@ -62,7 +62,21 @@ def ReadPiInstall():
 
     # They exist, read it for the installation
     else:
-        #TODO: File encoding check
+
+        # Open it, read just the area containing the byte mark
+        with open(settings_file, "rb") as encode_check:
+            encoding = encode_check.readline(3)
+
+        if (  # The settings file uses UTF-8-BOM encoding
+            encoding == b"\xef\xbb\xbf"
+            # The settings file uses UCS-2 Big Endian encoding
+            or encoding == b"\xfe\xff\x00"
+            # The settings file uses UCS-2 Little Endian
+            or encoding == b"\xff\xfe/"):
+
+                # The file cannot be used, go write it
+                SelectPiInstall()
+
         with open(settings_file, "rt", encoding="utf-8") as f:
             pi_install_path = f.readlines()[2]
 
