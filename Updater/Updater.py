@@ -35,8 +35,10 @@ from urllib.error import HTTPError
 from tkinter import (Tk, filedialog)
 
 # Location of PatchIt! Settings folder
-#TODO: User-defined location (after searching in {pf}, of course
 settings_fol_app = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
+
+# Name of settings file
+settings_file = "PatchItInstall.cfg"
 
 # Check if Windows is x64 or x86
 # Based on code from Python help for platform module and my own tests
@@ -49,6 +51,23 @@ else:
 def main():
     '''Updates PatchIt! to the newest version'''
     pass
+
+
+def ReadPiInstall():
+    '''Read's file containing location of PatchIt! installation'''
+
+    # The Updater's settings could not be found, so write them
+    if not os.path.exists(settings_file):
+        SelectPiInstall()
+
+    # They exist, read it for the installation
+    else:
+        #TODO: File encoding check
+        with open(settings_file, "rt", encoding="utf-8") as f:
+            pi_install_path = f.readlines()[2]
+
+        # Send back the path
+        return pi_install_path
 
 
 def SelectPiInstall():
@@ -132,15 +151,17 @@ def SavePiInstall(install_path):
         install_path = install_path.replace("\\", "/")
 
     print(install_path)
-    #raise SystemExit(0)
 
     # Write file containing installation using UTF-8 encoding
-    with open("PatchItInstall.cfg", "wt", encoding="utf-8") as f:
-        f.write("// Some comment here")
+    with open(settings_file, "wt", encoding="utf-8") as f:
+        f.write("// PatchIt! Updater Settings\n")
+        f.write("# Location of your PatchIt! installation\n")
         f.write(install_path)
     pass
 
 if __name__ == "__main__":
     # Run updater
     #main()
-    SelectPiInstall()
+    #SelectPiInstall()
+    ReadPiInstall()
+    raise SystemExit(0)
