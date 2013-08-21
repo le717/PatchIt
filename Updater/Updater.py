@@ -24,6 +24,7 @@
 
 import sys
 import os
+import platform
 
 # Downloads file(s) from the internet
 import wget
@@ -37,11 +38,63 @@ from tkinter import (Tk, filedialog)
 #TODO: User-defined location (after searching in {pf}, of course
 settings_fol_app = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
 
+# Check if Windows is x64 or x86
+# Based on code from Python help for platform module and my own tests
+if platform.machine() == "AMD64":
+    os_bit = True
+else:
+    os_bit = False
+
 
 def main():
     '''Updates PatchIt! to the newest version'''
     pass
 
+
+def SelectPiInstall():
+    '''Searches or asks for user's PatchIt! installation'''
+
+    # Used to detect if user needs to manually define an installation
+    found_install = False
+
+    # Path to check for PatchIt! on Windows x64
+    x64_path = os.path.join(os.path.expandvars("%ProgramFiles(x86)%"), "PatchIt")
+
+    # Path to check for PatchIt! on Windows x86
+    x86_path = os.path.join(os.path.expandvars("%ProgramFiles%"), "PatchIt")
+
+    # If this is x64 Windows, look for PatchIt in Program Files (x86)
+    if os_bit:
+        if os.path.exists(os.path.join(x64_path, "PatchIt.exe")):
+            print(os.path.join(x64_path, "PatchIt.exe"))
+
+            # It's been found, no need for user to define it
+            found_install = True
+
+            # Write the installation
+            SavePiInstall(x64_path)
+
+    # If this is x86 Windows, look for PatchIt in Program Files
+    elif not os_bit:
+        if os.path.exists(os.path.join(x86_path, "PatchIt.exe")):
+            print(os.path.join(x86_path, "PatchIt.exe"))
+
+            # It's been found, no need for user to define it
+            found_install = True
+
+            # Write the installation
+            SavePiInstall(x86_path)
+
+    if not found_install:
+        print("Could not find valid PatchIt! installation!")
+        raise SystemExit(0)
+
+
+def SavePiInstall(instal_path):
+    '''Saves the installation of PatchIt! for later use'''
+    pass
+
 if __name__ == "__main__":
     # Run updater
-    main()
+    #main()
+    SelectPiInstall()
