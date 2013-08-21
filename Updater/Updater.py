@@ -75,7 +75,7 @@ def SelectPiInstall():
             SavePiInstall(x64_path)
 
     # If this is x86 Windows, look for PatchIt in Program Files
-    elif not os_bit:
+    else:
         if os.path.exists(os.path.join(x86_path, "PatchIt.exe")):
             print(os.path.join(x86_path, "PatchIt.exe"))
 
