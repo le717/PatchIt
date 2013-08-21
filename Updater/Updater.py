@@ -25,11 +25,17 @@
 import sys
 import os
 
+# Downloads file(s) from the internet
 import wget
+
+# Used to catch downloading errors
+from urllib.error import HTTPError
+# File Dialog Box
+from tkinter import (Tk, filedialog)
 
 # Location of PatchIt! Settings folder
 #TODO: User-defined location (after searching in {pf}, of course
-settings_fol = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
+settings_fol_app = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
 
 
 def main():
