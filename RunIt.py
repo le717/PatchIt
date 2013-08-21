@@ -27,10 +27,8 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! V1.1.2 Unstable Python Version Check,
+# PatchIt! V1.1.2 Stable Python Version Check,
 # PatchIt! Logger, and PatchIt! Launcher
-# logging.BasicConfig code based on example from A Byte of Python
-# http://www.swaroopch.com/notes/Python
 import sys
 import os
 import webbrowser
