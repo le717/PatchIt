@@ -71,7 +71,7 @@ def SelectPiInstall():
             # It's been found, no need for user to define it
             found_install = True
 
-            # Write the installation
+            # Write the installation to file
             SavePiInstall(x64_path)
 
     # If this is x86 Windows, look for PatchIt in Program Files
@@ -82,16 +82,62 @@ def SelectPiInstall():
             # It's been found, no need for user to define it
             found_install = True
 
-            # Write the installation
+            # Write the installation to file
             SavePiInstall(x86_path)
 
     if not found_install:
-        print("Could not find valid PatchIt! installation!")
-        raise SystemExit(0)
+        print('''Could not find a valid PatchIt! installation!
+Please select your PatchIt! installation.''')
+
+        # Draw (then withdraw) the root Tk window
+        root = Tk()
+        root.withdraw()
+
+        # Overwrite root display settings
+        root.overrideredirect(True)
+        root.geometry('0x0+0+0')
+
+        # Show window again, lift it so it can receive the focus
+        # Otherwise, it is behind the console window
+        root.deiconify()
+        root.lift()
+        root.focus_force()
+
+        # Select PatchIt.exe
+        pi_path = filedialog.askopenfilename(
+            parent=root,
+            title="Where is PatchIt.exe",
+            defaultextension=".exe",
+            filetypes=[("PatchIt.exe", "*.exe")]
+        )
+
+        # Get the directory PatchIt! is in
+        pi_path = os.path.dirname(pi_path)
+
+        # The user clicked the cancel button
+        if not pi_path:
+
+            # Give focus back to console window
+            root.destroy()
+
+        # Write the installation to file
+        SavePiInstall(pi_path)
 
 
-def SavePiInstall(instal_path):
+def SavePiInstall(install_path):
     '''Saves the installation of PatchIt! for later use'''
+
+    # Replace any backslashes with forwardslashes
+    if "\\" in install_path:
+        install_path = install_path.replace("\\", "/")
+
+    print(install_path)
+    #raise SystemExit(0)
+
+    # Write file containing installation using UTF-8 encoding
+    with open("PatchItInstall.cfg", "wt", encoding="utf-8") as f:
+        f.write("// Some comment here")
+        f.write(install_path)
     pass
 
 if __name__ == "__main__":
