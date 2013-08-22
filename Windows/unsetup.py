@@ -27,7 +27,7 @@
 # and https://github.com/JrMasterModelBuilder/JAM-Extractor
 # With changes by Triangle717
 
-from cx_Freeze import setup, Executable
+from cx_Freeze import (setup, Executable)
 import sys
 
 # Append build command to command-line arguments.
@@ -36,11 +36,12 @@ if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
 # Hides any text from the console window
-display = "Win32GUI"
+base = "Win32GUI"
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
     destfolder = "Uninstaller"
+    
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
@@ -53,10 +54,10 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name="PatchIt! Uninstaller",
-    version="1.0.2.1",
+    version="1.0.2.2",
     author="2013 Triangle717",
-    description="PatchIt! Uninstaller Version 1.0.2.1",
+    description="PatchIt! Uninstaller Version 1.0.2.2",
     license="GNU GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Uninstaller.pyw", targetName="PiUninstaller.exe",
-         base=display)])
+         base=base)])
