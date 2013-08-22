@@ -148,12 +148,15 @@ Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "
 
 [Files]
 ; PatchIt! Uninstaller
-Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
-Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
-Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
-Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
-Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
-Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion uninsneveruninstall
+Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion
+Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
+Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion
+Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion
+Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
+Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
+
+; PatchIt! Updater
+
 
 ; Readme and Icon
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
