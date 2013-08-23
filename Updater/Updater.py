@@ -33,8 +33,19 @@ from urllib.error import HTTPError
 # File Dialog Box
 from tkinter import (Tk, filedialog)
 
+# Location of PatchIt! Updater Exe/Py
+app_folder = os.path.dirname(sys.argv[0])
+
 # Name of settings file
 updater_file = "Updater.cfg"
+
+# URL of file containing newest version of PatchIt!, and link to delta update
+# Hosted on the PatchIt! GitHub repo, gh-pages branch
+#LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
+LinkFile = "NewestRelease.cfg"
+
+# Get just the filename (helps simplify the code)
+LinkFileName = os.path.basename(LinkFile)
 
 # Check if Windows architectyure is x64 or x86
 if platform.machine() == "AMD64":
@@ -199,11 +210,41 @@ def SavePiInstall(install_path):
 
 def GetNewVersion():
     '''Download and read file listing newest PatchIt! version'''
-    pass
+
+    # Download the file with the newest info
+    try:
+        wget.download(LinkFile)
+
+    # The file could not be downloaded
+    #TODO: Remove ValueError when code is near completion
+    except (HTTPError, ValueError):
+        print('''
+{0} could not be downloaded from
+{1}
+
+PatchIt! could not be updated!'''.format(LinkFileName, LinkFile.strip(LinkFileName)))
+        #raise SystemExit(0)
+
+    # The file was downloaded, now read it
+    with open(os.path.join(app_folder, LinkFileName), "rt", encoding="utf-8") as f:
+        lines = f.readlines()[:]
+
+    # Assign the proper value for each line
+    version = "".join(lines[0])
+    download_link = "".join(lines[1])
+
+    # Clean them up
+    version = version.strip()
+    download_link = download_link.strip()
+
+    # Delete reading, since it is no longer needed
+    del lines[:]
+
 
 # -------- End Version Comparison -------- #
 
 if __name__ == "__main__":
     # Run updater
-    main()
+    #main()
+    GetNewVersion()
     raise SystemExit(0)
