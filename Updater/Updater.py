@@ -28,7 +28,6 @@ import platform
 
 # Downloads file(s) from the internet
 import wget
-
 # Used to catch downloading errors
 from urllib.error import HTTPError
 # File Dialog Box
@@ -38,10 +37,9 @@ from tkinter import (Tk, filedialog)
 settings_fol_app = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
 
 # Name of settings file
-settings_file = "PatchItInstall.cfg"
+updater_file = "Updater.cfg"
 
-# Check if Windows is x64 or x86
-# Based on code from Python help for platform module and my own tests
+# Check if Windows architectyure is x64 or x86
 if platform.machine() == "AMD64":
     os_bit = True
 else:
@@ -50,21 +48,27 @@ else:
 
 def main():
     '''Updates PatchIt! to the newest version'''
-    pass
+
+    # Get PatchIt! installation path
+    pi_install_path = ReadPiInstall()
+
+    # The check returned False, go write the settings
+    if not pi_install_path:
+        SelectPiInstall()
 
 
 def ReadPiInstall():
     '''Read's file containing location of PatchIt! installation'''
 
-    # The Updater's settings could not be found, so write them
-    if not os.path.exists(settings_file):
-        SelectPiInstall()
+    # The Updater's settings could not be found, return False
+    if not os.path.exists(updater_file):
+        return False
 
     # They exist, read it for the installation
     else:
 
         # Open it, read just the area containing the byte mark
-        with open(settings_file, "rb") as encode_check:
+        with open(updater_file, "rb") as encode_check:
             encoding = encode_check.readline(3)
 
         if (  # The settings file uses UTF-8-BOM encoding
@@ -77,7 +81,7 @@ def ReadPiInstall():
                 # The file cannot be used, go write it
                 SelectPiInstall()
 
-        with open(settings_file, "rt", encoding="utf-8") as f:
+        with open(updater_file, "rt", encoding="utf-8") as f:
             pi_install_path = f.readlines()[2]
 
         # Send back the path
@@ -164,18 +168,13 @@ def SavePiInstall(install_path):
     if "\\" in install_path:
         install_path = install_path.replace("\\", "/")
 
-    print(install_path)
-
     # Write file containing installation using UTF-8 encoding
-    with open(settings_file, "wt", encoding="utf-8") as f:
+    with open(updater_file, "wt", encoding="utf-8") as f:
         f.write("// PatchIt! Updater Settings\n")
         f.write("# Location of your PatchIt! installation\n")
         f.write(install_path)
-    pass
 
 if __name__ == "__main__":
     # Run updater
-    #main()
-    #SelectPiInstall()
-    ReadPiInstall()
+    main()
     raise SystemExit(0)
