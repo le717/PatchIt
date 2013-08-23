@@ -69,6 +69,10 @@ def main():
     # Location of PatchIt! Settings folder
     pi_settings_fol = os.path.join(pi_install_path, "Settings")
 
+    # Retrieve the newest version and update download
+    version, download_link = GetNewVersion()
+
+
 # -------- End Core Process -------- #
 
 
@@ -205,7 +209,7 @@ def SavePiInstall(install_path):
 # -------- End Settings Writing -------- #
 
 
-# -------- Begin Version Comparison -------- #
+# -------- Begin Version Identification -------- #
 
 
 def GetNewVersion():
@@ -222,11 +226,13 @@ def GetNewVersion():
 {0} could not be downloaded from
 {1}
 
-PatchIt! could not be updated!'''.format(LinkFileName, LinkFile.strip(LinkFileName)))
+PatchIt! could not be updated!'''.format(LinkFileName,
+     LinkFile.strip(LinkFileName)))
         #raise SystemExit(0)
 
     # The file was downloaded, now read it
-    with open(os.path.join(app_folder, LinkFileName), "rt", encoding="utf-8") as f:
+    with open(os.path.join(app_folder, LinkFileName),
+         "rt", encoding="utf-8") as f:
         lines = f.readlines()[:]
 
     # Assign the proper value for each line
@@ -240,11 +246,19 @@ PatchIt! could not be updated!'''.format(LinkFileName, LinkFile.strip(LinkFileNa
     # Delete reading, since it is no longer needed
     del lines[:]
 
+    return (version, download_link)
 
-# -------- End Version Comparison -------- #
+
+def GetCurrentVersion(pi_settings_fol):
+    '''Gets user's version of PatchIt!'''
+
+    pass
+
+
+
+# -------- End Version Identification -------- #
 
 if __name__ == "__main__":
     # Run updater
-    #main()
-    GetNewVersion()
+    main()
     raise SystemExit(0)
