@@ -33,9 +33,6 @@ from urllib.error import HTTPError
 # File Dialog Box
 from tkinter import (Tk, filedialog)
 
-# Location of PatchIt! Settings folder
-settings_fol_app = os.path.join(os.path.dirname(sys.argv[0]), "Settings")
-
 # Name of settings file
 updater_file = "Updater.cfg"
 
@@ -57,6 +54,9 @@ def main():
     # The check returned False, go write the settings
     if not pi_install_path:
         SelectPiInstall()
+
+    # Location of PatchIt! Settings folder
+    pi_settings_fol = os.path.join(pi_install_path, "Settings")
 
 # -------- End Core Process -------- #
 
@@ -192,6 +192,16 @@ def SavePiInstall(install_path):
         f.write(install_path)
 
 # -------- End Settings Writing -------- #
+
+
+# -------- Begin Version Comparison -------- #
+
+
+def GetNewVersion():
+    '''Download and read file listing newest PatchIt! version'''
+    pass
+
+# -------- End Version Comparison -------- #
 
 if __name__ == "__main__":
     # Run updater
