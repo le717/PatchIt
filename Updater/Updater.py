@@ -46,6 +46,8 @@ else:
     os_bit = False
 
 
+# -------- Begin Core Process -------- #
+
 def main():
     '''Updates PatchIt! to the newest version'''
 
@@ -55,6 +57,11 @@ def main():
     # The check returned False, go write the settings
     if not pi_install_path:
         SelectPiInstall()
+
+# -------- End Core Process -------- #
+
+
+# -------- Begin Settings Reading -------- #
 
 
 def ReadPiInstall():
@@ -86,6 +93,11 @@ def ReadPiInstall():
 
         # Send back the path
         return pi_install_path
+
+# -------- End Settings Reading -------- #
+
+
+# -------- Begin PatchIt! Installation Search -------- #
 
 
 def SelectPiInstall():
@@ -160,6 +172,11 @@ Please select your PatchIt! installation.''')
         # Write the installation to file
         SavePiInstall(pi_path)
 
+# -------- End PatchIt! Installation Search -------- #
+
+
+# -------- Begin Settings Writing -------- #
+
 
 def SavePiInstall(install_path):
     '''Saves the installation of PatchIt! for later use'''
@@ -173,6 +190,8 @@ def SavePiInstall(install_path):
         f.write("// PatchIt! Updater Settings\n")
         f.write("# Location of your PatchIt! installation\n")
         f.write(install_path)
+
+# -------- End Settings Writing -------- #
 
 if __name__ == "__main__":
     # Run updater
