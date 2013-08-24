@@ -70,10 +70,10 @@ def main():
     pi_settings_fol = os.path.join(pi_install_path, "Settings")
 
     # Retrieve the newest version and update download
-    version, download_link = GetNewVersion()
+    new_version, new_title, download_link = GetNewVersion()
 
-    GetCurrentVersion(pi_settings_fol)
-
+    # Retrieve the user's version
+    cur_version, cur_title = GetCurrentVersion(pi_settings_fol)
 
 # -------- End Core Process -------- #
 
@@ -238,17 +238,23 @@ PatchIt! could not be updated!'''.format(LinkFileName,
         lines = f.readlines()[:]
 
     # Assign the proper value for each line
-    version = "".join(lines[0])
+    version_full = "".join(lines[0])
     download_link = "".join(lines[1])
 
-    # Clean them up
+    # Split reading into version number and title
+    applepie = version_full.split(" ")
+    version = applepie[0]
+    title = applepie[1]
+
+    # Clean up the text
     version = version.strip()
     download_link = download_link.strip()
 
-    # Delete reading, since it is no longer needed
+    # Delete readings, since they are no longer needed
     del lines[:]
+    del applepie[:]
 
-    return (version, download_link)
+    return (version, title, download_link)
 
 
 def GetCurrentVersion(pi_settings_fol):
@@ -265,10 +271,23 @@ def GetCurrentVersion(pi_settings_fol):
         raise SystemExit(0)
 
     #TODO: Encoding check
+    # Read PatchIt.cfg to get current version
     with open(pi_settings_file, "rt", encoding="utf-8") as f:
         existing_version = f.readlines()[2]
 
-    return existing_version
+    # Split reading into version number and title
+    bananasplit = existing_version.split(" ")
+    version = bananasplit[0]
+    title = bananasplit[1]
+
+    # Clean up the text
+    version = version.strip()
+    title = title.strip()
+
+    # Delete reading, since it is no longer needed
+    del bananasplit[:]
+
+    return (version, title)
 
 
 # -------- End Version Identification -------- #
@@ -276,12 +295,12 @@ def GetCurrentVersion(pi_settings_fol):
 
 # -------- Begin Version Comparison -------- #
 
-def CompareVersion(current_version, new_version):
+def CompareVersion(cur_version, new_version):
     '''Compares the version numbers'''
     pass
 
 
-def CompareTitle(current_title, new_title):
+def CompareTitle(cur_title, new_title):
     '''Compares the version titles'''
     pass
 
