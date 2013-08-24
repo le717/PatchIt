@@ -33,6 +33,11 @@ from urllib.error import HTTPError
 # File Dialog Box
 from tkinter import (Tk, filedialog)
 
+app = "PatchIt! Updater"
+majver = "0.4"
+minver = "Unstable"
+author = "Triangle717"
+
 # Location of PatchIt! Updater Exe/Py
 app_folder = os.path.dirname(sys.argv[0])
 
@@ -56,6 +61,13 @@ else:
 
 # -------- Begin Core Process -------- #
 
+def CloseUpdater():
+    '''Closes the updater'''
+
+    input("\nPress Enter to close.")
+    raise SystemExit(0)
+
+
 def main():
     '''Updates PatchIt! to the newest version'''
 
@@ -74,6 +86,13 @@ def main():
 
     # Retrieve the user's version
     cur_version, cur_title = GetCurrentVersion(pi_settings_fol)
+
+    #if not CompareTitle(cur_title, new_title)
+
+    CompareVersion(cur_version, new_version)
+
+    # Close the updater
+    CloseUpdater()
 
 # -------- End Core Process -------- #
 
@@ -228,9 +247,9 @@ def GetNewVersion():
 {0} could not be downloaded from
 {1}
 
-PatchIt! could not be updated!'''.format(LinkFileName,
-     LinkFile.strip(LinkFileName)))
-        #raise SystemExit(0)
+Please report this error to {2} right away.'''.format(LinkFileName,
+     LinkFile.strip(LinkFileName), author))
+        #CloseUpdater()
 
     # The file was downloaded, now read it
     with open(os.path.join(app_folder, LinkFileName),
@@ -266,9 +285,23 @@ def GetCurrentVersion(pi_settings_fol):
     # This is pre-v1.1.1 PatchIt!, so the version cannot be determined
     if not os.path.exists(pi_settings_file):
         #FIXME: Better message
-        print("Unknown PatchIt! Version!")
+        print("Your version of PatchIt! could not be determined.")
         #TODO: User-defined version?
-        raise SystemExit(0)
+        CloseUpdater()
+
+    # Open it, read just the area containing the byte mark
+        with open(pi_settings_file, "rb") as encode_check:
+            encoding = encode_check.readline(3)
+
+        if (  # The settings file uses UTF-8-BOM encoding
+            encoding == b"\xef\xbb\xbf"
+            # The settings file uses UCS-2 Big Endian encoding
+            or encoding == b"\xfe\xff\x00"
+            # The settings file uses UCS-2 Little Endian
+            or encoding == b"\xff\xfe/"):
+
+                # The file cannot be used, go write it
+                SelectPiInstall()
 
     #TODO: Encoding check
     # Read PatchIt.cfg to get current version
@@ -297,16 +330,37 @@ def GetCurrentVersion(pi_settings_fol):
 
 def CompareVersion(cur_version, new_version):
     '''Compares the version numbers'''
-    pass
+
+    # Seperate each number
+    cur_version = cur_version.split(".")
+    new_version = new_version.split(".")
+    print(cur_version)
+    print(new_version)
+
+    for num in new_version:
+        if num not in cur_version:
+            print(num)
+
+    #if cur_version not in new_version:
+        #print(True)
+
 
 
 def CompareTitle(cur_title, new_title):
     '''Compares the version titles'''
-    pass
+
+    # They are not the same
+    if cur_title != new_title:
+        return False
+
+    # They are the same
+    return True
+
 
 # -------- End Version Comparison -------- #
 
 if __name__ == "__main__":
+    # Write window title
+    os.system("title {0} {1} {2}".format(app, majver, minver))
     # Run updater
     main()
-    raise SystemExit(0)
