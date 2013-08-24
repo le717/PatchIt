@@ -72,6 +72,8 @@ def main():
     # Retrieve the newest version and update download
     version, download_link = GetNewVersion()
 
+    GetCurrentVersion(pi_settings_fol)
+
 
 # -------- End Core Process -------- #
 
@@ -252,11 +254,38 @@ PatchIt! could not be updated!'''.format(LinkFileName,
 def GetCurrentVersion(pi_settings_fol):
     '''Gets user's version of PatchIt!'''
 
-    pass
+    # Full path to file containing PatchIt! version
+    pi_settings_file = os.path.join(pi_settings_fol, "PatchIt.cfg")
 
+    # This is pre-v1.1.1 PatchIt!, so the version cannot be determined
+    if not os.path.exists(pi_settings_file):
+        #FIXME: Better message
+        print("Unknown PatchIt! Version!")
+        #TODO: User-defined version?
+        raise SystemExit(0)
+
+    #TODO: Encoding check
+    with open(pi_settings_file, "rt", encoding="utf-8") as f:
+        existing_version = f.readlines()[2]
+
+    return existing_version
 
 
 # -------- End Version Identification -------- #
+
+
+# -------- Begin Version Comparison -------- #
+
+def CompareVersion(current_version, new_version):
+    '''Compares the version numbers'''
+    pass
+
+
+def CompareTitle(current_title, new_title):
+    '''Compares the version titles'''
+    pass
+
+# -------- End Version Comparison -------- #
 
 if __name__ == "__main__":
     # Run updater
