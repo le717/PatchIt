@@ -34,7 +34,7 @@ from urllib.error import HTTPError
 from tkinter import (Tk, filedialog)
 
 app = "PatchIt! Updater"
-majver = "0.4"
+majver = "0.5"
 minver = "Unstable"
 author = "Triangle717"
 
@@ -48,6 +48,13 @@ updater_file = "Updater.cfg"
 # Hosted on the PatchIt! GitHub repo, gh-pages branch
 #LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
 LinkFile = "NewestRelease.cfg"
+
+# Manually define the file to download
+try:
+    LinkFile = sys.argv[1]
+# No URL was given, use one from GitHub
+except IndexError:
+    pass
 
 # Get just the filename (helps simplify the code)
 LinkFileName = os.path.basename(LinkFile)
@@ -90,6 +97,25 @@ def main():
     # Compare the titles and version numbers
     TitleCompare = CompareTitle(cur_title, new_title)
     VersionCompare = CompareVersion(cur_version, new_version)
+
+    # It is up-to-date, but offer to update anyway
+    if TitleCompare and VersionCompare:
+        print('''Your copy is already up-to-date ({0} {1}).
+Would you like to update it anyway? {2}'''.format(cur_version, cur_title,
+     r"(Y\N)"))
+     #TODO: Input here
+
+    # User is running a pre-release, (Unstable, RC1, such like that)
+    if TitleCompare and not VersionCompare:
+        print('''You are running a pre-release version of PatchIt!
+({0} {1}, {2} {3}). Press Enter to begin the update process.'''.format(
+    cur_version, cur_title, new_version, new_title))
+    #TODO: Input here
+
+    # The user is running a previous version
+    if not TitleCompare and not VersionCompare:
+        print('''#TODO: Write me!''')
+        #TODO: Input here
 
     # Close the updater
     CloseUpdater()
@@ -148,10 +174,22 @@ def SelectPiInstall():
     # Path to check for PatchIt! on Windows x86
     x86_path = os.path.join(os.path.expandvars("%ProgramFiles%"), "PatchIt")
 
+    # Perhaps the Updater is in the same place as PatchIt!, in that case,
+    # we need to use a different method for finding an installation
+    same_path = os.path.join(os.path.dirname(app_folder), "Settings")
+
+    # The updater resides in the same location as PatchIt!
+    if os.path.exists(same_path):
+
+        # It's been found, no need for user to define it
+        found_install = True
+
+        # Write the installation to file
+        SavePiInstall(os.path.dirname(app_folder))
+
     # If this is x64 Windows, look for PatchIt in Program Files (x86)
     if os_bit:
         if os.path.exists(os.path.join(x64_path, "PatchIt.exe")):
-            print(os.path.join(x64_path, "PatchIt.exe"))
 
             # It's been found, no need for user to define it
             found_install = True
@@ -282,12 +320,13 @@ def GetCurrentVersion(pi_settings_fol):
     # Full path to file containing PatchIt! version
     pi_settings_file = os.path.join(pi_settings_fol, "PatchIt.cfg")
 
-    # This is pre-v1.1.1 PatchIt!, so the version cannot be determined
+    # This is pre-v1.1.1 PatchIt!, because the file cannot be found
     if not os.path.exists(pi_settings_file):
         #FIXME: Better message
-        print("Your version of PatchIt! could not be determined.")
-        #TODO: User-defined version?
-        CloseUpdater()
+        #print("Your version of PatchIt! could not be determined.")
+        # So it needs updating
+        #TODO: Automatically run updater
+        pass
 
     # Open it, read just the area containing the byte mark
         with open(pi_settings_file, "rb") as encode_check:
@@ -340,18 +379,13 @@ def CompareVersion(cur_version, new_version):
     int_cur_ver = [int(num) for num in cur_version]
     int_new_ver = [int(num) for num in new_version]
 
-    # Check if the version numbers are different
+    # Check if the version numbers are different, and send back the result
     for new in int_new_ver:
         if new in int_cur_ver:
-            print(True, new)
+            return True
+        # The versions are not different
         else:
-            print(False, new)
-
-    print("Current version is", cur_version)
-    print("Newest version is", new_version)
-
-    # Send back the result
-    #return
+            return False
 
 
 def CompareTitle(cur_title, new_title):
