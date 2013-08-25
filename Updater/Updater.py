@@ -87,9 +87,9 @@ def main():
     # Retrieve the user's version
     cur_version, cur_title = GetCurrentVersion(pi_settings_fol)
 
-    #if not CompareTitle(cur_title, new_title)
-
-    CompareVersion(cur_version, new_version)
+    # Compare the titles and version numbers
+    TitleCompare = CompareTitle(cur_title, new_title)
+    VersionCompare = CompareVersion(cur_version, new_version)
 
     # Close the updater
     CloseUpdater()
@@ -334,17 +334,16 @@ def CompareVersion(cur_version, new_version):
     # Seperate each number
     cur_version = cur_version.split(".")
     new_version = new_version.split(".")
-    print(cur_version)
-    print(new_version)
 
-    for num in new_version:
-        if num not in cur_version:
-            print(num)
+    # Convert the numbers to integers
+    int_cur_ver = [int(num) for num in cur_version]
+    int_new_ver = [int(num) for num in new_version]
 
-    #if cur_version not in new_version:
-        #print(True)
+    #for item in int_new_ver:
+        #print(item, type(item))
 
-
+    #for item in int_cur_ver:
+        #print(item, type(item))
 
 def CompareTitle(cur_title, new_title):
     '''Compares the version titles'''
