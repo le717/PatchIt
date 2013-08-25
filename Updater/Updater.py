@@ -328,6 +328,7 @@ def GetCurrentVersion(pi_settings_fol):
 
 # -------- Begin Version Comparison -------- #
 
+
 def CompareVersion(cur_version, new_version):
     '''Compares the version numbers'''
 
@@ -339,11 +340,19 @@ def CompareVersion(cur_version, new_version):
     int_cur_ver = [int(num) for num in cur_version]
     int_new_ver = [int(num) for num in new_version]
 
-    #for item in int_new_ver:
-        #print(item, type(item))
+    # Check if the version numbers are different
+    for new in int_new_ver:
+        if new in int_cur_ver:
+            print(True, new)
+        else:
+            print(False, new)
 
-    #for item in int_cur_ver:
-        #print(item, type(item))
+    print("Current version is", cur_version)
+    print("Newest version is", new_version)
+
+    # Send back the result
+    #return
+
 
 def CompareTitle(cur_title, new_title):
     '''Compares the version titles'''
