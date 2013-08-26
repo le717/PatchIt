@@ -71,6 +71,12 @@ else:
 def CloseUpdater():
     '''Closes the updater'''
 
+    # Delete the downloaded file
+    #TODO: Reactivate this
+    #if os.path.exists(os.path.join(app_folder, LinkFileName)):
+        #os.unlink(LinkFileName)
+
+    # Close the Updater
     input("\nPress Enter to close.")
     raise SystemExit(0)
 
@@ -90,32 +96,58 @@ def main():
 
     # Retrieve the newest version and update download
     new_version, new_title, download_link = GetNewVersion()
+    print(new_version, new_title)
 
     # Retrieve the user's version
     cur_version, cur_title = GetCurrentVersion(pi_settings_fol)
+    print(cur_version, cur_title)
 
-    # Compare the titles and version numbers
-    TitleCompare = CompareTitle(cur_title, new_title)
+    # Compare the version numbers and titles
     VersionCompare = CompareVersion(cur_version, new_version)
-
-    # It is up-to-date, but offer to update anyway
-    if TitleCompare and VersionCompare:
-        print('''Your copy is already up-to-date ({0} {1}).
-Would you like to update it anyway? {2}'''.format(cur_version, cur_title,
-     r"(Y\N)"))
-     #TODO: Input here
-
-    # User is running a pre-release, (Unstable, RC1, such like that)
-    if TitleCompare and not VersionCompare:
-        print('''You are running a pre-release version of PatchIt!
-({0} {1}, {2} {3}). Press Enter to begin the update process.'''.format(
-    cur_version, cur_title, new_version, new_title))
-    #TODO: Input here
+    TitleCompare = CompareTitle(cur_title, new_title)
+    print("Version:", VersionCompare)
+    print("Title:", TitleCompare)
 
     # The user is running a previous version
     if not TitleCompare and not VersionCompare:
-        print('''#TODO: Write me!''')
+        print('''You are running an older version of PatchIt!
+({0} {1}, {2} {3}).
+Press Enter to begin the update process, or any other key to quit.'''.format(
+    cur_version, cur_title, new_version, new_title))
         #TODO: Input here
+
+    # User is running a pre-release, (Unstable, RC1, such like that)
+    elif VersionCompare and not TitleCompare:
+        print('''You are running a pre-release version of PatchIt!
+({0} {1}, {2} {3}).
+Press Enter to begin the update process, or any other key to quit.'''.format(
+    cur_version, cur_title, new_version, new_title))
+
+        update_prerelease = input("\n> ")
+
+        if update_prerelease:
+            CloseUpdater()
+
+        else:
+            print("Updating...")
+
+    # It is up-to-date, but offer to update anyway
+    elif VersionCompare and TitleCompare:
+        print('''Your copy is already up-to-date ({0} {1}).
+Press Enter to to update it anyway, or any other key to quit'''.format(
+    cur_version, cur_title))
+
+        update_anyway = input("\n> ")
+
+        # User does not want to update
+        if update_anyway:
+            CloseUpdater()
+
+        # Run the updater
+        else:
+            #TODO: Run the updater
+            print("Updating...")
+            pass
 
     # Close the updater
     CloseUpdater()
@@ -290,8 +322,8 @@ Please report this error to {2} right away.'''.format(LinkFileName,
         #CloseUpdater()
 
     # The file was downloaded, now read it
-    with open(os.path.join(app_folder, LinkFileName),
-         "rt", encoding="utf-8") as f:
+    with open(os.path.join(app_folder, LinkFileName), "rt",
+         encoding="utf-8") as f:
         lines = f.readlines()[:]
 
     # Assign the proper value for each line
@@ -305,6 +337,7 @@ Please report this error to {2} right away.'''.format(LinkFileName,
 
     # Clean up the text
     version = version.strip()
+    title = title.strip()
     download_link = download_link.strip()
 
     # Delete readings, since they are no longer needed
@@ -328,6 +361,7 @@ def GetCurrentVersion(pi_settings_fol):
         #TODO: Automatically run updater
         pass
 
+    #OPTIMIZE: Consider moving encoding check into seperate function
     # Open it, read just the area containing the byte mark
         with open(pi_settings_file, "rb") as encode_check:
             encoding = encode_check.readline(3)
@@ -342,7 +376,6 @@ def GetCurrentVersion(pi_settings_fol):
                 # The file cannot be used, go write it
                 SelectPiInstall()
 
-    #TODO: Encoding check
     # Read PatchIt.cfg to get current version
     with open(pi_settings_file, "rt", encoding="utf-8") as f:
         existing_version = f.readlines()[2]
@@ -371,32 +404,25 @@ def GetCurrentVersion(pi_settings_fol):
 def CompareVersion(cur_version, new_version):
     '''Compares the version numbers'''
 
-    # Seperate each number
-    cur_version = cur_version.split(".")
-    new_version = new_version.split(".")
-
-    # Convert the numbers to integers
-    int_cur_ver = [int(num) for num in cur_version]
-    int_new_ver = [int(num) for num in new_version]
-
     # Check if the version numbers are different, and send back the result
-    for new in int_new_ver:
-        if new in int_cur_ver:
-            return True
-        # The versions are not different
-        else:
-            return False
+    if cur_version != new_version:
+        return False
+
+    # The versions are the same
+    else:
+        return True
 
 
 def CompareTitle(cur_title, new_title):
     '''Compares the version titles'''
 
-    # They are not the same
+    # The titles are not the same
     if cur_title != new_title:
         return False
 
-    # They are the same
-    return True
+    # They titles are the same
+    else:
+        return True
 
 
 # -------- End Version Comparison -------- #
