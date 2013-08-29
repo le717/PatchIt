@@ -69,8 +69,7 @@ else:
 # -------- Begin Core Process -------- #
 
 def CloseUpdater():
-    '''Closes the updater'''
-
+    """Close the updater"""
     # Delete the downloaded file
     #TODO: Reactivate this
     #if os.path.exists(os.path.join(app_folder, LinkFileName)):
@@ -82,8 +81,7 @@ def CloseUpdater():
 
 
 def main():
-    '''Updates PatchIt! to the newest version'''
-
+    """Update PatchIt! to the newest version"""
     # Get PatchIt! installation path
     pi_install_path = ReadPiInstall()
 
@@ -164,8 +162,7 @@ Press Enter to to update it anyway, or any other key to quit'''.format(
 
 
 def ReadPiInstall():
-    '''Read's file containing location of PatchIt! installation'''
-
+    """Reads file containing location of PatchIt! installation"""
     # The Updater's settings could not be found, return False
     if not os.path.exists(updater_file):
         return False
@@ -203,8 +200,7 @@ def ReadPiInstall():
 
 
 def SelectPiInstall():
-    '''Searches or asks for user's PatchIt! installation'''
-
+    """Searches or asks for user's PatchIt! installation"""
     # Used to detect if user needs to manually define an installation
     found_install = False
 
@@ -293,8 +289,7 @@ Please select your PatchIt! installation.''')
 
 
 def SavePiInstall(install_path):
-    '''Saves the installation of PatchIt! for later use'''
-
+    """Saves the installation of PatchIt! for later use"""
     # Replace any backslashes with forwardslashes
     if "\\" in install_path:
         install_path = install_path.replace("\\", "/")
@@ -312,8 +307,7 @@ def SavePiInstall(install_path):
 
 
 def GetNewVersion():
-    '''Download and read file listing newest PatchIt! version'''
-
+    """Download and read file listing newest PatchIt! version"""
     # Download the file with the newest info
     try:
         wget.download(LinkFile)
@@ -357,8 +351,7 @@ Please report this error to {2} right away.'''.format(LinkFileName,
 
 
 def GetCurrentVersion(pi_settings_fol):
-    '''Gets user's version of PatchIt!'''
-
+    """Gets user's version of PatchIt!"""
     # Full path to file containing PatchIt! version
     pi_settings_file = os.path.join(pi_settings_fol, "PatchIt.cfg")
 
@@ -411,8 +404,7 @@ def GetCurrentVersion(pi_settings_fol):
 
 
 def CompareVersion(cur_version, new_version):
-    '''Compares the version numbers'''
-
+    """Compares the version numbers"""
     # Check if the version numbers are different, and send back the result
     if cur_version != new_version:
         return False
@@ -423,8 +415,7 @@ def CompareVersion(cur_version, new_version):
 
 
 def CompareTitle(cur_title, new_title):
-    '''Compares the version titles'''
-
+    """Compares the version titles"""
     # The titles are not the same
     if cur_title != new_title:
         return False
