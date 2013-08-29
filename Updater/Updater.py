@@ -96,35 +96,38 @@ def main():
 
     # Retrieve the newest version and update download
     new_version, new_title, download_link = GetNewVersion()
-    print(new_version, new_title)
+    print("\nNewest Version: {0} {1}".format(new_version, new_title))
 
     # Retrieve the user's version
     cur_version, cur_title = GetCurrentVersion(pi_settings_fol)
-    print(cur_version, cur_title)
+    print("Your Version: {0} {1}".format(cur_version, cur_title))
 
     # Compare the version numbers and titles
     VersionCompare = CompareVersion(cur_version, new_version)
     TitleCompare = CompareTitle(cur_title, new_title)
-    print("Version:", VersionCompare)
+    print("Current Version:", VersionCompare)
     print("Title:", TitleCompare)
 
     # The user is running a previous version
-    if not TitleCompare and not VersionCompare:
-        print('''You are running an older version of PatchIt!
-({0} {1}, {2} {3}).
-Press Enter to begin the update process, or any other key to quit.'''.format(
-    cur_version, cur_title, new_version, new_title))
-        #TODO: Input here
-
-    # User is running a pre-release, (Unstable, RC1, such like that)
-    elif VersionCompare and not TitleCompare:
-        print('''You are running a pre-release version of PatchIt!
-({0} {1}, {2} {3}).
+    if (not TitleCompare and not VersionCompare or
+    TitleCompare and not VersionCompare):
+        print('''
+You are running an older version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.'''.format(
     cur_version, cur_title, new_version, new_title))
 
+    # User is running a pre-release, (Unstable, RC1, etc)
+    elif (VersionCompare and not TitleCompare):
+        print('''
+You are running a pre-release version of PatchIt!
+Press Enter to begin the update process, or any other key to quit.'''.format(
+    cur_version, cur_title, new_version, new_title))
+
+        # Prompt to begin update
         update_prerelease = input("\n> ")
+        #OPTIMIZE: Change variable to True?
 
+        # User does not want to update
         if update_prerelease:
             CloseUpdater()
 
@@ -132,11 +135,13 @@ Press Enter to begin the update process, or any other key to quit.'''.format(
             print("Updating...")
 
     # It is up-to-date, but offer to update anyway
-    elif VersionCompare and TitleCompare:
-        print('''Your copy is already up-to-date ({0} {1}).
+    elif (VersionCompare and TitleCompare):
+        print('''
+Your copy is already up-to-date.
 Press Enter to to update it anyway, or any other key to quit'''.format(
     cur_version, cur_title))
 
+        # Prompt to begin update
         update_anyway = input("\n> ")
 
         # User does not want to update
@@ -184,6 +189,9 @@ def ReadPiInstall():
 
         with open(updater_file, "rt", encoding="utf-8") as f:
             pi_install_path = f.readlines()[2]
+
+        # Clean up reading
+        pi_install_path = pi_install_path.strip()
 
         # Send back the path
         return pi_install_path
@@ -319,6 +327,7 @@ def GetNewVersion():
 
 Please report this error to {2} right away.'''.format(LinkFileName,
      LinkFile.strip(LinkFileName), author))
+         #TODO: Reenable closing
         #CloseUpdater()
 
     # The file was downloaded, now read it
@@ -355,7 +364,7 @@ def GetCurrentVersion(pi_settings_fol):
 
     # This is pre-v1.1.1 PatchIt!, because the file cannot be found
     if not os.path.exists(pi_settings_file):
-        #FIXME: Better message
+        #FIXME: Better message or return False?
         #print("Your version of PatchIt! could not be determined.")
         # So it needs updating
         #TODO: Automatically run updater
