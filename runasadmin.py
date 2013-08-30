@@ -27,7 +27,7 @@ import subprocess
 
 # Tkinter GUI library
 from tkinter import Tk
-from tkinter.messagebox import askyesno
+from tkinter.messagebox import (showerror, askyesno)
 
 # App Logging
 import logging
@@ -36,7 +36,7 @@ import logging
 import constants
 
 
-def AdminRun():
+def launch():
     """Relaunch PatchIt! with administrator rights"""
     # Draw (then withdraw) root Tkinter window
     root = Tk()
@@ -52,9 +52,9 @@ Would you like to relaunch PatchIt! with Administrator rights?''')
         # Launch RunAsAdmin to reload PatchIt!
         if (constants.exe_name.endswith("py") or
         constants.exe_name.endswith("pyw")):
-            print('''
-You are running the raw PatchIt! Python script.
-RunAsAdmin will not work at all.''')
+            showerror("Running Error!",
+'''You are running the raw PatchIt! Python script ({0}).
+RunAsAdmin will not work at all.'''.format(constants.exe_name))
         else:
             subprocess.call(
                 [os.path.join(constants.app_folder, "RunAsAdmin.exe"),

@@ -32,7 +32,7 @@
 # and https://github.com/JrMasterModelBuilder/JAM-Extractor
 # With changes by Triangle717
 
-from cx_Freeze import setup, Executable
+from cx_Freeze import (setup, Executable)
 from constants import (majver, minver)
 import sys
 import os
@@ -52,26 +52,27 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
     raise SystemExit(0)
 
 build_exe_options = {"build_exe": destfolder,
-                     "create_shared_zip": True,
-                     "optimize": 1,
-                     "icon": "Icons/PatchItIcon.ico",
-                     "compressed": True,
-                     "includes": [
-                     "re",
-                     "patchit",
-                     "color",
-                     "runasadmin"
-                     "Patch/modernextract",
-                     "Patch/moderncompress",
-                     "Patch/legacyextract",
-                     "Patch/racingtips",
-                     "Game/handlejam"]}
+                    "create_shared_zip": True,
+                    "optimize": 1,
+                    "icon": "Icons/PatchItIcon.ico",
+                    "compressed": True,
+                    "includes": [
+                    "re",
+                    "patchit",
+                    "color",
+                    "runasadmin"
+                    "Patch/modernextract",
+                    "Patch/moderncompress",
+                    "Patch/legacyextract",
+                    "Patch/racingtips",
+                    "Game/handlejam"]
+                    }
 
 setup(
     name="PatchIt!",
     version="{0}".format(majver),
     author="2013 Triangle717",
     description="PatchIt! Version {0} {1}".format(majver, minver),
-    license="GNU GPLv3",
+    license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
