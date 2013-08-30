@@ -40,8 +40,7 @@ import PatchIt
 
 
 def LRReadSettings():
-    '''Read PatchIt! LEGO Racers settings'''
-
+    """Read PatchIt! LEGO Racers settings"""
     # The settings file does not exist
     if not os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.warning("LEGO Racers Settings does not exist!")
@@ -101,8 +100,7 @@ installation or pressed an undefined key''')
 
 
 def LRWriteSettings():
-    '''Write PatchIt! LEGO Racers settings'''
-
+    """Write PatchIt! LEGO Racers settings"""
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = Tk()
@@ -200,8 +198,7 @@ def LRWriteSettings():
 
 
 def LRGameCheck():
-    '''Confirms LEGO Racers installation'''
-
+    """Confirms LEGO Racers installation"""
     # Check encoding of Settings file
     logging.info("Checking encoding of {0}".format(
         os.path.join(settings_fol, LR_settings)))
@@ -268,8 +265,7 @@ def LRGameCheck():
 
 
 def LRVerCheck(new_racers_game):
-    '''Checks if LEGO Racers installation is a 1999 or 2001 release'''
-
+    """Is this a 1999 or 2001 release of LEGO Racers?"""
     # LEGORacers.icd was not found, this is a 2001 release
     if not os.path.exists(
             os.path.join(new_racers_game, "legoracers.icd".lower())):
@@ -286,8 +282,7 @@ def LRVerCheck(new_racers_game):
 
 
 def CheckLRSettings():
-    '''Checks if LEGO LOCO Settings and First-run info'''
-
+    """Gets LEGO Rackers Settings and First-run info"""
     # The LEGO Racers settings do not exist
     if not os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.warning("LEGO Racers Settings do not exist!")

@@ -60,8 +60,7 @@ from constants import (
 
 
 def args():
-    '''PatchIt! Command-line Arguments'''
-
+    """PatchIt! Command-line Arguments"""
     logging.info("Command-line arguments processor started")
 
     # Declare test parameter (-t, --test) as global for use in other places
@@ -141,8 +140,7 @@ enabling Experimental Mode''')
 
 
 def info():
-    '''PatchIt! and System checks'''
-
+    """PatchIt! and System checks"""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
     if sys.maxsize == 2147483647:
@@ -170,8 +168,7 @@ def info():
 
 
 def preload():
-    '''PatchIt! Settings checks'''
-
+    """PatchIt! Settings checks"""
     # One of the settings files do not exist
     if not os.path.exists(settings_fol):
         logging.warning("PatchIt! Settings do not exist!")
@@ -215,7 +212,7 @@ def preload():
 
 
 def about(*args):
-    '''Tkinter About Box'''
+    """Tkinter About Box"""
 
     root = tk.Tk()
     # Window title
@@ -257,7 +254,7 @@ package and install mods for LEGO Racers"
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
-        '''Closes the About Window'''
+        """Closes the About Window"""
         root.destroy()
         main()
 
@@ -296,11 +293,10 @@ package and install mods for LEGO Racers"
 
 
 def main(*args):
-    '''PatchIt! Menu Layout'''
-
-    # Blank space (\n) makes everything nice and neat
+    """PatchIt! Menu Layout"""
     colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
         app, majver, minver, creator), color.FG_WHITE)
+    # Normal menu display
     if not test:
         logging.info("Display normal menu to user")
         print('''Please make a selection:\n
@@ -309,6 +305,7 @@ def main(*args):
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
 [q] Quit''')
+    # Experimental menu display
     if test:
         logging.info("Display --test menu to user")
         print('''Please make a selection:\n
@@ -385,7 +382,7 @@ def main(*args):
 
 
 def easteregg(*args):
-    '''Hehehe'''
+    """Hehehe"""
     root = tk.Tk()
     root.withdraw()
     root.iconbitmap(app_icon)
@@ -408,8 +405,7 @@ def easteregg(*args):
 
 
 def Settings(*args):
-    '''PatchIt! Settings Menu'''
-
+    """PatchIt! Settings Menu"""
     print("\nDo you want to view your {0} or {1} settings?".format(
         LR_game, LOCO_game))
     print('''
@@ -440,10 +436,8 @@ def Settings(*args):
 
 
 def PiSettings():
-    '''Writes PatchIt! General Settings'''
-
-    # Writes general PatchIt! settings,
-    # Will be expanded with more data in a future release
+    """Writes PatchIt! General Settings"""
+    #TODO: Will be expanded with more data in a future release
     logging.info("Writing {0}".format(os.path.join(settings_fol, Pi_settings)))
     with open(os.path.join(settings_fol, Pi_settings),
               "wt", encoding="utf-8") as f:

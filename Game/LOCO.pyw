@@ -41,8 +41,7 @@ import PatchIt
 
 
 def LOCOReadSettings():
-    '''Read PatchIt! LEGO LOCO settings'''
-
+    """Read PatchIt! LEGO LOCO settings"""
     # The settings file does not exist
     if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.warning("LEGO LOCO Settings does not exist!")
@@ -105,8 +104,7 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
 
 
 def LOCOWriteSettings():
-    '''Write PatchIt! LEGO LOCO settings'''
-
+    """Write LEGO LOCO settings"""
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = Tk()
@@ -195,8 +193,7 @@ def LOCOWriteSettings():
 
 
 def LOCOGameCheck():
-    '''Confirms LEGO LOCO installation'''
-
+    """Confirms LEGO LOCO installation"""
     # Check encoding of Settings file
     logging.info("Check encoding of {0}".format(
         os.path.join(settings_fol, LOCO_settings)))
@@ -254,8 +251,7 @@ def LOCOGameCheck():
 
 
 def CheckLOCOSettings():
-    '''Checks if LEGO LOCO Settings and First-run info'''
-
+    """Gets LEGO LOCO Settings and First-run info"""
     # The LEGO LOCO settings do not exist
     if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
         logging.warning("LEGO LOCO Settings do not exist!")
