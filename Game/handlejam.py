@@ -2,7 +2,9 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! -  the standard and simple way to package and install mods for LEGO Racers
+    PatchIt! - the standard and simple way to package and install mods
+    for LEGO Racers
+
     Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
@@ -18,7 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.0 Unstable JAM Handling Code
+# PatchIt! V1.1.2 Unstable JAM Handling Code
 
 
 import os
@@ -33,11 +35,12 @@ import PatchIt
 import JAMExtractor
 
 # Colored shell text
-import Color as color, Color.colors as colors
+import Color as color
+import Color.colors as colors
+
 
 def compressJAM():
-    '''Passes the proper parameters to compress LEGO.JAM'''
-
+    """Passes the proper parameters to compress LEGO.JAM"""
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = Tk()
@@ -66,8 +69,9 @@ def compressJAM():
 
 ##    JAMExtractor.build(jam_files)
 
-def main(*args):
 
+def main(*args):
+    """JAM Extractor Menu"""
     logging.info("Display JAM Extractor menu to user")
     print('''\nPlease make a selection:\n
 [e] Extract LEGO.JAM
@@ -76,29 +80,19 @@ def main(*args):
     jam_opt = input("\n\n> ")
 
     # Nothing here is complete, so redirect back to PatchIt! menu
-    if input:
-##    if jam_opt.lower() == "e" or jam_opt.lower() == "c":
-##    if jam_opt.lower() == "e":
-##        extractJAM()
-
-##    elif jam_opt.lower() == "c":
-
-##    else: #if jam_opt.lower():
-        logging.warning("Whoops! That feature hasn't been added yet.")
+    if jam_opt.lower() != "q":
         print("\nWhoops! That feature hasn't been added yet.")
         time.sleep(0.5)
-        logging.info("Switching to PatchIt! main menu")
-        PatchIt.main()
+    logging.info("Switching to PatchIt! main menu")
+    PatchIt.main()
 
-##    if jam_opt.lower() == "b"
 
 def extractJAM():
-    '''Passes the proper parameters to extract LEGO.JAM'''
-    pass
-
+    """Passes the proper parameters to extract LEGO.JAM"""
     # The Racers settings (required for extraction) does not exist
     if not os.path.exists(os.path.join("Settings", "Racers.cfg")):
-        colors.pc("The LEGO Racers settings do not exist!\nPlease create it, then try to extract LEGO.JAM", color.FG_LIGHT_RED)
+        colors.text('''The LEGO Racers settings do not exist!
+Please create it, then try to extract LEGO.JAM''', color.FG_LIGHT_RED)
 
     # Get location of Racers installation
     JAM_location = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
@@ -107,4 +101,4 @@ def extractJAM():
     if os.path.exists(JAM_file):
         JAMExtractor.extract(JAM_file)
     elif not os.path.exists(JAM_file):
-        raise SystemExit
+        raise SystemExit(0)

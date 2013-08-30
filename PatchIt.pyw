@@ -347,7 +347,7 @@ def main(*args):
         elif menuopt.lower() == "j":
             # If Experimental Mode was activated
             if test:
-                import handlejam
+                from Game import handlejam
                 logging.info("User pressed '[j] JAM Extractor'")
 
                 # Run the JAM Extractor wrapper
