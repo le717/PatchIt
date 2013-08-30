@@ -202,8 +202,6 @@ TheTesterGroup/
 #*.psd
 *.txt
 *.ini
-.py
-!.pyw
 *.iss
 JAMExtractor.py
 listtips.py
@@ -213,7 +211,8 @@ listtips.py
 *.~is
 *.blend
 *.blend1
-#*.html
+RunAsAdmin.cfg
+*.html
 !Read-Me-First.html
 *.blend2
 !Windows/unsetup.py
