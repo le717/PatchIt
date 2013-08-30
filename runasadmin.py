@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
     This file is part of PatchIt!
 

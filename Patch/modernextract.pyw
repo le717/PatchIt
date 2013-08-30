@@ -140,9 +140,9 @@ def checkPatch(patch):
         or encoding == b"\xff\xfe/"):
 
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
-        logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
-        logging.warning("{0} is encoded in an unrecognized encoding!".format(
+        logging.warning("{0} is written using an unsupported encoding!".format(
             patch))
+        logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
             color.FG_LIGHT_RED)
 

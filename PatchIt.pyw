@@ -61,6 +61,7 @@ from constants import (
 
 def args():
     """PatchIt! Command-line Arguments"""
+    #TODO: Attempt to replace this with argparse
     logging.info("Command-line arguments processor started")
 
     # Declare test parameter (-t, --test) as global for use in other places
