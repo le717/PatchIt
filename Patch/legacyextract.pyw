@@ -45,7 +45,7 @@ import PatchIt
 from Patch import racingtips
 
 # PatchIt! "Constants"
-import constants
+from constants import (settings_fol, LR_settings)
 
 # LEGO Racers settings
 from Game import Racers
@@ -55,8 +55,7 @@ from Game import Racers
 
 
 def readPatch(installpatch):
-    '''Reads and Installs Legacy PatchIt! Patch'''
-
+    """Reads and Installs Legacy PatchIt! Patch"""
     logging.info("Install a Legacy PatchIt! Patch")
 
     # Get all patch details
@@ -114,18 +113,18 @@ def readPatch(installpatch):
 
         # The LEGO Racers settings do not exist
         if not os.path.exists(
-            os.path.join(constants.settings_fol, "Racers.cfg")):
+            os.path.join(settings_fol, LR_settings)):
             logging.warning("Could not find LEGO Racers settings!")
             Racers.LRReadSettings()
 
-        # The LEGO Racers settings do exist (implied else block here)
+        # The LEGO Racers settings does exist (implied else block here)
 
         # Check encoding of Racers Settings file
         logging.info("Check encoding of {0} before installation".format(
-            os.path.join(constants.settings_fol, "Racers.cfg")))
+            os.path.join(settings_fol, LR_settings)))
 
         # Open it, read just the area containing the byte mark
-        with open(os.path.join(constants.settings_fol, "Racers.cfg"),
+        with open(os.path.join(settings_fol, LR_settings),
         "rb") as encode_check:
             encoding = encode_check.readline(3)
 
@@ -149,7 +148,7 @@ def readPatch(installpatch):
         # Read the settings file for installation (LEGO Racers directory)
          # Updated in semi-accordance with PatchIt! Dev-log #6
         try:
-            with open(os.path.join(constants.settings_fol, "Racers.cfg"), "rt",
+            with open(os.path.join(settings_fol, LR_settings), "rt",
             encoding="utf-8") as f:
                 installpath = f.readlines()[6]
 
@@ -182,9 +181,9 @@ def readPatch(installpatch):
                 "r") as extractzip:
                 extractzip.extractall(path=installpath)
 
-            # Display the Racers game tips
+            # Display the LEGO Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
-            colors.text("\nHere's a tip!\n" + choice(racingtips.gametips),
+            colors.text("\nHere's a tip!\n{0}".format(choice(racingtips.gametips)),
                 color.FG_CYAN)
 
             # Installation was successful!
@@ -194,7 +193,7 @@ def readPatch(installpatch):
             print("\n{0} {1} successfully installed!\n".format(installname,
             installver))
 
-            # Log ZIP closure although it was closed automatically by with
+            # Log ZIP closure although it was closed automatically by `with`
             logging.info("Closing {0}".format(installzipfile))
 
         # For some reason, it cannot find the ZIP archive
@@ -226,7 +225,8 @@ Here's what happened
             logging.warning('''PatchIt! does not have the rights to install {0} {1}
 to
 {2}!'''.format(installname, installver, installpath))
-            colors.text('''\nPatchIt! does not have the rights to install {0} {1}
+            colors.text('''
+PatchIt! does not have the rights to install {0} {1}
 to
 {2}!'''.format(installname, installver, installpath),
 color.FG_LIGHT_RED)
@@ -239,7 +239,11 @@ Here's what happened
 ''', exc_info=True)
             logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}!".format(
                 installname, installver, installpath))
-            colors.text("\nPatchIt! ran into an unknown error while trying to install\n{0} {1} to {2}!\n".format(
+            colors.text('''
+PatchIt! ran into an unknown error while trying to install
+{0} {1}
+to
+{2}!'''.format(
                 installname, installver, installpath),
             color.FG_LIGHT_RED)
 
