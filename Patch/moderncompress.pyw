@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 
     Hear, O Israel: YHWH our God, YHWH is one! - Deuteronmoy 6:4
@@ -50,8 +51,7 @@ import PatchIt
 
 
 def file_check(path):
-    '''Checks for, and moves illegal files to a temporary location'''
-
+    """Checks for and removes illegal files"""
     # List of illegal files, taken from
     # http://www.howtogeek.com/137270/ and
     # windows.microsoft.com/en-US/windows-vista/Recognizing-dangerous-file-types
@@ -135,16 +135,17 @@ def file_check(path):
 
 #def cls():
 
-    #os.system('cls')
+    #os.system("cls")
 
 
 def delete_files():
-    '''Deletes temporary folder created during compression'''
-
+    """Deletes temporary folder created during compression"""
     try:
         # Delete temporary directory
+        #lint:disable
         logging.info("Delete all files at {0}".format(temp_location))
         distutils.dir_util.remove_tree(temp_location)
+        #lint:enable
 
     # But in case the directory was not created
     except FileNotFoundError:
@@ -180,8 +181,7 @@ def charCheck(text):
 
 
 def patchName():
-    '''Ask for Patch Name'''
-
+    """Ask for Patch Name"""
     # Mark as global to remove silly "None" error
     global name
     name = input("Name: ")
@@ -223,8 +223,7 @@ def patchName():
 
 
 def patchVersion():
-    '''Ask for Patch Version'''
-
+    """Ask for Patch Version"""
     # Mark as global to remove silly "None" error
     global version
     version = input("Version: ")
@@ -266,8 +265,7 @@ def patchVersion():
 
 
 def patchAuthor():
-    '''Ask for Patch Author'''
-
+    """Ask for Patch Author"""
     # Mark as global to remove silly "None" error
     global author
     author = input("Author: ")
@@ -288,8 +286,7 @@ def patchAuthor():
 
 
 def patchDesc():
-    '''Ask for Patch Author'''
-
+    """Ask for Patch Author"""
     # Mark as global to remove silly "None" error
     global desc
     desc = input("Description: ")
@@ -315,9 +312,8 @@ def patchDesc():
 
 
 def MPField(game):
-    '''Sets the value for the MP field,
-    asks for map resolution for LEGO LOCO Patch'''
-
+    """Sets the value for the MP field,
+    asks for LEGO LOCO map resolution"""
     # Mark as global to remove silly "None" error
     global mp
 
@@ -332,7 +328,7 @@ def MPField(game):
 
     logging.info("What resolution was this LEGO LOCO map created with?")
     print('''\nWhat resolution was "{0}" created with?
-Hint: if you are unsure, it will most likely be either'''.format(name))
+Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:ok
 
     colors.text('''
 800x600,
@@ -372,8 +368,7 @@ color.FG_LIGHT_MAGENTA)
 
 
 def patchInfo(*args):
-    '''Asks for PatchIt! Patch details'''
-
+    """Ask for PatchIt! Patch details"""
     logging.info("Create a PatchIt! Patch")
     colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
@@ -423,12 +418,11 @@ def patchInfo(*args):
     MPField(game)
 
     # Run function to select files for compression
-    selectPatchFiles(game, mp)
+    selectPatchFiles(game, mp)  # lint:ok
 
 
 def selectPatchFiles(game, mp):
-    '''Select the Patch fils for compression'''
-
+    """Select the Patch fils for compression"""
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = Tk()
@@ -449,7 +443,7 @@ def selectPatchFiles(game, mp):
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
     parent=root,
-    title="Select the files for {0} (Version: {1})".format(name, version)
+    title="Select the files for {0} (Version: {1})".format(name, version)  # lint:ok
     )
 
     # The user clicked the cancel button
@@ -479,18 +473,17 @@ Game: {3}
 {4}
 
 "{5}"
-'''.format(name, version, author, game, mp, desc))
+'''.format(name, version, author, game, mp, desc))  # lint:ok
         logging.info("Switching to writePatch()")
         writePatch(patchfiles, mp, game)
 
 
 def writePatch(patchfiles, mp, game):
-    '''Writes and compresses PatchIt! Patch'''
-
+    """Writes and compresses PatchIt! Patch"""
     try:
         # Declare the Patch PiP and Archive filenames
-        thepatch = "{0}{1}.PiP".format(name, version)
-        thearchive = "{0}{1}.PiA".format(name, version)
+        thepatch = "{0}{1}.PiP".format(name, version)  # lint:ok
+        thearchive = "{0}{1}.PiA".format(name, version)  # lint:ok
         logging.info("The final file names are {0} and {1}".format(thepatch,
         thearchive))
 
@@ -504,9 +497,9 @@ def writePatch(patchfiles, mp, game):
 
         # Compress the files
         logging.info('''Compress files located at {0} into an LZMA compressed
-TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
+TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:ok
         with tarfile.open(thearchive, "w:xz") as tar_file:
-            tar_file.add(temp_location, "")
+            tar_file.add(temp_location, "")  # lint:ok
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(
@@ -516,6 +509,7 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
             patch.write("[PiA]\n")
             patch.write("{0}\n".format(thearchive))
             patch.write("[GENERAL]\n")
+            #lint:disable
             patch.write("{0}\n".format(name))
             patch.write("{0}\n".format(version))
             patch.write("{0}\n".format(author))
@@ -523,14 +517,17 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
             patch.write("{0}\n".format(game))
             patch.write("[DESCRIPTION]\n")
             patch.write("{0}\n".format(desc))
+            #lint:enable
 
         # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
+        #lint:disable
         logging.info("{0} Version: {1} created and saved to {2}".format(name,
         version, patchfiles))
         colors.text('''
 {0} (Version: {1}) successfully created and saved to
 "{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
+        #lint:enable
 
     # The user does not have the rights to write a PiP in that location
     except PermissionError:
@@ -541,10 +538,10 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))
         logging.warning('''
 
 PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
-    name, version))
+    name, version))  # lint:ok
 
         colors.text("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
-        .format(name, version), color.FG_LIGHT_RED)
+        .format(name, version), color.FG_LIGHT_RED)  # lint:ok
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
@@ -555,10 +552,10 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         logging.warning('''
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
-.format(name, version))
+.format(name, version))  # lint:ok
         colors.text('''
 PatchIt! ran into an unknown error while trying to create
-{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)
+{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)  # lint:ok
         try:
             os.unlink("{0}".format(thepatch))
             os.unlink("{0}".format(thearchive))

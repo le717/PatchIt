@@ -62,8 +62,7 @@ import Color.colors as colors
 
 
 def selectPatch(*args):
-    '''Select a PatchIt! Patch'''
-
+    """Select a PatchIt! Patch"""
     colors.text("\nInstall a PatchIt! Patch", color.FG_LIGHT_YELLOW)
     logging.info("Install a PatchIt! Patch")
 
@@ -123,10 +122,9 @@ def selectPatch(*args):
 
 
 def checkPatch(patch):
-    '''Checks if Patch uses the proper encoding,
+    """Checks if Patch uses the proper encoding,
     if it is an modern or legacy Patch,
-    or if it is a PatchIt! Patch at all'''
-
+    or if it is a PatchIt! Patch at all"""
     # Check encoding of Patch file
     logging.info("Checking encoding of {0}".format(patch))
 
@@ -235,8 +233,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
 
 
 def readModernPatch(patch):
-    '''Reads PatchIt! Patch Details'''
-
+    """Reads PatchIt! Patch Details"""
     # Get all patch details
     with open(patch, "rt", encoding="utf-8") as f:
         logging.info("Reading contents of Patch")
@@ -333,16 +330,14 @@ Game: {3}
 
 
 def getRacersPath():
-    '''Gets LEGO Racers Installation Path'''
-
+    """Get LEGO Racers Installation Path"""
     # The LEGO Racers settings do not exist
     if not os.path.exists(os.path.join(constants.settings_fol,
     constants.LR_settings)):
         logging.warning("Could not find LEGO Racers settings!")
         Racers.LRReadSettings()
 
-    # The LEGO Racers settings do exist (implied else block here)
-
+    # The LEGO Racers settings do exist
     # Check encoding of Racers Settings file
     logging.info("Check encoding of {0} before installation".format(
         os.path.join(constants.settings_fol, constants.LR_settings)))
@@ -364,8 +359,7 @@ def getRacersPath():
         logging.warning("LEGO Racers Settings cannot be read!")
         Racers.LRReadSettings()
 
-    # The LEGO Racers settings can be read (implied else block here)
-
+    # The LEGO Racers settings can be read
     # Read the settings file for installation (LEGO Racers directory)
     logging.info("Reading line 7 of settings for LEGO Racers installation")
 
@@ -382,16 +376,14 @@ def getRacersPath():
 
 
 def getLOCOPath():
-    '''Gets LEGO LOCO Installation Path'''
-
+    """Gets LEGO LOCO Installation Path"""
     # The LEGO LOCO settings do not exist
     if not os.path.exists(os.path.join(constants.settings_fol,
      constants.LOCO_settings)):
         logging.warning("Could not find LEGO LOCO settings!")
         LOCO.LOCOReadSettings()
 
-    # The LEGO LOCO settings do exist (implied else block here)
-
+    # The LEGO LOCO settings do exist
     # Check encoding of LOCO Settings file
     logging.info("Check encoding of {0} before installation".format(
         os.path.join(constants.settings_fol, constants.LOCO_settings)))
@@ -413,8 +405,7 @@ def getLOCOPath():
         logging.warning("LEGO LOCO Settings cannot be read!")
         LOCO.LOCOReadSettings()
 
-    # The LEGO LOCO settings can be read (implied else block here)
-
+    # The LEGO LOCO settings can be read
     # Read the settings file for installation (LEGO LOCO directory)
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
 
@@ -435,8 +426,7 @@ def getLOCOPath():
 
 
 def installModernPatch(patch, name, version, author, game, mp, patch_archive):
-    '''Installs a Modern PatchIt! Patch'''
-
+    """Installs a Modern PatchIt! Patch"""
     # This is a LEGO LOCO patch, read the LOCO settings
     if game == "LEGO LOCO":
 
@@ -453,9 +443,9 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
 
     # In case the Game field says something else
     else:
-        logging.error("This Patch wants to be installed in an unsuppoted game!")
+        logging.error("This Patch wants to be installed for an unsupported game!")
         logging.info("Telling user about this unsupported game")
-        # Tell user about this
+        # Tell user about this issue
         colors.text('''\n{0} (Version: {1}) was created for {2}.
 PatchIt! only supports LEGO Racers and LEGO LOCO.
 You may want to contact {3} and ask them if this is an error,
@@ -488,8 +478,8 @@ and request a proper Patch.'''.format(name, version, game, author),
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
-            colors.text("\nHere's a tip!\n" + random.choice(racingtips.gametips),
-            color.FG_CYAN)
+            colors.text("\nHere's a tip!\n{0}".format(
+                random.choice(racingtips.gametips)), color.FG_CYAN)
 
         # Display the LEGO LOCO map resolution.
         elif game == "LEGO LOCO":
@@ -507,7 +497,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
             name, version, install_path), color.FG_LIGHT_GREEN)
 
-        # Log Archive closure although it was closed automatically by with
+        # Log Archive closure although it was closed automatically by `with`
         logging.info("Closing {0}".format(patch_archive))
 
     # For some reason, it cannot find the Patch archive
@@ -525,7 +515,7 @@ Unable to find {0} at {1}!'''.format(patch_archive,
 Make sure "{2}" and "{3}"
 are both located at
 
-"{4}"
+{4}
 
 and try again.
 
@@ -564,7 +554,7 @@ PatchIt! had an unknown error while to installing {0} (Version: {1}) to {2}'''
 PatchIt! ran into an unknown error while trying to install
 {0} (Version: {1}) to
 
-"{2}"
+{2}
 '''.format(name, version, install_path),
 color.FG_LIGHT_RED)
 
