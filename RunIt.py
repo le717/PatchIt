@@ -34,7 +34,10 @@ import os
 import webbrowser
 
 # PatchIt! Version Info
-from constants import (app, majver, minver, app_folder)
+from constants import (app, majver, minver, app_folder, app_icon)
+
+# RunAsAdmin wrapper
+import runasadmin
 
 try:
     # Python 3 import
@@ -49,7 +52,7 @@ except ImportError:
 if sys.version_info < (3, 3, 0):
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap("Icons/PatchItIcon.ico")
+    root.iconbitmap(app_icon)
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
     sys.version[0:5], app, majver, minver))
@@ -61,7 +64,6 @@ You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
     # Close PatchIt!  when user presses OK
     raise SystemExit(0)
 
-# (Implied else block here)
 # The user is running Python 3.3.x, continue on
 import logging
 import PatchIt
@@ -70,8 +72,7 @@ import PatchIt
 
 
 def appLoggingFolder():
-    '''Checks for (and creates) PatchIt! Logs folder'''
-
+    """Checks for (and creates) PatchIt! Logs folder"""
     try:
         # Location of Logs folder
         logs_folder = os.path.join(app_folder, "Logs")
@@ -96,15 +97,10 @@ def appLoggingFolder():
     # -- End Logging Configuration -- #
 
     except PermissionError:
-        root = tk.Tk()
-        root.withdraw()
-        root.iconbitmap("Icons/PatchItIcon.ico")
-        showerror("Insufficient User Rights!",
-        '''PatchIt! does not have the user rights to operate!
-Please relaunch PatchIt! as an Administrator.''')
-
-        # Close PatchIt! when user presses OK
-        raise SystemExit(0)
+        # User did not want to reload with Administrator rights
+        if not runasadmin.AdminRun():
+            # Close PatchIt! if user clicks OK
+            raise SystemExit(0)
 
 
 # ------------ End PatchIt! Logging Code ------------ #

@@ -223,4 +223,5 @@ Windows/Download.html
 Updater/wget.py
 Updater/*.cfg
 PatchIt-Compatible.html
+!LICENSE.RunAsAdmin.txt
 #Documentation/Readme/ChangeLog/1*
