@@ -69,17 +69,11 @@ def selectPatch(*args):
     colors.text("\nInstall a PatchIt! Patch", color.FG_LIGHT_YELLOW)
     logging.info("Install a PatchIt! Patch")
 
-    # PiP label for Patch selection dialog box
-    fileformat = [("PatchIt! Patch", "*.PiP")]
-
     # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
     root = Tk()
-    logging.info("Withdrawing root Tk window")
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings to completely hide it")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
@@ -95,7 +89,7 @@ def selectPatch(*args):
         parent=root,
         title="Select a PatchIt! Patch",
         defaultextension=".PiP",
-        filetypes=fileformat
+        filetypes=[("PatchIt! Patch", "*.PiP")]
     )
 
     # The user clicked the cancel button
@@ -153,9 +147,7 @@ def checkPatch(patch):
         PatchIt.main()
 
     # It is written using ANSI or UTF-8-NOBOM, continue reading it
-    # (implied else block here)
-
-    # Confirm that this is a patch, as defined in Documentation/PiP Format.md
+   # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
     logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(
@@ -171,9 +163,9 @@ def checkPatch(patch):
     logging.info("The validity lines reads\n{0} and \n{1}".format(valid_line,
     archive_line))
 
-    # The current validity line
+    # PiP File Format 1.1.x validity line
     current_valid_line = "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
-    # The PatchIt! 1.0.x validity line
+    # PiP File Format 1.0.x validity line
     orginal_valid_line = "// PatchIt! Patch format, created by le717 and rioforce."
 
     # It's a legacy Patch
@@ -414,8 +406,7 @@ def getLOCOPath():
 
     try:
         with open(os.path.join(constants.settings_fol, constants.LOCO_settings),
-             "rt",
-        encoding="utf-8") as f:
+             "rt", encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
             return loco_install_path
 
@@ -567,8 +558,7 @@ PatchIt! ran into an unknown error while trying to install
 {0} (Version: {1}) to
 
 {2}
-'''.format(name, version, install_path),
-color.FG_LIGHT_RED)
+'''.format(name, version, install_path), color.FG_LIGHT_RED)
 
         # Sleep for 2 seconds after displaying installation result
         # before kicking back to the ,ain menu.

@@ -429,13 +429,10 @@ def patchInfo(*args):
 def selectPatchFiles(game, mp):
     """Select the Patch fils for compression"""
     # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
     root = Tk()
-    logging.info("Withdrawing root Tk window")
     root.withdraw()
 
     # Overwrite root display settings
-    logging.info("Overwrite root settings so it will be hidden")
     root.overrideredirect(True)
     root.geometry('0x0+0+0')
 
