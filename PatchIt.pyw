@@ -300,7 +300,9 @@ def main(*args):
     # Normal menu display
     if not test:
         logging.info("Display normal menu to user")
-        print('''Please make a selection:\n
+        print('''
+Please make a selection:
+
 [a] About PatchIt!
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
@@ -309,7 +311,9 @@ def main(*args):
     # Experimental menu display
     if test:
         logging.info("Display --test menu to user")
-        print('''Please make a selection:\n
+        print('''
+Please make a selection:
+
 [a] About PatchIt!
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
