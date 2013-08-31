@@ -46,12 +46,13 @@ class AdminRun(object):
         __root.withdraw()
         __root.iconbitmap(constants.app_icon)
 
-    def launch(self):
+    def launch(self, message):
         """Relaunch PatchIt! with administrator rights"""
 
         __admin = askyesno("Relaunch PatchIt?",
-    '''PatchIt! does not have the user rights to operate!
-Would you like to relaunch PatchIt! with Administrator rights?''')
+    '''{0}
+Would you like to relaunch PatchIt! with Administrator rights?'''.format(
+    message))
 
         # If user chooses to relaunch
         if __admin:

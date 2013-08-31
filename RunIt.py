@@ -98,7 +98,8 @@ def appLoggingFolder():
 
     except PermissionError:
         # User did not want to reload with Administrator rights
-        if not runasadmin.AdminRun().launch():
+        if not runasadmin.AdminRun().launch(
+            "PatchIt! does not have the user rights to operate!"):
             # Close PatchIt!
             raise SystemExit(0)
 
