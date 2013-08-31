@@ -37,7 +37,7 @@ import logging
 import constants
 
 
-class AdminRun:
+class AdminRun(object):
     """Invokes the RunAsAdmin helper utility"""
 
     def __init__(self):
