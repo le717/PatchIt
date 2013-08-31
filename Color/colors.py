@@ -41,12 +41,11 @@ def get_csbi_attributes(handle):
     return wattr
 
 
-def text(text, color, nl=True):
+def text(text, color):
+    """Print Colored Text"""
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
     print(text)
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, reset)
-    if nl:
-        print("", flush=True)  # lint:ok
 
 handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
 reset = get_csbi_attributes(handle)
