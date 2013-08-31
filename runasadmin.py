@@ -37,34 +37,49 @@ import logging
 import constants
 
 
-def launch():
-    """Relaunch PatchIt! with administrator rights"""
-    # Draw (then withdraw) root Tkinter window
-    root = Tk()
-    root.withdraw()
-    root.iconbitmap(constants.app_icon)
+class AdminRun:
+    """Invokes the RunAsAdmin helper utility"""
 
-    admin = askyesno("Relaunch PatchIt?",
-'''PatchIt! does not have the user rights to operate!
+    def __init__(self):
+        """Draw (then withdraw) root Tkinter window"""
+        __root = Tk()
+        __root.withdraw()
+        __root.iconbitmap(constants.app_icon)
+
+    def launch(self):
+        """Relaunch PatchIt! with administrator rights"""
+
+        __admin = askyesno("Relaunch PatchIt?",
+    '''PatchIt! does not have the user rights to operate!
 Would you like to relaunch PatchIt! with Administrator rights?''')
 
-    # If user chooses to relaunch
-    if admin:
-        # Launch RunAsAdmin to reload PatchIt!
-        if (constants.exe_name.endswith("py") or
-        constants.exe_name.endswith("pyw")):
-            showerror("Running Error!",
-'''You are running the raw PatchIt! Python script ({0}).
-RunAsAdmin will not work at all.'''.format(constants.exe_name))
-        else:
-            subprocess.call(
-                [os.path.join(constants.app_folder, "RunAsAdmin.exe"),
-                constants.exe_name])
-        # Now we close PatchIt!, and let RunAsAdmin take over
-        # (that is, if this is an exe)
-        logging.shutdown()
-        raise SystemExit(0)
+        # If user chooses to relaunch
+        if __admin:
+            logging.info("User wants to relaunch PatchIt!")
 
-    # User did not want to relaunch PatchIt!
-    else:
-        return False
+            # This is the raw Python script. RunAsAdmin will not work
+            if (constants.exe_name.endswith("py") or
+            constants.exe_name.endswith("pyw")):
+                logging.warning('''This is the raw PatchIt! Python script ({0})
+RunAsAdmin.exe cannot operate!'''.format(constants.exe_name))
+                showerror("Running Error!",
+    '''You are running the raw PatchIt! Python script ({0}).
+RunAsAdmin will not work at all.'''.format(constants.exe_name))
+
+            # Launch RunAsAdmin to reload PatchIt!
+            else:
+                logging.info('''This is the PatchIt! exe ({0}).
+Launching RunAsAdmin.exe'''.format(constants.exe_name))
+                subprocess.call(
+                    [os.path.join(constants.app_folder, "RunAsAdmin.exe"),
+                    constants.exe_name])
+
+            # Now we close PatchIt!, and let RunAsAdmin take over
+            # (that is, if this is an exe)
+            logging.shutdown()
+            raise SystemExit(0)
+
+        # User did not want to relaunch PatchIt!
+        else:
+            logging.info("User does not want to relaunch PatchIt!")
+            return False
