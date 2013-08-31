@@ -54,9 +54,9 @@
 
 ; Global variables
 #define MyAppName "PatchIt!" 
-#define MyAppVersion "1.1.1"
-#define MyAppVerName "PatchIt! Version 1.1.1 Stable"
-#define MyInstallerName "PatchIt-111-Stable"
+#define MyAppVersion "1.1.2"
+#define MyAppVerName "PatchIt! Version 1.1.2 Unstable"
+#define MyInstallerName "PatchIt-112-Unstable"
 #define MyAppPublisher "Triangle717"
 #define MyAppURL "http://Triangle717.WordPress.com"
 #define MyAppExeName "PatchIt.exe"
@@ -146,24 +146,23 @@ Root: "HKCR"; Subkey: ".PiP\shell"; ValueType: string; ValueData: "open"; Flags:
 Root: "HKCR"; Subkey: ".PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe ""%1"""; Flags: uninsdeletevalue; Tasks: Shell
 
-[Files]
-; PatchIt! Uninstaller
-Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion
-Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
-Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion
-Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion
-Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
-Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
-
+[Files] 
 ; PatchIt! Updater
 
 
-; Readme and Icon
+; Readme and Icon 
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\favicon.ico; DestDir: {app}\Icons; Flags: ignoreversion 
 Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; RunAsAdmin utility
+Source: RunAsAdmin\RunAsAdmin.cfg; DestDir: {app}; Flags: ignoreversion
+Source: RunAsAdmin\RunAsAdmin.exe; DestDir: {app}; Flags: ignoreversion  
+
+; License files
+Source: ..\Freeze\License\*; DestDir: {app}\License; Flags: ignoreversion
 
 ; Settings files
 Source: ..\Freeze\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
@@ -177,8 +176,10 @@ Source: ..\Freeze\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Re
 Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: Run {#MyAppVerName}
-Name: "{group}\{#MyAppName}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: View {#MyAppName} Readme
+; Launch PatchIt!, view Readme, Uninstall
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Parameters: "--test"; Comment: "Run {#MyAppVerName} - Experimental Mode"
+Name: "{group}\{#MyAppName}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "View {#MyAppName} Readme"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PatchItIcon.ico"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Tasks: desktopicon
 

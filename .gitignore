@@ -193,7 +193,7 @@ Compile/
 Freeze/
 !Color/
 Logs/
-License/
+!License/
 Settings/
 Testing*/
 Archives/
@@ -215,7 +215,7 @@ TheTesterGroup/
 *.blend2
 *.wpp
 *.html
-RunAsAdmin.cfg
+!RunAsAdmin.cfg
 JAMExtractor.py
 listtips.py
 *settings
@@ -223,7 +223,8 @@ listtips.py
 !Windows/unsetup.py
 Windows/PatchIt-*
 Windows/PatchIt-*
-License/gpl-v3-fr.txt
+License/gpl-v3-fr.txt 
+!License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
 Updater/wget.py
 Updater/*.cfg
