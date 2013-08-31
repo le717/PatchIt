@@ -58,7 +58,7 @@
 #define MyAppVerName "PatchIt! Version 1.1.2 Unstable"
 #define MyInstallerName "PatchIt-112-Unstable"
 #define MyAppPublisher "Triangle717"
-#define MyAppURL "http://Triangle717.WordPress.com"
+#define MyAppURL "http://le717.github.io/PatchIt"
 #define MyAppExeName "PatchIt.exe"
    
 
@@ -209,7 +209,7 @@ begin
 end;
 
 // Code based on Launchy Inno Setup installer
-// http://launchy.svn.sourceforge.net/viewvc/launchy/trunk/Launchy_QT/win/installer/SETUP.iss
+// https://sourceforge.net/p/launchy/code/671/tree/trunk/Launchy_QT/win/installer/SETUP.iss
 function InstallPath(Param: String): String;
 begin
   if PortableInstall then
