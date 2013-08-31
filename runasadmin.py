@@ -42,6 +42,7 @@ class AdminRun(object):
 
     def __init__(self):
         """Draw (then withdraw) root Tkinter window"""
+        global __root
         __root = Tk()
         __root.withdraw()
         __root.iconbitmap(constants.app_icon)
@@ -77,6 +78,7 @@ Launching RunAsAdmin.exe'''.format(constants.exe_name))
 
             # Now we close PatchIt!, and let RunAsAdmin take over
             # (that is, if this is an exe)
+            __root.destroy()  # lint:ok
             logging.shutdown()
             raise SystemExit(0)
 

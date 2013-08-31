@@ -47,6 +47,9 @@ from constants import app_folder
 # Core PatchIt! module
 import PatchIt
 
+# RunAsAdmin wrapper
+import runasadmin
+
 # ------------ Begin Illegal File Check ------------ #
 
 
@@ -189,7 +192,7 @@ def patchName():
     # An invalid character was entered
     if charCheck(name):
         logging.warning("There were illegal characters in the Patch name!")
-        colors.text("\nYou have entered an illegal character!",
+        colors.text("\nYou have entered an illegal character!\n",
         color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
@@ -199,7 +202,7 @@ def patchName():
     ## The field was longer than 80 characters
     #elif len(name) >= 81:
         #logging.warning("The Patch name was more than 80 characters!")
-        #colors.text("\nThe Name field must be 80 characters or less!",
+        #colors.text("\nThe Name field must be 80 characters or less!\n",
         #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Name Process
@@ -209,14 +212,14 @@ def patchName():
     # No characters were entered
     elif len(name) == 0:
         logging.warning("The Patch name field was left blank!")
-        colors.text("\nThe Name field must be filled out!", color.FG_LIGHT_RED)
+        colors.text("\nThe Name field must be filled out!\n", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
         patchName()
 
     # An invalid character was not entered/the field was filled out
-    else:  # elif not charCheck(name)
+    else:  # elif not charCheck(name)f
         logging.info("All characters in Patch name are allowed")
         logging.info("The name field was filled out")
         return name
@@ -231,7 +234,7 @@ def patchVersion():
     # An invalid character was entered
     if charCheck(version):
         logging.warning("There were illegal characters in the Patch version!")
-        colors.text("\nYou have entered an illegal character!",
+        colors.text("\nYou have entered an illegal character!\n",
         color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
@@ -241,7 +244,7 @@ def patchVersion():
     ## The field was longer than 12 characters
     #elif len(name) >= 13:
         #logging.warning("The Patch version was more than 12 characters!")
-        #colors.text("\nThe Version field must be 12 characters or less!",
+        #colors.text("\nThe Version field must be 12 characters or less!\n",
         #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Version Process
@@ -251,7 +254,7 @@ def patchVersion():
     # No characters were entered
     elif len(version) == 0:
         logging.warning("The Patch version field was left blank!")
-        colors.text("\nThe Version field must be filled out!", color.FG_LIGHT_RED)
+        colors.text("\nThe Version field must be filled out!\n", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
@@ -273,7 +276,7 @@ def patchAuthor():
     # No characters were entered
     if len(author) == 0:
         logging.warning("The Patch author field was left blank!")
-        colors.text("\nThe Author field must be filled out!", color.FG_LIGHT_RED)
+        colors.text("\nThe Author field must be filled out!\n", color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
         logging.info("Looping back through patchAuthor()")
@@ -294,7 +297,7 @@ def patchDesc():
     # No characters were entered
     if len(desc) == 0:
         logging.warning("The Patch description field was left blank!")
-        colors.text("\nThe Description field must be filled out!",
+        colors.text("\nThe Description field must be filled out!\n",
         color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
@@ -356,7 +359,8 @@ color.FG_LIGHT_MAGENTA)
         logging.exception('''Oops! Something went wrong! Here's what happened
 
 ''', exc_info=True)
-        colors.text("You have entered a non-numerical character!")
+        colors.text("\nYou have entered a non-numerical character!",
+            color.FG_LIGHT_RED)
         logging.info("Looping back through MPField()")
         MPField(game)
 
@@ -373,7 +377,7 @@ def patchInfo(*args):
     colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
-    colors.text('Type "q" in the next field to cancel.\n', color.FG_WHITE)
+    colors.text('\nType "q" in the next field to cancel.\n', color.FG_WHITE)
 
     # Get what game this Patch is for
     logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
@@ -398,11 +402,12 @@ def patchInfo(*args):
      # I want to quit the process
     else:  # elif game_select.lower() == "q":
         logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.text("\nCanceling creation of PatchIt! Patch", color.FG_WHITE)
+        colors.text("\nCanceling creation of PatchIt! Patch",
+             color.FG_LIGHT_RED)
         PatchIt.main()
 
     logging.info("Ask for Patch name")
-    print("\n")
+    print()
     patchName()
 
     logging.info("Ask for Patch version")
@@ -505,19 +510,17 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
         logging.info("Write {0} with Patch details using UTF-8 encoding".format(
             thepatch))
         with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
-            patch.write("// PatchIt! PiP file format V1.1, developed by le717 and rioforce\n")
-            patch.write("[PiA]\n")
-            patch.write("{0}\n".format(thearchive))
-            patch.write("[GENERAL]\n")
-            #lint:disable
-            patch.write("{0}\n".format(name))
-            patch.write("{0}\n".format(version))
-            patch.write("{0}\n".format(author))
-            patch.write("{0}\n".format(mp))
-            patch.write("{0}\n".format(game))
-            patch.write("[DESCRIPTION]\n")
-            patch.write("{0}\n".format(desc))
-            #lint:enable
+            patch.write('''// PatchIt! PiP file format V1.1, developed by le717 and rioforce
+[PiA]
+{0}
+[GENERAL]
+{1}
+{2}
+{3}
+{4}
+{5}
+[DESCRIPTION]
+{6}'''.format(thearchive, name, version, author, mp, game, desc))  # lint:ok
 
         # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
@@ -540,8 +543,12 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
 PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
     name, version))  # lint:ok
 
-        colors.text("\nPatchIt! does not have the rights to create {0} (Version: {1})!"
-        .format(name, version), color.FG_LIGHT_RED)  # lint:ok
+        # User did not want to reload with Administrator rights
+        if not runasadmin.AdminRun().launch(
+            "PatchIt! does not have the rights to create {0} (Version: {1})"
+            .format(name, version)):  # lint:ok
+            # Do nothing, go to main menu
+            pass
 
     # Python itself had some I/O error/any exceptions not handled
     except Exception:
