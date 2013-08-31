@@ -31,10 +31,6 @@ import tarfile
 import time
 import distutils.dir_util
 
-# Colored shell text
-import Color as color
-import Color.colors as colors
-
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 
@@ -46,6 +42,10 @@ from constants import app_folder
 
 # Core PatchIt! module
 import PatchIt
+
+# Colored shell text
+import Color as color
+import Color.colors as colors
 
 # RunAsAdmin wrapper
 import runasadmin

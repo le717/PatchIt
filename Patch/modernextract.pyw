@@ -57,6 +57,9 @@ from Patch import racingtips
 import Color as color
 import Color.colors as colors
 
+# RunAsAdmin wrapper
+import runasadmin
+
 
 # ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
 
@@ -523,6 +526,10 @@ If this error continues, contact {5} and ask for a fixed version.'''
         .format(name, version, os.path.basename(patch),
         patch_archive, patch_location, author), color.FG_LIGHT_RED)
 
+            # Sleep for 2 seconds after displaying installation result
+        # before kicking back to the main menu.
+        time.sleep(2)
+
     # The user does not have the rights to install to that location.
     except PermissionError:
         logging.warning("Error number '13'")
@@ -534,10 +541,15 @@ If this error continues, contact {5} and ask for a fixed version.'''
 
 PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
 .format(name, version, install_path))
-        colors.text('''\nPatchIt! does not have the rights to install
+
+        # User did not want to reload with Administrator rights
+        if not runasadmin.AdminRun().launch(
+            '''PatchIt! does not have the rights to install
 {0} (Version: {1}) to
-{2}!
-'''.format(name, version, install_path), color.FG_LIGHT_RED)
+{2}
+'''.format(name, version, install_path)):
+            # Do nothing, go to main menu
+            pass
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
@@ -558,14 +570,15 @@ PatchIt! ran into an unknown error while trying to install
 '''.format(name, version, install_path),
 color.FG_LIGHT_RED)
 
+        # Sleep for 2 seconds after displaying installation result
+        # before kicking back to the ,ain menu.
+        time.sleep(2)
+
     # This is run no matter if an exception was raised nor not.
     finally:
         # Delete all PiP data to free up resources
         del all_lines[:]
         logging.info("Deleting all data from {0}{1}.PiP".format(name, version))
-        # Sleep for 2 seconds after displaying installation result
-        # before kicking back to the PatchIt! menu.
-        time.sleep(2)
         PatchIt.main()
 
 

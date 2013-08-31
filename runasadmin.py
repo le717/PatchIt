@@ -55,8 +55,14 @@ class AdminRun(object):
 Would you like to relaunch PatchIt! with Administrator rights?'''.format(
     message))
 
-        # If user chooses to relaunch
-        if __admin:
+        # User does not want to relaunch PatchIt!
+        if not __admin:
+            logging.info("User does not want to relaunch PatchIt!")
+            __root.destroy()  # lint:ok
+            return False
+
+        # If user wants to relaunch
+        else:
             logging.info("User wants to relaunch PatchIt!")
 
             # This is the raw Python script. RunAsAdmin will not work
@@ -64,25 +70,24 @@ Would you like to relaunch PatchIt! with Administrator rights?'''.format(
             constants.exe_name.endswith("pyw")):
                 logging.warning('''This is the raw PatchIt! Python script ({0})
 RunAsAdmin.exe cannot operate!'''.format(constants.exe_name))
+
                 showerror("Running Error!",
     '''You are running the raw PatchIt! Python script ({0}).
 RunAsAdmin will not work at all.'''.format(constants.exe_name))
+                __root.destroy()  # lint:ok
+                return False
 
             # Launch RunAsAdmin to reload PatchIt!
             else:
                 logging.info('''This is the PatchIt! exe ({0}).
 Launching RunAsAdmin.exe'''.format(constants.exe_name))
+
                 subprocess.call(
                     [os.path.join(constants.app_folder, "RunAsAdmin.exe"),
                     constants.exe_name])
 
-            # Now we close PatchIt!, and let RunAsAdmin take over
-            # (that is, if this is an exe)
-            __root.destroy()  # lint:ok
-            logging.shutdown()
-            raise SystemExit(0)
-
-        # User did not want to relaunch PatchIt!
-        else:
-            logging.info("User does not want to relaunch PatchIt!")
-            return False
+                # Now we close PatchIt!, and let RunAsAdmin take over
+                # (that is, if this is an exe)
+                __root.destroy()  # lint:ok
+                logging.shutdown()
+                raise SystemExit(0)
