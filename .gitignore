@@ -121,10 +121,14 @@ UpgradeLog*.XML
 ############
 
 # Windows image file caches
-*.db
+Thumbs.db
+ehthumbs.db
 
 # Folder config file
 Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
 *.exe
 *.msi
@@ -199,22 +203,23 @@ TheTesterGroup/
 ## Files
 ##########
 
-#*.psd
+*.psd
 *.txt
 *.ini
 *.iss
+*.~is
+*.log
+*.PiP
+*.blend
+*.blend1
+*.blend2
+*.wpp
+*.html
+RunAsAdmin.cfg
 JAMExtractor.py
 listtips.py
 *settings
-*.log
-*.PiP
-*.~is
-*.blend
-*.blend1
-RunAsAdmin.cfg
-*.html
 !Read-Me-First.html
-*.blend2
 !Windows/unsetup.py
 Windows/PatchIt-*
 Windows/PatchIt-*
@@ -223,5 +228,3 @@ Windows/Download.html
 Updater/wget.py
 Updater/*.cfg
 PatchIt-Compatible.html
-!LICENSE.RunAsAdmin.txt
-#Documentation/Readme/ChangeLog/1*
