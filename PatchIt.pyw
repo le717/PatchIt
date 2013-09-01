@@ -31,6 +31,7 @@ import os
 import webbrowser
 import platform
 import subprocess
+import argparse
 
 # App Logging
 import logging
@@ -53,91 +54,65 @@ from Game import (Racers, LOCO)
 # PatchIt! "Constants"
 from constants import (
     app, majver, minver, creator, LR_game, LOCO_game,
-    exe_name, app_folder, settings_fol, app_icon, Pi_settings)
+    app_folder, settings_fol, app_icon, Pi_settings)
 
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
 
+# ------------ Begin PatchIt! Command-line Arguments ------------ #
+
 def args():
     """PatchIt! Command-line Arguments"""
-    #TODO: Attempt to replace this with argparse
     logging.info("Command-line arguments processor started")
 
-    # Declare test parameter (-t, --test) as global for use in other places
-    global test
-    test = False
-    # The shell extension
-    shell = []
+    parser = argparse.ArgumentParser(
+        description="{0} {1} {2} Command-line Arguments".format(
+            app, majver, minver))
 
-    for i in range(1, len(sys.argv)):
-        argument = sys.argv[i]
+    # Experimental Mode argument
+    parser.add_argument("-t", "--test",
+        help='Enable PatchIt! experimental features', action="store_true")
 
-        # Arguments lists
-        test_params = ["--test", "-t"]
-        help_params = ["--help", "-h"]
+    # Open file argument
+    parser.add_argument("-o", "--open",
+         help='''Confirm and install a PatchIt! Patch without going through the menu first''')
 
-        for value in help_params:
-            # If the help parameter was given
-            if argument == value:
-                logging.info("The help parameter (-h, --help) was given, displaying help messages")
-                print("\n{0} Version {1} Command-line arguments".format(
-                    app, majver))
-                # Use input rather than print so user can close the window
-                # at anytime, rather than it closing after x seconds
-                input(r'''
-Optional arguments
-==================
+    # Register all the parameters
+    args = parser.parse_args()
 
--h, --help
+    # Declare parameters
+    debugarg = args.test
+    openfile = args.open
 
-Display this help message and exit.
+    # If the debug parameter is passed, enable the debugging messages
+    if debugarg:
+        global test
+        test = True
+        os.system("title {0} Version {1} {2} - Experimental Mode".format(
+            app, majver, minver))
+        logging.info("Starting PatchIt! in Experimental Mode")
 
--t, --test
+    # The debug parameter was not passed, don't display debugging message
+    else:
+        test = False
+        logging.info("Starting PatchIt! in Normal Mode")
 
-Enable PatchIt! experimental features.
-
-{0} \\File Path\\
-
-Confirm and install a PatchIt! Patch without going through the menu first.
-
-NOTE: If --test parameter is to be given in addition to a file path,
-it must come after the file path.
-
-Press the Enter key to close.'''.format(exe_name))
-                logging.info('''PatchIt! is shutting down
-                ''')
-                logging.shutdown()
-                raise SystemExit(0)
-
-        for value in test_params:
-            # If the test parameter is given
-            if argument == value:
-                test = True
-                os.system("title {0} Version {1} {2} - Experimental Mode"
-                .format(app, majver, minver))
-                logging.info('''The test parameter was given,
-enabling Experimental Mode''')
-                preload()
-
-            # A file path was given
-            else:
-                logging.info("The shell extension was invoked")
-                shell.append(argument)
-
-    # Process file or run program, depending on parameters
-    if len(shell) > 0:
-        for file in shell:
-            # If it is a file, switch to Patch Installation
-            if os.path.isfile(file):
+    # If the open argument is valid,
+    if openfile is not None:
+        # If it is a file, switch to Patch Installation
+            if os.path.isfile(openfile):
                 logging.info("A file path was given, switching to extract.checkPatch()")
-                extract.checkPatch(file)
+                extract.checkPatch(openfile)
 
             # It was a directory, or a non-existent file
             else:
                 logging.warning("Invalid path or no parameters were given!")
                 # Do nothing, let RunIt.py do its work
                 pass
+
+
+# ------------ End PatchIt! Command-line Arguments ------------ #
 
 
 def info():

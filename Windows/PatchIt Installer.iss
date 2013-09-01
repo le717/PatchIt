@@ -144,7 +144,7 @@ Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueData: "PatchIt! Patch"; Fl
 Root: "HKCR"; Subkey: ".PiP\DefaultIcon"; ValueType: string; ValueData: "{app}\Icons\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell"; ValueType: string; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe ""%1"""; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe ""--open %1"""; Flags: uninsdeletevalue; Tasks: Shell
 
 [Files] 
 ; PatchIt! Updater
