@@ -33,7 +33,7 @@ import sys
 import os
 import webbrowser
 
-# PatchIt! Version Info
+# PatchIt! Constants
 from constants import (app, majver, minver, app_folder, app_icon)
 
 # RunAsAdmin wrapper
