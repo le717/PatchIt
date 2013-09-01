@@ -362,7 +362,7 @@ def getRacersPath():
         with open(os.path.join(constants.settings_fol, constants.LR_settings),
         "rt", encoding="utf-8") as f:
             racers_install_path = f.readlines()[6]
-            return racers_install_path
+        return racers_install_path
 
     # It may exist, but it doesn't mean the path is set up
     except IndexError:
@@ -408,7 +408,7 @@ def getLOCOPath():
         with open(os.path.join(constants.settings_fol, constants.LOCO_settings),
              "rt", encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
-            return loco_install_path
+        return loco_install_path
 
     # It may exist, but it doesn't mean the path is set up
     except IndexError:
@@ -472,7 +472,7 @@ and request a proper Patch.'''.format(name, version, game, author),
         # Display the Racers gameplay tip
         if game == "LEGO Racers":
             logging.info("Display LEGO Racers gameplay tip")
-            colors.text("\nHere's a tip!\n{0}".format(
+            colors.text("\nHere's a tip!\n{0}\n".format(
                 random.choice(racingtips.gametips)), color.FG_CYAN)
 
         # Display the LEGO LOCO map resolution.
@@ -493,6 +493,10 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         # Log Archive closure although it was closed automatically by `with`
         logging.info("Closing {0}".format(patch_archive))
+
+        # Sleep for 1 second after displaying installation result
+        # before kicking back to the main menu.
+        time.sleep(1)
 
     # For some reason, it cannot find the Patch archive
     except FileNotFoundError:
@@ -517,7 +521,7 @@ If this error continues, contact {5} and ask for a fixed version.'''
         .format(name, version, os.path.basename(patch),
         patch_archive, patch_location, author), color.FG_LIGHT_RED)
 
-            # Sleep for 2 seconds after displaying installation result
+        # Sleep for 2 seconds after displaying installation result
         # before kicking back to the main menu.
         time.sleep(2)
 

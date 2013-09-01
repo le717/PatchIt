@@ -7,5 +7,4 @@ However, [Issues](https://github.com/le717/PatchIt/issues) contain the newest, u
 * *NEW!* Automatic LEGO.JAM extraction (upon user approval)
 * *NEW!* Complete GUI (postponed until later release)
 * *NEW!* Cross-platform Compatibility (not until GUI, shell colors are Windows-only)
-* *NEW!* [RunAsAdmin](https://github.com/QuantumCD/RunAsAdmin) intergration
 * Any TODO items scattered around in any of the scripts

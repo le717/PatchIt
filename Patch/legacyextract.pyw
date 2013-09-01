@@ -50,6 +50,9 @@ from constants import (settings_fol, LR_settings)
 # LEGO Racers settings
 from Game import Racers
 
+# RunAsAdmin wrapper
+import runasadmin
+
 
 # ------------ Begin Legacy PatchIt! Patch Installation ------------ #
 
@@ -183,18 +186,23 @@ def readPatch(installpatch):
 
             # Display the LEGO Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
-            colors.text("\nHere's a tip!\n{0}".format(choice(racingtips.gametips)),
-                color.FG_CYAN)
+            colors.text("\nHere's a tip!\n{0}\n".format(
+                choice(racingtips.gametips)), color.FG_CYAN)
 
             # Installation was successful!
             logging.info("Error (exit) number '0'")
             logging.info("{0} {1} successfully installed to {2}".format(
                 installname, installver, installpath))
-            print("\n{0} {1} successfully installed!\n".format(installname,
-            installver))
+
+            colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
+            installname, installver, installpath), color.FG_LIGHT_GREEN)
 
             # Log ZIP closure although it was closed automatically by `with`
             logging.info("Closing {0}".format(installzipfile))
+
+            # Sleep for 1 second after displaying installation result
+            # before kicking back to the main menu.
+            time.sleep(1)
 
         # For some reason, it cannot find the ZIP archive
         except FileNotFoundError:
@@ -216,7 +224,11 @@ are in the same folder, and try again.
 If the error continues, contact {3} and ask for a fixed version.'''
             .format(installname, installver, installauthor), color.FG_LIGHT_RED)
 
-            # The user does not have the rights to install to that location.
+            # Sleep for 2 seconds after displaying installation result
+            # before kicking back to the main menu.
+            time.sleep(2)
+
+        # The user does not have the rights to install to that location.
         except PermissionError:
             logging.info("Error number '13'")
             logging.exception('''Oops! Something went wrong!
@@ -225,13 +237,17 @@ Here's what happened
             logging.warning('''PatchIt! does not have the rights to install {0} {1}
 to
 {2}!'''.format(installname, installver, installpath))
-            colors.text('''
-PatchIt! does not have the rights to install {0} {1}
-to
-{2}!'''.format(installname, installver, installpath),
-color.FG_LIGHT_RED)
 
-        # Python itself had some I/O error / any exceptions not handled
+            # User did not want to reload with Administrator rights
+            if not runasadmin.AdminRun().launch(
+'''PatchIt! does not have the rights to install
+{0} ({1}) to
+{2}
+'''.format(installname, installver, installpath)):
+                # Do nothing, go to main menu
+                pass
+
+        # Python itself had some I/O error/any exceptions not handled
         except Exception:
             logging.info("Unknown error number")
             logging.exception('''Oops! Something went wrong!
@@ -247,11 +263,12 @@ to
                 installname, installver, installpath),
             color.FG_LIGHT_RED)
 
-        # This is run no matter if an exception was raised nor not.
-        finally:
             # Sleep for 2 seconds after displaying installation result
             # before kicking back to the main menu.
             time.sleep(2)
+
+        # This is run no matter if an exception was raised nor not.
+        finally:
             logging.info("Proceeding to main menu")
             PatchIt.main()
 
