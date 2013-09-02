@@ -145,21 +145,13 @@ def info():
 
 def preload():
     """PatchIt! Settings checks"""
-    # One of the settings files do not exist
-    if not os.path.exists(settings_fol):
-        logging.warning("PatchIt! Settings do not exist!")
-        logging.info("Proceeding to write PatchIt! settings (Settings())")
-        Settings()
-
-    # The PatchIt! settings folder does exist (implied else block here)
+    # Write general PatchIt! settings.
+    # A check is not needed for this, it is always written.
+    PiSettings()
 
     # Assign variables for easier access
     hasLRSettings = Racers.CheckLRSettings()
     hasLOCOSettings = LOCO.CheckLOCOSettings()
-
-    # Write general PatchIt! settings.
-    # A check is not needed for this, it is always written.
-    PiSettings()
 
     # If the Racers settings is present but not LOCO,
     # go to main menu
@@ -418,9 +410,12 @@ def Settings(*args):
 def PiSettings():
     """Writes PatchIt! General Settings"""
     #TODO: Will be expanded with more data in a future release
-    logging.info("Writing {0}".format(os.path.join(settings_fol, Pi_settings)))
-    with open(os.path.join(settings_fol, Pi_settings),
-              "wt", encoding="utf-8") as f:
+    the_file = os.path.join(settings_fol, Pi_settings)
+    logging.info("Writing {0}".format(the_file))
+    if not os.path.exists(settings_fol):
+        os.makedirs(settings_fol)
+
+    with open(os.path.join(the_file), "wt", encoding="utf-8") as f:
         logging.info("Write line telling what program this file belongs to")
         f.write("// PatchIt! General Settings\n")
 
