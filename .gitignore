@@ -215,6 +215,7 @@ TheTesterGroup/
 *.blend2
 *.wpp
 *.html
+*.pickle
 !RunAsAdmin.cfg
 JAMExtractor.py
 listtips.py
