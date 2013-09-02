@@ -136,11 +136,6 @@ def file_check(path):
     # --- End Illegal File Scan -- #
 
 
-#def cls():
-
-    #os.system("cls")
-
-
 def delete_files():
     """Deletes temporary folder created during compression"""
     try:
