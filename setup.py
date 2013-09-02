@@ -60,7 +60,7 @@ build_exe_options = {"build_exe": destfolder,
                     "re",
                     "patchit",
                     "color",
-                    "runasadmin"
+                    "runasadmin",
                     "Patch/modernextract",
                     "Patch/moderncompress",
                     "Patch/legacyextract",
