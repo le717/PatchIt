@@ -41,7 +41,7 @@ base = "Win32GUI"
 # If this is Python x86
 if sys.maxsize == 2147483647:
     destfolder = "Uninstaller"
-    
+
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
