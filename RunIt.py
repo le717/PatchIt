@@ -55,7 +55,7 @@ if sys.version_info < (3, 3, 0):
     root.iconbitmap(app_icon)
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
-    sys.version[0:5], app, majver, minver))
+        sys.version[0:5], app, majver, minver))
 
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
@@ -99,7 +99,7 @@ def appLoggingFolder():
     except PermissionError:
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
-            "PatchIt! does not have the user rights to operate!"):
+                "PatchIt! does not have the user rights to operate!"):
             # Close PatchIt!
             raise SystemExit(0)
 
