@@ -72,11 +72,12 @@ def args():
 
     # Experimental Mode argument
     parser.add_argument("-t", "--test",
-        help='Enable PatchIt! experimental features', action="store_true")
+                        help='Enable PatchIt! experimental features',
+                        action="store_true")
 
     # Open file argument
     parser.add_argument("-o", "--open",
-         help='''Confirm and install a PatchIt! Patch without going through the menu first''')
+                        help='''Confirm and install a PatchIt! Patch without going through the menu first''')
 
     # Register all the parameters
     args = parser.parse_args()
@@ -128,7 +129,7 @@ def info():
     logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
         platform.python_implementation(), py_arch, platform.python_version(),
-         platform.machine(), platform.platform()))
+        platform.machine(), platform.platform()))
     logging.info('''
                                 #############################################
                                         {0} Version {1} {2}
@@ -229,18 +230,19 @@ package and install mods for LEGO Racers"
 
     # Close About Window button
     close = ttk.Button(frame, default="active", text="Close",
-         command=close_about)
+                       command=close_about)
     close.grid(column=1, row=1, sticky=tk.N, pady="7")
 
     # GitHub Project Button
     github = ttk.Button(frame, text="Website",
-         command=lambda:
-         webbrowser.open_new_tab("http://le717.github.io/PatchIt"))
+                        command=lambda: webbrowser.open_new_tab(
+                            "http://le717.github.io/PatchIt"))
     github.grid(column=0, row=1, sticky=tk.N, pady="7")
 
     # Creator's website button
     creator_site = ttk.Button(frame, text="Triangle717",
-         command=lambda: webbrowser.open_new_tab("http://wp.me/P1V5ge-I3"))
+                              command=lambda: webbrowser.open_new_tab(
+                                  "http://wp.me/P1V5ge-I3"))
     creator_site.grid(column=2, row=1, sticky=tk.N, pady="7")
 
     # Small bit of padding around the elements
@@ -362,10 +364,10 @@ def easteregg(*args):
     tk.messagebox.showerror("Uh-oh", "That was bad.")
     tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
     tk.messagebox.askquestion("Uh-oh",
-        "Would you like see your punishment for pressing that key?")
+                              "Would you like see your punishment for pressing that key?")
     subprocess.call([
         os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")
-        ], shell=True)
+                    ], shell=True)
     logging.info("PatchIt! is shutting down.")
     logging.shutdown()
     raise SystemExit(0)
