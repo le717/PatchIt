@@ -112,14 +112,14 @@ def main():
         print('''
 You are running an older version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.'''.format(
-    cur_version, cur_title, new_version, new_title))
+            cur_version, cur_title, new_version, new_title))
 
     # User is running a pre-release, (Unstable, RC1, etc)
     elif (VersionCompare and not TitleCompare):
         print('''
 You are running a pre-release version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.'''.format(
-    cur_version, cur_title, new_version, new_title))
+            cur_version, cur_title, new_version, new_title))
 
         # Prompt to begin update
         update_prerelease = input("\n> ")
@@ -137,7 +137,7 @@ Press Enter to begin the update process, or any other key to quit.'''.format(
         print('''
 Your copy is already up-to-date.
 Press Enter to to update it anyway, or any other key to quit'''.format(
-    cur_version, cur_title))
+            cur_version, cur_title))
 
         # Prompt to begin update
         update_anyway = input("\n> ")
@@ -179,7 +179,7 @@ def ReadPiInstall():
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
             # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
+                or encoding == b"\xff\xfe/"):
 
                 # The file cannot be used, go write it
                 SelectPiInstall()
@@ -320,13 +320,14 @@ def GetNewVersion():
 {1}
 
 Please report this error to {2} right away.'''.format(LinkFileName,
-     LinkFile.strip(LinkFileName), author))
-         #TODO: Reenable closing
+                                                      LinkFile.strip(
+                                                          LinkFileName), author))
+        #TODO: Reenable closing
         #CloseUpdater()
 
     # The file was downloaded, now read it
     with open(os.path.join(app_folder, LinkFileName), "rt",
-         encoding="utf-8") as f:
+              encoding="utf-8") as f:
         lines = f.readlines()[:]
 
     # Assign the proper value for each line
@@ -373,7 +374,7 @@ def GetCurrentVersion(pi_settings_fol):
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
             # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
+                or encoding == b"\xff\xfe/"):
 
                 # The file cannot be used, go write it
                 SelectPiInstall()
