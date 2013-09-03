@@ -104,7 +104,7 @@ TimeStampsInUTC=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt"
+Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt" 
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
@@ -120,6 +120,7 @@ nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwij
 english.Settings_Reset=Reset {#MyAppName} Preferences
 english.Admin=Run {#MyAppName} with Administrator Rights
 english.Shell=Associate .PiP File with {#MyAppName}
+english.Options=Insallation Options:
 francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
 francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
 francais.Shell=Associer fichier. PiP Avec {#MyAppName}
@@ -128,11 +129,12 @@ nederlands.Admin=Run {#MyAppName} met beheerdersrechten
 nederlands.Shell=Associëren .PiP File Met {#MyAppName}
 
 [Tasks]
-Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
-Name: Shell; Description: {cm:Shell}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+Name: Admin; Description: {cm:Admin}; GroupDescription: {cm:Options}; Check: not PortableInstall
+Name: Settings_Reset; Description: {cm:Settings_Reset}; GroupDescription: {cm:Options}; Flags: unchecked
 
-Name: Admin; Description: {cm:Admin}; Check: not PortableInstall
-Name: Settings_Reset; Description: {cm:Settings_Reset}; Flags: unchecked     
+Name: Shell; Description: {cm:Shell}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: not PortableInstall
+   
 
 [Registry]
 ; Registry strings are always hard-coded (!!NO ISPP!!) to ensure everything works correctly.
@@ -144,9 +146,17 @@ Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueData: "PatchIt! Patch"; Fl
 Root: "HKCR"; Subkey: ".PiP\DefaultIcon"; ValueType: string; ValueData: "{app}\Icons\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell"; ValueType: string; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe ""--open %1"""; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe --open ""%1"""; Flags: uninsdeletevalue; Tasks: Shell
 
 [Files] 
+; PatchIt! Uninstaller                                                                              
+Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+
 ; PatchIt! Updater
 
 
@@ -162,7 +172,7 @@ Source: RunAsAdmin\RunAsAdmin.cfg; DestDir: {app}; Flags: ignoreversion
 Source: RunAsAdmin\RunAsAdmin.exe; DestDir: {app}; Flags: ignoreversion  
 
 ; License files
-Source: ..\Freeze\License\*; DestDir: {app}\License; Flags: ignoreversion
+Source:  ..\License\*; DestDir: {app}\License; Flags: ignoreversion
 
 ; Settings files
 Source: ..\Freeze\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
@@ -178,8 +188,8 @@ Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversio
 [Icons]
 ; Launch PatchIt!, view Readme, Uninstall
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Parameters: "--test"; Comment: "Run {#MyAppVerName} - Experimental Mode"
-Name: "{group}\{#MyAppName}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "View {#MyAppName} Readme"
+Name: "{group}\{#MyAppName} - Experimental Mode"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Parameters: "--test"; Comment: "Run {#MyAppVerName} - Experimental Mode"
+Name: "{group}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "View {#MyAppName} Readme"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PatchItIcon.ico"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Tasks: desktopicon
 

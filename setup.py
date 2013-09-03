@@ -52,21 +52,23 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
     raise SystemExit(0)
 
 build_exe_options = {"build_exe": destfolder,
-                    "create_shared_zip": True,
-                    "optimize": 1,
-                    "icon": "Icons/PatchItIcon.ico",
-                    "compressed": True,
-                    "includes": [
-                    "re",
-                    "patchit",
-                    "color",
-                    "runasadmin",
-                    "Patch/modernextract",
-                    "Patch/moderncompress",
-                    "Patch/legacyextract",
-                    "Patch/racingtips",
-                    "Game/handlejam",
-                    "Settings/buildgen"]
+                     "create_shared_zip": True,
+                     "compressed": True,
+                     "optimize": 1,
+                     "icon": "Icons/PatchItIcon.ico",
+                     "include_files": [
+                     "Build.pickle"],
+                     "includes": [
+                     "re",
+                     "patchit",
+                     "color",
+                     "runasadmin",
+                     "Patch/modernextract",
+                     "Patch/moderncompress",
+                     "Patch/legacyextract",
+                     "Patch/racingtips",
+                     "Game/handlejam",
+                     "Settings/buildgen"]
                     }
 
 setup(
