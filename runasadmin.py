@@ -67,7 +67,7 @@ Would you like to relaunch PatchIt! with Administrator rights?'''.format(
 
             # This is the raw Python script. RunAsAdmin will not work
             if (constants.exe_name.endswith("py") or
-            constants.exe_name.endswith("pyw")):
+                    constants.exe_name.endswith("pyw")):
                 logging.warning('''This is the raw PatchIt! Python script ({0})
 RunAsAdmin.exe cannot operate!'''.format(constants.exe_name))
 
@@ -84,7 +84,7 @@ Launching RunAsAdmin.exe'''.format(constants.exe_name))
 
                 subprocess.call(
                     [os.path.join(constants.app_folder, "RunAsAdmin.exe"),
-                    constants.exe_name])
+                        constants.exe_name])
 
                 # Now we close PatchIt!, and let RunAsAdmin take over
                 # (that is, if this is an exe)
