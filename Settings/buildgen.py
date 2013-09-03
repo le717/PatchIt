@@ -51,12 +51,12 @@ def get_build():
 
         # If this is a frozen exe, it will return None
         if (hasattr(sys, "frozen") and
-        sys.frozen in ("windows_exe", "console_exe")):
+                sys.frozen in ("windows_exe", "console_exe")):
             pass
 
         # This is the raw Python script, get a new number
         elif not (hasattr(sys, "frozen") and
-        not sys.frozen in ("windows_exe", "console_exe")):
+                  not sys.frozen in ("windows_exe", "console_exe")):
             new_build = write_build(False)
             return new_build
 
