@@ -46,3 +46,22 @@ app_folder = os.path.dirname(sys.argv[0])
 settings_fol = os.path.join(app_folder, "Settings")
 # PatchIt! App Icon
 app_icon = os.path.join(app_folder, "Icons", "PatchItIcon.ico")
+# Build number (v3 Pickle data)
+build_file = os.path.join(app_folder, "Build.pickle")
+
+if __name__ != "__main__":
+    # Get the build number
+    from Settings import buildgen
+    build_num = buildgen.get_build()
+
+    # This is a frozen exe and the data is missing; assign a "number"
+    if build_num is None:
+        build_num = "Unknown"
+
+    # If this is not a frozen exe,
+    if not (hasattr(sys, "frozen") and
+    not sys.frozen in ("windows_exe", "console_exe")):
+        # and if this is not a Stable release,
+        if minver != "Stable":
+            # increase the build number.
+            buildgen.update_build(build_num)

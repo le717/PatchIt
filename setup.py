@@ -65,7 +65,8 @@ build_exe_options = {"build_exe": destfolder,
                     "Patch/moderncompress",
                     "Patch/legacyextract",
                     "Patch/racingtips",
-                    "Game/handlejam"]
+                    "Game/handlejam",
+                    "Settings/buildgen"]
                     }
 
 setup(

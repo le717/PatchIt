@@ -53,7 +53,7 @@ from Game import (Racers, LOCO)
 
 # PatchIt! "Constants"
 from constants import (
-    app, majver, minver, creator, LR_game, LOCO_game,
+    app, majver, minver, build_num, creator, LR_game, LOCO_game,
     app_folder, settings_fol, app_icon, Pi_settings)
 
 
@@ -185,9 +185,9 @@ def about(*args):
     root = tk.Tk()
     # Window title
     root.title("About {0} Version {1}".format(app, majver))
-    # The box cannot be any smaller than this
-    root.minsize("420", "260")
-    root.maxsize("420", "260")
+    # The box cannot be other size
+    root.minsize("420", "280")
+    root.maxsize("420", "280")
 
     # Give it focus
     root.deiconify()
@@ -212,13 +212,14 @@ def about(*args):
 
 
             {0} Version {1} {2}
+                              Build {3}
                Released ?? ??, 2013
 
             Created 2013 Triangle717
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(app, majver, minver))
+'''.format(app, majver, minver, build_num))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -426,7 +427,7 @@ def PiSettings():
         # Write the PatchIt! Major and Minor number,
         # as defined in the majver and minver variables
         logging.info("Writing version number of this copy of PatchIt")
-        f.write("{0} {1}".format(majver, minver))
+        f.write("{0} {1} Build {2}".format(majver, minver, build_num))
 
 
 # ------------ End PatchIt! General Settings ------------ #
