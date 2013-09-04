@@ -68,6 +68,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
             "Cannot find {0} installation at {1}".format(LR_game, LR_path))
+            root.destroy()
 
             # Go write the settings file
             logging.info("Proceeding to write PatchIt! LEGO Racers settings")
