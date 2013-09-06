@@ -25,6 +25,8 @@
 import sys
 import os
 import platform
+import subprocess
+import argparse
 
 # Downloads file(s) from the internet
 import wget
@@ -49,17 +51,15 @@ updater_file = "Updater.cfg"
 #LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
 LinkFile = "NewestRelease.cfg"
 
-# Manually define the file to download
-try:
-    LinkFile = sys.argv[1]
-# No URL was given, use one from GitHub
-except IndexError:
-    pass
+# URL of archive containing RunAsAdmin utility
+RunAdminLink = ""
+# Get just the filename (helps simplify the code)
+RunAdminName = os.path.basename(RunAdminLink)
 
 # Get just the filename (helps simplify the code)
 LinkFileName = os.path.basename(LinkFile)
 
-# Check if Windows architectyure is x64 or x86
+# Check if Windows architecture is x64 or x86
 if platform.machine() == "AMD64":
     os_bit = True
 else:
@@ -67,6 +67,46 @@ else:
 
 
 # -------- Begin Core Process -------- #
+
+def args():
+    """Command-line arguments parser"""
+    parser = argparse.ArgumentParser(
+        description="{0} {1} {2} Command-line Arguments".format(
+            app, majver, minver))
+
+    # Reload argument
+    parser.add_argument("-r", "--reload",
+                        help='Reloads PatchIt! Updater using the RunAsAdmin utility',
+                        action="store_true")
+
+     # Alternate download link
+    parser.add_argument("-l", "--link",
+                        help='''Alternate download location for updated PatchIt! releases''')
+
+    # Alternate RunAsAdmin link
+    parser.add_argument("-a", "--admin",
+                        help='''Alternate download location for RunAsAdmin utility''')
+
+    # Register all the parameters
+    args = parser.parse_args()
+
+    # Declare parameters
+    LinkFile = args.link
+    adminarg = args.admin
+    reloadarg = args.reload
+
+    # Relaunch the updater
+    if reloadarg:
+        RunAdminDL(start=False)
+
+    if LinkFile is not None:
+        pass
+
+    if adminarg is not None:
+        pass
+
+    #main()
+
 
 def CloseUpdater():
     """Close the updater"""
@@ -82,6 +122,9 @@ def CloseUpdater():
 
 def main():
     """Update PatchIt! to the newest version"""
+    # Download RunAsAdmin utility
+    RunAdminDL(start=True)
+
     # Get PatchIt! installation path
     pi_install_path = ReadPiInstall()
 
@@ -123,7 +166,6 @@ Press Enter to begin the update process, or any other key to quit.'''.format(
 
         # Prompt to begin update
         update_prerelease = input("\n> ")
-        #OPTIMIZE: Change variable to True?
 
         # User does not want to update
         if update_prerelease:
@@ -154,6 +196,30 @@ Press Enter to to update it anyway, or any other key to quit'''.format(
 
     # Close the updater
     CloseUpdater()
+
+
+def RunAdminDL(start=True):
+    """Downloads RunAsAdmin utility for use and possible installation"""
+    # Download RunAsAdmin
+    if start:
+        # Download the file with the newest info
+        try:
+            wget.download(RunAdminLink)
+
+        # The file could not be downloaded
+        #TODO: Remove ValueError when code is near completion
+        #TODO: Don't delete download, keep it. It might be needed
+        except (HTTPError, ValueError):
+            print('''#TODO: Write me!''')
+
+        # Relaunch with Admin rights, passing parameter to not repeat this step
+        subprocess.call(["RunAsAdmin.exe", "--reload"])
+
+    # Do... something (my mind just blanked)
+    else:
+        print("Hi.")
+        raise SystemExit(0)
+
 
 # -------- End Core Process -------- #
 
@@ -387,6 +453,7 @@ def GetCurrentVersion(pi_settings_fol):
     bananasplit = existing_version.split(" ")
     version = bananasplit[0]
     title = bananasplit[1]
+    #TODO: Add check for build number
 
     # Clean up the text
     version = version.strip()
@@ -432,4 +499,5 @@ if __name__ == "__main__":
     # Write window title
     os.system("title {0} {1} {2}".format(app, majver, minver))
     # Run updater
+    args()
     main()
