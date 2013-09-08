@@ -92,7 +92,7 @@ def args():
 
     # Declare parameters
     LinkFile = args.link
-    adminarg = args.admin
+    RunAdminLink = args.admin
     reloadarg = args.reload
 
     # Relaunch the updater
@@ -102,7 +102,7 @@ def args():
     if LinkFile is not None:
         pass
 
-    if adminarg is not None:
+    if RunAdminLink is not None:
         pass
 
     #main()
@@ -123,7 +123,7 @@ def CloseUpdater():
 def main():
     """Update PatchIt! to the newest version"""
     # Download RunAsAdmin utility
-    RunAdminDL(start=True)
+    #RunAdminDL(start=True)
 
     # Get PatchIt! installation path
     pi_install_path = ReadPiInstall()
@@ -336,17 +336,17 @@ Please select your PatchIt! installation.''')
             filetypes=[("PatchIt.exe", "*.exe")]
         )
 
+        # Give focus back to console window
+        root.destroy()
+
         # Get the directory PatchIt! is in
         pi_path = os.path.dirname(pi_path)
 
         # The user clicked the cancel button
-        if not pi_path:
+        if pi_path:
 
-            # Give focus back to console window
-            root.destroy()
-
-        # Write the installation to file
-        SavePiInstall(pi_path)
+            # Write the installation to file
+            SavePiInstall(pi_path)
 
 # -------- End PatchIt! Installation Search -------- #
 
@@ -360,6 +360,7 @@ def SavePiInstall(install_path):
     if "\\" in install_path:
         install_path = install_path.replace("\\", "/")
 
+    #TODO: Consider using pickle instead
     # Write file containing installation using UTF-8 encoding
     with open(updater_file, "wt", encoding="utf-8") as f:
         f.write("// PatchIt! Updater Settings\n")
@@ -453,6 +454,7 @@ def GetCurrentVersion(pi_settings_fol):
     bananasplit = existing_version.split(" ")
     version = bananasplit[0]
     title = bananasplit[1]
+    #FIXME: What if the path in the file doesn't exist?
     #TODO: Add check for build number
 
     # Clean up the text
@@ -493,11 +495,25 @@ def CompareTitle(cur_title, new_title):
         return True
 
 
+def CompareBuild(cur_build, new_build):
+    """Compares the builds numbers"""
+    # Convert numbers to an integer
+    int_cur_build = int(cur_build)
+    int_new_build = int(new_build)
+
+    # The new build number is greater than the old one
+    if int_new_build > int_cur_build:
+        return False
+
+    # They build numbers are the same
+    else:
+        return True
+
 # -------- End Version Comparison -------- #
 
 if __name__ == "__main__":
     # Write window title
     os.system("title {0} {1} {2}".format(app, majver, minver))
     # Run updater
-    args()
+    #args()
     main()
