@@ -109,13 +109,12 @@ def args():
 
 
 def CloseUpdater():
-    """Close the updater"""
+    """Close the Updater"""
     # Delete the downloaded file
-    #TODO: Reactivate this
+    #TODO: Reactivate this near completion
     #if os.path.exists(os.path.join(app_folder, LinkFileName)):
         #os.unlink(LinkFileName)
 
-    # Close the Updater
     input("\nPress Enter to close.")
     raise SystemExit(0)
 
@@ -137,17 +136,21 @@ def main():
 
     # Retrieve the newest version and update download
     new_version, new_title, new_build, download_link = GetNewVersion()
-    print("\nNewest Version: {0} {1} Build {2}".format(new_version, new_title, new_build))
+    print("\nNewest Version: {0} {1} Build {2}".format(
+         new_version, new_title, new_build))
 
     # Retrieve the user's version
     cur_version, cur_title, cur_build = GetCurrentVersion(pi_settings_fol)
-    print("Your Version: {0} {1} Build {2}".format(cur_version, cur_title, cur_build))
+    print("Your Version: {0} {1} Build {2}".format(
+         cur_version, cur_title, cur_build))
 
     # Compare the version numbers, titles, and builds
     VersionCompare = CompareVersion(cur_version, new_version)
     TitleCompare = CompareTitle(cur_title, new_title)
     print("Current Version:", VersionCompare)
     print("Title:", TitleCompare)
+
+    # If the build number is available
     if cur_build != "Unknown":
         BuildCompare = CompareBuild(cur_build, new_build)
         print("Build:", BuildCompare)
@@ -231,26 +234,15 @@ def RunAdminDL(start=True):
 
 def ReadPiInstall():
     """Reads file containing location of PatchIt! installation"""
-    # The Updater's settings could not be found, return False
+    # The Updater's own settings could not be found, return False
     if not os.path.exists(updater_file):
         return False
 
     # They exist, read it for the installation
     else:
-
-        # Open it, read just the area containing the byte mark
-        with open(updater_file, "rb") as encode_check:
-            encoding = encode_check.readline(3)
-
-        if (  # The settings file uses UTF-8-BOM encoding
-            encoding == b"\xef\xbb\xbf"
-            # The settings file uses UCS-2 Big Endian encoding
-            or encoding == b"\xfe\xff\x00"
-            # The settings file uses UCS-2 Little Endian
-                or encoding == b"\xff\xfe/"):
-
-                # The file cannot be used, go write it
-                SelectPiInstall()
+        # The file cannot be used, go rewrite it
+        if not encode_check(updater_file):
+            SelectPiInstall()
 
         with open(updater_file, "rt", encoding="utf-8") as f:
             pi_install_path = f.readlines()[2]
@@ -276,37 +268,30 @@ def SelectPiInstall():
     # Path to check for PatchIt! on Windows x86
     x86_path = os.path.join(os.path.expandvars("%ProgramFiles%"), "PatchIt")
 
-    # Perhaps the Updater is in the same place as PatchIt!, in that case,
-    # we need to use a different method for finding an installation
+    # Perhaps the Updater is in the same place as PatchIt!.
+    # In that case, use a different method for finding the installation
     same_path = os.path.join(os.path.dirname(app_folder), "Settings")
 
     # The updater resides in the same location as PatchIt!
     if os.path.exists(same_path):
-
         # It's been found, no need for user to define it
         found_install = True
-
         # Write the installation to file
         SavePiInstall(os.path.dirname(app_folder))
 
     # If this is x64 Windows, look for PatchIt in Program Files (x86)
     if os_bit:
         if os.path.exists(os.path.join(x64_path, "PatchIt.exe")):
-
             # It's been found, no need for user to define it
             found_install = True
-
             # Write the installation to file
             SavePiInstall(x64_path)
 
     # If this is x86 Windows, look for PatchIt in Program Files
     else:
         if os.path.exists(os.path.join(x86_path, "PatchIt.exe")):
-            print(os.path.join(x86_path, "PatchIt.exe"))
-
             # It's been found, no need for user to define it
             found_install = True
-
             # Write the installation to file
             SavePiInstall(x86_path)
 
@@ -344,7 +329,6 @@ Please select your PatchIt! installation.''')
 
         # The user clicked the cancel button
         if pi_path:
-
             # Write the installation to file
             SavePiInstall(pi_path)
 
@@ -371,6 +355,19 @@ def SavePiInstall(install_path):
 
 
 # -------- Begin Version Identification -------- #
+
+def encode_check(the_file):
+    """Check if file is properly encoded"""
+    with open(the_file, "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (  # The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+            or encoding == b"\xff\xfe/"):
+                return False
 
 
 def GetNewVersion():
@@ -433,20 +430,11 @@ def GetCurrentVersion(pi_settings_fol):
         #TODO: Automatically run updater
         pass
 
-    #OPTIMIZE: Consider moving encoding check into seperate function
-    # Open it, read just the area containing the byte mark
-        with open(pi_settings_file, "rb") as encode_check:
-            encoding = encode_check.readline(3)
-
-        if (  # The settings file uses UTF-8-BOM encoding
-            encoding == b"\xef\xbb\xbf"
-            # The settings file uses UCS-2 Big Endian encoding
-            or encoding == b"\xfe\xff\x00"
-            # The settings file uses UCS-2 Little Endian
-                or encoding == b"\xff\xfe/"):
-
-                # The file cannot be used, go write it
-                SelectPiInstall()
+    # The file cannot be used, go rewrite it
+    if not encode_check(pi_settings_file):
+        print('''ERROR: Cannnot determine your version of PatchIt!.
+Please go run PatchIt! then launch the Updater again.''')
+        CloseUpdater()
 
     # Read PatchIt.cfg to get current version
     with open(pi_settings_file, "rt", encoding="utf-8") as f:
