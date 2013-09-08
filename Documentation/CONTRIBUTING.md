@@ -6,17 +6,17 @@ If you would like to contribute to the development of **PatchIt!**, please read 
 Requirements
 ------------
 
-### Dependencies
+### Dependencies ###
 
 * Download and install 32-bit [*Python 3.3.0*](http://python.org/download) or newer.
 Python Versions `<=` 3.2 or 64-bit Python are not supported, and a Python version (not architecture) check will prevent it from running on lower versions.
 
-* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for 32-bit *Python 3.3* if you would like to freeze a binary.
+* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary.
 
 * Download and install [*Inno Setup 5.5.2 Unicode*](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
 An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 
-### Editing
+### Editing ### 
 
 * Fork the **PatchIt!** repository by clicking ![the Fork button](http://i81.servimg.com/u/f81/16/33/06/11/forkme12.png)
 * Clone **PatchIt!** onto your computer by running ```git clone https://github.com/yourusername/PatchIt.git```
@@ -26,7 +26,7 @@ An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 * If everything checks out, your changes will be merged into the main **PatchIt!** project! :grinning:
 * Don't forget to ![Star!](http://i81.servimg.com/u/f81/16/33/06/11/star11.png)
 
-### Miscellaneous Notes
+### Miscellaneous Notes ### 
 
 * No external packages or dependencies are needed for the TAR archive functions, as it is implemented using the built-in `tarfile` Python module.
 
@@ -50,7 +50,7 @@ until futher notice. If you have experence in PyQt4/5 or Tkinter and would like 
 Building PatchIt!
 -----------------
 
-### Windows EXEs
+### Windows EXEs ###
 
 **PatchIt!** is frozen into an x86 Windows Exe using cx_Freeze. If you would like to freeze your own build of **PatchIt!**, follow these steps.
 
@@ -73,10 +73,14 @@ python setup.py
 
 It will be frozen to `PatchIt\Windows\Uninstaller`.
 
-### Inno Setup Windows Installer
+### Inno Setup Windows Installer ###
 
 * Open `Windows\PatchIt Installer.iss` in the Inno Setup Compiler.
 * Make desired changes to the script, as long as it is clear you made them.
-* Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty __LEGO® Racers__ and __LEGO® LOCO__ settings files
+* Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty __LEGOÂ® Racers__ and __LEGOÂ® LOCO__ settings files
 are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer.
 * If all goes well, you will have sucessfully frozen and packaged a copy of **PatchIt!**
+
+### Getting RunAsAdmin ###
+
+_Coming Soon._
