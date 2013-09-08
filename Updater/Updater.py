@@ -136,13 +136,9 @@ def main():
 
     # Retrieve the newest version and update download
     new_version, new_title, new_build, download_link = GetNewVersion()
-    print("\nNewest Version: {0} {1} Build {2}".format(
-         new_version, new_title, new_build))
 
     # Retrieve the user's version
     cur_version, cur_title, cur_build = GetCurrentVersion(pi_settings_fol)
-    print("Your Version: {0} {1} Build {2}".format(
-         cur_version, cur_title, cur_build))
 
     # Compare the version numbers, titles, and builds
     VersionCompare = CompareVersion(cur_version, new_version)
@@ -154,6 +150,11 @@ def main():
     if cur_build != "Unknown":
         BuildCompare = CompareBuild(cur_build, new_build)
         print("Build:", BuildCompare)
+
+    print("\nNewest Version: {0} {1} Build {2}".format(
+          new_version, new_title, new_build))
+    print("Your Version: {0} {1} Build {2}".format(
+         cur_version, cur_title, cur_build))
 
     # The user is running a previous version
     if (not TitleCompare and not VersionCompare or
@@ -196,7 +197,7 @@ Press Enter to to update it anyway, or any other key to quit'''.format(
 
         # Run the updater
         else:
-            #TODO: Run the updater
+            #TODO: Run the update process
             print("Updating...")
             pass
     # Close the updater
@@ -383,7 +384,8 @@ def GetNewVersion():
 {0} could not be downloaded from
 {1}
 
-Please report this error to {2} right away.'''.format(LinkFileName,
+Please report this error to {2} right away.
+'''.format(LinkFileName,
                                                       LinkFile.strip(
                                                           LinkFileName), author))
         #TODO: Reenable closing
@@ -424,11 +426,19 @@ def GetCurrentVersion(pi_settings_fol):
 
     # This is pre-v1.1.1 PatchIt!, because the file cannot be found
     if not os.path.exists(pi_settings_file):
-        #FIXME: Better message or return False?
-        #print("Your version of PatchIt! could not be determined.")
+        print('''Your version of PatchIt! could not be determined.
+Press Enter to begin the update process, or any other key to quit.''')
         # So it needs updating
-        #TODO: Automatically run updater
-        pass
+
+        # Prompt to begin update
+        update_me = input("\n> ")
+
+        # User does not want to update
+        if update_me:
+            CloseUpdater()
+        else:
+            #TODO: Run the update process
+            pass
 
     # The file cannot be used, go rewrite it
     if encode_check(pi_settings_file):
