@@ -241,7 +241,7 @@ def ReadPiInstall():
     # They exist, read it for the installation
     else:
         # The file cannot be used, go rewrite it
-        if not encode_check(updater_file):
+        if encode_check(updater_file):
             SelectPiInstall()
 
         with open(updater_file, "rt", encoding="utf-8") as f:
@@ -367,7 +367,7 @@ def encode_check(the_file):
         or encoding == b"\xfe\xff\x00"
         # The settings file uses UCS-2 Little Endian
             or encoding == b"\xff\xfe/"):
-                return False
+                return True
 
 
 def GetNewVersion():
@@ -431,7 +431,7 @@ def GetCurrentVersion(pi_settings_fol):
         pass
 
     # The file cannot be used, go rewrite it
-    if not encode_check(pi_settings_file):
+    if encode_check(pi_settings_file):
         print('''ERROR: Cannnot determine your version of PatchIt!.
 Please go run PatchIt! then launch the Updater again.''')
         CloseUpdater()
