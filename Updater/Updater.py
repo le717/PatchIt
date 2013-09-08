@@ -143,13 +143,15 @@ def main():
     # Compare the version numbers, titles, and builds
     VersionCompare = CompareVersion(cur_version, new_version)
     TitleCompare = CompareTitle(cur_title, new_title)
-    print("Current Version:", VersionCompare)
+    print("Version:", VersionCompare)
     print("Title:", TitleCompare)
 
     # If the build number is available
     if cur_build != "Unknown":
         BuildCompare = CompareBuild(cur_build, new_build)
         print("Build:", BuildCompare)
+    else:
+        cur_build = False
 
     print("\nNewest Version: {0} {1} Build {2}".format(
           new_version, new_title, new_build))
@@ -157,19 +159,23 @@ def main():
          cur_version, cur_title, cur_build))
 
     # The user is running a previous version
-    if (not TitleCompare and not VersionCompare or
-    TitleCompare and not VersionCompare):
+    if (not TitleCompare and not VersionCompare and not BuildCompare):
         print('''
 You are running an older version of PatchIt!
-Press Enter to begin the update process, or any other key to quit.'''.format(
-            cur_version, cur_title, new_version, new_title))
+Press Enter to begin the update process, or any other key to quit.''')
 
-    # User is running a pre-release, (Unstable, RC1, etc)
-    elif (VersionCompare and not TitleCompare):
+    # Only the build numbers are different
+    if (VersionCompare and TitleCompare and not BuildCompare):
+        print('''
+You are running an older version of PatchIt!
+Press Enter to begin the update process, or any other key to quit.''')
+
+    # User is running a pre-release (Unstable, RC1, etc)
+    elif (VersionCompare and not TitleCompare and not BuildCompare or
+    VersionCompare and not TitleCompare and BuildCompare):
         print('''
 You are running a pre-release version of PatchIt!
-Press Enter to begin the update process, or any other key to quit.'''.format(
-            cur_version, cur_title, new_version, new_title))
+Press Enter to begin the update process, or any other key to quit.''')
 
         # Prompt to begin update
         update_prerelease = input("\n> ")
@@ -182,11 +188,10 @@ Press Enter to begin the update process, or any other key to quit.'''.format(
             print("Updating...")
 
     # It is up-to-date, but offer to update anyway
-    elif (VersionCompare and TitleCompare):
+    elif (VersionCompare and TitleCompare and BuildCompare):
         print('''
 Your copy is already up-to-date.
-Press Enter to to update it anyway, or any other key to quit'''.format(
-            cur_version, cur_title))
+Press Enter to to update it anyway, or any other key to quit''')
 
         # Prompt to begin update
         update_anyway = input("\n> ")
@@ -421,7 +426,6 @@ Please report this error to {2} right away.
 def GetCurrentVersion(pi_settings_fol):
     """Gets user's version of PatchIt!"""
     # Full path to file containing PatchIt! version
-    #FIXME: What if the path doesn't exist?
     pi_settings_file = os.path.join(pi_settings_fol, "PatchIt.cfg")
 
     # This is pre-v1.1.1 PatchIt!, because the file cannot be found
