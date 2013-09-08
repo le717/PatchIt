@@ -136,18 +136,21 @@ def main():
     pi_settings_fol = os.path.join(pi_install_path, "Settings")
 
     # Retrieve the newest version and update download
-    new_version, new_title, download_link = GetNewVersion()
-    print("\nNewest Version: {0} {1}".format(new_version, new_title))
+    new_version, new_title, new_build, download_link = GetNewVersion()
+    print("\nNewest Version: {0} {1} Build {2}".format(new_version, new_title, new_build))
 
     # Retrieve the user's version
-    cur_version, cur_title = GetCurrentVersion(pi_settings_fol)
-    print("Your Version: {0} {1}".format(cur_version, cur_title))
+    cur_version, cur_title, cur_build = GetCurrentVersion(pi_settings_fol)
+    print("Your Version: {0} {1} Build {2}".format(cur_version, cur_title, cur_build))
 
-    # Compare the version numbers and titles
+    # Compare the version numbers, titles, and builds
     VersionCompare = CompareVersion(cur_version, new_version)
     TitleCompare = CompareTitle(cur_title, new_title)
     print("Current Version:", VersionCompare)
     print("Title:", TitleCompare)
+    if cur_build != "Unknown":
+        BuildCompare = CompareBuild(cur_build, new_build)
+        print("Build:", BuildCompare)
 
     # The user is running a previous version
     if (not TitleCompare and not VersionCompare or
@@ -193,7 +196,6 @@ Press Enter to to update it anyway, or any other key to quit'''.format(
             #TODO: Run the updater
             print("Updating...")
             pass
-
     # Close the updater
     CloseUpdater()
 
@@ -255,8 +257,6 @@ def ReadPiInstall():
 
         # Clean up reading
         pi_install_path = pi_install_path.strip()
-
-        # Send back the path
         return pi_install_path
 
 # -------- End Settings Reading -------- #
@@ -405,22 +405,24 @@ Please report this error to {2} right away.'''.format(LinkFileName,
     applepie = version_full.split(" ")
     version = applepie[0]
     title = applepie[1]
+    build = applepie[3]
 
     # Clean up the text
     version = version.strip()
     title = title.strip()
+    build = build.strip()
     download_link = download_link.strip()
 
     # Delete readings, since they are no longer needed
     del lines[:]
     del applepie[:]
-
-    return (version, title, download_link)
+    return (version, title, build, download_link)
 
 
 def GetCurrentVersion(pi_settings_fol):
     """Gets user's version of PatchIt!"""
     # Full path to file containing PatchIt! version
+    #FIXME: What if the path doesn't exist?
     pi_settings_file = os.path.join(pi_settings_fol, "PatchIt.cfg")
 
     # This is pre-v1.1.1 PatchIt!, because the file cannot be found
@@ -454,17 +456,21 @@ def GetCurrentVersion(pi_settings_fol):
     bananasplit = existing_version.split(" ")
     version = bananasplit[0]
     title = bananasplit[1]
-    #FIXME: What if the path in the file doesn't exist?
-    #TODO: Add check for build number
+    # Get the build number
+    try:
+        build = bananasplit[3]
+    # The build number system was not yet implemented (v1.1.0 and v1.1.1)
+    except IndexError:
+        build = "Unknown"
 
     # Clean up the text
     version = version.strip()
     title = title.strip()
+    build = build.strip()
 
     # Delete reading, since it is no longer needed
     del bananasplit[:]
-
-    return (version, title)
+    return (version, title, build)
 
 
 # -------- End Version Identification -------- #
