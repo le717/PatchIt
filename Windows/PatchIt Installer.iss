@@ -117,13 +117,15 @@ nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehore
 nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
 [CustomMessages]
+english.Options=Insallation Options:
 english.Settings_Reset=Reset {#MyAppName} Preferences
 english.Admin=Run {#MyAppName} with Administrator Rights
 english.Shell=Associate .PiP File with {#MyAppName}
-english.Options=Insallation Options:
+francais.Options=Options insallation: 
 francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
 francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
 francais.Shell=Associer fichier. PiP Avec {#MyAppName}
+nederlands.Options=Installatie opties:
 nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren  
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten   
 nederlands.Shell=Associëren .PiP File Met {#MyAppName}
