@@ -191,7 +191,8 @@ Windows/Uninstaller*/*
 Windows/PatchIt*/
 Compile/
 Freeze/
-Bin/
+Bin/Windows
+!Bin/Settings/*
 !Color/
 Logs/
 !License/
@@ -199,7 +200,7 @@ Logs/
 Testing*/
 Archives/
 TheTesterGroup/
-Updater/Updater*
+Updater/bin/*
 
 ##########
 ## Files

@@ -44,7 +44,7 @@ if len(sys.argv) == 1:
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = os.path.join("Freeze", "Windows")
+    destfolder = os.path.join("bin", "Windows")
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.

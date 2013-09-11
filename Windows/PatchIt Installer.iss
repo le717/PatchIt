@@ -158,7 +158,7 @@ Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
 Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
 
 ; PatchIt! Updater
-; Source: Updater\Freeze\*; DestDir: {app}\Updater; Flags: ignoreversion
+; Source: Updater\bin\*; DestDir: {app}\Updater; Flags: ignoreversion
 
 ; Readme
 Source: ..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -171,15 +171,15 @@ Source: RunAsAdmin\RunAsAdmin.exe; DestDir: {app}; Flags: ignoreversion
 Source:  ..\License\*; DestDir: {app}\License; Flags: ignoreversion
 
 ; Settings files
-Source: ..\Freeze\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
-Source: ..\Freeze\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
 ; Settings files for Settings_Reset switch
-Source: ..\Freeze\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
-Source: ..\Freeze\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
 
 ; PatchIt! itself (a 32-bit Windows binary)
-Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\bin\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 ; Launch PatchIt!, view Readme, Uninstall
