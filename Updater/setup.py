@@ -37,7 +37,7 @@ if len(sys.argv) == 1:
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = "Updater"
+    destfolder = "Freeze"
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.

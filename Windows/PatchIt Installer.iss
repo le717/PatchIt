@@ -98,13 +98,13 @@ LZMAUseSeparateProcess=yes
 AllowRootDirectory=yes
 PrivilegesRequired=admin
 RestartIfNeededByRun=no
+TimeStampsInUTC=True
 ; Required for creating Shell extension
 ChangesAssociations=True
-TimeStampsInUTC=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-v3-fr.txt" 
+Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-3.0.fr.txt" 
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
@@ -158,9 +158,9 @@ Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion
 Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
 
 ; PatchIt! Updater
+; Source: Updater\Freeze\*; DestDir: {app}\Updater; Flags: ignoreversion
 
-
-; Readme and Icon 
+; Icons and Readme
 Source: ..\Icons\PatchItIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion
 Source: ..\Icons\favicon.ico; DestDir: {app}\Icons; Flags: ignoreversion 
 Source: ..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion
@@ -189,7 +189,8 @@ Source: ..\Freeze\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversio
 ; Launch PatchIt!, view Readme, Uninstall
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
 Name: "{group}\{#MyAppName} - Experimental Mode"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Parameters: "--test"; Comment: "Run {#MyAppVerName} - Experimental Mode"
-Name: "{group}\{#MyAppName} Readme"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "View {#MyAppName} Readme"
+; Name: "{group}\{#MyAppName} Updater"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "Run {#MyAppName} Updater"
+Name: "{group}\{#MyAppName} Readme"; Filename: "{app}\Updater\PiUpdater.exe"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "View {#MyAppName} Readme"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PatchItIcon.ico"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Tasks: desktopicon
 
@@ -208,7 +209,7 @@ Type: filesandordirs; Name: {app}\tk
 Type: files; Name: {app}\settings
 
 [Dirs]
-; So the Settings do not ever get uninstalled
+; So the Settings are never uninstalled
 Name: "{app}\Settings"; Flags: uninsneveruninstall
 
 [Code]  
