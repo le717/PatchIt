@@ -21,7 +21,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
-# PatchIt! V1.1.2 Unstable RunAsAdmin Intergration
+# PatchIt! V1.1.2 Stable RunAsAdmin Intergration
 
 import os
 import subprocess
@@ -50,9 +50,9 @@ class AdminRun(object):
         """Relaunch PatchIt! with administrator rights"""
 
         __admin = askyesno("Relaunch PatchIt?",
-    '''{0}
+                           '''{0}
 Would you like to relaunch PatchIt! with Administrator rights?'''.format(
-    message))
+                           message))
 
         # User does not want to relaunch PatchIt!
         if not __admin:
@@ -67,11 +67,11 @@ Would you like to relaunch PatchIt! with Administrator rights?'''.format(
             # This is the raw Python script. RunAsAdmin will not work
             if (constants.exe_name.endswith("py") or
                     constants.exe_name.endswith("pyw")):
-                logging.warning('''This is the raw PatchIt! Python script ({0})
+                logging.warning('''This is the raw Python script ({0})
 RunAsAdmin.exe cannot operate!'''.format(constants.exe_name))
 
                 showerror("Running Error!",
-    '''You are running the raw PatchIt! Python script ({0}).
+                          '''You are running the raw Python script ({0}).
 RunAsAdmin will not work at all.'''.format(constants.exe_name))
                 self.main.destroy()
                 return False
