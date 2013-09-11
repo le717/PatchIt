@@ -42,10 +42,9 @@ class AdminRun(object):
 
     def __init__(self):
         """Draw (then withdraw) root Tkinter window"""
-        global __root
-        __root = Tk()
-        __root.withdraw()
-        __root.iconbitmap(constants.app_icon)
+        self.main = Tk()
+        self.main.withdraw()
+        self.main.iconbitmap(constants.app_icon)
 
     def launch(self, message):
         """Relaunch PatchIt! with administrator rights"""
@@ -58,7 +57,7 @@ Would you like to relaunch PatchIt! with Administrator rights?'''.format(
         # User does not want to relaunch PatchIt!
         if not __admin:
             logging.info("User does not want to relaunch PatchIt!")
-            __root.destroy()  # lint:ok
+            self.main.destroy()
             return False
 
         # If user wants to relaunch
@@ -74,7 +73,7 @@ RunAsAdmin.exe cannot operate!'''.format(constants.exe_name))
                 showerror("Running Error!",
     '''You are running the raw PatchIt! Python script ({0}).
 RunAsAdmin will not work at all.'''.format(constants.exe_name))
-                __root.destroy()  # lint:ok
+                self.main.destroy()
                 return False
 
             # Launch RunAsAdmin to reload PatchIt!
