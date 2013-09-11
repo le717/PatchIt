@@ -191,6 +191,7 @@ Windows/Uninstaller*/*
 Windows/PatchIt*/
 Compile/
 Freeze/
+Bin/
 !Color/
 Logs/
 !License/
