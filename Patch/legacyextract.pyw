@@ -107,7 +107,7 @@ def readPatch(installpatch):
         installver))
         time.sleep(0.5)
         logging.info("Proceeding to main menu")
-        PatchIt.main()
+        PatchIt.main(count=1)
 
     # Yes, I do want to install it!
     else:
@@ -270,7 +270,7 @@ to
         # This is run no matter if an exception was raised nor not.
         finally:
             logging.info("Proceeding to main menu")
-            PatchIt.main()
+            PatchIt.main(count=1)
 
 
 # ------------ End Legacy PatchIt! Patch Installation ------------ #

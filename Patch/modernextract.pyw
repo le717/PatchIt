@@ -61,7 +61,7 @@ import Color.colors as colors
 import runasadmin
 
 
-# ------------ Begin PatchIt! Patch Selection and Identification  ------------ #
+# ----------- Begin PatchIt! Patch Selection and Identification  ----------- #
 
 
 def selectPatch(*args):
@@ -103,7 +103,7 @@ def selectPatch(*args):
             color.FG_LIGHT_RED)
         time.sleep(0.7)
 
-        PatchIt.main()
+        PatchIt.main(count=1)
 
     # The user selected a patch
     else:
@@ -144,10 +144,10 @@ def checkPatch(patch):
             color.FG_LIGHT_RED)
 
         time.sleep(1)
-        PatchIt.main()
+        PatchIt.main(count=1)
 
     # It is written using ANSI or UTF-8-NOBOM, continue reading it
-   # Confirm that this is a patch, as defined in Documentation/PiP Format.md
+    # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
     logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(
@@ -205,7 +205,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
 
         # Switch to main menu
         time.sleep(1)
-        PatchIt.main()
+        PatchIt.main(count=1)
 
     # It's not a Patch at all! D:
     # The same message as V1.1.0 Patch
@@ -218,7 +218,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
         del lines[:]
         # Switch to main menu
         time.sleep(1)
-        PatchIt.main()
+        PatchIt.main(count=1)
 
 
 # ------------ End PatchIt! Patch Selection and Identification  ------------ #
@@ -307,10 +307,10 @@ Game: {3}
     if confirm_install.lower() != "y":
         logging.warning("User does not want to install {0} (Version: {1})!"
             .format(name, version))
-        colors.text("\nCanceling installation of {0} (Version: {1})".format(name,
-        version), color.FG_LIGHT_RED)
+        colors.text("\nCanceling installation of {0} (Version: {1})".format(
+            name, version), color.FG_LIGHT_RED)
         time.sleep(0.5)
-        PatchIt.main()
+        PatchIt.main(count=1)
 
     else:
         # Yes, I do want to install it!
@@ -449,7 +449,7 @@ and request a proper Patch.'''.format(name, version, game, author),
         # Give the user time to read the mesage
         time.sleep(5)
         # Go back to the main menu
-        PatchIt.main()
+        PatchIt.main(count=1)
 
     # Create a valid folder path
     logging.info("Cleaning up installation path")
@@ -573,7 +573,7 @@ PatchIt! ran into an unknown error while trying to install
         # Delete all PiP data to free up resources
         del all_lines[:]
         logging.info("Deleting all data from {0}{1}.PiP".format(name, version))
-        PatchIt.main()
+        PatchIt.main(count=1)
 
 
 # ------------ End PatchIt! Patch Installation ------------ #

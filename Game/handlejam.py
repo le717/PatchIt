@@ -64,8 +64,8 @@ def compressJAM():
     title="Where are the extracted LEGO.JAM files located?"
     )
 
-    if len(jam_files) == 0:
-        raise SystemExit
+    if not jam_files:
+        raise SystemExit(0)
 
 ##    JAMExtractor.build(jam_files)
 
@@ -84,7 +84,7 @@ def main(*args):
         print("\nWhoops! That feature hasn't been added yet.")
         time.sleep(0.5)
     logging.info("Switching to PatchIt! main menu")
-    PatchIt.main()
+    PatchIt.main(count=1)
 
 
 def extractJAM():

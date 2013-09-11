@@ -157,17 +157,17 @@ def preload():
     # If the Racers settings is present but not LOCO,
     # go to main menu
     if hasLRSettings and not hasLOCOSettings:
-        main()
+        main(count=1)
 
     # If the LOCO settings is present but not Racers,
     # go to main menu
     elif hasLOCOSettings and not hasLRSettings:
-        main()
+        main(count=1)
 
     # If both the Racers and LOCO settings are present,
     # go to main menu
     elif hasLRSettings and hasLOCOSettings:
-        main()
+        main(count=1)
 
     # Any other condition
     else:
@@ -226,7 +226,8 @@ package and install mods for LEGO Racers"
     def close_about(*args):
         """Closes the About Window"""
         root.destroy()
-        main()
+        # Reset the count since we opened the window
+        main(count=1)
 
     # Close About Window button
     close = ttk.Button(frame, default="active", text="Close",
@@ -263,14 +264,22 @@ package and install mods for LEGO Racers"
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
 
-def main(*args):
+def main(*args, count):  # lint:ok
     """PatchIt! Menu Layout"""
-    colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
-        app, majver, minver, creator), color.FG_WHITE)
-    # Normal menu display
-    if not test:
-        logging.info("Display normal menu to user")
-        print('''
+    count += 1
+    # If the user has pressed an valid key 5 times or this is app launch
+    if (count == 2 or count == 6):
+        # Reset the count back to one,
+        if count == 6:
+            count = 1
+        # And display the menu only at the valid times
+        colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
+            app, majver, minver, creator), color.FG_WHITE)
+
+        # Normal menu display
+        if not test:
+            logging.info("Display normal menu to user")
+            print('''
 Please make a selection:
 
 [a] About PatchIt!
@@ -278,10 +287,10 @@ Please make a selection:
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
 [q] Quit''')
-    # Experimental menu display
-    if test:
-        logging.info("Display --test menu to user")
-        print('''
+        # Experimental menu display
+        if test:
+            logging.info("Display --test menu to user")
+            print('''
 Please make a selection:
 
 [a] About PatchIt!
@@ -328,8 +337,9 @@ Please make a selection:
 
               # The Experimental Mode was not activated
             else:
-                logging.info("User pressed an undefined key")
-                main()
+                logging.info("The JAM Extractor wrapper cannot be activate in normal mode.")
+                colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
+                main(count=count)
 
         # PatchIt! Settings
         elif menuopt.lower() == "s":
@@ -353,7 +363,8 @@ Please make a selection:
         # Undefined input
         else:
             logging.info("User pressed an undefined key")
-            main()
+            colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
+            main(count=count)
 
 
 def easteregg(*args):
@@ -404,7 +415,7 @@ def Settings(*args):
     # Undefined input
     else:
         logging.info("User pressed an undefined key")
-        main()
+        main(count=1)
 
 
 # ------------ Begin PatchIt! General Settings ------------ #
