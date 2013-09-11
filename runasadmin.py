@@ -87,6 +87,6 @@ Launching RunAsAdmin.exe'''.format(constants.exe_name))
 
                 # Now we close PatchIt!, and let RunAsAdmin take over
                 # (that is, if this is an exe)
-                __root.destroy()  # lint:ok
+                self.main.destroy()
                 logging.shutdown()
                 raise SystemExit(0)
