@@ -188,6 +188,7 @@ pip-log.txt
 ##########
 
 Windows/Uninstaller*/*
+Windows/PatchIt*/
 Compile/
 Freeze/
 !Color/
