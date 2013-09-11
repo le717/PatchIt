@@ -62,7 +62,7 @@ Building PatchIt!
 cd PatchIt
 python setup.py
 ```
-Your newly frozen Exe will be located at `PatchIt\Freeze\Windows`.
+Your newly frozen Exe will be located at `PatchIt/Freeze/Windows`.
 
 * You'll also need to freeze the **PatchIt! Uninstaller**. Compile it by running the following command:
 
@@ -71,16 +71,12 @@ cd PatchIt\Windows
 python setup.py
 ```
 
-It will be frozen to `PatchIt\Windows\Uninstaller`.
+It will be frozen to `PatchIt/Windows/Uninstaller`.
 
 ### Inno Setup Windows Installer ###
 
 * Open `Windows\PatchIt Installer.iss` in the Inno Setup Compiler.
 * Make desired changes to the script, as long as it is clear you made them.
 * Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty __LEGO® Racers__ and __LEGO® LOCO__ settings files
-are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer.
+are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer to the `Windows` folder.
 * If all goes well, you will have sucessfully frozen and packaged a copy of **PatchIt!**
-
-### Getting RunAsAdmin ###
-
-_Coming Soon._

@@ -131,6 +131,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 *.exe
+!Windows/RunAsAdmin/RunAsAdmin.exe
 *.msi
 *.com
 *.bat
