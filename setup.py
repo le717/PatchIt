@@ -55,7 +55,7 @@ build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
                      "compressed": True,
                      "optimize": 2,
-                     "icon": "Icons/PatchItIcon.ico",
+                     "icon": "Icons/PiIcon.ico",
                      "include_files": [
                      "Build.pickle"],
                      "includes": [

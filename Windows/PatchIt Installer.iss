@@ -75,7 +75,7 @@ DefaultDirName={code:InstallPath}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=True
 ; Installer Graphics
-SetupIconFile=..\Icons\PatchItIcon.ico
+SetupIconFile=..\Icons\PiIcon.ico
 WizardImageFile=..\Icons\PatchItSidebar.bmp
 WizardSmallImageFile=..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
@@ -84,7 +84,7 @@ OutputDir=.\
 OutputBaseFilename={#MyInstallerName}
 ; Uninstallation stuff
 Uninstallable=not PortableInstall
-UninstallDisplayIcon={app}\Icons\PatchItIcon.ico
+UninstallDisplayIcon={app}\Icons\PiIcon.ico
 CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; Compression
@@ -145,7 +145,7 @@ Root: "HKCU"; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFla
 
 ; Shell extension
 Root: "HKCR"; Subkey: ".PiP"; ValueType: string; ValueData: "PatchIt! Patch"; Flags: uninsdeletekey; Tasks: Shell
-Root: "HKCR"; Subkey: ".PiP\DefaultIcon"; ValueType: string; ValueData: "{app}\Icons\PatchItIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
+Root: "HKCR"; Subkey: ".PiP\DefaultIcon"; ValueType: string; ValueData: "{app}\Icons\PiIcon.ico"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell"; ValueType: string; ValueData: "open"; Flags: uninsdeletevalue; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell\open"; ValueType: none; Flags: uninsdeletekey; Tasks: Shell
 Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "{app}\PatchIt.exe --open ""%1"""; Flags: uninsdeletevalue; Tasks: Shell
@@ -185,12 +185,12 @@ Source: ..\bin\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion r
 
 [Icons]
 ; Launch PatchIt!, view Readme, Uninstall
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "Run {#MyAppVerName}"
-Name: "{group}\{#MyAppName} - Experimental Mode"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Parameters: "--test"; Comment: "Run {#MyAppVerName} - Experimental Mode"
-; Name: "{group}\{#MyAppName} Updater"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "Run {#MyAppName} Updater"
-Name: "{group}\{#MyAppName} Readme"; Filename: "{app}\Updater\PiUpdater.exe"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Comment: "View {#MyAppName} Readme"
-Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PatchItIcon.ico"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PatchItIcon.ico"; Tasks: desktopicon
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PiIcon.ico"; Comment: "Run {#MyAppVerName}"
+Name: "{group}\{#MyAppName} - Experimental Mode"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PiIcon.ico"; Parameters: "--test"; Comment: "Run {#MyAppVerName} - Experimental Mode"
+; Name: "{group}\{#MyAppName} Updater"; Filename: "{app}\Documentation\index.html"; IconFilename: "{app}\Icons\PiIcon.ico"; Comment: "Run {#MyAppName} Updater"
+Name: "{group}\{#MyAppName} Readme"; Filename: "{app}\Updater\PiUpdater.exe"; IconFilename: "{app}\Icons\PiIcon.ico"; Comment: "View {#MyAppName} Readme"
+Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Icons\PiIcon.ico"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Icons\PiIcon.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\Documentation\index.html"; Flags: nowait postinstall skipifsilent shellexec; Description: "View Readme"

@@ -45,7 +45,7 @@ app_folder = os.path.dirname(sys.argv[0])
 # Location of Settings folder
 settings_fol = os.path.join(app_folder, "Settings")
 # PatchIt! App Icon
-app_icon = os.path.join(app_folder, "Icons", "PatchItIcon.ico")
+app_icon = os.path.join(app_folder, "Icons", "PiIcon.ico")
 # Build number (v3 Pickle data)
 build_file = os.path.join(app_folder, "Build.pickle")
 

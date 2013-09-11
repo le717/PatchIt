@@ -51,7 +51,7 @@ Please freeze PatchIt! Uninstaller using 32-bit Python 3.3.''')
 build_exe_options = {"build_exe": destfolder,
                      "includes": ["subprocess", "re"],
                      "optimize": 2,
-                     "icon": "../Icons/PatchItIcon.ico"}
+                     "icon": "../Icons/PiIcon.ico"}
 
 setup(
     name="PatchIt! Uninstaller",
