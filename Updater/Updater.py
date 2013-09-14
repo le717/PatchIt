@@ -43,22 +43,28 @@ author = "Triangle717"
 # Location of PatchIt! Updater Exe/Py
 app_folder = os.path.dirname(sys.argv[0])
 
+
 # Name of settings file
 updater_file = "Updater.cfg"
+
 
 # URL of file containing newest version of PatchIt!, and link to delta update
 # Hosted on the PatchIt! GitHub repo, gh-pages branch
 #LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
 LinkFile = "NewestRelease.cfg"
 
+
 # Get just the filename (helps simplify the code)
 LinkFileName = os.path.basename(LinkFile)
+
 
 # URL of archive containing RunAsAdmin utility
 RunAdminLink = "https://github.com/QuantumCD/RunAsAdmin/releases/download/v1.0.2/RunAsAdmin.exe"
 
+
 # Get just the filename (helps simplify the code)
 RunAdminName = os.path.basename(RunAdminLink)
+
 
 # Check if Windows architecture is x64 or x86
 if platform.machine() == "AMD64":
@@ -98,7 +104,7 @@ def args():
 
     # Relaunch the updater
     if reloadarg:
-        RunAdminDL(start=False)
+        main(DoAdmin=False)
 
     if LinkFile is not None:
         pass
@@ -120,10 +126,11 @@ def CloseUpdater():
     raise SystemExit(0)
 
 
-def main():
+def main(DoAdmin=True):
     """Update PatchIt! to the newest version"""
     # Download RunAsAdmin utility
-    RunAdminDL(start=True)
+    if DoAdmin:
+        RunAdminDL(start=True)
 
     # Get PatchIt! installation path
     pi_install_path = ReadPiInstall()
@@ -243,9 +250,11 @@ Please report this error to {2} right away.
         # Relaunch with Admin rights, passing parameter to not repeat this step
         subprocess.call(["RunAsAdmin.exe", "--reload"])
 
-    # Do... something (my mind just blanked)
+    # RunAsAdmin aleady exists in this installation, so delete our download
     else:
         print("Hi.")
+        #if not os.path.exists(os.path.join()):
+            #os.unlink(os.path.join())
         raise SystemExit(0)
 
 
@@ -534,9 +543,16 @@ def CompareBuild(cur_build, new_build):
 
 # -------- End Version Comparison -------- #
 
+
+def DownloadUpdate():
+    """Download the newest delta update"""
+
+    # Perform final RunAsAdmin cleanup
+    RunAdminDL(start=False)
+
 if __name__ == "__main__":
     # Write window title
     os.system("title {0} {1} {2}".format(app, majver, minver))
     # Run updater
     #args()
-    main()
+    main(DoAdmin=True)
