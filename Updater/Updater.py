@@ -19,14 +19,17 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+PatchIt! Updater: Quickly update your installation of PatchIt! to
+the newest version using delta updates.
 """
-# PatchIt! Updater
 
 import sys
 import os
 import platform
 import subprocess
 import argparse
+import tarfile
 
 # Downloads file(s) from the internet
 import wget
@@ -544,8 +547,8 @@ def CompareBuild(cur_build, new_build):
 # -------- End Version Comparison -------- #
 
 
-def DownloadUpdate():
-    """Download the newest delta update"""
+def DownloadUpdate(UpdateDL, InstallPath):
+    """Download and install the delta update"""
 
     # Perform final RunAsAdmin cleanup
     RunAdminDL(start=False)
