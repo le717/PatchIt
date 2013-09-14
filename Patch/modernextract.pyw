@@ -525,7 +525,7 @@ If this error continues, contact {5} and ask for a fixed version.'''
         # before kicking back to the main menu.
         time.sleep(2)
 
-    # The user does not have the rights to install to that location.
+    # The user does not have the rights to install to that location
     except PermissionError:
         logging.warning("Error number '13'")
         logging.exception('''Oops! Something went wrong! Here's what happened

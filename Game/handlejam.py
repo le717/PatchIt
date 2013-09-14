@@ -26,21 +26,79 @@
 import os
 import time
 import logging
-import linecache
+
+# RunAsAdmin wrapper
+#import runasadmin
 
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 
+# Colored shell text
+#import Color as color
+#import Color.colors as colors
+
+# PatchIt! "Constants"
+from constants import (app_folder, settings_fol, LR_settings)
+
 import PatchIt
 import JAMExtractor
 
-# Colored shell text
-import Color as color
-import Color.colors as colors
+# LEGO Racers settings
+from Game import Racers
 
 
-def compressJAM():
-    """Passes the proper parameters to compress LEGO.JAM"""
+# ----------- Begin LEGO Racers Installation Reading ----------- #
+
+
+def getRacersPath():
+    """Get LEGO Racers Installation Path"""
+    # The LEGO Racers settings do not exist
+    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
+        logging.warning("Could not find LEGO Racers settings!")
+        Racers.LRReadSettings()
+
+    # The LEGO Racers settings do exist
+    # Check encoding of Racers Settings file
+    logging.info("Check encoding of {0} before installation".format(
+        os.path.join(settings_fol, LR_settings)))
+
+    # Open it, read just the area containing the byte mark
+    with open(os.path.join(settings_fol, LR_settings),
+    "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (  # The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        # The settings cannot be read for installation,
+        # go write them so this Patch can be installed
+        logging.warning("LEGO Racers Settings cannot be read!")
+        Racers.LRReadSettings()
+
+    # The LEGO Racers settings can be read
+    # Read the settings file for installation (LEGO Racers directory)
+    logging.info("Reading line 7 of settings for LEGO Racers installation")
+
+    try:
+        with open(os.path.join(settings_fol, LR_settings),
+        "rt", encoding="utf-8") as f:
+            racers_install_path = f.readlines()[6]
+        return racers_install_path
+
+    # It may exist, but it doesn't mean the path is set up
+    except IndexError:
+        logging.error("The LEGO Racers Installation has not been set up!")
+        Racers.LRWriteSettings()
+
+# ----------- End LEGO Racers Installation Reading ----------- #
+
+
+def SelectJamFiles():
+    """Select the files to compress into a JAM"""
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
     root = Tk()
@@ -67,7 +125,40 @@ def compressJAM():
     if not jam_files:
         raise SystemExit(0)
 
-##    JAMExtractor.build(jam_files)
+    # Get the LEGO Racers installation path
+    install_path = getRacersPath()
+
+    SaveJAM(jam_files, install_path)
+
+
+def SaveJAM(jam_files, install_path):
+    """Compress the files into LEGO.JAM"""
+    try:
+        os.chdir(install_path)
+        print(os.getcwd())
+        JAMExtractor.build(jam_files, verbose=False)
+
+    # We don't have the rights to compress the JAM
+    except PermissionError:  # lint:ok
+        logging.warning("Error number '13'")
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+        logging.warning('''
+
+PatchIt! does not have the rights to save LEGO.JAM to {0}'''.format(
+    jam_files))
+
+        ## User did not want to reload with Administrator rights
+        #if not runasadmin.AdminRun().launch(
+            #"PatchIt! does not have the rights to save LEGO.JAM to {0}"
+            #.format(jam_files)):
+            ## Do nothing, go to main menu
+            #pass
+
+    finally:
+        os.chdir(app_folder)
+        print(os.getcwd())
 
 
 def main(*args):
@@ -87,18 +178,21 @@ def main(*args):
     PatchIt.main(count=1)
 
 
-def extractJAM():
-    """Passes the proper parameters to extract LEGO.JAM"""
-    # The Racers settings (required for extraction) does not exist
-    if not os.path.exists(os.path.join("Settings", "Racers.cfg")):
-        colors.text('''The LEGO Racers settings do not exist!
-Please create it, then try to extract LEGO.JAM''', color.FG_LIGHT_RED)
+#def extractJAM():
+    #"""Passes the proper parameters to extract LEGO.JAM"""
+    ## The Racers settings (required for extraction) does not exist
+    #if not os.path.exists(os.path.join("Settings", "Racers.cfg")):
+        #colors.text('''The LEGO Racers settings do not exist!
+#Please create it, then try to extract LEGO.JAM''', color.FG_LIGHT_RED)
 
-    # Get location of Racers installation
-    JAM_location = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
-    # This
-    JAM_file = os.path.join(JAM_location, "LEGO.JAM")
-    if os.path.exists(JAM_file):
-        JAMExtractor.extract(JAM_file)
-    elif not os.path.exists(JAM_file):
-        raise SystemExit(0)
+    ## Get location of Racers installation
+    #JAM_location = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
+    ## This
+    ##JAM_file = os.path.join(JAM_location, "LEGO.JAM")
+    #if os.path.exists(JAM_file):
+        #JAMExtractor.extract(JAM_file)
+    #elif not os.path.exists(JAM_file):
+        #raise SystemExit(0)
+
+if __name__ != "__main__":
+    SelectJamFiles()

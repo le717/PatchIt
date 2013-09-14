@@ -221,6 +221,7 @@ Updater/bin/*
 !.py
 !RunAsAdmin.cfg
 JAMExtractor.py
+runjam.py
 #*settings
 !Read-Me-First.html
 PatchIt-Compatible.html
