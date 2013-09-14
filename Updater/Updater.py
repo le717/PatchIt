@@ -51,13 +51,14 @@ updater_file = "Updater.cfg"
 #LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
 LinkFile = "NewestRelease.cfg"
 
-# URL of archive containing RunAsAdmin utility
-RunAdminLink = ""
-# Get just the filename (helps simplify the code)
-RunAdminName = os.path.basename(RunAdminLink)
-
 # Get just the filename (helps simplify the code)
 LinkFileName = os.path.basename(LinkFile)
+
+# URL of archive containing RunAsAdmin utility
+RunAdminLink = "https://github.com/QuantumCD/RunAsAdmin/releases/download/v1.0.2/RunAsAdmin.exe"
+
+# Get just the filename (helps simplify the code)
+RunAdminName = os.path.basename(RunAdminLink)
 
 # Check if Windows architecture is x64 or x86
 if platform.machine() == "AMD64":
@@ -122,7 +123,7 @@ def CloseUpdater():
 def main():
     """Update PatchIt! to the newest version"""
     # Download RunAsAdmin utility
-    #RunAdminDL(start=True)
+    RunAdminDL(start=True)
 
     # Get PatchIt! installation path
     pi_install_path = ReadPiInstall()
@@ -211,7 +212,7 @@ Press Enter to to update it anyway, or any other key to quit''')
 
 def RunAdminDL(start=True):
     """Downloads RunAsAdmin utility for use and possible installation"""
-    # Download RunAsAdmin
+    # Go ahead and download RunAsAdmin
     if start:
         # Download the file with the newest info
         try:
@@ -221,7 +222,23 @@ def RunAdminDL(start=True):
         #TODO: Remove ValueError when code is near completion
         #TODO: Don't delete download, keep it. It might be needed
         except (HTTPError, ValueError):
-            print('''#TODO: Write me!''')
+
+            # Since the primary download can not be reached, fall back
+            # to the backup host.
+            try:
+                wget.download("https://github.com/le717/PatchIt/raw/rewrite/Windows/RunAsAdmin/RunAsAdmin.exe")
+
+            # The backup download is unavailable too; Tell the user.
+            except (HTTPError, ValueError):
+
+                print('''
+{0} could not be downloaded from
+{1}
+It is required for PatchIt! Updater to run.
+Please report this error to {2} right away.
+'''.format(RunAdminName, RunAdminLink.strip(RunAdminName), author))
+                # Close the updater since RunAsAdmin cannot be downloaded
+                CloseUpdater()
 
         # Relaunch with Admin rights, passing parameter to not repeat this step
         subprocess.call(["RunAsAdmin.exe", "--reload"])
@@ -390,9 +407,7 @@ def GetNewVersion():
 {1}
 
 Please report this error to {2} right away.
-'''.format(LinkFileName,
-                                                      LinkFile.strip(
-                                                          LinkFileName), author))
+'''.format(LinkFileName, LinkFile.strip(LinkFileName), author))
         #TODO: Reenable closing
         #CloseUpdater()
 
