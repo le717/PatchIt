@@ -358,9 +358,8 @@ Please make a selection:
 
         # Run LEGO Racers
         elif menuopt.lower() == "r":
-            path = Racers.getRacersPath()
             logging.shutdown()
-            rungame.run(path)
+            rungame.PlayRacers().Race()
 
         # Close PatchIt!
         elif menuopt.lower() == "q":

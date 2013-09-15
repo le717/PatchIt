@@ -19,8 +19,10 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+Generate PatchIt! Build Number
 """
-# Generate PatchIt! Build Number
 
 import sys
 import os

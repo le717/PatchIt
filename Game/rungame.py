@@ -19,38 +19,57 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+LEGO Racers Launcher
 """
-# LEGO Racers Launcher
 
 import os
 import shutil
 import subprocess
 from constants import app_folder
+from Game import Racers
 
 
-def run(install_path):
-    """Runs LEGO Racers"""
-    # Run the game directly
-    try:
-        subprocess.call(os.path.join(install_path, "LEGORacers.exe"))
-        raise SystemExit(0)
+class PlayRacers(object):
+    """Launch LEGO Racers (using RunAsAdmin if requried)"""
 
-    # Except we need admin righs to do it
-    except OSError:
-        # Change the cwd to C:\Users\MyUser
-        os.chdir(os.path.expanduser("~"))
-        curDir = os.getcwd()
+    def __init__(self):
+        self.__RAA = "RunAsAdmin.exe"
+        self.__RAAC = "RunAsAdmin.cfg"
+        self.__LRE = "LEGORacers.exe"
+        # Exe parameters for future use
+        #self.__novideo = "-novideo"
+        #self.__horz = horz
+        #self.__vert = vert
+        #self.__horzres = "-horzres {0}".format(int(self.__horz))
+        #self.__vertres = "-vertres {0}".format(int(self.__vert))
 
-        # Copy RunAsAdmin from the PatchIt! installation to the cwd
-        shutil.copy2(os.path.join(app_folder, "RunAsAdmin.exe"), curDir)
-        # Write the required CFG
-        with open("RunAsAdmin.cfg", "wt", encoding="utf-8") as f:
-            f.write(os.path.join(install_path, "LEGORacers.exe"))
+    def Race(self):
+        """I'll see you... at the finish line!"""
+        # Get the installation path to Racers
+        install_path = Racers.getRacersPath()
+        # Run the game directly
+        try:
+            subprocess.call(os.path.join(install_path, self.__LRE))
+            raise SystemExit(0)
 
-        # Now we can run LEGO Racers
-        subprocess.call("RunAsAdmin.exe")
+        # Except we need admin righs to do it
+        except OSError:
+            # Change the cwd to C:\Users\MyUser
+            os.chdir(os.path.expanduser("~"))
+            curDir = os.getcwd()
 
-        # Delete the files, and close.
-        os.unlink("RunAsAdmin.exe")
-        os.unlink("RunAsAdmin.cfg")
-        raise SystemExit(0)
+            # Copy RunAsAdmin from the PatchIt! installation to the cwd
+            shutil.copy2(os.path.join(app_folder, self.__RAA), curDir)
+            # Write the required CFG
+            with open(self.__RAAC, "wt", encoding="utf-8") as f:
+                f.write(os.path.join(install_path, self.__LRE))
+
+            # Now we can run LEGO Racers
+            subprocess.call(self.__RAA)
+
+            # Delete the files, and closee
+            os.unlink(self.__RAA)
+            os.unlink(self.__RAAC)
+            raise SystemExit(0)

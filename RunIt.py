@@ -25,10 +25,12 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+PatchIt! V1.1.2 Stable Python Version Check,
+PatchIt! Logger, and PatchIt! Launcher
 """
 
-# PatchIt! V1.1.2 Stable Python Version Check,
-# PatchIt! Logger, and PatchIt! Launcher
 import sys
 import os
 import webbrowser

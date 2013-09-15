@@ -19,8 +19,10 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+PatchIt! LEGO LOCO Settings
 """
-# PatchIt! LEGO LOCO Settings
 
 import os
 
