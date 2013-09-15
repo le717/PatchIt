@@ -19,12 +19,12 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-"""
-# PatchIt! V1.1.2 Unstable JAM Handling Code
 
+-------------------------------------
+PatchIt! V1.1.2 Unstable JAM Extractor Wrapper
+"""
 
 import os
-import time
 import logging
 
 # RunAsAdmin wrapper
@@ -34,15 +34,14 @@ import runasadmin
 from tkinter import (filedialog, Tk)
 
 # Colored shell text
-#import Color as color
-#import Color.colors as colors
+import Color as color
+import Color.colors as colors
 
-# PatchIt! "Constants"
-from constants import (app_folder, settings_fol, LR_settings)
-import PatchIt
+#import PatchIt
+from constants import (app_folder)
 
-# LEGO Racers settings and JAM Extractor
-from Game import (Racers, JAMExtractor)
+# JAM Extractor
+from Game import JAMExtractor
 
 
 def SelectDataFiles():
@@ -71,14 +70,17 @@ def SelectDataFiles():
     )
 
     if not jam_files:
-        raise SystemExit(0)
+        root.destroy()
+        colors.text("\nCould not find a JAM archive to compress!",
+                    color.FG_LIGHT_RED)
+        main()
 
     # Compress the JAM
     root.destroy()
-    SaveJAM(jam_files)
+    BuildJAM(jam_files)
 
 
-def SaveJAM(jam_files):
+def BuildJAM(jam_files):
     """Compress the files into LEGO.JAM"""
     try:
         os.chdir(jam_files)
@@ -105,45 +107,109 @@ PatchIt! does not have the rights to save LEGO.JAM to
             # Do nothing, go to main menu
             pass
 
+    # Go back to the menu
     finally:
         os.chdir(app_folder)
+        main()
 
 
 def main(*args):
     """JAM Extractor Menu"""
     logging.info("Display JAM Extractor menu to user")
-    print('''\nPlease make a selection:\n
-[e] Extract LEGO.JAM
-[c] Compress LEGO.JAM
-[q] Quit''')
-    jam_opt = input("\n\n> ")
+    print('''
+[e] Extract LEGO.JAM     [c] Compress LEGO.JAM
 
+                   [q] Quit''')
+    jam_opt = input("\n> ")
+
+    # User wants to compress a JAM
     if jam_opt.lower() == "c":
+        logging.info("User pressed '[c] Compress LEGO.JAM'")
         SelectDataFiles()
 
+    # User wants to extract a JAM
+    if jam_opt.lower() == "e":
+        logging.info("User pressed '[e] Extract LEGO.JAM'")
+        SelectJAMArchive()
+
     # Nothing here is complete, so redirect back to PatchIt! menu
-    else:  # if jam_opt.lower() != "q":
-        print("\nWhoops! That feature hasn't been added yet.")
-        time.sleep(0.5)
-    logging.info("Switching to PatchIt! main menu")
-    PatchIt.main(count=1)
+    else:
+        logging.info("Switching to PatchIt! main menu")
+        #PatchIt.main(count=1)
+        raise SystemExit(0)
 
 
-#def extractJAM():
-    #"""Passes the proper parameters to extract LEGO.JAM"""
-    ## The Racers settings (required for extraction) does not exist
-    #if not os.path.exists(os.path.join("Settings", "Racers.cfg")):
-        #colors.text('''The LEGO Racers settings do not exist!
-#Please create it, then try to extract LEGO.JAM''', color.FG_LIGHT_RED)
+def SelectJAMArchive():
+    """Select the JAM Archive to extract"""
+    # Draw (then withdraw) the root Tk window
+    logging.info("Drawing root Tk window")
+    root = Tk()
+    logging.info("Withdrawing root Tk window")
+    root.withdraw()
 
-    ## Get location of Racers installation
-    #JAM_location = linecache.getline(os.path.join("Settings", "Racers.cfg"), 5)
-    ## This
-    ##JAM_file = os.path.join(JAM_location, "LEGO.JAM")
-    #if os.path.exists(JAM_file):
-        #JAMExtractor.extract(JAM_file)
-    #elif not os.path.exists(JAM_file):
-        #raise SystemExit(0)
+    # Overwrite root display settings
+    logging.info("Overwrite root Tk window settings to hide it")
+    root.overrideredirect(True)
+    root.geometry('0x0+0+0')
 
-#if __name__ != "__main__":
-    ##SelectDataFiles()
+    # Show window again, lift it so it can receive the focus
+    # Otherwise, it is behind the console window
+    root.deiconify()
+    root.lift()
+    root.focus_force()
+
+    # Select the LEGO Racers installation
+    logging.info("Where is the JAM archive to be extracted located?")
+    jam_location = filedialog.askopenfilename(
+        parent=root,
+        title="Where is LEGO.JAM",
+        defaultextension=".JAM",
+        filetypes=[("LEGO.JAM", "*.JAM")]
+    )
+
+    if not jam_location:
+        root.destroy()
+        colors.text("\nCould not find a JAM archive to extract!",
+                    color.FG_LIGHT_RED)
+        main()
+
+    # Extract the JAM
+    root.destroy()
+    ExtractJAM(jam_location)
+
+
+def ExtractJAM(jam_location):
+    """Extract the files from LEGO.JAM"""
+    try:
+        # Extract the JAM archive
+        JAMExtractor.extract(jam_location, verbose=True)
+
+    # We don't have the rights to extract the JAM
+    except PermissionError:  # lint:ok
+        logging.warning("Error number '13'")
+        logging.exception('''Oops! Something went wrong! Here's what happened
+
+''', exc_info=True)
+        logging.warning('''
+
+PatchIt! does not have the rights to extract LEGO.JAM to
+{0}
+'''.format(
+    jam_location))
+
+        # User did not want to reload with Administrator rights
+        if not runasadmin.AdminRun().launch(
+            ['''PatchIt! does not have the rights to extract LEGO.JAM to
+{0}'''
+            .format(jam_location)]):
+            # Do nothing, go to main menu
+            pass
+
+    # Go back to the menu
+    finally:
+        main()
+
+if __name__ != "__main__":
+    #SelectDataFiles()
+    #SelectJAMArchive()
+    main()
