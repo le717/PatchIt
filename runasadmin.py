@@ -48,10 +48,16 @@ class AdminRun(object):
     def launch(self, messages):
         """Relaunch PatchIt! with administrator rights"""
 
+        # Display any message(s) properly
+        if messages[1:] == []:
+            end = ""
+        else:
+            end = "".join(messages[1:])
+
         __admin = askyesno("Relaunch PatchIt?",
                            '''{0}
-Would you like to relaunch PatchIt! with Administrator rights?
-{1}'''.format(messages[0], " ".join(messages[1:])))
+Would you like to relaunch PatchIt! with Administrator rights? {1}'''.format(
+    messages[0], end))
 
         # User does not want to relaunch PatchIt!
         if not __admin:
