@@ -105,7 +105,7 @@ def args():
     if openfile is not None:
         # If it is a file, switch to Patch Installation
             if os.path.isfile(openfile):
-                logging.info("A file path was given, switching to extract.checkPatch()")
+                logging.info("A file path was given.")
                 extract.checkPatch(openfile)
 
             # It was a directory, or a non-existent file
@@ -296,13 +296,11 @@ Please make a selection:
             print('''
 Please make a selection:
 
-[a] About PatchIt!
-[c] Create a PatchIt! Patch
-[i] Install a PatchIt! Patch
-[j] JAM Extractor
-[s] PatchIt! Settings
-[r] Run LEGO Racers
-[q] Quit''')
+[a] About PatchIt!            [c] Create a PatchIt! Patch
+[r] Run LEGO Racers           [i] Install a PatchIt! Patch
+[s] PatchIt! Settings         [j] JAM Extractor
+
+                      [q] Quit''')
 
     menuopt = input("\n> ")
     while True:
