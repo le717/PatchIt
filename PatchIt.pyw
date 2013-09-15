@@ -332,12 +332,12 @@ Please make a selection:
         elif menuopt.lower() == "j":
             # If Experimental Mode was activated
             if test:
-                from Game import handlejam
+                from Game import legojam
                 logging.info("User pressed '[j] JAM Extractor'")
 
                 # Run the JAM Extractor wrapper
                 logging.info("Running JAM Extractor wrapper")
-                handlejam.main()
+                legojam.main()
 
               # The Experimental Mode was not activated
             else:
