@@ -22,8 +22,10 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+PatchIt! V1.1.2 Unstable Core Module
 """
-# PatchIt! V1.1.2 Unstable Core Module
 
 # General use modules
 import sys
@@ -49,7 +51,7 @@ import Color as color
 import Color.colors as colors
 
 # LEGO Racers settings
-from Game import (Racers, LOCO)
+from Game import (Racers, LOCO, rungame)
 
 # PatchIt! "Constants"
 from constants import (
@@ -286,6 +288,7 @@ Please make a selection:
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
+[r] Run LEGO Racers
 [q] Quit''')
         # Experimental menu display
         if test:
@@ -298,6 +301,7 @@ Please make a selection:
 [i] Install a PatchIt! Patch
 [j] JAM Extractor
 [s] PatchIt! Settings
+[r] Run LEGO Racers
 [q] Quit''')
 
     menuopt = input("\n> ")
@@ -351,6 +355,12 @@ Please make a selection:
         elif menuopt.lower() == 'e':
             logging.info("User pressed the 'e' key")
             easteregg()
+
+        # Run LEGO Racers
+        elif menuopt.lower() == "r":
+            path = Racers.getRacersPath()
+            logging.shutdown()
+            rungame.run(path)
 
         # Close PatchIt!
         elif menuopt.lower() == "q":

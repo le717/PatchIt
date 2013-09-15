@@ -39,6 +39,51 @@ import PatchIt
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
 
+def getRacersPath():
+    """Special-use function to get and return the installation path"""
+    # The LEGO Racers settings do not exist
+    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
+        logging.warning("Could not find LEGO Racers settings!")
+        LRReadSettings()
+
+    # The LEGO Racers settings do exist
+    # Check encoding of Racers Settings file
+    logging.info("Check encoding of {0} before installation".format(
+        os.path.join(settings_fol, LR_settings)))
+
+    # Open it, read just the area containing the byte mark
+    with open(os.path.join(settings_fol, LR_settings),
+    "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (  # The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        # The settings cannot be read for installation,
+        # go write them so this Patch can be installed
+        logging.warning("LEGO Racers Settings cannot be read!")
+        LRReadSettings()
+
+    # The LEGO Racers settings can be read
+    # Read the settings file for installation (LEGO Racers directory)
+    logging.info("Reading line 7 of settings for LEGO Racers installation")
+
+    try:
+        with open(os.path.join(settings_fol, LR_settings),
+        "rt", encoding="utf-8") as f:
+            racers_install_path = f.readlines()[6]
+        return racers_install_path
+
+    # It may exist, but it doesn't mean the path is set up
+    except IndexError:
+        logging.error("The LEGO Racers Installation has not been set up!")
+        LRWriteSettings()
+
+
 def LRReadSettings():
     """Read PatchIt! LEGO Racers settings"""
     # The settings file does not exist
