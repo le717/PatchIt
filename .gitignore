@@ -220,7 +220,6 @@ Updater/bin/*
 *.html
 !.py
 !RunAsAdmin.cfg
-JAMExtractor.py
 runjam.py
 #*settings
 !Read-Me-First.html

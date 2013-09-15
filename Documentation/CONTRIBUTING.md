@@ -16,7 +16,10 @@ Python Versions `<=` 3.2 or 64-bit Python are not supported, and a Python versio
 * Download and install [*Inno Setup 5.5.2 Unicode*](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
 An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 
-### Editing ### 
+* A slightly edited version of [@JrMasterModelBuilder](https://github.com/JrMasterModelBuilder)'s **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)**
+for extracting and compressing `LEGO.JAM`.
+
+### Editing ###
 
 * Fork the **PatchIt!** repository by clicking ![the Fork button](http://i81.servimg.com/u/f81/16/33/06/11/forkme12.png)
 * Clone **PatchIt!** onto your computer by running ```git clone https://github.com/yourusername/PatchIt.git```
@@ -26,16 +29,13 @@ An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 * If everything checks out, your changes will be merged into the main **PatchIt!** project! :grinning:
 * Don't forget to ![Star!](http://i81.servimg.com/u/f81/16/33/06/11/star11.png)
 
-### Miscellaneous Notes ### 
+### Miscellaneous Notes ###
 
 * No external packages or dependencies are needed for the TAR archive functions, as it is implemented using the built-in `tarfile` Python module.
 
 * [py2exe](http://www.py2exe.org) does not support Python 3.3, so it cannot be used.
 
 * Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
- 
-* Sometime in the development of the V1.1.x series, a wrapper for **@JrMasterModelBuilder**'s **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)** 
-will be added for extraction and recompressing of `LEGO.JAM`. The newest release of the **JAM Extractor** will be used for this purpose.
 
 For Your Reading Pleasure
 -------------------------
