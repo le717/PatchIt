@@ -539,10 +539,10 @@ PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
-            '''PatchIt! does not have the rights to install
+            ['''PatchIt! does not have the rights to install
 {0} (Version: {1}) to
 {2}
-'''.format(name, version, install_path)):
+'''.format(name, version, install_path)]):
             # Do nothing, go to main menu
             pass
 

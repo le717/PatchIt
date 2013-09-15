@@ -537,8 +537,8 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
-            "PatchIt! does not have the rights to create {0} (Version: {1})"
-            .format(name, version)):  # lint:ok
+            ["PatchIt! does not have the rights to create {0} (Version: {1})"
+            .format(name, version)]):  # lint:ok
             # Do nothing, go to main menu
             pass
 

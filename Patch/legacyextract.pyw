@@ -240,10 +240,10 @@ to
 
             # User did not want to reload with Administrator rights
             if not runasadmin.AdminRun().launch(
-'''PatchIt! does not have the rights to install
+['''PatchIt! does not have the rights to install
 {0} ({1}) to
 {2}
-'''.format(installname, installver, installpath)):
+'''.format(installname, installver, installpath)]):
                 # Do nothing, go to main menu
                 pass
 

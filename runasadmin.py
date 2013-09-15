@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# <pep8-80 compliant>
 """
     This file is part of PatchIt!
 
@@ -46,20 +45,19 @@ class AdminRun(object):
         self.main.withdraw()
         self.main.iconbitmap(constants.app_icon)
 
-    def launch(self, message):
+    def launch(self, messages):
         """Relaunch PatchIt! with administrator rights"""
 
         __admin = askyesno("Relaunch PatchIt?",
                            '''{0}
-Would you like to relaunch PatchIt! with Administrator rights?'''.format(
-                           message))
+Would you like to relaunch PatchIt! with Administrator rights?
+{1}'''.format(messages[0], " ".join(messages[1:])))
 
         # User does not want to relaunch PatchIt!
         if not __admin:
             logging.info("User does not want to relaunch PatchIt!")
             self.main.destroy()
             return False
-
         # If user wants to relaunch
         else:
             logging.info("User wants to relaunch PatchIt!")
