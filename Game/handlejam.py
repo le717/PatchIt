@@ -101,8 +101,8 @@ PatchIt! does not have the rights to save LEGO.JAM to {0}'''.format(
 
         ## User did not want to reload with Administrator rights
         #if not runasadmin.AdminRun().launch(
-            #"PatchIt! does not have the rights to save LEGO.JAM to {0}"
-            #.format(jam_files)):
+            #["PatchIt! does not have the rights to save LEGO.JAM to {0}"
+            #.format(jam_files)]):
             ## Do nothing, go to main menu
             #pass
 
