@@ -37,7 +37,7 @@ from tkinter import (filedialog, Tk)
 import Color as color
 import Color.colors as colors
 
-#import PatchIt
+import PatchIt
 from constants import (app_folder)
 
 # JAM Extractor
@@ -115,6 +115,9 @@ PatchIt! does not have the rights to save LEGO.JAM to
 
 def main(*args):
     """JAM Extractor Menu"""
+    colors.text('''
+JAM Extractor 1.0.2
+COPYRIGHT (C) 2012-2013: JrMasterModelBuilder''', color.FG_WHITE)
     logging.info("Display JAM Extractor menu to user")
     print('''
 [e] Extract LEGO.JAM     [c] Compress LEGO.JAM
@@ -132,11 +135,9 @@ def main(*args):
         logging.info("User pressed '[e] Extract LEGO.JAM'")
         SelectJAMArchive()
 
-    # Nothing here is complete, so redirect back to PatchIt! menu
+    # Go back to PatchIt! menu
     else:
-        logging.info("Switching to PatchIt! main menu")
-        #PatchIt.main(count=1)
-        raise SystemExit(0)
+        PatchIt.main(count=1)
 
 
 def SelectJAMArchive():

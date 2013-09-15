@@ -312,6 +312,4 @@ if len(fileList) > 0:
         elif os.path.isdir(i):
             build(i, verbose)
 else:
-    print('''
-JAM Extractor 1.0.2
-COPYRIGHT (C) 2012-2013: JrMasterModelBuilder''')
+    pass
