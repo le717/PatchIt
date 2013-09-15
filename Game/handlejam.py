@@ -28,7 +28,7 @@ import time
 import logging
 
 # RunAsAdmin wrapper
-#import runasadmin
+import runasadmin
 
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
@@ -39,15 +39,13 @@ from tkinter import (filedialog, Tk)
 
 # PatchIt! "Constants"
 from constants import (app_folder, settings_fol, LR_settings)
-
 import PatchIt
-import JAMExtractor
 
-# LEGO Racers settings
-from Game import Racers
+# LEGO Racers settings and JAM Extractor
+from Game import (Racers, JAMExtractor)
 
 
-def SelectJamFiles():
+def SelectDataFiles():
     """Select the files to compress into a JAM"""
     # Draw (then withdraw) the root Tk window
     logging.info("Drawing root Tk window")
@@ -75,17 +73,15 @@ def SelectJamFiles():
     if not jam_files:
         raise SystemExit(0)
 
-    # Get the LEGO Racers installation path
-    install_path = Racers.getRacersPath()
+    # Compress the JAM
+    root.destroy()
+    SaveJAM(jam_files)
 
-    SaveJAM(jam_files, install_path)
 
-
-def SaveJAM(jam_files, install_path):
+def SaveJAM(jam_files):
     """Compress the files into LEGO.JAM"""
     try:
-        os.chdir(install_path)
-        print(os.getcwd())
+        os.chdir(jam_files)
         JAMExtractor.build(jam_files, verbose=False)
 
     # We don't have the rights to compress the JAM
@@ -96,19 +92,21 @@ def SaveJAM(jam_files, install_path):
 ''', exc_info=True)
         logging.warning('''
 
-PatchIt! does not have the rights to save LEGO.JAM to {0}'''.format(
+PatchIt! does not have the rights to save LEGO.JAM to
+{0}
+'''.format(
     jam_files))
 
-        ## User did not want to reload with Administrator rights
-        #if not runasadmin.AdminRun().launch(
-            #["PatchIt! does not have the rights to save LEGO.JAM to {0}"
-            #.format(jam_files)]):
-            ## Do nothing, go to main menu
-            #pass
+        # User did not want to reload with Administrator rights
+        if not runasadmin.AdminRun().launch(
+            ['''PatchIt! does not have the rights to save LEGO.JAM to
+{0}'''
+            .format(jam_files)]):
+            # Do nothing, go to main menu
+            pass
 
     finally:
         os.chdir(app_folder)
-        print(os.getcwd())
 
 
 def main(*args):
@@ -120,8 +118,11 @@ def main(*args):
 [q] Quit''')
     jam_opt = input("\n\n> ")
 
+    if jam_opt.lower() == "c":
+        SelectDataFiles()
+
     # Nothing here is complete, so redirect back to PatchIt! menu
-    if jam_opt.lower() != "q":
+    else:  # if jam_opt.lower() != "q":
         print("\nWhoops! That feature hasn't been added yet.")
         time.sleep(0.5)
     logging.info("Switching to PatchIt! main menu")
@@ -144,5 +145,5 @@ def main(*args):
     #elif not os.path.exists(JAM_file):
         #raise SystemExit(0)
 
-if __name__ != "__main__":
-    SelectJamFiles()
+#if __name__ != "__main__":
+    ##SelectDataFiles()
