@@ -54,8 +54,10 @@ import Color.colors as colors
 from Game import (Racers, LOCO, rungame)
 
 # PatchIt! "Constants"
+import constants
+build_num = constants.buildme()
 from constants import (
-    app, majver, minver, build_num, creator, LR_game, LOCO_game,
+    app, majver, minver, creator, LR_game, LOCO_game,
     app_folder, settings_fol, app_icon, Pi_settings)
 
 

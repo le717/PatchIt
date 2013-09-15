@@ -49,8 +49,9 @@ app_icon = os.path.join(app_folder, "Icons", "PiIcon.ico")
 # Build number (v3 Pickle data)
 build_file = os.path.join(app_folder, "Build.pickle")
 
-if __name__ != "__main__":
-    # Get the build number
+
+def buildme():
+    """Get and set the build number """
     from Settings import buildgen
     build_num = buildgen.get_build()
 
@@ -65,3 +66,4 @@ if __name__ != "__main__":
         if minver != "Stable":
             # increase the build number.
             buildgen.update_build(build_num)
+    return build_num
