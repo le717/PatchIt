@@ -61,28 +61,28 @@ Would you like to relaunch PatchIt! with Administrator rights? {1}'''.format(
 
         # User does not want to relaunch PatchIt!
         if not __admin:
-            logging.info("User does not want to relaunch PatchIt!")
+            logging.info("User does not want to relaunch PatchIt !with Admin rights")
             self.main.destroy()
             return False
         # If user wants to relaunch
         else:
-            logging.info("User wants to relaunch PatchIt!")
+            logging.info("User wants to relaunch PatchIt! with Admin rights")
 
             # This is the raw Python script. RunAsAdmin will not work
             if (constants.exe_name.endswith("py") or
                     constants.exe_name.endswith("pyw")):
-                logging.warning('''This is the raw Python script ({0})
+                logging.warning('''This is a raw Python script ({0})
 RunAsAdmin.exe cannot operate!'''.format(constants.exe_name))
 
                 showerror("Running Error!",
-                          '''You are running the raw Python script ({0}).
+                          '''You are running a raw Python script ({0}).
 RunAsAdmin will not work at all.'''.format(constants.exe_name))
                 self.main.destroy()
                 return False
 
             # Launch RunAsAdmin to reload PatchIt!
             else:
-                logging.info('''This is the PatchIt! exe ({0}).
+                logging.info('''This is an exe ({0}).
 Launching RunAsAdmin.exe'''.format(constants.exe_name))
 
                 subprocess.call(
