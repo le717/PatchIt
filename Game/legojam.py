@@ -183,7 +183,7 @@ def ExtractJAM(jam_location):
     """Extract the files from LEGO.JAM"""
     try:
         # Extract the JAM archive
-        JAMExtractor.extract(jam_location, verbose=True)
+        JAMExtractor.extract(jam_location, verbose=False)
 
     # We don't have the rights to extract the JAM
     except PermissionError:  # lint:ok
@@ -209,8 +209,3 @@ PatchIt! does not have the rights to extract LEGO.JAM to
     # Go back to the menu
     finally:
         main()
-
-if __name__ != "__main__":
-    #SelectDataFiles()
-    #SelectJAMArchive()
-    main()
