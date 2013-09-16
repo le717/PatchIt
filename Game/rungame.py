@@ -55,7 +55,7 @@ class PlayRacers(object):
             raise SystemExit(0)
 
         # Except we need admin righs to do it
-        except OSError:
+        except (OSError, PermissionError):
             # Change the cwd to C:\Users\MyUser
             os.chdir(os.path.expanduser("~"))
             curDir = os.getcwd()
