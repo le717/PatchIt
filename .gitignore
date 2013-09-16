@@ -11,7 +11,7 @@ Documentation/Readme/*
 __pycache__/
 !Download.html
 PatchIt-Compatible.html
-*.html
+#*.html
 *.exe
 *.txt
 *.py*
