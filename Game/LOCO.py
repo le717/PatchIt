@@ -42,6 +42,51 @@ import PatchIt
 # ----- Begin PatchIt! LEGO LOCO Settings Reading ----- #
 
 
+def getLOCOPath():
+    """Special-use function to get and return the LOCO installation path"""
+    # The LEGO LOCO settings do not exist
+    if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
+        logging.warning("Could not find LEGO LOCO settings!")
+        LOCOReadSettings()
+
+    # The LEGO LOCO settings do exist
+    # Check encoding of LOCO Settings file
+    logging.info("Check encoding of {0} before installation".format(
+        os.path.join(settings_fol, LOCO_settings)))
+
+    # Open it, read just the area containing the byte mark
+    with open(os.path.join(settings_fol, LOCO_settings),
+    "rb") as encode_check:
+        encoding = encode_check.readline(3)
+
+    if (  # The settings file uses UTF-8-BOM encoding
+        encoding == b"\xef\xbb\xbf"
+        # The settings file uses UCS-2 Big Endian encoding
+        or encoding == b"\xfe\xff\x00"
+        # The settings file uses UCS-2 Little Endian
+        or encoding == b"\xff\xfe/"):
+
+        # The settings cannot be read for installation,
+        # go write them so this Patch can be installed
+        logging.warning("LEGO LOCO Settings cannot be read!")
+        LOCOReadSettings()
+
+    # The LEGO LOCO settings can be read
+    # Read the settings file for installation (LEGO LOCO directory)
+    logging.info("Reading line 5 of settings for LEGO LOCO installation")
+
+    try:
+        with open(os.path.join(settings_fol, LOCO_settings),
+             "rt", encoding="utf-8") as f:
+            loco_install_path = f.readlines()[4]
+        return loco_install_path
+
+    # It may exist, but it doesn't mean the path is set up
+    except IndexError:
+        logging.error("The LEGO LOCO Installation has not been set up!")
+        LOCOWriteSettings()
+
+
 def LOCOReadSettings():
     """Read PatchIt! LEGO LOCO settings"""
     # The settings file does not exist

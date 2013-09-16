@@ -42,7 +42,7 @@ import PatchIt
 
 
 def getRacersPath():
-    """Special-use function to get and return the installation path"""
+    """Special-use function to get and return the Racers installation path"""
     # The LEGO Racers settings do not exist
     if not os.path.exists(os.path.join(settings_fol, LR_settings)):
         logging.warning("Could not find LEGO Racers settings!")
