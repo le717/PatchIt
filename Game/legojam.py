@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# <pep8-80 compliant>
 """
     This file is part of PatchIt!
 
@@ -65,8 +66,8 @@ def SelectDataFiles():
 
     # The files to be compressed
     jam_files = filedialog.askdirectory(
-    parent=root,
-    title="Where are the extracted LEGO.JAM files located?"
+        parent=root,
+        title="Where are the extracted LEGO.JAM files located?"
     )
 
     if not jam_files:
@@ -96,14 +97,12 @@ def BuildJAM(jam_files):
 
 PatchIt! does not have the rights to save LEGO.JAM to
 {0}
-'''.format(
-    jam_files))
+'''.format(jam_files))
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
             ['''PatchIt! does not have the rights to save LEGO.JAM to
-{0}'''
-            .format(jam_files)]):
+{0}'''.format(jam_files)]):
             # Do nothing, go to main menu
             pass
 
@@ -195,14 +194,12 @@ def ExtractJAM(jam_location):
 
 PatchIt! does not have the rights to extract LEGO.JAM to
 {0}
-'''.format(
-    jam_location))
+'''.format(jam_location))
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
             ['''PatchIt! does not have the rights to extract LEGO.JAM to
-{0}'''
-            .format(jam_location)]):
+{0}'''.format(jam_location)]):
             # Do nothing, go to main menu
             pass
 

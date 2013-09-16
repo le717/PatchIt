@@ -99,7 +99,7 @@ def selectPatch(*args):
 
         logging.warning("User did not select a PatchIt! Patch to install!")
         colors.text("\nCould not find a PatchIt! Patch to read!",
-            color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
         time.sleep(0.7)
 
         PatchIt.main(count=1)
@@ -133,14 +133,15 @@ def checkPatch(patch):
         # The "Patch" uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
         # The "Patch" uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"):
+        or encoding == b"\xff\xfe/"
+    ):
 
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
         logging.warning("{0} is written using an unsupported encoding!".format(
             patch))
         logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
-            color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         time.sleep(1)
         PatchIt.main(count=1)
@@ -159,8 +160,8 @@ def checkPatch(patch):
     logging.info("Cleaning up validity lines")
     valid_line = valid_line.strip()
     archive_line = archive_line.strip()
-    logging.info("The validity lines reads\n{0} and \n{1}".format(valid_line,
-    archive_line))
+    logging.info("The validity lines reads\n{0} and \n{1}"
+                 .format(valid_line, archive_line))
 
     # PiP File Format 1.1.x validity line
     current_valid_line = "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
@@ -172,8 +173,8 @@ def checkPatch(patch):
         logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
         colors.text('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
-It may be best to check if a newer version of this mod is available.'''.format(
-    patch), color.FG_CYAN)
+It may be best to check if a newer version of this mod is available.'''
+                    .format(patch), color.FG_CYAN)
 
         # Delete validity lines from memory
         del lines[:]
@@ -197,7 +198,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
     elif (valid_line == current_valid_line and archive_line == "[ZIP]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
-            color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
         del lines[:]
@@ -211,7 +212,7 @@ It may be best to check if a newer version of this mod is available.'''.format(
     elif (valid_line != current_valid_line and archive_line != "[PiA]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
-            color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
         del lines[:]
@@ -305,7 +306,7 @@ Game: {3}
     # No, I do not want to install the patch
     if confirm_install.lower() != "y":
         logging.warning("User does not want to install {0} (Version: {1})!"
-            .format(name, version))
+                        .format(name, version))
         colors.text("\nCanceling installation of {0} (Version: {1})".format(
             name, version), color.FG_LIGHT_RED)
         time.sleep(0.5)
@@ -317,7 +318,7 @@ Game: {3}
             name, version))
         logging.info("Proceeding to installModernPatch()")
         installModernPatch(patch, name, version, author, game, mp,
-            patch_archive)
+                           patch_archive)
 
 
 def installModernPatch(patch, name, version, author, game, mp, patch_archive):
@@ -345,7 +346,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
 PatchIt! only supports LEGO Racers and LEGO LOCO.
 You may want to contact {3} and ask them if this is an error,
 and request a proper Patch.'''.format(name, version, game, author),
- color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         # Give the user time to read the mesage
         time.sleep(5)
@@ -363,10 +364,10 @@ and request a proper Patch.'''.format(name, version, game, author),
     try:
         # Actually extract the PiA archive
         logging.info("Extracting {0} to {1}".format(patch_archive,
-        install_path))
+                                                    install_path))
 
         with tarfile.open(os.path.join(patch_location, patch_archive),
-             "r") as tar_file:
+                          "r") as tar_file:
             tar_file.extractall(install_path)
 
         # Display gameplay tip/MP only if Patch was successfully installed
@@ -387,8 +388,8 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         logging.warning("Error (exit) number '0'")
         logging.info('''
 
-{0} (Version: {1}) successfully installed to {2}'''.format(
-    name, version, install_path))
+{0} (Version: {1}) successfully installed to {2}'''
+                     .format(name, version, install_path))
         colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
             name, version, install_path), color.FG_LIGHT_GREEN)
 
@@ -408,8 +409,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
 
         logging.warning('''
 
-Unable to find {0} at {1}!'''.format(patch_archive,
-        patch_location))
+Unable to find {0} at {1}!'''.format(patch_archive, patch_location))
         colors.text('''\nCannot find Patch files for {0} (Version: {1})!
 Make sure "{2}" and "{3}"
 are both located at
@@ -419,8 +419,9 @@ are both located at
 and try again.
 
 If this error continues, contact {5} and ask for a fixed version.'''
-        .format(name, version, os.path.basename(patch),
-        patch_archive, patch_location, author), color.FG_LIGHT_RED)
+                    .format(name, version, os.path.basename(patch),
+                    patch_archive, patch_location, author),
+                    color.FG_LIGHT_RED)
 
         # Sleep for 2 seconds after displaying installation result
         # before kicking back to the main menu.
@@ -436,7 +437,7 @@ If this error continues, contact {5} and ask for a fixed version.'''
         logging.warning('''
 
 PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
-.format(name, version, install_path))
+                        .format(name, version, install_path))
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
@@ -457,7 +458,7 @@ PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
         logging.warning('''
 
 PatchIt! had an unknown error while to installing {0} (Version: {1}) to {2}'''
-.format(name, version, install_path))
+                        .format(name, version, install_path))
         colors.text('''
 PatchIt! ran into an unknown error while trying to install
 {0} (Version: {1}) to

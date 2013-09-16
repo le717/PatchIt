@@ -62,25 +62,25 @@ def file_check(path):
     # windows.microsoft.com/en-US/windows-vista/Recognizing-dangerous-file-types
 
     blacklist = [
-    # Programs
-    ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com", ".scr",
-    ".hta", ".cpl", ".msc", ".jar",
-    # Scripts
-    ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf", ".wsc",
-    ".wsh", ".ps1", ".ps1xml", ".ps2",
-    ".ps2xml", ".psc1", ".psc2", ".msh", ".msh1", ".msh2", ".mshxml",
-    ".msh1xml", ".msh2xml", ".py", ".pyw", ".au3",
-    # Resources
-    ".dll", ".icd", ".pyd", ".pyo",
-    # Shortcuts\Registry\Misc
-    ".scf", ".lnk", ".inf", ".reg", ".db", ".PiP",
-    # Office Macros
-    ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm",
-    ".potm", ".ppam", ".ppsm", ".sldm",
-    # Archives
-    ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2", ".bzip2",
-    "gzip", ".tgz", ".rpm", ".deb", ".dmg", ".fat", ".ntfs", ".cab", ".iso",
-     ".xz", ".nrg", ".bin", ".PiA"
+        # Programs
+        ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com",
+        ".scr", ".hta", ".cpl", ".msc", ".jar",
+        # Scripts
+        ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf",
+        ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2", ".ps2xml", ".psc1",
+        ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml",
+        ".msh2xml", ".py", ".pyw", ".au3",
+        # Resources
+        ".dll", ".icd", ".pyd", ".pyo",
+        # Shortcuts\Registry\Misc
+        ".scf", ".lnk", ".inf", ".reg", ".db", ".PiP",
+        # Office Macros
+        ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm",
+        ".potm", ".ppam", ".ppsm", ".sldm",
+        # Archives
+        ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2",
+        ".bzip2", "gzip", ".tgz", ".rpm", ".deb", ".dmg", ".fat", ".ntfs",
+        ".cab", ".iso", ".xz", ".nrg", ".bin", ".PiA"
     ]
 
     # --- Begin Temporary Folder Configuration -- #
@@ -101,7 +101,8 @@ def file_check(path):
     try:
         # Copy files to temporary location
         logging.info("Copying all contents of {0} to {1}".format(path,
-            temp_location))
+                                                                 temp_location
+                                                                 ))
         distutils.dir_util.copy_tree(path, temp_location)
 
         # Traversing the reaches of the (Temporary) Patch files...
@@ -115,10 +116,9 @@ def file_check(path):
 
                 # If an illegal file is found, as identified by the extension,
                 # Check both ext and  ext.lower() so it is case insensitive
-                if (ext.lower() in blacklist or
-                    ext in blacklist):
+                if (ext.lower() in blacklist or ext in blacklist):
                     logging.warning("An illegal file ({0}) has been found!"
-                    .format(ext))
+                                    .format(ext))
 
                     # Get the full path to it,
                     illegal_file = os.path.join(root, string)
@@ -154,7 +154,7 @@ def delete_files():
         logging.error('''The temporary directory was not found!
 It probably was created ealier.''')
         logging.exception("Oops! Something went wrong! Here's what happened\n",
-            exc_info=True)
+                          exc_info=True)
 
 # ------------ End Illegal File Check ------------ #
 
@@ -190,7 +190,7 @@ def patchName():
     if charCheck(name):
         logging.warning("There were illegal characters in the Patch name!")
         colors.text("\nYou have entered an illegal character!\n",
-        color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
@@ -200,7 +200,7 @@ def patchName():
     #elif len(name) >= 81:
         #logging.warning("The Patch name was more than 80 characters!")
         #colors.text("\nThe Name field must be 80 characters or less!\n",
-        #color.FG_LIGHT_RED)
+                    #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Name Process
         #logging.info("Looping back through patchName()")
@@ -232,7 +232,7 @@ def patchVersion():
     if charCheck(version):
         logging.warning("There were illegal characters in the Patch version!")
         colors.text("\nYou have entered an illegal character!\n",
-        color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
@@ -242,7 +242,7 @@ def patchVersion():
     #elif len(name) >= 13:
         #logging.warning("The Patch version was more than 12 characters!")
         #colors.text("\nThe Version field must be 12 characters or less!\n",
-        #color.FG_LIGHT_RED)
+                    #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Version Process
         #logging.info("Looping back through patchVersion()")
@@ -295,7 +295,7 @@ def patchDesc():
     if len(desc) == 0:
         logging.warning("The Patch description field was left blank!")
         colors.text("\nThe Description field must be filled out!\n",
-        color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
         logging.info("Looping back through patchDesc()")
@@ -336,7 +336,7 @@ Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:
 1920x1024
 
 If you used a custom resolution, be sure to enter that below.''',
-color.FG_LIGHT_MAGENTA)
+                color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because the screen resolution is not expressed in
@@ -357,7 +357,7 @@ color.FG_LIGHT_MAGENTA)
 
 ''', exc_info=True)
         colors.text("\nYou have entered a non-numerical character!",
-            color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
         logging.info("Looping back through MPField()")
         MPField(game)
 
@@ -397,10 +397,10 @@ def patchInfo(*args):
         game = "LEGO LOCO"
 
      # I want to quit the process
-    else:  # elif game_select.lower() == "q":
+    else:
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.text("\nCanceling creation of PatchIt! Patch",
-             color.FG_LIGHT_RED)
+                    color.FG_LIGHT_RED)
         PatchIt.main(count=1)
 
     logging.info("Ask for Patch name")
@@ -441,8 +441,8 @@ def selectPatchFiles(game, mp):
 
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
-    parent=root,
-    title="Select the files for {0} (Version: {1})".format(name, version)  # lint:ok
+        parent=root,
+        title="Select the files for {0} (Version: {1})".format(name, version)  # lint:ok
     )
 
     # The user clicked the cancel button
@@ -484,7 +484,8 @@ def writePatch(patchfiles, mp, game):
         thepatch = "{0}{1}.PiP".format(name, version)  # lint:ok
         thearchive = "{0}{1}.PiA".format(name, version)  # lint:ok
         logging.info("The final file names are {0} and {1}".format(thepatch,
-        thearchive))
+                                                                   thearchive)
+                     )
 
         # Run illegal file check
         logging.info("Run file_check() to check for and remove illegal files.")
@@ -519,8 +520,8 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
         # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
         #lint:disable
-        logging.info("{0} Version: {1} created and saved to {2}".format(name,
-        version, patchfiles))
+        logging.info("{0} Version: {1} created and saved to {2}"
+                     .format(name, version, patchfiles))
         colors.text('''
 {0} (Version: {1}) successfully created and saved to
 "{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
@@ -534,13 +535,13 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
 ''', exc_info=True)
         logging.warning('''
 
-PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
-    name, version))  # lint:ok
+PatchIt! does not have the rights to create {0} (Version: {1})'''
+                        .format(name, version))  # lint:ok
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
             ["PatchIt! does not have the rights to create {0} (Version: {1})"
-            .format(name, version)]):  # lint:ok
+                                    .format(name, version)]):  # lint:ok
             # Do nothing, go to main menu
             pass
 
@@ -553,7 +554,7 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''.format(
         logging.warning('''
 
 PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
-.format(name, version))  # lint:ok
+                        .format(name, version))  # lint:ok
         colors.text('''
 PatchIt! ran into an unknown error while trying to create
 {0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)  # lint:ok

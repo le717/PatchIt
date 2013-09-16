@@ -55,8 +55,7 @@ def getLOCOPath():
         os.path.join(settings_fol, LOCO_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(settings_fol, LOCO_settings),
-    "rb") as encode_check:
+    with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
         encoding = encode_check.readline(3)
 
     if (  # The settings file uses UTF-8-BOM encoding
@@ -64,7 +63,8 @@ def getLOCOPath():
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
         # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"):
+        or encoding == b"\xff\xfe/"
+    ):
 
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
@@ -77,7 +77,7 @@ def getLOCOPath():
 
     try:
         with open(os.path.join(settings_fol, LOCO_settings),
-             "rt", encoding="utf-8") as f:
+                  "rt", encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
         return loco_install_path
 
@@ -115,8 +115,8 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             root = Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
-                "Cannot find {0} installation at {1}".format(
-                    LOCO_game, LOCO_path))
+                                    "Cannot find {0} installation at {1}"
+                                    .format(LOCO_game, LOCO_path))
             root.destroy()
 
             # Go write the settings file
@@ -255,7 +255,8 @@ def LOCOGameCheck():
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
         # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"):
+        or encoding == b"\xff\xfe/"
+    ):
 
         logging.warning("LEGO LOCO Settings cannot be read!")
         # Mark as global it is can be used in other messages
@@ -278,16 +279,16 @@ def LOCOGameCheck():
      # The only items needed to confirm a LEGO LOCO installation.
     if (os.path.exists(os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower()))
         and os.path.exists(os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower()))
-        and os.path.exists(os.path.join(LOCO_path, "art-res".lower()))
-        ):
+            and os.path.exists(os.path.join(LOCO_path, "art-res".lower()))):
+
         logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}"
-        .format(LOCO_path))
+                     .format(LOCO_path))
         return True
 
     # If the settings file was externally edited and the path was removed
     elif not LOCO_path:
         logging.warning("LEGO LOCO installation written in {0} is empty!"
-        .format(LOCO_settings))
+                        .format(LOCO_settings))
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
@@ -323,7 +324,8 @@ def CheckLOCOSettings():
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
             # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
+            or encoding == b"\xff\xfe/"
+        ):
 
             # The settings cannot be read, return False
             logging.warning("LEGO LOCO Settings cannot be read!")
@@ -332,7 +334,7 @@ def CheckLOCOSettings():
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO LOCO first-run info")
         with open(os.path.join(settings_fol, LOCO_settings), "rt",
-             encoding="utf-8") as first_run_check:
+                  encoding="utf-8") as first_run_check:
             loco_first_run = first_run_check.readlines()[2]
 
         # Strip the path to make it valid
@@ -342,7 +344,7 @@ def CheckLOCOSettings():
         # '0' means this is a "first-run"
         # '1' is the only valid value meaning the first-run has been completed
         if (loco_first_run.lower() == "0" or
-            loco_first_run.lower() != "1"):
+                loco_first_run.lower() != "1"):
             logging.warning("PatchIt! has never been run!")
             return False
 

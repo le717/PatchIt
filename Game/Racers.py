@@ -55,7 +55,7 @@ def getRacersPath():
 
     # Open it, read just the area containing the byte mark
     with open(os.path.join(settings_fol, LR_settings),
-    "rb") as encode_check:
+              "rb") as encode_check:
         encoding = encode_check.readline(3)
 
     if (  # The settings file uses UTF-8-BOM encoding
@@ -63,7 +63,8 @@ def getRacersPath():
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
         # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"):
+        or encoding == b"\xff\xfe/"
+    ):
 
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
@@ -76,7 +77,7 @@ def getRacersPath():
 
     try:
         with open(os.path.join(settings_fol, LR_settings),
-        "rt", encoding="utf-8") as f:
+                  "rt", encoding="utf-8") as f:
             racers_install_path = f.readlines()[6]
         return racers_install_path
 
@@ -110,11 +111,12 @@ Writing LEGO Racers settings so we don't read an empty file.''')
 
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found at {0}"
-            .format(LR_path))
+                            .format(LR_path))
             root = Tk()
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
-            "Cannot find {0} installation at {1}".format(LR_game, LR_path))
+                                    "Cannot find {0} installation at {1}"
+                                    .format(LR_game, LR_path))
             root.destroy()
 
             # Go write the settings file
@@ -191,7 +193,7 @@ def LRWriteSettings():
     # The user selected a folder
     else:
         logging.info("User selected a new LEGO Racers installation at {0}"
-        .format(new_racers_game))
+                     .format(new_racers_game))
 
         # Give focus back to console window
         logging.info("Give focus back to console window")
@@ -205,7 +207,7 @@ def LRWriteSettings():
         # Write settings, using UTF-8 encoding
         logging.info("Open 'Racers.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LR_settings),
-            'wt', encoding='utf-8') as racers_file:
+                  "'wt", encoding="utf-8") as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)
@@ -260,7 +262,8 @@ def LRGameCheck():
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
         # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"):
+        or encoding == b"\xff\xfe/"
+    ):
 
         # The settings cannot be read
         logging.warning("LEGO Racers Settings cannot be read!")
@@ -292,12 +295,13 @@ def LRGameCheck():
     logging.info("Deleting raw reading of {0}".format(LR_settings))
     del lines[:]
 
-     # The only three items needed to confirm a LEGO Racers installation.
+    # The only three items needed to confirm a LEGO Racers installation.
     if (os.path.exists(os.path.join(LR_path, "legoracers.exe".lower()))
         and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))
-        and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))):
+            and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))):
+
         logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}"
-        .format(LR_path))
+                     .format(LR_path))
         return True
 
     # If the settings file was externally edited and the path was removed
@@ -354,7 +358,8 @@ def CheckLRSettings():
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
             # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
+            or encoding == b"\xff\xfe/"
+        ):
 
             # The settings cannot be read, return False
             logging.warning("LEGO Racers Settings cannot be read!")
@@ -373,7 +378,7 @@ def CheckLRSettings():
         # '0' means this is a "first-run"
         # '1' is the only valid value meaning the first-run has been completed
         if (lr_first_run.lower() == "0" or
-            lr_first_run.lower() != "1"):
+                lr_first_run.lower() != "1"):
             logging.warning("PatchIt! has never been run!")
             return False
 

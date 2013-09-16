@@ -59,16 +59,16 @@ class AdminRun(object):
         __admin = askyesno("Relaunch PatchIt?",
                            '''{0}
 Would you like to relaunch PatchIt! with Administrator rights? {1}'''.format(
-    messages[0], end))
+                           messages[0], end))
 
         # User does not want to relaunch PatchIt!
         if not __admin:
-            logging.info("User does not want to relaunch PatchIt !with Admin rights")
+            logging.warning("User does not want to relaunch with Admin rights!")
             self.main.destroy()
             return False
         # If user wants to relaunch
         else:
-            logging.info("User wants to relaunch PatchIt! with Admin rights")
+            logging.info("User wants to relaunch with Admin rights")
 
             # This is the raw Python script. RunAsAdmin will not work
             if (constants.exe_name.endswith("py") or

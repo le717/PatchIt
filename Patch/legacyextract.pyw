@@ -85,9 +85,9 @@ def readPatch(installpatch):
     # Display all the info
     logging.info("Display all mod info")
     logging.info('\n{0} {1} {2} "{3}"\n'.format(installname, installver,
-    installauthor, installdesc))
+                 installauthor, installdesc))
     print('\n{0} {1} {2} "{3}"'.format(installname, installver, installauthor,
-    installdesc))
+          installdesc))
 
     # Clean up name and version to put all the text on one line
     logging.info("Cleaning up mod name")
@@ -96,9 +96,9 @@ def readPatch(installpatch):
     installver = installver.strip("\n")
 
     logging.info("Do you Do you wish to install {0} {1}?".format(installname,
-    installver))
+                 installver))
     print("\nDo you wish to install {0} {1}? {2}".format(installname,
-    installver, r"(Y\N)"))
+          installver, r"(Y\N)"))
     confirminstall = input("\n> ")
 
     # No, I do not want to install the patch
@@ -106,7 +106,7 @@ def readPatch(installpatch):
         logging.warning("User does not want to install {0} {1}!".format(
             installname, installver))
         print("\nCanceling installation of {0} {1}...".format(installname,
-        installver))
+              installver))
         time.sleep(0.5)
         logging.info("Proceeding to main menu")
         PatchIt.main(count=1)
@@ -114,11 +114,10 @@ def readPatch(installpatch):
     # Yes, I do want to install it!
     else:
         logging.info("User does want to install {0} {1}.".format(installname,
-        installver))
+                     installver))
 
         # The LEGO Racers settings do not exist
-        if not os.path.exists(
-            os.path.join(settings_fol, LR_settings)):
+        if not os.path.exists(os.path.join(settings_fol, LR_settings)):
             logging.warning("Could not find LEGO Racers settings!")
             Racers.LRReadSettings()
 
@@ -130,7 +129,7 @@ def readPatch(installpatch):
 
         # Open it, read just the area containing the byte mark
         with open(os.path.join(settings_fol, LR_settings),
-        "rb") as encode_check:
+                  "rb") as encode_check:
             encoding = encode_check.readline(3)
 
         if (  # The settings file uses UTF-8-BOM encoding
@@ -138,7 +137,8 @@ def readPatch(installpatch):
             # The settings file uses UCS-2 Big Endian encoding
             or encoding == b"\xfe\xff\x00"
             # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
+            or encoding == b"\xff\xfe/"
+        ):
 
             # The settings cannot be read for installation,
             # go write them so this Patch can be installed
@@ -154,7 +154,7 @@ def readPatch(installpatch):
          # Updated in semi-accordance with PatchIt! Dev-log #6
         try:
             with open(os.path.join(settings_fol, LR_settings), "rt",
-            encoding="utf-8") as f:
+                      encoding="utf-8") as f:
                 installpath = f.readlines()[6]
 
             # Create a valid folder path
@@ -175,15 +175,16 @@ def readPatch(installpatch):
 
         # Find the ZIP archive
         ziplocation = installpatch.rstrip("{0}{1}{2}".format(installname,
-        installver, ".PiP"))
+                                                             installver,
+                                                             ".PiP"))
         logging.info("Found ZIP archive at {0}".format(ziplocation))
 
         try:
             # Actually extract the ZIP archive
             logging.info("Extract {0} to {1}".format(installzipfile,
-            installpath))
+                         installpath))
             with zipfile.ZipFile(ziplocation + installzipfile,
-                "r") as extractzip:
+                                 "r") as extractzip:
                 extractzip.extractall(path=installpath)
 
             # Display the LEGO Racers game tips
@@ -196,8 +197,9 @@ def readPatch(installpatch):
             logging.info("{0} {1} successfully installed to {2}".format(
                 installname, installver, installpath))
 
-            colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
-            installname, installver, installpath), color.FG_LIGHT_GREEN)
+            colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'
+                        .format(installname, installver, installpath),
+                        color.FG_LIGHT_GREEN)
 
             # Log ZIP closure although it was closed automatically by `with`
             logging.info("Closing {0}".format(installzipfile))
@@ -218,13 +220,14 @@ Here's what happened
             installver = installver.lstrip("Version: ")
             installauthor = installauthor.lstrip("Author: ")
             logging.warning("Unable to find {0} at {1}!".format(installzipfile,
-            ziplocation))
+                                                                ziplocation))
             colors.text('''Cannot find files for {0} {1}!
 Make sure {0}{1}.zip and {0}{1}.PiP
 are in the same folder, and try again.
 
 If the error continues, contact {3} and ask for a fixed version.'''
-            .format(installname, installver, installauthor), color.FG_LIGHT_RED)
+                        .format(installname, installver, installauthor),
+                        color.FG_LIGHT_RED)
 
             # Sleep for 2 seconds after displaying installation result
             # before kicking back to the main menu.
@@ -262,8 +265,7 @@ PatchIt! ran into an unknown error while trying to install
 {0} {1}
 to
 {2}!'''.format(
-                installname, installver, installpath),
-            color.FG_LIGHT_RED)
+                installname, installver, installpath), color.FG_LIGHT_RED)
 
             # Sleep for 2 seconds after displaying installation result
             # before kicking back to the main menu.
