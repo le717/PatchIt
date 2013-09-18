@@ -82,3 +82,7 @@ setup(
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
+
+# Run utility to get the newest version of the readme
+#FIXME: Run this before freezing
+from Tools.bin import readme

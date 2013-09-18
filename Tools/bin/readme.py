@@ -13,9 +13,7 @@ import wget
 curDir = os.getcwd()
 link = "https://github.com/le717/PatchIt/archive/gh-pages.zip"
 name = "PatchIt-gh-pages.zip"
-#FIXME: os.path.dirname(os.path.dirname())? Hacky.
-path = os.path.join("{0}".format(os.path.dirname(os.path.dirname(curDir))),
-                    "Documentation", "Readme")
+path = os.path.join(curDir, "Documentation", "Readme")
 
 # Download the readme from the gh-pages branch
 wget.download(link)
@@ -46,4 +44,3 @@ os.unlink(".gitattributes")
 
 # And we're done!
 print("\n\nDone. :)")
-raise SystemExit(0)
