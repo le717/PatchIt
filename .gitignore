@@ -129,7 +129,7 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-*.exe
+#*.exe
 *.msi
 *.com
 *.bat
@@ -209,7 +209,7 @@ Tools/Updater/bin/*
 *.psd
 *.txt
 *.ini
-#*.iss
+*.iss
 *.~is
 *.log
 *.PiP
