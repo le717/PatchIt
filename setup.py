@@ -53,6 +53,9 @@ else:
 Please freeze PatchIt! using 32-bit Python 3.3.''')
     raise SystemExit(0)
 
+# Run utility to get the newest version of the readme
+from Tools.bin import readme
+
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
                      "compressed": True,
@@ -82,7 +85,3 @@ setup(
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
-
-# Run utility to get the newest version of the readme
-#FIXME: Run this before freezing
-from Tools.bin import readme

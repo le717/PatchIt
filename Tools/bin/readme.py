@@ -29,9 +29,6 @@ with zipfile.ZipFile(name, "r") as extract:
 # Delete the zip archive
 os.unlink(name)
 
-# Change the cwd to where we extracted the files to
-os.chdir(path)
-
 # Copy the files out of the subfolder
 distutils.dir_util.copy_tree(os.path.join(path, "PatchIt-gh-pages"), path)
 
@@ -39,8 +36,8 @@ distutils.dir_util.copy_tree(os.path.join(path, "PatchIt-gh-pages"), path)
 distutils.dir_util.remove_tree(os.path.join(path, "PatchIt-gh-pages"))
 distutils.dir_util.remove_tree(os.path.join(path, "Documentation"))
 distutils.dir_util.remove_tree(os.path.join(path, "Site-Project"))
-os.unlink(".gitignore")
-os.unlink(".gitattributes")
+os.unlink(os.path.join(path, ".gitignore"))
+os.unlink(os.path.join(path, ".gitattributes"))
 
 # And we're done!
 print("\n\nDone. :)")
