@@ -48,4 +48,4 @@ if not halt:
     os.unlink(os.path.join(path, ".gitattributes"))
 
     # And we're done!
-    print("\n\nDone. :)")
+    print("\nReadme has been successfully downloaded.\n")
