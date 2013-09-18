@@ -191,8 +191,9 @@ Tools/Windows/Uninstaller*/*
 Tools/Windows/PatchIt*/
 Compile/
 Freeze/
-Bin/Windows
-!Bin/Settings/*
+bin/Windows
+!bin/Settings/*
+!Tools/bin
 !Color/
 Logs/
 !License/
@@ -218,7 +219,7 @@ Tools/Updater/bin/*
 *.blend2
 *.wpp
 *.html
-!.py
+#!.py
 !RunAsAdmin.cfg
 runjam.py
 #*settings
@@ -230,6 +231,8 @@ Windows/PatchIt-*
 License/gpl-v3-fr.txt 
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-Tools/Updater/wget.py
+*wget.py
 Tools/Updater/*.cfg
 Settings/*.cfg
+!Tools/bin/*
+!Tools/bin/readme.py
