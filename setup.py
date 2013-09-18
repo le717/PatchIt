@@ -54,6 +54,7 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
     raise SystemExit(0)
 
 # Run utility to get the newest version of the readme
+# Freeze continues if this has an error
 from Tools.bin import readme
 
 build_exe_options = {"build_exe": destfolder,
