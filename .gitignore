@@ -187,8 +187,8 @@ pip-log.txt
 ## Misc.
 ##########
 
-Windows/Uninstaller*/*
-Windows/PatchIt*/
+Tools/Windows/Uninstaller*/*
+Tools/Windows/PatchIt*/
 Compile/
 Freeze/
 Bin/Windows
@@ -200,7 +200,7 @@ Logs/
 Testing*/
 Archives/
 TheTesterGroup/
-Updater/bin/*
+Tools/Updater/bin/*
 
 ##########
 ## Files
@@ -209,7 +209,7 @@ Updater/bin/*
 *.psd
 *.txt
 *.ini
-*.iss
+#*.iss
 *.~is
 *.log
 *.PiP
@@ -230,6 +230,6 @@ Windows/PatchIt-*
 License/gpl-v3-fr.txt 
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-Updater/wget.py
-Updater/*.cfg
+Tools/Updater/wget.py
+Tools/Updater/*.cfg
 Settings/*.cfg
