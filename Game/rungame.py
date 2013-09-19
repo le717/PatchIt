@@ -26,6 +26,7 @@ LEGO Racers Launcher
 
 import os
 import shutil
+import time
 import subprocess
 from constants import app_folder
 from Game import Racers
@@ -51,25 +52,35 @@ class PlayRacers(object):
         install_path = Racers.getRacersPath()
         # Run the game directly
         try:
+            os.chdir(install_path)
             subprocess.call(os.path.join(install_path, self.__LRE))
             raise SystemExit(0)
 
         # Except we need admin righs to do it
         except (OSError, PermissionError):
+            print("Switching to backup process")
             # Change the cwd to C:\Users\MyUser
-            os.chdir(os.path.expanduser("~"))
+            myDir = os.path.expanduser("~")
+            os.chdir(install_path)
             curDir = os.getcwd()
+            print(curDir)
+
 
             # Copy RunAsAdmin from the PatchIt! installation to the cwd
-            shutil.copy2(os.path.join(app_folder, self.__RAA), curDir)
+            shutil.copy2(os.path.join(app_folder, self.__RAA), myDir)
+
             # Write the required CFG
-            with open(self.__RAAC, "wt", encoding="utf-8") as f:
+            with open(os.path.join(myDir, self.__RAAC), "wt", encoding="utf-8") as f:
                 f.write(os.path.join(install_path, self.__LRE))
 
             # Now we can run LEGO Racers
-            subprocess.call(self.__RAA)
+            #os.chdir(install_path)
+            subprocess.call([os.path.join(myDir, self.__RAA)], cwd=myDir)
+            #os.chdir(install_path)
+            print(os.getcwd(), curDir)
+
 
             # Delete the files, and closee
-            os.unlink(self.__RAA)
-            os.unlink(self.__RAAC)
+            #os.unlink(os.path.join(curDir, self.__RAA))
+            #os.unlink(os.path.join(curDir, self.__RAAC))
             raise SystemExit(0)
