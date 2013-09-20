@@ -53,9 +53,11 @@ build_file = os.path.join(app_folder, "Build.pickle")
 
 
 def buildme():
-    """Get and set the build number """
-    from Settings import buildgen
-    build_num = buildgen.get_build()
+    """Retrieve and update the build number """
+    # Retrieve the build number
+    from Settings.buildgen import (BuildNumber, UpdateBuildNumber)
+    bg = BuildNumber.Instance()
+    build_num = bg.fetch()
 
     # This is a frozen exe and the data is missing; assign a "number"
     if build_num is None:
@@ -66,6 +68,6 @@ def buildme():
             not sys.frozen in ("windows_exe", "console_exe")):
         # and if this is not a Stable release,
         if minver != "Stable":
-            # increase the build number.
-            buildgen.update_build(build_num)
+            # then increase the build number.
+            UpdateBuildNumber().update_build(build_num)
     return build_num

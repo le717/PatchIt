@@ -47,6 +47,7 @@ if len(sys.argv) == 1:
 # If this is Python x86
 if sys.maxsize == 2147483647:
     destfolder = os.path.join(os.getcwd(), "bin", "Windows")
+
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
@@ -55,7 +56,7 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
 
 # Run utility to get the newest version of the readme
 # Freeze continues if this has an error
-from Tools.bin import (readme, cleanup)
+from Tools.bin import (readme, cleanup)  # lint:ok
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
@@ -78,9 +79,12 @@ build_exe_options = {"build_exe": destfolder,
                      "Settings/buildgen"
                      ]}
 
+# Get the current build number
+from Settings.buildgen import BuildNumber as bg
+
 setup(
     name="PatchIt!",
-    version="{0}".format(majver),
+    version="{0}.{1}".format(majver, bg.Instance().buildnum),
     author="2013 Triangle717",
     description="PatchIt! Version {0} {1}".format(majver, minver),
     license="GPLv3",

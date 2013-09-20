@@ -30,54 +30,67 @@ import pickle
 
 # PatchIt! Constants
 from constants import build_file
+from singleton import Singleton
 
 
-def write_build(reset_build=False):
-    """Reset PatchIt! build number"""
-    # Reset the number if one is not given
-    if not reset_build:
-        build = "1"
-    else:
-        build = reset_build
+@Singleton
+class BuildNumber(object):
+    """Generate a build number"""
 
-    # Write the number
-    with open(build_file, "wb") as f:
-        pickle.dump(build, f)
-    return build
+    def __init__(self):
+        self.buildnum = self.get_build()
 
+    def fetch(self):
+        return self.buildnum
 
-def get_build():
-    """Sets current PatchIt! build number"""
-    # The pickled data cannot be found
-    if not os.path.exists(build_file):
+    def write_build(self, reset_build=False):
+        """Reset PatchIt! build number"""
+        # Reset the number if one is not given
+        if not reset_build:
+            build = "1"
+        else:
+            build = reset_build
 
-        # If this is a frozen exe, it will return None
-        if (hasattr(sys, "frozen") and
-                sys.frozen in ("windows_exe", "console_exe")):
-            pass
-
-        # This is the raw Python script, get a new number
-        elif not (hasattr(sys, "frozen") and
-                  not sys.frozen in ("windows_exe", "console_exe")):
-            new_build = write_build(False)
-            return new_build
-
-    # It does exist, read it
-    elif os.path.exists(build_file):
-        with open(build_file, "rb") as f:
-            build = pickle.load(f)
+        # Write the number
+        with open(build_file, "wb") as f:
+            pickle.dump(build, f)
         return build
 
+    def get_build(self):
+        """Sets current PatchIt! build number"""
+        # The pickled data cannot be found
+        if not os.path.exists(build_file):
 
-def update_build(build_num):
+            # If this is a frozen exe, it will return None
+            if (hasattr(sys, "frozen") and
+                    sys.frozen in ("windows_exe", "console_exe")):
+                return None
+
+            # This is the raw Python script, get a new number
+            elif not (hasattr(sys, "frozen") and
+                      not sys.frozen in ("windows_exe", "console_exe")):
+                new_build = self.UpdateBuildNumber().write_build(False)
+                return new_build
+
+        # It does exist, read it
+        elif os.path.exists(build_file):
+            with open(build_file, "rb") as f:
+                build = pickle.load(f)
+            return build
+
+
+class UpdateBuildNumber(object):
     """Increase the build number"""
-    # Convert it to an integer
-    int_build = int(build_num)
 
-    # Increase the build number
-    int_build += 1
+    def update_build(self, build_num):
+        """Increase the build number"""
+        # Convert it to an integer
+        int_build = int(build_num)
 
-    # Reconstruct the entire number, send it off for wrting
-    updated_num = "{0}".format(int_build)
-    write_build(updated_num)
-    return updated_num
+        # Increase the build number
+        int_build += 1
+
+        # Reconstruct the entire number, send it off for wrting
+        updated_num = "{0}".format(int_build)
+        BuildNumber.Instance().write_build(updated_num)
+        return updated_num
