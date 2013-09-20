@@ -46,7 +46,7 @@ if len(sys.argv) == 1:
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = os.path.join("bin", "Windows")
+    destfolder = os.path.join(os.getcwd(), "bin", "Windows")
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
@@ -55,7 +55,7 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
 
 # Run utility to get the newest version of the readme
 # Freeze continues if this has an error
-from Tools.bin import readme
+from Tools.bin import (readme, cleanup)
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
@@ -86,3 +86,6 @@ setup(
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
+
+# Run cleanup script to remove unneeded Tkinter files
+cleanup.cleanup(destfolder)
