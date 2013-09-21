@@ -69,15 +69,15 @@ AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppCopyright=Created 2013 {#MyAppPublisher}
-LicenseFile=..\License\LICENSE.txt
+LicenseFile=..\..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
 DefaultDirName={code:InstallPath}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=True
 ; Installer Graphics
-SetupIconFile=..\Icons\PiIcon.ico
-WizardImageFile=..\Icons\PatchItSidebar.bmp
-WizardSmallImageFile=..\Icons\PatchItLogo.bmp
+SetupIconFile=..\..\Icons\PiIcon.ico
+WizardImageFile=..\..\Icons\PatchItSidebar.bmp
+WizardSmallImageFile=..\..\Icons\PatchItLogo.bmp
 ; Location of the compiled Installer 
 ; Hint: The same folder as this script
 OutputDir=.\
@@ -104,8 +104,8 @@ ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\License\gpl-3.0.fr.txt" 
-Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\License\gpl-v3-nl-101.pdf"
+Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\..\License\gpl-3.0.fr.txt" 
+Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 BeveledLabel={#MyAppVerName}
@@ -152,36 +152,36 @@ Root: "HKCR"; Subkey: ".PiP\shell\open\command"; ValueType: string; ValueData: "
 
 [Files] 
 ; PatchIt! Uninstaller                                                                              
-Source: Uninstaller\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
-Source: Uninstaller\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
-Source: Uninstaller\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
-Source: Uninstaller\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
-Source: Uninstaller\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
-Source: Uninstaller\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: ..\Uninstaller\bin\PiUninstaller.exe; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: ..\Uninstaller\bin\_bz2.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: ..\Uninstaller\bin\library.zip; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: ..\Uninstaller\bin\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: ..\Uninstaller\bin\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
+Source: ..\Uninstaller\bin\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
 
 ; PatchIt! Updater
 ; Source: Updater\bin\*; DestDir: {app}\Updater; Flags: ignoreversion
 
 ; Readme
-Source: ..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; RunAsAdmin utility
 Source: RunAsAdmin\RunAsAdmin.cfg; DestDir: {app}; Flags: ignoreversion
 Source: RunAsAdmin\RunAsAdmin.exe; DestDir: {app}; Flags: ignoreversion  
 
 ; License files
-Source:  ..\License\*; DestDir: {app}\License; Flags: ignoreversion
+Source:  ..\..\License\*; DestDir: {app}\License; Flags: ignoreversion
 
 ; Settings files
-Source: ..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
-Source: ..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
+Source: ..\..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
 ; Settings files for Settings_Reset switch
-Source: ..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
-Source: ..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+Source: ..\..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
 
 ; PatchIt! itself (a 32-bit Windows binary)
-Source: ..\bin\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\bin\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 ; Launch PatchIt!, view Readme, Uninstall
