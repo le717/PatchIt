@@ -23,7 +23,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
-# PatchIt! Uninstaller V1.0.2.2
+# PatchIt! Uninstaller V1.0.2.3
 # Contains code contributed by JrMasterModelBuilder
 # https://github.com/JrMasterModelBuilder
 
@@ -43,23 +43,16 @@ def single_uninstall(folderpath):
         # Run uninstaller, passing /SILENT to suppress confirmation boxes
         subprocess.call([os.path.join(folderpath, "unins000.exe"), "/SILENT"])
 
-        # Sleep a little to avoid any uninstallation errors
-        time.sleep(1.5)
-
-        # Go to looping uninstaller
-        print("\nSwitching to Looping Uninstaller.")
-        loop_uninstall(folderpath)
-
     # Single installation does not exist
     else:
         print("\nunins000.exe does not exist")
 
-        # Sleep just a little to avoid an error
-        time.sleep(1.5)
+    # Sleep just a little to avoid an error
+    time.sleep(1.5)
 
-        # Go to looping uninstaller
-        print("\nSwitching to Looping Uninstaller.")
-        loop_uninstall(folderpath)
+    # Go to looping uninstaller
+    print("\nSwitching to Looping Uninstaller.")
+    loop_uninstall(folderpath)
 
 
 def loop_uninstall(folderpath):
@@ -74,8 +67,7 @@ def loop_uninstall(folderpath):
         exe_name = "unins{0}.exe".format(str(i).zfill(3))
 
         if os.path.exists(os.path.join(folderpath, exe_name)):
-            # Run the uninstaller, passing /SILENT to suppress
-            # confirmation boxes.
+            # Run uninstaller, passing /SILENT to suppress confirmation boxes
             print("\nRuinning {0}".format(exe_name))
             subprocess.call([os.path.join(folderpath, exe_name), "/SILENT"])
 
@@ -99,7 +91,7 @@ if __name__ == "__main__":
     except IndexError:
         folderpath = os.getcwd()
 
-        # Run uninstaller using folder path
+    # Run uninstaller using folder path
     finally:
         os.system("title {0}".format(folderpath))
         single_uninstall(folderpath)

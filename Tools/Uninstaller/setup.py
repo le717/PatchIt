@@ -55,9 +55,9 @@ build_exe_options = {"build_exe": destfolder,
 
 setup(
     name="PatchIt! Uninstaller",
-    version="1.0.2.2",
+    version="1.0.2.3",
     author="2013 Triangle717",
-    description="PatchIt! Uninstaller Version 1.0.2.2",
+    description="PatchIt! Uninstaller v1.0.2.3",
     license="GNU GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("Uninstaller.pyw", targetName="PiUninstaller.exe",
