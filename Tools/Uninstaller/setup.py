@@ -40,7 +40,7 @@ base = "Win32GUI"
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = "Uninstaller"
+    destfolder = "bin"
 
 # If this is Python x64
 else:
@@ -51,7 +51,7 @@ Please freeze PatchIt! Uninstaller using 32-bit Python 3.3.''')
 build_exe_options = {"build_exe": destfolder,
                      "includes": ["subprocess", "re"],
                      "optimize": 2,
-                     "icon": "../Icons/PiIcon.ico"}
+                     "icon": "../../Icons/PiIcon.ico"}
 
 setup(
     name="PatchIt! Uninstaller",
