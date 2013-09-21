@@ -323,11 +323,10 @@ def MPField(game):
         mp = "MP"
         return mp
 
-    # This is a LOCO Patch (implied else block here)
     # Get the resolution the map was created in (it matters!)
-
-    logging.info("What resolution was this LEGO LOCO map created with?")
-    print('''\nWhat resolution was "{0}" created with?
+    else:
+        logging.info("What resolution was this LEGO LOCO map created with?")
+        print('''\nWhat resolution was "{0}" created with?
 Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:ok
 
     colors.text('''
@@ -336,7 +335,7 @@ Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:
 1920x1024
 
 If you used a custom resolution, be sure to enter that below.''',
-                color.FG_LIGHT_MAGENTA)
+                    color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because the screen resolution is not expressed in
