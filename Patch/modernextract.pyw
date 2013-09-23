@@ -334,7 +334,7 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     elif game == "LEGO Racers":
 
         # Run process to get the Racers installation path
-        logging.info("Run getRacersPath() to get installation path for Racers")
+        logging.info("Get installation path to the Racers installation")
         install_path = Racers.getRacersPath()
 
     # In case the Game field says something else
