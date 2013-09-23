@@ -27,7 +27,6 @@ PatchIt! V1.1.2 Stable Legacy Patch Installation code
 """
 
 # General imports
-import os
 import linecache
 import zipfile
 import time
@@ -45,9 +44,6 @@ import PatchIt
 
 # Gameplay tips
 from Patch import racingtips
-
-# PatchIt! "Constants"
-from constants import (settings_fol, LR_settings)
 
 # LEGO Racers settings
 from Game import Racers
@@ -116,55 +112,10 @@ def readPatch(installpatch):
         logging.info("User does want to install {0} {1}.".format(installname,
                      installver))
 
-        # The LEGO Racers settings do not exist
-        if not os.path.exists(os.path.join(settings_fol, LR_settings)):
-            logging.warning("Could not find LEGO Racers settings!")
-            Racers.LRReadSettings()
+         # Run process to get the Racers installation path
+        logging.info("Get installation path to the Racers installation")
+        install_path = Racers.getRacersPath()
 
-        # The LEGO Racers settings does exist (implied else block here)
-
-        # Check encoding of Racers Settings file
-        logging.info("Check encoding of {0} before installation".format(
-            os.path.join(settings_fol, LR_settings)))
-
-        # Open it, read just the area containing the byte mark
-        with open(os.path.join(settings_fol, LR_settings),
-                  "rb") as encode_check:
-            encoding = encode_check.readline(3)
-
-        if (  # The settings file uses UTF-8-BOM encoding
-            encoding == b"\xef\xbb\xbf"
-            # The settings file uses UCS-2 Big Endian encoding
-            or encoding == b"\xfe\xff\x00"
-            # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"
-        ):
-
-            # The settings cannot be read for installation,
-            # go write them so this Patch can be installed
-            logging.warning("LEGO Racers Settings cannot be read!")
-            Racers.LRReadSettings()
-
-        # The LEGO Racers settings can be read (implied else block here)
-
-        # Read the settings file for installation (LEGO Racers directory)
-        logging.info("Reading line 7 of settings for LEGO Racers installation")
-
-        # Read the settings file for installation (LEGO Racers directory)
-         # Updated in semi-accordance with PatchIt! Dev-log #6
-        try:
-            with open(os.path.join(settings_fol, LR_settings), "rt",
-                      encoding="utf-8") as f:
-                installpath = f.readlines()[6]
-
-            # Create a valid folder path
-            logging.info("Cleaning up installation text")
-            installpath = installpath.rstrip("\n")
-
-        # It may exist, but it doesn't mean the path is set up
-        except IndexError:
-            logging.error("The LEGO Racers Installation has not been set up!")
-            Racers.LRWriteSettings()
         logging.info("Reading line 9 of {0} for ZIP archive".format(
             installpatch))
         installzipfile = linecache.getline(installpatch, 9)
@@ -182,10 +133,10 @@ def readPatch(installpatch):
         try:
             # Actually extract the ZIP archive
             logging.info("Extract {0} to {1}".format(installzipfile,
-                         installpath))
+                         install_path))
             with zipfile.ZipFile(ziplocation + installzipfile,
                                  "r") as extractzip:
-                extractzip.extractall(path=installpath)
+                extractzip.extractall(path=install_path)
 
             # Display the LEGO Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
@@ -195,10 +146,10 @@ def readPatch(installpatch):
             # Installation was successful!
             logging.info("Error (exit) number '0'")
             logging.info("{0} {1} successfully installed to {2}".format(
-                installname, installver, installpath))
+                installname, installver, install_path))
 
             colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'
-                        .format(installname, installver, installpath),
+                        .format(installname, installver, install_path),
                         color.FG_LIGHT_GREEN)
 
             # Log ZIP closure although it was closed automatically by `with`
@@ -241,14 +192,14 @@ Here's what happened
 ''', exc_info=True)
             logging.warning('''PatchIt! does not have the rights to install {0} {1}
 to
-{2}!'''.format(installname, installver, installpath))
+{2}!'''.format(installname, installver, install_path))
 
             # User did not want to reload with Administrator rights
             if not runasadmin.AdminRun().launch(
 ['''PatchIt! does not have the rights to install
 {0} ({1}) to
 {2}
-'''.format(installname, installver, installpath)]):
+'''.format(installname, installver, install_path)]):
                 # Do nothing, go to main menu
                 pass
 
@@ -259,13 +210,13 @@ to
 Here's what happened
 ''', exc_info=True)
             logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}!".format(
-                installname, installver, installpath))
+                installname, installver, install_path))
             colors.text('''
 PatchIt! ran into an unknown error while trying to install
 {0} {1}
 to
 {2}!'''.format(
-                installname, installver, installpath), color.FG_LIGHT_RED)
+                installname, installver, install_path), color.FG_LIGHT_RED)
 
             # Sleep for 2 seconds after displaying installation result
             # before kicking back to the main menu.

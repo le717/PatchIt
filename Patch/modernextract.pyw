@@ -327,14 +327,14 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     if game == "LEGO LOCO":
 
         # Run process to get the LOCO installation path
-        logging.info("Run getLOCOPath() to get installation path for LOCO")
+        logging.info("Get path to the LOCO installation")
         install_path = LOCO.getLOCOPath()
 
     # This is a LEGO Racers patch, read the Racers settings
     elif game == "LEGO Racers":
 
         # Run process to get the Racers installation path
-        logging.info("Get installation path to the Racers installation")
+        logging.info("Get path to the Racers installation")
         install_path = Racers.getRacersPath()
 
     # In case the Game field says something else
