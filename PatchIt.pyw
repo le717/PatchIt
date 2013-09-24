@@ -271,11 +271,12 @@ package and install mods for LEGO Racers"
 def main(*args, count):  # lint:ok
     """PatchIt! Menu Layout"""
     count += 1
+
     # If the user has pressed an valid key 5 times or this is app launch
     if (count == 2 or count == 6):
-        # Reset the count back to one,
+        # Reset the count back to two,
         if count == 6:
-            count = 1
+            count = 2
         # And display the menu only at the valid times
         colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
             app, majver, minver, creator), color.FG_WHITE)
