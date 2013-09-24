@@ -160,17 +160,17 @@ def preload():
 
     # If the Racers settings is present but not LOCO,
     # go to main menu
-    if hasLRSettings and not hasLOCOSettings:
+    if (hasLRSettings and not hasLOCOSettings):
         main(count=1)
 
     # If the LOCO settings is present but not Racers,
     # go to main menu
-    elif hasLOCOSettings and not hasLRSettings:
+    elif (hasLOCOSettings and not hasLRSettings):
         main(count=1)
 
     # If both the Racers and LOCO settings are present,
     # go to main menu
-    elif hasLRSettings and hasLOCOSettings:
+    elif (hasLRSettings and hasLOCOSettings):
         main(count=1)
 
     # Any other condition
