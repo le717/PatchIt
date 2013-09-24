@@ -79,6 +79,10 @@ def getRacersPath():
         with open(os.path.join(settings_fol, LR_settings),
                   "rt", encoding="utf-8") as f:
             racers_install_path = f.readlines()[6]
+
+        # Create a valid folder path
+        logging.info("Cleaning up installation path")
+        racers_install_path = racers_install_path.strip()
         return racers_install_path
 
     # It may exist, but it doesn't mean the path is set up

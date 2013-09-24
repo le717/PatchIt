@@ -79,6 +79,10 @@ def getLOCOPath():
         with open(os.path.join(settings_fol, LOCO_settings),
                   "rt", encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
+
+        # Create a valid folder path
+        logging.info("Cleaning up installation path")
+        loco_install_path = loco_install_path.strip()
         return loco_install_path
 
     # It may exist, but it doesn't mean the path is set up

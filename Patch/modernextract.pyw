@@ -353,10 +353,6 @@ and request a proper Patch.'''.format(name, version, game, author),
         # Go back to the main menu
         PatchIt.main(count=1)
 
-    # Create a valid folder path
-    logging.info("Cleaning up installation path")
-    install_path = install_path.strip()
-
     # Find the PiA archive
     patch_location = os.path.dirname(patch)
     logging.info("Locate PiA archive at {0}".format(patch_location))
