@@ -290,7 +290,6 @@ Please make a selection:
 [c] Create a PatchIt! Patch
 [i] Install a PatchIt! Patch
 [s] PatchIt! Settings
-[r] Run LEGO Racers
 [q] Quit''')
         # Experimental menu display
         if test:
@@ -339,7 +338,7 @@ Please make a selection:
                 logging.info("Running JAM Extractor wrapper")
                 legojam.main()
 
-              # The Experimental Mode was not activated
+            # The Experimental Mode was not activated
             else:
                 logging.info("The JAM Extractor wrapper cannot be activate in normal mode.")
                 colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
@@ -358,8 +357,16 @@ Please make a selection:
 
         # Run LEGO Racers
         elif menuopt.lower() == "r":
-            logging.shutdown()
-            rungame.PlayRacers().Race()
+            if test:
+                logging.shutdown()
+                # If Experimental Mode was activated
+                rungame.PlayRacers().Race()
+
+            # The Experimental Mode was not activated
+            else:
+                logging.info("The LEGO Racers launher cannot be activate in normal mode.")
+                colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
+                main(count=count)
 
         # Close PatchIt!
         elif menuopt.lower() == "q":
