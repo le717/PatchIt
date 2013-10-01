@@ -167,7 +167,7 @@ def charCheck(text):
     # List of all illegal characters
     illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
 
-    # Mark as global to display illegalcharacters in messages
+    # Mark as global to display illegal characters in messages
     global char
     # Get each character in the text
     for char in text:
@@ -205,9 +205,12 @@ def patchName():
 
     # An invalid character was entered
     if charCheck(name):
-        logging.warning("There were illegal characters in the Patch name!")
-        colors.text("\nYou have entered an illegal character!\n",
+        logging.warning(
+            '"{0}" is an illegal character and is not allowed in the Patch name!'
+            .format(char))
+        colors.text('\n"{0}" is an illegal character!\n'.format(char),
                     color.FG_LIGHT_RED)
+
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
@@ -233,7 +236,7 @@ def patchName():
         patchName()
 
     # An invalid character was not entered/the field was filled out
-    else:  # elif not charCheck(name)f
+    else:
         logging.info("All characters in Patch name are allowed")
         logging.info("The name field was filled out")
         return name
@@ -247,8 +250,10 @@ def patchVersion():
 
     # An invalid character was entered
     if charCheck(version):
-        logging.warning("There were illegal characters in the Patch version!")
-        colors.text("\nYou have entered an illegal character!\n",
+        logging.warning(
+            '"{0}" is an illegal character and is not allowed in the Patch version!'
+            .format(char))
+        colors.text('\n"{0}" is an illegal character!\n'.format(char),
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
@@ -275,7 +280,7 @@ def patchVersion():
         patchVersion()
 
     # An invalid character was not entered/the field was filled out
-    else:  # elif not charCheck(version):
+    else:
         logging.info("All characters in Patch version are allowed")
         logging.info("The version field was filled out")
         return version
