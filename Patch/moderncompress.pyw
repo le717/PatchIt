@@ -163,7 +163,7 @@ It probably was created ealier.''')
 
 
 def charCheck(text):
-    '''Checks for invalid characters in text'''
+    """Checks for illegal characters in text"""
 
     # A list of all illegal characters
     illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
@@ -178,6 +178,11 @@ def charCheck(text):
         # A character was not found
         else:
             return False
+    
+def nameCheck(text):
+    """Check for illegal name in text"""
+    illegal_names = ["Aux", "Com1", "Com2", "Com3", "Com4", "Con", 
+    "Lpt1", "Lpt2", "Lpt3", "Prn", "Nul"]
 
 
 def patchName():
