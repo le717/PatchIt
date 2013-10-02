@@ -1,5 +1,6 @@
 Compile/
 bin/*
+Tools/*
 Updater/bin/*
 Testing/
 Logs/
@@ -8,6 +9,7 @@ Windows/
 Archives/
 TheTesterGroup/
 Documentation/Readme/*
+Documentation/*.html
 __pycache__/
 !Download.html
 PatchIt-Compatible.html
