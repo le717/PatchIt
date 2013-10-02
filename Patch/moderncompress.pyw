@@ -177,25 +177,26 @@ def charCheck(text):
         # A character was not found
         else:
             return False
-    
+
+
 def nameCheck(text):
     """Check for illegal name in text"""
      # List of all illegal filenames
     illegal_names = ["Aux", "Com1", "Com2", "Com3",
                      "Com4", "Con", "Lpt1", "Lpt2",
                      "Lpt3", "Prn", "Nul"]
-                     
+
     # Mark as global to display illegal name in messages
     global bad_name
     # Get each name in the list
-    for bad_name in illegal_names
+    for bad_name in illegal_names:
         # If the name is present in the list
         if bad_name.lower() == text.lower():
             return True
         # If the name is not present in the list
         else:
             return False
-        
+
 
 def patchName():
     """Ask for Patch Name"""

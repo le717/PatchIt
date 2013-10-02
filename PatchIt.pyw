@@ -359,7 +359,6 @@ Please make a selection:
         # Run LEGO Racers
         elif menuopt.lower() == "r":
             if test:
-                logging.shutdown()
                 # If Experimental Mode was activated
                 rungame.PlayRacers().Race()
 
