@@ -136,6 +136,9 @@ Desktop.ini
 ## Python
 #############
 
+*.py
+*.pyw
+
 *.py[co]
 
 # Packages
@@ -189,21 +192,20 @@ Compile/
 Freeze/
 !Color/
 Logs/
-License/
+License/*.*
 Settings/
 Testing*/
 Archives/
+Tools/
 TheTesterGroup/
 
 ##########
 ## Files
 ##########
 
-#*.psd
+*.psd
 *.txt
 *.ini
-.py
-!.pyw
 *.iss
 JAMExtractor.py
 listtips.py
@@ -222,4 +224,4 @@ Windows/PatchIt-*
 License/gpl-v3-fr.txt
 Windows/Download.html
 PatchIt-Compatible.html
-#Documentation/Readme/ChangeLog/1*
+Documentation/
