@@ -167,16 +167,38 @@ def charCheck(text):
     # List of all illegal characters
     illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
 
-    # Mark as global to display illegal characters in messages
-    global char
-    # Get each character in the text
-    for char in text:
-        # A character was found
-        if char in illegal_chars:
-            return True
-        # A character was not found
-        else:
-            return False
+    # Get the length of the text, minus one for proper indexing
+    len_of_text = len(text) - 1
+
+    # Assign variable containing result of check; default to False
+    illa = False
+
+    # -1 so the first character is caught too
+    while len_of_text != -1:
+
+        # This character is allowed
+        if text[len_of_text] not in illegal_chars:
+            # The check goes in reverse, checking the last character first.
+            len_of_text -= 1
+
+        # This character is not allowed
+        elif text[len_of_text] in illegal_chars:
+            # Change value of variable; kill the loop, as we only need
+            # to find one illegal character to end the (ball) game.
+            illa = True
+            break
+
+    # An illegal character was found
+    if illa:
+        # Mark as global to display the illegal character in messages
+        global char
+
+        # Assign variable containing the illegal character
+        char = text[len_of_text]
+        return True
+
+    # Return False if no illegal character was found
+    return False
 
 
 def nameCheck(text):
@@ -192,9 +214,11 @@ def nameCheck(text):
     for bad_name in illegal_names:
         # If the name is present in the list
         if bad_name.lower() == text.lower():
+            print(bad_name.lower(), text.lower())
             return True
         # If the name is not present in the list
         else:
+            print("not", bad_name.lower(), text.lower())
             return False
 
 
@@ -212,10 +236,21 @@ def patchName():
         colors.text('\n"{0}" is an illegal character!\n'.format(char),
                     color.FG_LIGHT_RED)
 
-
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
         patchName()
+
+    # An invalid file name was entered
+    #if nameCheck(name):
+        #logging.warning(
+            #'"{0}" is an illegal file name and is not allowed in the Patch name!'
+            #.format(bad_name))
+        #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
+                    #color.FG_LIGHT_RED)
+
+        # Loop back through the Patch Name Process
+        #logging.info("Looping back through patchName()")
+        #patchName()
 
     ## The field was longer than 80 characters
     #elif len(name) >= 81:
