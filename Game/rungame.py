@@ -29,6 +29,10 @@ import time
 import subprocess
 import logging
 
+# Colored shell text
+import Color as color
+import Color.colors as colors
+
 from Game import Racers
 import PatchIt
 
@@ -67,10 +71,8 @@ class PlayRacers(object):
         except FileNotFoundError:  # lint:ok
             logging.warning("LEGORacers.exe could not be found at {0}!"
                             .format(install_path))
-            print("\nLEGORacers.exe could not be found at \n\n{0}"
-                  .format(install_path))
-            time.sleep(2)
-            PatchIt.main(count=1)
+            colors.text("\nLEGORacers.exe could not be found at \n\n{0}"
+                  .format(install_path), color.FG_LIGHT_RED)
 
         # Except we need admin righs to do it
         except (OSError, PermissionError):  # lint:ok
@@ -80,6 +82,9 @@ class PlayRacers(object):
             # and I don't think I can sneak a registry string in
             # without having admin rights anyway.
             logging.warning("LEGO Racers cannot be launched at this time.")
-            print("\nLEGO Racers cannot be launched at this time.\n")
+            colors.text("\nLEGO Racers cannot be launched at this time.\n",
+                        color.FG_LIGHT_RED)
+
+        finally:
             time.sleep(2)
             PatchIt.main(count=1)

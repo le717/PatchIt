@@ -295,7 +295,6 @@ def patchVersion():
         logging.info("Looping back through patchVersion()")
         patchVersion()
 
-
     ## An invalid file name was entered
     #elif filenameCheck(version):
         #logging.warning(
