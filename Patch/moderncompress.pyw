@@ -201,7 +201,7 @@ def charCheck(text):
     return False
 
 
-def nameCheck(text):
+def filenameCheck(text):
     """Check for illegal name in text"""
      # List of all illegal filenames
     illegal_names = ["aux", "com1", "com2", "com3",
@@ -239,15 +239,15 @@ def patchName():
         logging.info("Looping back through patchName()")
         patchName()
 
-    # An invalid file name was entered
-    #elif nameCheck(name):
+    ## An invalid file name was entered
+    #elif filenameCheck(name):
         #logging.warning(
             #'"{0}" is an illegal file name and is not allowed in the Patch name!'
             #.format(bad_name))
         #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
                     #color.FG_LIGHT_RED)
 
-        # Loop back through the Patch Name Process
+        ## Loop back through the Patch Name Process
         #logging.info("Looping back through patchName()")
         #patchName()
 
@@ -294,6 +294,18 @@ def patchVersion():
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
         patchVersion()
+
+
+    ## An invalid file name was entered
+    #elif filenameCheck(version):
+        #logging.warning(
+            #'"{0}" is an illegal file name and is not allowed in the Patch version!')
+        #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
+                    #color.FG_LIGHT_RED)
+
+        ## Loop back through the Patch Version Process
+        #logging.info("Looping back through patchVersion()")
+        #patchVersion()
 
     ## The field was longer than 12 characters
     #elif len(name) >= 13:
