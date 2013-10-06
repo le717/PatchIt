@@ -51,18 +51,31 @@ class PlayRacers(object):
         """I'll see you... at the finish line!"""
         # Get the installation path to Racers
         install_path = Racers.getRacersPath()
-        logging.info("Found LEGO Racers installation at {0}"
+        logging.info("Reported LEGO Racers installation at {0}"
                      .format(install_path))
         # Run the game directly
         try:
             logging.info("Launching LEGO Racers...")
             os.chdir(install_path)
-            subprocess.call([os.path.join(install_path, self.__LRE), self.__novideo])
+            subprocess.call(
+                [os.path.join(install_path, self.__LRE), self.__novideo]
+            )
             logging.shutdown()
             raise SystemExit(0)
 
+        # Except LEGORacers.exe could not be found
+        except FileNotFoundError:  # lint:ok
+            logging.warning("LEGORacers.exe could not be found at {0}!"
+                            .format(install_path))
+            print("\nLEGORacers.exe could not be found at \n\n{0}"
+                  .format(install_path))
+            time.sleep(2)
+            PatchIt.main(count=1)
+
         # Except we need admin righs to do it
-        except (OSError, PermissionError):
+        except (OSError, PermissionError):  # lint:ok
+            logging.exception('''Oops! Something went wrong! Here's what happened
+''', exc_info=True)
             # Temp excuse since I can't get RunAsAdmin working
             # and I don't think I can sneak a registry string in
             # without having admin rights anyway.
