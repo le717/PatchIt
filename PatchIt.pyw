@@ -50,8 +50,8 @@ from Patch import moderncompress as compress
 import Color as color
 import Color.colors as colors
 
-# LEGO Racers settings
-from Game import (Racers, LOCO, rungame)
+# LEGO Racers, LOCO settings, Racers launcher, LEGO.JAM wrapper
+from Game import (Racers, LOCO, rungame, legojam)
 
 # PatchIt! "Constants"
 import constants
@@ -287,11 +287,11 @@ def main(*args, count):  # lint:ok
             print('''
 Please make a selection:
 
-[a] About PatchIt!
-[c] Create a PatchIt! Patch
-[i] Install a PatchIt! Patch
-[s] PatchIt! Settings
-[q] Quit''')
+[a] About PatchIt!            [c] Create a PatchIt! Patch
+[r] Run LEGO Racers           [i] Install a PatchIt! Patch
+[s] PatchIt! Settings         [j] JAM Extractor
+
+                      [q] Quit''')
         # Experimental menu display
         if test:
             logging.info("Display --test menu to user")
@@ -330,20 +330,11 @@ Please make a selection:
 
         # JAM Extractor wrapper
         elif menuopt.lower() == "j":
-            # If Experimental Mode was activated
-            if test:
-                from Game import legojam
-                logging.info("User pressed '[j] JAM Extractor'")
+            logging.info("User pressed '[j] JAM Extractor'")
 
-                # Run the JAM Extractor wrapper
-                logging.info("Running JAM Extractor wrapper")
-                legojam.main()
-
-            # The Experimental Mode was not activated
-            else:
-                logging.info("The JAM Extractor wrapper cannot be activate in normal mode.")
-                colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
-                main(count=count)
+            # Run the JAM Extractor wrapper
+            logging.info("Running JAM Extractor wrapper")
+            legojam.main()
 
         # PatchIt! Settings
         elif menuopt.lower() == "s":
@@ -358,15 +349,7 @@ Please make a selection:
 
         # Run LEGO Racers
         elif menuopt.lower() == "r":
-            if test:
-                # If Experimental Mode was activated
-                rungame.PlayRacers().Race()
-
-            # The Experimental Mode was not activated
-            else:
-                logging.info("The LEGO Racers launher cannot be activate in normal mode.")
-                colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
-                main(count=count)
+            rungame.PlayRacers().Race()
 
         # Close PatchIt!
         elif menuopt.lower() == "q":
