@@ -44,7 +44,7 @@ For Your Reading Pleasure
 * The WIP PiP format V1.1 documentation can be found in [*PiP Format V1.1.md*](PiP%20Format%20V1.1.md).
 * The PiP format V1.0.1 documentation can be found in [*PiP Format.md*](PiP%20Format.md).
 * Check any open [Issues](https://github.com/le717/PatchIt/issues), as they commonly contain bug reports or errors.
-* A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold 
+* A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold
 until futher notice. If you have experence in PyQt4/5 or Tkinter and would like to help out in this area, you would be hardly be turned down . :wink:
 
 Building PatchIt!
