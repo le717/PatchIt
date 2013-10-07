@@ -93,3 +93,7 @@ setup(
 
 # Run cleanup script to remove unneeded Tkinter files
 cleanup.cleanup(destfolder)
+
+# Freeze PatchIt! Uninstaller
+print("\nFreezing PatchIt! Uninstaller\n")
+from Tools.Uninstaller import setup

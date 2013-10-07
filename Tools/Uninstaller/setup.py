@@ -29,6 +29,7 @@
 
 from cx_Freeze import (setup, Executable)
 import sys
+import os
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
@@ -40,7 +41,7 @@ base = "Win32GUI"
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = "bin"
+    destfolder = os.path.join(os.path.dirname(__file__), "bin")
 
 # If this is Python x64
 else:
@@ -53,6 +54,11 @@ build_exe_options = {"build_exe": destfolder,
                      "optimize": 2,
                      "icon": "../../Icons/PiIcon.ico"}
 
+# The script is being run from the main setup.py,
+# so define the proper location of the app icon
+if not os.path.isfile(build_exe_options["icon"]):
+    build_exe_options["icon"] = "Icons/PiIcon.ico"
+
 setup(
     name="PatchIt! Uninstaller",
     version="1.0.2.3",
@@ -60,5 +66,6 @@ setup(
     description="PatchIt! Uninstaller v1.0.2.3",
     license="GNU GPLv3",
     options={"build_exe": build_exe_options},
-    executables=[Executable("Uninstaller.pyw", targetName="PiUninstaller.exe",
-         base=base)])
+    executables=[Executable(os.path.join(os.path.dirname(__file__),
+                 "Uninstaller.pyw"), targetName="PiUninstaller.exe",
+                 base=base)])
