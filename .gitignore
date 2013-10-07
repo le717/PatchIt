@@ -232,7 +232,7 @@ Windows/PatchIt-*
 License/gpl-v3-fr.txt 
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-#*wget.py
+*wget.py
 Tools/Updater/*.cfg
 Settings/*.cfg
 !Tools/bin/*
