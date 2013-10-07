@@ -67,5 +67,5 @@ setup(
     license="GNU GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable(os.path.join(os.path.dirname(__file__),
-                 "Uninstaller.pyw"), targetName="PiUninstaller.exe",
+                 "PiUninstaller.pyw"), targetName="PiUninstaller.exe",
                  base=base)])
