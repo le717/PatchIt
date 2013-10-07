@@ -220,7 +220,7 @@ Tools/Windows/PatchIt*/
 *.blend2
 *.wpp
 *.html
-#!.py
+#*.py
 !RunAsAdmin.cfg
 #*settings
 PatchIt-Compatible.html
