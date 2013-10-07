@@ -27,7 +27,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! V1.1.2 Stable Python Version Check,
+PatchIt! v1.1.2 Stable Python Version Check,
 PatchIt! Logger, and PatchIt! Launcher
 """
 

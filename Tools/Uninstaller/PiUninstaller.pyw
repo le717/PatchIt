@@ -21,11 +21,12 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-"""
 
-# PatchIt! Uninstaller V1.0.2.3
-# Contains code contributed by JrMasterModelBuilder
-# https://github.com/JrMasterModelBuilder
+-------------------------------------
+ PatchIt! Uninstaller v1.0.2.3
+ Contains code contributed by JrMasterModelBuilder
+ https://github.com/JrMasterModelBuilder
+"""
 
 import os
 import sys

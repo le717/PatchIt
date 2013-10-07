@@ -19,11 +19,13 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-"""
 
-# PatchIt! V1.1.2 Shell Text Colors
-# Taken from https://github.com/imayhaveborkedit/lms-lrr-modding-system
-# and updated with Python 3 support
+
+-------------------------------------
+PatchIt! v1.1.2 Shell Text Colors
+Taken from https://github.com/imayhaveborkedit/lms-lrr-modding-system
+and updated with Python 3 support
+"""
 
 import ctypes
 

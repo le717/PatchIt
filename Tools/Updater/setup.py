@@ -21,11 +21,14 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+PatchIt! Updater setup script using cx_Freeze.
+Taken from https://github.com/Lyrositor/EBPatcher
+and https://github.com/JrMasterModelBuilder/JAM-Extractor
+With changes by Triangle717
 """
-# PatchIt! Updater setup script using cx_Freeze.
-# Taken from https://github.com/Lyrositor/EBPatcher
-# and https://github.com/JrMasterModelBuilder/JAM-Extractor
-# With changes by Triangle717
+
 
 from cx_Freeze import (setup, Executable)
 import sys

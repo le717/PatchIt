@@ -22,7 +22,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! V1.1.2 Unstable JAM Extractor Wrapper
+PatchIt! v1.1.2 Stable JAM Extractor Wrapper
 """
 
 import os

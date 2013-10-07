@@ -21,11 +21,13 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
+
+-------------------------------------
+PatchIt! Uninstaller setup script using cx_Freeze.
+Taken from https://github.com/Lyrositor/EBPatcher
+and https://github.com/JrMasterModelBuilder/JAM-Extractor
+With changes by Triangle717
 """
-# PatchIt! Uninstaller setup script using cx_Freeze.
-# Taken from https://github.com/Lyrositor/EBPatcher
-# and https://github.com/JrMasterModelBuilder/JAM-Extractor
-# With changes by Triangle717
 
 from cx_Freeze import (setup, Executable)
 import sys
@@ -63,7 +65,7 @@ setup(
     name="PatchIt! Uninstaller",
     version="1.0.2.3",
     author="2013 Triangle717",
-    description="PatchIt! Uninstaller v1.0.2.3",
+    description="PatchIt! Uninstaller Version 1.0.2.3",
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable(os.path.join(os.path.dirname(__file__),

@@ -20,6 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
+-------------------------------------
 PatchIt! Updater: Quickly update your installation of PatchIt! to
 the newest version using delta updates.
 """

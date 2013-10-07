@@ -21,7 +21,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-Generate PatchIt! Build Number
+PatchIt! Build Number Generator
 """
 
 import sys

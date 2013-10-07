@@ -23,7 +23,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! V1.1.2 Stable Legacy Patch Installation code
+PatchIt! v1.1.2 Stable Legacy Patch Installation code
 """
 
 # General imports

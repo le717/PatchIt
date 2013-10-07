@@ -21,7 +21,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-# PatchIt! V1.1.2 Stable RunAsAdmin Intergration
+# PatchIt! v1.1.2 Stable RunAsAdmin Intergration
 """
 
 import os

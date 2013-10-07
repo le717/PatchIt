@@ -24,7 +24,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! V1.1.2 Unstable Modern Patch Creation code
+PatchIt! v1.1.2 Stable Modern Patch Creation code
 """
 
 # General imports
