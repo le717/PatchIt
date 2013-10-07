@@ -9,9 +9,10 @@ Requirements
 ### Dependencies ###
 
 * Download and install 32-bit [_Python 3.3.0_](http://python.org/download) or newer. All official releases are frozen with the newest release at that time.
-Python Versions `<=` 3.2 or 64-bit Python are not supported, and a Python version (not architecture) check will prevent it from running on lower versions.
+Python Versions `<=` 3.2 Python are not supported, and a Python version check will prevent it from running on lower versions.
 
-* Download and install [_cx_Freeze_](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary.
+* Download and install [_cx_Freeze_](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary. 64-bit Windows binaries 
+are not support or frozen, and architecture checks will prevent this from happening.
 
 * Download and install [_Inno Setup 5.5.2 Unicode_](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
 An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
@@ -56,19 +57,21 @@ until further notice. If you have experience in PyQt4 or PyQt5 and would like to
 Building PatchIt!
 -----------------
 
-### Windows EXEs ###
+### Windows ###
 
 **PatchIt!** is frozen into an x86 Windows Exe using cx_Freeze. If you would like to freeze your own build of **PatchIt!**, follow these steps.
 
 * Follow the steps for forking/cloning **PatchIt!** from [above](#editing).
 
-* Type the following command in a command prompt:
+* Type the following command in a command prompt window:
 
 ```
 cd PatchIt
 python setup.py
 ```
-Your newly frozen Exe will be located at `PatchIt\bin\Windows`.
+Your newly frozen Exe will be located at `PatchIt\bin\Windows`. Not only will this freeze **PatchIt!**, it will download the newest version of the Readme from 
+the [`gh-pages`](https://github.com/le717/PatchIt/tree/gh-pages) branch (skipping this step if it could not be downloaded at that time), remove any unnecessary 
+Tkinter files, and finally freeze the **PatchIt! Uninstaller**.
 
 * You'll also need to freeze the **PatchIt! Uninstaller**. Do this by running the following command:
 

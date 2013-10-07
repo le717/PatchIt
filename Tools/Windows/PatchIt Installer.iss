@@ -58,16 +58,25 @@
 #define MyAppVerName "PatchIt! Version 1.1.2 Unstable"
 #define MyInstallerName "PatchIt-112-Unstable"
 #define MyAppPublisher "Triangle717"
+#define MyAppPublisherURL "http://Triangle717.WordPress.com/"
 #define MyAppURL "http://le717.github.io/PatchIt"
 #define MyAppExeName "PatchIt.exe"
    
 
 [Setup]
+; Name, version, publisher, support info
 AppId={#MyAppVerName}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
+AppPublisherURL={#MyAppPublisherURL}
+AppSupportURL={#MyAppURL}
+AppUpdatesURL={#MyAppURL}
+VersionInfoProductName={#MyAppName}
+VersionInfoProductVersion={#MyAppVersion}
+VersionInfoProductTextVersion={#MyAppVerName}
+; License
 AppCopyright=Created 2013 {#MyAppPublisher}
 LicenseFile=..\..\License\LICENSE.txt
 ; Start menu\screen and Desktop shortcuts
@@ -89,16 +98,15 @@ CreateUninstallRegKey=not PortableInstall
 UninstallDisplayName={#MyAppName}
 ; Compression
 Compression=lzma2/ultra64
-SolidCompression=True
+SolidCompression=yes
 InternalCompressLevel=ultra
 LZMAUseSeparateProcess=yes
 ; From top to bottom: Allows installation to C:\ (and the like),
 ; Explicitly set Admin rights, no other languages, 
-; do not restart upon finishing, express timestames in UTC
+; do not restart upon finishing
 AllowRootDirectory=yes
 PrivilegesRequired=admin
 RestartIfNeededByRun=no
-TimeStampsInUTC=True
 ; Required for creating Shell extension
 ChangesAssociations=True
 
@@ -158,9 +166,6 @@ Source: ..\Uninstaller\bin\library.zip; DestDir: {app}\Uninstaller; Flags: ignor
 Source: ..\Uninstaller\bin\python33.dll; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
 Source: ..\Uninstaller\bin\select.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
 Source: ..\Uninstaller\bin\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: ignoreversion dontcopy
-
-; PatchIt! Updater
-; Source: Updater\bin\*; DestDir: {app}\Updater; Flags: ignoreversion
 
 ; Readme
 Source: ..\..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
