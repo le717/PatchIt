@@ -36,7 +36,7 @@ import tkinter as tk
 from tkinter import (Tk, filedialog)
 
 # PatchIt! Constants
-from constants import (LOCO_game, LOCO_settings, settings_fol)
+import constants as const
 import PatchIt
 
 
@@ -46,17 +46,21 @@ import PatchIt
 def getLOCOPath():
     """Special-use function to get and return the LOCO installation path"""
     # The LEGO LOCO settings do not exist
-    if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
+    if not os.path.exists(
+        os.path.join(const.settings_fol, const.LOCO_settings)
+    ):
         logging.warning("Could not find LEGO LOCO settings!")
         LOCOReadSettings()
 
     # The LEGO LOCO settings do exist
     # Check encoding of LOCO Settings file
     logging.info("Check encoding of {0} before installation".format(
-        os.path.join(settings_fol, LOCO_settings)))
+        os.path.join(const.settings_fol, const.LOCO_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
+    with open(os.path.join(
+            const.settings_fol, const.LOCO_settings),
+            "rb") as encode_check:
         encoding = encode_check.readline(3)
 
     if (  # The settings file uses UTF-8-BOM encoding
@@ -77,7 +81,7 @@ def getLOCOPath():
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
 
     try:
-        with open(os.path.join(settings_fol, LOCO_settings),
+        with open(os.path.join(const.settings_fol, const.LOCO_settings),
                   "rt", encoding="utf-8") as f:
             loco_install_path = f.readlines()[4]
 
@@ -95,13 +99,15 @@ def getLOCOPath():
 def LOCOReadSettings():
     """Read PatchIt! LEGO LOCO settings"""
     # The settings file does not exist
-    if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
+    if not os.path.exists(
+        os.path.join(const.settings_fol, const.LOCO_settings)
+    ):
         logging.warning("LEGO LOCO Settings does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO LOCO settings")
         LOCOWriteSettings()
 
     # The setting file does exist
-    elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
+    elif os.path.exists(os.path.join(const.settings_fol, const.LOCO_settings)):
         logging.info("LEGO LOCO Settings does exist")
 
         # The first-run check came back False,
@@ -121,7 +127,7 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
                                     "Cannot find {0} installation at {1}"
-                                    .format(LOCO_game, LOCO_path))
+                                    .format(const.LOCO_game, LOCO_path))
             root.destroy()
 
             # Go write the settings file
@@ -133,7 +139,7 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             logging.info("LEGO LOCO installation was found at {0}.".format(
                 LOCO_path))
             print('\n{0} installation found at\n\n"{1}"\n\n{2}\n'.format(
-                LOCO_game, LOCO_path, "Would you like to change this?"))
+                const.LOCO_game, LOCO_path, "Would you like to change this?"))
             change_loco_path = input(r"[Y\N] > ")
 
             # Yes, I want to change the defined installation
@@ -198,8 +204,8 @@ def LOCOWriteSettings():
 
     # The user selected a folder
     else:
-        logging.info("User selected a new LEGO LOCO installation at {0}".format(
-            new_loco_game))
+        logging.info("User selected a new LEGO LOCO installation at {0}"
+                     .format(new_loco_game))
 
         # Give focus back to console window
         logging.info("Give focus back to console window")
@@ -207,12 +213,12 @@ def LOCOWriteSettings():
 
         # Create Settings directory if it does not exist
         logging.info("Creating Settings directory")
-        if not os.path.exists(settings_fol):
-            os.mkdir(settings_fol)
+        if not os.path.exists(const.settings_fol):
+            os.mkdir(const.settings_fol)
 
         # Write settings, using UTF-8NOBOM encoding
         logging.info("Open 'LOCO.cfg' for writing using UTF-8-NOBOM encoding")
-        with open(os.path.join(settings_fol, LOCO_settings),
+        with open(os.path.join(const.settings_fol, const.LOCO_settings),
                   "wt", encoding="utf-8") as loco_file:
 
             # As partially defined in PatchIt! Dev-log #6
@@ -248,10 +254,12 @@ def LOCOGameCheck():
     """Confirms LEGO LOCO installation"""
     # Check encoding of Settings file
     logging.info("Check encoding of {0}".format(
-        os.path.join(settings_fol, LOCO_settings)))
+        os.path.join(const.settings_fol, const.LOCO_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(settings_fol, LOCO_settings), "rb") as encode_check:
+    with open(os.path.join(
+            const.settings_fol, const.LOCO_settings),
+            "rb") as encode_check:
         encoding = encode_check.readline(3)
 
     if (  # The settings file uses UTF-8-BOM encoding
@@ -269,7 +277,7 @@ def LOCOGameCheck():
         return False
 
     logging.info("Reading line 5 of settings for LEGO LOCO installation")
-    with open(os.path.join(settings_fol, LOCO_settings),
+    with open(os.path.join(const.settings_fol, const.LOCO_settings),
               "rt", encoding="utf-8") as game_confirm:
         LOCO_path = game_confirm.readlines()[4]
 
@@ -281,9 +289,14 @@ def LOCOGameCheck():
     LOCO_path = LOCO_path.strip()
 
      # The only items needed to confirm a LEGO LOCO installation.
-    if (os.path.exists(os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower()))
-        and os.path.exists(os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower()))
-            and os.path.exists(os.path.join(LOCO_path, "art-res".lower()))):
+    if (os.path.exists(
+        os.path.join(LOCO_path, "exe".upper(), "loco.exe".lower())
+        )
+        and os.path.exists(
+            os.path.join(LOCO_path, "exe".upper(), "lego.ini".lower())
+        )
+            and os.path.exists(
+                os.path.join(LOCO_path, "art-res".lower()))):
 
         logging.info("Exe\loco.exe, Exe\LEGO.INI, and art-res were found at {0}"
                      .format(LOCO_path))
@@ -292,7 +305,7 @@ def LOCOGameCheck():
     # If the settings file was externally edited and the path was removed
     elif not LOCO_path:
         logging.warning("LEGO LOCO installation written in {0} is empty!"
-                        .format(LOCO_settings))
+                        .format(const.LOCO_settings))
         return False
 
     # The installation path cannot be found, or it cannot be confirmed
@@ -306,20 +319,22 @@ def LOCOGameCheck():
 def CheckLOCOSettings():
     """Gets LEGO LOCO Settings and First-run info"""
     # The LEGO LOCO settings do not exist
-    if not os.path.exists(os.path.join(settings_fol, LOCO_settings)):
+    if not os.path.exists(
+        os.path.join(const.settings_fol, const.LOCO_settings)
+    ):
         logging.warning("LEGO LOCO Settings do not exist!")
         return False
 
     # The LEGO LOCO settings do exist (implied else block here)
-    elif os.path.exists(os.path.join(settings_fol, LOCO_settings)):
+    elif os.path.exists(os.path.join(const.settings_fol, const.LOCO_settings)):
         logging.info("LEGO LOCO Settings do exist")
 
         # Check encoding of Settings file
         logging.info("Checking encoding of {0}".format(
-            os.path.join(settings_fol, LOCO_settings)))
+            os.path.join(const.settings_fol, const.LOCO_settings)))
 
         # Open it, read just the area containing the byte mark
-        with open(os.path.join(settings_fol, LOCO_settings),
+        with open(os.path.join(const.settings_fol, const.LOCO_settings),
                   "rb") as encode_check:
             encoding = encode_check.readline(3)
 
@@ -337,7 +352,7 @@ def CheckLOCOSettings():
 
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO LOCO first-run info")
-        with open(os.path.join(settings_fol, LOCO_settings), "rt",
+        with open(os.path.join(const.settings_fol, const.LOCO_settings), "rt",
                   encoding="utf-8") as first_run_check:
             loco_first_run = first_run_check.readlines()[2]
 
