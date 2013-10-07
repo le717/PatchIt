@@ -395,7 +395,7 @@ cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
         time.sleep(1)
 
     # For some reason, it cannot find the Patch archive
-    except FileNotFoundError:
+    except FileNotFoundError:  # lint:ok
         logging.warning("Error number '2'")
         logging.exception('''Oops! Something went wrong! Here's what happened
 
@@ -421,7 +421,7 @@ If this error continues, contact {5} and ask for a fixed version.'''
         time.sleep(2)
 
     # The user does not have the rights to install to that location
-    except PermissionError:
+    except PermissionError:  # lint:ok
         logging.warning("Error number '13'")
         logging.exception('''Oops! Something went wrong! Here's what happened
 
