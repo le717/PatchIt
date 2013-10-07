@@ -93,9 +93,9 @@ def readPatch(installpatch):
 
     logging.info("Do you Do you wish to install {0} {1}?".format(installname,
                  installver))
-    print("\nDo you wish to install {0} {1}? {2}".format(installname,
-          installver, r"(Y\N)"))
-    confirminstall = input("\n> ")
+    print("\nDo you wish to install {0} {1}?\n".format(installname,
+          installver,))
+    confirminstall = input(r"[Y\N] > ")
 
     # No, I do not want to install the patch
     if confirminstall.lower() != "y":

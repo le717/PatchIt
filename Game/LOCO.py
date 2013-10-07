@@ -131,10 +131,9 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
         else:
             logging.info("LEGO LOCO installation was found at {0}.".format(
                 LOCO_path))
-            print('\n{0} installation found at\n\n"{1}"\n\n{2}'.format(
-                LOCO_game, LOCO_path,
-                r"Would you like to change this? (Y\N)"))
-            change_loco_path = input("\n> ")
+            print('\n{0} installation found at\n\n"{1}"\n\n{2}\n'.format(
+                LOCO_game, LOCO_path, "Would you like to change this?"))
+            change_loco_path = input(r"[Y\N] > ")
 
             # Yes, I want to change the defined installation
             if change_loco_path.lower() == "y":

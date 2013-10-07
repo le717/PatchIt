@@ -129,10 +129,9 @@ Writing LEGO Racers settings so we don't read an empty file.''')
 
         # The defined installation was confirmed by LRGameCheck()
         else:
-            print('\nA {0} {1} release was found at\n\n"{2}"\n\n{3}'.format(
-                LR_game, LR_ver, LR_path,
-                r"Would you like to change this? (Y\N)"))
-            change_racers_path = input("\n> ")
+            print('\nA {0} {1} release was found at\n\n"{2}"\n\n{3}\n'.format(
+                LR_game, LR_ver, LR_path, "Would you like to change this?"))
+            change_racers_path = input(r"[Y\N] > ")
 
             # Yes, I want to change the defined installation
             if change_racers_path.lower() == "y":

@@ -295,10 +295,10 @@ Game: {3}
     # Prompt for installation
     logging.info("Do you Do you wish to install {0} (Version: {1})?".format(
         name, version))
-    print("\nDo you wish to install {0} (Version: {1})? {2}".format(
-        name, version, r"(Y\N)"))
+    print("\nDo you wish to install {0} (Version: {1})?\n".format(
+        name, version))
 
-    confirm_install = input("\n> ")
+    confirm_install = input(r"[Y\N] > ")
 
     # No, I do not want to install the patch
     if confirm_install.lower() != "y":
