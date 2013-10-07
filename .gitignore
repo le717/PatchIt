@@ -183,36 +183,35 @@ pip-log.txt
 *.gz
 *.PiA
 
-##########
-## Misc.
-##########
+################
+## Misc.Folders
+################
 
 Archives/
-Tools/Windows/Uninstaller*/*
-Tools/Windows/PatchIt*/
-Tools/Updater/bin/*
-!Tools/bin
-Compile/
-Freeze/
 bin/Windows
 !bin/Settings/*
 !Color/
-Logs/
+Compile/
+Documentation/Readme/*
+Freeze/
 !License/
+Logs/
 !Settings/*
 Testing*/
-
+!Tools/bin
 TheTesterGroup/
-Documentation/Readme/*
+Tools/Updater/bin/*
+Tools/Windows/Uninstaller*/*
+Tools/Windows/PatchIt*/
 
-##########
-## Files
-##########
+###############
+## Misc. Files
+###############
 
 *.psd
 *.txt
 *.ini
-#*.iss
+*.iss
 *.~is
 *.log
 *.PiP
@@ -224,12 +223,10 @@ Documentation/Readme/*
 #!.py
 !RunAsAdmin.cfg
 #*settings
-!Read-Me-First.html
 PatchIt-Compatible.html
 singleton.py
 !Windows/unsetup.py
 Windows/PatchIt-*
-License/gpl-v3-fr.txt 
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
 *wget.py
