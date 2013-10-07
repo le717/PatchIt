@@ -11,7 +11,7 @@ Requirements
 * Download and install 32-bit [_Python 3.3.0_](http://python.org/download) or newer. All official releases are frozen with the newest release at that time.
 Python Versions `<=` 3.2 Python are not supported, and a Python version check will prevent it from running on lower versions.
 
-* Download and install [_cx_Freeze_](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary. 64-bit Windows binaries 
+* Download and install [_cx_Freeze_](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary. 64-bit Windows binaries
 are not support or frozen, and architecture checks will prevent this from happening.
 
 * Download and install [_Inno Setup 5.5.2 Unicode_](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
@@ -69,11 +69,23 @@ Building PatchIt!
 cd PatchIt
 python setup.py
 ```
-Your newly frozen Exe will be located at `PatchIt\bin\Windows`. Not only will this freeze **PatchIt!**, it will download the newest version of the Readme from 
-the [`gh-pages`](https://github.com/le717/PatchIt/tree/gh-pages) branch (skipping this step if it could not be downloaded at that time), remove any unnecessary 
-Tkinter files, and finally freeze the **PatchIt! Uninstaller**.
+Your newly frozen Exe will be located at `PatchIt\bin\Windows`. Not only will this freeze **PatchIt!**, it will download the newest version of the Readme from
+the [`gh-pages`](https://github.com/le717/PatchIt/tree/gh-pages) branch (skipping this step if it could not be downloaded at that time), remove any unnecessary
+Tkinter files, and finally freeze the **PatchIt! Uninstaller**. However, each script can be written on it's own, and the Inno Setup script for the win32 installer
+must be run manually.
 
-* You'll also need to freeze the **PatchIt! Uninstaller**. Do this by running the following command:
+#### Inno Setup Windows Installer ####
+
+* Open `Windows\PatchIt Installer.iss` in the Inno Setup Compiler or your favorite Inno Setup IDE.
+* Make desired changes to the script, as long as it is clear you made them.
+* Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty _LEGO® Racers_ and _LEGO® LOCO_ settings files
+are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer to the `Windows` folder.
+* If all goes well, you will have successfully frozen and packaged a copy of **PatchIt!**
+
+
+#### PatchIt! Uninstaller ####
+
+If you wish, the **PatchIt! Uninstaller** can be frozen manually. Do this by running the following command:
 
 ```
 cd PatchIt\Tools\Uninstaller
@@ -81,11 +93,3 @@ python setup.py
 ```
 
 It will be frozen to `PatchIt\Tools\Uninstaller\bin`.
-
-### Inno Setup Windows Installer ###
-
-* Open `Windows\PatchIt Installer.iss` in the Inno Setup Compiler.
-* Make desired changes to the script, as long as it is clear you made them.
-* Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty __LEGO® Racers__ and __LEGO® LOCO__ settings files
-are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer to the `Windows` folder.
-* If all goes well, you will have successfully frozen and packaged a copy of **PatchIt!**
