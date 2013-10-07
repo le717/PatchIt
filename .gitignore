@@ -1,6 +1,6 @@
-##################
+#############
 ## Eclipse
-#################
+#############
 
 *.pydevproject
 .project
@@ -126,6 +126,9 @@ UpgradeLog*.XML
 # Folder config file
 Desktop.ini
 
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
 *.exe
 *.msi
 *.com
@@ -135,9 +138,6 @@ Desktop.ini
 #############
 ## Python
 #############
-
-*.py
-*.pyw
 
 *.py[co]
 
@@ -183,45 +183,54 @@ pip-log.txt
 *.gz
 *.PiA
 
-##########
-## Misc.
-##########
+################
+## Misc.Folders
+################
 
-Windows/Uninstaller*/*
-Compile/
-Freeze/
-!Color/
-Logs/
-License/*.*
-Settings/
-Testing*/
 Archives/
-Tools/
+bin/Windows
+!bin/Settings/*
+!Color/
+Compile/
+Documentation/Readme/*
+Freeze/
+!License/
+Logs/
+!Settings/*
+Testing*/
+!Tools/bin
 TheTesterGroup/
+Tools/Updater/bin/*
+Tools/Windows/Uninstaller*/*
+Tools/Windows/PatchIt*/
 
-##########
-## Files
-##########
+###############
+## Misc. Files
+###############
 
 *.psd
 *.txt
 *.ini
 *.iss
-JAMExtractor.py
-listtips.py
-*settings
+*.~is
 *.log
 *.PiP
-*.~is
 *.blend
 *.blend1
-#*.html
-!Read-Me-First.html
 *.blend2
+*.wpp
+*.html
+#!.py
+!RunAsAdmin.cfg
+#*settings
+PatchIt-Compatible.html
+singleton.py
 !Windows/unsetup.py
 Windows/PatchIt-*
-Windows/PatchIt-*
-License/gpl-v3-fr.txt
+!License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-PatchIt-Compatible.html
-Documentation/
+*wget.py
+Tools/Updater/*.cfg
+Settings/*.cfg
+!Tools/bin/*
+!Tools/bin/readme.py
