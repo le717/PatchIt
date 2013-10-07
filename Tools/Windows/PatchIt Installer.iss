@@ -112,15 +112,12 @@ ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: francais; MessagesFile: compiler:Languages\French.isl; LicenseFile: "..\..\License\gpl-3.0.fr.txt" 
 Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
 english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
-francais.UninstalledAll={#MyAppVerName} a été correctement désinstallé de cet ordinateur.
-francais.ConfirmUninstall=Voulez-vous vraiment désinstaller complètement {#MyAppVerName} ainsi que tous ses composants ?
 nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
 nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
@@ -129,10 +126,6 @@ english.Options=Insallation Options:
 english.Settings_Reset=Reset {#MyAppName} Preferences
 english.Admin=Run {#MyAppName} with Administrator Rights
 english.Shell=Associate .PiP File with {#MyAppName}
-francais.Options=Options insallation: 
-francais.Settings_Reset=Réinitialiser {#MyAppName} préférences
-francais.Admin=Exécuter {#MyAppName} avec des droits administrateur
-francais.Shell=Associer fichier. PiP Avec {#MyAppName}
 nederlands.Options=Installatie opties:
 nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren  
 nederlands.Admin=Run {#MyAppName} met beheerdersrechten   
