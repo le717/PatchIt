@@ -53,6 +53,9 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "../../Icons/PiIcon.ico",
                      "includes": [
                      "re",
+                     # wget MUST be listed here for the freeze to work,
+                     # but it will not pick it up from Tools/wget
+                     #FIXME: Make it pick it up from Tools/wget
                      "wget"
                      ]}
 
