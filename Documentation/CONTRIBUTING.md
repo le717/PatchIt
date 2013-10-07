@@ -38,7 +38,7 @@ I am sorry for any inconvenience this may cause.
 
 ### Miscellaneous Notes ###
 
-* No external packages or dependencies are needed for the TAR archive functions, as it is implemented using the built-in `tarfile` Python module.
+* No external packages or dependencies are needed for the TAR archive functions, as it is implemented using the built-in [`tarfile`](http://docs.python.org/3/library/tarfile.html) Python module.
 
 * [py2exe](http://www.py2exe.org) does not support Python 3.3, so it cannot be used.
 
