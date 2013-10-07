@@ -32,7 +32,11 @@ import argparse
 import tarfile
 
 # Downloads file(s) from the internet
+parentdir = "../wget"
+# Not happy with editing sys.path... >:(
+sys.path.insert(0, parentdir)
 import wget
+
 # Used to catch downloading errors
 from urllib.error import HTTPError
 # File Dialog Box
@@ -46,28 +50,22 @@ author = "Triangle717"
 # Location of PatchIt! Updater Exe/Py
 app_folder = os.path.dirname(sys.argv[0])
 
-
 # Name of settings file
 updater_file = "Updater.cfg"
-
 
 # URL of file containing newest version of PatchIt!, and link to delta update
 # Hosted on the PatchIt! GitHub repo, gh-pages branch
 #LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
 LinkFile = "NewestRelease.cfg"
 
-
 # Get just the filename (helps simplify the code)
 LinkFileName = os.path.basename(LinkFile)
-
 
 # URL of archive containing RunAsAdmin utility
 RunAdminLink = "https://github.com/QuantumCD/RunAsAdmin/releases/download/v1.0.2/RunAsAdmin.exe"
 
-
 # Get just the filename (helps simplify the code)
 RunAdminName = os.path.basename(RunAdminLink)
-
 
 # Check if Windows architecture is x64 or x86
 if platform.machine() == "AMD64":
