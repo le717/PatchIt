@@ -119,9 +119,9 @@ JAM Extractor 1.0.2
 COPYRIGHT (C) 2012-2013: JrMasterModelBuilder''', color.FG_WHITE)
     logging.info("Display JAM Extractor menu to user")
     print('''
-[e] Extract LEGO.JAM     [c] Compress LEGO.JAM
-
-                   [q] Quit''')
+[e] Extract LEGO.JAM
+[c] Compress LEGO.JAM
+[q] Quit''')
     jam_opt = input("\n> ")
 
     # User wants to compress a JAM
