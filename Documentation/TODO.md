@@ -1,12 +1,9 @@
-PatchIt! TODO List
-==================
+TODO
+====
 
-An (incomplete) list of everything that needs to be done in **PatchIt!**, listed in no particular order, as well as new, upcoming features and current bugs.
-However, [Issues](https://github.com/le717/PatchIt/issues) contain the newest, up-to-date info on bugs, features, and updates.
-* **BUG** Why do some Shell Colors keep breaking?
-* **BUG** Sometimes Patch cannot be saved in a Dropbox folder
+[Issues](https://github.com/le717/PatchIt/issues) ususally contain the newest, up-to-date reports. This serves more as a long-term list.
+* Updated logo for **PatchIt!**, released along side GUI (hopefully to be created by [@rioforce](https://github.com/rioforce).
 * *NEW!* Automatic LEGO.JAM extraction (upon user approval)
-* *NEW!* Complete GUI (postponed until later release)
-* *NEW!* Cross-platform Compatibility (not until GUI, shell colors are Windows-only)
-* Write compiling directions for Inno Setup Installer
-* Any TODO items scattered around in any of the scripts
+* *NEW!* Complete GUI, most likely using PyQt (postponed until later release)
+* *NEW!* Cross-platform Compatibility (not until GUI, shell text colors are Windows-only)
+* Any TODO items scattered around the scripts
