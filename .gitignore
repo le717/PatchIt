@@ -212,7 +212,7 @@ Tools/Windows/PatchIt*/*
 #*.psd
 *.txt
 *.ini
-*.iss
+#*.iss
 *.~is
 *.log
 *.PiP
