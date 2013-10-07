@@ -208,7 +208,7 @@ Tools/Windows/PatchIt*/
 ## Misc. Files
 ###############
 
-*.psd
+#*.psd
 *.txt
 *.ini
 *.iss
