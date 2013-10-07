@@ -16,12 +16,11 @@ How It Works
 ------------
 The three main goals for **PatchIt!** are as follows:
 
-* Ask for the _LEGO® Racers_ installation, ensure one exists at that location, and store it in an open file format in the **PatchIt!** installation to be used 
-as the mod installation directory, and to create a completely portable (thumb-drive) application.
-* Create a **PatchIt!** patch by entering the mod name, version, author, and description, and point it to the modded files. Automatically compress the files 
-into an open archive format, and write the details to an open file format containing the details (.PiP), using the name and version for the filenames.
-* Install a **PatchIt!** patch by selecting the .PiP file, confirm the installation, and automatically decompress the Patch archive directly into the *LEGO 
-Racers* installation.
+* Ask for the _LEGO® Racers_ installation, ensure one exists at that location, and store it in an open file format in the **PatchIt!** installation 
+to be used as the Patch installation directory, and to create a completely portable (thumb-drive) application.
+* Create a **PatchIt!** Patch by entering the mod name, version, author, and description, and point it to the modded files. Automatically compress the files into an open archive format (.PiA), 
+and write the details to an open file format (.PiP), using the name and version for the filenames.
+* Install a **PatchIt!** Patch by selecting the .PiP file, confirming the installation, and automatically decompressing the Patch archive directly into the _LEGO® Racers_ installation.
 
 Contributing
 ------------
@@ -35,4 +34,7 @@ All **PatchIt!** downloads are hosted on this project, and are available on the 
 
 License
 -------
-***PatchIt!*, created 2013 Triangle717, and released under the [GNU General Public License Version 3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).**
+***PatchIt!*, created 2013 Triangle717, and released under the [General Public License Version 3](www.gnu.org/licenses/gpl.html).**
+
+**This project uses [*RunAsAdmin*](https://github.com/QuantumCD/RunAsAdmin#readme), copyright :copyright: 2013 
+[QuantumCD](http://contingencycoder.wordpress.com/), and released under the [MIT License](http://opensource.org/licenses/MIT).**
