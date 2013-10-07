@@ -54,11 +54,8 @@ import Color.colors as colors
 from Game import (Racers, LOCO, rungame, legojam)
 
 # PatchIt! "Constants"
-import constants
-build_num = constants.buildme()
-from constants import (
-    app, majver, minver, creator, LR_game, LOCO_game,
-    app_folder, settings_fol, app_icon, Pi_settings)
+import constants as const
+build_num = const.buildme()
 
 
 # ------------ Begin PatchIt! Initialization ------------ #
@@ -72,7 +69,7 @@ def args():
 
     parser = argparse.ArgumentParser(
         description="{0} {1} {2} Command-line Arguments".format(
-            app, majver, minver))
+            const.app, const.majver, const.minver))
 
     # Experimental Mode argument
     parser.add_argument("-t", "--test",
@@ -81,7 +78,8 @@ def args():
 
     # Open file argument
     parser.add_argument("-o", "--open",
-                        help='''Confirm and install a PatchIt! Patch without going through the menu first''')
+                        help='''Confirm and install a PatchIt! Patch
+without going through the menu first''')
 
     # Register all the parameters
     args = parser.parse_args()
@@ -95,7 +93,7 @@ def args():
         global test
         test = True
         os.system("title {0} Version {1} {2} - Experimental Mode".format(
-            app, majver, minver))
+            const.app, const.majver, const.minver))
         logging.info("Starting PatchIt! in Experimental Mode")
 
     # The debug parameter was not passed, don't display debugging message
@@ -129,7 +127,7 @@ def info():
     else:
         py_arch = "AMD64"
 
-    logging_file = os.path.join(app_folder, "Logs", 'PatchIt.log')
+    logging_file = os.path.join(const.app_folder, "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
         platform.python_implementation(), py_arch, platform.python_version(),
@@ -145,7 +143,8 @@ def info():
                                     https://github.com/le717/PatchIt/issues
                                     and attach this file for an quicker fix!
                                 #############################################
-                                '''.format(app, majver, minver, creator))
+                                '''.format(
+        const.app, const.majver, const.minver, const.creator))
 
 
 def preload():
@@ -189,7 +188,7 @@ def about():
 
     root = tk.Tk()
     # Window title
-    root.title("About {0} Version {1}".format(app, majver))
+    root.title("About {0} Version {1}".format(const.app, const.majver))
     # The box cannot be other size
     root.minsize("420", "280")
     root.maxsize("420", "280")
@@ -224,7 +223,7 @@ def about():
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(app, majver, minver, build_num))
+'''.format(const.app, const.majver, const.minver, const.build_num))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -257,7 +256,7 @@ package and install mods for LEGO Racers"
     root.bind('<Return>', close_about)
 
     # Make it load
-    root.iconbitmap(app_icon)
+    root.iconbitmap(const.app_icon)
     root.mainloop()
 
 
@@ -277,8 +276,10 @@ def main(num_of_loops=1):
         if num_of_loops == 6:
             num_of_loops = 2
         # And display the menu only at the valid times
-        colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
-            app, majver, minver, creator), color.FG_WHITE)
+        colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}"
+                    .format(
+                        const.app, const.majver, const.minver, const.creator),
+                    color.FG_WHITE)
 
         # Normal menu display
         if not test:
@@ -369,14 +370,14 @@ def easteregg():
     """Hehehe"""
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap(app_icon)
+    root.iconbitmap(const.app_icon)
     tk.messagebox.showerror("Uh-oh", "That was bad.")
     tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
-    tk.messagebox.askquestion("Uh-oh",
-                              "Would you like see your punishment for pressing that key?")
-    subprocess.call([
-        os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")
-                    ], shell=True)
+    tk.messagebox.askquestion(
+        "Uh-oh", "Would you like see your punishment for pressing that key?")
+    subprocess.call([os.path.join(
+        "Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")],
+        shell=True)
     logging.info("PatchIt! is shutting down.")
     logging.shutdown()
     raise SystemExit(0)
@@ -391,7 +392,7 @@ def easteregg():
 def Settings():
     """PatchIt! Settings Menu"""
     print("\nDo you want to view your {0} or {1} settings?".format(
-        LR_game, LOCO_game))
+        const.LR_game, const.LOCO_game))
     print('''
 [r] LEGO Racers
 [l] LEGO LOCO
@@ -422,10 +423,12 @@ def Settings():
 def PiSettings():
     """Writes PatchIt! General Settings"""
     #TODO: Will be expanded with more data in a future release
-    the_file = os.path.join(settings_fol, Pi_settings)
+    the_file = os.path.join(const.settings_fol, const.Pi_settings)
     logging.info("Writing {0}".format(the_file))
-    if not os.path.exists(settings_fol):
-        os.makedirs(settings_fol)
+
+    # If the Settings folder does not exist, create it
+    if not os.path.exists(const.settings_fol):
+        os.makedirs(const.settings_fol)
 
     with open(os.path.join(the_file), "wt", encoding="utf-8") as f:
         logging.info("Write line telling what program this file belongs to")
@@ -438,7 +441,8 @@ def PiSettings():
         # Write the PatchIt! Major and Minor number,
         # as defined in the majver and minver variables
         logging.info("Writing version number of this copy of PatchIt")
-        f.write("{0} {1} Build {2}".format(majver, minver, build_num))
+        f.write("{0} {1} Build {2}".format(
+            const.majver, const. minver, const.build_num))
 
 
 # ------------ End PatchIt! General Settings ------------ #
