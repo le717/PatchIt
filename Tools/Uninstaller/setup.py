@@ -64,7 +64,7 @@ setup(
     version="1.0.2.3",
     author="2013 Triangle717",
     description="PatchIt! Uninstaller v1.0.2.3",
-    license="GNU GPLv3",
+    license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable(os.path.join(os.path.dirname(__file__),
                  "PiUninstaller.pyw"), targetName="PiUninstaller.exe",
