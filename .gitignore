@@ -209,7 +209,7 @@ Documentation/Readme/*
 ## Files
 ##########
 
-*.psd
+#*.psd
 *.txt
 *.ini
 *.iss
