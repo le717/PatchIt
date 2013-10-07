@@ -224,7 +224,7 @@ Tools/Windows/PatchIt*/
 !RunAsAdmin.cfg
 #*settings
 PatchIt-Compatible.html
-singleton.py
+#singleton.py
 !Windows/unsetup.py
 Windows/PatchIt-*
 !License/LICENSE.RunAsAdmin.txt
