@@ -187,21 +187,22 @@ pip-log.txt
 ## Misc.
 ##########
 
+Archives/
 Tools/Windows/Uninstaller*/*
 Tools/Windows/PatchIt*/
+Tools/Updater/bin/*
+!Tools/bin
 Compile/
 Freeze/
 bin/Windows
 !bin/Settings/*
-!Tools/bin
 !Color/
 Logs/
 !License/
 !Settings/*
 Testing*/
-Archives/
+
 TheTesterGroup/
-Tools/Updater/bin/*
 Documentation/Readme/*
 
 ##########
@@ -222,7 +223,6 @@ Documentation/Readme/*
 *.html
 #!.py
 !RunAsAdmin.cfg
-runjam.py
 #*settings
 !Read-Me-First.html
 PatchIt-Compatible.html
@@ -232,7 +232,7 @@ Windows/PatchIt-*
 License/gpl-v3-fr.txt 
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-*wget.py
+#*wget.py
 Tools/Updater/*.cfg
 Settings/*.cfg
 !Tools/bin/*
