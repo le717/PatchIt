@@ -575,13 +575,13 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
             patch.write('''// PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]
 {0}
-[GENERAL]
+[General]
 {1}
 {2}
 {3}
 {4}
 {5}
-[DESCRIPTION]
+[Description]
 {6}'''.format(thearchive, name, version, author, mp, game, desc))  # lint:ok
 
         # The Patch was created successfully!

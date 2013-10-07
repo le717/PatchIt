@@ -1,4 +1,4 @@
-PatchIt! PiP Format v1.1.1
+PatchIt! PiP Format v1.1.2
 ==========================
 
 General Information
@@ -40,7 +40,7 @@ For _LEGO® Racers_ Patches, it currently writes _MP_, as there is not a use for
 * The `Description` field is written on the last three lines of a Patch. Unlike the [PiP File Format v1.0.1](PiP Format.md), it does not have an 161 character limit.
 * Both the `.PiP` file and `.PiA` Archive uses the Patch's name and version for their filenames.
 
-**The PiP file layout can be found [below.](#pip-v111-file-format-layouts)**
+**The PiP file layout can be found [below.](#pip-v112-file-format-layouts)**
 
 #### PiA Archive Layout ####
 
@@ -59,59 +59,59 @@ The same goes for files that are scattered in the root of the archive. If `ENGLI
 
 **Example PiA archive layouts can be found [below.](#example-pia-archive-layouts)**
 
-PiP Version 1.1.1 File Format Layouts
+PiP Version 1.1.2 File Format Layouts
 -------------------------------------
 
-### General PiP File Format v1.1.1 Layout ###
+### General PiP File Format v1.1.2 Layout ###
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]
 NameVersion.PiA
-[GENERAL]
+[General]
 Name
 Version
 Author
 MP
 Game
-[DESCRIPTION]
+[Description]
 This is the first line of a description
 This is the second line of a description
 This is the third line of a description
 ```
 
-### Example LEGO® Racers PiP File Format v1.1.1 Layout ###
+### Example LEGO® Racers PiP File Format v1.1.2 Layout ###
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]
 Racing Machine 1.0.1.PiA
-[GENERAL]
+[General]
 Racing Machine
 1.0.1
 Jackson
 MP
 LEGO Racers
-[DESCRIPTION]
+[Description]
 Racing Machine is a example LEGO Racers PatchIt! Patch
 It does not exist, and unless someone makes it,
 IT NEVER WILL. :)
 ```
 
 
-### Example LEGO® LOCO PiP File Format v1.1.1 Layout ###
+### Example LEGO® LOCO PiP File Format v1.1.2 Layout ###
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]
 Happy Trains 5.8.PiA
-[GENERAL]
+[General]
 Happy Trains
 5.8
 Thomas
 1920x1280
 LEGO LOCO
-[DESCRIPTION]
+[Description]
 I like trains! I really do!
 My name is Thomas, just like Thomas the Tank Engine!
 That is why I made this example PatchIt! Patch.
@@ -126,19 +126,19 @@ Example PiA Archive Layouts
 Racing Machine 1.0.1.PiA/
     GAMEDATA/
         RACEC2R0/
-			KMT.BMP
-			BACKGRND.SKB
-		COMMON/
-			LIGHTNG.TGA
-			POWERUP.WDB
+            KMT.BMP
+            BACKGRND.SKB
+        COMMON/
+            LIGHTNG.TGA
+            POWERUP.WDB
     MENUDATA/
-		ENGLISH/
-			FONTMENU.BMP
-			MENUTEXT.SRF
+        ENGLISH/
+            FONTMENU.BMP
+            MENUTEXT.SRF
         KEYBOARD.BMP
-		MAINMENU.MIB
+        MAINMENU.MIB
     theme.tun
-	builder.tun
+    builder.tun
 ```
 
 ### Example LEGO® LOCO PiA Archive Layout ###
@@ -147,19 +147,24 @@ Racing Machine 1.0.1.PiA/
 Happy Trains 5.8.PiA/
     art-res/
         backdrop/
-			HappyTrain.bmp
-			AngryTrain.bmp
-		video/
-			music.wav
+            HappyTrain.bmp
+            AngryTrain.bmp
+        video/
+            music.wav
         SAVEGAME/
             HappyTrain.sav
             AngryTrain.sav
     Video/
-		locoIntr.avi
+        locoIntr.avi
 ```
 
 Revision History
 ----------------
+
+* 1.1.2 Final: October 6, 2013
+
+> * Changed `[GENERAL]` to `[General]`
+> * Changed `[DESCRIPTION]` to `[Description]`
 
 * 1.1.1 Final: July 26, 2013
 
