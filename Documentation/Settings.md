@@ -17,7 +17,7 @@ It detects the version by checking for the existence of `LEGORacers.icd`, which 
 There is no such check for _LEGO® LOCO_.
 * The seventh line contains the installation patch for the respective game. It is used during Patch Installation, as well as in
 various Settings checks.
-* The third line of `PatchIt.cfg` contain the version of **PatchIt!** in use.
+* The third line of `PatchIt.cfg` contain the major, minor, patch and build numbers of the **PatchIt!** version being used.
 
 General PatchIt! Settings
 -------------------------
@@ -27,7 +27,7 @@ General PatchIt! Settings
 ```
 // PatchIt! General Settings
 # The version of PatchIt! you have
-1.1.1 Stable
+1.1.2 Unstable Build 217
 ```
 
 LEGO Racers Settings
