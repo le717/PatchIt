@@ -26,14 +26,17 @@
 
     You should have received a copy of the GNU General Public License
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-"""
-# PatchIt! setup script using cx_Freeze.
-# Taken from https://github.com/Lyrositor/EBPatcher
-# and https://github.com/JrMasterModelBuilder/JAM-Extractor
-# With changes by Triangle717
 
-from cx_Freeze import setup, Executable
-from PatchIt import majver, minver
+-------------------------------------
+PatchIt! setup script using cx_Freeze.
+Taken from https://github.com/Lyrositor/EBPatcher
+and https://github.com/JrMasterModelBuilder/JAM-Extractor
+With changes by Triangle717
+"""
+
+from cx_Freeze import (setup, Executable)
+# PatchIt! Constants
+import constants as const
 import sys
 import os
 
@@ -44,33 +47,54 @@ if len(sys.argv) == 1:
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = os.path.join("Freeze", "Windows")
+    destfolder = os.path.join(os.getcwd(), "bin", "Windows")
+
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
 Please freeze PatchIt! using 32-bit Python 3.3.''')
     raise SystemExit(0)
 
+# Run utility to get the newest version of the readme
+# Freeze continues if this has an error
+from Tools.bin import (PiReadme, cleanup)  # lint:ok
+
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
-                     "optimize": 1,
-                     "icon": "Icons/PatchItIcon.ico",
                      "compressed": True,
+                     "optimize": 2,
+                     "icon": "Icons/PiIcon.ico",
+                     "include_files": [
+                     "Build.pickle"],
                      "includes": [
+                     "re",
+                     "patchit",
+                     "color",
+                     "runasadmin",
                      "Patch/modernextract",
                      "Patch/moderncompress",
                      "Patch/legacyextract",
                      "Patch/racingtips",
-                     "handlejam",
-                     "patchit",
-                     "color",
-                     "re"]}
+                     "Game/legojam",
+                     "Game/JAMExtractor",
+                     "Settings/buildgen"
+                     ]}
+
+# Get the current build number
+from Settings.buildgen import BuildNumber as bg
 
 setup(
     name="PatchIt!",
-    version="{0}".format(majver),
+    version="{0}.{1}".format(const.majver, bg.Instance().buildnum),
     author="2013 Triangle717",
-    description="PatchIt! Version {0} {1}".format(majver, minver),
-    license="GNU GPLv3",
+    description="PatchIt! Version {0} {1}".format(const.majver, const.minver),
+    license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
+
+# Run cleanup script to remove unneeded Tkinter files
+cleanup.cleanup(destfolder)
+
+# Freeze PatchIt! Uninstaller
+print("\nFreezing PatchIt! Uninstaller\n")
+from Tools.Uninstaller import setup  # lint:ok
