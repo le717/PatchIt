@@ -29,6 +29,7 @@
 
 from cx_Freeze import (setup, Executable)
 import sys
+import os
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
@@ -37,7 +38,8 @@ if len(sys.argv) == 1:
 
 # If this is Python x86
 if sys.maxsize == 2147483647:
-    destfolder = "bin"
+    destfolder = os.path.join(os.path.dirname(__file__), "bin")
+
 # If this is Python x64
 else:
     input('''\n64-bit binaries are not frozen.
@@ -48,7 +50,7 @@ build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
                      "compressed": True,
                      "optimize": 2,
-                     "icon": "../Icons/PiIcon.ico",
+                     "icon": "../../Icons/PiIcon.ico",
                      "includes": [
                      "re",
                      "wget"
@@ -61,4 +63,5 @@ setup(
     description="PatchIt! Updater Version 0.5",
     license="GPLv3",
     options={"build_exe": build_exe_options},
-    executables=[Executable("PiUpdater.py", targetName="PiUpdater.exe")])
+    executables=[Executable(os.path.join(os.path.dirname(__file__),
+                 "PiUpdater.py"), targetName="PiUpdater.exe")])
