@@ -8,12 +8,12 @@ Requirements
 
 ### Dependencies ###
 
-* Download and install 32-bit [*Python 3.3.0*](http://python.org/download) or newer.
+* Download and install 32-bit [_Python 3.3.0_](http://python.org/download) or newer. All official releases are frozen with the newest release at that time.
 Python Versions `<=` 3.2 or 64-bit Python are not supported, and a Python version (not architecture) check will prevent it from running on lower versions.
 
-* Download and install [*cx_Freeze*](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary.
+* Download and install [_cx_Freeze_](http://cx-freeze.sourceforge.net/) for 32-bit _Python 3.3_ if you would like to freeze a binary.
 
-* Download and install [*Inno Setup 5.5.2 Unicode*](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
+* Download and install [_Inno Setup 5.5.2 Unicode_](http://www.jrsoftware.org/isdl.php) or later if you would like to compile the Windows installer.
 An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 
 * A slightly edited version of [@JrMasterModelBuilder](https://github.com/JrMasterModelBuilder)'s **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)**
@@ -28,6 +28,10 @@ for extracting and compressing `LEGO.JAM`.
 * Read up on the documentation (see [**For Your Reading Pleasure**](#for-your-reading-pleasure) below)
 * Edit away! Write a GUI, fix bugs, add new features, whatever is reasonable!
 * Once you finish your work, submit a [Pull Request](https://github.com/le717/PatchIt/pulls) by clicking ![the Pull Request button](http://i81.servimg.com/u/f81/16/33/06/11/pullre10.png)
+* Because of my lack of knowledge of how Git worked when **PatchIt!** was created, the [`rewrite`](https://github.com/le717/PatchIt/tree/rewrite) branch, where all future versions are developed, can never be merged
+into the [`master`](https://github.com/le717/PatchIt/tree/master) branch, where all tagged releases are located. For this reason, please base all changes against the `rewrite` branch.
+* Also because of my cluelessness into the workings of Git, all changes from the `rewrite` branch must manually be added to the `master` branch when a release is to be tagged, as a pull request would greatly break the entire repository.
+I am sorry for any inconvenience this may cause.
 * If everything checks out, your changes will be merged into the main **PatchIt!** project! :grinning:
 * Don't forget to ![Star!](http://i81.servimg.com/u/f81/16/33/06/11/star11.png)
 
@@ -37,17 +41,17 @@ for extracting and compressing `LEGO.JAM`.
 
 * [py2exe](http://www.py2exe.org) does not support Python 3.3, so it cannot be used.
 
-* Because of the colored shell text added in V1.0.1 Stable, **PatchIt!** is a Windows-only application.
+* Because of the colored shell text added in [**v1.0.1 Stable**](https://github.com/le717/PatchIt/releases/tag/V1.0.1Stable), **PatchIt!** is a Windows-only application.
 
 For Your Reading Pleasure
 -------------------------
 
-* A (incomplete) of everything that needs to be done can be found under [*TODO.md*](https://github.com/le717/PatchIt/blob/rewrite/Documentation/TODO.md).
+* A (incomplete) of everything that needs to be done can be found under [*TODO.md*](https://github.com/le717/PatchIt/blob/rewrite/Documentation/TODO.md) and [Issues](https://github.com/le717/PatchIt/issues).
 * The WIP PiP format V1.1 documentation can be found in [*PiP Format V1.1.md*](PiP%20Format%20V1.1.md).
 * The PiP format V1.0.1 documentation can be found in [*PiP Format.md*](PiP%20Format.md).
-* Check any open [Issues](https://github.com/le717/PatchIt/issues), as they commonly contain bug reports or errors.
+* Open [Issues](https://github.com/le717/PatchIt/issues) also commonly contain bug reports or errors.
 * A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold
-until futher notice. If you have experence in PyQt4/5 or Tkinter and would like to help out in this area, you would be hardly be turned down . :wink:
+until further notice. If you have experience in PyQt4 or PyQt5 and would like to help out in this area, you would be hardly be turned down . :wink:
 
 Building PatchIt!
 -----------------
@@ -64,16 +68,16 @@ Building PatchIt!
 cd PatchIt
 python setup.py
 ```
-Your newly frozen Exe will be located at `PatchIt/Freeze/Windows`.
+Your newly frozen Exe will be located at `PatchIt\bin\Windows`.
 
-* You'll also need to freeze the **PatchIt! Uninstaller**. Compile it by running the following command:
+* You'll also need to freeze the **PatchIt! Uninstaller**. Do this by running the following command:
 
 ```
-cd PatchIt\Windows
+cd PatchIt\Tools\Uninstaller
 python setup.py
 ```
 
-It will be frozen to `PatchIt/Windows/Uninstaller`.
+It will be frozen to `PatchIt\Tools\Uninstaller\bin`.
 
 ### Inno Setup Windows Installer ###
 
@@ -81,4 +85,4 @@ It will be frozen to `PatchIt/Windows/Uninstaller`.
 * Make desired changes to the script, as long as it is clear you made them.
 * Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty __LEGO® Racers__ and __LEGO® LOCO__ settings files
 are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer to the `Windows` folder.
-* If all goes well, you will have sucessfully frozen and packaged a copy of **PatchIt!**
+* If all goes well, you will have successfully frozen and packaged a copy of **PatchIt!**
