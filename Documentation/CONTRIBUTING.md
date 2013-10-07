@@ -19,6 +19,8 @@ An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 * A slightly edited version of [@JrMasterModelBuilder](https://github.com/JrMasterModelBuilder)'s **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)**
 for extracting and compressing `LEGO.JAM`.
 
+* The newest release of **[wget](https://bitbucket.org/techtonik/python-wget/overview)**, already present at `Tools/wget/wget.py`
+
 ### Editing ###
 
 * Fork the **PatchIt!** repository by clicking ![the Fork button](http://i81.servimg.com/u/f81/16/33/06/11/forkme12.png)
