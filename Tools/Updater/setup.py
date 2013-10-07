@@ -61,4 +61,4 @@ setup(
     description="PatchIt! Updater Version 0.5",
     license="GPLv3",
     options={"build_exe": build_exe_options},
-    executables=[Executable("Updater.py", targetName="PiUpdater.exe")])
+    executables=[Executable("PiUpdater.py", targetName="PiUpdater.exe")])
