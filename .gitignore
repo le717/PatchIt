@@ -201,8 +201,9 @@ Testing*/
 !Tools/bin
 TheTesterGroup/
 Tools/Updater/bin/*
-Tools/Windows/Uninstaller*/*
-Tools/Windows/PatchIt*/
+Tools/Windows/Uninstaller*/
+Tools/Windows/PatchIt*/*
+!Tools/wget/
 
 ###############
 ## Misc. Files
@@ -229,7 +230,7 @@ PatchIt-Compatible.html
 Windows/PatchIt-*
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-*wget.py
+#wget.py
 Tools/Updater/*.cfg
 Settings/*.cfg
 !Tools/bin/*
