@@ -112,24 +112,17 @@ ChangesAssociations=True
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
-Name: nederlands; MessagesFile: compiler:Languages\Dutch.isl; LicenseFile: "..\..\License\gpl-v3-nl-101.pdf"
 
 [Messages]
 BeveledLabel={#MyAppVerName}
 english.ConfirmUninstall=Are you sure you want to completely remove {#MyAppVerName} and all of its components?
 english.UninstalledAll={#MyAppVerName} was successfully removed from your computer.
-nederlands.ConfirmUninstall=Weet u zeker dat u {#MyAppVerName} en alle bijbehorende componenten wilt verwijderen?
-nederlands.UninstalledAll={#MyAppVerName} is met succes van deze computer verwijderd.
 
 [CustomMessages]
 english.Options=Insallation Options:
 english.Settings_Reset=Reset {#MyAppName} Preferences
 english.Admin=Run {#MyAppName} with Administrator Rights
 english.Shell=Associate .PiP File with {#MyAppName}
-nederlands.Options=Installatie opties:
-nederlands.Settings_Reset=Reset {#MyAppName} voorkeuren  
-nederlands.Admin=Run {#MyAppName} met beheerdersrechten   
-nederlands.Shell=Associëren .PiP File Met {#MyAppName}
 
 [Tasks]
 Name: Admin; Description: {cm:Admin}; GroupDescription: {cm:Options}; Check: not PortableInstall
