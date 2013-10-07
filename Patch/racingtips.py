@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# PatchIt! V1.1.0 Stable LEGO Racers Gameplay tips
+# PatchIt! v1.1.0 Stable LEGO Racers Gameplay tips
 # All tips donated by the fine folks at Rock Raiders United.
 
 # Tips 1 - 12: Beginner Level
@@ -38,7 +38,8 @@ You can set the number of opponents in a Single Race to 0 in the Options menu.
 Use this to learn the layouts of the tracks before racing them for real.''',
 
 '''
-Take your foot off the gas when you're hit by missiles or run into an oil slick-it will increase your chances of doing a full 360 degree spin,
+Take your foot off the gas when you're hit by missiles or run into an
+oil slick-it will increase your chances of doing a full 360 degree spin,
 instead of turning around backwards.''',
 
 '''
@@ -64,7 +65,8 @@ You can perform tighter turns than usual while using the Flying Turbo Boost,
 particularly if you Power Slide.''',
 
 '''
-At the start of a race, press the accelerator key when the 'GO' message appears to get an extra boost.''',
+At the start of a race, press the accelerator key when the 'GO' message
+appears to get an extra boost.''',
 
 '''
 All Projectile power-ups can be used to open shortcuts,
@@ -85,7 +87,8 @@ Try to save the Cannonball until an opponent activates a Turbo Boost,
 then fire it to rob him of his speed increase.''',
 
 '''
-Tribal Island Trail has only two green power-up bricks hidden around the track, so you will need to plan your tactics.''',
+Tribal Island Trail has only two green power-up bricks hidden around the track,
+so you will need to plan your tactics.''',
 
 '''
 Brake when using the Grappling Hook on an opponent to not only stop them

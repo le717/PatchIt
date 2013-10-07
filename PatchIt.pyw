@@ -24,7 +24,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! V1.1.2 Unstable Core Module
+PatchIt! v1.1.2 Stable Core Module
 """
 
 # General use modules
@@ -73,7 +73,8 @@ def args():
 
     # Experimental Mode argument
     parser.add_argument("-t", "--test",
-                        help='Enable PatchIt! experimental features',
+                        help='''Enable PatchIt! experimental features.
+There are currently no experimental features.''',
                         action="store_true")
 
     # Open file argument
@@ -223,7 +224,7 @@ def about():
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(const.app, const.majver, const.minver, const.build_num))
+'''.format(const.app, const.majver, const.minver, build_num))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -281,21 +282,8 @@ def main(num_of_loops=1):
                         const.app, const.majver, const.minver, const.creator),
                     color.FG_WHITE)
 
-        # Normal menu display
-        if not test:
-            logging.info("Display normal menu to user")
-            print('''
-Please make a selection:
-
-[a] About PatchIt!            [c] Create a PatchIt! Patch
-[r] Run LEGO Racers           [i] Install a PatchIt! Patch
-[s] PatchIt! Settings         [j] JAM Extractor
-
-                      [q] Quit''')
-        # Experimental menu display
-        if test:
-            logging.info("Display --test menu to user")
-            print('''
+        logging.info("Display menu to user")
+        print('''
 Please make a selection:
 
 [a] About PatchIt!            [c] Create a PatchIt! Patch
@@ -442,7 +430,7 @@ def PiSettings():
         # as defined in the majver and minver variables
         logging.info("Writing version number of this copy of PatchIt")
         f.write("{0} {1} Build {2}".format(
-            const.majver, const. minver, const.build_num))
+            const.majver, const. minver, build_num))
 
 
 # ------------ End PatchIt! General Settings ------------ #
