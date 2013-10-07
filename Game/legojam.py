@@ -136,7 +136,7 @@ COPYRIGHT (C) 2012-2013: JrMasterModelBuilder''', color.FG_WHITE)
 
     # Go back to PatchIt! menu
     else:
-        PatchIt.main(count=1)
+        PatchIt.main()
 
 
 def SelectJAMArchive():

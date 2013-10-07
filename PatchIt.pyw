@@ -113,7 +113,7 @@ def args():
             # It was a directory, or a non-existent file
             else:
                 logging.warning("Invalid path or no parameters were given!")
-                # Do nothing, let RunIt.py do its work
+                # Do nothing, let RunIt.py do the work
                 pass
 
 
@@ -161,17 +161,17 @@ def preload():
     # If the Racers settings is present but not LOCO,
     # go to main menu
     if (hasLRSettings and not hasLOCOSettings):
-        main(count=1)
+        main()
 
     # If the LOCO settings is present but not Racers,
     # go to main menu
     elif (hasLOCOSettings and not hasLRSettings):
-        main(count=1)
+        main()
 
     # If both the Racers and LOCO settings are present,
     # go to main menu
     elif (hasLRSettings and hasLOCOSettings):
-        main(count=1)
+        main()
 
     # Any other condition
     else:
@@ -184,7 +184,7 @@ def preload():
 # ------------ Begin PatchIt! About Box  ------------ #
 
 
-def about(*args):
+def about():
     """Tkinter About Box"""
 
     root = tk.Tk()
@@ -230,15 +230,14 @@ package and install mods for LEGO Racers"
     def close_about(*args):
         """Closes the About Window"""
         root.destroy()
-        # Reset the count since we opened the window
-        main(count=1)
+        main()
 
     # Close About Window button
     close = ttk.Button(frame, default="active", text="Close",
                        command=close_about)
     close.grid(column=1, row=1, sticky=tk.N, pady="7")
 
-    # GitHub Project Button
+    # GitHub Project button
     github = ttk.Button(frame, text="Website",
                         command=lambda: webbrowser.open_new_tab(
                             "http://le717.github.io/PatchIt"))
@@ -268,7 +267,7 @@ package and install mods for LEGO Racers"
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
 
-def main(*args, count):  # lint:ok
+def main(count=1):
     """PatchIt! Menu Layout"""
     count += 1
 
@@ -366,7 +365,7 @@ Please make a selection:
             main(count=count)
 
 
-def easteregg(*args):
+def easteregg():
     """Hehehe"""
     root = tk.Tk()
     root.withdraw()
@@ -389,7 +388,7 @@ def easteregg(*args):
 # ------------ Begin PatchIt! Settings ------------ #
 
 
-def Settings(*args):
+def Settings():
     """PatchIt! Settings Menu"""
     print("\nDo you want to view your {0} or {1} settings?".format(
         LR_game, LOCO_game))
@@ -414,7 +413,7 @@ def Settings(*args):
     # Undefined input
     else:
         logging.info("User pressed an undefined key")
-        main(count=1)
+        main()
 
 
 # ------------ Begin PatchIt! General Settings ------------ #

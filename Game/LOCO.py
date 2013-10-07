@@ -146,7 +146,7 @@ Writing LEGO LOCO settings so we don't read an empty file.''')
             else:
                 logging.info('''User does not want to change the LEGO LOCO
                 installation or pressed an undefined key''')
-                PatchIt.main(count=1)
+                PatchIt.main()
 
 
 # ----- End PatchIt! LEGO LOCO Settings Reading ----- #
@@ -194,7 +194,7 @@ def LOCOWriteSettings():
 
         # Go back to the main menu
         logging.warning("User did not select a new LEGO LOCO installation!")
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # The user selected a folder
     else:

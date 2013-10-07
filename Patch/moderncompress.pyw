@@ -468,7 +468,7 @@ def patchInfo(*args):
         logging.warning("User canceled PatchIt! Patch Creation!")
         colors.text("\nCanceling creation of PatchIt! Patch",
                     color.FG_LIGHT_RED)
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     logging.info("Ask for Patch name")
     print()
@@ -521,7 +521,7 @@ def selectPatchFiles(game, mp):
         logging.warning("User did not select any files to compress!")
         colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
         time.sleep(1)
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # The user selected files for Patch creation
     else:
@@ -640,7 +640,7 @@ PatchIt! ran into an unknown error while trying to create
         # Run process to restore all the files in the Patch files
         logging.info("Running delete_files() to remove temporary folder")
         delete_files()
-        PatchIt.main(count=1)
+        PatchIt.main()
 
 
 # ------------ End PatchIt! Patch Creation ------------ #

@@ -102,7 +102,7 @@ def selectPatch(*args):
                     color.FG_LIGHT_RED)
         time.sleep(0.7)
 
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # The user selected a patch
     else:
@@ -145,7 +145,7 @@ def checkPatch(patch):
                     color.FG_LIGHT_RED)
 
         time.sleep(1)
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # It is written using ANSI or UTF-8-NOBOM, continue reading it
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
@@ -206,7 +206,7 @@ It may be best to check if a newer version of this mod is available.'''
 
         # Switch to main menu
         time.sleep(1)
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # It's not a Patch at all! D:
     # The same message as V1.1.0 Patch
@@ -219,7 +219,7 @@ It may be best to check if a newer version of this mod is available.'''
         del lines[:]
         # Switch to main menu
         time.sleep(1)
-        PatchIt.main(count=1)
+        PatchIt.main()
 
 
 # ------------ End PatchIt! Patch Selection and Identification  ------------ #
@@ -307,7 +307,7 @@ Game: {3}
         colors.text("\nCanceling installation of {0} (Version: {1})".format(
             name, version), color.FG_LIGHT_RED)
         time.sleep(0.5)
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     else:
         # Yes, I do want to install it!
@@ -349,7 +349,7 @@ and request a proper Patch.'''.format(name, version, game, author),
         time.sleep(5)
 
         # Go back to the main menu
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # Find the PiA archive
     patch_location = os.path.dirname(patch)
@@ -468,7 +468,7 @@ PatchIt! ran into an unknown error while trying to install
         # Delete all PiP data to free up resources
         del all_lines[:]
         logging.info("Deleting all data from {0}{1}.PiP".format(name, version))
-        PatchIt.main(count=1)
+        PatchIt.main()
 
 
 # ------------ End PatchIt! Patch Installation ------------ #

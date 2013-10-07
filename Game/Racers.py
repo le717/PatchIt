@@ -144,7 +144,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             else:
                 logging.info('''User does not want to change the LEGO Racers
 installation or pressed an undefined key''')
-                PatchIt.main(count=1)
+                PatchIt.main()
 
 
 # ----- End PatchIt! LEGO Racers Settings Reading ----- #
@@ -192,7 +192,7 @@ def LRWriteSettings():
 
         # Go back to the main menu
         logging.warning("User did not select a new LEGO Racers installation!")
-        PatchIt.main(count=1)
+        PatchIt.main()
 
     # The user selected a folder
     else:
