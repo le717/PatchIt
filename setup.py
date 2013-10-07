@@ -56,7 +56,7 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
 
 # Run utility to get the newest version of the readme
 # Freeze continues if this has an error
-from Tools.bin import (readme, cleanup)  # lint:ok
+from Tools.bin import (PiReadme, cleanup)  # lint:ok
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
