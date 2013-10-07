@@ -38,14 +38,20 @@ import PatchIt
 
 
 class PlayRacers(object):
-    """Launch LEGO Racers (using RunAsAdmin if requried)"""
+    """
+    Launch LEGO Racers
+    NOTE: This requires Administrator rights,
+    and will not work without them.
+    """
 
     def __init__(self):
+        """Define exe, cfg names and game parameters"""
         self.__RAA = "RunAsAdmin.exe"
         self.__RAAC = "RunAsAdmin.cfg"
         self.__LRE = "LEGORacers.exe"
-        # Exe parameters for future use
+        # Parameter to skip intro movies
         self.__novideo = "-novideo"
+        # Exe parameters for future use
         #self.__horz = horz
         #self.__vert = vert
         #self.__horzres = "-horzres {0}".format(int(self.__horz))
@@ -86,5 +92,5 @@ class PlayRacers(object):
                         color.FG_LIGHT_RED)
 
         finally:
-            time.sleep(2)
-            PatchIt.main(count=1)
+            time.sleep(1)
+            PatchIt.main()
