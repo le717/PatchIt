@@ -53,11 +53,16 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "../../Icons/PiIcon.ico",
                      "includes": [
                      "re",
-                     # wget MUST be listed here for the freeze to work,
-                     # but it will not pick it up from Tools/wget
-                     #FIXME: Make it pick it up from Tools/wget
-                     "wget"
+                     # Dummy module "holding a seat" (index 1) for wget
+                     "placeholder"
                      ]}
+
+# Get full file path to Tools/wget/wget.py
+wget_path = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)),
+    "wget", "wget")
+# Update index 1 with the path to wget
+build_exe_options["includes"][1] = wget_path
 
 setup(
     name="PatchIt! Updater",
