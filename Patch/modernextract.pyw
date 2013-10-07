@@ -118,9 +118,11 @@ def selectPatch(*args):
 
 
 def checkPatch(patch):
-    """Checks if Patch uses the proper encoding,
+    """
+    Checks if Patch uses the proper encoding,
     if it is an modern or legacy Patch,
-    or if it is a PatchIt! Patch at all"""
+    or if it is a PatchIt! Patch at all
+    """
     # Check encoding of Patch file
     logging.info("Checking encoding of {0}".format(patch))
 
@@ -139,7 +141,6 @@ def checkPatch(patch):
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
         logging.warning("{0} is written using an unsupported encoding!".format(
             patch))
-        logging.warning("{0} is not a valid PatchIt Patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
                     color.FG_LIGHT_RED)
 
@@ -150,7 +151,7 @@ def checkPatch(patch):
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-    logging.info("Reading line 1 of {0} for PiP validity check and Archive format".format(
+    logging.info("Rea  line 1 of {0} for PiP validity check and Archive format".format(
         patch))
     with open(patch, "rt", encoding="utf-8") as f:
         lines = f.readlines()[0:2]
@@ -170,7 +171,7 @@ def checkPatch(patch):
 
     # It's a legacy Patch
     if (valid_line == orginal_valid_line and archive_line == "[General]"):
-        logging.warning("{0} is a legacy PatchIt patch!\n".format(patch))
+        logging.warning("{0} is a legacy PatchIt! Patch!\n".format(patch))
         colors.text('''\n"{0}"\nis a legacy PatchIt! Patch.
 It will be installed using the legacy installation routine.
 It may be best to check if a newer version of this mod is available.'''
@@ -269,19 +270,13 @@ def readModernPatch(patch):
     desc = "".join(desc)
 
     # Clean up the Patch info
-    logging.info("Cleaning up Patch Archive")
+    logging.info("Cleaning up all fields")
     patch_archive = patch_archive.strip()
-    logging.info("Cleaning up Patch Name")
     name = name.strip()
-    logging.info("Cleaning up Patch Author")
     author = author.strip()
-    logging.info("Cleaning up Patch Version")
     version = version.strip()
-    logging.info("Cleaning up Patch Description")
     desc = desc.strip()
-    logging.info("Cleaning up MP field")
     mp = mp.strip()
-    logging.info("Cleaning up Game field")
     game = game.strip()
 
     # Display all the info
@@ -297,10 +292,12 @@ Game: {3}
     # Display the info
     print(patch_info)
 
+    # Prompt for installation
     logging.info("Do you Do you wish to install {0} (Version: {1})?".format(
         name, version))
     print("\nDo you wish to install {0} (Version: {1})? {2}".format(
         name, version, r"(Y\N)"))
+
     confirm_install = input("\n> ")
 
     # No, I do not want to install the patch
@@ -350,6 +347,7 @@ and request a proper Patch.'''.format(name, version, game, author),
 
         # Give the user time to read the mesage
         time.sleep(5)
+
         # Go back to the main menu
         PatchIt.main(count=1)
 
@@ -416,8 +414,7 @@ and try again.
 
 If this error continues, contact {5} and ask for a fixed version.'''
                     .format(name, version, os.path.basename(patch),
-                    patch_archive, patch_location, author),
-                    color.FG_LIGHT_RED)
+                    patch_archive, patch_location, author), color.FG_LIGHT_RED)
 
         # Sleep for 2 seconds after displaying installation result
         # before kicking back to the main menu.
