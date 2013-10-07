@@ -267,15 +267,15 @@ package and install mods for LEGO Racers"
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
 
-def main(count=1):
+def main(num_of_loops=1):
     """PatchIt! Menu Layout"""
-    count += 1
+    num_of_loops += 1
 
     # If the user has pressed an valid key 5 times or this is app launch
-    if (count == 2 or count == 6):
+    if (num_of_loops == 2 or num_of_loops == 6):
         # Reset the count back to two,
-        if count == 6:
-            count = 2
+        if num_of_loops == 6:
+            num_of_loops = 2
         # And display the menu only at the valid times
         colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}".format(
             app, majver, minver, creator), color.FG_WHITE)
@@ -362,7 +362,7 @@ Please make a selection:
         else:
             logging.info("User pressed an undefined key")
             colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
-            main(count=count)
+            main(num_of_loops=num_of_loops)
 
 
 def easteregg():
