@@ -38,11 +38,12 @@ from tkinter import (filedialog, Tk)
 import Color as color
 import Color.colors as colors
 
-import PatchIt
-from constants import (app_folder)
-
 # JAM Extractor
 from Game import JAMExtractor
+
+# PatchIt! Constants
+import constants as const
+import PatchIt
 
 
 def SelectDataFiles():
@@ -108,7 +109,7 @@ PatchIt! does not have the rights to save LEGO.JAM to
 
     # Go back to the menu
     finally:
-        os.chdir(app_folder)
+        os.chdir(const.app_folder)
         main()
 
 

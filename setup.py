@@ -35,7 +35,8 @@ With changes by Triangle717
 """
 
 from cx_Freeze import (setup, Executable)
-from constants import (majver, minver)
+# PatchIt! Constants
+import constants as const
 import sys
 import os
 
@@ -84,9 +85,9 @@ from Settings.buildgen import BuildNumber as bg
 
 setup(
     name="PatchIt!",
-    version="{0}.{1}".format(majver, bg.Instance().buildnum),
+    version="{0}.{1}".format(const.majver, bg.Instance().buildnum),
     author="2013 Triangle717",
-    description="PatchIt! Version {0} {1}".format(majver, minver),
+    description="PatchIt! Version {0} {1}".format(const.majver, const.minver),
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
@@ -96,4 +97,4 @@ cleanup.cleanup(destfolder)
 
 # Freeze PatchIt! Uninstaller
 print("\nFreezing PatchIt! Uninstaller\n")
-from Tools.Uninstaller import setup
+from Tools.Uninstaller import setup  # lint:ok
