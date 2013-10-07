@@ -85,8 +85,8 @@ DefaultGroupName={#MyAppName}
 AllowNoIcons=True
 ; Installer Graphics
 SetupIconFile=..\..\Icons\PiIcon.ico
-WizardImageFile=..\..\Icons\PatchItSidebar.bmp
-WizardSmallImageFile=..\..\Icons\PatchItLogo.bmp
+WizardImageFile=..\..\Icons\PatchIt-Installer-Sidebar.bmp
+WizardSmallImageFile=..\..\Icons\PatchIt-Installer-Logo.bmp
 ; Location of the compiled Installer 
 ; Hint: The same folder as this script
 OutputDir=.\
