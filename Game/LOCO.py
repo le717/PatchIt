@@ -31,6 +31,7 @@ import logging
 
 # GUI library
 import tkinter as tk
+
 # File/Folder Dialog Boxes
 from tkinter import (Tk, filedialog)
 
@@ -212,7 +213,7 @@ def LOCOWriteSettings():
         # Write settings, using UTF-8NOBOM encoding
         logging.info("Open 'LOCO.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LOCO_settings),
-                  'wt', encoding='utf-8') as loco_file:
+                  "wt", encoding="utf-8") as loco_file:
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)

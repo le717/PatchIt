@@ -31,6 +31,7 @@ import logging
 
 # GUI library
 import tkinter as tk
+
 # File/Folder Dialog Boxes
 from tkinter import (Tk, filedialog)
 
@@ -210,7 +211,7 @@ def LRWriteSettings():
         # Write settings, using UTF-8 encoding
         logging.info("Open 'Racers.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(settings_fol, LR_settings),
-                  "'wt", encoding="utf-8") as racers_file:
+                  "wt", encoding="utf-8") as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)
