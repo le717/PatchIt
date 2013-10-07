@@ -209,10 +209,10 @@ Documentation/Readme/*
 ## Files
 ##########
 
-#*.psd
+*.psd
 *.txt
 *.ini
-*.iss
+#*.iss
 *.~is
 *.log
 *.PiP
