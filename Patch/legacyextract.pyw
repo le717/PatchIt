@@ -30,7 +30,7 @@ PatchIt! V1.1.2 Stable Legacy Patch Installation code
 import linecache
 import zipfile
 import time
-from random import choice
+import random
 
 # App Logging module
 import logging
@@ -42,7 +42,7 @@ import Color.colors as colors
 # Core PatchIt! module
 import PatchIt
 
-# Gameplay tips
+# LEGO Racers Gameplay tips
 from Patch import racingtips
 
 # LEGO Racers settings
@@ -94,7 +94,7 @@ def readPatch(installpatch):
     logging.info("Do you Do you wish to install {0} {1}?".format(installname,
                  installver))
     print("\nDo you wish to install {0} {1}?\n".format(installname,
-          installver,))
+          installver))
     confirminstall = input(r"[Y\N] > ")
 
     # No, I do not want to install the patch
@@ -141,7 +141,7 @@ def readPatch(installpatch):
             # Display the LEGO Racers game tips
             logging.info("Display LEGO Racers gameplay tip")
             colors.text("\nHere's a tip!\n{0}\n".format(
-                choice(racingtips.gametips)), color.FG_CYAN)
+                random.choice(racingtips.gametips)), color.FG_CYAN)
 
             # Installation was successful!
             logging.info("Error (exit) number '0'")
@@ -160,7 +160,7 @@ def readPatch(installpatch):
             time.sleep(1)
 
         # For some reason, it cannot find the ZIP archive
-        except FileNotFoundError:
+        except FileNotFoundError:  # lint:ok
             logging.info("Error number '2'")
             logging.exception('''Oops! Something went wrong!
 Here's what happened
@@ -185,7 +185,7 @@ If the error continues, contact {3} and ask for a fixed version.'''
             time.sleep(2)
 
         # The user does not have the rights to install to that location.
-        except PermissionError:
+        except PermissionError:  # lint:ok
             logging.info("Error number '13'")
             logging.exception('''Oops! Something went wrong!
 Here's what happened
@@ -209,8 +209,11 @@ to
             logging.exception('''Oops! Something went wrong!
 Here's what happened
 ''', exc_info=True)
-            logging.warning("PatchIt! ran into an unknown error while trying to install {0} {1} to {2}!".format(
-                installname, installver, install_path))
+            logging.warning('''
+
+PatchIt! had an unknown error while to installing {0} {1} to {2}'''
+                            .format(installname, installver, install_path))
+
             colors.text('''
 PatchIt! ran into an unknown error while trying to install
 {0} {1}

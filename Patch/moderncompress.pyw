@@ -39,8 +39,8 @@ from tkinter import (filedialog, Tk)
 # App Logging module
 import logging
 
-# PatchIt! "Constants"
-from constants import app_folder
+# PatchIt! Constants
+import constants as const
 
 # Core PatchIt! module
 import PatchIt
@@ -148,7 +148,7 @@ def delete_files():
         #lint:enable
 
     # But in case the directory was not created
-    except FileNotFoundError:
+    except FileNotFoundError:  # lint:ok
 
         # Dump any error tracebacks to the log
         logging.error('''The temporary directory was not found!
@@ -264,7 +264,8 @@ def patchName():
     # No characters were entered
     elif len(name) == 0:
         logging.warning("The Patch name field was left blank!")
-        colors.text("\nThe Name field must be filled out!\n", color.FG_LIGHT_RED)
+        colors.text("\nThe Name field must be filled out!\n",
+                    color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
         logging.info("Looping back through patchName()")
@@ -319,7 +320,8 @@ def patchVersion():
     # No characters were entered
     elif len(version) == 0:
         logging.warning("The Patch version field was left blank!")
-        colors.text("\nThe Version field must be filled out!\n", color.FG_LIGHT_RED)
+        colors.text("\nThe Version field must be filled out!\n",
+                    color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
         logging.info("Looping back through patchVersion()")
@@ -341,7 +343,8 @@ def patchAuthor():
     # No characters were entered
     if len(author) == 0:
         logging.warning("The Patch author field was left blank!")
-        colors.text("\nThe Author field must be filled out!\n", color.FG_LIGHT_RED)
+        colors.text("\nThe Author field must be filled out!\n",
+                    color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
         logging.info("Looping back through patchAuthor()")
@@ -395,7 +398,8 @@ def MPField(game):
     else:
         logging.info("What resolution was this LEGO LOCO map created with?")
         print('''\nWhat resolution was "{0}" created with?
-Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:ok
+Hint: if you are unsure, it will most likely be either'''.format(
+            name))  # lint:ok
 
     colors.text('''
 800x600,
@@ -403,7 +407,7 @@ Hint: if you are unsure, it will most likely be either'''.format(name))  # lint:
 1920x1024
 
 If you used a custom resolution, be sure to enter that below.''',
-                    color.FG_LIGHT_MAGENTA)
+                color.FG_LIGHT_MAGENTA)
 
     try:
         # int() because the screen resolution is not expressed in
@@ -509,7 +513,8 @@ def selectPatchFiles(game, mp):
     # The files to be compressed
     patchfiles = filedialog.askdirectory(
         parent=root,
-        title="Select the files for {0} (Version: {1})".format(name, version)  # lint:ok
+        title="Select the files for {0} (Version: {1})".format(
+            name, version)  # lint:ok
     )
 
     # The user clicked the cancel button
@@ -559,12 +564,14 @@ def writePatch(patchfiles, mp, game):
         file_check(patchfiles)
 
         # Change the working directory to the Patch Files directory
-        logging.info("Changing the working directory to {0}".format(patchfiles))
+        logging.info("Changing the working directory to {0}".format(
+            patchfiles))
         os.chdir(patchfiles)
 
         # Compress the files
         logging.info('''Compress files located at {0} into an LZMA compressed
 TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:ok
+
         with tarfile.open(thearchive, "w:xz") as tar_file:
             tar_file.add(temp_location, "")  # lint:ok
 
@@ -595,7 +602,7 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
         #lint:enable
 
     # The user does not have the rights to write a PiP in that location
-    except PermissionError:
+    except PermissionError:  # lint:ok
         logging.warning("Error number '13'")
         logging.exception('''Oops! Something went wrong! Here's what happened
 
@@ -620,7 +627,8 @@ PatchIt! does not have the rights to create {0} (Version: {1})'''
 ''', exc_info=True)
         logging.warning('''
 
-PatchIt! ran into an unknown error while trying to create {0} (Version: {1})!'''
+PatchIt! ran into an unknown error while trying to create
+{0} (Version: {1})!'''
                         .format(name, version))  # lint:ok
         colors.text('''
 PatchIt! ran into an unknown error while trying to create
@@ -629,14 +637,14 @@ PatchIt! ran into an unknown error while trying to create
             os.unlink("{0}".format(thepatch))
             os.unlink("{0}".format(thearchive))
             # In case the file was never created in the first place
-        except FileNotFoundError:
+        except FileNotFoundError:  # lint:ok
             pass
 
     finally:
         # Change the working directory back to the location of PatchIt!
         logging.info("Changing the working directory back to {0}".format(
-            app_folder))
-        os.chdir(app_folder)
+            const.app_folder))
+        os.chdir(const.app_folder)
         # Run process to restore all the files in the Patch files
         logging.info("Running delete_files() to remove temporary folder")
         delete_files()
