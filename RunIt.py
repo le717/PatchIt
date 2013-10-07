@@ -36,7 +36,7 @@ import os
 import webbrowser
 
 # PatchIt! Constants
-from constants import (app, majver, minver, app_folder, app_icon)
+import constants as const
 
 # RunAsAdmin wrapper
 import runasadmin
@@ -47,17 +47,19 @@ try:
     from tkinter.messagebox import showerror
 except ImportError:
     # Python 2 import
+    #lint:disable
     import Tkinter as tk
     from tkMessageBox import showerror
+    #lint:enable
 
 # User is not running < Python 3.3.0
 if sys.version_info < (3, 3, 0):
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap(app_icon)
+    root.iconbitmap(const.app_icon)
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
-        sys.version[0:5], app, majver, minver))
+        sys.version[0:5], const.app, const.majver, const.minver))
 
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
@@ -77,7 +79,7 @@ def appLoggingFolder():
     """Checks for (and creates) PatchIt! Logs folder"""
     try:
         # Location of Logs folder
-        logs_folder = os.path.join(app_folder, "Logs")
+        logs_folder = os.path.join(const.app_folder, "Logs")
 
         # The Logs folder does not exist
         if not os.path.exists(logs_folder):
@@ -93,12 +95,12 @@ def appLoggingFolder():
             filename=os.path.join(logs_folder, 'PatchIt.log'),
             # "a" so the Logs is appended to and not overwritten
             # and is created if it does not exist
-            filemode='a'
+            filemode="a"
         )
 
     # -- End Logging Configuration -- #
 
-    except PermissionError:
+    except PermissionError:  # lint:ok
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
                 "PatchIt! does not have the user rights to operate!"):
@@ -113,7 +115,8 @@ if __name__ == "__main__":
     appLoggingFolder()
 
     # Write window title (since there is no GUI in PatchIt! itself (yet))
-    os.system("title {0} {1} {2}".format(app, majver, minver))
+    os.system("title {0} {1} {2}".format(
+        const.app, const.majver, const.minver))
     PatchIt.info()
     PatchIt.args()
     PatchIt.preload()
