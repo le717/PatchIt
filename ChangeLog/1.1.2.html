@@ -19,8 +19,8 @@
 
 <body>
 <strong>1.1.2 Unstable</strong><br>
-<em>Codename not available</em><br>
-(Released ?? ??, 2013)<br>
+<em>"Smoothing The Rough Edges"</em><br>
+(Released October 7, 2013)<br>
 <ul>
 <li>Cleaned out logging messages a bit</li>
 <li>Split <span class="bold">PatchIt!</span> constants into <code>constants.pyw</code></li>
@@ -105,7 +105,7 @@
 <li>Wrote downloader script to download the newest version of the Readme from the <code>gh-pages</code> branch; to be used during exe freezing</li>
 <li>Wrote cleanup script to delete unneeded Tkinter files created during freezing</li>
 <li>Wrapped build number in a singleton</li>
-<li>Ported special use  <span class="italic">LEGO&reg; Racers</span> installation path reading to <code>Patch/legacyinstall.pyw</code></li>
+<li>Ported special use <span class="italic">LEGO&reg; Racers</span> installation path reading to <code>Patch/legacyinstall.pyw</code></li>
 <li>Cleaned up a few imports in <code>Patch/legacyinstall.pyw</code></li>
 <li>Moved cleanup of game installation path reading into main function</li>
 <li>Fixed bug in invalid key press actions on main menu (per report from tester)</li>
@@ -125,6 +125,16 @@ in <code>Tools/bin/readme.py</code> depending on if it is run by itself or from 
 <li>Make <span class="bold">PatchIt! Updater</span> import wget from <code>Tools/wget</code></li>
 <li>Fix <code>Tools/Updater/setup.py</code> to import wget from <code>Tools/wget</code></li>
 <li>Rename <code>Tools/bin/readme.py</code> to <code>Tools/bin/PiReadme.py</code></li>
+<li>Updated <code>Documentation/Settings.md</code> with build number update in <code>Settings/PatchIt.cfg</code></li>
+<li>Updated <code>Documentation/CONTRIBUTING.md</code> with updated freezing directions, warnings for pushing commits, and wget</li>
+<li>Assign default argument for new main menu loop</li>
+<li>Changed <code>(Y\N)</code> text to <code>[Y\N]</code>, moved to same line as input</li>
+<li>Updated all scripts to use <code>import constants as const</code> syntax</li>
+<li>Removed French and Dutch translations in Inno Setup installer</li>
+<li>Cleaned up <code>Icons</code> folder</li>
+<li>Renamed <code>Tools/Windows/PatchIt Installer.iss</code> to <code>Tools/Windows/PiInstaller.iss</code></li>
+<li>Wrap <span class="italic">LEGO&reg; Racers</span> gameplay tips to 79 characters</li>
+<li>Display the same main menu layout in both normal and experimental mode</li>
 <li class="bold italic">LEGOs in space? More later!</li> 
 </ul>
 </body>
