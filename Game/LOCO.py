@@ -181,7 +181,7 @@ def LOCOWriteSettings():
     root.focus_force()
 
     # Select the LEGO LOCO installation
-    logging.info("Display folder selection dialog for LEGO LOCO installation")
+    logging.info("Display folder dialog for LEGO LOCO installation")
     new_loco_game = filedialog.askopenfilename(
         parent=root,
         title="Where is LOCO.exe",

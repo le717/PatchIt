@@ -36,7 +36,7 @@ import tkinter as tk
 from tkinter import (Tk, filedialog)
 
 # PatchIt! Constants
-from constants import (LR_game, LR_settings, settings_fol)
+import constants as const
 import PatchIt
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
@@ -45,17 +45,17 @@ import PatchIt
 def getRacersPath():
     """Special-use function to get and return the Racers installation path"""
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
+    if not os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
         logging.warning("Could not find LEGO Racers settings!")
         LRReadSettings()
 
     # The LEGO Racers settings do exist
     # Check encoding of Racers Settings file
     logging.info("Check encoding of {0} before installation".format(
-        os.path.join(settings_fol, LR_settings)))
+        os.path.join(const.settings_fol, const.LR_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(settings_fol, LR_settings),
+    with open(os.path.join(const.settings_fol, const.LR_settings),
               "rb") as encode_check:
         encoding = encode_check.readline(3)
 
@@ -77,7 +77,7 @@ def getRacersPath():
     logging.info("Reading line 7 of settings for LEGO Racers installation")
 
     try:
-        with open(os.path.join(settings_fol, LR_settings),
+        with open(os.path.join(const.settings_fol, const.LR_settings),
                   "rt", encoding="utf-8") as f:
             racers_install_path = f.readlines()[6]
 
@@ -95,13 +95,13 @@ def getRacersPath():
 def LRReadSettings():
     """Read PatchIt! LEGO Racers settings"""
     # The settings file does not exist
-    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
+    if not os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
         logging.warning("LEGO Racers Settings does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO Racers settings")
         LRWriteSettings()
 
     # The setting file does exist
-    elif os.path.exists(os.path.join(settings_fol, LR_settings)):
+    elif os.path.exists(os.path.join(const.settings_fol, const. LR_settings)):
         logging.info("LEGO Racers Settings do exist")
 
         # The first-run check came back False,
@@ -121,7 +121,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
                                     "Cannot find {0} installation at {1}"
-                                    .format(LR_game, LR_path))
+                                    .format(const.LR_game, LR_path))
             root.destroy()
 
             # Go write the settings file
@@ -131,7 +131,9 @@ Writing LEGO Racers settings so we don't read an empty file.''')
         # The defined installation was confirmed by LRGameCheck()
         else:
             print('\nA {0} {1} release was found at\n\n"{2}"\n\n{3}\n'.format(
-                LR_game, LR_ver, LR_path, "Would you like to change this?"))
+                const.LR_game, LR_ver, LR_path,
+                "Would you like to change this?"))
+
             change_racers_path = input(r"[Y\N] > ")
 
             # Yes, I want to change the defined installation
@@ -173,7 +175,7 @@ def LRWriteSettings():
     root.focus_force()
 
     # Select the LEGO Racers installation
-    logging.info("Display folder selection dialog for LEGO Racers installation")
+    logging.info("Display folder dialog for LEGO Racers installation")
     new_racers_game = filedialog.askopenfilename(
         parent=root,
         title="Where is LEGORacers.exe",
@@ -205,12 +207,12 @@ def LRWriteSettings():
 
         # Create Settings directory if it does not exist
         logging.info("Creating Settings directory")
-        if not os.path.exists(settings_fol):
-            os.mkdir(settings_fol)
+        if not os.path.exists(const.settings_fol):
+            os.mkdir(const.settings_fol)
 
         # Write settings, using UTF-8 encoding
         logging.info("Open 'Racers.cfg' for writing using UTF-8-NOBOM encoding")
-        with open(os.path.join(settings_fol, LR_settings),
+        with open(os.path.join(const.settings_fol, const.LR_settings),
                   "wt", encoding="utf-8") as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
@@ -255,10 +257,12 @@ def LRGameCheck():
     """Confirms LEGO Racers installation"""
     # Check encoding of Settings file
     logging.info("Checking encoding of {0}".format(
-        os.path.join(settings_fol, LR_settings)))
+        os.path.join(const.settings_fol, const.LR_settings)))
 
     # Open it, read just the area containing the byte mark
-    with open(os.path.join(settings_fol, LR_settings), "rb") as encode_check:
+    with open(os.path.join(
+            const.settings_fol, const.LR_settings),
+            "rb") as encode_check:
         encoding = encode_check.readline(3)
 
     if (  # The settings file uses UTF-8-BOM encoding
@@ -280,7 +284,7 @@ def LRGameCheck():
 
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
-    with open(os.path.join(settings_fol, LR_settings),
+    with open(os.path.join(const.settings_fol, const.LR_settings),
               "rt", encoding="utf-8") as game_confirm:
         lines = game_confirm.readlines()[:]
 
@@ -296,13 +300,18 @@ def LRGameCheck():
     LR_ver = LR_ver.strip()
 
     # Delete the reading to free up system resources
-    logging.info("Deleting raw reading of {0}".format(LR_settings))
+    logging.info("Deleting raw reading of {0}".format(const.LR_settings))
     del lines[:]
 
     # The only three items needed to confirm a LEGO Racers installation.
-    if (os.path.exists(os.path.join(LR_path, "legoracers.exe".lower()))
-        and os.path.exists(os.path.join(LR_path, "lego.jam".lower()))
-            and os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))):
+    if (os.path.exists(
+        os.path.join(LR_path, "legoracers.exe".lower())
+        )
+        and os.path.exists(
+            os.path.join(LR_path, "lego.jam".lower())
+        )
+            and os.path.exists(
+                os.path.join(LR_path, "goldp.dll".lower()))):
 
         logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}"
                      .format(LR_path))
@@ -315,8 +324,8 @@ def LRGameCheck():
 
     # The installation path cannot be found, or it cannot be confirmed
     else:
-        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!".format(
-            LR_path))
+        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!"
+                        .format(LR_path))
         return False
 
 
@@ -340,20 +349,20 @@ def LRVerCheck(new_racers_game):
 def CheckLRSettings():
     """Gets LEGO Rackers Settings and First-run info"""
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(settings_fol, LR_settings)):
+    if not os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
         logging.warning("LEGO Racers Settings do not exist!")
         return False
 
     # The LEGO Racers settings do exist
-    elif os.path.exists(os.path.join(settings_fol, LR_settings)):
+    elif os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
         logging.info("LEGO Racers Settings do exist")
 
         # Check encoding of Settings file
         logging.info("Checking encoding of {0}".format(
-            os.path.join(settings_fol, LR_settings)))
+            os.path.join(const.settings_fol, const.LR_settings)))
 
         # Open it, read just the area containing the byte mark
-        with open(os.path.join(settings_fol, LR_settings),
+        with open(os.path.join(const.settings_fol, const.LR_settings),
                   "rb") as encode_check:
             encoding = encode_check.readline(3)
 
@@ -371,7 +380,7 @@ def CheckLRSettings():
 
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO Racers first-run info")
-        with open(os.path.join(settings_fol, LR_settings), "rt",
+        with open(os.path.join(const.settings_fol, const.LR_settings), "rt",
                   encoding="utf-8") as first_run_check:
             lr_first_run = first_run_check.readlines()[2]
 
