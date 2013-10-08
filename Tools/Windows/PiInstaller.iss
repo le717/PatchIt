@@ -55,8 +55,8 @@
 ; Global variables
 #define MyAppName "PatchIt!" 
 #define MyAppVersion "1.1.2"
-#define MyAppVerName "PatchIt! Version 1.1.2 Unstable"
-#define MyInstallerName "PatchIt-112-Unstable"
+#define MyAppVerName "PatchIt! Version 1.1.2 Stable"
+#define MyInstallerName "PatchIt-112-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppPublisherURL "http://Triangle717.WordPress.com/"
 #define MyAppURL "http://le717.github.io/PatchIt"
@@ -155,6 +155,10 @@ Source: ..\Uninstaller\bin\unicodedata.pyd; DestDir: {app}\Uninstaller; Flags: i
 
 ; Readme
 Source: ..\..\Documentation\Readme\*; DestDir: {app}\Documentation; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\Icons\PiTk.gif; DestDir: {app}\Icons; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\Icons\PiIcon.ico; DestDir: {app}\Icons; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ..\..\Icons\cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg; DestDir: {app}\Icons; Flags: ignoreversion recursesubdirs createallsubdirs
+
 
 ; RunAsAdmin utility
 Source: RunAsAdmin\RunAsAdmin.cfg; DestDir: {app}; Flags: ignoreversion
