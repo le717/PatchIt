@@ -129,7 +129,7 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-#*.exe
+*.exe
 *.msi
 *.com
 *.bat
@@ -232,6 +232,7 @@ Windows/PatchIt-*
 Windows/Download.html
 #wget.py
 Tools/Updater/*.cfg
-Settings/*.cfg
+#Settings/*.cfg
 !Tools/bin/*
 !Tools/bin/readme.py
+Settings/PatchIt.cfg
