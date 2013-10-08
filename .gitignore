@@ -5,7 +5,7 @@
 *.pydevproject
 .project
 .metadata
-bin/
+#bin/
 tmp/
 *.tmp
 *.bak
@@ -189,7 +189,7 @@ pip-log.txt
 
 Archives/
 bin/Windows
-!bin/Settings/*
+#!bin/Settings/*
 !Color/
 Compile/
 Documentation/Readme/*
