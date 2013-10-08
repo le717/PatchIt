@@ -46,9 +46,6 @@ import PatchIt
 # LEGO Racers settings
 from Game import (Racers, LOCO)
 
-# Legacy installation process
-from Patch import legacyextract
-
 # LEGO Racers gameplay tips
 from Patch import racingtips
 
@@ -183,7 +180,6 @@ It may be best to check if a newer version of this mod is available.'''
         # Switch to legacy Patch Installation routine
         time.sleep(3)
         logging.info("Switching to Legacy Patch Installation routine")
-        legacyextract.readPatch(patch)
 
     # It's a modern Patch
     elif (valid_line == current_valid_line and archive_line == "[PiA]"):
