@@ -56,7 +56,7 @@
 #define MyAppName "PatchIt!" 
 #define MyAppVersion "1.1.2"
 #define MyAppVerName "PatchIt! Version 1.1.2 Stable"
-#define MyInstallerName "PatchIt-112-Stable"
+#define MyInstallerName "PatchIt-v112-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppPublisherURL "http://Triangle717.WordPress.com/"
 #define MyAppURL "http://le717.github.io/PatchIt"
