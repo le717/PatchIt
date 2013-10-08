@@ -30,7 +30,7 @@ import os
 import sys
 import distutils.dir_util
 import zipfile
-from urllib.error import HTTPError
+from urllib.error import (HTTPError, URLError)
 
 # Import wget from parent directory since the script is being run standalone
 # Since I can't run `from Tools.wget import wget`
@@ -58,7 +58,7 @@ try:
     halt = False
 
 # We can't download it right now, so end the process
-except HTTPError:
+except (HTTPError, URLError):
     print("\nPatchIt! Readme cannot be downloaded at this time.\n")
     halt = True
 
