@@ -5,7 +5,7 @@
 *.pydevproject
 .project
 .metadata
-bin/
+#bin/
 tmp/
 *.tmp
 *.bak
@@ -189,7 +189,7 @@ pip-log.txt
 
 Archives/
 bin/Windows
-!bin/Settings/*
+#!bin/Settings/*
 !Color/
 Compile/
 Documentation/Readme/*
@@ -201,17 +201,18 @@ Testing*/
 !Tools/bin
 TheTesterGroup/
 Tools/Updater/bin/*
-Tools/Windows/Uninstaller*/*
-Tools/Windows/PatchIt*/
+Tools/Windows/Uninstaller*/
+Tools/Windows/PatchIt*/*
+!Tools/wget/
 
 ###############
 ## Misc. Files
 ###############
 
-*.psd
+#*.psd
 *.txt
 *.ini
-*.iss
+#*.iss
 *.~is
 *.log
 *.PiP
@@ -220,17 +221,18 @@ Tools/Windows/PatchIt*/
 *.blend2
 *.wpp
 *.html
-#!.py
+#*.py
 !RunAsAdmin.cfg
 #*settings
 PatchIt-Compatible.html
-singleton.py
+#singleton.py
 !Windows/unsetup.py
 Windows/PatchIt-*
 !License/LICENSE.RunAsAdmin.txt
 Windows/Download.html
-*wget.py
+#wget.py
 Tools/Updater/*.cfg
-Settings/*.cfg
+#Settings/*.cfg
 !Tools/bin/*
 !Tools/bin/readme.py
+Settings/PatchIt.cfg

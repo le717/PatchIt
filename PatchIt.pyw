@@ -218,7 +218,7 @@ def about():
 
             {0} Version {1} {2}
                               Build {3}
-               Released ?? ??, 2013
+               Released October 8, 2013
 
             Created 2013 Triangle717
 
