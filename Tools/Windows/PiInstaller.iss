@@ -201,7 +201,6 @@ Type: files; Name: {app}\settings
 
 ; Remove old LEGO LOCO settings file
 Type: files; Name: {app}\Settings\LOCO.cfg
-; #endif
 
 [Dirs]
 ; So the Settings are never uninstalled

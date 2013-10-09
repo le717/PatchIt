@@ -25,7 +25,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! v1.1.2 Stable Modern Patch Installation code
+PatchIt! v1.1.3 Unstable Modern Patch Installation code
 """
 
 # General imports
