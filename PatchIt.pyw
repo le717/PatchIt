@@ -24,7 +24,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! v1.1.2 Stable Core Module
+PatchIt! v1.1.3 Unstable Core Module
 """
 
 # General use modules
@@ -218,7 +218,7 @@ def about():
 
             {0} Version {1} {2}
                               Build {3}
-               Released October 8, 2013
+               Released ?? ??, 2013
 
             Created 2013 Triangle717
 

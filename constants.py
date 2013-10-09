@@ -29,8 +29,8 @@ import os
 
 # App name and version
 app = "PatchIt!"
-majver = "1.1.2"
-minver = "Stable"
+majver = "1.1.3"
+minver = "Unstable"
 creator = "Triangle717"
 
 # GLobal game data

@@ -69,7 +69,7 @@ class BuildNumber(object):
             # This is the raw Python script, get a new number
             elif not (hasattr(sys, "frozen") and
                       not sys.frozen in ("windows_exe", "console_exe")):
-                new_build = self.UpdateBuildNumber().write_build(False)
+                new_build = self.write_build(False)
                 return new_build
 
         # It does exist, read it
