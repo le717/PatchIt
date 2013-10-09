@@ -54,9 +54,9 @@
 
 ; Global variables
 #define MyAppName "PatchIt!" 
-#define MyAppVersion "1.1.2"
-#define MyAppVerName "PatchIt! Version 1.1.2 Stable"
-#define MyInstallerName "PatchIt-v112-Stable"
+#define MyAppVersion "1.1.3"
+#define MyAppVerName "PatchIt! Version 1.1.3 Unstable"
+#define MyInstallerName "PatchIt-v113-Stable"
 #define MyAppPublisher "Triangle717"
 #define MyAppPublisherURL "http://Triangle717.WordPress.com/"
 #define MyAppURL "http://le717.github.io/PatchIt"
@@ -167,13 +167,11 @@ Source: RunAsAdmin\RunAsAdmin.exe; DestDir: {app}; Flags: ignoreversion
 ; License files
 Source:  ..\..\License\*; DestDir: {app}\License; Flags: ignoreversion
 
-; Settings files
+; Settings file
 Source: ..\..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
-Source: ..\..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
-; Settings files for Settings_Reset switch
-Source: ..\..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
-Source: ..\..\bin\Settings\LOCO.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall 
+; Settings file for Settings_Reset switch
+Source: ..\..\bin\Settings\Racers.cfg; DestDir: {app}\Settings; Tasks: Settings_Reset; Permissions: users-modify; Flags: ignoreversion uninsneveruninstall
 
 ; PatchIt! itself (a 32-bit Windows binary)
 Source: ..\..\bin\Windows\*; Excludes: Logs; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -200,6 +198,9 @@ Type: filesandordirs; Name: {app}\tk
 ; Remove V1.0.x settings file
 ; Not doing so breaks V1.1.x
 Type: files; Name: {app}\settings
+
+; Remove old LEGO LOCO settings file
+Type: files; Name: {app}\Settings\LOCO.cfg
 
 [Dirs]
 ; So the Settings are never uninstalled

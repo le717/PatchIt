@@ -24,7 +24,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! v1.1.2 Stable Modern Patch Creation code
+PatchIt! v1.1.3 Unstable Modern Patch Creation code
 """
 
 # General imports
@@ -271,6 +271,13 @@ def patchName():
         logging.info("Looping back through patchName()")
         patchName()
 
+     # I want to quit the process
+    elif name.lower() == "q":
+        logging.warning("User canceled PatchIt! Patch Creation!")
+        colors.text("\nCanceling creation of PatchIt! Patch",
+                    color.FG_LIGHT_RED)
+        PatchIt.main()
+
     # An invalid character was not entered/the field was filled out
     else:
         logging.info("All characters in Patch name are allowed")
@@ -382,57 +389,6 @@ def patchDesc():
         return desc
 
 
-def MPField(game):
-    """Sets the value for the MP field,
-    asks for LEGO LOCO map resolution"""
-    # Mark as global to remove silly "None" error
-    global mp
-
-    # If  Racers Patch, automaticlly assign MP field
-    if game == "LEGO Racers":
-        logging.info("Setting value for LEGO Racers MP field")
-        mp = "MP"
-        return mp
-
-    # Get the resolution the map was created in (it matters!)
-    else:
-        logging.info("What resolution was this LEGO LOCO map created with?")
-        print('''\nWhat resolution was "{0}" created with?
-Hint: if you are unsure, it will most likely be either'''.format(
-            name))  # lint:ok
-
-    colors.text('''
-800x600,
-1024x768,
-1920x1024
-
-If you used a custom resolution, be sure to enter that below.''',
-                color.FG_LIGHT_MAGENTA)
-
-    try:
-        # int() because the screen resolution is not expressed in
-        # decimal numbers nor words, but whole numbers
-        horz_res = int(input("\nWidth: "))
-        vert_res = int(input("Height: "))
-
-        # The final value
-        mp = "{0}x{1}".format(horz_res, vert_res)
-        logging.info("This map uses the {0} resolution".format(mp))
-        logging.info("Returning resolution")
-        return mp
-
-    # A valid resolution was not entered
-    except ValueError:
-        logging.warning("User entered an invalid number!")
-        logging.exception('''Oops! Something went wrong! Here's what happened
-
-''', exc_info=True)
-        colors.text("\nYou have entered a non-numerical character!",
-                    color.FG_LIGHT_RED)
-        logging.info("Looping back through MPField()")
-        MPField(game)
-
-
 # ------------ End Patch Info Character and Length Checks ------------ #
 
 
@@ -445,37 +401,9 @@ def patchInfo(*args):
     colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 
     # Tells the user how to cancel the process
-    colors.text('\nType "q" in the next field to cancel.\n', color.FG_WHITE)
-
-    # Get what game this Patch is for
-    logging.info("Is this patch for LEGO Racers, or LEGO LOCO?")
-
-    print("Which game is this Patch created for?")
-    print('''
-[r] LEGO Racers
-[l] LEGO LOCO
-[q] Quit''')
-    game_select = input("\n\n> ")
-
-    # It's an LR Patch
-    if game_select.lower() == "r":
-        logging.info("User selected LEGO Racers")
-        game = "LEGO Racers"
-
-    # It's an LOCO Patch
-    elif game_select.lower() == "l":
-        logging.info("User selected LEGO LOCO")
-        game = "LEGO LOCO"
-
-     # I want to quit the process
-    else:
-        logging.warning("User canceled PatchIt! Patch Creation!")
-        colors.text("\nCanceling creation of PatchIt! Patch",
-                    color.FG_LIGHT_RED)
-        PatchIt.main()
+    colors.text('\nType "q" in the Name field to cancel.\n\n', color.FG_WHITE)
 
     logging.info("Ask for Patch name")
-    print()
     patchName()
 
     logging.info("Ask for Patch version")
@@ -487,11 +415,16 @@ def patchInfo(*args):
     logging.info("Ask for Patch description")
     patchDesc()
 
-    logging.info("Switching to MPField() to get value of MP field")
-    MPField(game)
+    # Set value of Game Field
+    logging.info("Set value of Game field")
+    game = "LEGO Racers"
+
+    # Set value of MP field
+    logging.info("Set value of MP field")
+    mp = "MP"
 
     # Run function to select files for compression
-    selectPatchFiles(game, mp)  # lint:ok
+    selectPatchFiles(game, mp)
 
 
 def selectPatchFiles(game, mp):
@@ -511,14 +444,14 @@ def selectPatchFiles(game, mp):
     root.focus_force()
 
     # The files to be compressed
-    patchfiles = filedialog.askdirectory(
+    patch_files = filedialog.askdirectory(
         parent=root,
         title="Select the files for {0} (Version: {1})".format(
             name, version)  # lint:ok
     )
 
     # The user clicked the cancel button
-    if not patchfiles:
+    if not patch_files:
         # Give focus back to console window
         logging.info("Give focus back to console window")
         root.destroy()
@@ -534,51 +467,49 @@ def selectPatchFiles(game, mp):
         logging.info("Give focus back to console window")
         root.destroy()
         logging.info("User selected files at {0} for Patch compression".format(
-            patchfiles))
+            patch_files))
         logging.info('''The final Patch details are:
 
 {0}
 Version: {1}
 Author: {2}
-Game: {3}
-{4}
 
-"{5}"
-'''.format(name, version, author, game, mp, desc))  # lint:ok
+"{3}"
+'''.format(name, version, author, desc))  # lint:ok
         logging.info("Switching to writePatch()")
-        writePatch(patchfiles, mp, game)
+        writePatch(patch_files, mp, game)
 
 
-def writePatch(patchfiles, mp, game):
+def writePatch(patch_files, mp, game):
     """Writes and compresses PatchIt! Patch"""
     try:
         # Declare the Patch PiP and Archive filenames
-        thepatch = "{0}{1}.PiP".format(name, version)  # lint:ok
-        thearchive = "{0}{1}.PiA".format(name, version)  # lint:ok
-        logging.info("The final file names are {0} and {1}".format(thepatch,
-                                                                   thearchive)
-                     )
+        the_patch = "{0}{1}.PiP".format(name, version)  # lint:ok
+        the_archive = "{0}{1}.PiA".format(name, version)  # lint:ok
+        logging.info("The final file names are {0} and {1}"
+                     .format(the_patch, the_archive))
 
         # Run illegal file check
         logging.info("Run file_check() to check for and remove illegal files.")
-        file_check(patchfiles)
+        file_check(patch_files)
 
         # Change the working directory to the Patch Files directory
-        logging.info("Changing the working directory to {0}".format(
-            patchfiles))
-        os.chdir(patchfiles)
+        logging.info("Change the working directory to {0}".format(
+            patch_files))
+        os.chdir(patch_files)
 
         # Compress the files
         logging.info('''Compress files located at {0} into an LZMA compressed
-TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:ok
+TAR archive to {1}'''.format(temp_location, patch_files))  # lint:ok
 
-        with tarfile.open(thearchive, "w:xz") as tar_file:
+        with tarfile.open(the_archive, "w:xz") as tar_file:
             tar_file.add(temp_location, "")  # lint:ok
 
         # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
-        logging.info("Write {0} with Patch details using UTF-8 encoding".format(
-            thepatch))
-        with open("{0}".format(thepatch), 'wt', encoding='utf-8') as patch:
+        logging.info("Write {0} with Patch details using UTF-8 encoding"
+                     .format(the_patch))
+
+        with open("{0}".format(the_patch), 'wt', encoding='utf-8') as patch:
             patch.write('''// PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]
 {0}
@@ -589,16 +520,16 @@ TAR archive, save archive to {1}'''.format(temp_location, patchfiles))  # lint:o
 {4}
 {5}
 [Description]
-{6}'''.format(thearchive, name, version, author, mp, game, desc))  # lint:ok
+{6}'''.format(the_archive, name, version, author, mp, game, desc))  # lint:ok
 
         # The Patch was created successfully!
         logging.info("Error (exit) number '0'")
         #lint:disable
         logging.info("{0} Version: {1} created and saved to {2}"
-                     .format(name, version, patchfiles))
+                     .format(name, version, patch_files))
         colors.text('''
 {0} (Version: {1}) successfully created and saved to
-"{2}"'''.format(name, version, patchfiles), color.FG_LIGHT_GREEN)
+"{2}"'''.format(name, version, patch_files), color.FG_LIGHT_GREEN)
         #lint:enable
 
     # The user does not have the rights to write a PiP in that location
@@ -633,20 +564,29 @@ PatchIt! ran into an unknown error while trying to create
         colors.text('''
 PatchIt! ran into an unknown error while trying to create
 {0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)  # lint:ok
+
+        # Remove the incomplete PiA archive
         try:
-            os.unlink("{0}".format(thepatch))
-            os.unlink("{0}".format(thearchive))
-            # In case the file was never created in the first place
+            os.unlink(the_archive)
+
+        # In case the file was never created in the first place
+        except FileNotFoundError:  # lint:ok
+            pass
+
+        # Remove the incomplete PiP file
+        try:
+            os.unlink(the_patch)
+        # In case the file was never created in the first place
         except FileNotFoundError:  # lint:ok
             pass
 
     finally:
         # Change the working directory back to the location of PatchIt!
-        logging.info("Changing the working directory back to {0}".format(
+        logging.info("Change the working directory back to {0}".format(
             const.app_folder))
         os.chdir(const.app_folder)
         # Run process to restore all the files in the Patch files
-        logging.info("Running delete_files() to remove temporary folder")
+        logging.info("Run delete_files() to remove temporary folder")
         delete_files()
         PatchIt.main()
 
