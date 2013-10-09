@@ -161,7 +161,7 @@ def preload():
         main()
 
     # The Racers settings do not exist
-    elif not hasLRSettings:
+    else:
         Racers.LRReadSettings()
 
 
