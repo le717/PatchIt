@@ -168,18 +168,26 @@ def checkPatch(patch):
 
     # It's a legacy Patch
     if (valid_line == orginal_valid_line and archive_line == "[General]"):
-        logging.warning("{0} is a legacy PatchIt! Patch!\n".format(patch))
+        logging.warning("{0} is an unsupported legacy PatchIt! Patch!\n"
+            .format(patch))
         colors.text('''\n"{0}"\nis a legacy PatchIt! Patch.
-It will be installed using the legacy installation routine.
-It may be best to check if a newer version of this mod is available.'''
+
+Legacy PatchIt! Patches are no longer supported!
+You may want to contact the person you got this from and ask
+for an updated version, check if an updated version is available,
+or download a copy of PatchIt! Version 1.1.2 Stable, the last release
+to support this Patch version.'''
                     .format(patch), color.FG_CYAN)
 
         # Delete validity lines from memory
         del lines[:]
+
         # Give them time to actually read the message.
         # Switch to legacy Patch Installation routine
         time.sleep(3)
-        logging.info("Switching to Legacy Patch Installation routine")
+
+        # Switch to main menu
+        PatchIt.main()
 
     # It's a modern Patch
     elif (valid_line == current_valid_line and archive_line == "[PiA]"):
@@ -187,8 +195,9 @@ It may be best to check if a newer version of this mod is available.'''
 
         # Delete validity lines from memory
         del lines[:]
-        # Go to the (modern) Patch Installation method
-        logging.info("Proceeding to Modern Patch Installation routine")
+
+        # Go to the Patch Installation method
+        logging.info("Proceeding to Patch Installation routine")
         readModernPatch(patch)
 
     # It's a V1.1.0 transition Patch, a version that is NEVER to be used
@@ -213,6 +222,7 @@ It may be best to check if a newer version of this mod is available.'''
 
         # Delete validity lines from memory
         del lines[:]
+
         # Switch to main menu
         time.sleep(1)
         PatchIt.main()
