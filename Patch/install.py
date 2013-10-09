@@ -44,7 +44,7 @@ from tkinter import (filedialog, Tk)
 import PatchIt
 
 # LEGO Racers settings
-from Game import (Racers, LOCO)
+from Game import Racers
 
 # LEGO Racers gameplay tips
 from Patch import racingtips
@@ -177,7 +177,7 @@ You may want to contact the person you got this from and ask
 for an updated version, check if an updated version is available,
 or download a copy of PatchIt! Version 1.1.2 Stable, the last release
 to support this Patch version.'''
-                    .format(patch), color.FG_CYAN)
+                    .format(patch), color.FG_LIGHT_RED)
 
         # Delete validity lines from memory
         del lines[:]
@@ -326,15 +326,9 @@ Game: {3}
 
 def installModernPatch(patch, name, version, author, game, mp, patch_archive):
     """Installs a Modern PatchIt! Patch"""
-    # This is a LEGO LOCO patch, read the LOCO settings
-    if game == "LEGO LOCO":
-
-        # Run process to get the LOCO installation path
-        logging.info("Get path to the LOCO installation")
-        install_path = LOCO.getLOCOPath()
-
+    #FIXME: Move check above prompt for installation
     # This is a LEGO Racers patch, read the Racers settings
-    elif game == "LEGO Racers":
+    if game == "LEGO Racers":
 
         # Run process to get the Racers installation path
         logging.info("Get path to the Racers installation")
@@ -342,11 +336,11 @@ def installModernPatch(patch, name, version, author, game, mp, patch_archive):
 
     # In case the Game field says something else
     else:
-        logging.error("This Patch wants to be installed for an unsupported game!")
+        logging.error("The Patch wants to be installed for an unsupported game!")
         logging.info("Telling user about this unsupported game")
         # Tell user about this issue
-        colors.text('''\n{0} (Version: {1}) was created for {2}.
-PatchIt! only supports LEGO Racers and LEGO LOCO.
+        colors.text('''\n{0} (Version: {1}) says was created for {2}.
+PatchIt! only supports LEGO Racers.
 You may want to contact {3} and ask them if this is an error,
 and request a proper Patch.'''.format(name, version, game, author),
                     color.FG_LIGHT_RED)

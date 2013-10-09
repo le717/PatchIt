@@ -49,8 +49,8 @@ from Patch import (install, create)
 import Color as color
 import Color.colors as colors
 
-# LEGO Racers, LOCO settings, Racers launcher, LEGO.JAM wrapper
-from Game import (Racers, LOCO, rungame, legojam)
+# LEGO Racers settings, launcher, LEGO.JAM wrapper
+from Game import (Racers, rungame, legojam)
 
 # PatchIt! "Constants"
 import constants as const
@@ -155,26 +155,14 @@ def preload():
 
     # Assign variables for easier access
     hasLRSettings = Racers.CheckLRSettings()
-    hasLOCOSettings = LOCO.CheckLOCOSettings()
 
-    # If the Racers settings is present but not LOCO,
-    # go to main menu
-    if (hasLRSettings and not hasLOCOSettings):
+    # If the Racers settings is present, go to main menu
+    if hasLRSettings:
         main()
 
-    # If the LOCO settings is present but not Racers,
-    # go to main menu
-    elif (hasLOCOSettings and not hasLRSettings):
-        main()
-
-    # If both the Racers and LOCO settings are present,
-    # go to main menu
-    elif (hasLRSettings and hasLOCOSettings):
-        main()
-
-    # Any other condition
-    else:
-        Settings()
+    # The Racers settings do not exist
+    elif not hasLRSettings:
+        Racers.LRReadSettings()
 
 
 # ------------ End PatchIt! Initialization ------------ #
@@ -326,8 +314,8 @@ Please make a selection:
         # PatchIt! Settings
         elif menuopt.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
-            logging.info("Running PatchIt! Settings Menu")
-            Settings()
+            logging.info("Proceeding to LEGO Racers Settings")
+            Racers.LRReadSettings()
 
         # Easter egg
         elif menuopt.lower() == 'e':
@@ -374,34 +362,6 @@ def easteregg():
 
 
 # ------------ Begin PatchIt! Settings ------------ #
-
-
-def Settings():
-    """PatchIt! Settings Menu"""
-    print("\nDo you want to view your {0} or {1} settings?".format(
-        const.LR_game, const.LOCO_game))
-    print('''
-[r] LEGO Racers
-[l] LEGO LOCO
-[q] Quit''')
-    settingsopt = input("\n> ")
-
-    # Run LEGO Racers settings
-    if settingsopt.lower() == "r":
-        logging.info("User choose LEGO Racers")
-        logging.info("Proceeding to PatchIt! LEGO Racers Settings")
-        Racers.LRReadSettings()
-
-    # Run LOCO settings
-    elif settingsopt.lower() == "l":
-        logging.info("User choose LEGO LOCO")
-        logging.info("Proceeding to PatchIt! LEGO LOCO Settings")
-        LOCO.LOCOReadSettings()
-
-    # Undefined input
-    else:
-        logging.info("User pressed an undefined key")
-        main()
 
 
 # ------------ Begin PatchIt! General Settings ------------ #
