@@ -43,8 +43,7 @@ import tkinter as tk
 from tkinter import ttk
 
 # Patch Creation and Installation modules
-from Patch import modernextract as extract
-from Patch import moderncompress as compress
+from Patch import (install, create)
 
 # Colored shell text
 import Color as color
@@ -107,7 +106,7 @@ without going through the menu first''')
         # If it is a file, switch to Patch Installation
             if os.path.isfile(openfile):
                 logging.info("A file path was given.")
-                extract.checkPatch(openfile)
+                install.checkPatch(openfile)
 
             # It was a directory, or a non-existent file
             else:
@@ -306,7 +305,7 @@ Please make a selection:
 
             # Run the Patch Creation process
             logging.info("Running Patch Compression process")
-            compress.patchInfo()
+            create.patchInfo()
 
         # Patch Installation
         elif menuopt.lower() == "i":
@@ -314,7 +313,7 @@ Please make a selection:
 
             # Run the Patch Installation process
             logging.info("Running Patch Installation process")
-            extract.selectPatch()
+            install.selectPatch()
 
         # JAM Extractor wrapper
         elif menuopt.lower() == "j":
