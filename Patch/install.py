@@ -110,7 +110,7 @@ def selectPatch(*args):
         root.destroy()
 
         # Pass selected file to Patch Identification process
-        logging.info("Switching to checkPatch(patch)")
+        logging.info("Switching to checkPatch()")
         checkPatch(patch)
 
 
@@ -148,7 +148,7 @@ def checkPatch(patch):
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-    logging.info("Rea  line 1 of {0} for PiP validity check and Archive format".format(
+    logging.info("Read line 1 of {0} for PiP validity check and Archive format".format(
         patch))
     with open(patch, "rt", encoding="utf-8") as f:
         lines = f.readlines()[0:2]
@@ -164,12 +164,12 @@ def checkPatch(patch):
     # PiP File Format 1.1.x validity line
     current_valid_line = "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
     # PiP File Format 1.0.x validity line
-    orginal_valid_line = "// PatchIt! Patch format, created by le717 and rioforce."
+    original_valid_line = "// PatchIt! Patch format, created by le717 and rioforce."
 
     # It's a legacy Patch
-    if (valid_line == orginal_valid_line and archive_line == "[General]"):
+    if (valid_line == original_valid_line and archive_line == "[General]"):
         logging.warning("{0} is an unsupported legacy PatchIt! Patch!\n"
-            .format(patch))
+                        .format(patch))
         colors.text('''\n"{0}"\nis a legacy PatchIt! Patch.
 
 Legacy PatchIt! Patches are no longer supported!
@@ -237,8 +237,8 @@ to support this Patch version.'''
 def readModernPatch(patch):
     """Reads PatchIt! Patch Details"""
     # Get all patch details
+    logging.info("Reading contents of Patch")
     with open(patch, "rt", encoding="utf-8") as f:
-        logging.info("Reading contents of Patch")
         # Global so the data from it can be deleted after installation
         global all_lines
         all_lines = f.readlines()[:]
@@ -263,7 +263,7 @@ def readModernPatch(patch):
     logging.info("Assigning line 8 of {0} to MP".format(patch))
     mp = all_lines[7]
 
-    # Assign Patch Game
+    # Assign Patch Game field
     logging.info("Assigning line 9 of {0} to Game".format(patch))
     game = all_lines[8]
 
@@ -282,8 +282,34 @@ def readModernPatch(patch):
     author = author.strip()
     version = version.strip()
     desc = desc.strip()
-    mp = mp.strip()
     game = game.strip()
+    mp = mp.strip()
+
+    # This is a LEGO Racers patch, the installation will continue on
+    if game == "LEGO Racers":
+        pass
+
+    # In case the Game field says something else
+    else:
+        logging.error("The Patch wants to be installed for an unsupported game!")
+        # Tell user about this issue
+        colors.text('''\n{0} (Version: {1}) says was created for {2}.
+PatchIt! only supports LEGO Racers.
+You may want to contact {3} and ask them if this is an error,
+and request a proper Patch.'''.format(name, version, game, author),
+                    color.FG_LIGHT_RED)
+
+        # Give the user time to read the mesage
+        time.sleep(5)
+
+        # Delete all PiP data to free up resources
+        del all_lines[:]
+
+        # Go back to the main menu
+        PatchIt.main()
+
+    # Remove Game field, as it is no longer needed
+    del all_lines[8]
 
     # Display all the info
     logging.info("Display all Patch info")
@@ -291,9 +317,8 @@ def readModernPatch(patch):
     patch_info = '''\n{0}
 Version: {1}
 Author: {2}
-Game: {3}
 
-"{4}"'''.format(name, version, author, game, desc)
+"{3}"'''.format(name, version, author, desc)
 
     # Display the info
     print(patch_info)
@@ -320,36 +345,15 @@ Game: {3}
         logging.info("User does want to install {0} (Version: {1}).".format(
             name, version))
         logging.info("Proceeding to installModernPatch()")
-        installModernPatch(patch, name, version, author, game, mp,
-                           patch_archive)
+        installModernPatch(patch, name, version, author, mp, patch_archive)
 
 
-def installModernPatch(patch, name, version, author, game, mp, patch_archive):
+def installModernPatch(patch, name, version, author, mp, patch_archive):
     """Installs a Modern PatchIt! Patch"""
-    #FIXME: Move check above prompt for installation
-    # This is a LEGO Racers patch, read the Racers settings
-    if game == "LEGO Racers":
 
-        # Run process to get the Racers installation path
-        logging.info("Get path to the Racers installation")
-        install_path = Racers.getRacersPath()
-
-    # In case the Game field says something else
-    else:
-        logging.error("The Patch wants to be installed for an unsupported game!")
-        logging.info("Telling user about this unsupported game")
-        # Tell user about this issue
-        colors.text('''\n{0} (Version: {1}) says was created for {2}.
-PatchIt! only supports LEGO Racers.
-You may want to contact {3} and ask them if this is an error,
-and request a proper Patch.'''.format(name, version, game, author),
-                    color.FG_LIGHT_RED)
-
-        # Give the user time to read the mesage
-        time.sleep(5)
-
-        # Go back to the main menu
-        PatchIt.main()
+    # Get the Racers installation path
+    logging.info("Get path to the Racers installation")
+    install_path = Racers.getRacersPath()
 
     # Find the PiA archive
     patch_location = os.path.dirname(patch)
@@ -360,23 +364,14 @@ and request a proper Patch.'''.format(name, version, game, author),
         logging.info("Extracting {0} to {1}".format(patch_archive,
                                                     install_path))
 
-        with tarfile.open(os.path.join(patch_location, patch_archive),
-                          "r") as tar_file:
+        with tarfile.open(os.path.join(
+                          patch_location, patch_archive), "r") as tar_file:
             tar_file.extractall(install_path)
 
-        # Display gameplay tip/MP only if Patch was successfully installed
-        # Display the Racers gameplay tip
-        if game == "LEGO Racers":
-            logging.info("Display LEGO Racers gameplay tip")
-            colors.text("\nHere's a tip!\n{0}\n".format(
-                random.choice(racingtips.gametips)), color.FG_CYAN)
-
-        # Display the LEGO LOCO map resolution.
-        elif game == "LEGO LOCO":
-            logging.info("Display LEGO LOCO map resolution")
-            colors.text('''\nHeads up! {0} {1} was created using {2} resolution.
-It may be best to play LEGO LOCO in that same resolution to avoid
-cutting off any elements.'''.format(name, version, mp), color.FG_CYAN)
+        # Display gameplay tip only if Patch was successfully installed
+        logging.info("Display LEGO Racers gameplay tip")
+        colors.text("\nHere's a tip!\n{0}\n".format(
+            random.choice(racingtips.gametips)), color.FG_CYAN)
 
         # Installation was successful!
         logging.warning("Error (exit) number '0'")
