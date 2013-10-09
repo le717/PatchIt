@@ -35,9 +35,7 @@ creator = "Triangle717"
 
 # GLobal game data
 LR_game = "LEGO Racers"
-LOCO_game = "LEGO LOCO"
 LR_settings = "Racers.cfg"
-LOCO_settings = "LOCO.cfg"
 Pi_settings = "PatchIt.cfg"
 
 # Name of PatchIt! Exe/Py

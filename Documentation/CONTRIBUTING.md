@@ -78,8 +78,8 @@ must be run manually.
 
 * Open `Tools\Windows\PatchIt Installer.iss` in the Inno Setup Compiler or your favorite Inno Setup IDE.
 * Make desired changes to the script, as long as it is clear you made them.
-* Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty _LEGO® Racers_ and _LEGO® LOCO_ settings files
-are in place, press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer to the `Windows` folder.
+* Ensuring **PatchIt!** and the **PatchIt! Uninstaller** is already frozen, and the required empty _LEGO® Racers_ settings file is in place,
+press the Compile button or &lt;Ctrl&gt; + &lt;F9&gt; to compile the installer to the `Windows` folder.
 * If all goes well, you will have successfully frozen and packaged a copy of **PatchIt!**
 
 
