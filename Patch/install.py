@@ -285,12 +285,8 @@ def readModernPatch(patch):
     game = game.strip()
     mp = mp.strip()
 
-    # This is a LEGO Racers patch, the installation will continue on
-    if game == "LEGO Racers":
-        pass
-
-    # In case the Game field says something else
-    else:
+    # Tte Game field says something other than LEGO Racers
+    if game != "LEGO Racers":
         logging.error("The Patch wants to be installed for an unsupported game!")
         # Tell user about this issue
         colors.text('''\n{0} (Version: {1}) says was created for {2}.
