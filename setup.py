@@ -34,11 +34,12 @@ and https://github.com/JrMasterModelBuilder/JAM-Extractor
 With changes by Triangle717
 """
 
+import os
+import sys
 from cx_Freeze import (setup, Executable)
 # PatchIt! Constants
 import constants as const
-import sys
-import os
+
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
@@ -46,7 +47,7 @@ if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
 # If this is Python x86
-if sys.maxsize == 2147483647:
+if sys.maxsize < 2**32:
     destfolder = os.path.join(os.getcwd(), "bin", "Windows")
 
 # If this is Python x64
@@ -97,3 +98,5 @@ cleanup.cleanup(destfolder)
 # Freeze PatchIt! Uninstaller
 print("\nFreezing PatchIt! Uninstaller\n")
 from Tools.Uninstaller import setup  # lint:ok
+print("Done. :)\n")
+
