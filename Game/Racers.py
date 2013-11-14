@@ -113,7 +113,6 @@ Writing LEGO Racers settings so we don't read an empty file.''')
 
         # The defined installation was not confirmed by LRGameCheck()
         if not LRGameCheck():
-
             # Use path defined in LRGameCheck() for messages
             logging.warning("LEGO Racers installation was not found at {0}"
                             .format(LR_path))

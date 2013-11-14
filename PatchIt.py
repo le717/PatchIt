@@ -263,6 +263,7 @@ def main(num_of_loops=1):
         # Reset the count back to two,
         if num_of_loops == 6:
             num_of_loops = 2
+
         # And display the menu only at the valid times
         colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}"
                     .format(
