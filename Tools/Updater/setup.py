@@ -30,9 +30,9 @@ With changes by Triangle717
 """
 
 
-from cx_Freeze import (setup, Executable)
-import sys
 import os
+import sys
+from cx_Freeze import (setup, Executable)
 
 # Append build command to command-line arguments.
 # Just type "python setup.py" and it will freeze
@@ -40,7 +40,7 @@ if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
 # If this is Python x86
-if sys.maxsize == 2147483647:
+if sys.maxsize < 2**32:
     destfolder = os.path.join(os.path.dirname(__file__), "bin")
 
 # If this is Python x64
