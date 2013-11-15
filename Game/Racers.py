@@ -35,9 +35,10 @@ import tkinter as tk
 # File/Folder Dialog Boxes
 from tkinter import (Tk, filedialog)
 
-# PatchIt! Constants
-import constants as const
+# PatchIt! modules
 import PatchIt
+import constants as const
+from Settings import encoding
 
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
@@ -50,22 +51,9 @@ def getRacersPath():
         LRReadSettings()
 
     # The LEGO Racers settings do exist
-    # Check encoding of Racers Settings file
-    logging.info("Check encoding of {0} before installation".format(
-        os.path.join(const.settings_fol, const.LR_settings)))
-
-    # Open it, read just the area containing the byte mark
-    with open(os.path.join(const.settings_fol, const.LR_settings),
-              "rb") as encode_check:
-        encoding = encode_check.readline(3)
-
-    if (  # The settings file uses UTF-8-BOM encoding
-        encoding == b"\xef\xbb\xbf"
-        # The settings file uses UCS-2 Big Endian encoding
-        or encoding == b"\xfe\xff\x00"
-        # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"
-    ):
+    # Check file encoding
+    if encoding.check_encoding(os.path.join(
+        const.settings_fol, const.LR_settings)):
 
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
@@ -174,7 +162,7 @@ def LRWriteSettings():
     root.focus_force()
 
     # Select the LEGO Racers installation
-    logging.info("Display folder dialog for LEGO Racers installation")
+    logging.info("Display file dialog for LEGO Racers installation")
     new_racers_game = filedialog.askopenfilename(
         parent=root,
         title="Where is LEGORacers.exe",
@@ -221,13 +209,13 @@ def LRWriteSettings():
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
-            logging.info("Write brief comment explaining what the number means")
+            logging.info("Brief comment explaining what the number means")
             racers_file.write("# Ensures the first-run process will be skipped next time\n")
             logging.info("Write '1' to line 3 to skip first-run next time")
             racers_file.write("1\n")
 
             # Run check for 1999 or 2001 version of Racers
-            logging.info("Run LRVerCheck() to find the version of LEGO Racers")
+            logging.info("Find the version of LEGO Racers")
             LRVer = LRVerCheck(new_racers_game)
 
             logging.info("Write brief comment telling what version this is")
@@ -258,19 +246,8 @@ def LRGameCheck():
     logging.info("Checking encoding of {0}".format(
         os.path.join(const.settings_fol, const.LR_settings)))
 
-    # Open it, read just the area containing the byte mark
-    with open(os.path.join(
-            const.settings_fol, const.LR_settings),
-            "rb") as encode_check:
-        encoding = encode_check.readline(3)
-
-    if (  # The settings file uses UTF-8-BOM encoding
-        encoding == b"\xef\xbb\xbf"
-        # The settings file uses UCS-2 Big Endian encoding
-        or encoding == b"\xfe\xff\x00"
-        # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"
-    ):
+    if encoding.check_encoding(os.path.join(
+        const.settings_fol, const.LR_settings)):
 
         # The settings cannot be read
         logging.warning("LEGO Racers Settings cannot be read!")
@@ -357,21 +334,8 @@ def CheckLRSettings():
         logging.info("LEGO Racers Settings do exist")
 
         # Check encoding of Settings file
-        logging.info("Checking encoding of {0}".format(
-            os.path.join(const.settings_fol, const.LR_settings)))
-
-        # Open it, read just the area containing the byte mark
-        with open(os.path.join(const.settings_fol, const.LR_settings),
-                  "rb") as encode_check:
-            encoding = encode_check.readline(3)
-
-        if (  # The settings file uses UTF-8-BOM encoding
-            encoding == b"\xef\xbb\xbf"
-            # The settings file uses UCS-2 Big Endian encoding
-            or encoding == b"\xfe\xff\x00"
-            # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"
-        ):
+        if encoding.check_encoding(os.path.join(
+        const.settings_fol, const.LR_settings)):
 
             # The settings cannot be read, return False
             logging.warning("LEGO Racers Settings cannot be read!")

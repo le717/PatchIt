@@ -40,13 +40,12 @@ import logging
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
 
-# Core PatchIt! module
+# PatchIt! modules
 import PatchIt
+from Settings import encoding
 
-# LEGO Racers settings
+# LEGO Racers settings and gameplay tips
 from Game import Racers
-
-# LEGO Racers gameplay tips
 from Patch import racingtips
 
 # Colored shell text
@@ -121,19 +120,7 @@ def checkPatch(patch):
     or if it is a PatchIt! Patch at all
     """
     # Check encoding of Patch file
-    logging.info("Checking encoding of {0}".format(patch))
-
-    # Open it, read just the area containing the byte mark
-    with open(patch, "rb") as encode_check:
-        encoding = encode_check.readline(3)
-
-    if (  # The "Patch" uses UTF-8-BOM encoding
-        encoding == b"\xef\xbb\xbf"
-        # The "Patch" uses UCS-2 Big Endian encoding
-        or encoding == b"\xfe\xff\x00"
-        # The "Patch" uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"
-    ):
+    if encoding.check_encoding(patch):
 
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
         logging.warning("{0} is written using an unsupported encoding!".format(
@@ -144,7 +131,7 @@ def checkPatch(patch):
         time.sleep(1)
         PatchIt.main()
 
-    # It is written using ANSI or UTF-8-NOBOM, continue reading it
+    # It is written using UTF-8-NOBOM, continue reading it
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
@@ -285,9 +272,9 @@ def readModernPatch(patch):
     game = game.strip()
     mp = mp.strip()
 
-    # Tte Game field says something other than LEGO Racers
+    # The Game field says something other than LEGO Racers
     if game != "LEGO Racers":
-        logging.error("The Patch wants to be installed for an unsupported game!")
+        logging.error("Patch wants to be installed for an unsupported game!")
         # Tell user about this issue
         colors.text('''\n{0} (Version: {1}) says was created for {2}.
 PatchIt! only supports LEGO Racers.

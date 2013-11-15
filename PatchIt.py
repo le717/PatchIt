@@ -56,6 +56,9 @@ from Game import (Racers, rungame, legojam)
 import constants as const
 build_num = const.buildme()
 
+# Store Experimental Mode running mode value
+test_mode = [False]
+
 
 # ------------ Begin PatchIt! Initialization ------------ #
 
@@ -90,15 +93,13 @@ without going through the menu first''')
 
     # If the debug parameter is passed, enable the debugging messages
     if debugarg:
-        global test
-        test = True
+        test_mode[0] = True
         os.system("title {0} Version {1} {2} - Experimental Mode".format(
             const.app, const.majver, const.minver))
         logging.info("Starting PatchIt! in Experimental Mode")
 
     # The debug parameter was not passed, don't display debugging message
     else:
-        test = False
         logging.info("Starting PatchIt! in Normal Mode")
 
     # If the open argument is valid,

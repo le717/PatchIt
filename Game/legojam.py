@@ -113,7 +113,7 @@ PatchIt! does not have the rights to save LEGO.JAM to
         main()
 
 
-def main(*args):
+def main():
     """JAM Extractor Menu"""
     colors.text('''
 JAM Extractor 1.0.2

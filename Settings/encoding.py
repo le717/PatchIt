@@ -44,8 +44,8 @@ def check_encoding(file_path):
         or encoding == b"\xff\xfe/"
     ):
         # The encoding is not correct
-        return False
+        return True
 
     # The file used the proper encoding
     else:
-        return True
+        return False

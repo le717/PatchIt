@@ -45,9 +45,7 @@ class PlayRacers(object):
     """
 
     def __init__(self):
-        """Define exe, cfg names and game parameters"""
-        self.__RAA = "RunAsAdmin.exe"
-        self.__RAAC = "RunAsAdmin.cfg"
+        """Define exe name and game parameters"""
         self.__LRE = "LEGORacers.exe"
         # Parameter to skip intro movies
         self.__novideo = "-novideo"
