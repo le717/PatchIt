@@ -37,6 +37,7 @@ With changes by Triangle717
 import os
 import sys
 from cx_Freeze import (setup, Executable)
+
 # PatchIt! Constants
 import constants as const
 
@@ -47,7 +48,7 @@ if len(sys.argv) == 1:
     sys.argv[1:] = ["build"]
 
 # If this is Python x86
-if sys.maxsize < 2**32:
+if sys.maxsize < 2 ** 32:
     destfolder = os.path.join(os.getcwd(), "bin", "Windows")
 
 # If this is Python x64

@@ -42,7 +42,7 @@ if len(sys.argv) == 1:
 base = "Win32GUI"
 
 # If this is Python x86
-if sys.maxsize < 2**32:
+if sys.maxsize < 2 ** 32:
     destfolder = os.path.join(os.path.dirname(__file__), "bin")
 
 # If this is Python x64
