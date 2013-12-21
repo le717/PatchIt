@@ -32,6 +32,7 @@ import os
 import tarfile
 import time
 import distutils.dir_util
+import fnmatch
 
 # File/Folder Dialog Boxes
 from tkinter import (filedialog, Tk)
@@ -53,6 +54,93 @@ import Color.colors as colors
 import runasadmin
 
 # ------------ Begin Illegal File Check ------------ #
+
+
+def legal_file_check(path):
+
+    whitelist = [
+        "", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB", "*.CEB",
+        "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB", "*.FDB", "*.GCB",
+        "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB", "*.LRS", "*.LSB", "*.MAB",
+        "*.MDB", "*.MIB", "*.MSB", "*.PCB", "*.PCM", "*.PWB", "*.RAB", "*.RCB",
+        "*.RRB", "*.SBK", "*.SDB", "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA",
+        "*.TGB", "*.TIB", "*.TMB", "*.TRB", "*.TUN", "*.WDB", "*.txt"
+    ]
+
+    #whitelist_len = len(whitelist) - 1
+
+    # --- Begin Temporary Folder Configuration -- #
+
+    # Make the locations global for use in other locations
+    global temp_folder, temp_location
+
+    # Temporary directory for compression
+    temp_folder = "PatchIt_Temp_Folder"
+
+    # The full location to the temporary folder
+    temp_location = os.path.join(path, temp_folder)
+
+    # --- End Temporary Folder Configuration -- #
+
+    # --- Begin Illegal File Scan -- #
+
+    try:
+        # Copy files to temporary location
+        logging.info("Copying all contents of {0} to {1}".format(
+            path, temp_location))
+        distutils.dir_util.copy_tree(path, temp_location)
+
+        # Traversing the reaches of the (Temporary) Patch files...
+        for root, dirnames, filenames in os.walk(temp_location):
+
+            #print(dirnames, filenames)
+
+            # Get the index and string of each item in the list
+            for MyFile in filenames:
+
+                # Split the filename into name and extension
+                #name, ext = os.path.splitext(MyFile)
+
+                #while whitelist_len >= 0:
+                for legal_ext in whitelist:
+
+                    illegal_file = os.path.join(root, MyFile)
+                    #print(illegal_file, legal_ext)
+
+                # If an illegal file is found, as identified by the extension,
+                #### Check both ext and  ext.lower() so it is case insensitive#####
+                #TODO: Test no file extension
+                    if not fnmatch.fnmatch(MyFile, legal_ext):
+                        print(illegal_file, legal_ext)
+                        #print(not fnmatch.fnmatch(MyFile, whitelist[whitelist_len]))
+                        #print(not fnmatch.fnmatch(MyFile, legal_ext))
+
+                        ###print(MyFile, legal_ext)
+                        #whitelist_len -= 1
+
+                    #if (ext.lower() in whitelist or ext in whitelist):
+                        #logging.warning("An illegal file ({0}) has been found!"
+                                        #.format(MyFile))
+
+                        # Get the full path to it,
+                        #####illegal_file = os.path.join(root, MyFile)
+                        #print(illegal_file)
+
+                        # And remove it from the Patch files!
+                        #logging.info("Removing {0} from the Patch files".format(
+                            #illegal_file))
+                        #os.unlink(illegal_file)
+
+        #print(os.listdir(os.path.dirname(illegal_file)), os.path.dirname(illegal_file))
+
+    # Except some error occured, usually a PermissionError,
+    # or an distutils error, but other stuff can occur,
+    # so Exception so it is all caught
+    except Exception:
+        # Tracebacks are dumped to the log aready, so no need to repeat it here
+        pass
+
+    # --- End Illegal File Scan -- #
 
 
 def file_check(path):
@@ -144,7 +232,8 @@ def delete_files():
         # Delete temporary directory
         #lint:disable
         logging.info("Delete all files at {0}".format(temp_location))
-        distutils.dir_util.remove_tree(temp_location)
+        #TODO: Reenable this
+        #distutils.dir_util.remove_tree(temp_location)
         #lint:enable
 
     # But in case the directory was not created
@@ -491,7 +580,7 @@ def writePatch(patch_files, mp, game):
 
         # Run illegal file check
         logging.info("Run file_check() to check for and remove illegal files.")
-        file_check(patch_files)
+        legal_file_check(patch_files)
 
         # Change the working directory to the Patch Files directory
         logging.info("Change the working directory to {0}".format(
