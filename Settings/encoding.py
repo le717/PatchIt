@@ -41,7 +41,7 @@ def check_encoding(file_path):
         # The settings file uses UCS-2 Big Endian encoding
         or encoding == b"\xfe\xff\x00"
         # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe/"
+        or encoding == b"\xff\xfe0"
     ):
         # The encoding is not correct
         return True
