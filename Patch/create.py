@@ -141,10 +141,15 @@ def file_check(path):
                     if fnmatch.fnmatch(MyFile, ext):
                         badFiles.remove(illegalFile)
 
-        # Delete the bad files, clear the list
+        # Delete the illegal files
         for baddie in badFiles:
-            #TODO: If the folder is empty, remove it too
             os.unlink(baddie)
+
+            # If a folder that contained illegal files is empty,
+            # remove it too
+            badDir = os.path.dirname(baddie)
+            if not os.listdir(badDir):
+                distutils.dir_util.remove_tree(badDir)
         del badFiles[:]
 
     # Tracebacks are dumped to the log aready,
@@ -162,7 +167,6 @@ def delete_files():
         # Delete temporary directory
         logging.info("Delete all temporary files from {0}".format(
             temp_location))
-        #TODO: Reenable this
         distutils.dir_util.remove_tree(temp_location)
         #lint:enable
 
