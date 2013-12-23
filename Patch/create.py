@@ -107,12 +107,13 @@ def file_check(path):
     """Check for and remove illegal files"""
     # List of all file extenions present in a Racers installation
     whiteList = [
-        "", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB", "*.CEB",
-        "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB", "*.FDB", "*.GCB",
-        "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB", "*.LRS", "*.LSB", "*.MAB",
-        "*.MDB", "*.MIB", "*.MSB", "*.PCB", "*.PCM", "*.PWB", "*.RAB", "*.RCB",
-        "*.RRB", "*.SBK", "*.SDB", "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA",
-        "*.TGB", "*.TIB", "*.TMB", "*.TRB", "*.TUN", "*.WDB", "*.txt"
+        "LEGOMSC", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB",
+        "*.CEB", "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB",
+        "*.FDB", "*.GCB", "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB",
+        "*.LRS", "*.LSB", "*.MAB", "*.MDB", "*.MIB", "*.MSB", "*.PCB",
+        "*.PCM", "*.PWB", "*.RAB", "*.RCB", "*.RRB", "*.SBK", "*.SDB",
+        "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA", "*.TGB", "*.TIB",
+        "*.TMB", "*.TRB", "*.TUN", "*.WDB",
     ]
 
     # All unallowed files
@@ -135,7 +136,6 @@ def file_check(path):
                 badFiles.append(illegalFile)
 
                 for ext in whiteList:
-                    #TODO: Test a file with extension
                     # If a file extension is allowed,
                     #remove that file from badFiles
                     if fnmatch.fnmatch(MyFile, ext):
@@ -162,6 +162,7 @@ def delete_files():
         # Delete temporary directory
         logging.info("Delete all temporary files from {0}".format(
             temp_location))
+        #TODO: Reenable this
         distutils.dir_util.remove_tree(temp_location)
         #lint:enable
 
