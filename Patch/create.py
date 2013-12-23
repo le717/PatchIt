@@ -53,36 +53,21 @@ import Color.colors as colors
 # RunAsAdmin wrapper
 import runasadmin
 
-# ------------ Begin Illegal File Check ------------ #
+# Temporary directory for compression
+temp_folder = "PatchIt_Temp_Folder"
 
 
-def legal_file_check(path):
+def upperCaseConvert(path):
+    """
+    Convert all file extensions to uppercase,
+    per the LEGO.JAM format requirements
+    """
 
-    whitelist = [
-        "", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB", "*.CEB",
-        "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB", "*.FDB", "*.GCB",
-        "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB", "*.LRS", "*.LSB", "*.MAB",
-        "*.MDB", "*.MIB", "*.MSB", "*.PCB", "*.PCM", "*.PWB", "*.RAB", "*.RCB",
-        "*.RRB", "*.SBK", "*.SDB", "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA",
-        "*.TGB", "*.TIB", "*.TMB", "*.TRB", "*.TUN", "*.WDB", "*.txt"
-    ]
-
-    #whitelist_len = len(whitelist) - 1
-
-    # --- Begin Temporary Folder Configuration -- #
-
-    # Make the locations global for use in other locations
-    global temp_folder, temp_location
-
-    # Temporary directory for compression
-    temp_folder = "PatchIt_Temp_Folder"
+    # Make the location as global for use in other locations
+    global temp_location
 
     # The full location to the temporary folder
     temp_location = os.path.join(path, temp_folder)
-
-    # --- End Temporary Folder Configuration -- #
-
-    # --- Begin Illegal File Scan -- #
 
     try:
         # Copy files to temporary location
@@ -92,135 +77,79 @@ def legal_file_check(path):
 
         # Traversing the reaches of the (Temporary) Patch files...
         for root, dirnames, filenames in os.walk(temp_location):
+            for fname in filenames:
 
-            #print(dirnames, filenames)
+                # Get the full path to each file
+                myFile = os.path.join(root, fname)
 
-            # Get the index and string of each item in the list
-            for MyFile in filenames:
+                # Split the file name into name and extension
+                name, ext = os.path.splitext(fname)
 
-                # Split the filename into name and extension
-                #name, ext = os.path.splitext(MyFile)
+                # Construct the new file name
+                newMyFile = "{0}{1}".format(name, ext.upper())
 
-                #while whitelist_len >= 0:
-                for legal_ext in whitelist:
+                # Get the full path to the new file
+                theFile = os.path.join(root, newMyFile)
 
-                    illegal_file = os.path.join(root, MyFile)
-                    #print(illegal_file, legal_ext)
+                # Finally, rename the file
+                os.replace(myFile, theFile)
 
-                # If an illegal file is found, as identified by the extension,
-                #### Check both ext and  ext.lower() so it is case insensitive#####
-                #TODO: Test no file extension
-                    if not fnmatch.fnmatch(MyFile, legal_ext):
-                        print(illegal_file, legal_ext)
-                        #print(not fnmatch.fnmatch(MyFile, whitelist[whitelist_len]))
-                        #print(not fnmatch.fnmatch(MyFile, legal_ext))
-
-                        ###print(MyFile, legal_ext)
-                        #whitelist_len -= 1
-
-                    #if (ext.lower() in whitelist or ext in whitelist):
-                        #logging.warning("An illegal file ({0}) has been found!"
-                                        #.format(MyFile))
-
-                        # Get the full path to it,
-                        #####illegal_file = os.path.join(root, MyFile)
-                        #print(illegal_file)
-
-                        # And remove it from the Patch files!
-                        #logging.info("Removing {0} from the Patch files".format(
-                            #illegal_file))
-                        #os.unlink(illegal_file)
-
-        #print(os.listdir(os.path.dirname(illegal_file)), os.path.dirname(illegal_file))
-
-    # Except some error occured, usually a PermissionError,
-    # or an distutils error, but other stuff can occur,
-    # so Exception so it is all caught
+    # Tracebacks are dumped to the log aready,
+    # we simply have to catch them
     except Exception:
-        # Tracebacks are dumped to the log aready, so no need to repeat it here
         pass
 
-    # --- End Illegal File Scan -- #
+
+# ------------ Begin Illegal File Check ------------ #
 
 
 def file_check(path):
-    """Checks for and removes illegal files"""
-    # List of illegal files, taken from
-    # http://www.howtogeek.com/137270/ and
-    # windows.microsoft.com/en-US/windows-vista/Recognizing-dangerous-file-types
-
-    blacklist = [
-        # Programs
-        ".exe", ".pif", ".application", ".gadget", ".msi", ".msp", ".com",
-        ".scr", ".hta", ".cpl", ".msc", ".jar",
-        # Scripts
-        ".bat", ".cmd", ".vb", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf",
-        ".wsc", ".wsh", ".ps1", ".ps1xml", ".ps2", ".ps2xml", ".psc1",
-        ".psc2", ".msh", ".msh1", ".msh2", ".mshxml", ".msh1xml",
-        ".msh2xml", ".py", ".pyw", ".au3",
-        # Resources
-        ".dll", ".icd", ".pyd", ".pyo",
-        # Shortcuts\Registry\Misc
-        ".scf", ".lnk", ".inf", ".reg", ".db", ".PiP",
-        # Office Macros
-        ".doc", ".xls", ".ppt", ".docm", ".dotm", ".xlsm", ".xltm", ".pptm",
-        ".potm", ".ppam", ".ppsm", ".sldm",
-        # Archives
-        ".zip", ".tar", ".gz", ".7z", ".wim", ".lzma", ".rar", ".bz2",
-        ".bzip2", "gzip", ".tgz", ".rpm", ".deb", ".dmg", ".fat", ".ntfs",
-        ".cab", ".iso", ".xz", ".nrg", ".bin", ".PiA"
+    """Check for and remove illegal files"""
+    # List of all file extenions present in a Racers installation
+    whiteList = [
+        "", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB", "*.CEB",
+        "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB", "*.FDB", "*.GCB",
+        "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB", "*.LRS", "*.LSB", "*.MAB",
+        "*.MDB", "*.MIB", "*.MSB", "*.PCB", "*.PCM", "*.PWB", "*.RAB", "*.RCB",
+        "*.RRB", "*.SBK", "*.SDB", "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA",
+        "*.TGB", "*.TIB", "*.TMB", "*.TRB", "*.TUN", "*.WDB", "*.txt"
     ]
 
-    # --- Begin Temporary Folder Configuration -- #
-
-    # Make the locations global for use in other locations
-    global temp_folder, temp_location
-
-    # Temporary directory for compression
-    temp_folder = "PatchIt_Temp_Folder"
-
-    # The full location to the temporary folder
-    temp_location = os.path.join(path, temp_folder)
-
-    # --- End Temporary Folder Configuration -- #
+    # All unallowed files
+    badFiles = []
 
     # --- Begin Illegal File Scan -- #
 
     try:
-        # Copy files to temporary location
-        logging.info("Copying all contents of {0} to {1}".format(path,
-                                                                 temp_location
-                                                                 ))
-        distutils.dir_util.copy_tree(path, temp_location)
-
+        #lint:disable
         # Traversing the reaches of the (Temporary) Patch files...
         for root, dirnames, filenames in os.walk(temp_location):
+        #lint:enable
 
-            # Get the index and string of each item in the list
-            for index, string in enumerate(filenames):
+            # Get each item in the list
+            for MyFile in filenames:
 
-                # Split the filename into name and extension
-                name, ext = os.path.splitext(string)
+                # Get the full path to each file, add it to badFile
+                # (we'll see why in a moment)
+                illegalFile = os.path.join(root, MyFile)
+                badFiles.append(illegalFile)
 
-                # If an illegal file is found, as identified by the extension,
-                # Check both ext and  ext.lower() so it is case insensitive
-                if (ext.lower() in blacklist or ext in blacklist):
-                    logging.warning("An illegal file ({0}) has been found!"
-                                    .format(ext))
+                for ext in whiteList:
+                    #TODO: Test a file with extension
+                    # If a file extension is allowed,
+                    #remove that file from badFiles
+                    if fnmatch.fnmatch(MyFile, ext):
+                        badFiles.remove(illegalFile)
 
-                    # Get the full path to it,
-                    illegal_file = os.path.join(root, string)
+        # Delete the bad files, clear the list
+        for baddie in badFiles:
+            #TODO: If the folder is empty, remove it too
+            os.unlink(baddie)
+        del badFiles[:]
 
-                    # And remove it from the Patch files!
-                    logging.info("Removing {0} from the Patch files".format(
-                        illegal_file))
-                    os.unlink(illegal_file)
-
-    # Except some error occured, usually a PermissionError,
-    # or an distutils error, but other stuff can occur,
-    # so Exception so it is all caught
+    # Tracebacks are dumped to the log aready,
+    # we simply have to catch them
     except Exception:
-        # Tracebacks are dumped to the log aready, so no need to repeat it here
         pass
 
     # --- End Illegal File Scan -- #
@@ -229,19 +158,19 @@ def file_check(path):
 def delete_files():
     """Deletes temporary folder created during compression"""
     try:
-        # Delete temporary directory
         #lint:disable
-        logging.info("Delete all files at {0}".format(temp_location))
-        #TODO: Reenable this
-        #distutils.dir_util.remove_tree(temp_location)
+        # Delete temporary directory
+        logging.info("Delete all temporary files from {0}".format(
+            temp_location))
+        distutils.dir_util.remove_tree(temp_location)
         #lint:enable
 
-    # But in case the directory was not created
+    # In case the directory was not created
     except FileNotFoundError:  # lint:ok
 
         # Dump any error tracebacks to the log
         logging.error('''The temporary directory was not found!
-It probably was created ealier.''')
+It probably was deleted ealier.''')
         logging.exception("Oops! Something went wrong! Here's what happened\n",
                           exc_info=True)
 
@@ -578,9 +507,13 @@ def writePatch(patch_files, mp, game):
         logging.info("The final file names are {0} and {1}"
                      .format(the_patch, the_archive))
 
+        # Run uppercase extension conversion process
+        logging.info("Run upperCaseConvert() to uppercase convert extensions")
+        upperCaseConvert(patch_files)
+
         # Run illegal file check
-        logging.info("Run file_check() to check for and remove illegal files.")
-        legal_file_check(patch_files)
+        logging.info("Run file_check() to check for and remove illegal files")
+        file_check(patch_files)
 
         # Change the working directory to the Patch Files directory
         logging.info("Change the working directory to {0}".format(
