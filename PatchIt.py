@@ -8,7 +8,7 @@
     PatchIt! - the standard and simple way to package and install mods
     for LEGO Racers
 
-    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -206,7 +206,7 @@ def about():
 
             {0} Version {1} {2}
                               Build {3}
-               Released ?? ??, 2013
+               Released ?? ??, 2014
 
             Created 2013 Triangle717
 
@@ -266,7 +266,7 @@ def main(num_of_loops=1):
             num_of_loops = 2
 
         # And display the menu only at the valid times
-        colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013 {3}"
+        colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013-2014 {3}"
                     .format(
                         const.app, const.majver, const.minver, const.creator),
                     color.FG_WHITE)

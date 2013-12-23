@@ -7,7 +7,7 @@
     PatchIt! - the standard and simple way to package and install mods
     for LEGO Racers
 
-    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ build_exe_options["includes"][1] = wget_path
 setup(
     name="PatchIt! Updater",
     version="0.5",
-    author="2013 Triangle717",
+    author="2013-2014 Triangle717",
     description="PatchIt! Updater Version 0.5",
     license="GPLv3",
     options={"build_exe": build_exe_options},
