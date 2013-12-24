@@ -27,16 +27,16 @@ editor that supports such encoding.
 This line _**must**_ match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
 * In addition the the first line, the second line is also checked to determine if it is a valid Patch and what version Patch it is.
 This line _**must**_ also match **PatchIt!**'s internal version exactly.
-* Legacy (v1.0.1) Patches are detected by looking for that version's validity line. If it is found, it is installed using the Legacy Installation routine.
-* Modern (v1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
+    * Legacy (v1.0.1) Patches is the original PiP format introduced in **PatchIt! v1.0**.  In **PatchIt! v1.1.0-v1.1.2, it is installed using the Legacy Installation routine. **PatchIt! v1.1.3** and forward does not support the Legacy Patch Format at all.
+    * Modern (v1.1.x) Patches, introduced in **PatchIt! v1.1.1**, is the currrent Patch format, and is the format documented here.
 Legacy Patches can not and will not be created by **PatchIt!** anymore.
 * The `Name`, `Version`, and `Author` fields, written on lines 5, 6, and 7 respectively, contain the Name, Version, and Author of the Patch.
 * The `MP` (Multi Purpose) field, written on line 8, contains various Patch info. The field currently contains _MP_, as there is no proper for it yet. It will be utilized in a future version of **PatchIt!**.
 * The `Game` field, written on line 9, tells what game a Patch was created for, namely _LEGO® Racers_. It may be deprecated in the future.
-* The `Description` field is written on the last three lines of a Patch. Unlike the [PiP File Format v1.0.1](PiP Format.md), it does not have an 161 character limit.
+* The `Description` field is written on the last three lines of a Patch.
 * Both the `.PiP` file and `.PiA` Archive uses the Patch's name and version for their filenames.
 
-**The PiP file layout can be found [below.](#pip-file-format-layouts)**
+**The PiP file layout can be found [below](#pip-file-format-layout)**.
 
 #### PiA Archive Layout ####
 
@@ -51,11 +51,11 @@ the game and not into the proper locations. Example, if the archive is laid out 
 `C:\Program Files\LEGO Racers`, the files will be installed as `C:\Program Files\LEGO Racers\MyMod1`.
 The same goes for files that are scattered in the root of the archive. If `ENGLISH.SRF` is located in the root of the archive, it will be installed to
 `C:\Program Files\LEGO Racers\ENGLISH.SRF`
-* **PatchIt!** does **not and will never** attempt to install any files into their proper locations.
+* **PatchIt!**  _**does not and will never**_ attempt to install any files into their proper locations.
 
-**Example PiA archive layouts can be found [below.](#example-pia-archive-layouts)**
+**Example PiA archive layouts can be found [below](#example-pia-archive-layout)**.
 
-## PiP  File Format Layouts ##
+## PiP File Format Layout ##
 
 ### General PiP File Format Layout ###
 
@@ -93,9 +93,7 @@ It does not exist, and unless someone makes it,
 IT NEVER WILL. :)
 ```
 
-## Example PiA Archive Layouts ##
-
-### Example  PiA Archive Layout ###
+## Example PiA Archive Layout ##
 
 ```
 Racing Machine 1.0.1.PiA/
@@ -122,6 +120,9 @@ Racing Machine 1.0.1.PiA/
 
 > * Removed all references to _LEGO® LOCO_.
 > * Changed header 1 and  header 2 syntax
+> * Removed unnecessary and outdated information
+>  * Updated comparison of Legacy and Modern Patch formats
+>  * Added notes on `Game` and `MP` fields
 
 * 1.1.2 Final: October 6, 2013
 
