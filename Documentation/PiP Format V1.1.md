@@ -27,7 +27,7 @@ editor that supports such encoding.
 This line _**must**_ match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
 * In addition the the first line, the second line is also checked to determine if it is a valid Patch and what version Patch it is.
 This line _**must**_ also match **PatchIt!**'s internal version exactly.
-    * Legacy (v1.0.1) Patches is the original PiP format introduced in **PatchIt! v1.0**.  In **PatchIt! v1.1.0-v1.1.2, it is installed using the Legacy Installation routine. **PatchIt! v1.1.3** and forward does not support the Legacy Patch Format at all.
+    * Legacy (v1.0.1) Patches is the original PiP format introduced in **PatchIt! v1.0**.  In **PatchIt! v1.1.0 - v1.1.2**, it is installed using the Legacy Installation routine. **PatchIt! v1.1.3** and forward does not support the Legacy Patch Format at all.
     * Modern (v1.1.x) Patches, introduced in **PatchIt! v1.1.1**, is the currrent Patch format, and is the format documented here.
 Legacy Patches can not and will not be created by **PatchIt!** anymore.
 * The `Name`, `Version`, and `Author` fields, written on lines 5, 6, and 7 respectively, contain the Name, Version, and Author of the Patch.
@@ -116,13 +116,13 @@ Racing Machine 1.0.1.PiA/
 
 ## Revision History ##
 
-* 1.1.3 Draft 1: December 23, 2013
+* 1.1.3 Final: December 23, 2013
 
 > * Removed all references to _LEGO® LOCO_.
 > * Changed header 1 and  header 2 syntax
 > * Removed unnecessary and outdated information
->  * Updated comparison of Legacy and Modern Patch formats
->  * Added notes on `Game` and `MP` fields
+> * Updated comparison of Legacy and Modern Patch formats
+> * Added notes on `Game` and `MP` fields
 
 * 1.1.2 Final: October 6, 2013
 
