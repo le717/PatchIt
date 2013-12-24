@@ -1,10 +1,8 @@
-PatchIt! PiP Format v1.1.2
-==========================
+# PatchIt! PiP Format v1.1.3 #
 
-General Information
--------------------
+## General Information ##
 
-In order for **PatchIt!** to install mod packs for _LEGO® Racers_ or maps for _LEGO® LOCO_, it is required to have some sort of file to read the
+In order for **PatchIt!** to install mod packs for _LEGO® Racers_, it is required to have some sort of file to read the
 information, such as name and description, but as well as to know what compressed archive to extract and install into the proper game files.
 In other words, a Patch file.
 
@@ -17,8 +15,7 @@ If **PatchIt!** was designed using non-easily editable formats, the user would h
 However, this is not the case. By using a plain text file, the creator can open it in a text editor and correct the typo,
 or compress a new, corrected PiA archive with an external program.
 
-Details
--------
+## Details ##
 
 #### PiP File Format ####
 
@@ -34,13 +31,12 @@ This line _**must**_ also match **PatchIt!**'s internal version exactly.
 * Modern (v1.1) patches are the only new and supported Patches. Legacy Patches are installed only to retain backward.
 Legacy Patches can not and will not be created by **PatchIt!** anymore.
 * The `Name`, `Version`, and `Author` fields, written on lines 5, 6, and 7 respectively, contain the Name, Version, and Author of the Patch.
-* The `MP` (Multi Purpose) field, written on line 8, contains various Patch info. For _LEGO® LOCO_ Patches, it contains the resolution the map was created with.
-For _LEGO® Racers_ Patches, it currently writes _MP_, as there is not a use for that game yet.
-* The `Game` field, written on line 9, tells what game a Patch was created for. It currently has two values: _LEGO® Racers_ and _LEGO® LOCO_.
+* The `MP` (Multi Purpose) field, written on line 8, contains various Patch info. The field currently contains _MP_, as there is no proper for it yet. It will be utilized in a future version of **PatchIt!**.
+* The `Game` field, written on line 9, tells what game a Patch was created for, namely _LEGO® Racers_. It may be deprecated in the future.
 * The `Description` field is written on the last three lines of a Patch. Unlike the [PiP File Format v1.0.1](PiP Format.md), it does not have an 161 character limit.
 * Both the `.PiP` file and `.PiA` Archive uses the Patch's name and version for their filenames.
 
-**The PiP file layout can be found [below.](#pip-v112-file-format-layouts)**
+**The PiP file layout can be found [below.](#pip-file-format-layouts)**
 
 #### PiA Archive Layout ####
 
@@ -59,10 +55,9 @@ The same goes for files that are scattered in the root of the archive. If `ENGLI
 
 **Example PiA archive layouts can be found [below.](#example-pia-archive-layouts)**
 
-PiP Version 1.1.2 File Format Layouts
--------------------------------------
+## PiP  File Format Layouts ##
 
-### General PiP File Format v1.1.2 Layout ###
+### General PiP File Format Layout ###
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
@@ -80,7 +75,7 @@ This is the second line of a description
 This is the third line of a description
 ```
 
-### Example LEGO® Racers PiP File Format v1.1.2 Layout ###
+### Example PiP File Format Layout ###
 
 ```
 // PatchIt! PiP file format V1.1, developed by le717 and rioforce
@@ -98,29 +93,9 @@ It does not exist, and unless someone makes it,
 IT NEVER WILL. :)
 ```
 
+## Example PiA Archive Layouts ##
 
-### Example LEGO® LOCO PiP File Format v1.1.2 Layout ###
-
-```
-// PatchIt! PiP file format V1.1, developed by le717 and rioforce
-[PiA]
-Happy Trains 5.8.PiA
-[General]
-Happy Trains
-5.8
-Thomas
-1920x1280
-LEGO LOCO
-[Description]
-I like trains! I really do!
-My name is Thomas, just like Thomas the Tank Engine!
-That is why I made this example PatchIt! Patch.
-```
-
-Example PiA Archive Layouts
----------------------------
-
-### Example LEGO® Racers PiA Archive Layout ###
+### Example  PiA Archive Layout ###
 
 ```
 Racing Machine 1.0.1.PiA/
@@ -141,25 +116,12 @@ Racing Machine 1.0.1.PiA/
     builder.tun
 ```
 
-### Example LEGO® LOCO PiA Archive Layout ###
+## Revision History ##
 
-```
-Happy Trains 5.8.PiA/
-    art-res/
-        backdrop/
-            HappyTrain.bmp
-            AngryTrain.bmp
-        video/
-            music.wav
-        SAVEGAME/
-            HappyTrain.sav
-            AngryTrain.sav
-    Video/
-        locoIntr.avi
-```
+* 1.1.3 Draft 1: December 23, 2013
 
-Revision History
-----------------
+> * Removed all references to _LEGO® LOCO_.
+> * Changed header 1 and  header 2 syntax
 
 * 1.1.2 Final: October 6, 2013
 
