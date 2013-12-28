@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
 
-	<!-- Force IE to recognize HTML5 code -->
-	<!--[if IE]>
-		<script>/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)})@*/</script>
-	<![endif]-->
-    
+    <!-- Force IE to recognize HTML5 code -->
+    <!--[if IE]>
+        <script>/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)})@*/</script>
+    <![endif]-->
+
     <meta charset="UTF-8" />
-    <style type="text/css">
-    table, h2, h3, h4, #careful, .center { text-align: center; }
-    .italic { font-style: italic; }
-    .bold { font-weight: bold; }
-    a { text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    <style>
+        table, h2, h3, h4, #careful, .center { text-align: center; }
+        a { text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 
@@ -28,8 +26,16 @@
 <li>Rename <code>Patch/moderncompress.pyw</code> to<code>Patch/create.py</code></li>
 <li>Rename <code>Patch/modernextract.pyw</code> to<code>Patch/install.py</code></li>
 <li>Rename <code>PatchIt.pyw</code> to <code>PatchIt.py</code></li>
-<li>Removed all <span class="italic">LEGO&reg; LOCO</span> code</li>
-<li class="bold italic">LEGOs in space? More later!</li> 
+<li>Removed all <em>LEGO&reg; LOCO</em> code</li>
+<li>New way of storing experiential mode value</li>
+<li>Split file encoding check into <code>Settings/encoding.py</code></li>
+<li>PEP 8 check many elements of built-in <strong>JAM Extractor</strong></li>
+<li>Rewrote illegal file check into a legal file check</li>
+<li>Added process to automatically convert all file extensions touppercase per <code>LEGO.JAM</code> format requirements</li>
+<li>Fix bug in detecting UCS-2-LE encoding</li>
+<li>Updated PiP Format documentation to remove <em>LEGO&reg; LOCO</em></li>
+<li>Peform uppercase case conversion only on files that require it</li>
+<li class="bold italic">LEGO's in space? More later!</li>
 </ul>
 </body>
 </html>
