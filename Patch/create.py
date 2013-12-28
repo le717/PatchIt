@@ -76,6 +76,7 @@ def upperCaseConvert(path):
         distutils.dir_util.copy_tree(path, temp_location)
 
         # Traversing the reaches of the (Temporary) Patch files...
+        logging.info("Converting all file extensions to upperase")
         for root, dirnames, filenames in os.walk(temp_location):
             for fname in filenames:
 
@@ -85,14 +86,16 @@ def upperCaseConvert(path):
                 # Split the file name into name and extension
                 name, ext = os.path.splitext(fname)
 
-                # Construct the new file name
-                newMyFile = "{0}{1}".format(name, ext.upper())
+                # Only perform conversion if it is not already uppercase
+                if ext != ext.upper():
+                    # Construct the new file name
+                    newMyFile = "{0}{1}".format(name, ext.upper())
 
-                # Get the full path to the new file
-                theFile = os.path.join(root, newMyFile)
+                    # Get the full path to the new file
+                    theFile = os.path.join(root, newMyFile)
 
-                # Finally, rename the file
-                os.replace(myFile, theFile)
+                    # Finally, rename the file
+                    os.replace(myFile, theFile)
 
     # Tracebacks are dumped to the log aready,
     # we simply have to catch them

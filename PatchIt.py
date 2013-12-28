@@ -57,7 +57,7 @@ import constants as const
 build_num = const.buildme()
 
 # Store Experimental Mode running mode value
-test_mode = [False]
+testMode = []
 
 
 # ------------ Begin PatchIt! Initialization ------------ #
@@ -93,7 +93,7 @@ without going through the menu first''')
 
     # If the debug parameter is passed, enable the debugging messages
     if debugarg:
-        test_mode[0] = True
+        testMode.append(True)
         os.system("title {0} Version {1} {2} - Experimental Mode".format(
             const.app, const.majver, const.minver))
         logging.info("Starting PatchIt! in Experimental Mode")
