@@ -53,7 +53,7 @@ def getRacersPath():
     # The LEGO Racers settings do exist
     # Check file encoding
     if encoding.check_encoding(os.path.join(
-        const.settings_fol, const.LR_settings)):
+            const.settings_fol, const.LR_settings)):
 
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
@@ -66,7 +66,7 @@ def getRacersPath():
 
     try:
         with open(os.path.join(const.settings_fol, const.LR_settings),
-                  "rt", encoding="utf-8") as f:
+                  "rt", encoding="utf_8") as f:
             racers_install_path = f.readlines()[6]
 
         # Create a valid folder path
@@ -200,7 +200,7 @@ def LRWriteSettings():
         # Write settings, using UTF-8 encoding
         logging.info("Open 'Racers.cfg' for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(const.settings_fol, const.LR_settings),
-                  "wt", encoding="utf-8") as racers_file:
+                  "wt", encoding="utf_8") as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)
@@ -247,7 +247,7 @@ def LRGameCheck():
         os.path.join(const.settings_fol, const.LR_settings)))
 
     if encoding.check_encoding(os.path.join(
-        const.settings_fol, const.LR_settings)):
+            const.settings_fol, const.LR_settings)):
 
         # The settings cannot be read
         logging.warning("LEGO Racers Settings cannot be read!")
@@ -261,7 +261,7 @@ def LRGameCheck():
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
     with open(os.path.join(const.settings_fol, const.LR_settings),
-              "rt", encoding="utf-8") as game_confirm:
+              "rt", encoding="utf_8") as game_confirm:
         lines = game_confirm.readlines()[:]
 
     # Get just the string from the list
@@ -280,14 +280,13 @@ def LRGameCheck():
     del lines[:]
 
     # The only three items needed to confirm a LEGO Racers installation.
-    if (os.path.exists(
-        os.path.join(LR_path, "legoracers.exe".lower())
-        )
-        and os.path.exists(
-            os.path.join(LR_path, "lego.jam".lower())
-        )
-            and os.path.exists(
-                os.path.join(LR_path, "goldp.dll".lower()))):
+    if (
+        os.path.exists(
+            os.path.join(LR_path, "legoracers.exe".lower())) and
+        os.path.exists(
+            os.path.join(LR_path, "lego.jam".lower())) and
+        os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))
+    ):
 
         logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}"
                      .format(LR_path))
@@ -307,18 +306,30 @@ def LRGameCheck():
 
 def LRVerCheck(new_racers_game):
     """Is this a 1999 or 2001 release of LEGO Racers?"""
-    # LEGORacers.icd was not found, this is a 2001 release
-    if not os.path.exists(
-            os.path.join(new_racers_game, "legoracers.icd".lower())):
-        logging.info("LEGORacers.icd was not found, this is the 2001 release")
-        LRVer = "2001"
+    # Open the exe and read a small part of it
+    try:
+        with open(os.path.join(new_racers_game, "legoracers.exe".lower()),
+                  "rb") as f:
+            offset = f.readlines()[1][8:20]
+
+    # We could not find the data we wanted (most likely a fake exe)
+    except IndexError:
+        LRVer = "Unknown"
         return LRVer
 
-    # LEGORacers.icd was found, this is a 1999 release
-    else:
-        # Log the result, send back the result
-        logging.info("LEGORacers.icd was found, this is the 1999 release")
+    # This is a 1999 release
+    if (
+        offset == b"\xb7S\xfeK\xf32\x90\x18\xf32\x90\x18" or
+        b"bPE\x00\x00L\x01\x08\x00\xf1\xdb)7"
+    ):
+        logging.info("According to the offset, this is the 1999 release")
         LRVer = "1999"
+        return LRVer
+
+    # This is a 2001 release
+    elif offset == b"\xd7\xf2J\x1a\x93\x93$I\x93\x93$I":
+        logging.info("According to the offset, this is the 2001 release")
+        LRVer = "2001"
         return LRVer
 
 
@@ -335,7 +346,7 @@ def CheckLRSettings():
 
         # Check encoding of Settings file
         if encoding.check_encoding(os.path.join(
-        const.settings_fol, const.LR_settings)):
+                const.settings_fol, const.LR_settings)):
 
             # The settings cannot be read, return False
             logging.warning("LEGO Racers Settings cannot be read!")
@@ -344,7 +355,7 @@ def CheckLRSettings():
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO Racers first-run info")
         with open(os.path.join(const.settings_fol, const.LR_settings), "rt",
-                  encoding="utf-8") as first_run_check:
+                  encoding="utf_8") as first_run_check:
             lr_first_run = first_run_check.readlines()[2]
 
         # Strip the path to make it valid
