@@ -80,7 +80,7 @@ class PlayRacers(object):
 
         # Except we need admin righs to do it
         except (OSError, PermissionError):  # lint:ok
-            logging.exception('''Oops! Something went wrong! Here's what happened
+            logging.exception('''Something went wrong! Here's what happened
 ''', exc_info=True)
             # Temp excuse since I can't get RunAsAdmin working
             # and I don't think I can sneak a registry string in

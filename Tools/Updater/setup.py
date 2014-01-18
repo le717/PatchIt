@@ -54,10 +54,9 @@ build_exe_options = {"build_exe": destfolder,
                      "compressed": True,
                      "optimize": 2,
                      "icon": "../../Icons/PiIcon.ico",
-                     "includes": [
-                     "re",
                      # Dummy module "holding a seat" (index 1) for wget
-                     "placeholder"
+                     "includes": [
+                         "re", "placeholder"
                      ]}
 
 # Get full file path to Tools/wget/wget.py

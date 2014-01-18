@@ -40,6 +40,9 @@ import PatchIt
 import constants as const
 from Settings import encoding
 
+LR_path = ""
+LR_ver = ""
+
 # ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
 
 
@@ -198,20 +201,17 @@ def LRWriteSettings():
             os.mkdir(const.settings_fol)
 
         # Write settings, using UTF-8 encoding
-        logging.info("Open 'Racers.cfg' for writing using UTF-8-NOBOM encoding")
+        logging.info("Open Racers.cfg for writing using UTF-8-NOBOM encoding")
         with open(os.path.join(const.settings_fol, const.LR_settings),
                   "wt", encoding="utf_8") as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
             # (http://wp.me/p1V5ge-yB)
-            logging.info("Write line telling what program this file belongs to")
             racers_file.write("// PatchIt! V1.1.x LEGO Racers Settings\n")
 
             # Write brief comment explaining what the number means
             # "Ensures the first-run process will be skipped next time"
-            logging.info("Brief comment explaining what the number means")
-            racers_file.write("# Ensures the first-run process will be skipped next time\n")
-            logging.info("Write '1' to line 3 to skip first-run next time")
+            racers_file.write("# Ensures the first-run process will be skipped\n")
             racers_file.write("1\n")
 
             # Run check for 1999 or 2001 version of Racers

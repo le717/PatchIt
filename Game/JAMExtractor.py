@@ -86,12 +86,14 @@ def extract(path, verbose):
             # How many files are there?
             totalFiles = uint32(f[1])
             if totalFiles == 0:
-                # That place has only folders, run this function again for the folders in that folder.
+                # That place has only folders, run this function again
+                # for the folders in that folder.
                 recurse(listFolders(f[1] + 8, uint32(f[1] + 4), f[0] + os.sep))
             else:
                 # That place has files, add them to the list to extract.
                 fileList.extend(listFiles(f[1] + 4, uint32(f[1]), f[0]))
-                # This place may also have folders. Find place where folder count exists after file list ends.
+                # This place may also have folders. Find place where folder
+                # count exists after file list ends.
                 folderCountPos = totalFiles * 20 + f[1] + 4
                 folderCount = uint32(folderCountPos)
                 if folderCount > 0:
@@ -161,12 +163,13 @@ def extract(path, verbose):
 
 
 def build(path, verbose):
-    def writeUint32(i=0, position = -1):
+    def writeUint32(i=0, position=-1):
         # Keep it possible.
         if i > 4294967295:
             i = 4294967295
         a = [0, 0, 0, 0]
-        # Roll it over to the next place until the end giving what's left to the first number.
+        # Roll it over to the next place until the end
+        # giving what's left to the first number.
         while i >= 16777216:
             a[3] += 1
             i -= 16777216
@@ -207,7 +210,8 @@ def build(path, verbose):
     fileList = []
 
     for currentdir, dirlist, filelist in os.walk(path):
-        # Filter out files and folder with names that are too long for the format.
+        # Filter out files and folder with names that are too long
+        # for the format.
         for i in reversed(range(len(filelist))):
             if len(filelist[i]) > 12:
                 if verbose:

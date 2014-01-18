@@ -135,7 +135,7 @@ def checkPatch(patch):
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
-    logging.info("Read line 1 of {0} for PiP validity check and Archive format".format(
+    logging.info("Read {0} for PiP validity line and Archive format".format(
         patch))
     with open(patch, "rt", encoding="utf-8") as f:
         lines = f.readlines()[0:2]
@@ -375,7 +375,7 @@ def installModernPatch(patch, name, version, author, mp, patch_archive):
     # For some reason, it cannot find the Patch archive
     except FileNotFoundError:  # lint:ok
         logging.warning("Error number '2'")
-        logging.exception('''Oops! Something went wrong! Here's what happened
+        logging.exception('''Something went wrong! Here's what happened
 
 ''', exc_info=True)
 
@@ -392,7 +392,8 @@ and try again.
 
 If this error continues, contact {5} and ask for a fixed version.'''
                     .format(name, version, os.path.basename(patch),
-                    patch_archive, patch_location, author), color.FG_LIGHT_RED)
+                            patch_archive, patch_location, author),
+                    color.FG_LIGHT_RED)
 
         # Sleep for 2 seconds after displaying installation result
         # before kicking back to the main menu.
@@ -401,7 +402,7 @@ If this error continues, contact {5} and ask for a fixed version.'''
     # The user does not have the rights to install to that location
     except PermissionError:  # lint:ok
         logging.warning("Error number '13'")
-        logging.exception('''Oops! Something went wrong! Here's what happened
+        logging.exception('''Something went wrong! Here's what happened
 
 ''', exc_info=True)
 
@@ -422,7 +423,7 @@ PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
         logging.warning("Unknown error number")
-        logging.exception('''Oops! Something went wrong! Here's what happened
+        logging.exception('''Something went wrong! Here's what happened
 
 ''', exc_info=True)
 

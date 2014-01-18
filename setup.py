@@ -59,26 +59,26 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
 
 # Run utility to get the newest version of the readme
 # Freeze continues if this has an error
-from Tools.bin import (PiReadme, cleanup)  # lint:ok
+from Tools.bin import (PiReadme, cleanup)
+PiReadme.main()
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,
                      "compressed": True,
                      "optimize": 2,
                      "icon": "Icons/PiIcon.ico",
-                     "include_files": [
-                     "Build.pickle"],
+                     "include_files": ["Build.pickle"],
                      "includes": [
-                     "re",
-                     "patchit",
-                     "color",
-                     "runasadmin",
-                     "Patch/install",
-                     "Patch/create",
-                     "Patch/racingtips",
-                     "Game/legojam",
-                     "Game/JAMExtractor",
-                     "Settings/buildgen"
+                         "re",
+                         "patchit",
+                         "color",
+                         "runasadmin",
+                         "Patch/install",
+                         "Patch/create",
+                         "Patch/racingtips",
+                         "Game/legojam",
+                         "Game/JAMExtractor",
+                         "Settings/buildgen"
                      ]}
 
 # Get the current build number
@@ -98,6 +98,5 @@ cleanup.cleanup(destfolder)
 
 # Freeze PatchIt! Uninstaller
 print("\nFreezing PatchIt! Uninstaller\n")
-from Tools.Uninstaller import setup  # lint:ok
+from Tools.Uninstaller import setup  # noqa
 print("Done. :)\n")
-

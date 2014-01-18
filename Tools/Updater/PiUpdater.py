@@ -166,7 +166,7 @@ def main(DoAdmin=True):
     print("\nNewest Version: {0} {1} Build {2}".format(
           new_version, new_title, new_build))
     print("Your Version: {0} {1} Build {2}".format(
-         cur_version, cur_title, cur_build))
+          cur_version, cur_title, cur_build))
 
     # The user is running a previous version
     if (not TitleCompare and not VersionCompare and not BuildCompare):
@@ -182,7 +182,7 @@ Press Enter to begin the update process, or any other key to quit.''')
 
     # User is running a pre-release (Unstable, RC1, etc)
     elif (VersionCompare and not TitleCompare and not BuildCompare or
-    VersionCompare and not TitleCompare and BuildCompare):
+          VersionCompare and not TitleCompare and BuildCompare):
         print('''
 You are running a pre-release version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.''')
