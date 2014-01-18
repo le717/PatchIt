@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Download utility as an easy way to get file from the net
- 
+
   python -m wget <URL>
   python wget.py <URL>
 
@@ -14,21 +14,23 @@ about missing options.
 
 Public domain by anatoly techtonik <techtonik@gmail.com>
 Also available under the terms of MIT license
-Copyright (c) 2010-2013 anatoly techtonik 
+Copyright (c) 2010-2013 anatoly techtonik
 """
 
 
-import sys, shutil, os
+import sys
+import shutil
+import os
 import tempfile
 import math
 
 PY3K = sys.version_info >= (3, 0)
 if PY3K:
-  import urllib.request as urllib
-  import urllib.parse as urlparse
+    import urllib.request as urllib
+    import urllib.parse as urlparse
 else:
-  import urllib
-  import urlparse
+    import urllib
+    import urlparse
 
 
 __version__ = "2.0"
@@ -40,6 +42,7 @@ def filename_from_url(url):
     if len(fname.strip(" \n\t.")) == 0:
         return None
     return fname
+
 
 def filename_from_headers(headers):
     """Detect filename from Content-Disposition headers if present.
@@ -70,20 +73,21 @@ def filename_from_headers(headers):
         return None
     return name
 
+
 def filename_fix_existing(filename):
     """Expands name portion of filename with numeric ' (x)' suffix to
     return filename that doesn't exist already.
     """
-    dirname = '.' 
+    dirname = '.'
     name, ext = filename.rsplit('.', 1)
     names = [x for x in os.listdir(dirname) if x.startswith(name)]
     names = [x.rsplit('.', 1)[0] for x in names]
     suffixes = [x.replace(name, '') for x in names]
     # filter suffixes that match ' (x)' pattern
     suffixes = [x[2:-1] for x in suffixes
-                   if x.startswith(' (') and x.endswith(')')]
-    indexes  = [int(x) for x in suffixes
-                   if set(x) <= set('0123456789')]
+                if x.startswith(' (') and x.endswith(')')]
+    indexes = [int(x) for x in suffixes
+               if set(x) <= set('0123456789')]
     idx = 1
     if indexes:
         idx += sorted(indexes)[-1]
@@ -100,9 +104,9 @@ def get_console_width():
     """
 
     if os.name == 'nt':
-        STD_INPUT_HANDLE  = -10
+        STD_INPUT_HANDLE = -10
         STD_OUTPUT_HANDLE = -11
-        STD_ERROR_HANDLE  = -12
+        STD_ERROR_HANDLE = -12
 
         # get console handle
         from ctypes import windll, Structure, byref
@@ -133,7 +137,7 @@ def get_console_width():
         ret = windll.kernel32.GetConsoleScreenBufferInfo(console_handle, byref(sbi))
         if ret == 0:
             return 0
-        return sbi.srWindow.Right+1
+        return sbi.srWindow.Right + 1
 
     elif os.name == 'posix':
         from fcntl import ioctl
@@ -160,9 +164,10 @@ def bar_thermometer(current, total, width=80):
     See `bar_adaptive` for more information.
     """
     # number of dots on thermometer scale
-    avail_dots = width-2
+    avail_dots = width - 2
     shaded_dots = int(math.floor(float(current) / total * avail_dots))
-    return '[' + '.'*shaded_dots + ' '*(avail_dots-shaded_dots) + ']'
+    return '[' + '.' * shaded_dots + ' ' * (avail_dots - shaded_dots) + ']'
+
 
 def bar_adaptive(current, total, width=80):
     """Return progress bar string for given values in one of three
@@ -204,14 +209,14 @@ def bar_adaptive(current, total, width=80):
     #   [x] choose top priority element min_width < avail_width
     #   [x] lessen avail_width by value if min_width
     #   [x] exclude element from priority list and repeat
-    
+
     #  10% [.. ]  10/100
     # pppp bbbbb sssssss
 
     min_width = {
-      'percent': 4,  # 100%
-      'bar': 3,      # [.]
-      'size': len("%s" % total)*2 + 3, # 'xxxx / yyyy'
+        'percent': 4,  # 100%
+        'bar': 3,      # [.]
+        'size': len("%s" % total) * 2 + 3,  # 'xxxx / yyyy'
     }
     priority = ['percent', 'bar', 'size']
 
@@ -219,27 +224,27 @@ def bar_adaptive(current, total, width=80):
     selected = []
     avail = width
     for field in priority:
-      if min_width[field] < avail:
-        selected.append(field)
-        avail -= min_width[field]+1   # +1 is for separator or for reserved space at
-                                      # the end of line to avoid linefeed on Windows
+        if min_width[field] < avail:
+            selected.append(field)
+            avail -= min_width[field] + 1  # +1 is for separator or for reserved space at
+                                           # the end of line to avoid linefeed on Windows
     # render
     output = ''
     for field in selected:
 
-      if field == 'percent':
-        # fixed size width for percentage
-        output += ('%s%%' % (100 * current // total)).rjust(min_width['percent'])
-      elif field == 'bar':  # [. ]
-        # bar takes its min width + all available space
-        output += bar_thermometer(current, total, min_width['bar']+avail)
-      elif field == 'size':
-        # size field has a constant width (min == max)
-        output += ("%s / %s" % (current, total)).rjust(min_width['size'])
+        if field == 'percent':
+            # fixed size width for percentage
+            output += ('%s%%' % (100 * current // total)).rjust(min_width['percent'])
+        elif field == 'bar':  # [. ]
+            # bar takes its min width + all available space
+            output += bar_thermometer(current, total, min_width['bar'] + avail)
+        elif field == 'size':
+            # size field has a constant width (min == max)
+            output += ("%s / %s" % (current, total)).rjust(min_width['size'])
 
-      selected = selected[1:]
-      if selected:
-        output += ' '  # add field separator
+            selected = selected[1:]
+            if selected:
+                output += ' '  # add field separator
 
     return output
 
@@ -250,6 +255,8 @@ __current_size = 0  # global state variable, which exists solely as a
                     # workaround against Python 3.3.0 regression
                     # http://bugs.python.org/issue16409
                     # fixed in Python 3.3.1
+
+
 def callback_progress(blocks, block_size, total_size, bar_function):
     """callback function for urlretrieve that is called when connection is
     created and when once for each block
@@ -265,7 +272,7 @@ def callback_progress(blocks, block_size, total_size, bar_function):
     :param bar_function: another callback function to visualize progress
     """
     global __current_size
- 
+
     width = min(100, get_console_width())
 
     if sys.version_info[:3] == (3, 3, 0):  # regression workaround
@@ -275,7 +282,7 @@ def callback_progress(blocks, block_size, total_size, bar_function):
             __current_size += block_size
         current_size = __current_size
     else:
-        current_size = min(blocks*block_size, total_size)
+        current_size = min(blocks * block_size, total_size)
     progress = bar_function(current_size, total_size, width)
     if progress:
         sys.stdout.write("\r" + progress)
@@ -292,7 +299,7 @@ def download(url, bar=bar_adaptive):
 
     filename = filename_from_url(url) or "."
     # get filename for temp file in current directory
-    (fd, tmpfile) = tempfile.mkstemp(".tmp", prefix=filename+".", dir=".")
+    (fd, tmpfile) = tempfile.mkstemp(".tmp", prefix=filename + ".", dir=".")
     os.close(fd)
     os.unlink(tmpfile)
 
