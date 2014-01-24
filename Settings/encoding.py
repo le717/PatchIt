@@ -35,17 +35,15 @@ def check_encoding(file_path):
     with open(file_path, "rb") as encode_check:
         encoding = encode_check.readline(3)
 
-    if (
-        # The settings file uses UTF-8-BOM encoding
-        encoding == b"\xef\xbb\xbf"
-        # The settings file uses UCS-2 Big Endian encoding
-        or encoding == b"\xfe\xff\x00"
-        # The settings file uses UCS-2 Little Endian
-        or encoding == b"\xff\xfe0"
-    ):
+    # The settings file is encoding using either
+    # UTF-8BOM, UCS-2 Big Endian, or UCS-2 Little Endian.
+    # The last two items are two variants of UCS-2LE I keep coming across.
+    if encoding in (b"\xef\xbb\xbf", b"\xfe\xff\x00",
+                    b"\xff\xfe0", b"\xff\xfe/"):
+
         # The encoding is not correct
         return True
 
-    # The file used the proper encoding
+    # The file used the proper (UTF-8NOBOM) encoding
     else:
         return False
