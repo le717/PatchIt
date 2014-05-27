@@ -613,8 +613,8 @@ PatchIt! ran into an unknown error while trying to create
     finally:
         # Change the working directory back to the location of PatchIt!
         logging.info("Change the working directory back to {0}".format(
-            const.app_folder))
-        os.chdir(const.app_folder)
+            const.appFolder))
+        os.chdir(const.appFolder)
         # Run process to restore all the files in the Patch files
         logging.info("Run delete_files() to remove temporary folder")
         delete_files()

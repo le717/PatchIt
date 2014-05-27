@@ -109,7 +109,7 @@ PatchIt! does not have the rights to save LEGO.JAM to
 
     # Go back to the menu
     finally:
-        os.chdir(const.app_folder)
+        os.chdir(const.appFolder)
         main()
 
 

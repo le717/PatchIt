@@ -56,10 +56,10 @@ except ImportError:
 if sys.version_info < (3, 3, 0):
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap(const.app_icon)
+    root.iconbitmap(const.appIcon)
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
-        sys.version[0:5], const.app, const.majver, const.minver))
+        sys.version[0:5], const.app, const.majVer, const.minVer))
 
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
@@ -79,7 +79,7 @@ def appLoggingFolder():
     """Checks for (and creates) PatchIt! Logs folder"""
     try:
         # Location of Logs folder
-        logs_folder = os.path.join(const.app_folder, "Logs")
+        logs_folder = os.path.join(const.appFolder, "Logs")
 
         # The Logs folder does not exist
         if not os.path.exists(logs_folder):
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # Write window title (since there is no GUI in PatchIt! itself (yet))
     os.system("title {0} {1} {2}".format(
-        const.app, const.majver, const.minver))
+        const.app, const.majVer, const.minVer))
     PatchIt.info()
     PatchIt.args()
     PatchIt.preload()

@@ -44,12 +44,12 @@ from urllib.error import HTTPError
 from tkinter import (Tk, filedialog)
 
 app = "PatchIt! Updater"
-majver = "0.5"
-minver = "Unstable"
+majVer = "0.5"
+minVer = "Unstable"
 author = "Triangle717"
 
 # Location of PatchIt! Updater Exe/Py
-app_folder = os.path.dirname(sys.argv[0])
+appFolder = os.path.dirname(sys.argv[0])
 
 # Name of settings file
 updater_file = "Updater.cfg"
@@ -81,7 +81,7 @@ def args():
     """Command-line arguments parser"""
     parser = argparse.ArgumentParser(
         description="{0} {1} {2} Command-line Arguments".format(
-            app, majver, minver))
+            app, majVer, minVer))
 
     # Reload argument
     parser.add_argument("-r", "--reload",
@@ -121,7 +121,7 @@ def CloseUpdater():
     """Close the Updater"""
     # Delete the downloaded file
     #TODO: Reactivate this near completion
-    #if os.path.exists(os.path.join(app_folder, LinkFileName)):
+    #if os.path.exists(os.path.join(appFolder, LinkFileName)):
         #os.unlink(LinkFileName)
 
     input("\nPress Enter to close.")
@@ -304,14 +304,14 @@ def SelectPiInstall():
 
     # Perhaps the Updater is in the same place as PatchIt!.
     # In that case, use a different method for finding the installation
-    same_path = os.path.join(os.path.dirname(app_folder), "Settings")
+    same_path = os.path.join(os.path.dirname(appFolder), "Settings")
 
     # The updater resides in the same location as PatchIt!
     if os.path.exists(same_path):
         # It's been found, no need for user to define it
         found_install = True
         # Write the installation to file
-        SavePiInstall(os.path.dirname(app_folder))
+        SavePiInstall(os.path.dirname(appFolder))
 
     # If this is x64 Windows, look for PatchIt in Program Files (x86)
     if os_bit:
@@ -423,7 +423,7 @@ Please report this error to {2} right away.
         #CloseUpdater()
 
     # The file was downloaded, now read it
-    with open(os.path.join(app_folder, LinkFileName), "rt",
+    with open(os.path.join(appFolder, LinkFileName), "rt",
               encoding="utf-8") as f:
         lines = f.readlines()[:]
 
@@ -554,7 +554,7 @@ def DownloadUpdate(UpdateDL, InstallPath):
 
 if __name__ == "__main__":
     # Write window title
-    os.system("title {0} {1} {2}".format(app, majver, minver))
+    os.system("title {0} {1} {2}".format(app, majVer, minVer))
     # Run updater
     #args()
     main(DoAdmin=True)

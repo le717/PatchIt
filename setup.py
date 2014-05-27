@@ -86,9 +86,9 @@ from Settings.buildgen import BuildNumber as bg
 
 setup(
     name="PatchIt!",
-    version="{0}.{1}".format(const.majver, bg.Instance().buildnum),
+    version="{0}.{1}".format(const.majVer, bg.Instance().buildNum),
     author="2013-2014 Triangle717",
-    description="PatchIt! Version {0} {1}".format(const.majver, const.minver),
+    description="PatchIt! Version {0} {1}".format(const.majVer, const.minVer),
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])

@@ -49,14 +49,14 @@ LR_ver = ""
 def getRacersPath():
     """Special-use function to get and return the Racers installation path"""
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
+    if not os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
         logging.warning("Could not find LEGO Racers settings!")
         LRReadSettings()
 
     # The LEGO Racers settings do exist
     # Check file encoding
     if encoding.check_encoding(os.path.join(
-            const.settings_fol, const.LR_settings)):
+            const.settingsFol, const.LRSettings)):
 
         # The settings cannot be read for installation,
         # go write them so this Patch can be installed
@@ -68,7 +68,7 @@ def getRacersPath():
     logging.info("Reading line 7 of settings for LEGO Racers installation")
 
     try:
-        with open(os.path.join(const.settings_fol, const.LR_settings),
+        with open(os.path.join(const.settingsFol, const.LRSettings),
                   "rt", encoding="utf_8") as f:
             racers_install_path = f.readlines()[6]
 
@@ -86,13 +86,13 @@ def getRacersPath():
 def LRReadSettings():
     """Read PatchIt! LEGO Racers settings"""
     # The settings file does not exist
-    if not os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
+    if not os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
         logging.warning("LEGO Racers Settings does not exist!")
         logging.info("Proceeding to write PatchIt! LEGO Racers settings")
         LRWriteSettings()
 
     # The setting file does exist
-    elif os.path.exists(os.path.join(const.settings_fol, const. LR_settings)):
+    elif os.path.exists(os.path.join(const.settingsFol, const. LRSettings)):
         logging.info("LEGO Racers Settings do exist")
 
         # The first-run check came back False,
@@ -111,7 +111,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
             root.withdraw()
             tk.messagebox.showerror("Invalid installation!",
                                     "Cannot find {0} installation at {1}"
-                                    .format(const.LR_game, LR_path))
+                                    .format(const.LRGame, LR_path))
             root.destroy()
 
             # Go write the settings file
@@ -121,7 +121,7 @@ Writing LEGO Racers settings so we don't read an empty file.''')
         # The defined installation was confirmed by LRGameCheck()
         else:
             print('\nA {0} {1} release was found at\n\n"{2}"\n\n{3}\n'.format(
-                const.LR_game, LR_ver, LR_path,
+                const.LRGame, LR_ver, LR_path,
                 "Would you like to change this?"))
 
             change_racers_path = input(r"[Y\N] > ")
@@ -197,12 +197,12 @@ def LRWriteSettings():
 
         # Create Settings directory if it does not exist
         logging.info("Creating Settings directory")
-        if not os.path.exists(const.settings_fol):
-            os.mkdir(const.settings_fol)
+        if not os.path.exists(const.settingsFol):
+            os.mkdir(const.settingsFol)
 
         # Write settings, using UTF-8 encoding
         logging.info("Open Racers.cfg for writing using UTF-8-NOBOM encoding")
-        with open(os.path.join(const.settings_fol, const.LR_settings),
+        with open(os.path.join(const.settingsFol, const.LRSettings),
                   "wt", encoding="utf_8") as racers_file:
 
             # As partially defined in PatchIt! Dev-log #6
@@ -244,10 +244,10 @@ def LRGameCheck():
     """Confirms LEGO Racers installation"""
     # Check encoding of Settings file
     logging.info("Checking encoding of {0}".format(
-        os.path.join(const.settings_fol, const.LR_settings)))
+        os.path.join(const.settingsFol, const.LRSettings)))
 
     if encoding.check_encoding(os.path.join(
-            const.settings_fol, const.LR_settings)):
+            const.settingsFol, const.LRSettings)):
 
         # The settings cannot be read
         logging.warning("LEGO Racers Settings cannot be read!")
@@ -260,7 +260,7 @@ def LRGameCheck():
 
     # The settings can be read, so do it (implied else block here)
     logging.info("Reading line 7 for LEGO Racers installation")
-    with open(os.path.join(const.settings_fol, const.LR_settings),
+    with open(os.path.join(const.settingsFol, const.LRSettings),
               "rt", encoding="utf_8") as game_confirm:
         lines = game_confirm.readlines()[:]
 
@@ -276,7 +276,7 @@ def LRGameCheck():
     LR_ver = LR_ver.strip()
 
     # Delete the reading to free up system resources
-    logging.info("Deleting raw reading of {0}".format(const.LR_settings))
+    logging.info("Deleting raw reading of {0}".format(const.LRSettings))
     del lines[:]
 
     # The only three items needed to confirm a LEGO Racers installation.
@@ -336,17 +336,17 @@ def LRVerCheck(new_racers_game):
 def CheckLRSettings():
     """Gets LEGO Rackers Settings and First-run info"""
     # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
+    if not os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
         logging.warning("LEGO Racers Settings do not exist!")
         return False
 
     # The LEGO Racers settings do exist
-    elif os.path.exists(os.path.join(const.settings_fol, const.LR_settings)):
+    elif os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
         logging.info("LEGO Racers Settings do exist")
 
         # Check encoding of Settings file
         if encoding.check_encoding(os.path.join(
-                const.settings_fol, const.LR_settings)):
+                const.settingsFol, const.LRSettings)):
 
             # The settings cannot be read, return False
             logging.warning("LEGO Racers Settings cannot be read!")
@@ -354,7 +354,7 @@ def CheckLRSettings():
 
         # The settings can be read, so do it (implied else block here)
         logging.info("Reading line 3 for LEGO Racers first-run info")
-        with open(os.path.join(const.settings_fol, const.LR_settings), "rt",
+        with open(os.path.join(const.settingsFol, const.LRSettings), "rt",
                   encoding="utf_8") as first_run_check:
             lr_first_run = first_run_check.readlines()[2]
 

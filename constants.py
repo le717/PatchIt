@@ -28,26 +28,27 @@ import sys
 import os
 
 # App name and version
-app = "PatchIt!"
-majver = "1.1.3"
-minver = "Unstable"
+appName = "PatchIt!"
+majVer = "1.1.3"
+minVer = "Unstable"
 creator = "Triangle717"
 
 # GLobal game data
-LR_game = "LEGO Racers"
-LR_settings = "Racers.cfg"
-Pi_settings = "PatchIt.cfg"
+LRGame = "LEGO Racers"
+LRSettingsJson = "Racers.json"
+LRSettings = "Racers.cfg"
+PiSettings = "PatchIt.cfg"
 
 # Name of PatchIt! Exe/Py
-exe_name = os.path.basename(sys.argv[0])
+exeName = os.path.basename(sys.argv[0])
 # Location of PatchIt! Exe/Py
-app_folder = os.path.dirname(sys.argv[0])
+appFolder = os.path.dirname(sys.argv[0])
 # Location of Settings folder
-settings_fol = os.path.join(app_folder, "Settings")
-# PatchIt! App Icon
-app_icon = os.path.join(app_folder, "Icons", "PiIcon.ico")
+settingsFol = os.path.join(appFolder, "Settings")
+# PatchIt! Icon
+appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
 # Build number (v3 Pickle data)
-build_file = os.path.join(app_folder, "Build.pickle")
+buildFile = os.path.join(appFolder, "Build.pickle")
 
 
 def buildme():
@@ -55,17 +56,17 @@ def buildme():
     # Retrieve the build number
     from Settings.buildgen import (BuildNumber, UpdateBuildNumber)
     bg = BuildNumber.Instance()
-    build_num = bg.fetch()
+    buildNum = bg.fetch()
 
     # This is a frozen exe and the data is missing; assign a "number"
-    if build_num is None:
-        build_num = "Unknown"
+    if buildNum is None:
+        buildNum = "Unknown"
 
     # If this is not a frozen exe,
     if not (hasattr(sys, "frozen") and
             not sys.frozen in ("windows_exe", "console_exe")):
         # and if this is not a Stable release,
-        if minver != "Stable":
+        if minVer != "Stable":
             # then increase the build number.
-            UpdateBuildNumber().update_build(build_num)
-    return build_num
+            UpdateBuildNumber().updateBuild(buildNum)
+    return buildNum

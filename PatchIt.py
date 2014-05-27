@@ -54,7 +54,7 @@ from Game import (Racers, rungame, legojam)
 
 # PatchIt! "Constants"
 import constants as const
-build_num = const.buildme()
+buildNum = const.buildme()
 
 # Store Experimental Mode running mode value
 testMode = []
@@ -71,7 +71,7 @@ def args():
 
     parser = argparse.ArgumentParser(
         description="{0} {1} {2} Command-line Arguments".format(
-            const.app, const.majver, const.minver))
+            const.app, const.majVer, const.minVer))
 
     # Experimental Mode argument
     parser.add_argument("-t", "--test",
@@ -95,7 +95,7 @@ without going through the menu first''')
     if debugarg:
         testMode.append(True)
         os.system("title {0} Version {1} {2} - Experimental Mode".format(
-            const.app, const.majver, const.minver))
+            const.app, const.majVer, const.minVer))
         logging.info("Starting PatchIt! in Experimental Mode")
 
     # The debug parameter was not passed, don't display debugging message
@@ -128,7 +128,7 @@ def info():
     else:
         py_arch = "AMD64"
 
-    logging_file = os.path.join(const.app_folder, "Logs", 'PatchIt.log')
+    logging_file = os.path.join(const.appFolder, "Logs", 'PatchIt.log')
     logging.info("Begin logging to {0}".format(logging_file))
     logging.info("You are running {0} {1} {2} on {3} {4}.".format(
         platform.python_implementation(), py_arch, platform.python_version(),
@@ -145,7 +145,7 @@ def info():
                                     and attach this file for an quicker fix!
                                 #############################################
                                 '''.format(
-        const.app, const.majver, const.minver, const.creator))
+        const.app, const.majVer, const.minVer, const.creator))
 
 
 def preload():
@@ -177,7 +177,7 @@ def about():
 
     root = tk.Tk()
     # Window title
-    root.title("About {0} Version {1}".format(const.app, const.majver))
+    root.title("About {0} Version {1}".format(const.app, const.majVer))
     # The box cannot be other size
     root.minsize("420", "280")
     root.maxsize("420", "280")
@@ -212,7 +212,7 @@ def about():
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(const.app, const.majver, const.minver, build_num))
+'''.format(const.app, const.majVer, const.minVer, buildNum))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -245,7 +245,7 @@ package and install mods for LEGO Racers"
     root.bind('<Return>', close_about)
 
     # Make it load
-    root.iconbitmap(const.app_icon)
+    root.iconbitmap(const.appIcon)
     root.mainloop()
 
 
@@ -268,7 +268,7 @@ def main(num_of_loops=1):
         # And display the menu only at the valid times
         colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013-2014 {3}"
                     .format(
-                        const.app, const.majver, const.minver, const.creator),
+                        const.app, const.majVer, const.minVer, const.creator),
                     color.FG_WHITE)
 
         logging.info("Display menu to user")
@@ -347,7 +347,7 @@ def easteregg():
     """Hehehe"""
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap(const.app_icon)
+    root.iconbitmap(const.appIcon)
     tk.messagebox.showerror("Uh-oh", "That was bad.")
     tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
     tk.messagebox.askquestion(
@@ -372,12 +372,12 @@ def easteregg():
 def PiSettings():
     """Writes PatchIt! General Settings"""
     #TODO: Will be expanded with more data in a future release
-    the_file = os.path.join(const.settings_fol, const.Pi_settings)
+    the_file = os.path.join(const.settingsFol, const.PiSettings)
     logging.info("Writing {0}".format(the_file))
 
     # If the Settings folder does not exist, create it
-    if not os.path.exists(const.settings_fol):
-        os.makedirs(const.settings_fol)
+    if not os.path.exists(const.settingsFol):
+        os.makedirs(const.settingsFol)
 
     with open(os.path.join(the_file), "wt", encoding="utf-8") as f:
         logging.info("Write line telling what program this file belongs to")
@@ -388,10 +388,10 @@ def PiSettings():
         f.write("# The version of PatchIt! you have\n")
 
         # Write the PatchIt! Major and Minor number,
-        # as defined in the majver and minver variables
+        # as defined in the `majVer` and `minVer` variables
         logging.info("Writing version number of this copy of PatchIt")
         f.write("{0} {1} Build {2}".format(
-            const.majver, const. minver, build_num))
+            const.majver, const. minVer, buildNum))
 
 
 # ------------ End PatchIt! General Settings ------------ #

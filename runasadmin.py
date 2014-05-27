@@ -45,7 +45,7 @@ class AdminRun(object):
         """Draw (then withdraw) root Tkinter window"""
         self.main = Tk()
         self.main.withdraw()
-        self.main.iconbitmap(const.app_icon)
+        self.main.iconbitmap(const.appIcon)
 
     def launch(self, messages):
         """Relaunch PatchIt! with administrator rights"""
@@ -71,25 +71,25 @@ Would you like to relaunch PatchIt! with Administrator rights? {1}'''.format(
             logging.info("User wants to relaunch with Admin rights")
 
             # This is the raw Python script. RunAsAdmin will not work
-            if (const.exe_name.endswith("py") or
-                    const.exe_name.endswith("pyw")):
+            if (const.exeName.endswith("py") or
+                    const.exeName.endswith("pyw")):
                 logging.warning('''This is a raw Python script ({0})
-RunAsAdmin.exe cannot operate!'''.format(const.exe_name))
+RunAsAdmin.exe cannot operate!'''.format(const.exeName))
 
                 showerror("Running Error!",
                           '''You are running a raw Python script ({0}).
-RunAsAdmin will not work at all.'''.format(const.exe_name))
+RunAsAdmin will not work at all.'''.format(const.exeName))
                 self.main.destroy()
                 return False
 
             # Launch RunAsAdmin to reload PatchIt!
             else:
                 logging.info('''This is an exe ({0}).
-Launching RunAsAdmin.exe'''.format(const.exe_name))
+Launching RunAsAdmin.exe'''.format(const.exeName))
 
                 subprocess.call(
-                    [os.path.join(const.app_folder, "RunAsAdmin.exe"),
-                        const.exe_name])
+                    [os.path.join(const.appFolder, "RunAsAdmin.exe"),
+                        const.exeName])
 
                 # Now we close PatchIt!, and let RunAsAdmin take over
                 # (that is, if this is an exe)
