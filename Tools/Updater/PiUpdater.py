@@ -31,6 +31,7 @@ import platform
 import subprocess
 import argparse
 import tarfile
+import json
 
 # Downloads file(s) from the internet
 parentdir = "../wget"
@@ -39,7 +40,7 @@ sys.path.insert(0, parentdir)
 import wget
 
 # Used to catch downloading errors
-from urllib.error import HTTPError
+from urllib.error import (HTTPError, URLError)
 # File Dialog Box
 from tkinter import (Tk, filedialog)
 
@@ -52,27 +53,27 @@ author = "Triangle717"
 appFolder = os.path.dirname(sys.argv[0])
 
 # Name of settings file
-updater_file = "Updater.cfg"
+updaterFile = "Updater.json"
 
 # URL of file containing newest version of PatchIt!, and link to delta update
 # Hosted on the PatchIt! GitHub repo, gh-pages branch
-#LinkFile = "http://le717.github.io/PatchIt/NewestRelease.cfg"
-LinkFile = "NewestRelease.cfg"
+#LinkFile = "http://le717.github.io/PatchIt/NewestRelease.json"
+linkFile = "NewestRelease.json"
 
 # Get just the filename (helps simplify the code)
-LinkFileName = os.path.basename(LinkFile)
+linkFileName = os.path.basename(linkFile)
 
 # URL of archive containing RunAsAdmin utility
-RunAdminLink = "https://github.com/QuantumCD/RunAsAdmin/releases/download/v1.0.2/RunAsAdmin.exe"
+runAdminLink = "https://github.com/QuantumCD/RunAsAdmin/releases/download/v1.0.2/RunAsAdmin.exe"
 
 # Get just the filename (helps simplify the code)
-RunAdminName = os.path.basename(RunAdminLink)
+runAdminName = os.path.basename(runAdminLink)
 
 # Check if Windows architecture is x64 or x86
 if platform.machine() == "AMD64":
-    os_bit = True
+    osBit = True
 else:
-    os_bit = False
+    osBit = False
 
 
 # -------- Begin Core Process -------- #
@@ -100,154 +101,154 @@ def args():
     args = parser.parse_args()
 
     # Declare parameters
-    LinkFile = args.link
-    RunAdminLink = args.admin
-    reloadarg = args.reload
+    linkArg = args.link
+    runAdminArg = args.admin
+    reloadArg = args.reload
 
     # Relaunch the updater
-    if reloadarg:
-        main(DoAdmin=False)
+    if reloadArg:
+        main(useAdmin=False)
 
-    if LinkFile is not None:
+    if linkArg is not None:
         pass
 
-    if RunAdminLink is not None:
+    if runAdminArg is not None:
         pass
 
     #main()
 
 
-def CloseUpdater():
+def closeUpdater():
     """Close the Updater"""
     # Delete the downloaded file
     #TODO: Reactivate this near completion
-    #if os.path.exists(os.path.join(appFolder, LinkFileName)):
-        #os.unlink(LinkFileName)
+    #if os.path.exists(os.path.join(appFolder, linkFileName)):
+        #os.unlink(linkFileName)
 
     input("\nPress Enter to close.")
     raise SystemExit(0)
 
 
-def main(DoAdmin=True):
+def main(useAdmin=True):
     """Update PatchIt! to the newest version"""
     # Download RunAsAdmin utility
-    if DoAdmin:
-        RunAdminDL(start=True)
+    if useAdmin:
+        runAdminDL(start=True)
 
     # Get PatchIt! installation path
-    pi_install_path = ReadPiInstall()
+    piInstallPath = readPiInstall()
 
     # The check returned False, go write the settings
-    if not pi_install_path:
-        SelectPiInstall()
+    if not piInstallPath:
+        selectPiInstall()
 
     # Location of PatchIt! Settings folder
-    pi_settings_fol = os.path.join(pi_install_path, "Settings")
+    piSettingsFol = os.path.join(piInstallPath, "Settings")
 
     # Retrieve the newest version and update download
-    new_version, new_title, new_build, download_link = GetNewVersion()
+    newVersion, newTitle, newBuild, downloadLink = getNewVersion()
 
     # Retrieve the user's version
-    cur_version, cur_title, cur_build = GetCurrentVersion(pi_settings_fol)
+    curVersion, curTitle, curBuild = getCurrentVersion(piSettingsFol)
 
     # Compare the version numbers, titles, and builds
-    VersionCompare = CompareVersion(cur_version, new_version)
-    TitleCompare = CompareTitle(cur_title, new_title)
-    print("Version:", VersionCompare)
-    print("Title:", TitleCompare)
+    versionCompare = compareVersion(curVersion, newVersion)
+    titleCompare = compareTitle(curTitle, newTitle)
+    print("Version:", versionCompare)
+    print("Title:", titleCompare)
 
     # If the build number is available
-    if cur_build != "Unknown":
-        BuildCompare = CompareBuild(cur_build, new_build)
-        print("Build:", BuildCompare)
+    if curBuild != "Unknown":
+        buildCompare = compareBuild(curBuild, newBuild)
+        print("Build:", buildCompare)
     else:
-        cur_build = False
+        curBuild = False
 
     print("\nNewest Version: {0} {1} Build {2}".format(
-          new_version, new_title, new_build))
+          newVersion, newTitle, newBuild))
     print("Your Version: {0} {1} Build {2}".format(
-          cur_version, cur_title, cur_build))
+          curVersion, curTitle, curBuild))
 
     # The user is running a previous version
-    if (not TitleCompare and not VersionCompare and not BuildCompare):
+    if (not titleCompare and not versionCompare and not buildCompare):
         print('''
 You are running an older version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.''')
 
     # Only the build numbers are different
-    if (VersionCompare and TitleCompare and not BuildCompare):
+    if (versionCompare and titleCompare and not buildCompare):
         print('''
 You are running an older version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.''')
 
     # User is running a pre-release (Unstable, RC1, etc)
-    elif (VersionCompare and not TitleCompare and not BuildCompare or
-          VersionCompare and not TitleCompare and BuildCompare):
+    elif (versionCompare and not titleCompare and not buildCompare or
+          versionCompare and not titleCompare and buildCompare):
         print('''
 You are running a pre-release version of PatchIt!
 Press Enter to begin the update process, or any other key to quit.''')
 
         # Prompt to begin update
-        update_prerelease = input("\n> ")
+        updatePrerelease = input("\n> ")
 
         # User does not want to update
-        if update_prerelease:
-            CloseUpdater()
+        if updatePrerelease:
+            closeUpdater()
 
         else:
             print("Updating...")
 
     # It is up-to-date, but offer to update anyway
-    elif (VersionCompare and TitleCompare and BuildCompare):
+    elif (versionCompare and titleCompare and buildCompare):
         print('''
 Your copy is already up-to-date.
 Press Enter to to update it anyway, or any other key to quit''')
 
         # Prompt to begin update
-        update_anyway = input("\n> ")
+        updateAnyway = input("\n> ")
 
         # User does not want to update
-        if update_anyway:
-            CloseUpdater()
+        if updateAnyway:
+            closeUpdater()
 
         # Run the updater
         else:
             #TODO: Run the update process
             print("Updating...")
             pass
-    # Close the updater
-    CloseUpdater()
+    closeUpdater()
 
 
-def RunAdminDL(start=True):
+def runAdminDL(start=True):
     """Downloads RunAsAdmin utility for use and possible installation"""
+    #TODO: Respect --admin parameter
     # Go ahead and download RunAsAdmin
     if start:
         # Download the file with the newest info
         try:
-            wget.download(RunAdminLink)
+            wget.download(runAdminLink)
 
         # The file could not be downloaded
         #TODO: Remove ValueError when code is near completion
         #TODO: Don't delete download, keep it. It might be needed
-        except (HTTPError, ValueError):
+        except (HTTPError, URLError, ValueError):
 
             # Since the primary download can not be reached, fall back
             # to the backup host.
             try:
-                wget.download("https://github.com/le717/PatchIt/raw/rewrite/Windows/RunAsAdmin/RunAsAdmin.exe")
+                wget.download("https://github.com/le717/PatchIt/raw/rewrite/Tools/Windows/RunAsAdmin/RunAsAdmin.exe")
 
             # The backup download is unavailable too; Tell the user.
-            except (HTTPError, ValueError):
+            except (HTTPError, URLError, ValueError):
 
                 print('''
 {0} could not be downloaded from
 {1}
 It is required for PatchIt! Updater to run.
 Please report this error to {2} right away.
-'''.format(RunAdminName, RunAdminLink.strip(RunAdminName), author))
+'''.format(runAdminName, runAdminLink.strip(runAdminName), author))
                 # Close the updater since RunAsAdmin cannot be downloaded
-                CloseUpdater()
+                closeUpdater()
 
         # Relaunch with Admin rights, passing parameter to not repeat this step
         subprocess.call(["RunAsAdmin.exe", "--reload"])
@@ -255,7 +256,7 @@ Please report this error to {2} right away.
     # RunAsAdmin aleady exists in this installation, so delete our download
     else:
         print("Hi.")
-        #if not os.path.exists(os.path.join()):
+        #if os.path.exists(os.path.join()):
             #os.unlink(os.path.join())
         raise SystemExit(0)
 
@@ -266,24 +267,18 @@ Please report this error to {2} right away.
 # -------- Begin Settings Reading -------- #
 
 
-def ReadPiInstall():
+def readPiInstall():
     """Reads file containing location of PatchIt! installation"""
     # The Updater's own settings could not be found, return False
-    if not os.path.exists(updater_file):
+    if not os.path.exists(updaterFile):
         return False
 
-    # They exist, read it for the installation
+    # It exists, read it for the installation
     else:
-        # The file cannot be used, go rewrite it
-        if encode_check(updater_file):
-            SelectPiInstall()
+        with open(updaterFile, "rt") as f:
+            settingsData = json.load(f)
 
-        with open(updater_file, "rt", encoding="utf-8") as f:
-            pi_install_path = f.readlines()[2]
-
-        # Clean up reading
-        pi_install_path = pi_install_path.strip()
-        return pi_install_path
+        return settingsData["installPath"]
 
 # -------- End Settings Reading -------- #
 
@@ -291,45 +286,46 @@ def ReadPiInstall():
 # -------- Begin PatchIt! Installation Search -------- #
 
 
-def SelectPiInstall():
+def selectPiInstall():
     """Searches or asks for user's PatchIt! installation"""
     # Used to detect if user needs to manually define an installation
-    found_install = False
+    foundInstall = False
 
     # Path to check for PatchIt! on Windows x64
-    x64_path = os.path.join(os.path.expandvars("%ProgramFiles(x86)%"), "PatchIt")
+    x64Path = os.path.join(os.path.expandvars("%ProgramFiles(x86)%"),
+                            "PatchIt")
 
     # Path to check for PatchIt! on Windows x86
-    x86_path = os.path.join(os.path.expandvars("%ProgramFiles%"), "PatchIt")
+    x86Path = os.path.join(os.path.expandvars("%ProgramFiles%"), "PatchIt")
 
     # Perhaps the Updater is in the same place as PatchIt!.
     # In that case, use a different method for finding the installation
-    same_path = os.path.join(os.path.dirname(appFolder), "Settings")
+    samePath = os.path.join(os.path.dirname(appFolder), "Settings")
 
     # The updater resides in the same location as PatchIt!
-    if os.path.exists(same_path):
+    if os.path.exists(samePath):
         # It's been found, no need for user to define it
-        found_install = True
+        foundInstall = True
         # Write the installation to file
-        SavePiInstall(os.path.dirname(appFolder))
+        savePiInstall(os.path.dirname(appFolder))
 
     # If this is x64 Windows, look for PatchIt in Program Files (x86)
-    if os_bit:
-        if os.path.exists(os.path.join(x64_path, "PatchIt.exe")):
+    if osBit:
+        if os.path.exists(os.path.join(x64Path, "PatchIt.exe")):
             # It's been found, no need for user to define it
-            found_install = True
+            foundInstall = True
             # Write the installation to file
-            SavePiInstall(x64_path)
+            savePiInstall(x64Path)
 
     # If this is x86 Windows, look for PatchIt in Program Files
     else:
-        if os.path.exists(os.path.join(x86_path, "PatchIt.exe")):
+        if os.path.exists(os.path.join(x86Path, "PatchIt.exe")):
             # It's been found, no need for user to define it
-            found_install = True
+            foundInstall = True
             # Write the installation to file
-            SavePiInstall(x86_path)
+            savePiInstall(x86Path)
 
-    if not found_install:
+    if not foundInstall:
         print('''Could not find a valid PatchIt! installation!
 Please select your PatchIt! installation.''')
 
@@ -348,7 +344,7 @@ Please select your PatchIt! installation.''')
         root.focus_force()
 
         # Select PatchIt.exe
-        pi_path = filedialog.askopenfilename(
+        piPath = filedialog.askopenfilename(
             parent=root,
             title="Where is PatchIt.exe",
             defaultextension=".exe",
@@ -359,12 +355,12 @@ Please select your PatchIt! installation.''')
         root.destroy()
 
         # Get the directory PatchIt! is in
-        pi_path = os.path.dirname(pi_path)
+        piPath = os.path.dirname(piPath)
 
         # The user clicked the cancel button
-        if pi_path:
+        if piPath:
             # Write the installation to file
-            SavePiInstall(pi_path)
+            savePiInstall(piPath)
 
 # -------- End PatchIt! Installation Search -------- #
 
@@ -372,67 +368,63 @@ Please select your PatchIt! installation.''')
 # -------- Begin Settings Writing -------- #
 
 
-def SavePiInstall(install_path):
+def savePiInstall(installLoc):
     """Saves the installation of PatchIt! for later use"""
     # Replace any backslashes with forwardslashes
-    if "\\" in install_path:
-        install_path = install_path.replace("\\", "/")
+    if "\\" in installLoc:
+        installLoc = installLoc.replace("\\", "/")
 
-    #TODO: Consider using pickle instead
-    # Write file containing installation using UTF-8 encoding
-    with open(updater_file, "wt", encoding="utf-8") as f:
-        f.write("// PatchIt! Updater Settings\n")
-        f.write("# Location of your PatchIt! installation\n")
-        f.write(install_path)
+    jsonData = {"installPath": installLoc}
+
+    # Write JSON file containing installation
+    with open(updaterFile, "wt") as f:
+        f.write(str(jsonData).replace("'", '"'))
 
 # -------- End Settings Writing -------- #
 
 
 # -------- Begin Version Identification -------- #
 
-def encode_check(the_file):
+def encodeCheck(theFile):
     """Check if file is properly encoded"""
-    with open(the_file, "rb") as encode_check:
-        encoding = encode_check.readline(3)
+    with open(theFile, "rb") as f:
+        encoding = f.readline(3)
 
-    if (  # The settings file uses UTF-8-BOM encoding
-        encoding == b"\xef\xbb\xbf"
-        # The settings file uses UCS-2 Big Endian encoding
-        or encoding == b"\xfe\xff\x00"
-        # The settings file uses UCS-2 Little Endian
-            or encoding == b"\xff\xfe/"):
-                return True
+    # UTF-8BOM, UCS-2 Big Endian, UCS-2 Little Endian, respectivl
+    if encoding in (b"\xef\xbb\xbf", b"\xfe\xff\x00", b"\xff\xfe/"):
+        return True
+    return False
 
 
-def GetNewVersion():
+def getNewVersion():
     """Download and read file listing newest PatchIt! version"""
     # Download the file with the newest info
     try:
-        wget.download(LinkFile)
+        wget.download(linkFile)
 
     # The file could not be downloaded
     #TODO: Remove ValueError when code is near completion
-    except (HTTPError, ValueError):
+    except (HTTPError, URLError, ValueError):
         print('''
 {0} could not be downloaded from
 {1}
 
 Please report this error to {2} right away.
-'''.format(LinkFileName, LinkFile.strip(LinkFileName), author))
+'''.format(linkFileName, linkFile.strip(linkFileName), author))
         #TODO: Reenable closing
         #CloseUpdater()
 
     # The file was downloaded, now read it
-    with open(os.path.join(appFolder, LinkFileName), "rt",
+    with open(os.path.join(appFolder, linkFileName), "rt",
               encoding="utf-8") as f:
         lines = f.readlines()[:]
 
     # Assign the proper value for each line
-    version_full = "".join(lines[0])
-    download_link = "".join(lines[1])
+    fullVersion = "".join(lines[0])
+    downloadLink = "".join(lines[1])
 
     # Split reading into version number and title
-    applepie = version_full.split(" ")
+    applepie = fullVersion.split(" ")
     version = applepie[0]
     title = applepie[1]
     build = applepie[3]
@@ -441,52 +433,52 @@ Please report this error to {2} right away.
     version = version.strip()
     title = title.strip()
     build = build.strip()
-    download_link = download_link.strip()
+    downloadLink = downloadLink.strip()
 
     # Delete readings, since they are no longer needed
     del lines[:]
     del applepie[:]
-    return (version, title, build, download_link)
+    return (version, title, build, downloadLink)
 
 
-def GetCurrentVersion(pi_settings_fol):
+def getCurrentVersion(piSettingsFol):
     """Gets user's version of PatchIt!"""
     # Full path to file containing PatchIt! version
-    pi_settings_file = os.path.join(pi_settings_fol, "PatchIt.cfg")
+    piSettingsFile = os.path.join(piSettingsFol, "PatchIt.cfg")
 
     # This is pre-v1.1.1 PatchIt!, because the file cannot be found
-    if not os.path.exists(pi_settings_file):
+    if not os.path.exists(piSettingsFile):
         print('''Your version of PatchIt! could not be determined.
 Press Enter to begin the update process, or any other key to quit.''')
         # So it needs updating
 
         # Prompt to begin update
-        update_me = input("\n> ")
+        updateMe = input("\n> ")
 
         # User does not want to update
-        if update_me:
-            CloseUpdater()
+        if updateMe:
+            closeUpdater()
         else:
             #TODO: Run the update process
             pass
 
     # The file cannot be used, go rewrite it
-    if encode_check(pi_settings_file):
+    if encodeCheck(piSettingsFile):
         print('''ERROR: Cannnot determine your version of PatchIt!.
 Please go run PatchIt! then launch the Updater again.''')
-        CloseUpdater()
+        closeUpdater()
 
     # Read PatchIt.cfg to get current version
-    with open(pi_settings_file, "rt", encoding="utf-8") as f:
-        existing_version = f.readlines()[2]
+    with open(piSettingsFile, "rt", encoding="utf_8") as f:
+        existingVersion = f.readlines()[2]
 
     # Split reading into version number and title
-    bananasplit = existing_version.split(" ")
-    version = bananasplit[0]
-    title = bananasplit[1]
+    bananaSplit = existingVersion.split(" ")
+    version = bananaSplit[0]
+    title = bananaSplit[1]
     # Get the build number
     try:
-        build = bananasplit[3]
+        build = bananaSplit[3]
     # The build number system was not yet implemented (v1.1.0 and v1.1.1)
     except IndexError:
         build = "Unknown"
@@ -497,7 +489,7 @@ Please go run PatchIt! then launch the Updater again.''')
     build = build.strip()
 
     # Delete reading, since it is no longer needed
-    del bananasplit[:]
+    del bananaSplit[:]
     return (version, title, build)
 
 
@@ -507,10 +499,10 @@ Please go run PatchIt! then launch the Updater again.''')
 # -------- Begin Version Comparison -------- #
 
 
-def CompareVersion(cur_version, new_version):
+def compareVersion(curVersion, newVersion):
     """Compares the version numbers"""
     # Check if the version numbers are different, and send back the result
-    if cur_version != new_version:
+    if curVersion != newVersion:
         return False
 
     # The versions are the same
@@ -518,10 +510,10 @@ def CompareVersion(cur_version, new_version):
         return True
 
 
-def CompareTitle(cur_title, new_title):
+def compareTitle(curTitle, newTitle):
     """Compares the version titles"""
     # The titles are not the same
-    if cur_title != new_title:
+    if curTitle != newTitle:
         return False
 
     # They titles are the same
@@ -529,14 +521,14 @@ def CompareTitle(cur_title, new_title):
         return True
 
 
-def CompareBuild(cur_build, new_build):
+def compareBuild(curBuild, newBuild):
     """Compares the builds numbers"""
     # Convert numbers to an integer
-    int_cur_build = int(cur_build)
-    int_new_build = int(new_build)
+    intCurBuild = int(curBuild)
+    intNewBuild = int(newBuild)
 
     # The new build number is greater than the old one
-    if int_new_build > int_cur_build:
+    if intNewBuild > intCurBuild:
         return False
 
     # They build numbers are the same
@@ -546,15 +538,15 @@ def CompareBuild(cur_build, new_build):
 # -------- End Version Comparison -------- #
 
 
-def DownloadUpdate(UpdateDL, InstallPath):
+def downloadUpdate(updateDL, installLoc):
     """Download and install the delta update"""
 
     # Perform final RunAsAdmin cleanup
-    RunAdminDL(start=False)
+    runAdminDL(start=False)
 
 if __name__ == "__main__":
     # Write window title
     os.system("title {0} {1} {2}".format(app, majVer, minVer))
     # Run updater
     #args()
-    main(DoAdmin=True)
+    main(useAdmin=True)

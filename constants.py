@@ -26,18 +26,20 @@ PatchIt! Constants
 
 import sys
 import os
+from datetime import datetime
 
 # App name and version
 appName = "PatchIt!"
 majVer = "1.1.3"
 minVer = "Unstable"
 creator = "Triangle717"
+currentYear = datetime.now().year
 
 # GLobal game data
 LRGame = "LEGO Racers"
 LRSettingsJson = "Racers.json"
 LRSettings = "Racers.cfg"
-PiSettings = "PatchIt.cfg"
+piSettings = "PatchIt.json"
 
 # Name of PatchIt! Exe/Py
 exeName = os.path.basename(sys.argv[0])

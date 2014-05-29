@@ -34,6 +34,7 @@ import webbrowser
 import platform
 import subprocess
 import argparse
+import json
 
 # App Logging
 import logging
@@ -71,7 +72,7 @@ def args():
 
     parser = argparse.ArgumentParser(
         description="{0} {1} {2} Command-line Arguments".format(
-            const.app, const.majVer, const.minVer))
+            const.appName, const.majVer, const.minVer))
 
     # Experimental Mode argument
     parser.add_argument("-t", "--test",
@@ -136,7 +137,7 @@ def info():
     logging.info('''
                                 #############################################
                                         {0} Version {1} {2}
-                                          Created 2013 {3}
+                                      Created 2013-{3} {4}
                                                 PatchIt.log
 
 
@@ -145,14 +146,15 @@ def info():
                                     and attach this file for an quicker fix!
                                 #############################################
                                 '''.format(
-        const.app, const.majVer, const.minVer, const.creator))
+        const.appName, const.majVer, const.minVer,
+        const.currentYear, const.creator))
 
 
 def preload():
     """PatchIt! Settings checks"""
     # Write general PatchIt! settings.
     # A check is not needed for this, it is always written.
-    PiSettings()
+    piSettings()
 
     # Assign variables for easier access
     hasLRSettings = Racers.CheckLRSettings()
@@ -177,8 +179,8 @@ def about():
 
     root = tk.Tk()
     # Window title
-    root.title("About {0} Version {1}".format(const.app, const.majVer))
-    # The box cannot be other size
+    root.title("About {0} Version {1}".format(const.appName, const.majVer))
+    # The box cannot be resized
     root.minsize("420", "280")
     root.maxsize("420", "280")
 
@@ -206,13 +208,14 @@ def about():
 
             {0} Version {1} {2}
                               Build {3}
-               Released ?? ??, 2014
+               Released ?? ??, {4}
 
-            Created 2013 Triangle717
+       Created 2013-{4} Triangle717
 
 "PatchIt! - The standard and simple way to
 package and install mods for LEGO Racers"
-'''.format(const.app, const.majVer, const.minVer, buildNum))
+'''.format(const.appName, const.majVer, const.minVer,
+           buildNum, const.currentYear))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -266,10 +269,9 @@ def main(num_of_loops=1):
             num_of_loops = 2
 
         # And display the menu only at the valid times
-        colors.text("\nWelcome to {0} Version {1} {2}\ncreated 2013-2014 {3}"
-                    .format(
-                        const.app, const.majVer, const.minVer, const.creator),
-                    color.FG_WHITE)
+        colors.text("\n{0} Version {1} {2}\ncreated 2013-{3} {4}".format(
+                    const.appName, const.majVer, const.minVer,
+                    const.currentYear, const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")
         print('''
@@ -281,16 +283,16 @@ Please make a selection:
 
                       [q] Quit''')
 
-    menuopt = input("\n> ")
+    menuChoice = input("\n> ")
     while True:
         # About PatchIt! box
-        if menuopt.lower() == "a":
+        if menuChoice.lower() == "a":
             logging.info("User pressed '[a] About PatchIt!'")
             logging.info("Opening About Box")
             about()
 
         # Patch Creation
-        elif menuopt.lower() == "c":
+        elif menuChoice.lower() == "c":
             logging.info("User pressed '[c] Create a PatchIt! Patch'")
 
             # Run the Patch Creation process
@@ -298,7 +300,7 @@ Please make a selection:
             create.patchInfo()
 
         # Patch Installation
-        elif menuopt.lower() == "i":
+        elif menuChoice.lower() == "i":
             logging.info("User pressed '[i] Install a PatchIt! Patch'")
 
             # Run the Patch Installation process
@@ -306,7 +308,7 @@ Please make a selection:
             install.selectPatch()
 
         # JAM Extractor wrapper
-        elif menuopt.lower() == "j":
+        elif menuChoice.lower() == "j":
             logging.info("User pressed '[j] JAM Extractor'")
 
             # Run the JAM Extractor wrapper
@@ -314,22 +316,22 @@ Please make a selection:
             legojam.main()
 
         # PatchIt! Settings
-        elif menuopt.lower() == "s":
+        elif menuChoice.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
             logging.info("Proceeding to LEGO Racers Settings")
             Racers.LRReadSettings()
 
         # Easter egg
-        elif menuopt.lower() == 'e':
+        elif menuChoice.lower() == 'e':
             logging.info("User pressed the 'e' key")
             easteregg()
 
         # Run LEGO Racers
-        elif menuopt.lower() == "r":
+        elif menuChoice.lower() == "r":
             rungame.PlayRacers().Race()
 
         # Close PatchIt!
-        elif menuopt.lower() == "q":
+        elif menuChoice.lower() == "q":
             logging.info("User pressed '[q] Quit'")
             logging.info('''PatchIt! is shutting down
             ''')
@@ -369,30 +371,29 @@ def easteregg():
 # ------------ Begin PatchIt! General Settings ------------ #
 
 
-def PiSettings():
+def piSettings():
     """Writes PatchIt! General Settings"""
-    #TODO: Will be expanded with more data in a future release
-    the_file = os.path.join(const.settingsFol, const.PiSettings)
-    logging.info("Writing {0}".format(the_file))
+    #TODO: Will be expanded with more data in future releases,
+    # including portable awareness
+    theFile = os.path.join(const.settingsFol, const.piSettings)
+    logging.info("Writing {0}".format(theFile))
 
     # If the Settings folder does not exist, create it
     if not os.path.exists(const.settingsFol):
         os.makedirs(const.settingsFol)
 
-    with open(os.path.join(the_file), "wt", encoding="utf-8") as f:
-        logging.info("Write line telling what program this file belongs to")
-        f.write("// PatchIt! General Settings\n")
+    jsonData = {
+        "majVer": const.majVer,
+        "minVer": const.minVer,
+        "buildNum": buildNum
+    }
 
-        # Write comment stating identifying the line
-        logging.info("Writing comment identifying the line")
-        f.write("# The version of PatchIt! you have\n")
-
-        # Write the PatchIt! Major and Minor number,
-        # as defined in the `majVer` and `minVer` variables
-        logging.info("Writing version number of this copy of PatchIt")
-        f.write("{0} {1} Build {2}".format(
-            const.majver, const. minVer, buildNum))
-
+    # Write the PatchIt! Major and Minor number,
+    # as defined in the `majVer` and `minVer` variables
+    with open(os.path.join(theFile), "wt") as f:
+        # Use JSON required double quotes
+        f.write(str(jsonData).replace("'", '"'))
+    return True
 
 # ------------ End PatchIt! General Settings ------------ #
 
