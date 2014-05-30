@@ -2,10 +2,11 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,7 +23,7 @@
 
 
 -------------------------------------
-PatchIt! v1.1.2 Shell Text Colors
+PatchIt! Shell Text Colors
 Taken from https://github.com/imayhaveborkedit/lms-lrr-modding-system
 and updated with Python 3 support
 """
@@ -38,9 +39,9 @@ def get_csbi_attributes(handle):
     res = ctypes.windll.kernel32.GetConsoleScreenBufferInfo(handle, csbi)
     assert res
 
-    (bufx, bufy, curx, cury, wattr,
-     left, top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh",
-                                                           csbi.raw)
+    (bufx, bufy, curx, cury, wattr, left,
+     top, right, bottom, maxx, maxy) = struct.unpack("hhhhHhhhhhh",
+                                                     csbi.raw)
     return wattr
 
 

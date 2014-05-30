@@ -1,4 +1,4 @@
-#! python3
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 # <pep8-80 compliant>
 """
@@ -8,10 +8,11 @@
 
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,8 +28,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! v1.1.2 Stable Python Version Check,
-PatchIt! Logger, and PatchIt! Launcher
+PatchIt! Python Version Check, Logger, and Launcher
 """
 
 import sys
@@ -42,15 +42,13 @@ import constants as const
 import runasadmin
 
 try:
-    # Python 3 import
+    # Python 3
     import tkinter as tk
     from tkinter.messagebox import showerror
 except ImportError:
-    # Python 2 import
-    #lint:disable
+    # Python 2
     import Tkinter as tk
     from tkMessageBox import showerror
-    #lint:enable
 
 # User is not running < Python 3.3.0
 if sys.version_info < (3, 3, 0):
@@ -65,7 +63,7 @@ You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
     # New tab, raise browser window (if possible)
     webbrowser.open_new_tab("http://python.org/download/")
 
-    # Close PatchIt!  when user presses OK
+    # Close PatchIt! when user presses OK
     raise SystemExit(0)
 
 # The user is running Python 3.3.x, continue on
@@ -83,8 +81,6 @@ def appLoggingFolder():
 
         # The Logs folder does not exist
         if not os.path.exists(logsFolder):
-
-            # Create the Logs folder
             os.mkdir(logsFolder)
 
     # -- Begin Logging Configuration -- #

@@ -1,4 +1,4 @@
-#! python3.3-32
+#! /usr/bin/env python3.3-32
 # -*- coding: utf-8 -*-
 # <pep8-80 compliant>
 """
@@ -9,10 +9,11 @@
 
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,10 +29,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! setup script using cx_Freeze.
-Taken from https://github.com/Lyrositor/EBPatcher
-and https://github.com/JrMasterModelBuilder/JAM-Extractor
-With changes by Triangle717
+PatchIt! setup script using cx_Freeze
 """
 
 import os

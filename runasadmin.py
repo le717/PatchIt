@@ -2,10 +2,11 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,14 +22,14 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-# PatchIt! v1.1.2 Stable RunAsAdmin Intergration
+PatchIt! RunAsAdmin Intergration
 """
 
 import os
 import subprocess
 
 # Tkinter GUI library
-from tkinter import Tk
+import tkinter
 from tkinter.messagebox import (showerror, askyesno)
 
 # App Logging
@@ -43,28 +44,27 @@ class AdminRun(object):
 
     def __init__(self):
         """Draw (then withdraw) root Tkinter window"""
-        self.main = Tk()
-        self.main.withdraw()
-        self.main.iconbitmap(const.appIcon)
+        self.__main = tkinter.Tk()
+        self.__main.withdraw()
+        self.__main.iconbitmap(const.appIcon)
 
     def launch(self, messages):
         """Relaunch PatchIt! with administrator rights"""
-
         # Display any message(s) properly
         if messages[1:] == []:
-            end = ""
+            __end = ""
         else:
-            end = "".join(messages[1:])
+            __end = "".join(messages[1:])
 
         __admin = askyesno("Relaunch PatchIt?",
-                           '''{0}
-Would you like to relaunch PatchIt! with Administrator rights? {1}'''.format(
-                           messages[0], end))
+                           """{0}
+Would you like to relaunch PatchIt! with Administrator rights? {1}""".format(
+                           messages[0], __end))
 
         # User does not want to relaunch PatchIt!
         if not __admin:
             logging.warning("User does not want to relaunch with Admin rights")
-            self.main.destroy()
+            self.__main.destroy()
             return False
         # If user wants to relaunch
         else:
@@ -73,26 +73,24 @@ Would you like to relaunch PatchIt! with Administrator rights? {1}'''.format(
             # This is the raw Python script. RunAsAdmin will not work
             if (const.exeName.endswith("py") or
                     const.exeName.endswith("pyw")):
-                logging.warning('''This is a raw Python script ({0})
-RunAsAdmin.exe cannot operate!'''.format(const.exeName))
+                logging.warning("""This is a raw Python script ({0})
+RunAsAdmin.exe cannot operate!""".format(const.exeName))
 
                 showerror("Running Error!",
-                          '''You are running a raw Python script ({0}).
-RunAsAdmin will not work at all.'''.format(const.exeName))
-                self.main.destroy()
+                          """You are running a raw Python script ({0}).
+RunAsAdmin will not work at all.""".format(const.exeName))
+                self.__main.destroy()
                 return False
 
             # Launch RunAsAdmin to reload PatchIt!
             else:
-                logging.info('''This is an exe ({0}).
-Launching RunAsAdmin.exe'''.format(const.exeName))
+                logging.info("""This is an exe ({0}).
+Launching RunAsAdmin.exe""".format(const.exeName))
 
-                subprocess.call(
-                    [os.path.join(const.appFolder, "RunAsAdmin.exe"),
-                        const.exeName])
+                subprocess.call([os.path.join(
+                    const.appFolder, "RunAsAdmin.exe"), const.exeName])
 
                 # Now we close PatchIt!, and let RunAsAdmin take over
-                # (that is, if this is an exe)
-                self.main.destroy()
+                self.__main.destroy()
                 logging.shutdown()
                 raise SystemExit(0)

@@ -2,10 +2,11 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +22,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-LEGO Racers Launcher
+PatchIt! LEGO Racers Launcher
 """
 
 import os
@@ -49,7 +50,7 @@ class PlayRacers(object):
         self.__LRE = "LEGORacers.exe"
         # Parameter to skip intro movies
         self.__novideo = "-novideo"
-        # Exe parameters for future use
+        #TODO: Exe parameters for future use
         #self.__horz = horz
         #self.__vert = vert
         #self.__horzres = "-horzres {0}".format(int(self.__horz))
@@ -72,14 +73,14 @@ class PlayRacers(object):
             raise SystemExit(0)
 
         # Except LEGORacers.exe could not be found
-        except FileNotFoundError:  # lint:ok
+        except FileNotFoundError:
             logging.warning("LEGORacers.exe could not be found at {0}!"
                             .format(install_path))
             colors.text("\nLEGORacers.exe could not be found at \n\n{0}"
                   .format(install_path), color.FG_LIGHT_RED)
 
         # Except we need admin righs to do it
-        except (OSError, PermissionError):  # lint:ok
+        except (OSError, PermissionError):
             logging.exception('''Something went wrong! Here's what happened
 ''', exc_info=True)
             # Temp excuse since I can't get RunAsAdmin working

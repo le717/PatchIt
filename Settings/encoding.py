@@ -2,10 +2,11 @@
 """
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,27 +24,27 @@
 
 import logging
 
+#TODO: Rename function to use camelCase
 
-def check_encoding(file_path):
+
+def check_encoding(filePath):
     """
-    Check the encoding of a text file,
+    Check the encoding of a file,
     ensuring it uses UTF-8-NOBOM.
     """
-    logging.info("Check encoding of {0} before installation".format(file_path))
+    logging.info("Check encoding of {0} before installation".format(filePath))
 
     # Open it, read just the area containing the byte mark
-    with open(file_path, "rb") as encode_check:
-        encoding = encode_check.readline(3)
+    with open(filePath, "rb") as encodeCheck:
+        encoding = encodeCheck.readline(3)
 
     # The settings file is encoding using either
     # UTF-8BOM, UCS-2 Big Endian, or UCS-2 Little Endian.
     # The last two items are two variants of UCS-2LE I keep coming across.
     if encoding in (b"\xef\xbb\xbf", b"\xfe\xff\x00",
                     b"\xff\xfe0", b"\xff\xfe/"):
-
         # The encoding is not correct
         return True
 
     # The file used the proper (UTF-8NOBOM) encoding
-    else:
-        return False
+    return False

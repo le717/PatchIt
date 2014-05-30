@@ -5,10 +5,11 @@
 
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,7 +25,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! v1.1.3 Unstable Modern Patch Creation code
+PatchIt! v1.1.3 Unstable Patch Creation code
 """
 
 # General imports
@@ -35,7 +36,7 @@ import distutils.dir_util
 import fnmatch
 
 # File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
+from tkinter import (Tk, filedialog)
 
 # App Logging module
 import logging
@@ -54,7 +55,7 @@ import Color.colors as colors
 import runasadmin
 
 # Temporary directory for compression
-temp_folder = "PatchIt_Temp_Folder"
+temp_folder = "PatchIt-Temp-Folder"
 
 
 def upperCaseConvert(path):
@@ -97,7 +98,7 @@ def upperCaseConvert(path):
                     # Finally, rename the file
                     os.replace(myFile, theFile)
 
-    # Tracebacks are dumped to the log aready,
+    # Tracebacks are dumped to the log already,
     # we simply have to catch them
     except Exception:
         pass
@@ -106,7 +107,7 @@ def upperCaseConvert(path):
 # ------------ Begin Illegal File Check ------------ #
 
 
-def file_check(path):
+def fileCheck(path):
     """Check for and remove illegal files"""
     # List of all file extenions present in a Racers installation
     whiteList = [
@@ -163,7 +164,7 @@ def file_check(path):
     # --- End Illegal File Scan -- #
 
 
-def delete_files():
+def deleteFiles():
     """Deletes temporary folder created during compression"""
     try:
         #lint:disable
@@ -521,7 +522,7 @@ def writePatch(patch_files, mp, game):
 
         # Run illegal file check
         logging.info("Run file_check() to check for and remove illegal files")
-        file_check(patch_files)
+        fileCheck(patch_files)
 
         # Change the working directory to the Patch Files directory
         logging.info("Change the working directory to {0}".format(
@@ -616,8 +617,8 @@ PatchIt! ran into an unknown error while trying to create
             const.appFolder))
         os.chdir(const.appFolder)
         # Run process to restore all the files in the Patch files
-        logging.info("Run delete_files() to remove temporary folder")
-        delete_files()
+        logging.info("Run process to remove temporary folder")
+        deleteFiles()
         PatchIt.main()
 
 

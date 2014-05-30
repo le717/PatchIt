@@ -1,12 +1,13 @@
-#! /usr/bin/python3
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,12 +30,11 @@ import os
 import distutils.dir_util
 
 
-def cleanup(destfolder):
+def cleanup(destFolder):
     """Remove unneeded Tkinter files"""
-    # Small bit of whitespace
     print("\n")
     # Delete the unneeded items from the freeze
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tcl", "tzdata"))
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tcl", "http1.0"))
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tk", "demos"))
-    distutils.dir_util.remove_tree(os.path.join(destfolder, "tk", "images"))
+    distutils.dir_util.remove_tree(os.path.join(destFolder, "tcl", "tzdata"))
+    distutils.dir_util.remove_tree(os.path.join(destFolder, "tcl", "http1.0"))
+    distutils.dir_util.remove_tree(os.path.join(destFolder, "tk", "demos"))
+    distutils.dir_util.remove_tree(os.path.join(destFolder, "tk", "images"))

@@ -6,10 +6,11 @@
 
     This file is part of PatchIt!
 
-    PatchIt! - the standard and simple way to package and install mods
-    for LEGO Racers
+    PatchIt!
+    The standard and simple way to package and install LEGO Racers mods
 
-    Created 2013-2014 Triangle717 <http://Triangle717.WordPress.com/>
+    Created 2013-2014 Triangle717
+    <http://Triangle717.WordPress.com/>
 
     PatchIt! is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +26,7 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-PatchIt! v1.1.3 Unstable Modern Patch Installation code
+PatchIt! v1.1.3 Unstable Patch Installation code
 """
 
 # General imports
@@ -38,7 +39,7 @@ import random
 import logging
 
 # File/Folder Dialog Boxes
-from tkinter import (filedialog, Tk)
+from tkinter import (Tk, filedialog)
 
 # PatchIt! modules
 import PatchIt
@@ -96,7 +97,7 @@ def selectPatch(*args):
         logging.warning("User did not select a PatchIt! Patch to install!")
         colors.text("\nCould not find a PatchIt! Patch to read!",
                     color.FG_LIGHT_RED)
-        time.sleep(0.7)
+        time.sleep(0.6)
 
         PatchIt.main()
 
@@ -121,7 +122,6 @@ def checkPatch(patch):
     """
     # Check encoding of Patch file
     if encoding.check_encoding(patch):
-
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
         logging.warning("{0} is written using an unsupported encoding!".format(
             patch))
@@ -137,31 +137,32 @@ def checkPatch(patch):
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
     logging.info("Read {0} for PiP validity line and Archive format".format(
         patch))
+
     with open(patch, "rt", encoding="utf-8") as f:
         lines = f.readlines()[0:2]
-    valid_line = "".join(lines[0])
-    archive_line = "".join(lines[1:])
+    validLine = "".join(lines[0])
+    archiveLine = "".join(lines[1:])
 
     logging.info("Cleaning up validity lines")
-    valid_line = valid_line.strip()
-    archive_line = archive_line.strip()
+    validLine = validLine.strip()
+    archiveLine = archiveLine.strip()
     logging.info("The validity lines reads\n{0} and \n{1}"
-                 .format(valid_line, archive_line))
+                 .format(validLine, archiveLine))
 
     # PiP File Format 1.1.x validity line
-    current_valid_line = "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
+    curValidLine = "// PatchIt! PiP file format V1.1, developed by le717 and rioforce"
     # PiP File Format 1.0.x validity line
-    original_valid_line = "// PatchIt! Patch format, created by le717 and rioforce."
+    orgValidLine = "// PatchIt! Patch format, created by le717 and rioforce."
 
     # It's a legacy Patch
-    if (valid_line == original_valid_line and archive_line == "[General]"):
+    if (validLine == orgValidLine and archiveLine == "[General]"):
         logging.warning("{0} is an unsupported legacy PatchIt! Patch!\n"
                         .format(patch))
         colors.text('''\n"{0}"\nis a legacy PatchIt! Patch.
 
 Legacy PatchIt! Patches are no longer supported!
-You may want to contact the person you got this from and ask
-for an updated version, check if an updated version is available,
+You should contact the person you recieve this from and ask
+for an updated Patch, check if an updated version is available,
 or download a copy of PatchIt! Version 1.1.2 Stable, the last release
 to support this Patch version.'''
                     .format(patch), color.FG_LIGHT_RED)
@@ -177,7 +178,7 @@ to support this Patch version.'''
         PatchIt.main()
 
     # It's a modern Patch
-    elif (valid_line == current_valid_line and archive_line == "[PiA]"):
+    elif (validLine == curValidLine and archiveLine == "[PiA]"):
         logging.info("{0} is a modern PatchIt! Patch".format(patch))
 
         # Delete validity lines from memory
@@ -188,7 +189,7 @@ to support this Patch version.'''
         readModernPatch(patch)
 
     # It's a V1.1.0 transition Patch, a version that is NEVER to be used
-    elif (valid_line == current_valid_line and archive_line == "[ZIP]"):
+    elif (validLine == curValidLine and archiveLine == "[ZIP]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
                     color.FG_LIGHT_RED)
@@ -202,7 +203,7 @@ to support this Patch version.'''
 
     # It's not a Patch at all! D:
     # The same message as V1.1.0 Patch
-    elif (valid_line != current_valid_line and archive_line != "[PiA]"):
+    elif (validLine != curValidLine and archiveLine != "[PiA]"):
         logging.warning("{0} is not a valid PatchIt patch!\n".format(patch))
         colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
                     color.FG_LIGHT_RED)
@@ -227,44 +228,44 @@ def readModernPatch(patch):
     logging.info("Reading contents of Patch")
     with open(patch, "rt", encoding="utf-8") as f:
         # Global so the data from it can be deleted after installation
-        global all_lines
-        all_lines = f.readlines()[:]
+        global allLines
+        allLines = f.readlines()[:]
 
     # Assign Patch PiA
     logging.info("Assigning line 3 of {0} to PiA Archive".format(patch))
-    patch_archive = all_lines[2]
+    patchArchive = allLines[2]
 
     # Assign Patch Name
     logging.info("Assigning line 5 of {0} to Name".format(patch))
-    name = all_lines[4]
+    name = allLines[4]
 
     # Assign Patch Version
     logging.info("Assigning line 6 of {0} to Version".format(patch))
-    version = all_lines[5]
+    version = allLines[5]
 
     # Assign Patch Author
     logging.info("Assigning line 7 of {0} to Author".format(patch))
-    author = all_lines[6]
+    author = allLines[6]
 
     # Assign Patch MP
     logging.info("Assigning line 8 of {0} to MP".format(patch))
-    mp = all_lines[7]
+    mp = allLines[7]
 
     # Assign Patch Game field
     logging.info("Assigning line 9 of {0} to Game".format(patch))
-    game = all_lines[8]
+    game = allLines[8]
 
     # Assign Patch Description to lines 11-13,
     # or until there is no more text
     logging.info("Assigning lines 11-13 of {0} to Description".format(patch))
-    desc = all_lines[10:]
+    desc = allLines[10:]
 
     # Convert (and remove) list to string
     desc = "".join(desc)
 
     # Clean up the Patch info
     logging.info("Cleaning up all fields")
-    patch_archive = patch_archive.strip()
+    patchArchive = patchArchive.strip()
     name = name.strip()
     author = author.strip()
     version = version.strip()
@@ -286,13 +287,13 @@ and request a proper Patch.'''.format(name, version, game, author),
         time.sleep(5)
 
         # Delete all PiP data to free up resources
-        del all_lines[:]
+        del allLines[:]
 
         # Go back to the main menu
         PatchIt.main()
 
     # Remove Game field, as it is no longer needed
-    del all_lines[8]
+    del allLines[8]
 
     # Display all the info
     logging.info("Display all Patch info")
@@ -312,10 +313,10 @@ Author: {2}
     print("\nDo you wish to install {0} (Version: {1})?\n".format(
         name, version))
 
-    confirm_install = input(r"[Y\N] > ")
+    confirmInstall = input(r"[Y\N] > ")
 
     # No, I do not want to install the patch
-    if confirm_install.lower() != "y":
+    if confirmInstall.lower() != "y":
         logging.warning("User does not want to install {0} (Version: {1})!"
                         .format(name, version))
         colors.text("\nCanceling installation of {0} (Version: {1})".format(
@@ -328,28 +329,28 @@ Author: {2}
         logging.info("User does want to install {0} (Version: {1}).".format(
             name, version))
         logging.info("Proceeding to installModernPatch()")
-        installModernPatch(patch, name, version, author, mp, patch_archive)
+        installModernPatch(patch, name, version, author, mp, patchArchive)
 
 
-def installModernPatch(patch, name, version, author, mp, patch_archive):
+def installModernPatch(patch, name, version, author, mp, patchArchive):
     """Installs a Modern PatchIt! Patch"""
 
     # Get the Racers installation path
     logging.info("Get path to the Racers installation")
-    install_path = Racers.getRacersPath()
+    installPath = Racers.getRacersPath()
 
     # Find the PiA archive
-    patch_location = os.path.dirname(patch)
-    logging.info("Locate PiA archive at {0}".format(patch_location))
+    patchLocation = os.path.dirname(patch)
+    logging.info("Locate PiA archive at {0}".format(patchLocation))
 
     try:
         # Actually extract the PiA archive
-        logging.info("Extracting {0} to {1}".format(patch_archive,
-                                                    install_path))
+        logging.info("Extracting {0} to {1}".format(patchArchive,
+                                                    installPath))
 
         with tarfile.open(os.path.join(
-                          patch_location, patch_archive), "r") as tar_file:
-            tar_file.extractall(install_path)
+                          patchLocation, patchArchive), "r") as tar_file:
+            tar_file.extractall(installPath)
 
         # Display gameplay tip only if Patch was successfully installed
         logging.info("Display LEGO Racers gameplay tip")
@@ -361,12 +362,12 @@ def installModernPatch(patch, name, version, author, mp, patch_archive):
         logging.info('''
 
 {0} (Version: {1}) successfully installed to {2}'''
-                     .format(name, version, install_path))
+                     .format(name, version, installPath))
         colors.text('{0} (Version: {1}) sucessfully installed to\n"{2}"'.format(
-            name, version, install_path), color.FG_LIGHT_GREEN)
+            name, version, installPath), color.FG_LIGHT_GREEN)
 
         # Log Archive closure although it was closed automatically by `with`
-        logging.info("Closing {0}".format(patch_archive))
+        logging.info("Closing {0}".format(patchArchive))
 
         # Sleep for 1 second after displaying installation result
         # before kicking back to the main menu.
@@ -381,7 +382,7 @@ def installModernPatch(patch, name, version, author, mp, patch_archive):
 
         logging.warning('''
 
-Unable to find {0} at {1}!'''.format(patch_archive, patch_location))
+Unable to find {0} at {1}!'''.format(patchArchive, patchLocation))
         colors.text('''\nCannot find Patch files for {0} (Version: {1})!
 Make sure "{2}" and "{3}"
 are both located at
@@ -392,7 +393,7 @@ and try again.
 
 If this error continues, contact {5} and ask for a fixed version.'''
                     .format(name, version, os.path.basename(patch),
-                            patch_archive, patch_location, author),
+                            patchArchive, patchLocation, author),
                     color.FG_LIGHT_RED)
 
         # Sleep for 2 seconds after displaying installation result
@@ -409,14 +410,14 @@ If this error continues, contact {5} and ask for a fixed version.'''
         logging.warning('''
 
 PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
-                        .format(name, version, install_path))
+                        .format(name, version, installPath))
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
             ['''PatchIt! does not have the rights to install
 {0} (Version: {1}) to
 {2}
-'''.format(name, version, install_path)]):
+'''.format(name, version, installPath)]):
             # Do nothing, go to main menu
             pass
 
@@ -430,13 +431,13 @@ PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
         logging.warning('''
 
 PatchIt! had an unknown error while to installing {0} (Version: {1}) to {2}'''
-                        .format(name, version, install_path))
+                        .format(name, version, installPath))
         colors.text('''
 PatchIt! ran into an unknown error while trying to install
 {0} (Version: {1}) to
 
 {2}
-'''.format(name, version, install_path), color.FG_LIGHT_RED)
+'''.format(name, version, installPath), color.FG_LIGHT_RED)
 
         # Sleep for 2 seconds after displaying installation result
         # before kicking back to the ,ain menu.
@@ -445,7 +446,7 @@ PatchIt! ran into an unknown error while trying to install
     # This is run no matter if an exception was raised nor not.
     finally:
         # Delete all PiP data to free up resources
-        del all_lines[:]
+        del allLines[:]
         logging.info("Deleting all data from {0}{1}.PiP".format(name, version))
         PatchIt.main()
 
