@@ -26,354 +26,360 @@ PatchIt! LEGO Racers Settings
 """
 
 import os
+import json
 
 # App Logging
 import logging
 
-# GUI library
-import tkinter as tk
-
-# File/Folder Dialog Boxes
-from tkinter import (Tk, filedialog)
+# Tkinter GUI library
+import tkinter
+from tkinter import filedialog
 
 # PatchIt! modules
-import PatchIt
 import constants as const
 from Settings import encoding
+from singleton import Singleton
 
-LR_path = ""
-LR_ver = ""
-
-# ----- Begin PatchIt! LEGO Racers Settings Reading ----- #
+__all__ = ["main", "Settings"]
 
 
-def getRacersPath():
-    """Special-use function to get and return the Racers installation path"""
-    # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
-        logging.warning("Could not find LEGO Racers settings!")
-        LRReadSettings()
+def main(auto=False):
+    """LEGO Racers settings user interface"""
+    # Create the settings object
+    mySettings = Settings.Instance()
+    mySettings.readSettings()
+    details = mySettings.getDetails()
 
-    # The LEGO Racers settings do exist
-    # Check file encoding
-    if encoding.check_encoding(os.path.join(
-            const.settingsFol, const.LRSettings)):
+    # Shortcut to installation path,
+    # plus fix if the path is blank
+    installPath = details[0]
+    if installPath == "":
+        installPath = const.appFolder
 
-        # The settings cannot be read for installation,
-        # go write them so this Patch can be installed
-        logging.warning("LEGO Racers Settings cannot be read!")
-        LRReadSettings()
+    # The settings do not exist
+    if (
+        (auto and not details[2]) or
+        (not auto and not details[2])
+    ):
+        root = tkinter.Tk()
+        root.withdraw()
+        tkinter.messagebox.showerror("Invalid installation!",
+                                     "Cannot find {0} installation at {1}"
+                                     .format(const.LRGame, installPath))
+        root.destroy()
+        return False
 
-    # The LEGO Racers settings can be read
-    # Read the settings file for installation (LEGO Racers directory)
-    logging.info("Reading line 7 of settings for LEGO Racers installation")
+    # The settings exist, are valid, and this is user prompt
+    if not auto and details[2]:
+        print("""
+A {0} {1} release was found at
 
-    try:
-        with open(os.path.join(const.settingsFol, const.LRSettings),
-                  "rt", encoding="utf_8") as f:
-            racers_install_path = f.readlines()[6]
+{2}
 
-        # Create a valid folder path
-        logging.info("Cleaning up installation path")
-        racers_install_path = racers_install_path.strip()
-        return racers_install_path
+Would you like to change this?
+""".format(const.LRGame, details[1], installPath))
 
-    # It may exist, but it doesn't mean the path is set up
-    except IndexError:
-        logging.error("The LEGO Racers Installation has not been set up!")
-        LRWriteSettings()
+        changeInstallPath = input(r"[Y\N] > ")
 
+        # Yes, I want to change the defined installation
+        if changeInstallPath.lower() == "y":
+            logging.info("User wants to change LEGO Racers settings")
+            if not mySettings._getInstallInfo():
+                return False
 
-def LRReadSettings():
-    """Read PatchIt! LEGO Racers settings"""
-    # The settings file does not exist
-    if not os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
-        logging.warning("LEGO Racers Settings does not exist!")
-        logging.info("Proceeding to write PatchIt! LEGO Racers settings")
-        LRWriteSettings()
-
-    # The setting file does exist
-    elif os.path.exists(os.path.join(const.settingsFol, const. LRSettings)):
-        logging.info("LEGO Racers Settings do exist")
-
-        # The first-run check came back False,
-        # Go write the settings so we don't attempt to read a blank file
-        if not CheckLRSettings():
-            logging.warning('''The first-run check came back False!
-Writing LEGO Racers settings so we don't read an empty file.''')
-            LRWriteSettings()
-
-        # The defined installation was not confirmed by LRGameCheck()
-        if not LRGameCheck():
-            # Use path defined in LRGameCheck() for messages
-            logging.warning("LEGO Racers installation was not found at {0}"
-                            .format(LR_path))
-            root = Tk()
-            root.withdraw()
-            tk.messagebox.showerror("Invalid installation!",
-                                    "Cannot find {0} installation at {1}"
-                                    .format(const.LRGame, LR_path))
-            root.destroy()
-
-            # Go write the settings file
-            logging.info("Proceeding to write PatchIt! LEGO Racers settings")
-            LRWriteSettings()
-
-        # The defined installation was confirmed by LRGameCheck()
+        # No, I do not want to change the defined installation
         else:
-            print('\nA {0} {1} release was found at\n\n"{2}"\n\n{3}\n'.format(
-                const.LRGame, LR_ver, LR_path,
-                "Would you like to change this?"))
-
-            change_racers_path = input(r"[Y\N] > ")
-
-            # Yes, I want to change the defined installation
-            if change_racers_path.lower() == "y":
-                logging.info("User wants to change the Racers installation")
-                logging.info("Proceeding to write new LEGO Racers settings")
-                LRWriteSettings()
-
-            # No, I do not want to change the defined installation
-            else:
-                logging.info('''User does not want to change the LEGO Racers
-installation or pressed an undefined key''')
-                PatchIt.main()
+            logging.info("""User does not want to change the
+LEGO Racers installation or pressed an undefined key""")
+            return False
 
 
-# ----- End PatchIt! LEGO Racers Settings Reading ----- #
+@Singleton
+class Settings(object):
+    """LEGO Racers Settings Management"""
 
+    def __init__(self):
+        """Object-only values"""
+        self.__piFirstRun = "1"
+        self.__installLoc = ""
+        self.__releaseVersion = ""
+        self.__settingsExist = True
+        self.__settingsExtension = ".json"
+        self.__settingsData = None
 
-# ----- Begin PatchIt! LEGO Racers Settings Writing ----- #
+    def getDetails(self):
+        """Return LEGO Racers installation details"""
+        return (self.__installLoc, self.__releaseVersion, self.__settingsExist)
 
+    def _setDetailsJson(self):
+        """Set details gathered by from reading"""
+        self.__piFirstRun = self.__settingsData["firstRun"]
+        self.__releaseVersion = self.__settingsData["releaseVersion"]
+        self.__installLoc = self.__settingsData["installPath"]
+        return True
 
-def LRWriteSettings():
-    """Write PatchIt! LEGO Racers settings"""
-    # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
-    root = Tk()
-    logging.info("Withdrawing root Tk window")
-    root.withdraw()
+    # ------- Begin JSON/CFG Reading and Writing ------- #
 
-    # Overwrite root display settings
-    logging.info("Overwrite root Tk window settings to hide it")
-    root.overrideredirect(True)
-    root.geometry('0x0+0+0')
-
-    # Show window again, lift it so it can receive the focus
-    # Otherwise, it is behind the console window
-    root.deiconify()
-    root.lift()
-    root.focus_force()
-
-    # Select the LEGO Racers installation
-    logging.info("Display file dialog for LEGO Racers installation")
-    new_racers_game = filedialog.askopenfilename(
-        parent=root,
-        title="Where is LEGORacers.exe",
-        defaultextension=".exe",
-        filetypes=[("LEGORacers.exe", "*.exe")]
-    )
-
-    # Get the directory the Exe is in
-    new_racers_game = os.path.dirname(new_racers_game)
-
-    # The user clicked the cancel button
-    if not new_racers_game:
-        # Give focus back to console window
-        logging.info("Give focus back to console window")
-        root.destroy()
-
-        # Go back to the main menu
-        logging.warning("User did not select a new LEGO Racers installation!")
-        PatchIt.main()
-
-    # The user selected a folder
-    else:
-        logging.info("User selected a new LEGO Racers installation at {0}"
-                     .format(new_racers_game))
-
-        # Give focus back to console window
-        logging.info("Give focus back to console window")
-        root.destroy()
+    def _writeSettings(self, releaseVersion, installLoc):
+        """Write JSON-based settings file"""
+        jsonData = {
+            "firstRun": "1",
+            "releaseVersion": str(releaseVersion),
+            "installPath": installLoc
+        }
 
         # Create Settings directory if it does not exist
         logging.info("Creating Settings directory")
         if not os.path.exists(const.settingsFol):
             os.mkdir(const.settingsFol)
 
-        # Write settings, using UTF-8 encoding
-        logging.info("Open Racers.cfg for writing using UTF-8-NOBOM encoding")
-        with open(os.path.join(const.settingsFol, const.LRSettings),
-                  "wt", encoding="utf_8") as racers_file:
-
-            # As partially defined in PatchIt! Dev-log #6
-            # (http://wp.me/p1V5ge-yB)
-            racers_file.write("// PatchIt! V1.1.x LEGO Racers Settings\n")
-
-            # Write brief comment explaining what the number means
-            # "Ensures the first-run process will be skipped next time"
-            racers_file.write("# Ensures the first-run process will be skipped\n")
-            racers_file.write("1\n")
-
-            # Run check for 1999 or 2001 version of Racers
-            logging.info("Find the version of LEGO Racers")
-            LRVer = LRVerCheck(new_racers_game)
-
-            logging.info("Write brief comment telling what version this is")
-            racers_file.write("# Your version of LEGO Racers\n")
-            logging.info("Write game version to fifth line")
-            racers_file.write(LRVer)
-
-            logging.info("Write brief comment explaining the folder path")
-            racers_file.write("\n# Your LEGO Racers installation path\n")
-            logging.info("Write new installation path to seventh line")
-            racers_file.write(new_racers_game)
-
-        # Log closure of file (although the with handle did it for us)
-        logging.info("Closing Racers.cfg")
-        logging.info("Proceeding to read LEGO Racers Settings")
-        LRReadSettings()
-
-
-# ----- End PatchIt! LEGO Racers Settings Writing ----- #
-
-
-# ----- Begin LEGO Racers Installation, Version and Settings Check ----- #
-
-
-def LRGameCheck():
-    """Confirms LEGO Racers installation"""
-    # Check encoding of Settings file
-    logging.info("Checking encoding of {0}".format(
-        os.path.join(const.settingsFol, const.LRSettings)))
-
-    if encoding.check_encoding(os.path.join(
-            const.settingsFol, const.LRSettings)):
-
-        # The settings cannot be read
-        logging.warning("LEGO Racers Settings cannot be read!")
-
-        # Mark as global it is can be used in other messages
-        global LR_path
-        # Define blank path, since we can't read the settings
-        LR_path = '" "'
-        return False
-
-    # The settings can be read, so do it (implied else block here)
-    logging.info("Reading line 7 for LEGO Racers installation")
-    with open(os.path.join(const.settingsFol, const.LRSettings),
-              "rt", encoding="utf_8") as game_confirm:
-        lines = game_confirm.readlines()[:]
-
-    # Get just the string from the list
-    # Mark as global it is can be used in other messages
-    global LR_ver
-    LR_ver = "".join(lines[4])
-    LR_path = "".join(lines[6])
-
-    # Strip the path to make it valid
-    logging.info("Cleaning up installation text")
-    LR_path = LR_path.strip()
-    LR_ver = LR_ver.strip()
-
-    # Delete the reading to free up system resources
-    logging.info("Deleting raw reading of {0}".format(const.LRSettings))
-    del lines[:]
-
-    # The only three items needed to confirm a LEGO Racers installation.
-    if (
-        os.path.exists(
-            os.path.join(LR_path, "legoracers.exe".lower())) and
-        os.path.exists(
-            os.path.join(LR_path, "lego.jam".lower())) and
-        os.path.exists(os.path.join(LR_path, "goldp.dll".lower()))
-    ):
-
-        logging.info("LEGORacers.exe, LEGO.JAM, and GolDP.dll were found at {0}"
-                     .format(LR_path))
+        with open(os.path.join(const.settingsFol, const.LRSettingsJson),
+                  "wt") as f:
+            # Use JSON required double quotes
+            f.write(str(jsonData).replace("'", '"'))
         return True
 
-    # If the settings file was externally edited and the path was removed
-    elif not LR_path:
-        logging.warning("LEGO Racers installation is empty!")
-        return False
-
-    # The installation path cannot be found, or it cannot be confirmed
-    else:
-        logging.warning("LEGORacers.exe, LEGO.JAM, and GolDP.dll were not found at {0}!"
-                        .format(LR_path))
-        return False
-
-
-def LRVerCheck(new_racers_game):
-    """Is this a 1999 or 2001 release of LEGO Racers?"""
-    # Open the exe and read a small part of it
-    try:
-        with open(os.path.join(new_racers_game, "legoracers.exe".lower()),
-                  "rb") as f:
-            offset = f.readlines()[1][8:20]
-
-    # We could not find the data we wanted (most likely a fake exe)
-    except IndexError:
-        LRVer = "Unknown"
-        return LRVer
-
-    # This is a 1999 release
-    if (
-        offset == b"\xb7S\xfeK\xf32\x90\x18\xf32\x90\x18" or
-        b"bPE\x00\x00L\x01\x08\x00\xf1\xdb)7"
-    ):
-        logging.info("According to the offset, this is the 1999 release")
-        LRVer = "1999"
-        return LRVer
-
-    # This is a 2001 release
-    elif offset == b"\xd7\xf2J\x1a\x93\x93$I\x93\x93$I":
-        logging.info("According to the offset, this is the 2001 release")
-        LRVer = "2001"
-        return LRVer
-
-
-def CheckLRSettings():
-    """Gets LEGO Rackers Settings and First-run info"""
-    # The LEGO Racers settings do not exist
-    if not os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
-        logging.warning("LEGO Racers Settings do not exist!")
-        return False
-
-    # The LEGO Racers settings do exist
-    elif os.path.exists(os.path.join(const.settingsFol, const.LRSettings)):
-        logging.info("LEGO Racers Settings do exist")
-
-        # Check encoding of Settings file
-        if encoding.check_encoding(os.path.join(
-                const.settingsFol, const.LRSettings)):
-
-            # The settings cannot be read, return False
-            logging.warning("LEGO Racers Settings cannot be read!")
-            return False
-
-        # The settings can be read, so do it (implied else block here)
-        logging.info("Reading line 3 for LEGO Racers first-run info")
-        with open(os.path.join(const.settingsFol, const.LRSettings), "rt",
-                  encoding="utf_8") as first_run_check:
-            lr_first_run = first_run_check.readlines()[2]
-
-        # Strip the path to make it valid
-        logging.info("Cleaning up installation text")
-        lr_first_run = lr_first_run.strip()
-
-        # '0' means this is a "first-run"
-        # '1' is the only valid value meaning the first-run has been completed
-        if (lr_first_run.lower() == "0" or
-                lr_first_run.lower() != "1"):
-            logging.warning("PatchIt! has never been run!")
-            return False
-
-        # Any other condition, return True
-        else:
-            logging.info("First-run info found, this is not the first-run")
+    def _readSettingsJson(self):
+        """Read JSON-based settings file"""
+        try:
+            with open(os.path.join(const.settingsFol, const.LRSettingsJson),
+                      "rt", encoding="utf-8") as f:
+                self.__settingsData = json.load(f)
             return True
 
+        # The file is not valid JSON
+        except ValueError:
+            logging.error("""{0} is not valid JSON!
+The content cannot be retrieved!""".format(const.LRSettingsJson))
+            return False
 
-# ----- End LEGO Racers Installation, Version and Settings Check ----- #
+    def _convertToJson(self, cfgData):
+        """Convert CFG-based settings to JSON-based settings"""
+        try:
+            # This is a first run, create the settings
+            if cfgData[2].strip() == "0":
+                logging.info("This is first time PatchIt! has been run")
+                self._getInstallInfo()
+                return False
+
+            # The settings have been set up before, convert them
+            else:
+                self._writeSettings(cfgData[4].strip(), cfgData[6].strip())
+                self._readSettingsJson()
+                self._setDetailsJson()
+            return True
+
+        # There was an error reading the settings
+        except IndexError:
+            logging.warning("There was an error reading the CFG settings!")
+            self._getInstallInfo()
+            return False
+
+    def _readSettingsCfg(self):
+        """Read older CFG-based settings file"""
+        with open(os.path.join(const.settingsFol, const.LRSettingsCfg),
+                  "rt", encoding="utf_8") as f:
+            cfgData = f.readlines()
+        return cfgData
+
+    # ------- End JSON/CFG Reading and Writing ------- #
+
+    # ------- Begin Settings Confirmation and Detection ------- #
+
+    def _getVersion(self):
+        """Detect LEGO Racers release version"""
+        # Open the exe and read a small part of it
+        try:
+            with open(self.__exeLoc, "rb") as f:
+                __offset = f.readlines()[1][8:20]
+
+            # This is a 1999 release
+            if __offset in (b"\xb7S\xfeK\xf32\x90\x18\xf32\x90\x18" or
+                            b"bPE\x00\x00L\x01\x08\x00\xf1\xdb)7"):
+
+                logging.info("According to the offset, this is a 1999 release")
+                self.__releaseVersion = "1999"
+
+            # This is a 2001 release
+            elif __offset == b"\xd7\xf2J\x1a\x93\x93$I\x93\x93$I":
+                logging.info("According to the offset, this is a 2001 release")
+                self.__releaseVersion = "2001"
+            return True
+
+        # We could not find the data we wanted (most likely a fake exe)
+        except IndexError:
+            logging.warning("Game release version could not be determined!")
+            self.__releaseVersion = ""
+            return False
+
+    def _confirmSettings(self):
+        """Confirm information given in settings"""
+        # Exe, JAM, and DLL locations
+        self.__exeLoc = os.path.join(
+            self.__installLoc, "legoracers.exe".lower())
+        self.__jamLoc = os.path.join(self.__installLoc, "lego.jam".lower())
+        self.__dllLoc = os.path.join(self.__installLoc, "goldp.dll".lower())
+
+        # The settings have never been set up
+        if self.__piFirstRun == "0" and self.__settingsExist:
+            logging.warning("LEGO Racers settings have not been set up!")
+            return False
+
+        # The release version was not recognized
+        if self.__releaseVersion != ("1999" or "2001"):
+            logging.warning("Unrecognized game release version: {0}!".format(
+                self.__releaseVersion))
+
+            # Determine the release version
+            self._getVersion()
+            if self.__settingsData is not None:
+                logging.info("LEGO Racers Release version {0} detected"
+                             .format(self.__settingsData["releaseVersion"]))
+                self.__settingsData["releaseVersion"] = self.__releaseVersion
+
+        # The necessary files were found
+        if (
+            os.path.exists(self.__exeLoc) and
+            os.path.exists(self.__jamLoc) and
+            os.path.exists(self.__dllLoc)
+        ):
+            logging.info("LEGO Racers installation confirmed at {0}".format(
+                self.__installLoc))
+            return True
+
+        # Nope, some files were mising :(
+        logging.warning("LEGO Racers installation could not be confirmed!")
+        return False
+
+    def findSettings(self):
+        """Locate the LEGO Racers settings"""
+        # The preferred JSON settings do not exist
+        if not os.path.exists(os.path.join(
+                              const.settingsFol, const.LRSettingsJson)):
+            logging.warning("Could not find LEGO Racers JSON settings!")
+            self.__settingsExtension = ".cfg"
+
+            # Since those could not be found, look for the older CFG settings
+            if not os.path.exists(os.path.join(
+                                  const.settingsFol, const.LRSettingsCfg)):
+                logging.warning("Could not find LEGO Racers settings!")
+                self.__settingsExist = False
+                return False
+
+        # Check encoding of the file found
+        logging.info("Checking encoding of settings file")
+        if self.__settingsExtension == ".json":
+            settingsName = const.LRSettingsJson
+        else:
+            settingsName = const.LRSettingsCfg
+
+        logging.info("Checking file encoding")
+        if encoding.check_encoding(os.path.join(
+                const.settingsFol, settingsName)):
+            # The settings cannot be read
+            logging.warning("LEGO Racers Settings cannot be read!")
+
+            # Declare nonexistent settings since we can't read the file
+            self.__settingsExist = False
+            return False
+        logging.info("File encoding check passed")
+        return True
+
+    # ------- Begin Settings Confirmation and Detection ------- #
+
+    def _getInstallInfo(self):
+        """Get details to write LEGO Racers settings"""
+        # Draw (then withdraw) the root Tk window
+        root = tkinter.Tk()
+        root.withdraw()
+
+        # Overwrite root display settings
+        logging.info("Overwrite root Tk window settings to hide it")
+        root.overrideredirect(True)
+        root.geometry('0x0+0+0')
+
+        # Show window again, lift it so it can receive the focus
+        # Otherwise, it is behind the console window
+        root.deiconify()
+        root.lift()
+        root.focus_force()
+
+        # Select the LEGO Racers installation
+        logging.info("Display file dialog requesting LEGO Racers installation")
+        newInstallLoc = filedialog.askopenfilename(
+            parent=root,
+            title="Where is LEGORacers.exe",
+            defaultextension=".exe",
+            filetypes=[("LEGORacers.exe", "*.exe")]
+        )
+
+        # Get the directory the Exe is in
+        newInstallLoc = os.path.dirname(newInstallLoc)
+
+        # Give focus back to console window
+        logging.info("Give focus back to console window")
+        root.destroy()
+
+        # The user clicked the Cancel button
+        if not newInstallLoc:
+            # Go back to the main menu
+            logging.warning(
+                "User did not select a new LEGO Racers installation!")
+            return False
+
+        logging.info("User selected a new LEGO Racers installation at {0}"
+                     .format(newInstallLoc))
+
+        # Confirm given data
+        self.__installLoc = newInstallLoc
+        if self._confirmSettings():
+            # Now that the information has been confirmed,
+            # write a settings file
+            self._writeSettings(self.__releaseVersion, self.__installLoc)
+            self.__settingsExist = True
+            return True
+        return False
+
+    def readSettings(self):
+        """Read LEGO Racers Settings File"""
+        # Confirm the settings exist and are readable
+        self.findSettings()
+
+        # The settings could not be found, go write the settings
+        if not self.__settingsExist:
+            logging.warning("LEGO Racers settings do not exist!")
+            if self._getInstallInfo():
+                return True
+            return False
+
+        # Read the proper file to get the data needed
+        if self.__settingsExtension == ".json":
+            if self._readSettingsJson():
+                self._setDetailsJson()
+
+            # We might have encountered some invalid JSON.
+            # This means we have to recreate the entire settings
+            else:
+                logging.warning("LEGO Racers JSON could not be parsed!")
+                self.__settingsExist = False
+                if self._getInstallInfo():
+                    return True
+                return False
+        else:
+            # Rewrite into JSON settings
+            cfgData = self._readSettingsCfg()
+            self._convertToJson(cfgData)
+
+        # Installation confirmed, our job here is done
+        if self._confirmSettings():
+            logging.info("LEGO Racers Settings confirmed")
+            return True
+
+        # The installation could not be confirmed
+        else:
+            logging.__settingsExist(
+                "LEGO Racers Settings could not be confirmed")
+            self.settingsExist = False
+            if self._getInstallInfo():
+                return True
+            return False

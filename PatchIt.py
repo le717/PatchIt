@@ -43,20 +43,21 @@ import logging
 import tkinter as tk
 from tkinter import ttk
 
-# Patch Creation and Installation modules
-from Patch import (install, create)
-
 # Colored shell text
 import Color as color
 import Color.colors as colors
 
+# PatchIt! "Constants"
+import constants as const
+
+# Patch Creation and Installation modules
+from Patch import (install, create)
+
 # LEGO Racers settings, launcher, LEGO.JAM wrapper
 from Game import (Racers, rungame, legojam)
 
-# PatchIt! "Constants"
-import constants as const
-buildNum = const.buildme()
-
+# Build number
+buildNum = const.buildMe()
 # Store Experimental Mode running mode value
 testMode = []
 
@@ -89,11 +90,11 @@ without going through the menu first''')
     args = parser.parse_args()
 
     # Declare parameters
-    debugarg = args.test
-    openfile = args.open
+    debugArg = args.test
+    openFile = args.open
 
     # If the debug parameter is passed, enable the debugging messages
-    if debugarg:
+    if debugArg:
         testMode.append(True)
         os.system("title {0} Version {1} {2} - Experimental Mode".format(
             const.app, const.majVer, const.minVer))
@@ -104,11 +105,11 @@ without going through the menu first''')
         logging.info("Starting PatchIt! in Normal Mode")
 
     # If the open argument is valid,
-    if openfile is not None:
+    if openFile is not None:
         # If it is a file, switch to Patch Installation
-            if os.path.isfile(openfile):
+            if os.path.isfile(openFile):
                 logging.info("A file path was given.")
-                install.checkPatch(openfile)
+                install.checkPatch(openFile)
 
             # It was a directory, or a non-existent file
             else:
@@ -137,7 +138,7 @@ def info():
     logging.info('''
                                 #############################################
                                         {0} Version {1} {2}
-                                      Created 2013-{3} {4}
+                                         Created 2013-{3} {4}
                                                 PatchIt.log
 
 
@@ -152,20 +153,13 @@ def info():
 
 def preload():
     """PatchIt! Settings checks"""
-    # Write general PatchIt! settings.
-    # A check is not needed for this, it is always written.
+    # Write general PatchIt! settings
+    # A check is not needed for this; it is always written
     piSettings()
 
-    # Assign variables for easier access
-    hasLRSettings = Racers.CheckLRSettings()
-
-    # If the Racers settings is present, go to main menu
-    if hasLRSettings:
-        main()
-
-    # The Racers settings do not exist
-    else:
-        Racers.LRReadSettings()
+    # Check for/confirm settings, load main menu
+    Racers.main(True)
+    main()
 
 
 # ------------ End PatchIt! Initialization ------------ #
@@ -212,8 +206,8 @@ def about():
 
        Created 2013-{4} Triangle717
 
-"PatchIt! - The standard and simple way to
-package and install mods for LEGO Racers"
+       The standard and simple way to
+    package and install LEGO Racers mods
 '''.format(const.appName, const.majVer, const.minVer,
            buildNum, const.currentYear))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
@@ -258,18 +252,18 @@ package and install mods for LEGO Racers"
 # ------------ Begin PatchIt! Menu Layout ------------ #
 
 
-def main(num_of_loops=1):
+def main(loopNum=1):
     """PatchIt! Menu Layout"""
-    num_of_loops += 1
+    loopNum += 1
 
     # If the user has pressed an valid key 5 times or this is app launch
-    if (num_of_loops == 2 or num_of_loops == 6):
+    if (loopNum == 2 or loopNum == 6):
         # Reset the count back to two,
-        if num_of_loops == 6:
-            num_of_loops = 2
+        if loopNum == 6:
+            loopNum = 2
 
         # And display the menu only at the valid times
-        colors.text("\n{0} Version {1} {2}\ncreated 2013-{3} {4}".format(
+        colors.text("\n{0} Version {1} {2}\nCreated 2013-{3} {4}".format(
                     const.appName, const.majVer, const.minVer,
                     const.currentYear, const.creator), color.FG_WHITE)
 
@@ -319,12 +313,13 @@ Please make a selection:
         elif menuChoice.lower() == "s":
             logging.info("User pressed '[s] PatchIt! Settings'")
             logging.info("Proceeding to LEGO Racers Settings")
-            Racers.LRReadSettings()
+            if not Racers.main():
+                main()
 
-        # Easter egg
+        # >:-)
         elif menuChoice.lower() == 'e':
             logging.info("User pressed the 'e' key")
-            easteregg()
+            easterEgg()
 
         # Run LEGO Racers
         elif menuChoice.lower() == "r":
@@ -342,10 +337,10 @@ Please make a selection:
         else:
             logging.info("User pressed an undefined key")
             colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
-            main(num_of_loops=num_of_loops)
+            main(loopNum=loopNum)
 
 
-def easteregg():
+def easterEgg():
     """Hehehe"""
     root = tk.Tk()
     root.withdraw()
