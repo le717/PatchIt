@@ -39,8 +39,11 @@ currentYear = datetime.now().year
 # GLobal game data
 LRGame = "LEGO Racers"
 LRSettingsJson = "Racers.json"
-LRSettings = "Racers.cfg"
+LRSettingsCfg = "Racers.cfg"
 piSettings = "PatchIt.json"
+
+#FIXME: Temp hack
+LRSettings = LRSettingsCfg
 
 # Name of PatchIt! Exe/Py
 exeName = os.path.basename(sys.argv[0])
@@ -54,12 +57,12 @@ appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
 buildFile = os.path.join(appFolder, "Build.pickle")
 
 
-def buildme():
+def buildMe():
     """Retrieve and update the build number """
     # Retrieve the build number
     from Settings.buildgen import (BuildNumber, UpdateBuildNumber)
-    bg = BuildNumber.Instance()
-    buildNum = bg.fetch()
+    bn = BuildNumber.Instance()
+    buildNum = bn.fetch()
 
     # This is a frozen exe and the data is missing; assign a "number"
     if buildNum is None:
