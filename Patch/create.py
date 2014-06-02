@@ -34,18 +34,11 @@ import tarfile
 import time
 import distutils.dir_util
 import fnmatch
-
-# File/Folder Dialog Boxes
-from tkinter import (Tk, filedialog)
-
-# App Logging module
 import logging
 
-# PatchIt! Constants
-import constants as const
-
-# Core PatchIt! module
-import PatchIt
+# Tkinter GUI library
+import tkinter
+from tkinter import filedialog
 
 # Colored shell text
 import Color as color
@@ -53,6 +46,10 @@ import Color.colors as colors
 
 # RunAsAdmin wrapper
 import runasadmin
+
+# PatchIt! modules
+import constants as const
+import PatchIt
 
 # Temporary directory for compression
 temp_folder = "PatchIt-Temp-Folder"
@@ -454,7 +451,7 @@ def patchInfo(*args):
 def selectPatchFiles(game, mp):
     """Select the Patch fils for compression"""
     # Draw (then withdraw) the root Tk window
-    root = Tk()
+    root = tkinter.Tk()
     root.withdraw()
 
     # Overwrite root display settings

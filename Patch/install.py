@@ -34,12 +34,18 @@ import os
 import time
 import tarfile
 import random
-
-# Logging module
 import logging
 
-# File/Folder Dialog Boxes
-from tkinter import (Tk, filedialog)
+# Tkinter GUI library
+import tkinter
+from tkinter import filedialog
+
+# Colored shell text
+import Color as color
+import Color.colors as colors
+
+# RunAsAdmin wrapper
+import runasadmin
 
 # PatchIt! modules
 import PatchIt
@@ -48,13 +54,6 @@ from Settings import encoding
 # LEGO Racers settings and gameplay tips
 from Game import Racers
 from Patch import racingtips
-
-# Colored shell text
-import Color as color
-import Color.colors as colors
-
-# RunAsAdmin wrapper
-import runasadmin
 
 
 # ----------- Begin PatchIt! Patch Selection and Identification  ----------- #
@@ -66,7 +65,7 @@ def selectPatch(*args):
     logging.info("Install a PatchIt! Patch")
 
     # Draw (then withdraw) the root Tk window
-    root = Tk()
+    root = tkinter.Tk()
     root.withdraw()
 
     # Overwrite root display settings
@@ -337,7 +336,9 @@ def installModernPatch(patch, name, version, author, mp, patchArchive):
 
     # Get the Racers installation path
     logging.info("Get path to the Racers installation")
-    installPath = Racers.getRacersPath()
+    installPath = Racers.Settings.Instance().getDetails()[0]
+
+    #TODO: Implement 1999 vs 2001 logic
 
     # Find the PiA archive
     patchLocation = os.path.dirname(patch)

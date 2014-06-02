@@ -27,8 +27,6 @@ PatchIt! LEGO Racers Settings
 
 import os
 import json
-
-# App Logging
 import logging
 
 # Tkinter GUI library
@@ -111,7 +109,7 @@ class Settings(object):
         """Return LEGO Racers installation details"""
         return (self.__installLoc, self.__releaseVersion, self.__settingsExist)
 
-    def _setDetailsJson(self):
+    def _setDetails(self):
         """Set details gathered by from reading"""
         self.__piFirstRun = self.__settingsData["firstRun"]
         self.__releaseVersion = self.__settingsData["releaseVersion"]
@@ -166,7 +164,7 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
             else:
                 self._writeSettings(cfgData[4].strip(), cfgData[6].strip())
                 self._readSettingsJson()
-                self._setDetailsJson()
+                self._setDetails()
             return True
 
         # There was an error reading the settings
@@ -354,7 +352,7 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
         # Read the proper file to get the data needed
         if self.__settingsExtension == ".json":
             if self._readSettingsJson():
-                self._setDetailsJson()
+                self._setDetails()
 
             # We might have encountered some invalid JSON.
             # This means we have to recreate the entire settings
