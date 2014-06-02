@@ -385,7 +385,7 @@ def piSettings():
 
     # Write the PatchIt! Major and Minor number,
     # as defined in the `majVer` and `minVer` variables
-    with open(os.path.join(theFile), "wt") as f:
+    with open(os.path.join(theFile), "wt", encoding="utf_8") as f:
         # Use JSON required double quotes
         f.write(str(jsonData).replace("'", '"'))
     return True

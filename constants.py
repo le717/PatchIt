@@ -70,7 +70,7 @@ def buildMe():
 
     # If this is not a frozen exe,
     if not (hasattr(sys, "frozen") and
-            not sys.frozen in ("windows_exe", "console_exe")):
+            sys.frozen in ("windows_exe", "console_exe")):
         # and if this is not a Stable release,
         if minVer != "Stable":
             # then increase the build number.

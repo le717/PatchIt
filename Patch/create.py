@@ -126,11 +126,8 @@ def fileCheck(path):
     # --- Begin Illegal File Scan -- #
 
     try:
-        #lint:disable
         # Traversing the reaches of the (Temporary) Patch files...
-        for root, dirnames, filenames in os.walk(temp_location):
-        #lint:enable
-
+        for root, dirnames, filenames in os.walk(temp_location):  # noqa
             # Get each item in the list
             for MyFile in filenames:
 
@@ -167,12 +164,10 @@ def fileCheck(path):
 def deleteFiles():
     """Deletes temporary folder created during compression"""
     try:
-        #lint:disable
         # Delete temporary directory
         logging.info("Delete all temporary files from {0}".format(
             temp_location))
-        distutils.dir_util.remove_tree(temp_location)
-        #lint:enable
+        distutils.dir_util.remove_tree(temp_location)  # noqa
 
     # In case the directory was not created
     except FileNotFoundError:  # lint:ok
@@ -228,24 +223,26 @@ def charCheck(text):
     return False
 
 
-#def filenameCheck(text):
-    #"""Check for illegal name in text"""
-     ## List of all illegal filenames
-    #illegal_names = ["aux", "com1", "com2", "com3",
-                     #"com4", "con", "lpt1", "lpt2",
-                     #"lpt3", "prn", "nul"]
+'''
+def filenameCheck(text):
+    """Check for illegal name in text"""
+    # List of all illegal filenames
+    illegal_names = ["aux", "com1", "com2", "com3",
+                     "com4", "con", "lpt1", "lpt2",
+                     "lpt3", "prn", "nul"]
 
-    ## Mark as global to display illegal file name in messages
-    #global bad_name
-    #bad_name = text
+    # Mark as global to display illegal file name in messages
+    global bad_name
+    bad_name = text
 
-    ## If the name is present in the list
-    #if text.lower() in illegal_names:
-        #return True
+    # If the name is present in the list
+    if text.lower() in illegal_names:
+        return True
 
-    ## If the name is not present in the list
-    #else:
-        #return False
+    # If the name is not present in the list
+    else:
+        return False
+'''
 
 
 def patchName():
@@ -271,7 +268,7 @@ def patchName():
         #logging.warning(
             #'"{0}" is an illegal file name and is not allowed in the Patch name!'
             #.format(bad_name))
-        #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
+       #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
                     #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Name Process
@@ -540,7 +537,7 @@ TAR archive to {1}'''.format(temp_location, patch_files))  # lint:ok
         logging.info("Write {0} with Patch details using UTF-8 encoding"
                      .format(the_patch))
 
-        with open("{0}".format(the_patch), 'wt', encoding='utf-8') as patch:
+        with open("{0}".format(the_patch), "wt", encoding="utf_8") as patch:
             patch.write('''// PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]
 {0}

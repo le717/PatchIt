@@ -121,7 +121,7 @@ def checkPatch(patch):
     or if it is a PatchIt! Patch at all
     """
     # Check encoding of Patch file
-    if encoding.check_encoding(patch):
+    if encoding.checkEncoding(patch):
         # It is not written using ANSI or UTF-8-NOBOM, go to main menu
         logging.warning("{0} is written using an unsupported encoding!".format(
             patch))
@@ -138,7 +138,7 @@ def checkPatch(patch):
     logging.info("Read {0} for PiP validity line and Archive format".format(
         patch))
 
-    with open(patch, "rt", encoding="utf-8") as f:
+    with open(patch, "rt", encoding="utf_8") as f:
         lines = f.readlines()[0:2]
     validLine = "".join(lines[0])
     archiveLine = "".join(lines[1:])
@@ -226,7 +226,7 @@ def readModernPatch(patch):
     """Reads PatchIt! Patch Details"""
     # Get all patch details
     logging.info("Reading contents of Patch")
-    with open(patch, "rt", encoding="utf-8") as f:
+    with open(patch, "rt", encoding="utf_8") as f:
         # Global so the data from it can be deleted after installation
         global allLines
         allLines = f.readlines()[:]

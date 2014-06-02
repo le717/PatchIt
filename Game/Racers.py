@@ -273,8 +273,7 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
         else:
             settingsName = const.LRSettingsCfg
 
-        logging.info("Checking file encoding")
-        if encoding.check_encoding(os.path.join(
+        if encoding.checkEncoding(os.path.join(
                 const.settingsFol, settingsName)):
             # The settings cannot be read
             logging.warning("LEGO Racers Settings cannot be read!")

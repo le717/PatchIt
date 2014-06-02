@@ -51,10 +51,10 @@ class PlayRacers(object):
         # Parameter to skip intro movies
         self.__novideo = "-novideo"
         #TODO: Exe parameters for future use
-        #self.__horz = horz
-        #self.__vert = vert
-        #self.__horzres = "-horzres {0}".format(int(self.__horz))
-        #self.__vertres = "-vertres {0}".format(int(self.__vert))
+        # self.__horz = horz
+        # self.__vert = vert
+        # self.__horzres = "-horzres {0}".format(int(self.__horz))
+        # self.__vertres = "-vertres {0}".format(int(self.__vert))
 
     def Race(self):
         """I'll see you... at the finish line!"""
@@ -77,7 +77,7 @@ class PlayRacers(object):
             logging.warning("LEGORacers.exe could not be found at {0}!"
                             .format(install_path))
             colors.text("\nLEGORacers.exe could not be found at \n\n{0}"
-                  .format(install_path), color.FG_LIGHT_RED)
+                        .format(install_path), color.FG_LIGHT_RED)
 
         # Except we need admin righs to do it
         except (OSError, PermissionError):
