@@ -38,12 +38,9 @@ currentYear = datetime.now().year
 
 # GLobal game data
 LRGame = "LEGO Racers"
-LRSettingsJson = "Racers.json"
+LRSettings = "Racers.json"
 LRSettingsCfg = "Racers.cfg"
 piSettings = "PatchIt.json"
-
-#FIXME: Temp hack
-LRSettings = LRSettingsCfg
 
 # Name of PatchIt! Exe/Py
 exeName = os.path.basename(sys.argv[0])
