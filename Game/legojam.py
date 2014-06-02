@@ -29,32 +29,55 @@ PatchIt! JAM Extractor Wrapper
 import os
 import logging
 
-# RunAsAdmin wrapper
-import runasadmin
-
-# File/Folder Dialog Boxes
-from tkinter import (Tk, filedialog)
-
 # Colored shell text
 import Color as color
 import Color.colors as colors
 
+# Tkinter GUI library
+import tkinter
+from tkinter import filedialog
+
+# RunAsAdmin wrapper
+import runasadmin
+
+# PatchIt! modules
+import constants as const
+
 # JAM Extractor
 from Game import JAMExtractor
 
-# PatchIt! Constants
-import constants as const
-import PatchIt
 
-#TODO: Implement 1999 vs 2001 release logic
+def main():
+    """JAM Extractor Menu"""
+    colors.text("""
+JAM Extractor 1.0.2
+COPYRIGHT (C) 2012-2013: JrMasterModelBuilder""", color.FG_WHITE)
+    logging.info("Display JAM Extractor menu to user")
+    print("""
+[e] Extract LEGO.JAM
+[c] Compress LEGO.JAM
+[q] Quit""")
+    menuChoice = input("\n> ")
+
+    # User wants to compress a JAM
+    if menuChoice.lower() == "c":
+        logging.info("User pressed '[c] Compress LEGO.JAM'")
+        selectJAMFiles()
+
+    # User wants to extract a JAM
+    if menuChoice.lower() == "e":
+        logging.info("User pressed '[e] Extract LEGO.JAM'")
+        selectJAMArchive()
+
+    # Go back to PatchIt! menu
+    else:
+        return False
 
 
-def selectDataFiles():
+def selectJAMFiles():
     """Select the files to compress into a JAM"""
     # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
-    root = Tk()
-    logging.info("Withdrawing root Tk window")
+    root = tkinter.Tk()
     root.withdraw()
 
     # Overwrite root display settings
@@ -92,7 +115,7 @@ def buildJAM(jamFiles):
         JAMExtractor.build(jamFiles, verbose=False)
 
     # We don't have the rights to compress the JAM
-    except PermissionError:  # lint:ok
+    except PermissionError:
         logging.warning("Error number '13'")
         logging.exception("""Oops! Something went wrong! Here's what happened
 
@@ -116,39 +139,10 @@ PatchIt! does not have the rights to save LEGO.JAM to
         main()
 
 
-def main():
-    """JAM Extractor Menu"""
-    colors.text("""
-JAM Extractor 1.0.2
-COPYRIGHT (C) 2012-2013: JrMasterModelBuilder""", color.FG_WHITE)
-    logging.info("Display JAM Extractor menu to user")
-    print("""
-[e] Extract LEGO.JAM
-[c] Compress LEGO.JAM
-[q] Quit""")
-    menuChoice = input("\n> ")
-
-    # User wants to compress a JAM
-    if menuChoice.lower() == "c":
-        logging.info("User pressed '[c] Compress LEGO.JAM'")
-        selectDataFiles()
-
-    # User wants to extract a JAM
-    if menuChoice.lower() == "e":
-        logging.info("User pressed '[e] Extract LEGO.JAM'")
-        selectJAMArchive()
-
-    # Go back to PatchIt! menu
-    else:
-        PatchIt.main()
-
-
 def selectJAMArchive():
     """Select the JAM Archive to extract"""
     # Draw (then withdraw) the root Tk window
-    logging.info("Drawing root Tk window")
-    root = Tk()
-    logging.info("Withdrawing root Tk window")
+    root = tkinter.Tk()
     root.withdraw()
 
     # Overwrite root display settings

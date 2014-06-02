@@ -16,6 +16,20 @@ class Singleton:
 
     Limitations: The decorated class cannot be inherited from.
 
+    Example Usage:
+
+    @Singleton
+    class Foo:
+        def __init__(self):
+            print('Foo created')
+            self.hi = "No"
+
+    #import singleton
+    from singleton import Foo
+    f = Foo.Instance()  # Good. Being explicit is in line with the Python Zen
+    g = Foo.Instance()  # Returns already created instance
+
+    print(f is g)  # True
     """
 
     def __init__(self, decorated):
@@ -39,17 +53,3 @@ class Singleton:
 
     def __instancecheck__(self, inst):
         return isinstance(inst, self._decorated)
-
-
-#@Singleton
-#class Foo:
-    #def __init__(self):
-        #print('Foo created')
-        #self.hi = "No"
-
-##import singleton
-#from singleton import Foo
-#f = Foo.Instance()  # Good. Being explicit is in line with the Python Zen
-#g = Foo.Instance()  # Returns already created instance
-
-#print(f is g)  # True

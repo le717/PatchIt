@@ -35,11 +35,9 @@ import webbrowser
 import platform
 import subprocess
 import argparse
-
-# App Logging
 import logging
 
-# GUI library
+# Tkinter GUI library
 import tkinter as tk
 from tkinter import ttk
 
@@ -263,19 +261,19 @@ def main(loopNum=1):
             loopNum = 2
 
         # And display the menu only at the valid times
-        colors.text("\n{0} Version {1} {2}\nCreated 2013-{3} {4}".format(
+        colors.text("\n{0} {1} {2}\nCreated 2013-{3} {4}".format(
                     const.appName, const.majVer, const.minVer,
                     const.currentYear, const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")
-        print('''
+        print("""
 Please make a selection:
 
 [a] About PatchIt!            [c] Create a PatchIt! Patch
 [r] Run LEGO Racers           [i] Install a PatchIt! Patch
 [s] PatchIt! Settings         [j] JAM Extractor
 
-                      [q] Quit''')
+                      [q] Quit""")
 
     menuChoice = input("\n> ")
     while True:
@@ -304,10 +302,9 @@ Please make a selection:
         # JAM Extractor wrapper
         elif menuChoice.lower() == "j":
             logging.info("User pressed '[j] JAM Extractor'")
-
-            # Run the JAM Extractor wrapper
             logging.info("Running JAM Extractor wrapper")
-            legojam.main()
+            if not legojam.main():
+                main()
 
         # PatchIt! Settings
         elif menuChoice.lower() == "s":
@@ -385,7 +382,7 @@ def piSettings():
 
     # Write the PatchIt! Major and Minor number,
     # as defined in the `majVer` and `minVer` variables
-    with open(os.path.join(theFile), "wt") as f:
+    with open(os.path.join(theFile), "wt", encoding="utf_8") as f:
         # Use JSON required double quotes
         f.write(str(jsonData).replace("'", '"'))
     return True

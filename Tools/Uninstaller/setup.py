@@ -71,4 +71,4 @@ setup(
     options={"build_exe": build_exe_options},
     executables=[Executable(os.path.join(os.path.dirname(__file__),
                  "PiUninstaller.pyw"), targetName="PiUninstaller.exe",
-                 base=base)])
+                            base=base)])

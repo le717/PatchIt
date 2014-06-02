@@ -27,8 +27,6 @@ PatchIt! LEGO Racers Settings
 
 import os
 import json
-
-# App Logging
 import logging
 
 # Tkinter GUI library
@@ -111,7 +109,7 @@ class Settings(object):
         """Return LEGO Racers installation details"""
         return (self.__installLoc, self.__releaseVersion, self.__settingsExist)
 
-    def _setDetailsJson(self):
+    def _setDetails(self):
         """Set details gathered by from reading"""
         self.__piFirstRun = self.__settingsData["firstRun"]
         self.__releaseVersion = self.__settingsData["releaseVersion"]
@@ -133,7 +131,7 @@ class Settings(object):
         if not os.path.exists(const.settingsFol):
             os.mkdir(const.settingsFol)
 
-        with open(os.path.join(const.settingsFol, const.LRSettingsJson),
+        with open(os.path.join(const.settingsFol, const.LRSettings),
                   "wt") as f:
             # Use JSON required double quotes
             f.write(str(jsonData).replace("'", '"'))
@@ -142,7 +140,7 @@ class Settings(object):
     def _readSettingsJson(self):
         """Read JSON-based settings file"""
         try:
-            with open(os.path.join(const.settingsFol, const.LRSettingsJson),
+            with open(os.path.join(const.settingsFol, const.LRSettings),
                       "rt", encoding="utf-8") as f:
                 self.__settingsData = json.load(f)
             return True
@@ -150,7 +148,7 @@ class Settings(object):
         # The file is not valid JSON
         except ValueError:
             logging.error("""{0} is not valid JSON!
-The content cannot be retrieved!""".format(const.LRSettingsJson))
+The content cannot be retrieved!""".format(const.LRSettings))
             return False
 
     def _convertToJson(self, cfgData):
@@ -166,7 +164,7 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
             else:
                 self._writeSettings(cfgData[4].strip(), cfgData[6].strip())
                 self._readSettingsJson()
-                self._setDetailsJson()
+                self._setDetails()
             return True
 
         # There was an error reading the settings
@@ -255,7 +253,7 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
         """Locate the LEGO Racers settings"""
         # The preferred JSON settings do not exist
         if not os.path.exists(os.path.join(
-                              const.settingsFol, const.LRSettingsJson)):
+                              const.settingsFol, const.LRSettings)):
             logging.warning("Could not find LEGO Racers JSON settings!")
             self.__settingsExtension = ".cfg"
 
@@ -269,12 +267,11 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
         # Check encoding of the file found
         logging.info("Checking encoding of settings file")
         if self.__settingsExtension == ".json":
-            settingsName = const.LRSettingsJson
+            settingsName = const.LRSettings
         else:
             settingsName = const.LRSettingsCfg
 
-        logging.info("Checking file encoding")
-        if encoding.check_encoding(os.path.join(
+        if encoding.checkEncoding(os.path.join(
                 const.settingsFol, settingsName)):
             # The settings cannot be read
             logging.warning("LEGO Racers Settings cannot be read!")
@@ -355,7 +352,7 @@ The content cannot be retrieved!""".format(const.LRSettingsJson))
         # Read the proper file to get the data needed
         if self.__settingsExtension == ".json":
             if self._readSettingsJson():
-                self._setDetailsJson()
+                self._setDetails()
 
             # We might have encountered some invalid JSON.
             # This means we have to recreate the entire settings

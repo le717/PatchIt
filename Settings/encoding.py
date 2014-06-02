@@ -24,15 +24,13 @@
 
 import logging
 
-#TODO: Rename function to use camelCase
 
-
-def check_encoding(filePath):
+def checkEncoding(filePath):
     """
     Check the encoding of a file,
     ensuring it uses UTF-8-NOBOM.
     """
-    logging.info("Check encoding of {0} before installation".format(filePath))
+    logging.info("Check encoding of {0}".format(filePath))
 
     # Open it, read just the area containing the byte mark
     with open(filePath, "rb") as encodeCheck:
