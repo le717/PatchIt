@@ -116,6 +116,8 @@ Freeze/
 Logs/
 Settings/*
 Testing*/
+_site/
+.sass-cache
 !Tools/bin
 TheTesterGroup/
 Tools/Updater/bin/*
@@ -127,6 +129,7 @@ Tools/Windows/PatchIt*/*
 ## Misc. Files
 ###############
 
+*.ai
 #*.psd
 #*.iss
 *.~is
@@ -138,8 +141,8 @@ Tools/Windows/PatchIt*/*
 *.wpp
 *.html
 #*.py
+.brackets.json
 !RunAsAdmin.cfg
-#*settings
 PatchIt-Compatible.html
 #singleton.py
 !Windows/unsetup.py

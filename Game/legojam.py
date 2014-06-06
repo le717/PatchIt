@@ -4,7 +4,7 @@
     This file is part of PatchIt!
 
     PatchIt!
-    The standard and simple way to package and installl LEGO Racers mods
+    The simple way to package and installl LEGO Racers mods
 
     Created 2013-2014 Triangle717
     <http://Triangle717.WordPress.com/>
@@ -183,7 +183,7 @@ def extractJAM(jamLocation):
         JAMExtractor.extract(jamLocation, verbose=False)
 
     # We don't have the rights to extract the JAM
-    except PermissionError:  # lint:ok
+    except PermissionError:
         logging.warning("Error number '13'")
         logging.exception("""Oops! Something went wrong! Here's what happened
 
