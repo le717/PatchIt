@@ -25,6 +25,8 @@ PatchIt-Compatible.html
 *.zip
 *.md
 *.cfg
+*.ai
+*.json
 *settings*
 !.ico
 !.js
