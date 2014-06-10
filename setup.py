@@ -1,4 +1,4 @@
-#! /usr/bin/env python3.3-32
+#! /usr/bin/env python3.4-32
 # -*- coding: utf-8 -*-
 # <pep8-80 compliant>
 """
@@ -10,7 +10,7 @@
     This file is part of PatchIt!
 
     PatchIt!
-    The standard and simple way to package and install LEGO Racers mods
+    The simple way to package and install LEGO Racers mods
 
     Created 2013-2014 Triangle717
     <http://Triangle717.WordPress.com/>
