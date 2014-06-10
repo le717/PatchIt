@@ -36,15 +36,15 @@ from urllib.error import (HTTPError, URLError)
 # Import wget from parent directory since the script is being run standalone
 # Since I can't run `from Tools.wget import wget`
 try:
-    parentdir = "../wget"
+    parentdir = "../wgetter"
     # Not happy with editing sys.path... >:(
     sys.path.insert(0, parentdir)
-    import wget
+    import wgetter
 
 # The script is being run from the main setup.py,
 # so import from different location
 except ImportError:
-    from Tools.wget import wget  # noqa
+    from Tools.wgetter import wgetter  # noqa
 
 
 def main():
@@ -57,7 +57,7 @@ def main():
 
     # Download the readme from the gh-pages branch
     try:
-        wget.download(zipLink)
+        wgetter.download(zipLink)
         halt = False
 
     # We can't download it right now, so end the process

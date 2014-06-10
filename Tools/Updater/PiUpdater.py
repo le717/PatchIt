@@ -36,10 +36,10 @@ import tarfile
 import json
 
 # Downloads file(s) from the internet
-parentdir = "../wget"
+parentdir = "../wgetter"
 # Not happy with editing sys.path... >:(
 sys.path.insert(0, parentdir)
-import wget
+import wgetter
 
 # Used to catch downloading errors
 from urllib.error import (HTTPError, URLError)
@@ -228,7 +228,7 @@ def runAdminDL(start=True):
     if start:
         # Download the file with the newest info
         try:
-            wget.download(runAdminLink)
+            wgetter.download(runAdminLink)
 
         # The file could not be downloaded
         #TODO: Remove ValueError when code is near completion
@@ -238,7 +238,7 @@ def runAdminDL(start=True):
             # Since the primary download can not be reached, fall back
             # to the backup host.
             try:
-                wget.download("https://github.com/le717/PatchIt/raw/rewrite/Tools/Windows/RunAsAdmin/RunAsAdmin.exe")
+                wgetter.download("https://github.com/le717/PatchIt/raw/rewrite/Tools/Windows/RunAsAdmin/RunAsAdmin.exe")
 
             # The backup download is unavailable too; Tell the user.
             except (HTTPError, URLError, ValueError):
@@ -402,7 +402,7 @@ def getNewVersion():
     """Download and read file listing newest PatchIt! version"""
     # Download the file with the newest info
     try:
-        wget.download(linkFile)
+        wgetter.download(linkFile)
 
     # The file could not be downloaded
     #TODO: Remove ValueError when code is near completion

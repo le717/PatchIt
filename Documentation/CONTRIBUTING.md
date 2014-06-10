@@ -20,7 +20,7 @@ An ISPP check will prevent it on running on lower versions or ANSI Inno Setup.
 * A slightly edited version of [@JrMasterModelBuilder](https://github.com/JrMasterModelBuilder)'s **[JAM Extractor](https://github.com/JrMasterModelBuilder/JAM-Extractor)**
 for extracting and compressing `LEGO.JAM`.
 
-* The newest release of **[wget](https://bitbucket.org/techtonik/python-wget/overview)**, already present at `Tools/wget/wget.py`
+* The newest release of **[wgetter](https://github.com/phoemur/wgetter)**, already available at `Tools/wgetter/wgetter.py`
 
 ### Editing ###
 
@@ -48,11 +48,11 @@ For Your Reading Pleasure
 -------------------------
 
 * A (incomplete) of everything that needs to be done can be found under [*TODO.md*](https://github.com/le717/PatchIt/blob/rewrite/Documentation/TODO.md) and [Issues](https://github.com/le717/PatchIt/issues).
-* The WIP PiP format V1.1 documentation can be found in [*PiP Format V1.1.md*](PiP%20Format%20V1.1.md).
+* The PiP format V1.1 documentation can be found in [*PiP Format V1.1.md*](PiP%20Format%20V1.1.md).
 * The PiP format V1.0.1 documentation can be found in [*PiP Format.md*](PiP%20Format.md).
 * Open [Issues](https://github.com/le717/PatchIt/issues) also commonly contain bug reports or errors.
 * A goal of **PatchIt!** is to have a complete GUI to replace the command-line style. However, the GUI has been put on hold
-until further notice. If you have experience in PyQt4 or PyQt5 and would like to help out in this area, you would be hardly be turned down . :wink:
+until further notice. If you have experience with PyQt5 and would like to help out in this area, you would be hardly be turned down . :wink:
 
 Building PatchIt!
 -----------------
