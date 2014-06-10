@@ -23,18 +23,32 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
-Remove unneded Tkinter files after freezing
+Copy any files/directories to their requried location during freezing
 """
 
 import os
+import distutils.file_util
 import distutils.dir_util
 
 
-def main(destFolder):
-    """Remove unneeded Tkinter files"""
+def main(srcFiles, destFolder):
+    """
+    Copy any files/directories to their requried location
+    `srcFiles` is an array of files/directories to copy
+    `destFolder` is the single destination folder
+    """
     print("\n")
-    # Delete the unneeded items from the freeze
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tcl", "tzdata"))
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tcl", "http1.0"))
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tk", "demos"))
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tk", "images"))
+    if not os.path.exists(destFolder):
+        os.makedirs(destFolder)
+
+    for item in srcFiles:
+        if os.path.isfile(item):
+            partDir = os.path.join(
+                destFolder, item.split(os.path.sep)[-1].split("/")[0])
+
+            if not os.path.exists(partDir):
+                os.makedirs(partDir)
+
+            distutils.file_util.copy_file(item, partDir)
+        else:
+            distutils.dir_util.copy_tree(item, destFolder)

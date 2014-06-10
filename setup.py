@@ -57,7 +57,7 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
 
 # Run utility to get the newest version of the readme
 # Freeze continues if this has an error
-from Tools.bin import (PiReadme, cleanup)
+from Tools.bin import (cleanup, copyfiles, PiReadme)
 PiReadme.main()
 
 build_exe_options = {"build_exe": destfolder,
@@ -91,8 +91,16 @@ setup(
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])
 
+# Copy any required files/directories
+filesForCopying = [
+    "Icons/PiTk.gif",
+    "Icons/PiIcon.ico",
+    "Icons/cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg"
+    ]
+copyfiles.main([os.path.join(os.getcwd(), item) for item in filesForCopying], destfolder)
+
 # Run cleanup script to remove unneeded Tkinter files
-cleanup.cleanup(destfolder)
+cleanup.main(destfolder)
 
 # Freeze PatchIt! Uninstaller
 print("\nFreezing PatchIt! Uninstaller\n")
