@@ -5,7 +5,7 @@
     This file is part of PatchIt!
 
     PatchIt!
-    The standard and simple way to package and install LEGO Racers mods
+    The simple way to package and install LEGO Racers mods
 
     Created 2013-2014 Triangle717
     <http://Triangle717.WordPress.com/>
@@ -24,9 +24,9 @@
     along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------------------
- PatchIt! Uninstaller v1.0.3
- Contains code contributed by JrMasterModelBuilder
- https://github.com/JrMasterModelBuilder
+PatchIt! Uninstaller v1.0.4
+Contains code contributed by JrMasterModelBuilder
+https://github.com/JrMasterModelBuilder
 """
 
 import os
@@ -35,33 +35,12 @@ import time
 import subprocess
 
 
-def singleUninstall(folderPath):
-    """Uninstall single PatchIt! installation"""
-    # If a single installation exists
-    if os.path.exists(os.path.join(folderPath, "unins000.exe")):
-        print("\nRunning unins000.exe")
-
-        # Run uninstaller, passing /SILENT to suppress confirmation boxes
-        subprocess.call([os.path.join(folderPath, "unins000.exe"), "/SILENT"])
-
-    # Single installation does not exist
-    else:
-        print("\nunins000.exe does not exist")
-
-    # Sleep just a little to avoid an error
-    time.sleep(1.5)
-
-    # Go to looping uninstaller
-    print("\nSwitching to Looping Uninstaller.")
-    loopUninstall(folderPath)
-
-
-def loopUninstall(folderPath):
+def main(folderPath):
     """
     Uninstall multiple PatchIt! installation
     Code contributed by JrMasterModelBuilder
     """
-    i = 1
+    i = 0
 
     # It is assumed another installation exists
     while i < 1000:
@@ -89,6 +68,4 @@ if __name__ == "__main__":
     # The user did not enter a path, use current directory
     except IndexError:
         folderPath = os.getcwd()
-
-    # Run uninstaller using folder path
-    singleUninstall(folderPath)
+    main(folderPath)

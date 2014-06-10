@@ -25,9 +25,6 @@
 
 -------------------------------------
 PatchIt! Uninstaller setup script using cx_Freeze.
-Taken from https://github.com/Lyrositor/EBPatcher
-and https://github.com/JrMasterModelBuilder/JAM-Extractor
-With changes by Triangle717
 """
 
 import os
@@ -64,9 +61,9 @@ if not os.path.isfile(build_exe_options["icon"]):
 
 setup(
     name="PatchIt! Uninstaller",
-    version="1.0.3",
+    version="1.0.4",
     author="2013-2014 Triangle717",
-    description="PatchIt! Uninstaller v1.0.3",
+    description="PatchIt! Uninstaller v1.0.4",
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable(os.path.join(os.path.dirname(__file__),
