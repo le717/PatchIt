@@ -51,8 +51,11 @@ def main(auto=False):
     # Shortcut to installation path,
     # plus fix if the path is blank
     installPath = details[0]
+    gameVersion = details[1]
     if installPath == "":
         installPath = const.appFolder
+    if gameVersion != ("1999" or "2001"):
+        gameVersion = "unknown"
 
     # The settings do not exist
     if (
@@ -75,7 +78,7 @@ A {0} {1} release was found at
 {2}
 
 Would you like to change this?
-""".format(const.LRGame, details[1], installPath))
+""".format(const.LRGame, gameVersion, installPath))
 
         changeInstallPath = input(r"[Y\N] > ")
 
@@ -102,7 +105,7 @@ class Settings(object):
         self.__installLoc = ""
         self.__releaseVersion = ""
         self.__settingsExist = True
-        self.__settingsExtension = ".json"
+        self.__settingsFormat = "json"
         self.__settingsData = None
 
     def getDetails(self):
@@ -111,10 +114,16 @@ class Settings(object):
 
     def _setDetails(self):
         """Set details gathered by from reading"""
-        self.__piFirstRun = self.__settingsData["firstRun"]
-        self.__releaseVersion = self.__settingsData["releaseVersion"]
-        self.__installLoc = self.__settingsData["installPath"]
-        return True
+        try:
+            self.__piFirstRun = self.__settingsData["firstRun"]
+            self.__releaseVersion = self.__settingsData["releaseVersion"]
+            self.__installLoc = self.__settingsData["installPath"]
+            return True
+
+        # One of the keys in the JSON was missing
+        except KeyError:
+            logging.warning("A required JSON key was missing!")
+            return False
 
     # ------- Begin JSON/CFG Reading and Writing ------- #
 
@@ -122,8 +131,8 @@ class Settings(object):
         """Write JSON-based settings file"""
         jsonData = {
             "firstRun": "1",
-            "releaseVersion": str(releaseVersion),
-            "installPath": installLoc
+            "installPath": installLoc,
+            "releaseVersion": releaseVersion
         }
 
         # Create Settings directory if it does not exist
@@ -222,6 +231,11 @@ The content cannot be retrieved!""".format(const.LRSettings))
             logging.warning("LEGO Racers settings have not been set up!")
             return False
 
+        # The settings have never been set up
+        if not os.path.isdir(self.__installLoc):
+            logging.warning("A LEGO Racers installation is not defined!")
+            return False
+
         # The release version was not recognized
         if self.__releaseVersion != ("1999" or "2001"):
             logging.warning("Unrecognized game release version: {0}!".format(
@@ -248,24 +262,24 @@ The content cannot be retrieved!""".format(const.LRSettings))
         logging.warning("LEGO Racers installation could not be confirmed!")
         return False
 
-    def findSettings(self):
+    def _findSettings(self):
         """Locate the LEGO Racers settings"""
         # The preferred JSON settings do not exist
         if not os.path.exists(os.path.join(
                               const.settingsFol, const.LRSettings)):
-            logging.warning("Could not find LEGO Racers JSON settings!")
-            self.__settingsExtension = ".cfg"
+            logging.warning("Could not find LEGO Racers settings!")
+            self.__settingsFormat = "cfg"
 
             # Since those could not be found, look for the older CFG settings
             if not os.path.exists(os.path.join(
                                   const.settingsFol, const.LRSettingsCfg)):
-                logging.warning("Could not find LEGO Racers settings!")
+                logging.warning("Could not find LEGO Racers CFG settings!")
                 self.__settingsExist = False
                 return False
 
         # Check encoding of the file found
         logging.info("Checking encoding of settings file")
-        if self.__settingsExtension == ".json":
+        if self.__settingsFormat == "json":
             settingsName = const.LRSettings
         else:
             settingsName = const.LRSettingsCfg
@@ -333,13 +347,14 @@ The content cannot be retrieved!""".format(const.LRSettings))
             # write a settings file
             self._writeSettings(self.__releaseVersion, self.__installLoc)
             self.__settingsExist = True
+            self.__settingsFormat = "json"
             return True
         return False
 
     def readSettings(self):
         """Read LEGO Racers Settings File"""
         # Confirm the settings exist and are readable
-        self.findSettings()
+        self._findSettings()
 
         # The settings could not be found, go write the settings
         if not self.__settingsExist:
@@ -349,7 +364,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             return False
 
         # Read the proper file to get the data needed
-        if self.__settingsExtension == ".json":
+        if self.__settingsFormat == "json":
             if self._readSettingsJson():
                 self._setDetails()
 
@@ -373,8 +388,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
         # The installation could not be confirmed
         else:
-            logging.__settingsExist(
-                "LEGO Racers Settings could not be confirmed")
+            logging.warning("LEGO Racers Settings could not be confirmed!")
             self.settingsExist = False
             if self._getInstallInfo():
                 return True
