@@ -33,8 +33,17 @@ import distutils.dir_util
 def main(destFolder):
     """Remove unneeded Tkinter files"""
     print("\n")
-    # Delete the unneeded items from the freeze
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tcl", "tzdata"))
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tcl", "http1.0"))
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tk", "demos"))
-    distutils.dir_util.remove_tree(os.path.join(destFolder, "tk", "images"))
+    try:
+        # Delete the unneeded items from the freeze
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tcl", "tzdata"))
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tcl", "http1.0"))
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tk", "demos"))
+        distutils.dir_util.remove_tree(os.path.join(
+            destFolder, "tk", "images"))
+
+    # There are no files to delete
+    except FileNotFoundError:
+        print("Nothing to delete! :D")

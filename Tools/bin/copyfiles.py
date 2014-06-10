@@ -35,20 +35,24 @@ def main(srcFiles, destFolder):
     """
     Copy any files/directories to their requried location
     `srcFiles` is an array of files/directories to copy
-    `destFolder` is the single destination folder
+    `destFolder` is the single destination directory
     """
-    print("\n")
+    print("\nCopying required files and directories")
+
+    # Create the destination folder if needed
+    # (it usually does not need to be)
     if not os.path.exists(destFolder):
         os.makedirs(destFolder)
 
     for item in srcFiles:
+        # Copy any files
         if os.path.isfile(item):
-            partDir = os.path.join(
-                destFolder, item.split(os.path.sep)[-1].split("/")[0])
-
-            if not os.path.exists(partDir):
-                os.makedirs(partDir)
-
+            partDir = os.path.join(destFolder, os.path.dirname(item))
+            distutils.dir_util.create_tree(partDir, item)
             distutils.file_util.copy_file(item, partDir)
+
+        # Copy any directories
         else:
-            distutils.dir_util.copy_tree(item, destFolder)
+            rootDir = os.path.join(os.getcwd(), item)
+            partDir = os.path.join(destFolder, item)
+            distutils.dir_util.copy_tree(rootDir, partDir)

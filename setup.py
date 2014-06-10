@@ -93,11 +93,11 @@ setup(
 
 # Copy any required files/directories
 filesForCopying = [
-    "Icons/PiTk.gif",
-    "Icons/PiIcon.ico",
-    "Icons/cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg"
-    ]
-copyfiles.main([os.path.join(os.getcwd(), item) for item in filesForCopying], destfolder)
+    os.path.join("Icons", "PiTk.gif"),
+    os.path.join("Icons", "PiIcon.ico"),
+    os.path.join("Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")
+]
+copyfiles.main(filesForCopying, destfolder)
 
 # Run cleanup script to remove unneeded Tkinter files
 cleanup.main(destfolder)
@@ -105,4 +105,5 @@ cleanup.main(destfolder)
 # Freeze PatchIt! Uninstaller
 print("\nFreezing PatchIt! Uninstaller\n")
 from Tools.Uninstaller import setup  # noqa
-print("Done. :)\n")
+
+print("\nDone. :)\n")
