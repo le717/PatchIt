@@ -67,16 +67,7 @@ build_exe_options = {"build_exe": destfolder,
                      "icon": "Icons/PiIcon.ico",
                      "include_files": ["Build.pickle"],
                      "includes": [
-                         "re",
-                         "patchit",
-                         "color",
-                         "runasadmin",
-                         "Patch/install",
-                         "Patch/create",
-                         "Patch/racingtips",
-                         "Game/legojam",
-                         "Game/JAMExtractor",
-                         "Settings/buildgen"
+                         "re"
                      ]}
 
 # Get the current build number
