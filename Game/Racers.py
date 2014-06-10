@@ -133,8 +133,7 @@ class Settings(object):
 
         with open(os.path.join(const.settingsFol, const.LRSettings),
                   "wt") as f:
-            # Use JSON required double quotes
-            f.write(str(jsonData).replace("'", '"'))
+            f.write(json.dumps(jsonData, indent=4, sort_keys=True))
         return True
 
     def _readSettingsJson(self):
