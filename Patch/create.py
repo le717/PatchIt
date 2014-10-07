@@ -1,31 +1,23 @@
 # -*- coding: utf-8 -*-
-"""
+"""PatchIt! - The simple way to package and install LEGO Racers mods.
 
-    Hear, O Israel: YHWH our God, YHWH is one! - Deuteronmoy 6:4
+Created 2013-2014 Triangle717
+<http://Triangle717.WordPress.com/>
 
-    This file is part of PatchIt!
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    PatchIt!
-    The simple way to package and install LEGO Racers mods
+PatchIt! is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-    Created 2013-2014 Triangle717
-    <http://Triangle717.WordPress.com/>
+You should have received a copy of the GNU General Public License
+along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
-    PatchIt! is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    PatchIt! is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-
--------------------------------------
-PatchIt! v1.1.3 Unstable Patch Creation code
+"""It! v1.1.3 Unstable Patch Creation code
 """
 
 # General imports

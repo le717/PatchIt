@@ -1,35 +1,23 @@
 #! /usr/bin/env python3.4-32
 # -*- coding: utf-8 -*-
-# <pep8-80 compliant>
-"""
-    “And behold, I am coming quickly, and My reward is with Me,
-    to give to every one according to his work.
-    I am the Alpha and the Omega, the Beginning and the End,
-    the First and the Last.” - Revelation 22:12-13
+"""PatchIt! - The simple way to package and install LEGO Racers mods.
 
-    This file is part of PatchIt!
+Created 2013-2014 Triangle717
+<http://Triangle717.WordPress.com/>
 
-    PatchIt!
-    The simple way to package and install LEGO Racers mods
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    Created 2013-2014 Triangle717
-    <http://Triangle717.WordPress.com/>
+PatchIt! is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+You should have received a copy of the GNU General Public License
+along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
-    PatchIt! is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-
--------------------------------------
-PatchIt! setup script using cx_Freeze
 """
 
 import os
@@ -57,8 +45,8 @@ Please freeze PatchIt! using 32-bit Python 3.3.''')
 
 # Run utility to get the newest version of the readme
 # Freeze continues if this has an error
-from Tools.bin import (cleanup, copyfiles, PiReadme)
-PiReadme.main()
+from Tools.bin import (cleanup, copyfiles, readme)
+readme.main()
 
 build_exe_options = {"build_exe": destfolder,
                      "create_shared_zip": True,

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# <pep8-80 compliant>
 # Foreground (text only) colors
 FG_BLACK = 0x00
 FG_BLUE = 0x01

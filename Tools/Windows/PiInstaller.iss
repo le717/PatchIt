@@ -1,47 +1,27 @@
-﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; PatchIt! - The simple way to package and install LEGO Racers mods.
 ;
-;    In this manner, therefore, pray:
+; Created 2013-2014 Triangle717
+; <http://Triangle717.WordPress.com/>
 ;
-;     Our Father in heaven,
-;     Hallowed be Your name.
-;     Your kingdom come.
-;     Your will be done
-;     On earth as it is in heaven.
-;     Give us this day our daily bread.
-;     And forgive us our debts,
-;     As we forgive our debtors.
-;     And do not lead us into temptation,
-;     But deliver us from the evil one.
-;     For Yours is the kingdom and the power and the glory forever. Amen.
-;    - Matthew 6:9-13
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; (at your option) any later version.
 ;
-;    This file is part of PatchIt!
+; PatchIt! is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+; GNU General Public License for more details.
 ;
-;    PatchIt! - the standard and simple way to package and install mods
-;    for LEGO® Racers
-;
-;    Created 2013 Triangle717 <http://Triangle717.WordPress.com/>
-;
-;    PatchIt! is free software: you can redistribute it and/or modify
-;    it under the terms of the GNU General Public License as published by
-;    the Free Software Foundation, either version 3 of the License, or
-;    (at your option) any later version.
-;
-;    PatchIt! is distributed in the hope that it will be useful,
-;    but WITHOUT ANY WARRANTY; without even the implied warranty of
-;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;    GNU General Public License for more details.
-;
-;    You should have received a copy of the GNU General Public License
-;    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; You should have received a copy of the GNU General Public License
+; along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 ; PatchIt! Windows Installer
 ; Written with Inno Setup 5.5.2 Unicode
 
 ; If any version below the specified version is used for compiling, 
 ; this error will be shown.
-#if VER < EncodeVer(5,5,2)
+#if VER < EncodeVer(5, 5, 2)
   #error You must use Inno Setup 5.5.2 or newer to compile this script
 #endif
 
@@ -50,7 +30,7 @@
 #else
   ; If non-Unicode (AKA ANSI) Inno Setup is used
   #error You must use Unicode Inno Setup to compile this script
-#endif 
+#endif
 
 ; Global variables
 #define MyAppName "PatchIt!" 

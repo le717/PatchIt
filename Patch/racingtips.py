@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*
-"""
-    PatchIt! v1.1.0 Stable LEGO Racers Gameplay tips
-    All tips donated by the fine folks at Rock Raiders United.
+"""LEGO Racers Gameplay tips.
+All tips donated by the fine folks at Rock Raiders United.
 
-    Tips 1 - 12 : Beginner Level
-    Tips 13 - 22: Intermediate Level
-    Tips 23 - 27: Expert tips
+Tips 1 - 12 : Beginner Level,
+Tips 13 - 22: Intermediate Level.
+Tips 23 - 27: Expert tips.
+
 """
 
 gametips = [
