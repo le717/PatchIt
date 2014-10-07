@@ -54,7 +54,7 @@ def main(auto=False):
     gameVersion = details[1]
     if installPath == "":
         installPath = const.appFolder
-    if gameVersion != ("1999" or "2001"):
+    if gameVersion not in ("1999", "2001"):
         gameVersion = "unknown"
 
     # The settings do not exist
@@ -97,10 +97,10 @@ LEGO Racers installation or pressed an undefined key""")
 
 @Singleton
 class Settings(object):
-    """LEGO Racers Settings Management"""
+    """LEGO Racers Settings Management."""
 
     def __init__(self):
-        """Object-only values"""
+        """Object-only values."""
         self.__piFirstRun = "1"
         self.__installLoc = ""
         self.__releaseVersion = ""
@@ -113,7 +113,7 @@ class Settings(object):
         return (self.__installLoc, self.__releaseVersion, self.__settingsExist)
 
     def _setDetails(self):
-        """Set details gathered by from reading"""
+        """Set details gathered by from reading."""
         try:
             self.__piFirstRun = self.__settingsData["firstRun"]
             self.__releaseVersion = self.__settingsData["releaseVersion"]
@@ -128,7 +128,7 @@ class Settings(object):
     # ------- Begin JSON/CFG Reading and Writing ------- #
 
     def _writeSettings(self, releaseVersion, installLoc):
-        """Write JSON-based settings file"""
+        """Write JSON-based settings file."""
         jsonData = {
             "firstRun": "1",
             "installPath": installLoc,
@@ -146,7 +146,7 @@ class Settings(object):
         return True
 
     def _readSettingsJson(self):
-        """Read JSON-based settings file"""
+        """Read JSON-based settings file."""
         try:
             with open(os.path.join(const.settingsFol, const.LRSettings),
                       "rt", encoding="utf-8") as f:
@@ -160,7 +160,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             return False
 
     def _convertToJson(self, cfgData):
-        """Convert CFG-based settings to JSON-based settings"""
+        """Convert CFG-based settings to JSON-based settings."""
         try:
             # This is a first run, create the settings
             if cfgData[2].strip() == "0":
@@ -182,7 +182,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             return False
 
     def _readSettingsCfg(self):
-        """Read older CFG-based settings file"""
+        """Read older CFG-based settings file."""
         with open(os.path.join(const.settingsFol, const.LRSettingsCfg),
                   "rt", encoding="utf_8") as f:
             cfgData = f.readlines()
@@ -193,7 +193,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
     # ------- Begin Settings Confirmation and Detection ------- #
 
     def _getVersion(self):
-        """Detect LEGO Racers release version"""
+        """Detect LEGO Racers release version."""
         # Open the exe and read a small part of it
         try:
             with open(self.__exeLoc, "rb") as f:
@@ -219,7 +219,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             return False
 
     def _confirmSettings(self):
-        """Confirm information given in settings"""
+        """Confirm information given in settings."""
         # Exe, JAM, and DLL locations
         self.__exeLoc = os.path.join(
             self.__installLoc, "legoracers.exe".lower())
@@ -263,7 +263,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
         return False
 
     def _findSettings(self):
-        """Locate the LEGO Racers settings"""
+        """Locate the LEGO Racers settings."""
         # The preferred JSON settings do not exist
         if not os.path.exists(os.path.join(
                               const.settingsFol, const.LRSettings)):
@@ -298,7 +298,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
     # ------- Begin Settings Confirmation and Detection ------- #
 
     def _getInstallInfo(self):
-        """Get details to write LEGO Racers settings"""
+        """Get details to write LEGO Racers settings."""
         # Draw (then withdraw) the root Tk window
         root = tkinter.Tk()
         root.withdraw()
@@ -352,7 +352,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
         return False
 
     def readSettings(self):
-        """Read LEGO Racers Settings File"""
+        """Read LEGO Racers settings file."""
         # Confirm the settings exist and are readable
         self._findSettings()
 

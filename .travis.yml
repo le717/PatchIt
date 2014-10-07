@@ -4,7 +4,9 @@ python:
   - 3.4
 
 install: pip install --no-use-wheel -r requirements.txt
-script: flake8 .
+script:
+  - flake8 --max-complexity 10 .
+  - pep257 . --explain
 
 notifications:
   email:

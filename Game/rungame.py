@@ -50,7 +50,7 @@ class PlayRacers(object):
         self.__LRE = "LEGORacers.exe"
         # Parameter to skip intro movies
         self.__novideo = "-novideo"
-        #TODO: Exe parameters for future use
+        # TODO: Exe parameters for future use
         # self.__horz = horz
         # self.__vert = vert
         # self.__horzres = "-horzres {0}".format(int(self.__horz))

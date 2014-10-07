@@ -63,14 +63,14 @@ class BuildNumber(object):
         if not os.path.exists(const.buildFile):
 
             # If this is a frozen exe, it will return None
-            #TODO: Support GUI
+            # TODO: Support GUI
             if (hasattr(sys, "frozen") and
                     sys.frozen in ("windows_exe", "console_exe")):
                 return None
 
             # This is the raw Python script, get a new number
             elif not (hasattr(sys, "frozen") and
-                      not sys.frozen in ("windows_exe", "console_exe")):
+                      sys.frozen not in ("windows_exe", "console_exe")):
                 newBuild = self.writeBuild(False)
                 return newBuild
 
