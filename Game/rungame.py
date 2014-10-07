@@ -33,14 +33,15 @@ import PatchIt
 
 
 class PlayRacers(object):
-    """
-    Launch LEGO Racers
+
+    """"Launch LEGO Racers.
+
     NOTE: This requires Administrator rights,
     and will not work without them.
     """
 
     def __init__(self):
-        """Define exe name and game parameters"""
+        """Define exe name and game parameters."""
         self.__LRE = "LEGORacers.exe"
         # Parameter to skip intro movies
         self.__novideo = "-novideo"
@@ -50,8 +51,8 @@ class PlayRacers(object):
         # self.__horzres = "-horzres {0}".format(int(self.__horz))
         # self.__vertres = "-vertres {0}".format(int(self.__vert))
 
-    def Race(self):
-        """I'll see you... at the finish line!"""
+    def runGame(self):
+        """Run the game."""
         # Get the installation path to Racers
         install_path = Racers.getRacersPath()
         logging.info("Reported LEGO Racers installation at {0}"

@@ -63,7 +63,7 @@ import PatchIt
 
 
 def appLoggingFolder():
-    """Checks for (and creates) PatchIt! Logs folder"""
+    """Check for and creates PatchIt! Logs folder."""
     try:
         # Location of Logs folder
         logsFolder = os.path.join(const.appFolder, "Logs")

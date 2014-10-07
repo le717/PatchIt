@@ -1,28 +1,22 @@
 # -*- coding: utf-8 -*-
-"""
-    This file is part of PatchIt!
+"""PatchIt! - The simple way to package and install LEGO Racers mods.
 
-    PatchIt!
-    The standard and simple way to package and install LEGO Racers mods
+Created 2013-2014 Triangle717
+<http://Triangle717.WordPress.com/>
 
-    Created 2013-2014 Triangle717
-    <http://Triangle717.WordPress.com/>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    PatchIt! is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+PatchIt! is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-    PatchIt! is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
-    You should have received a copy of the GNU General Public License
-    along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
-
--------------------------------------
-PatchIt! RunAsAdmin Intergration
 """
 
 import os
@@ -40,32 +34,35 @@ import constants as const
 
 
 class AdminRun(object):
-    """Invokes the RunAsAdmin helper utility"""
+
+    """Invokes the RunAsAdmin helper utility.
+
+    """
 
     def __init__(self):
-        """Draw (then withdraw) root Tkinter window"""
+        """Create root Tkinter window."""
         self.__main = tkinter.Tk()
         self.__main.withdraw()
         self.__main.iconbitmap(const.appIcon)
 
     def launch(self, messages):
-        """Relaunch PatchIt! with administrator rights"""
+        """Relaunch PatchIt! with administrator rights."""
         # Display any message(s) properly
         if messages[1:] == []:
-            __end = ""
+            end = ""
         else:
-            __end = "".join(messages[1:])
+            end = "".join(messages[1:])
 
-        __admin = askyesno("Relaunch PatchIt?",
-                           """{0}
+        admin = askyesno("Relaunch PatchIt?", """{0}
 Would you like to relaunch PatchIt! with Administrator rights? {1}""".format(
-                           messages[0], __end))
+                           messages[0], end))
 
         # User does not want to relaunch PatchIt!
-        if not __admin:
+        if not admin:
             logging.warning("User does not want to relaunch with Admin rights")
             self.__main.destroy()
             return False
+
         # If user wants to relaunch
         else:
             logging.info("User wants to relaunch with Admin rights")

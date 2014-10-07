@@ -41,7 +41,7 @@ from Game import JAMExtractor
 
 
 def main():
-    """JAM Extractor Menu"""
+    """JAM Extractor main menu."""
     colors.text("""
 JAM Extractor 1.0.2
 COPYRIGHT (C) 2012-2013: JrMasterModelBuilder""", color.FG_WHITE)
@@ -68,7 +68,7 @@ COPYRIGHT (C) 2012-2013: JrMasterModelBuilder""", color.FG_WHITE)
 
 
 def selectJAMFiles():
-    """Select the files to compress into a JAM"""
+    """Select the files to compress into a JAM."""
     # Draw (then withdraw) the root Tk window
     root = tkinter.Tk()
     root.withdraw()
@@ -102,7 +102,7 @@ def selectJAMFiles():
 
 
 def buildJAM(jamFiles):
-    """Compress the files into LEGO.JAM"""
+    """Compress the files into LEGO.JAM."""
     try:
         os.chdir(jamFiles)
         JAMExtractor.build(jamFiles, verbose=False)
@@ -133,7 +133,7 @@ PatchIt! does not have the rights to save LEGO.JAM to
 
 
 def selectJAMArchive():
-    """Select the JAM Archive to extract"""
+    """Select the JAM Archive to extract."""
     # Draw (then withdraw) the root Tk window
     root = tkinter.Tk()
     root.withdraw()
@@ -170,7 +170,7 @@ def selectJAMArchive():
 
 
 def extractJAM(jamLocation):
-    """Extract the files from LEGO.JAM"""
+    """Extract the files from LEGO.JAM."""
     try:
         # Extract the JAM archive
         JAMExtractor.extract(jamLocation, verbose=False)

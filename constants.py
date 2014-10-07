@@ -49,7 +49,7 @@ buildFile = os.path.join(appFolder, "Build.pickle")
 
 
 def buildMe():
-    """Retrieve and update the build number """
+    """Retrieve and update the build number."""
     # Retrieve the build number
     from Settings.buildgen import (BuildNumber, UpdateBuildNumber)
     bn = BuildNumber.Instance()

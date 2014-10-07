@@ -17,7 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
-"""It! v1.1.3 Unstable Patch Creation code
 """
 
 # General imports

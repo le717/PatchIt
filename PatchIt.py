@@ -58,7 +58,7 @@ testMode = []
 # ------------ Begin PatchIt! Command-line Arguments ------------ #
 
 def args():
-    """PatchIt! Command-line Arguments"""
+    """Command-line arguments."""
     logging.info("Command-line arguments processor started")
 
     parser = argparse.ArgumentParser(
@@ -112,7 +112,7 @@ without going through the menu first''')
 
 
 def info():
-    """PatchIt! and System checks"""
+    """PatchIt! and system checks."""
     # Check if Python is x86 or x64
     # Based on code from Python help for platform module and my own tests
     if sys.maxsize == 2147483647:
@@ -142,7 +142,7 @@ def info():
 
 
 def preload():
-    """PatchIt! Settings checks"""
+    """PatchIt! settings checks."""
     # Write general PatchIt! settings
     # A check is not needed for this; it is always written
     piSettings()
@@ -159,12 +159,9 @@ def preload():
 
 
 def about():
-    """Tkinter About Box"""
-
+    """Tkinter about box."""
     root = tk.Tk()
-    # Window title
     root.title("About {0} Version {1}".format(const.appName, const.majVer))
-    # The box cannot be resized
     root.minsize("420", "280")
     root.maxsize("420", "280")
 
@@ -203,7 +200,7 @@ def about():
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
-        """Closes the About Window"""
+        """Close the about box."""
         root.destroy()
         main()
 
@@ -243,7 +240,7 @@ def about():
 
 
 def main(loopNum=1):
-    """PatchIt! Menu Layout"""
+    """PatchIt! main menu."""
     loopNum += 1
 
     # If the user has pressed an valid key 5 times or this is app launch
@@ -312,7 +309,7 @@ Please make a selection:
 
         # Run LEGO Racers
         elif menuChoice.lower() == "r":
-            rungame.PlayRacers().Race()
+            rungame.PlayRacers().runGame()
 
         # Close PatchIt!
         elif menuChoice.lower() == "q":
@@ -330,7 +327,7 @@ Please make a selection:
 
 
 def easterEgg():
-    """Hehehe"""
+    """Hehehe."""
     root = tk.Tk()
     root.withdraw()
     root.iconbitmap(const.appIcon)
@@ -356,9 +353,9 @@ def easterEgg():
 
 
 def piSettings():
-    """Writes PatchIt! General Settings"""
-    #TODO: Will be expanded with more data in future releases,
-    # including portable awareness
+    """Write PatchIt! general settings."""
+    # TODO: Will be expanded with more data in future releases,
+    # including portable mode awareness
     theFile = os.path.join(const.settingsFol, const.piSettings)
     logging.info("Writing {0}".format(theFile))
 

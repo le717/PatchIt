@@ -79,7 +79,7 @@ Would you like to change this?
         # Yes, I want to change the defined installation
         if changeInstallPath.lower() == "y":
             logging.info("User wants to change LEGO Racers settings")
-            if not mySettings._getInstallInfo():
+            if not mySettings.getInstallInfo():
                 return False
 
         # No, I do not want to change the defined installation
@@ -91,19 +91,25 @@ LEGO Racers installation or pressed an undefined key""")
 
 @Singleton
 class Settings(object):
-    """LEGO Racers Settings Management."""
+
+    """LEGO Racers Settings Management.
+
+    Exposes one public method:
+    * getDetails {boolean} TODO.
+    * getInstallInfo {boolean} TODO.
+    """
 
     def __init__(self):
         """Object-only values."""
         self.__piFirstRun = "1"
         self.__installLoc = ""
         self.__releaseVersion = ""
+        self.__settingsData = None
         self.__settingsExist = True
         self.__settingsFormat = "json"
-        self.__settingsData = None
 
     def getDetails(self):
-        """Return LEGO Racers installation details"""
+        """Return LEGO Racers installation details."""
         return (self.__installLoc, self.__releaseVersion, self.__settingsExist)
 
     def _setDetails(self):
@@ -159,7 +165,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             # This is a first run, create the settings
             if cfgData[2].strip() == "0":
                 logging.info("This is first time PatchIt! has been run")
-                self._getInstallInfo()
+                self.getInstallInfo()
                 return False
 
             # The settings have been set up before, convert them
@@ -172,7 +178,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
         # There was an error reading the settings
         except IndexError:
             logging.warning("There was an error reading the CFG settings!")
-            self._getInstallInfo()
+            self.getInstallInfo()
             return False
 
     def _readSettingsCfg(self):
@@ -291,7 +297,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
     # ------- Begin Settings Confirmation and Detection ------- #
 
-    def _getInstallInfo(self):
+    def getInstallInfo(self):
         """Get details to write LEGO Racers settings."""
         # Draw (then withdraw) the root Tk window
         root = tkinter.Tk()
@@ -353,7 +359,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
         # The settings could not be found, go write the settings
         if not self.__settingsExist:
             logging.warning("LEGO Racers settings do not exist!")
-            if self._getInstallInfo():
+            if self.getInstallInfo():
                 return True
             return False
 
@@ -367,7 +373,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             else:
                 logging.warning("LEGO Racers JSON could not be parsed!")
                 self.__settingsExist = False
-                if self._getInstallInfo():
+                if self.getInstallInfo():
                     return True
                 return False
         else:
@@ -384,6 +390,6 @@ The content cannot be retrieved!""".format(const.LRSettings))
         else:
             logging.warning("LEGO Racers Settings could not be confirmed!")
             self.settingsExist = False
-            if self._getInstallInfo():
+            if self.getInstallInfo():
                 return True
             return False
