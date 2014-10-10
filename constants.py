@@ -39,7 +39,7 @@ piSettings = "PatchIt.json"
 # Name of PatchIt! Exe/Py
 exeName = os.path.basename(sys.argv[0])
 # Location of PatchIt! Exe/Py
-appFolder = os.path.dirname(sys.argv[0])
+appFolder = os.path.abspath(os.getcwd())
 # Location of Settings folder
 settingsFol = os.path.join(appFolder, "Settings")
 # PatchIt! Icon
