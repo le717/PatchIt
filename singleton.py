@@ -12,12 +12,12 @@ To get the singleton instance, use the `Instance` method. Trying
 to use `__call__` will result in a `TypeError` being raised.
 
 Limitations: The decorated class cannot be inherited from.
-    
+
 """
 
 
 class Singleton:
-    
+
     """Example Usage:
 
     @Singleton
