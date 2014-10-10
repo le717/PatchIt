@@ -23,21 +23,14 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 import os
 import sys
 from cx_Freeze import (setup, Executable)
-
-# PatchIt! Constants
 import constants as const
+from Settings.buildgen import BuildNumber
 
-
-# Append build command to command-line arguments.
-# Just type "python setup.py" and it will freeze
-if len(sys.argv) == 1:
-    sys.argv[1:] = ["build"]
-
-# If this is Python x86
+# x86 Python
 if sys.maxsize < 2 ** 32:
     destfolder = os.path.join(os.getcwd(), "bin", "Windows")
 
-# If this is Python x64
+# x64 Python
 else:
     input('''\n64-bit binaries are not frozen.
 Please freeze PatchIt! using 32-bit Python 3.3.''')
@@ -58,14 +51,11 @@ build_exe_options = {"build_exe": destfolder,
                          "re"
                      ]}
 
-# Get the current build number
-from Settings.buildgen import BuildNumber as bg
-
 setup(
     name="PatchIt!",
-    version="{0}.{1}".format(const.majVer, bg.Instance().buildNum),
+    version="{0}.{1}".format(const.version, BuildNumber.Instance().buildNum),
     author="2013-2014 Triangle717",
-    description="PatchIt! Version {0} {1}".format(const.majVer, const.minVer),
+    description="PatchIt! Version {0} {1}".format(const.version, const.minVer),
     license="GPLv3",
     options={"build_exe": build_exe_options},
     executables=[Executable("RunIt.py", targetName="PatchIt.exe")])

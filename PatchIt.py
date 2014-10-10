@@ -63,7 +63,7 @@ def args():
 
     parser = argparse.ArgumentParser(
         description="{0} {1} {2} Command-line Arguments".format(
-            const.appName, const.majVer, const.minVer))
+            const.appName, const.version, const.minVer))
 
     # Experimental Mode argument
     parser.add_argument("-t", "--test",
@@ -87,7 +87,7 @@ without going through the menu first''')
     if debugArg:
         testMode.append(True)
         os.system("title {0} Version {1} {2} - Experimental Mode".format(
-            const.app, const.majVer, const.minVer))
+            const.app, const.version, const.minVer))
         logging.info("Starting PatchIt! in Experimental Mode")
 
     # The debug parameter was not passed, don't display debugging message
@@ -129,7 +129,6 @@ def info():
                                 #############################################
                                         {0} Version {1} {2}
                                          Created 2013-{3} {4}
-                                                PatchIt.log
 
 
                                     If you run into a bug, open an issue at
@@ -137,7 +136,7 @@ def info():
                                     and attach this file for an quicker fix!
                                 #############################################
                                 '''.format(
-        const.appName, const.majVer, const.minVer,
+        const.appName, const.version, const.minVer,
         const.currentYear, const.creator))
 
 
@@ -161,7 +160,7 @@ def preload():
 def about():
     """Tkinter about box."""
     root = tk.Tk()
-    root.title("About {0} Version {1}".format(const.appName, const.majVer))
+    root.title("About {0} Version {1}".format(const.appName, const.version))
     root.minsize("420", "280")
     root.maxsize("420", "280")
 
@@ -195,7 +194,7 @@ def about():
 
        The standard and simple way to
     package and install LEGO Racers mods
-'''.format(const.appName, const.majVer, const.minVer,
+'''.format(const.appName, const.version, const.minVer,
            buildNum, const.currentYear))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
@@ -251,7 +250,7 @@ def main(loopNum=1):
 
         # And display the menu only at the valid times
         colors.text("\n{0} {1} {2}\nCreated 2013-{3} {4}".format(
-                    const.appName, const.majVer, const.minVer,
+                    const.appName, const.version, const.minVer,
                     const.currentYear, const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")
@@ -364,13 +363,12 @@ def piSettings():
         os.makedirs(const.settingsFol)
 
     jsonData = {
-        "majVer": const.majVer,
+        "version": const.version,
         "minVer": const.minVer,
         "buildNum": buildNum
     }
 
-    # Write the PatchIt! Major and Minor number,
-    # as defined in the `majVer` and `minVer` variables
+    # Write the major and minor version numbers
     with open(os.path.join(theFile), "wt", encoding="utf_8") as f:
         f.write(json.dumps(jsonData, indent=4, sort_keys=True))
     return True

@@ -37,17 +37,14 @@ class BuildNumber(object):
         except when we are running a binary release.
     Stores the build number using pickling v3.
 
-    Exposes three public methods:
-    * fetch TODO.
-    * getBuild TODO.
-    * writeBuild resetBuild {boolean} TODO.
+    Exposes two public methods and one property:
+    * buildNum {string} The current build number
+    * getBuild() TODO.
+    * writeBuild() resetBuild {boolean} TODO.
     """
 
     def __init__(self):
         self.buildNum = self.getBuild()
-
-    def fetch(self):
-        return self.buildNum
 
     def writeBuild(self, resetBuild=False):
         """Reset build number."""
@@ -59,21 +56,20 @@ class BuildNumber(object):
 
         # Write the number
         with open(const.buildFile, "wb") as f:
-            pickle.dump(build, f)
+            pickle.dump(str(build), f)
         return build
 
     def getBuild(self):
         """Set current build number."""
         # The pickled data cannot be found
         if not os.path.exists(const.buildFile):
-
-            # If this is a frozen exe, it will return None
+            # This is a release binary
             # TODO: Support GUI
             if (hasattr(sys, "frozen") and
                     sys.frozen in ("windows_exe", "console_exe")):
                 return None
 
-            # This is the raw Python script, get a new number
+            # This is a development version, get a new number
             elif not (hasattr(sys, "frozen") and
                       sys.frozen not in ("windows_exe", "console_exe")):
                 newBuild = self.writeBuild(False)
@@ -85,19 +81,6 @@ class BuildNumber(object):
                 build = pickle.load(f)
             return build
 
-
-class UpdateBuildNumber(object):
-    """Increase the build number."""
-
     def updateBuild(self, buildNum):
         """Increase the build number."""
-        # Convert it to an integer
-        intBuild = int(buildNum)
-
-        # Increase the build number
-        intBuild += 1
-
-        # Reconstruct the entire number, send it off for wrting
-        updatedNum = "{0}".format(intBuild)
-        BuildNumber.Instance().writeBuild(updatedNum)
-        return updatedNum
+        return self.writeBuild(int(buildNum) + 1)

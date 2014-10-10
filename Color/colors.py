@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""PatchIt! - The standard and simple way to package and install LEGO Racers mods.
+"""PatchIt! - The simple way to package and install LEGO Racers mods.
 
 Created 2013-2014 Triangle717
 <http://Triangle717.WordPress.com/>

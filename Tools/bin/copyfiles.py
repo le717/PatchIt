@@ -26,7 +26,6 @@ import distutils.dir_util
 
 
 def main(srcFiles, destFolder):
-
     """Copy any files/directories to their requried location.
 
     `srcFiles` is an array of files/directories to copy.

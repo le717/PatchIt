@@ -46,7 +46,7 @@ if sys.version_info < (3, 3, 0):
     root.iconbitmap(const.appIcon)
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
-        sys.version[0:5], const.appName, const.majVer, const.minVer))
+        sys.version[0:5], const.appName, const.version, const.minVer))
 
     # Opens only when user clicks OK
     # New tab, raise browser window (if possible)
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     # Write window title (since there is no GUI in PatchIt! itself (yet))
     os.system("title {0} {1} {2}".format(
-        const.appName, const.majVer, const.minVer))
+        const.appName, const.version, const.minVer))
     PatchIt.info()
     PatchIt.args()
     PatchIt.preload()
