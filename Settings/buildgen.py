@@ -40,14 +40,17 @@ class BuildNumber(object):
     Exposes two public methods and one property:
     * buildNum {string} The current build number
     * getBuild() TODO.
-    * writeBuild() resetBuild {boolean} TODO.
+    * writeBuild() resetBuild {boolean} Pickles the build number to file.
+        If resetBuild is True, the build number will be reset to 1.
+    * updateBuild() curNum {string} Increases the current build number.
     """
 
     def __init__(self):
+        """Expose current build number."""
         self.buildNum = self.getBuild()
 
     def writeBuild(self, resetBuild=False):
-        """Reset build number."""
+        """Pickle build number."""
         # Reset the number if one is not given
         if not resetBuild:
             build = "1"
@@ -72,8 +75,7 @@ class BuildNumber(object):
             # This is a development version, get a new number
             elif not (hasattr(sys, "frozen") and
                       sys.frozen not in ("windows_exe", "console_exe")):
-                newBuild = self.writeBuild(False)
-                return newBuild
+                return self.writeBuild(False)
 
         # It does exist, read it
         elif os.path.exists(const.buildFile):
@@ -81,9 +83,9 @@ class BuildNumber(object):
                 build = pickle.load(f)
             return build
 
-    def updateBuild(self, buildNum):
+    def updateBuild(self, curNum):
         """Increase the build number."""
         if not (hasattr(sys, "frozen") and
                 sys.frozen not in ("windows_exe", "console_exe") and
                 const.minVer != "Stable"):
-            return self.writeBuild(int(buildNum) + 1)
+            return self.writeBuild(int(curNum) + 1)

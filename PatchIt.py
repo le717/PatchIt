@@ -20,14 +20,11 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
 # General use modules
-import sys
 import os
-import webbrowser
-import platform
-import subprocess
-import argparse
-import logging
 import json
+import logging
+import webbrowser
+import subprocess
 
 # Tkinter GUI library
 import tkinter as tk
@@ -48,6 +45,7 @@ from Game import (Racers, rungame, legojam)
 
 # Build number
 buildNum = const.getBuildNumber()
+
 
 def preload(openFile):
     """PatchIt! settings checks."""

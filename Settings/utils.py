@@ -56,18 +56,18 @@ class Utils(object):
 
         # Command line arguments
         parser.add_argument("-t", "--test",
-                        help="""Enable PatchIt! experimental features.
+                            help="""Enable PatchIt! experimental features.
 There are currently no experimental features.""",
-                        action="store_true")
+                            action="store_true")
         parser.add_argument("-o", "--open",
-                        help="""Confirm and install a PatchIt! Patch
+                            help="""Confirm and install a PatchIt! Patch
 without going through the menu first""")
 
         # Register parameters
         args = parser.parse_args()
         testArg = args.test
         openArg = args.open
-        
+
         # Set the value of the open argument
         self.openArg = openArg
         os.system("title {0} {1} {2}".format(
