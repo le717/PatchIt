@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
+"""A non-thread-safe helper class to ease implementing singletons.
+
+This should be used as a decorator -- not a metaclass -- to the
+class that should be a singleton.
+
+The decorated class can define one `__init__` function that
+takes only the `self` argument. Other than that, there are
+no restrictions that apply to the decorated class.
+
+To get the singleton instance, use the `Instance` method. Trying
+to use `__call__` will result in a `TypeError` being raised.
+
+Limitations: The decorated class cannot be inherited from.
+    
+"""
 
 
 class Singleton:
-    """
-    A non-thread-safe helper class to ease implementing singletons.
-    This should be used as a decorator -- not a metaclass -- to the
-    class that should be a singleton.
-
-    The decorated class can define one `__init__` function that
-    takes only the `self` argument. Other than that, there are
-    no restrictions that apply to the decorated class.
-
-    To get the singleton instance, use the `Instance` method. Trying
-    to use `__call__` will result in a `TypeError` being raised.
-
-    Limitations: The decorated class cannot be inherited from.
-
-    Example Usage:
+    
+    """Example Usage:
 
     @Singleton
     class Foo:
@@ -33,6 +35,7 @@ class Singleton:
     """
 
     def __init__(self, decorated):
+        """Create the singleton."""
         self._decorated = decorated
 
     def Instance(self):
