@@ -17,6 +17,7 @@ Limitations: The decorated class cannot be inherited from.
 
 all = ("Singleton")
 
+
 class Singleton:
 
     """Example Usage.

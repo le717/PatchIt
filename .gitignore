@@ -1,39 +1,3 @@
-#############
-## Eclipse
-#############
-
-*.pydevproject
-.project
-.metadata
-#bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.classpath
-.settings/
-.loadpath
-
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# CDT-specific
-.cproject
-
-# PDT-specific
-.buildpath
-
-[Dd]ebug/
-[Rr]elease/
-[Bb]in
-[Oo]bj
-
-
 ############
 ## Windows
 ############
@@ -51,6 +15,7 @@ $RECYCLE.BIN/
 *.msi
 *.com
 *.bat
+.DS_Store
 
 
 #############
@@ -66,7 +31,6 @@ dist
 build
 eggs
 parts
-bin
 var
 sdist
 develop-eggs
@@ -79,79 +43,54 @@ pip-log.txt
 .coverage
 .tox
 
-#Translations
+# Translations
 *.mo
 
-#Mr Developer
+# Mr Developer
 .mr.developer.cfg
-
-# Mac junk
-.DS_Store
 
 #############
 ## Archives
 #############
 
-# I don't want ANY archives.
 *.zip
-*.rar
-*.7z
+*.[7g]z
 *.cab
-*.tar
-*.gz
+*.[tr]ar
 *.PiA
 
 ################
-## Misc.Folders
+## Folders
 ################
 
-Archives/
+Archive
+[Bb]in
 bin/Windows
-#!bin/Settings/*
-!Color/
-Compile/
 Documentation/Readme/*
-Freeze/
-!License/
-Logs/
+Logs
 Settings/*
 Testing*/
 _site/
-.sass-cache
-!Tools/bin
 TheTesterGroup/
 Tools/Updater/bin/*
 Tools/Windows/Uninstaller*/
 Tools/Windows/PatchIt*/*
-!Tools/wget/
 
 ###############
-## Misc. Files
+## Files
 ###############
 
-*.ai
 #*.psd
 #*.iss
 *.~is
 *.log
 *.PiP
-*.blend
-*.blend1
-*.blend2
 *.wpp
 *.html
-#*.py
 .brackets.json
 !RunAsAdmin.cfg
 PatchIt-Compatible.html
-#singleton.py
-!Windows/unsetup.py
 Windows/PatchIt-*
 !License/LICENSE.RunAsAdmin.txt
-Windows/Download.html
-#wget.py
 Tools/Updater/*.cfg
-#Settings/*.cfg
-!Tools/bin/*
-!Tools/bin/readme.py
-Settings/PatchIt.cfg
+!bin/Settings/Racers.json
