@@ -15,10 +15,11 @@ Limitations: The decorated class cannot be inherited from.
 
 """
 
+all = ("Singleton")
 
 class Singleton:
 
-    """Example Usage:
+    """Example Usage.
 
     @Singleton
     class Foo:
@@ -39,9 +40,10 @@ class Singleton:
         self._decorated = decorated
 
     def Instance(self):
-        """
-        Returns the singleton instance. Upon its first call, it creates a
-        new instance of the decorated class and calls its `__init__` method.
+        """Return the singleton instance.
+
+        Upon first call, it creates a new instance of the decorated class
+            and calls its `__init__` method.
         On all subsequent calls, the already created instance is returned.
 
         """
@@ -52,7 +54,9 @@ class Singleton:
             return self._instance
 
     def __call__(self):
+        """Raise an error if `Instance()` is not used."""
         raise TypeError('Singletons must be accessed through `Instance()`.')
 
     def __instancecheck__(self, inst):
+        """Check for an instance."""
         return isinstance(inst, self._decorated)
