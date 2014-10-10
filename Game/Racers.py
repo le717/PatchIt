@@ -46,6 +46,7 @@ def main(auto=False):
     # plus fix if the path is blank
     installPath = details[0]
     gameVersion = details[1]
+
     if installPath == "":
         installPath = const.appFolder
     if gameVersion not in ("1999", "2001"):
@@ -192,22 +193,22 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
     # ------- Begin Settings Confirmation and Detection ------- #
 
-    def _getVersion(self):
+    def _getVersion(self, exeLoc):
         """Detect LEGO Racers release version."""
         # Open the exe and read a small part of it
         try:
-            with open(self.__exeLoc, "rb") as f:
-                __offset = f.readlines()[1][8:20]
+            with open(exeLoc, "rb") as f:
+                offset = f.readlines()[1][8:20]
 
             # This is a 1999 release
-            if __offset in (b"\xb7S\xfeK\xf32\x90\x18\xf32\x90\x18" or
+            if offset in (b"\xb7S\xfeK\xf32\x90\x18\xf32\x90\x18" or
                             b"bPE\x00\x00L\x01\x08\x00\xf1\xdb)7"):
 
                 logging.info("According to the offset, this is a 1999 release")
                 self.__releaseVersion = "1999"
 
             # This is a 2001 release
-            elif __offset == b"\xd7\xf2J\x1a\x93\x93$I\x93\x93$I":
+            elif offset == b"\xd7\xf2J\x1a\x93\x93$I\x93\x93$I":
                 logging.info("According to the offset, this is a 2001 release")
                 self.__releaseVersion = "2001"
             return True
@@ -221,10 +222,10 @@ The content cannot be retrieved!""".format(const.LRSettings))
     def _confirmSettings(self):
         """Confirm information given in settings."""
         # Exe, JAM, and DLL locations
-        self.__exeLoc = os.path.join(
+        exeLoc = os.path.join(
             self.__installLoc, "legoracers.exe".lower())
-        self.__jamLoc = os.path.join(self.__installLoc, "lego.jam".lower())
-        self.__dllLoc = os.path.join(self.__installLoc, "goldp.dll".lower())
+        jamLoc = os.path.join(self.__installLoc, "lego.jam".lower())
+        dllLoc = os.path.join(self.__installLoc, "goldp.dll".lower())
 
         # The settings have never been set up
         if self.__piFirstRun == "0" and self.__settingsExist:
@@ -232,27 +233,29 @@ The content cannot be retrieved!""".format(const.LRSettings))
             return False
 
         # The settings have never been set up
-        if not os.path.isdir(self.__installLoc):
+        if not os.path.isdir(self.__installLoc) or not os.path.exists(exeLoc):
             logging.warning("A LEGO Racers installation is not defined!")
             return False
+
+        # Determine the release version
+        self._getVersion(exeLoc)
 
         # The release version was not recognized
         if self.__releaseVersion != ("1999" or "2001"):
             logging.warning("Unrecognized game release version: {0}!".format(
                 self.__releaseVersion))
 
-            # Determine the release version
-            self._getVersion()
-            if self.__settingsData is not None:
-                logging.info("LEGO Racers Release version {0} detected"
-                             .format(self.__settingsData["releaseVersion"]))
-                self.__settingsData["releaseVersion"] = self.__releaseVersion
+        # The release version is known
+        if self.__settingsData is not None:
+            logging.info("LEGO Racers Release version {0} detected"
+                         .format(self.__settingsData["releaseVersion"]))
+            self.__settingsData["releaseVersion"] = self.__releaseVersion
 
         # The necessary files were found
         if (
-            os.path.exists(self.__exeLoc) and
-            os.path.exists(self.__jamLoc) and
-            os.path.exists(self.__dllLoc)
+            os.path.exists(exeLoc) and
+            os.path.exists(jamLoc) and
+            os.path.exists(dllLoc)
         ):
             logging.info("LEGO Racers installation confirmed at {0}".format(
                 self.__installLoc))
@@ -278,7 +281,6 @@ The content cannot be retrieved!""".format(const.LRSettings))
                 return False
 
         # Check encoding of the file found
-        logging.info("Checking encoding of settings file")
         if self.__settingsFormat == "json":
             settingsName = const.LRSettings
         else:
@@ -323,7 +325,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             filetypes=[("LEGORacers.exe", "*.exe")]
         )
 
-        # Get the directory the Exe is in
+        # Get the directory the exe is in
         newInstallLoc = os.path.dirname(newInstallLoc)
 
         # Give focus back to console window
@@ -341,6 +343,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
                      .format(newInstallLoc))
 
         # Confirm given data
+        self.__piFirstRun = "1"
         self.__installLoc = newInstallLoc
         if self._confirmSettings():
             # Now that the information has been confirmed,
@@ -358,7 +361,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
         # The settings could not be found, go write the settings
         if not self.__settingsExist:
-            logging.warning("LEGO Racers settings do not exist!")
+            logging.warning("Settings do not exist!")
             if self.getInstallInfo():
                 return True
             return False
@@ -371,7 +374,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
             # We might have encountered some invalid JSON.
             # This means we have to recreate the entire settings
             else:
-                logging.warning("LEGO Racers JSON could not be parsed!")
+                logging.warning("The JSON could not be parsed!")
                 self.__settingsExist = False
                 if self.getInstallInfo():
                     return True
@@ -383,13 +386,14 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
         # Installation confirmed, our job here is done
         if self._confirmSettings():
-            logging.info("LEGO Racers Settings confirmed")
+            self._writeSettings(self.__releaseVersion, self.__installLoc)
+            logging.info("Settings confirmed")
             return True
 
         # The installation could not be confirmed
         else:
-            logging.warning("LEGO Racers Settings could not be confirmed!")
-            self.settingsExist = False
+            self.__settingsExist = False
+            logging.warning("Settings could not be confirmed!")
             if self.getInstallInfo():
                 return True
             return False
