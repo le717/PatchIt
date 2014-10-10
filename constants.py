@@ -25,7 +25,7 @@ from datetime import datetime
 from Settings.buildgen import BuildNumber
 
 # App name and version
-appName = "PatchIt!"
+app = "PatchIt!"
 version = "1.1.3"
 minVer = "Unstable"
 creator = "Triangle717"
@@ -47,6 +47,8 @@ settingsFol = os.path.join(appFolder, "Settings")
 appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
 # Build number (v3 Pickle data)
 buildFile = os.path.join(appFolder, "Build.pickle")
+# Experimental Mode
+testMode = False
 
 
 def getBuildNumber():

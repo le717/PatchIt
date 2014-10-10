@@ -68,9 +68,9 @@ Archive
 bin/Windows
 Documentation/Readme/*
 Logs
-Settings/*
+Settings/*.json
+Settings/*.cfg
 Testing*/
-_site/
 TheTesterGroup/
 Tools/Updater/bin/*
 Tools/Windows/Uninstaller*/

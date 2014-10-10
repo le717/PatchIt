@@ -48,111 +48,23 @@ from Game import (Racers, rungame, legojam)
 
 # Build number
 buildNum = const.getBuildNumber()
-# Store Experimental Mode running mode value
-testMode = []
 
-
-# ------------ Begin PatchIt! Initialization ------------ #
-
-
-# ------------ Begin PatchIt! Command-line Arguments ------------ #
-
-def args():
-    """Command-line arguments."""
-    logging.info("Command-line arguments processor started")
-
-    parser = argparse.ArgumentParser(
-        description="{0} {1} {2} Command-line Arguments".format(
-            const.appName, const.version, const.minVer))
-
-    # Experimental Mode argument
-    parser.add_argument("-t", "--test",
-                        help='''Enable PatchIt! experimental features.
-There are currently no experimental features.''',
-                        action="store_true")
-
-    # Open file argument
-    parser.add_argument("-o", "--open",
-                        help='''Confirm and install a PatchIt! Patch
-without going through the menu first''')
-
-    # Register all the parameters
-    args = parser.parse_args()
-
-    # Declare parameters
-    debugArg = args.test
-    openFile = args.open
-
-    # If the debug parameter is passed, enable the debugging messages
-    if debugArg:
-        testMode.append(True)
-        os.system("title {0} Version {1} {2} - Experimental Mode".format(
-            const.app, const.version, const.minVer))
-        logging.info("Starting PatchIt! in Experimental Mode")
-
-    # The debug parameter was not passed, don't display debugging message
-    else:
-        logging.info("Starting PatchIt! in Normal Mode")
-
-    # If the open argument is valid,
-    if openFile is not None:
-        # If it is a file, switch to Patch Installation
-            if os.path.isfile(openFile):
-                logging.info("A file path was given.")
-                install.checkPatch(openFile)
-
-            # It was a directory, or a non-existent file
-            else:
-                logging.warning("Invalid path or no parameters were given!")
-                # Do nothing, let RunIt.py do the work
-                pass
-
-
-# ------------ End PatchIt! Command-line Arguments ------------ #
-
-
-def info():
-    """PatchIt! and system checks."""
-    # Check if Python is x86 or x64
-    # Based on code from Python help for platform module and my own tests
-    if sys.maxsize == 2147483647:
-        py_arch = "x86"
-    else:
-        py_arch = "AMD64"
-
-    logging_file = os.path.join(const.appFolder, "Logs", 'PatchIt.log')
-    logging.info("Begin logging to {0}".format(logging_file))
-    logging.info("You are running {0} {1} {2} on {3} {4}.".format(
-        platform.python_implementation(), py_arch, platform.python_version(),
-        platform.machine(), platform.platform()))
-    logging.info('''
-                                #############################################
-                                        {0} Version {1} {2}
-                                         Created 2013-{3} {4}
-
-
-                                    If you run into a bug, open an issue at
-                                    https://github.com/le717/PatchIt/issues
-                                    and attach this file for an quicker fix!
-                                #############################################
-                                '''.format(
-        const.appName, const.version, const.minVer,
-        const.currentYear, const.creator))
-
-
-def preload():
+def preload(openFile):
     """PatchIt! settings checks."""
     # Write general PatchIt! settings
-    # A check is not needed for this; it is always written
     piSettings()
 
-    # Check for/confirm settings, load main menu
+    # Check for/confirm settings
     Racers.main(True)
+
+    if openFile is not None:
+        # Switch to Patch Installation if needed
+        if os.path.isfile(openFile):
+            logging.info("A file path was given")
+            install.checkPatch(openFile)
+
+    # Display menu
     main()
-
-
-# ------------ End PatchIt! Initialization ------------ #
-
 
 # ------------ Begin PatchIt! About Box  ------------ #
 
@@ -160,7 +72,7 @@ def preload():
 def about():
     """Tkinter about box."""
     root = tk.Tk()
-    root.title("About {0} Version {1}".format(const.appName, const.version))
+    root.title("About {0} Version {1}".format(const.app, const.version))
     root.minsize("420", "280")
     root.maxsize("420", "280")
 
@@ -194,7 +106,7 @@ def about():
 
        The standard and simple way to
     package and install LEGO Racers mods
-'''.format(const.appName, const.version, const.minVer,
+'''.format(const.app, const.version, const.minVer,
            buildNum, const.currentYear))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
@@ -250,7 +162,7 @@ def main(loopNum=1):
 
         # And display the menu only at the valid times
         colors.text("\n{0} {1} {2}\nCreated 2013-{3} {4}".format(
-                    const.appName, const.version, const.minVer,
+                    const.app, const.version, const.minVer,
                     const.currentYear, const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")

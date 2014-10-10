@@ -23,12 +23,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 import webbrowser
-
-# PatchIt! Constants
 import constants as const
-
-# RunAsAdmin wrapper
-import runasadmin
 
 try:
     # Python 3
@@ -39,69 +34,20 @@ except ImportError:
     import Tkinter as tk
     from tkMessageBox import showerror
 
-# User is not running < Python 3.3.0
-if sys.version_info < (3, 3, 0):
+# User is running < Python 3.3.0
+if sys.version_info[:2] < (3, 3):
     root = tk.Tk()
     root.withdraw()
-    root.iconbitmap(const.appIcon)
     showerror("Unsupported Python Version!", '''You are running Python {0}.
 You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
-        sys.version[0:5], const.appName, const.version, const.minVer))
-
-    # Opens only when user clicks OK
-    # New tab, raise browser window (if possible)
+        sys.version[0:5], const.app, const.version, const.minVer))
     webbrowser.open_new_tab("http://python.org/download/")
-
-    # Close PatchIt! when user presses OK
     raise SystemExit(0)
 
-# The user is running Python 3.3.x, continue on
-import logging
+# The user is running Python 3.3+, continue on
 import PatchIt
-
-# ------------ Begin PatchIt! Logging Code ------------ #
-
-
-def appLoggingFolder():
-    """Check for and creates PatchIt! Logs folder."""
-    try:
-        # Location of Logs folder
-        logsFolder = os.path.join(const.appFolder, "Logs")
-
-        # The Logs folder does not exist
-        if not os.path.exists(logsFolder):
-            os.mkdir(logsFolder)
-
-    # -- Begin Logging Configuration -- #
-
-        logging.basicConfig(
-            level=logging.DEBUG,
-            format="%(asctime)s : %(levelname)s : %(message)s",
-            filename=os.path.join(logsFolder, 'PatchIt.log'),
-            # "a" so the Logs is appended to and not overwritten
-            # and is created if it does not exist
-            filemode="a"
-        )
-
-    # -- End Logging Configuration -- #
-
-    except PermissionError:  # lint:ok
-        # User did not want to reload with Administrator rights
-        if not runasadmin.AdminRun().launch(
-                "PatchIt! does not have the user rights to operate!"):
-            # Close PatchIt!
-            raise SystemExit(0)
-
-
-# ------------ End PatchIt! Logging Code ------------ #
+from Settings import utils
 
 if __name__ == "__main__":
-    # Run PatchIt! Initialization
-    appLoggingFolder()
-
-    # Write window title (since there is no GUI in PatchIt! itself (yet))
-    os.system("title {0} {1} {2}".format(
-        const.appName, const.version, const.minVer))
-    PatchIt.info()
-    PatchIt.args()
-    PatchIt.preload()
+    init = utils.Utils()
+    PatchIt.preload(init.openArg)
