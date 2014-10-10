@@ -36,7 +36,7 @@ __all__ = ("main", "Settings")
 
 
 def main(auto=False):
-    """LEGO Racers settings user interface"""
+    """Game settings user interface."""
     # Create the settings object
     mySettings = Settings.Instance()
     mySettings.readSettings()
@@ -79,21 +79,21 @@ Would you like to change this?
 
         # Yes, I want to change the defined installation
         if changeInstallPath.lower() == "y":
-            logging.info("User wants to change LEGO Racers settings")
+            logging.info("User wants to change the settings")
             if not mySettings.getInstallInfo():
                 return False
 
         # No, I do not want to change the defined installation
         else:
             logging.info("""User does not want to change the
-LEGO Racers installation or pressed an undefined key""")
+defined game installation or pressed an undefined key""")
             return False
 
 
 @Singleton
 class Settings(object):
 
-    """LEGO Racers Settings Management.
+    """Settings Management.
 
     Exposes one public method:
     * getDetails {boolean} TODO.
@@ -110,7 +110,7 @@ class Settings(object):
         self.__settingsFormat = "json"
 
     def getDetails(self):
-        """Return LEGO Racers installation details."""
+        """Return installation details."""
         return (self.__installLoc, self.__releaseVersion, self.__settingsExist)
 
     def _setDetails(self):
@@ -194,7 +194,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
     # ------- Begin Settings Confirmation and Detection ------- #
 
     def _getVersion(self, exeLoc):
-        """Detect LEGO Racers release version."""
+        """Detect game release version."""
         # Open the exe and read a small part of it
         try:
             with open(exeLoc, "rb") as f:
@@ -202,7 +202,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
             # This is a 1999 release
             if offset in (b"\xb7S\xfeK\xf32\x90\x18\xf32\x90\x18" or
-                            b"bPE\x00\x00L\x01\x08\x00\xf1\xdb)7"):
+                          b"bPE\x00\x00L\x01\x08\x00\xf1\xdb)7"):
 
                 logging.info("According to the offset, this is a 1999 release")
                 self.__releaseVersion = "1999"
@@ -229,12 +229,12 @@ The content cannot be retrieved!""".format(const.LRSettings))
 
         # The settings have never been set up
         if self.__piFirstRun == "0" and self.__settingsExist:
-            logging.warning("LEGO Racers settings have not been set up!")
+            logging.warning("Settings have not been set up!")
             return False
 
         # The settings have never been set up
         if not os.path.isdir(self.__installLoc) or not os.path.exists(exeLoc):
-            logging.warning("A LEGO Racers installation is not defined!")
+            logging.warning("A game installation is not defined!")
             return False
 
         # Determine the release version
@@ -266,17 +266,17 @@ The content cannot be retrieved!""".format(const.LRSettings))
         return False
 
     def _findSettings(self):
-        """Locate the LEGO Racers settings."""
+        """Locate the settings."""
         # The preferred JSON settings do not exist
         if not os.path.exists(os.path.join(
                               const.settingsFol, const.LRSettings)):
-            logging.warning("Could not find LEGO Racers settings!")
+            logging.warning("Could not find settings!")
             self.__settingsFormat = "cfg"
 
             # Since those could not be found, look for the older CFG settings
             if not os.path.exists(os.path.join(
                                   const.settingsFol, const.LRSettingsCfg)):
-                logging.warning("Could not find LEGO Racers CFG settings!")
+                logging.warning("Could not find CFG settings!")
                 self.__settingsExist = False
                 return False
 
@@ -289,7 +289,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
         if encoding.checkEncoding(os.path.join(
                 const.settingsFol, settingsName)):
             # The settings cannot be read
-            logging.warning("LEGO Racers Settings cannot be read!")
+            logging.warning("Settings cannot be read!")
 
             # Declare nonexistent settings since we can't read the file
             self.__settingsExist = False
@@ -300,7 +300,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
     # ------- Begin Settings Confirmation and Detection ------- #
 
     def getInstallInfo(self):
-        """Get details to write LEGO Racers settings."""
+        """Get details to write settings."""
         # Draw (then withdraw) the root Tk window
         root = tkinter.Tk()
         root.withdraw()
@@ -316,8 +316,8 @@ The content cannot be retrieved!""".format(const.LRSettings))
         root.lift()
         root.focus_force()
 
-        # Select the LEGO Racers installation
-        logging.info("Display file dialog requesting LEGO Racers installation")
+        # Select the game installation
+        logging.info("Display file dialog requesting game installation")
         newInstallLoc = filedialog.askopenfilename(
             parent=root,
             title="Where is LEGORacers.exe",
@@ -336,10 +336,10 @@ The content cannot be retrieved!""".format(const.LRSettings))
         if not newInstallLoc:
             # Go back to the main menu
             logging.warning(
-                "User did not select a new LEGO Racers installation!")
+                "User did not select a new game installation!")
             return False
 
-        logging.info("User selected a new LEGO Racers installation at {0}"
+        logging.info("User selected a new game installation at {0}"
                      .format(newInstallLoc))
 
         # Confirm given data
@@ -355,7 +355,7 @@ The content cannot be retrieved!""".format(const.LRSettings))
         return False
 
     def readSettings(self):
-        """Read LEGO Racers settings file."""
+        """Read settings file."""
         # Confirm the settings exist and are readable
         self._findSettings()
 

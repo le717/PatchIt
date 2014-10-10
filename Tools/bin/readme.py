@@ -41,7 +41,7 @@ except ImportError:
 
 
 def main():
-    """Download the latest version of the PatchIt! Readme from GitHub"""
+    """Download the latest version of the PatchIt! Readme from GitHub."""
     zipLink = "https://github.com/le717/PatchIt/archive/gh-pages.zip"
     # Define proper name of Zip archive, as download link doesn't provide it
     zipName = "PatchIt-gh-pages.zip"

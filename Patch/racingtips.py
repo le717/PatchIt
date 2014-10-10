@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 """LEGO Racers Gameplay tips.
-All tips donated by the fine folks at Rock Raiders United.
 
+All tips donated by the fine folks at Rock Raiders United.
 Tips 1 - 12 : Beginner Level,
 Tips 13 - 22: Intermediate Level.
 Tips 23 - 27: Expert tips.
@@ -93,8 +93,8 @@ Tribal Island Trail has only two green power-up bricks hidden around the track,
 so you will need to plan your tactics.""",
 
     """
-Brake when using the Grappling Hook on an opponent to not only stop them
-in their tracks, but also to drag them backward while you are pulled forward.""",
+Brake when using the Grappling Hook on an opponent to not only stop them in
+their tracks, but also to drag them backward while you are pulled forward.""",
 
     """
 On Alien Rally Asteroid, try to grab the shield at the start of the track -

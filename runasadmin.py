@@ -35,9 +35,7 @@ import constants as const
 
 class AdminRun(object):
 
-    """Invokes the RunAsAdmin helper utility.
-
-    """
+    """Invokes the RunAsAdmin helper utility."""
 
     def __init__(self):
         """Create root Tkinter window."""
@@ -55,7 +53,7 @@ class AdminRun(object):
 
         admin = askyesno("Relaunch PatchIt?", """{0}
 Would you like to relaunch PatchIt! with Administrator rights? {1}""".format(
-                           messages[0], end))
+                         messages[0], end))
 
         # User does not want to relaunch PatchIt!
         if not admin:

@@ -23,10 +23,7 @@ import logging
 
 
 def checkEncoding(filePath):
-    """
-    Check the encoding of a file,
-    ensuring it uses UTF-8-NOBOM.
-    """
+    """Check the encoding of a file, ensuring it uses UTF-8-NOBOM."""
     logging.info("Check encoding of {0}".format(filePath))
 
     # Open it, read just the area containing the byte mark

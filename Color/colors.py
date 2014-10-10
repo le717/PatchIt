@@ -19,7 +19,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 -------------------------
 PatchIt! Shell Text Colors
-Taken from https://github.com/imayhaveborkedit/lms-lrr-modding-system
+From https://github.com/imayhaveborkedit/lms-lrr-modding-system
 and updated with Python 3 support
 
 """
@@ -30,6 +30,7 @@ STD_OUTPUT_HANDLE = -11
 
 
 def get_csbi_attributes(handle):
+    """Unknown actions."""
     import struct
     csbi = ctypes.create_string_buffer(22)
     res = ctypes.windll.kernel32.GetConsoleScreenBufferInfo(handle, csbi)
@@ -42,7 +43,7 @@ def get_csbi_attributes(handle):
 
 
 def text(text, color):
-    """Print Colored Text"""
+    """Display colored text."""
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
     print(text)
     ctypes.windll.kernel32.SetConsoleTextAttribute(handle, reset)

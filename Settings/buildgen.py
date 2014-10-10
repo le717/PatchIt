@@ -30,7 +30,18 @@ from singleton import Singleton
 
 @Singleton
 class BuildNumber(object):
-    """Generate a build number"""
+
+    """Generate a build number.
+
+    Generate a new build number upon each launch,
+        except when we are running a binary release.
+    Stores the build number using pickling v3.
+
+    Exposes three public methods:
+    * fetch TODO.
+    * getBuild TODO.
+    * writeBuild resetBuild {boolean} TODO.
+    """
 
     def __init__(self):
         self.buildNum = self.getBuild()
@@ -39,7 +50,7 @@ class BuildNumber(object):
         return self.buildNum
 
     def writeBuild(self, resetBuild=False):
-        """Reset PatchIt! build number"""
+        """Reset build number."""
         # Reset the number if one is not given
         if not resetBuild:
             build = "1"
@@ -52,7 +63,7 @@ class BuildNumber(object):
         return build
 
     def getBuild(self):
-        """Sets current PatchIt! build number"""
+        """Set current build number."""
         # The pickled data cannot be found
         if not os.path.exists(const.buildFile):
 
@@ -76,10 +87,10 @@ class BuildNumber(object):
 
 
 class UpdateBuildNumber(object):
-    """Increase the build number"""
+    """Increase the build number."""
 
     def updateBuild(self, buildNum):
-        """Increase the build number"""
+        """Increase the build number."""
         # Convert it to an integer
         intBuild = int(buildNum)
 

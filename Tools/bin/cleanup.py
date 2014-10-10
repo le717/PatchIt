@@ -25,7 +25,7 @@ import distutils.dir_util
 
 
 def main(destFolder):
-    """Remove unneeded Tkinter files"""
+    """Remove unneeded Tkinter files."""
     print("\n")
     try:
         # Delete the unneeded items from the freeze
