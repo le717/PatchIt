@@ -53,16 +53,9 @@ def getBuildNumber():
     """Retrieve and update the build number."""
     bn = BuildNumber.Instance()
     buildNum = bn.buildNum
+    bn.updateBuild(buildNum)
 
     # This is a frozen exe and the data is missing; assign a "number"
     if buildNum is None:
         buildNum = "Unknown"
-
-    # If this is not a frozen exe,
-    if not (hasattr(sys, "frozen") and
-            sys.frozen not in ("windows_exe", "console_exe")):
-        # and if this is not a Stable release,
-        if minVer != "Stable":
-            # then increase the build number.
-            bn.updateBuild(buildNum)
     return buildNum

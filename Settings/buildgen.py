@@ -83,4 +83,7 @@ class BuildNumber(object):
 
     def updateBuild(self, buildNum):
         """Increase the build number."""
-        return self.writeBuild(int(buildNum) + 1)
+        if not (hasattr(sys, "frozen") and
+                sys.frozen not in ("windows_exe", "console_exe") and
+                const.minVer != "Stable"):
+            return self.writeBuild(int(buildNum) + 1)
