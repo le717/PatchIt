@@ -48,9 +48,8 @@ appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
 buildFile = os.path.join(appFolder, "Build.pickle")
 
 
-def buildMe():
+def getBuildNumber():
     """Retrieve and update the build number."""
-    # Retrieve the build number
     from Settings.buildgen import (BuildNumber, UpdateBuildNumber)
     bn = BuildNumber.Instance()
     buildNum = bn.fetch()
@@ -61,7 +60,7 @@ def buildMe():
 
     # If this is not a frozen exe,
     if not (hasattr(sys, "frozen") and
-            sys.frozen in ("windows_exe", "console_exe")):
+            sys.frozen not in ("windows_exe", "console_exe")):
         # and if this is not a Stable release,
         if minVer != "Stable":
             # then increase the build number.

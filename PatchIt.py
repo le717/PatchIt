@@ -47,7 +47,7 @@ from Patch import (install, create)
 from Game import (Racers, rungame, legojam)
 
 # Build number
-buildNum = const.buildMe()
+buildNum = const.getBuildNumber()
 # Store Experimental Mode running mode value
 testMode = []
 
