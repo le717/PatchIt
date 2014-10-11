@@ -3,7 +3,7 @@
 ## Details ##
 * The PatchIt! settings contains all the required information to install a Patch into the proper location.
 * Settings are stored as string [JSON](http://www.json.org/) key-value pairs using a [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding.
-* The `Settings` direction, in which the settings are saved, is located in the same directory as `PatchIt.exe`.
+* The `Settings` direction, in which the settings are saved, is located in the same directory as the PatchIt! executable.
 
 ### `Racers.json` ###
 * The `firstRun` key contains the current state of settings configuration. In a new or cleans installation of PatchIt!,
@@ -26,7 +26,7 @@ the exact order of these examples may differ from your copy.
 
 ```json
 {
-    "version": "1.1.2".
+    "version": "1.1.2",
     "minVer": "Unstable",
     "buildNum": "217"
 }
