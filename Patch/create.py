@@ -24,6 +24,7 @@ import re
 import logging
 import distutils.dir_util
 
+import pipatch
 # import Color as color
 # import Color.colors as colors
 # import Settings.utils as utils
@@ -34,11 +35,7 @@ __all__ = ("CreatePatch")
 class CreatePatch(object):
 
     def __init__(self):
-
-        self.__patchName = None
-        self.__patchVersion = None
-        self.__patchAuthor = None
-        self.__patchDesc = None
+        self.myPatch = None
 
 #        self.__tempLocation = os.path.join(utils.configPath, "Temp")
         self.__tempLocation = os.path.join("C:/tmp", "Temp")
@@ -60,6 +57,18 @@ class CreatePatch(object):
         self.__patchFiles = patchFiles.replace("\\", os.path.sep)
         return True
 
+    def createPatch(self, details):
+        """Create a Patch object.
+
+        @param {Dict} details Patch details. See PiPatch::__init__() for details.
+        @returns {Instance} PiPatch() instance.
+        """
+        self.myPatch = pipatch.PiPatch(details["Name"],
+                                       details["Version"],
+                                       details["Author"],
+                                       details["Description"])
+        return self.myPatch
+
     def _charCheck(self, userText):
         """Check the input for any illegal characters.
 
@@ -75,7 +84,7 @@ class CreatePatch(object):
         """Check if a file has an illegal filename.
 
         @param {String} userText The text to check.
-        @returns {Boolean} TODO.
+        @returns {Boolean} True if illegal filename, False otherwise.
         """
         return userText.lower() in self.__badNames
 
@@ -161,7 +170,7 @@ def main():
 #    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
     newPatch = CreatePatch()
 
-    userInput = {}
+    patchDetails = {}
     neededInput = ("Name", "Version", "Author", "Description")
     for value in neededInput:
         userText = input("\n{0}: ".format(value)).strip()
@@ -202,10 +211,14 @@ def main():
             results = newPatch.checkInput(userText, value)
 
         # Store the input
-        userInput[value] = userText
+        patchDetails[value] = userText
 
-    print(userInput)
-    #newPatch.checkInput("nul")
+
+    # Locate the Patch files
+    # TODO newPatch.something()
+
+    # Now that we have all the information needed, create a Patch object
+    print(type(newPatch.createPatch(patchDetails)))
     #newPatch.setPatchFiles("Testing/Sample patch upper")
     #newPatch.upperCaseConvert()
     #newPatch.deleteFiles()
