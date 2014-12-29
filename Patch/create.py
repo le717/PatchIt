@@ -19,6 +19,76 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+
+__all__ = ("CreatePatch")
+
+
+class CreatePatch(object):
+
+    def __init__(self):
+
+        self.__patchName = None
+        self.__patchVersion = None
+        self.__patchAuthor = None
+        self.__patchDesc = None
+
+        self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")
+        self.__badNames = ("aux", "com1", "com2", "com3", "com4", "con",
+                           "lpt1", "lpt2", "lpt3", "prn", "nul")
+        self.__whiteList = (
+            "LEGOMSC", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB",
+            "*.CEB", "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB",
+            "*.FDB", "*.GCB", "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB",
+            "*.LRS", "*.LSB", "*.MAB", "*.MDB", "*.MIB", "*.MSB", "*.PCB",
+            "*.PCM", "*.PWB", "*.RAB", "*.RCB", "*.RRB", "*.SBK", "*.SDB",
+            "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA", "*.TGB", "*.TIB",
+            "*.TMB", "*.TRB", "*.TUN", "*.WDB")
+
+    def _charCheck(self, userText):
+        """Check the input for any illegal characters.
+
+        @param {String} userText The text to check.
+        """
+        for char in userText:
+            if char in self.__badChars:
+                return (True, char)
+        return (False, None)
+
+    def _fileNameCheck(self, userText):
+        """Check if a file has an illegal filename.
+
+        @param {String} userText The text to check.
+        """
+        return userText.lower() in self.__badNames
+
+    def checkInput(self, userText, field=None):
+        """Run the user input though some validity checks.
+
+        @param {String} userText The text to check.
+        @param {String} [field=None] The type of input being checked.
+        """
+        # Blank input
+        if len(userText) == 0:
+            return (False, "blank")
+
+        # Invalid characters
+        badChar = self._charCheck(userText)
+        if badChar[0]:
+            return (False, "input", badChar[1])
+
+        # File name for Name and Version inputs only
+        if field in ("name", "version"):
+            if self._fileNameCheck(userText):
+                return (False, "name")
+
+        return (True,)
+
+
+p = CreatePatch()
+p.checkInput("nul")
+
+
+
 #import os
 #import tarfile
 #import time
@@ -241,15 +311,6 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 #        ## Loop back through the Patch Name Process
 #        #patchName()
 #
-#    ## The field was longer than 80 characters
-#    #elif len(name) >= 81:
-#        #logging.warning("The Patch name was more than 80 characters!")
-#        #colors.text("\nThe Name field must be 80 characters or less!\n",
-#                    #color.FG_LIGHT_RED)
-#
-#        ## Loop back through the Patch Name Process
-#        #patchName()
-#
 #    # No characters were entered
 #    elif len(name) == 0:
 #        logging.warning("The Patch name field was left blank!")
@@ -292,15 +353,6 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 #        #logging.warning(
 #            #'"{0}" is an illegal file name and is not allowed in the Patch version!')
 #        #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
-#                    #color.FG_LIGHT_RED)
-#
-#        ## Loop back through the Patch Version Process
-#        #patchVersion()
-#
-#    ## The field was longer than 12 characters
-#    #elif len(name) >= 13:
-#        #logging.warning("The Patch version was more than 12 characters!")
-#        #colors.text("\nThe Version field must be 12 characters or less!\n",
 #                    #color.FG_LIGHT_RED)
 #
 #        ## Loop back through the Patch Version Process
@@ -440,7 +492,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 #
 #"{3}"
 #'''.format(name, version, author, desc))  # lint:ok
-        writePatch(patch_files, mp, game)
+#        writePatch(patch_files, mp, game)
 
 
 #def writePatch(patch_files, mp, game):
