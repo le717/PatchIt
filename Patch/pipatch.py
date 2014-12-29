@@ -20,7 +20,6 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-
 __all__ = ("PiPatch")
 
 

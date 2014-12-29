@@ -19,6 +19,9 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+import os
+import logging
+import distutils.dir_util
 
 __all__ = ("CreatePatch")
 
@@ -31,6 +34,10 @@ class CreatePatch(object):
         self.__patchVersion = None
         self.__patchAuthor = None
         self.__patchDesc = None
+
+        # TODO Perform this in AppData, perhaps?
+        self.__tempLocation = "PatchIt-Temp-Folder"
+        self.__patchFiles = None
 
         self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")
         self.__badNames = ("aux", "com1", "com2", "com3", "com4", "con",
@@ -48,6 +55,7 @@ class CreatePatch(object):
         """Check the input for any illegal characters.
 
         @param {String} userText The text to check.
+        @returns {Tuple} TODO.
         """
         for char in userText:
             if char in self.__badChars:
@@ -58,14 +66,21 @@ class CreatePatch(object):
         """Check if a file has an illegal filename.
 
         @param {String} userText The text to check.
+        @returns {Boolean} TODO.
         """
         return userText.lower() in self.__badNames
+
+    def setPatchFiles(self, patchFiles):
+        self.__patchFiles = patchFiles.replace("\\", os.path.sep)
+        self.__tempLocation = os.path.join(self.__patchFiles, self.__tempLocation)
+        return True
 
     def checkInput(self, userText, field=None):
         """Run the user input though some validity checks.
 
         @param {String} userText The text to check.
         @param {String} [field=None] The type of input being checked.
+        @returns {Tuple} TODO.
         """
         # Blank input
         if len(userText) == 0:
@@ -83,9 +98,59 @@ class CreatePatch(object):
 
         return (True,)
 
+    def upperCaseConvert(self):
+        """Convert file names to uppercase per LEGO.JAM requirements.
+
+        @returns {Boolean} Always returns True.
+        """
+        try:
+            # Copy files to temporary location
+            logging.info("Copying contents of {0} to {1}".format(
+                        self.__patchFiles, self.__tempLocation))
+
+            # Only copy the files if they do not already exist
+            if not os.path.exists(self.__tempLocation):
+                distutils.dir_util.copy_tree(self.__patchFiles, self.__tempLocation)
+
+            # Get a file tree
+            for root, dirnames, filenames in os.walk(self.__tempLocation):
+                for fname in filenames:
+                    # Get the path to each file
+                    myFile = os.path.join(root, fname)
+
+                    # Rename the file to be all uppercase if needed
+                    if fname != fname.upper():
+                        os.replace(myFile, os.path.join(root, fname.upper()))
+
+        # Tracebacks are dumped to the log already,
+        # we simply have to catch them
+        except Exception:
+            pass
+        finally:
+            return True
+
+    def deleteFiles(self):
+        """Deletes temporary folder created during compression.
+
+        @returns {Boolean} Always returns True.
+        """
+        try:
+            # Delete temporary directory
+            logging.info("Delete temporary files from {0}".format(
+                         self.__tempLocation))
+            distutils.dir_util.remove_tree(self.__tempLocation)
+
+        except FileNotFoundError:
+            logging.exception("Something went wrong! Here's what happened\n",
+                              exc_info=True)
+
+
 
 p = CreatePatch()
-p.checkInput("nul")
+#p.checkInput("nul")
+#p.setPatchFiles("Testing/Sample patch upper")
+#p.upperCaseConvert()
+#p.deleteFiles()
 
 
 
@@ -104,56 +169,6 @@ p.checkInput("nul")
 #
 #import constants as const
 #import runasadmin
-
-
-# Temporary directory for compression
-#temp_folder = "PatchIt-Temp-Folder"
-
-
-#def upperCaseConvert(path):
-#    """
-#    Convert all file extensions to uppercase,
-#    per the LEGO.JAM format requirements
-#    """
-#
-#    # Make the location as global for use in other locations
-#    global temp_location
-#
-#    # The full location to the temporary folder
-#    temp_location = os.path.join(path, temp_folder)
-#
-#    try:
-#        # Copy files to temporary location
-#        logging.info("Copying all contents of {0} to {1}".format(
-#            path, temp_location))
-#        distutils.dir_util.copy_tree(path, temp_location)
-#
-#        # Traversing the reaches of the (Temporary) Patch files...
-#        logging.info("Converting all file extensions to upperase")
-#        for root, dirnames, filenames in os.walk(temp_location):
-#            for fname in filenames:
-#
-#                # Get the full path to each file
-#                myFile = os.path.join(root, fname)
-#
-#                # Split the file name into name and extension
-#                name, ext = os.path.splitext(fname)
-#
-#                # Only perform conversion if it is not already uppercase
-#                if ext != ext.upper():
-#                    # Construct the new file name
-#                    newMyFile = "{0}{1}".format(name, ext.upper())
-#
-#                    # Get the full path to the new file
-#                    theFile = os.path.join(root, newMyFile)
-#
-#                    # Finally, rename the file
-#                    os.replace(myFile, theFile)
-#
-#    # Tracebacks are dumped to the log already,
-#    # we simply have to catch them
-#    except Exception:
-#        pass
 
 
 #def fileCheck(path):
@@ -204,83 +219,6 @@ p.checkInput("nul")
 #    # we simply have to catch them
 #    except Exception:
 #        pass
-
-
-#def deleteFiles():
-#    """Deletes temporary folder created during compression"""
-#    try:
-#        # Delete temporary directory
-#        logging.info("Delete all temporary files from {0}".format(
-#            temp_location))
-#        distutils.dir_util.remove_tree(temp_location)  # noqa
-#
-#    # In case the directory was not created
-#    except FileNotFoundError:  # lint:ok
-#
-#        # Dump any error tracebacks to the log
-#        logging.error('''The temporary directory was not found!
-#It probably was deleted ealier.''')
-#        logging.exception("Oops! Something went wrong! Here's what happened\n",
-#                          exc_info=True)
-
-
-#def charCheck(text):
-#    """Checks for illegal characters in text"""
-#    # List of all illegal characters
-#    illegal_chars = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
-#
-#    # Get the length of the text, minus one for proper indexing
-#    len_of_text = len(text) - 1
-#
-#    # Assign variable containing result of check; default to False
-#    illa = False
-#
-#    # -1 so the first character is caught too
-#    while len_of_text != -1:
-#
-#        # This character is allowed
-#        if text[len_of_text] not in illegal_chars:
-#            # The check goes in reverse, checking the last character first.
-#            len_of_text -= 1
-#
-#        # This character is not allowed
-#        elif text[len_of_text] in illegal_chars:
-#            # Change value of variable; kill the loop, as we only need
-#            # to find one illegal character to end the (ball) game.
-#            illa = True
-#            break
-#
-#    # An illegal character was found
-#    if illa:
-#        # Mark as global to display the illegal character in messages
-#        global char
-#
-#        # Assign variable containing the illegal character
-#        char = text[len_of_text]
-#        return True
-#
-#    # Return False only if no illegal character is found
-#    return False
-
-
-#def filenameCheck(text):
-#    """Check for illegal name in text"""
-#    # List of all illegal filenames
-#    illegal_names = ["aux", "com1", "com2", "com3",
-#                     "com4", "con", "lpt1", "lpt2",
-#                     "lpt3", "prn", "nul"]
-#
-#    # Mark as global to display illegal file name in messages
-#    global bad_name
-#    bad_name = text
-#
-#    # If the name is present in the list
-#    if text.lower() in illegal_names:
-#        return True
-#
-#    # If the name is not present in the list
-#    else:
-#        return False
 
 
 #def patchName():
