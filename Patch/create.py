@@ -23,6 +23,10 @@ import os
 import logging
 import distutils.dir_util
 
+# import Color as color
+# import Color.colors as colors
+# import Settings.utils as utils
+
 __all__ = ("CreatePatch")
 
 
@@ -35,8 +39,7 @@ class CreatePatch(object):
         self.__patchAuthor = None
         self.__patchDesc = None
 
-        # TODO Perform this in AppData, perhaps?
-        self.__tempLocation = "PatchIt-Temp-Folder"
+        self.__tempLocation = os.path.join(utils.configPath, "Temp")
         self.__patchFiles = None
 
         self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")
@@ -50,6 +53,10 @@ class CreatePatch(object):
             "*.PCM", "*.PWB", "*.RAB", "*.RCB", "*.RRB", "*.SBK", "*.SDB",
             "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA", "*.TGB", "*.TIB",
             "*.TMB", "*.TRB", "*.TUN", "*.WDB")
+
+    def setPatchFiles(self, patchFiles):
+        self.__patchFiles = patchFiles.replace("\\", os.path.sep)
+        return True
 
     def _charCheck(self, userText):
         """Check the input for any illegal characters.
@@ -69,11 +76,6 @@ class CreatePatch(object):
         @returns {Boolean} TODO.
         """
         return userText.lower() in self.__badNames
-
-    def setPatchFiles(self, patchFiles):
-        self.__patchFiles = patchFiles.replace("\\", os.path.sep)
-        self.__tempLocation = os.path.join(self.__patchFiles, self.__tempLocation)
-        return True
 
     def checkInput(self, userText, field=None):
         """Run the user input though some validity checks.
@@ -146,26 +148,27 @@ class CreatePatch(object):
 
 
 
-p = CreatePatch()
-#p.checkInput("nul")
-#p.setPatchFiles("Testing/Sample patch upper")
-#p.upperCaseConvert()
-#p.deleteFiles()
+def main():
+#    logging.info("Create a PatchIt! Patch")
+#    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
+#    print("\nCreate a PatchIt! Patch")
+    patch = CreatePatch()
+    
+    #patch.checkInput("nul")
+    #patch.setPatchFiles("Testing/Sample patch upper")
+    #patch.upperCaseConvert()
+    #patch.deleteFiles()
+    
+
+main()
 
 
 
-#import os
 #import tarfile
-#import time
-#import distutils.dir_util
 #import fnmatch
-#import logging
 #
 #import tkinter
 #from tkinter import filedialog
-#
-#import Color as color
-#import Color.colors as colors
 #
 #import constants as const
 #import runasadmin
@@ -412,7 +415,6 @@ p = CreatePatch()
 #
 #        logging.warning("User did not select any files to compress!")
 #        colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
-#        time.sleep(1)
 #        PatchIt.main()
 #
 #    # The user selected files for Patch creation
