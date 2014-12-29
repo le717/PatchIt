@@ -119,32 +119,36 @@ class CreatePatch(object):
                 return (False, "input", badChar[1])
 
         return (True,)
+    
+    
+    def selectFiles(self):
+        pass
 
     def fileCheck(self):
-    """Check for and remove files that are not whitelisted.
+        """Check for and remove files that are not whitelisted.
 
-    @returns {Boolean} Always returns True.
-    """
-    # Get a file tree
-    for root, dirnames, filenames in os.walk(self.__tempLocation):
-        for fname in filenames:
+        @returns {Boolean} Always returns True.
+        """
+        # Get a file tree
+        for root, dirnames, filenames in os.walk(self.__tempLocation):
+            for fname in filenames:
 
-            # Split the file name and extension
-            name, ext = os.path.splitext(fname.lower())
+                # Split the file name and extension
+                name, ext = os.path.splitext(fname.lower())
 
-            # The extension and the file name (extension-less files)
-            # are not in the  whitelist
-            if ext not in whiteList3 and name not in whiteList3:
+                # The extension and the file name (extension-less files)
+                # are not in the  whitelist
+                if ext not in whiteList3 and name not in whiteList3:
 
-                # Delete the file
-                fileName = os.path.join(root, fname)
-                os.unlink(fileName)
+                    # Delete the file
+                    fileName = os.path.join(root, fname)
+                    os.unlink(fileName)
 
-                # Delete empty directories
-                emptyDir = os.path.dirname(fileName)
-                if not os.listdir(emptyDir):
-                    distutils.dir_util.remove_tree(emptyDir)
-    return True
+                    # Delete empty directories
+                    emptyDir = os.path.dirname(fileName)
+                    if not os.listdir(emptyDir):
+                        distutils.dir_util.remove_tree(emptyDir)
+        return True
 
     def upperCaseConvert(self):
         """Convert file names to uppercase per game requirement.
@@ -195,8 +199,7 @@ def main():
     logging.info("Get Patch details")
 
     patchDetails = {}
-    neededInput = ("Name", "Version", "Author", "Description")
-    for value in neededInput:
+    for value in ("Name", "Version", "Author", "Description"):
         userText = input("\n{0}: ".format(value)).strip()
 
         # Validate the input
@@ -238,7 +241,7 @@ def main():
 
 
     # Locate the Patch files
-    # TODO patch.something()
+    # patch.selectFiles()
 
     # Now that we have all the information needed, create a Patch object
     myPatch = patch.createPatch(patchDetails)
@@ -252,7 +255,6 @@ main()
 
 
 #import tarfile
-#
 #
 #import constants as const
 #import runasadmin
