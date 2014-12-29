@@ -20,6 +20,8 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+import logging
+
 __all__ = ("PiPatch")
 
 
@@ -39,6 +41,7 @@ class PiPatch(object):
         @param {String} author Patch author.
         @param {String} desc Patch description.
         """
+        logging.info("New PiPatch instance")
         self.__name = name
         self.__version = version
         self.__author = author

@@ -56,10 +56,6 @@ class CreatePatch(object):
             ".rrb", ".sbk", ".sdb", ".skb", ".spb", ".srf", ".tdb", ".tga",
             ".tgb", ".tib", ".tmb", ".trb", ".tun", ".wdb")
 
-    def setPatchFiles(self, patchFiles):
-        self.__patchFiles = patchFiles.replace("\\", os.path.sep)
-        return True
-
     def createPatch(self, details):
         """Create a Patch object.
 
@@ -119,10 +115,37 @@ class CreatePatch(object):
                 return (False, "input", badChar[1])
 
         return (True,)
-    
-    
+
     def selectFiles(self):
-        pass
+        # Tkinter prep
+        root = tkinter.Tk()
+        root.withdraw()
+        root.overrideredirect(True)
+        root.geometry('0x0+0+0')
+        root.deiconify()
+        root.lift()
+        root.focus_force()
+
+        # The files to be compressed
+        patchFiles = filedialog.askdirectory(
+            parent=root,
+            title="Select the files for {0} (Version: {1})".format(
+                self.myPatch.getName(), self.myPatch.getVersion())
+        )
+
+        # Restore focus
+        root.destroy()
+
+        # The user clicked the cancel button
+        if not patchFiles:
+            # TODO Reenable
+#            logging.warning("User did not select any files to compress!")
+#            colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
+            return False
+
+        # Store the path
+        self.__patchFiles = patchFiles.replace("\\", os.path.sep)
+        return self.__patchFiles
 
     def fileCheck(self):
         """Check for and remove files that are not whitelisted.
@@ -214,21 +237,21 @@ def main():
 
             # Blank input
             elif results[1] == "blank":
-                pass # TODO Temp
+                pass # TODO Reenable
 #                logging.warning("The {0} field was left blank!".format(value))
 #                colors.text("\nThe field must be filled out!\n",
 #                            color.FG_LIGHT_RED)
 
             # Illegal character
             elif results[1] == "input":
-                pass # TODO Temp
+                pass # TODO Reenable
 #                logging.warning("An illegal character was entered!")
 #                colors.text('\n"{0}" is an illegal character!\n'.format(results[2]),
 #                            color.FG_LIGHT_RED)
 
             # Illegal file name
             elif results[1] == "fname":
-                pass # TODO Temp
+                pass # TODO Reenable
 #                logging.warning("An illegal file name was entered!".format(userText))
 #                colors.text('\n"{0}" is an illegal file name!\n'.format(userText),
 #                            color.FG_LIGHT_RED)
@@ -239,15 +262,20 @@ def main():
         # Store the input
         patchDetails[value] = userText
 
+    # Create a Patch object
+    myPatch = patch.createPatch(patchDetails)
 
     # Locate the Patch files
-    # patch.selectFiles()
+    patchFiles = patch.selectFiles()
 
-    # Now that we have all the information needed, create a Patch object
-    myPatch = patch.createPatch(patchDetails)
-    #patch.setPatchFiles("Testing/Sample patch upper")
-    #patch.upperCaseConvert()
-    #patch.deleteFiles()
+    # User canceled the selection
+    if not patchFiles:
+        return False
+
+
+    # patch.upperCaseConvert()
+    # patch.fileCheck()
+    # patch.deleteFiles()
 
 
 main()
