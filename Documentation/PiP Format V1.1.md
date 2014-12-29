@@ -1,45 +1,42 @@
 # PatchIt! PiP Format v1.1.3 #
 
 ## General Information ##
-
-In order for **PatchIt!** to install mod packs for _LEGO® Racers_, it is required to have some sort of file to read the
+In order for PatchIt! to install mod packs for _LEGO&reg; Racers_, it is required to have some sort of file to read the
 information, such as name and description, but as well as to know what compressed archive to extract and install into the proper game files.
 In other words, a Patch file.
 
-Enter the PiP format: an open file format (`.PiP`) engineered so one can be written without the use of **PatchIt!**, and an accompanying `.PiA` archive containing the
+Enter the PiP format: an open file format (`.PiP`) engineered so one can be written without the use of PatchIt! and an accompanying `.PiA` archive containing the
 Patch files.
 
-This combination has been designed so a Patch can be created simply and quickly, and can be easily edited outside of **PatchIt!**.
+This combination has been designed so a Patch can be created simply and quickly, and can be easily edited outside of PatchIt!.
 For example, a Patch may have already been created but there was a typo in the information, or a file was not included in the archive.
-If **PatchIt!** was designed using non-easily editable formats, the user would have to go through the Patch Creation process all over again.
+If PatchIt! was designed using non-easily editable formats, the user would have to go through the Patch Creation process all over again.
 However, this is not the case. By using a plain text file, the creator can open it in a text editor and correct the typo,
 or compress a new, corrected PiA archive with an external program.
 
 ## Details ##
 
 #### PiP File Format ####
-
 * PiP stands for <strong>P</strong>atch<strong>I</strong>t! <strong>P</strong>atch.
 * A `.PiP` file is a plain text file written with [`UTF-8-NOBOM`](http://en.wikipedia.org/wiki/UTF-8#Byte_order_mark) encoding, and can be edited on any text
 editor that supports such encoding.
 * A `.PiP` file is completely case-sensitive.
 * As a validity test, each PiP file must have on line 1 a specific line of text (known as the validity line).
-This line _**must**_ match **PatchIt!**'s internal version exactly to confirm it is a valid Patch.
+This line _**must**_ match PatchIt!'s internal version exactly to confirm it is a valid Patch.
 * In addition the the first line, the second line is also checked to determine if it is a valid Patch and what version Patch it is.
-This line _**must**_ also match **PatchIt!**'s internal version exactly.
-    * Legacy (v1.0.1) Patches is the original PiP format introduced in **PatchIt! v1.0**.  In **PatchIt! v1.1.0 - v1.1.2**, it is installed using the Legacy Installation routine. **PatchIt! v1.1.3** and forward does not support the Legacy Patch Format at all.
-    * Modern (v1.1.x) Patches, introduced in **PatchIt! v1.1.1**, is the currrent Patch format, and is the format documented here.
-Legacy Patches can not and will not be created by **PatchIt!** anymore.
+This line _**must**_ also match PatchIt!'s internal version exactly.
+
+> Legacy Patches (v1.0.1) are supported only by PatchIt! v1.0.0 - v1.1.2. The modern format documented here is backward-incompatible, and is only supported by PatchIt! v1.1.1 and newer.
+
 * The `Name`, `Version`, and `Author` fields, written on lines 5, 6, and 7 respectively, contain the Name, Version, and Author of the Patch.
-* The `MP` (Multi Purpose) field, written on line 8, contains various Patch info. The field currently contains _MP_, as there is no proper for it yet. It will be utilized in a future version of **PatchIt!**.
-* The `Game` field, written on line 9, tells what game a Patch was created for, namely _LEGO® Racers_. It may be deprecated in the future.
+* The `MP` (Multi Purpose) field, written on line 8, contains various Patch info. The field currently contains _MP_, as there is no proper for it yet. It will be utilized in a future version of PatchIt!.
+* The `Game` field, written on line 9, tells what game a Patch was created for, namely _LEGO&reg; Racers_. It may be deprecated in the future.
 * The `Description` field is written on the last three lines of a Patch.
 * Both the `.PiP` file and `.PiA` Archive uses the Patch's name and version for their filenames.
 
 **The PiP file layout can be found [below](#pip-file-format-layout)**.
 
 #### PiA Archive Layout ####
-
 * PiA stands for <strong>P</strong>atch<strong>I</strong>t! <strong>A</strong>rchive.
 * A `.PiA` archive is a standard LZMA compressed TAR archive.
 * The `.PiA` archive must reside in the same directory as it's accompanying `.PiP` file for a successful installation.
@@ -51,7 +48,7 @@ the game and not into the proper locations. Example, if the archive is laid out 
 `C:\Program Files\LEGO Racers`, the files will be installed as `C:\Program Files\LEGO Racers\MyMod1`.
 The same goes for files that are scattered in the root of the archive. If `ENGLISH.SRF` is located in the root of the archive, it will be installed to
 `C:\Program Files\LEGO Racers\ENGLISH.SRF`
-* **PatchIt!**  _**does not and will never**_ attempt to install any files into their proper locations.
+* PatchIt!  _**does not and will never**_ attempt to install any files into their proper locations.
 
 **Example PiA archive layouts can be found [below](#example-pia-archive-layout)**.
 
@@ -115,7 +112,6 @@ Racing Machine 1.0.1.PiA/
 ```
 
 ## Revision History ##
-
 * 1.1.3 Final: December 23, 2013
 
 > * Removed all references to _LEGO® LOCO_.
