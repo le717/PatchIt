@@ -64,8 +64,6 @@ def preload(openFile):
     # Display menu
     main()
 
-# ------------ Begin PatchIt! About Box  ------------ #
-
 
 def about():
     """Tkinter about box."""
@@ -142,12 +140,6 @@ def about():
     root.mainloop()
 
 
-# ------------ End PatchIt! About Box  ------------ #
-
-
-# ------------ Begin PatchIt! Menu Layout ------------ #
-
-
 def main(loopNum=1):
     """PatchIt! main menu."""
     loopNum += 1
@@ -187,7 +179,8 @@ Please make a selection:
 
             # Run the Patch Creation process
             logging.info("Running Patch Compression process")
-            create.patchInfo()
+            main(loopNum=loopNum)
+            # create.patchInfo()
 
         # Patch Installation
         elif menuChoice.lower() == "i":
@@ -211,11 +204,6 @@ Please make a selection:
             if not Racers.main():
                 main()
 
-        # >:-)
-        elif menuChoice.lower() == 'e':
-            logging.info("User pressed the 'e' key")
-            easterEgg()
-
         # Run LEGO Racers
         elif menuChoice.lower() == "r":
             rungame.PlayRacers().runGame()
@@ -233,32 +221,6 @@ Please make a selection:
             logging.info("User pressed an undefined key")
             colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
             main(loopNum=loopNum)
-
-
-def easterEgg():
-    """Hehehe."""
-    root = tk.Tk()
-    root.withdraw()
-    root.iconbitmap(const.appIcon)
-    tk.messagebox.showerror("Uh-oh", "That was bad.")
-    tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
-    tk.messagebox.askquestion(
-        "Uh-oh", "Would you like see your punishment for pressing that key?")
-    subprocess.call([os.path.join(
-        "Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")],
-        shell=True)
-    logging.info("PatchIt! is shutting down.")
-    logging.shutdown()
-    raise SystemExit(0)
-
-
-# ------------ End PatchIt! Menu Layout ------------ #
-
-
-# ------------ Begin PatchIt! Settings ------------ #
-
-
-# ------------ Begin PatchIt! General Settings ------------ #
 
 
 def piSettings():
@@ -282,8 +244,3 @@ def piSettings():
     with open(os.path.join(theFile), "wt", encoding="utf_8") as f:
         f.write(json.dumps(jsonData, indent=4, sort_keys=True))
     return True
-
-# ------------ End PatchIt! General Settings ------------ #
-
-
-# ------------ End PatchIt! Settings ------------ #
