@@ -21,7 +21,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 
 import logging
-import tkinter as tk
+import tkinter
 from tkinter import messagebox
 
 
@@ -33,7 +33,7 @@ def displayError(title, message, trace=None):
     @param trace {Exception} Exception alias for debugging.
     @returns {Boolean} Always returns False.
     """
-    root = tk.Tk()
+    root = tkinter.Tk()
     root.withdraw()
     root.overrideredirect(True)
     root.geometry('0x0+0+0')

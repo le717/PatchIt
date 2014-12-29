@@ -24,6 +24,9 @@ import re
 import logging
 import distutils.dir_util
 
+import tkinter
+from tkinter import filedialog
+
 import pipatch
 # import Color as color
 # import Color.colors as colors
@@ -249,65 +252,12 @@ main()
 
 
 #import tarfile
-#import fnmatch
 #
-#import tkinter
-#from tkinter import filedialog
 #
 #import constants as const
 #import runasadmin
 
 
-#def fileCheck(path):
-#    """Check for and remove illegal files"""
-#    # List of all file extenions present in a Racers installation
-#    whiteList = [
-#        "LEGOMSC", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB",
-#        "*.CEB", "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB",
-#        "*.FDB", "*.GCB", "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB",
-#        "*.LRS", "*.LSB", "*.MAB", "*.MDB", "*.MIB", "*.MSB", "*.PCB",
-#        "*.PCM", "*.PWB", "*.RAB", "*.RCB", "*.RRB", "*.SBK", "*.SDB",
-#        "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA", "*.TGB", "*.TIB",
-#        "*.TMB", "*.TRB", "*.TUN", "*.WDB",
-#    ]
-#
-#    # All unallowed files
-#    badFiles = []
-#
-#    try:
-#        # Traversing the reaches of the (Temporary) Patch files...
-#        for root, dirnames, filenames in os.walk(temp_location):  # noqa
-#            # Get each item in the list
-#            for MyFile in filenames:
-#
-#                # Get the full path to each file, add it to badFile
-#                # (we'll see why in a moment)
-#                illegalFile = os.path.join(root, MyFile)
-#                badFiles.append(illegalFile)
-#
-#                for ext in whiteList:
-#                    # If a file extension is allowed,
-#                    #remove that file from badFiles
-#                    if fnmatch.fnmatch(MyFile, ext):
-#                        badFiles.remove(illegalFile)
-#
-#        # Delete the illegal files
-#        for baddie in badFiles:
-#            os.unlink(baddie)
-#
-#            # If a folder that contained illegal files is empty,
-#            # remove it too
-#            badDir = os.path.dirname(baddie)
-#            if not os.listdir(badDir):
-#                distutils.dir_util.remove_tree(badDir)
-#        del badFiles[:]
-#
-#    # Tracebacks are dumped to the log aready,
-#    # we simply have to catch them
-#    except Exception:
-#        pass
-#
-#
 #def selectPatchFiles(mp, game):
 #    """Select the Patch fils for compression"""
 #    # Draw (then withdraw) the root Tk window
