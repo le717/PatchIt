@@ -248,7 +248,6 @@ def patchName():
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
-        logging.info("Looping back through patchName()")
         patchName()
 
     ## An invalid file name was entered
@@ -260,7 +259,6 @@ def patchName():
                     #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Name Process
-        #logging.info("Looping back through patchName()")
         #patchName()
 
     ## The field was longer than 80 characters
@@ -270,7 +268,6 @@ def patchName():
                     #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Name Process
-        #logging.info("Looping back through patchName()")
         #patchName()
 
     # No characters were entered
@@ -280,7 +277,6 @@ def patchName():
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Name Process
-        logging.info("Looping back through patchName()")
         patchName()
 
      # I want to quit the process
@@ -289,12 +285,9 @@ def patchName():
         colors.text("\nCanceling creation of PatchIt! Patch",
                     color.FG_LIGHT_RED)
         PatchIt.main()
-
-    # An invalid character was not entered/the field was filled out
-    else:
-        logging.info("All characters in Patch name are allowed")
-        logging.info("The name field was filled out")
-        return name
+    logging.info("All characters in Patch name are allowed")
+    logging.info("The name field was filled out")
+    return name
 
 
 def patchVersion():
@@ -312,7 +305,6 @@ def patchVersion():
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
-        logging.info("Looping back through patchVersion()")
         patchVersion()
 
     ## An invalid file name was entered
@@ -323,7 +315,6 @@ def patchVersion():
                     #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Version Process
-        #logging.info("Looping back through patchVersion()")
         #patchVersion()
 
     ## The field was longer than 12 characters
@@ -333,7 +324,6 @@ def patchVersion():
                     #color.FG_LIGHT_RED)
 
         ## Loop back through the Patch Version Process
-        #logging.info("Looping back through patchVersion()")
         #patchVersion()
 
     # No characters were entered
@@ -343,14 +333,10 @@ def patchVersion():
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Version Process
-        logging.info("Looping back through patchVersion()")
         patchVersion()
-
-    # An invalid character was not entered/the field was filled out
-    else:
-        logging.info("All characters in Patch version are allowed")
-        logging.info("The version field was filled out")
-        return version
+    logging.info("All characters in Patch version are allowed")
+    logging.info("The version field was filled out")
+    return version
 
 
 def patchAuthor():
@@ -366,13 +352,9 @@ def patchAuthor():
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
-        logging.info("Looping back through patchAuthor()")
         patchAuthor()
-
-    # The field was filled out
-    else:
-        logging.info("The author field was filled out")
-        return author
+    logging.info("The author field was filled out")
+    return author
 
 
 def patchDesc():
@@ -388,17 +370,13 @@ def patchDesc():
                     color.FG_LIGHT_RED)
 
         # Loop back through the Patch Author Process
-        logging.info("Looping back through patchDesc()")
         patchDesc()
 
-    # The field was filled out
-    else:
-        # Check for, and replace any horizontal bars with a new line
-        if "|" in desc:
-            desc = desc.replace("|", "\n")
-
-        logging.info("The description field was filled out")
-        return desc
+    # Check for, and replace any horizontal bars with a new line
+    if "|" in desc:
+        desc = desc.replace("|", "\n")
+    logging.info("The description field was filled out")
+    return desc
 
 
 # ------------ End Patch Info Character and Length Checks ------------ #
@@ -436,10 +414,10 @@ def patchInfo(*args):
     mp = "MP"
 
     # Run function to select files for compression
-    selectPatchFiles(game, mp)
+    selectPatchFiles(mp, game)
 
 
-def selectPatchFiles(game, mp):
+def selectPatchFiles(mp, game):
     """Select the Patch fils for compression"""
     # Draw (then withdraw) the root Tk window
     root = tkinter.Tk()
