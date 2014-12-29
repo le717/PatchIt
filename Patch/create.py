@@ -86,22 +86,26 @@ class CreatePatch(object):
         """
         # Blank input
         if len(userText) == 0:
-            return (False, "blank")
+            return [False, "blank"]
+
+        # Cancel creation
+        elif userText.lower() == "q":
+            return [False, "quit"]
 
         # Invalid characters
         badChar = self._charCheck(userText)
         if badChar[0]:
-            return (False, "input", badChar[1])
+            return [False, "input", badChar[1]]
 
         # File name for Name and Version inputs only
         if field in ("name", "version"):
             if self._fileNameCheck(userText):
-                return (False, "name")
+                return [False, "name"]
 
-        return (True,)
+        return [True]
 
     def upperCaseConvert(self):
-        """Convert file names to uppercase per LEGO.JAM requirements.
+        """Convert file names to uppercase per game requirement.
 
         @returns {Boolean} Always returns True.
         """
@@ -151,14 +155,44 @@ class CreatePatch(object):
 def main():
 #    logging.info("Create a PatchIt! Patch")
 #    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
-#    print("\nCreate a PatchIt! Patch")
-    patch = CreatePatch()
-    
-    #patch.checkInput("nul")
-    #patch.setPatchFiles("Testing/Sample patch upper")
-    #patch.upperCaseConvert()
-    #patch.deleteFiles()
-    
+    newPatch = CreatePatch()
+
+    userInput = {}
+    neededInput = ("Name", "Version", "Author", "Description")
+    for value in neededInput:
+        userText = input("\n{0}: ".format(value))
+
+        results = newPatch.checkInput(userText)
+        while not results[0]:
+            print("\n\n", results[1], "\n\n")
+
+            # Cancel creation process
+            if results[1] == "quit":
+#                logging.warning("User canceled Patch creation!")
+#                colors.text("\nCanceling creation of PatchIt! Patch",
+#                            color.FG_LIGHT_RED)
+                return False
+
+            # Illegal character
+            elif results[1] == "input":
+#                logging.warning("An illegal character was entered!")
+                print('\n"{0}" is an illegal character!\n'.format(results[2]))
+#                colors.text('\n"{0}" is an illegal character!\n'.format(results[2]),
+#                            color.FG_LIGHT_RED)
+                userText = input("\n{0}: ".format(value))
+
+            userText = input("\n{0}: ".format(value))
+            print(userText)
+        results[0] = True
+        userInput[value] = userText
+
+    print(userInput)
+
+    #newPatch.checkInput("nul")
+    #newPatch.setPatchFiles("Testing/Sample patch upper")
+    #newPatch.upperCaseConvert()
+    #newPatch.deleteFiles()
+
 
 main()
 
