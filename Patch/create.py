@@ -20,6 +20,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import re
 import logging
 import distutils.dir_util
 
@@ -39,7 +40,8 @@ class CreatePatch(object):
         self.__patchAuthor = None
         self.__patchDesc = None
 
-        self.__tempLocation = os.path.join(utils.configPath, "Temp")
+#        self.__tempLocation = os.path.join(utils.configPath, "Temp")
+        self.__tempLocation = os.path.join("C:/tmp", "Temp")
         self.__patchFiles = None
 
         self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")
@@ -85,24 +87,26 @@ class CreatePatch(object):
         @returns {Tuple} TODO.
         """
         # Blank input
-        if len(userText) == 0:
-            return [False, "blank"]
+        if len(userText) == 0 or re.search(r"^\s+$", userText):
+            return (False, "blank")
 
         # Cancel creation
         elif userText.lower() == "q":
-            return [False, "quit"]
+            return (False, "quit")
 
         # Invalid characters
         badChar = self._charCheck(userText)
         if badChar[0]:
-            return [False, "input", badChar[1]]
+            return (False, "input", badChar[1])
 
-        # File name for Name and Version inputs only
-        if field in ("name", "version"):
+        # Name and Version fields only
+        if field in ("Name", "Version"):
+
+            # File name
             if self._fileNameCheck(userText):
-                return [False, "name"]
+                return (False, "fname")
 
-        return [True]
+        return (True,)
 
     def upperCaseConvert(self):
         """Convert file names to uppercase per game requirement.
@@ -160,9 +164,9 @@ def main():
     userInput = {}
     neededInput = ("Name", "Version", "Author", "Description")
     for value in neededInput:
-        userText = input("\n{0}: ".format(value))
+        userText = input("\n{0}: ".format(value)).strip()
 
-        results = newPatch.checkInput(userText)
+        results = newPatch.checkInput(userText, value)
         while not results[0]:
             print("\n\n", results[1], "\n\n")
 
@@ -173,21 +177,34 @@ def main():
 #                            color.FG_LIGHT_RED)
                 return False
 
+            # Blank input
+            elif results[1] == "blank":
+                pass # TODO Temp
+#                logging.warning("The {0} field was left blank!".format(value))
+#                colors.text("\nThe field must be filled out!\n",
+#                            color.FG_LIGHT_RED)
+
             # Illegal character
             elif results[1] == "input":
+                pass # TODO Temp
 #                logging.warning("An illegal character was entered!")
-                print('\n"{0}" is an illegal character!\n'.format(results[2]))
 #                colors.text('\n"{0}" is an illegal character!\n'.format(results[2]),
 #                            color.FG_LIGHT_RED)
-                userText = input("\n{0}: ".format(value))
 
-            userText = input("\n{0}: ".format(value))
-            print(userText)
-        results[0] = True
+            # Illegal file name
+            elif results[1] == "fname":
+                pass # TODO Temp
+#                logging.warning("An illegal file name was entered!".format(userText))
+#                colors.text('\n"{0}" is an illegal file name!\n'.format(userText),
+#                            color.FG_LIGHT_RED)
+
+            userText = input("\n{0}: ".format(value)).strip()
+            results = newPatch.checkInput(userText, value)
+
+        # Store the input
         userInput[value] = userText
 
     print(userInput)
-
     #newPatch.checkInput("nul")
     #newPatch.setPatchFiles("Testing/Sample patch upper")
     #newPatch.upperCaseConvert()
