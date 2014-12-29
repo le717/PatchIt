@@ -29,7 +29,6 @@ app = "PatchIt!"
 version = "1.1.3"
 minVer = "Unstable"
 creator = "Triangle717"
-currentYear = datetime.now().year
 
 # Global game data
 LRGame = "LEGO Racers"

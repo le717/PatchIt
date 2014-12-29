@@ -96,14 +96,14 @@ def about():
 
             {0} Version {1} {2}
                               Build {3}
-               Released ?? ??, {4}
+               Released ?? ??, 201?
 
-       Created 2013-{4} Triangle717
+       Created 2013-2015 Triangle717
 
        The standard and simple way to
     package and install LEGO Racers mods
 '''.format(const.app, const.version, const.minVer,
-           buildNum, const.currentYear))
+           buildNum))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -151,9 +151,9 @@ def main(loopNum=1):
             loopNum = 2
 
         # And display the menu only at the valid times
-        colors.text("\n{0} {1} {2}\nCreated 2013-{3} {4}".format(
+        colors.text("\n{0} {1} {2}\nCreated 2013-2015 {3}".format(
                     const.app, const.version, const.minVer,
-                    const.currentYear, const.creator), color.FG_WHITE)
+                    const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")
         print("""
@@ -179,8 +179,8 @@ Please make a selection:
 
             # Run the Patch Creation process
             logging.info("Running Patch Compression process")
-            main(loopNum=loopNum)
-            # create.patchInfo()
+            if not create.main():
+                main()
 
         # Patch Installation
         elif menuChoice.lower() == "i":
