@@ -35,6 +35,7 @@ __all__ = ("CreatePatch")
 class CreatePatch(object):
 
     def __init__(self):
+        logging.info("New CreatePatch instance")
         self.myPatch = None
 
 #        self.__tempLocation = os.path.join(utils.configPath, "Temp")
@@ -103,17 +104,17 @@ class CreatePatch(object):
         elif userText.lower() == "q":
             return (False, "quit")
 
-        # Invalid characters
-        badChar = self._charCheck(userText)
-        if badChar[0]:
-            return (False, "input", badChar[1])
-
         # Name and Version fields only
         if field in ("Name", "Version"):
 
             # File name
             if self._fileNameCheck(userText):
                 return (False, "fname")
+
+            # Invalid characters
+            badChar = self._charCheck(userText)
+            if badChar[0]:
+                return (False, "input", badChar[1])
 
         return (True,)
 
@@ -168,17 +169,18 @@ class CreatePatch(object):
 def main():
 #    logging.info("Create a PatchIt! Patch")
 #    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
-    newPatch = CreatePatch()
+#    colors.text('\nType "q" in any field to cancel.\n', color.FG_WHITE)
+    patch = CreatePatch()
+    logging.info("Get Patch details")
 
     patchDetails = {}
     neededInput = ("Name", "Version", "Author", "Description")
     for value in neededInput:
         userText = input("\n{0}: ".format(value)).strip()
 
-        results = newPatch.checkInput(userText, value)
+        # Validate the input
+        results = patch.checkInput(userText, value)
         while not results[0]:
-            print("\n\n", results[1], "\n\n")
-
             # Cancel creation process
             if results[1] == "quit":
 #                logging.warning("User canceled Patch creation!")
@@ -208,20 +210,20 @@ def main():
 #                            color.FG_LIGHT_RED)
 
             userText = input("\n{0}: ".format(value)).strip()
-            results = newPatch.checkInput(userText, value)
+            results = patch.checkInput(userText, value)
 
         # Store the input
         patchDetails[value] = userText
 
 
     # Locate the Patch files
-    # TODO newPatch.something()
+    # TODO patch.something()
 
     # Now that we have all the information needed, create a Patch object
-    print(type(newPatch.createPatch(patchDetails)))
-    #newPatch.setPatchFiles("Testing/Sample patch upper")
-    #newPatch.upperCaseConvert()
-    #newPatch.deleteFiles()
+    myPatch = patch.createPatch(patchDetails)
+    #patch.setPatchFiles("Testing/Sample patch upper")
+    #patch.upperCaseConvert()
+    #patch.deleteFiles()
 
 
 main()
@@ -286,166 +288,6 @@ main()
 #    # we simply have to catch them
 #    except Exception:
 #        pass
-
-
-#def patchName():
-#    """Ask for Patch Name"""
-#    # Mark as global to remove silly "None" error
-#    global name
-#    name = input("Name: ")
-#
-#    # An invalid character was entered
-#    if charCheck(name):
-#        logging.warning(
-#            '"{0}" is an illegal character and is not allowed in the Patch name!'
-#            .format(char))
-#        colors.text('\n"{0}" is an illegal character!\n'.format(char),
-#                    color.FG_LIGHT_RED)
-#
-#        # Loop back through the Patch Name Process
-#        patchName()
-#
-#    ## An invalid file name was entered
-#    #elif filenameCheck(name):
-#        #logging.warning(
-#            #'"{0}" is an illegal file name and is not allowed in the Patch name!'
-#            #.format(bad_name))
-#       #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
-#                    #color.FG_LIGHT_RED)
-#
-#        ## Loop back through the Patch Name Process
-#        #patchName()
-#
-#    # No characters were entered
-#    elif len(name) == 0:
-#        logging.warning("The Patch name field was left blank!")
-#        colors.text("\nThe Name field must be filled out!\n",
-#                    color.FG_LIGHT_RED)
-#
-#        # Loop back through the Patch Name Process
-#        patchName()
-#
-#     # I want to quit the process
-#    elif name.lower() == "q":
-#        logging.warning("User canceled PatchIt! Patch Creation!")
-#        colors.text("\nCanceling creation of PatchIt! Patch",
-#                    color.FG_LIGHT_RED)
-#        PatchIt.main()
-#    logging.info("All characters in Patch name are allowed")
-#    logging.info("The name field was filled out")
-#    return name
-#
-#
-#def patchVersion():
-#    """Ask for Patch Version"""
-#    # Mark as global to remove silly "None" error
-#    global version
-#    version = input("Version: ")
-#
-#    # An invalid character was entered
-#    if charCheck(version):
-#        logging.warning(
-#            '"{0}" is an illegal character and is not allowed in the Patch version!'
-#            .format(char))
-#        colors.text('\n"{0}" is an illegal character!\n'.format(char),
-#                    color.FG_LIGHT_RED)
-#
-#        # Loop back through the Patch Version Process
-#        patchVersion()
-#
-#    ## An invalid file name was entered
-#    #elif filenameCheck(version):
-#        #logging.warning(
-#            #'"{0}" is an illegal file name and is not allowed in the Patch version!')
-#        #colors.text('\n"{0}" is an illegal file name!\n'.format(bad_name),
-#                    #color.FG_LIGHT_RED)
-#
-#        ## Loop back through the Patch Version Process
-#        #patchVersion()
-#
-#    # No characters were entered
-#    elif len(version) == 0:
-#        logging.warning("The Patch version field was left blank!")
-#        colors.text("\nThe Version field must be filled out!\n",
-#                    color.FG_LIGHT_RED)
-#
-#        # Loop back through the Patch Version Process
-#        patchVersion()
-#    logging.info("All characters in Patch version are allowed")
-#    logging.info("The version field was filled out")
-#    return version
-#
-#
-#def patchAuthor():
-#    """Ask for Patch Author"""
-#    # Mark as global to remove silly "None" error
-#    global author
-#    author = input("Author: ")
-#
-#    # No characters were entered
-#    if len(author) == 0:
-#        logging.warning("The Patch author field was left blank!")
-#        colors.text("\nThe Author field must be filled out!\n",
-#                    color.FG_LIGHT_RED)
-#
-#        # Loop back through the Patch Author Process
-#        patchAuthor()
-#    logging.info("The author field was filled out")
-#    return author
-#
-#
-#def patchDesc():
-#    """Ask for Patch Author"""
-#    # Mark as global to remove silly "None" error
-#    global desc
-#    desc = input("Description: ")
-#
-#    # No characters were entered
-#    if len(desc) == 0:
-#        logging.warning("The Patch description field was left blank!")
-#        colors.text("\nThe Description field must be filled out!\n",
-#                    color.FG_LIGHT_RED)
-#
-#        # Loop back through the Patch Author Process
-#        patchDesc()
-#
-#    # Check for, and replace any horizontal bars with a new line
-#    if "|" in desc:
-#        desc = desc.replace("|", "\n")
-#    logging.info("The description field was filled out")
-#    return desc
-#
-#
-#def patchInfo(*args):
-#    """Ask for PatchIt! Patch details"""
-#    logging.info("Create a PatchIt! Patch")
-#    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
-#
-#    # Tells the user how to cancel the process
-#    colors.text('\nType "q" in the Name field to cancel.\n\n', color.FG_WHITE)
-#
-#    logging.info("Ask for Patch name")
-#    patchName()
-#
-#    logging.info("Ask for Patch version")
-#    patchVersion()
-#
-#    logging.info("Ask for Patch author")
-#    patchAuthor()
-#
-#    logging.info("Ask for Patch description")
-#    patchDesc()
-#
-#    # Set value of Game Field
-#    logging.info("Set value of Game field")
-#    game = "LEGO Racers"
-#
-#    # Set value of MP field
-#    logging.info("Set value of MP field")
-#    mp = "MP"
-#
-#    # Run function to select files for compression
-#    selectPatchFiles(mp, game)
 #
 #
 #def selectPatchFiles(mp, game):
