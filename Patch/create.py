@@ -46,13 +46,12 @@ class CreatePatch(object):
         self.__badNames = ("aux", "com1", "com2", "com3", "com4", "con",
                            "lpt1", "lpt2", "lpt3", "prn", "nul")
         self.__whiteList = (
-            "LEGOMSC", "*.ADB", "*.BDB", "*.BMP", "*.BVB", "*.CCB", "*.CDB",
-            "*.CEB", "*.CMB", "*.CPB", "*.CRB", "*.DDB", "*.EMB", "*.EVB",
-            "*.FDB", "*.GCB", "*.GDB", "*.GHB", "*.HZB", "*.IDB", "*.LEB",
-            "*.LRS", "*.LSB", "*.MAB", "*.MDB", "*.MIB", "*.MSB", "*.PCB",
-            "*.PCM", "*.PWB", "*.RAB", "*.RCB", "*.RRB", "*.SBK", "*.SDB",
-            "*.SKB", "*.SPB", "*.SRF", "*.TDB", "*.TGA", "*.TGB", "*.TIB",
-            "*.TMB", "*.TRB", "*.TUN", "*.WDB")
+            "legomsc", ".adb", ".bdb", ".bmp", ".bvb", ".ccb", ".cdb", ".ceb",
+            ".cmb", ".cpb", ".crb", ".ddb", ".emb", ".evb", ".fdb", ".gcb",
+            ".gdb", ".ghb", ".hzb", ".idb", ".leb", ".lrs", ".lsb", ".mab",
+            ".mdb", ".mib", ".msb", ".pcb", ".pcm", ".pwb", ".rab", ".rcb",
+            ".rrb", ".sbk", ".sdb", ".skb", ".spb", ".srf", ".tdb", ".tga",
+            ".tgb", ".tib", ".tmb", ".trb", ".tun", ".wdb")
 
     def setPatchFiles(self, patchFiles):
         self.__patchFiles = patchFiles.replace("\\", os.path.sep)
@@ -118,6 +117,32 @@ class CreatePatch(object):
 
         return (True,)
 
+    def fileCheck(self):
+    """Check for and remove files that are not whitelisted.
+
+    @returns {Boolean} Always returns True.
+    """
+    # Get a file tree
+    for root, dirnames, filenames in os.walk(self.__tempLocation):
+        for fname in filenames:
+
+            # Split the file name and extension
+            name, ext = os.path.splitext(fname.lower())
+
+            # The extension and the file name (extension-less files)
+            # are not in the  whitelist
+            if ext not in whiteList3 and name not in whiteList3:
+
+                # Delete the file
+                fileName = os.path.join(root, fname)
+                os.unlink(fileName)
+
+                # Delete empty directories
+                emptyDir = os.path.dirname(fileName)
+                if not os.listdir(emptyDir):
+                    distutils.dir_util.remove_tree(emptyDir)
+    return True
+
     def upperCaseConvert(self):
         """Convert file names to uppercase per game requirement.
 
@@ -135,11 +160,11 @@ class CreatePatch(object):
         for root, dirnames, filenames in os.walk(self.__tempLocation):
             for fname in filenames:
                 # Get the path to each file
-                myFile = os.path.join(root, fname)
+                fileName = os.path.join(root, fname)
 
                 # Rename the file to be all uppercase if needed
                 if fname != fname.upper():
-                    os.replace(myFile, os.path.join(root, fname.upper()))
+                    os.replace(fileName, os.path.join(root, fname.upper()))
         return True
 
     def deleteFiles(self):
