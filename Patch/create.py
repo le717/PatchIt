@@ -129,8 +129,8 @@ class CreatePatch(object):
         # The files to be compressed
         patchFiles = filedialog.askdirectory(
             parent=root,
-            title="Select the files for {0} (Version: {1})".format(
-                self.myPatch.getName(), self.myPatch.getVersion())
+            title="Select the files for {0}".format(
+                self.myPatch.getPrettyName())
         )
 
         # Restore focus
