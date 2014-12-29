@@ -49,24 +49,31 @@ class PiPatch(object):
         self.__patch = "{0}-{1}".format(name.replace(" ", "-"), version)
 
     def getName(self):
+        """Get the Patch name."""
         return self.__name
 
     def getVersion(self):
+        """Get the Patch version."""
         return self.__version
 
     def getAuthor(self):
+        """Get the Patch author."""
         return self.__author
 
     def getDesc(self):
+        """Get the Patch description."""
         return self.__desc
 
     def getArchiveName(self):
+        """Get the Patch archive name."""
         return "{0}.PiA".format(self.__patch)
 
     def getPatchName(self):
+        """Get the Patch file name."""
         return "{0}.PiP".format(self.__patch)
 
     def getPatch(self):
+        """Get the Patch format layout suitable for saving to disc."""
         return """// PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]\n{0}\n[General]\n{1}\n{2}\n{3}\n{4}\n{5}\n[Description]\n{6}
 """.format(self.getArchiveName(), self.getName(), self.getVersion(),
