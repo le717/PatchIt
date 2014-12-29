@@ -92,9 +92,6 @@ def upperCaseConvert(path):
         pass
 
 
-# ------------ Begin Illegal File Check ------------ #
-
-
 def fileCheck(path):
     """Check for and remove illegal files"""
     # List of all file extenions present in a Racers installation
@@ -110,8 +107,6 @@ def fileCheck(path):
 
     # All unallowed files
     badFiles = []
-
-    # --- Begin Illegal File Scan -- #
 
     try:
         # Traversing the reaches of the (Temporary) Patch files...
@@ -146,8 +141,6 @@ def fileCheck(path):
     except Exception:
         pass
 
-    # --- End Illegal File Scan -- #
-
 
 def deleteFiles():
     """Deletes temporary folder created during compression"""
@@ -165,11 +158,6 @@ def deleteFiles():
 It probably was deleted ealier.''')
         logging.exception("Oops! Something went wrong! Here's what happened\n",
                           exc_info=True)
-
-# ------------ End Illegal File Check ------------ #
-
-
-# ------------ Begin Patch Info Character and Length Checks ------------ #
 
 
 def charCheck(text):
@@ -379,12 +367,6 @@ def patchDesc():
     return desc
 
 
-# ------------ End Patch Info Character and Length Checks ------------ #
-
-
-# ------------ Begin PatchIt! Patch Creation ------------ #
-
-
 def patchInfo(*args):
     """Ask for PatchIt! Patch details"""
     logging.info("Create a PatchIt! Patch")
@@ -583,6 +565,3 @@ PatchIt! ran into an unknown error while trying to create
         logging.info("Run process to remove temporary folder")
         deleteFiles()
         PatchIt.main()
-
-
-# ------------ End PatchIt! Patch Creation ------------ #
