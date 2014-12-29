@@ -35,17 +35,41 @@ class Utils(object):
 
     Contains utility functions for PatchIt!, including:
     * Logging initialization
+    * Windows platform check
     * Command-line parameter initialization
+    * App configuration path
 
-    Exposes one public property:
-    * openArg {boolean} True if the open parameter was correctly invoked.
+    Exposes the following public items:
+    * openArg {Boolean} True if the open parameter was correctly invoked.
+    * isWindows {Boolean} True if the user is using the Windows platform.
+    * configPath {String} App configuration path.
     """
 
     def __init__(self):
         """Initalize public properties and run utility functions."""
         self.openArg = None
+        self.isWindows = "Windows" in platform.platform()
+        self.configPath = self._getConfigPath()
         self._logger()
         self._commandLine()
+
+    def _getConfigPath(self):
+        """Get the file path where configuration files will be stored.
+
+        On Windows, the root folder is %AppData%, while on Mac OS X and Linux
+        it is ~. On all platforms, the rest of the path is Triangle717/PatchIt.
+
+        @returns {String} The configuration path.
+        """
+        root = os.path.expanduser("~")
+        if self.isWindows:
+            root = os.path.expandvars("%AppData%")
+
+        # Create the path if needed
+        path = os.path.join(root, "Triangle717", "PatchIt")
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return path
 
     def _commandLine(self):
         """Command-line arguments parser."""
@@ -83,7 +107,7 @@ without going through the menu first""")
 
     def _logger(self):
         pythonArch = "x64"
-        logsFolder = os.path.join(const.appFolder, "Logs")
+        logsFolder = os.path.join(self.configPath, "Logs")
         loggingFile = os.path.join(logsFolder, "PatchIt.log")
 
         # Check if Python is x86
@@ -111,17 +135,16 @@ without going through the menu first""")
                          platform.platform())
                          )
             logging.info("""
-\t\t\t\t\t\t\t      ############################################
-                                              {0} Version {1}
-                                            Created 2013-{2} {3}
+#########################################
+{0} v{1}
+Created 2013-2015 {2}
 
 
-                                    If you run into a bug, open an issue at
-                                    https://github.com/le717/PatchIt/issues
-                                    and attach this file for an quicker fix!
-\t\t\t\t\t\t\t      ############################################
+If you run into a bug, open an issue at
+https://github.com/le717/PatchIt/issues
+and attach this file for an quicker fix!
+#########################################
                                     """.format(const.app, const.version,
-                                               const.currentYear,
                                                const.creator))
             return True
 
