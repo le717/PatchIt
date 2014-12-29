@@ -74,7 +74,7 @@ class CreatePatch(object):
         """Check the input for any illegal characters.
 
         @param {String} userText The text to check.
-        @returns {Tuple} TODO.
+        @returns {Tuple.<boolean, string|None>} TODO.
         """
         for char in userText:
             if char in self.__badChars:
@@ -94,7 +94,7 @@ class CreatePatch(object):
 
         @param {String} userText The text to check.
         @param {String} [field=None] The type of input being checked.
-        @returns {Tuple} TODO.
+        @returns {Tuple.<boolean[, string|None[, string]]>} TODO.
         """
         # Blank input
         if len(userText) == 0 or re.search(r"^\s+$", userText):
@@ -123,31 +123,24 @@ class CreatePatch(object):
 
         @returns {Boolean} Always returns True.
         """
-        try:
-            # Copy files to temporary location
-            logging.info("Copying contents of {0} to {1}".format(
-                        self.__patchFiles, self.__tempLocation))
+        # Copy files to temporary location
+        logging.info("Copying contents of {0} to {1}".format(
+                    self.__patchFiles, self.__tempLocation))
 
-            # Only copy the files if they do not already exist
-            if not os.path.exists(self.__tempLocation):
-                distutils.dir_util.copy_tree(self.__patchFiles, self.__tempLocation)
+        # Only copy the files if they do not already exist
+        if not os.path.exists(self.__tempLocation):
+            distutils.dir_util.copy_tree(self.__patchFiles, self.__tempLocation)
 
-            # Get a file tree
-            for root, dirnames, filenames in os.walk(self.__tempLocation):
-                for fname in filenames:
-                    # Get the path to each file
-                    myFile = os.path.join(root, fname)
+        # Get a file tree
+        for root, dirnames, filenames in os.walk(self.__tempLocation):
+            for fname in filenames:
+                # Get the path to each file
+                myFile = os.path.join(root, fname)
 
-                    # Rename the file to be all uppercase if needed
-                    if fname != fname.upper():
-                        os.replace(myFile, os.path.join(root, fname.upper()))
-
-        # Tracebacks are dumped to the log already,
-        # we simply have to catch them
-        except Exception:
-            pass
-        finally:
-            return True
+                # Rename the file to be all uppercase if needed
+                if fname != fname.upper():
+                    os.replace(myFile, os.path.join(root, fname.upper()))
+        return True
 
     def deleteFiles(self):
         """Deletes temporary folder created during compression.
