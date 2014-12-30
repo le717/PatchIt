@@ -37,7 +37,10 @@ __all__ = ("CreatePatch")
 
 class CreatePatch(object):
 
+    """PatchIt! Patch Creation class."""
+
     def __init__(self):
+        """Initialize the class."""
         logging.info("New CreatePatch instance")
         self.myPatch = None
 
@@ -59,7 +62,8 @@ class CreatePatch(object):
     def createPatch(self, details):
         """Create a Patch object.
 
-        @param {Dict} details Patch details. See PiPatch::__init__() for details.
+        @param {Dict} details Patch details.
+            See PiPatch::__init__() for details.
         @returns {Instance} PiPatch() instance.
         """
         self.myPatch = pipatch.PiPatch(details["Name"],
@@ -139,7 +143,8 @@ class CreatePatch(object):
         # The user clicked the cancel button
         if not patchFiles:
             logging.warning("User did not select any files to compress!")
-#            colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
+#            colors.text("\nCannot find any files to compress!",
+#                        color.FG_LIGHT_RED)
             return False
 
         # Store the path
@@ -182,11 +187,12 @@ class CreatePatch(object):
         """
         # Copy files to temporary location
         logging.info("Copying contents of {0} to {1}".format(
-                    self.__patchFiles, self.__tempLocation))
+                     self.__patchFiles, self.__tempLocation))
 
         # Only copy the files if they do not already exist
         if not os.path.exists(self.__tempLocation):
-            distutils.dir_util.copy_tree(self.__patchFiles, self.__tempLocation)
+            distutils.dir_util.copy_tree(self.__patchFiles,
+                                         self.__tempLocation)
 
         # Get a file tree
         for root, dirnames, filenames in os.walk(self.__tempLocation):
@@ -194,13 +200,14 @@ class CreatePatch(object):
 
                 # Rename the file to be all uppercase if needed
                 if fname != fname.upper():
-                    logging.info("Renaming {0} to be all uppercase".format(fname))
+                    logging.info("Renaming {0} to be all uppercase".format(
+                                 fname))
                     fileName = os.path.join(root, fname)
                     os.replace(fileName, os.path.join(root, fname.upper()))
         return True
 
     def deleteFiles(self):
-        """Deletes temporary folder created during compression.
+        """Delete temporary folder created during compression.
 
         @returns {Boolean} Always returns True.
         """
@@ -213,7 +220,6 @@ class CreatePatch(object):
         except FileNotFoundError:
             logging.exception("Something went wrong! Here's what happened\n",
                               exc_info=True)
-
 
 
 def main():
@@ -246,14 +252,15 @@ def main():
             # Illegal character
             elif results[1] == "input":
                 logging.warning("An illegal character was entered!")
-#                colors.text('\n"{0}" is an illegal character!\n'.format(results[2]),
-#                            color.FG_LIGHT_RED)
+#                colors.text('\n"{0}" is an illegal character!\n'.format(
+#                            results[2]), color.FG_LIGHT_RED)
 
             # Illegal file name
             elif results[1] == "fname":
-                logging.warning("An illegal file name was entered!".format(userText))
-#                colors.text('\n"{0}" is an illegal file name!\n'.format(userText),
-#                            color.FG_LIGHT_RED)
+                logging.warning("An illegal file name was entered!".format(
+                                userText))
+#                colors.text('\n"{0}" is an illegal file name!\n'.format(
+#                            userText), color.FG_LIGHT_RED)
 
             userText = input("\n{0}: ".format(value)).strip()
             results = patch.checkInput(userText, value)

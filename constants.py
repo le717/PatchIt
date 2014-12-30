@@ -21,7 +21,6 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 import os
-from datetime import datetime
 from Settings.buildgen import BuildNumber
 
 # App name and version

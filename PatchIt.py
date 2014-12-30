@@ -24,7 +24,6 @@ import os
 import json
 import logging
 import webbrowser
-import subprocess
 
 # Tkinter GUI library
 import tkinter as tk
