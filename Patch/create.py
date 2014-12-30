@@ -22,6 +22,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 import os
 import re
 import logging
+# import tarfile
 import distutils.dir_util
 
 import tkinter
@@ -43,10 +44,11 @@ class CreatePatch(object):
         """Initialize the class."""
         logging.info("New CreatePatch instance")
         self.myPatch = None
+        self.__patchFiles = None
 
 #        self.__tempLocation = os.path.join(utils.configPath, "Temp")
         self.__tempLocation = os.path.join("C:/tmp", "Temp")
-        self.__patchFiles = None
+        self.__hasTempFiles = False
 
         self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")
         self.__badNames = ("aux", "com1", "com2", "com3", "com4", "con",
@@ -73,10 +75,11 @@ class CreatePatch(object):
         return self.myPatch
 
     def _charCheck(self, userText):
-        """Check the input for any illegal characters.
+        """Check the input for any invalid characters.
 
         @param {String} userText The text to check.
-        @returns {Tuple.<boolean, string|None>} TODO.
+        @returns {Tuple.<boolean, string|None>} True and the invalid character
+            if an invalid character was found, False and None otherwise.
         """
         for char in userText:
             if char in self.__badChars:
@@ -84,19 +87,44 @@ class CreatePatch(object):
         return (False, None)
 
     def _fileNameCheck(self, userText):
-        """Check if a file has an illegal filename.
+        """Check if a file has an invalid filename.
 
         @param {String} userText The text to check.
-        @returns {Boolean} True if illegal filename, False otherwise.
+        @returns {Boolean} True if invalid filename, False otherwise.
         """
         return userText.lower() in self.__badNames
+
+    def _copyTempFiles(self):
+        """Copy Patch files to a temporary location.
+
+        @returns {Boolean} Always returns True.
+        """
+        logging.info("Copying contents of {0} to {1}".format(
+                     self.__patchFiles, self.__tempLocation))
+
+        # Only copy the files if they do not already exist
+        if not os.path.exists(self.__tempLocation):
+            distutils.dir_util.copy_tree(self.__patchFiles,
+                                         self.__tempLocation)
+        self.__hasTempFiles = True
+        return True
 
     def checkInput(self, userText, field=None):
         """Run the user input though some validity checks.
 
         @param {String} userText The text to check.
         @param {String} [field=None] The type of input being checked.
-        @returns {Tuple.<boolean[, string|None[, string]]>} TODO.
+        @returns {Tuple.<boolean[, string|None[, string]]>}
+            If everything checks out, a single-index True.
+            Otherwise, False, a string stating the type of error encountered,
+            and in the invalid character check, a third index containing the
+            invalid character.
+
+            Possible error types and defination:
+            * blank: Empty input
+            * quit: Cancel the process
+            * fname: Invalid file name (Name and Version only)
+            * input: Invalid character (Name and Version only)
         """
         # Blank input
         if len(userText) == 0 or re.search(r"^\s+$", userText):
@@ -113,7 +141,7 @@ class CreatePatch(object):
             if self._fileNameCheck(userText):
                 return (False, "fname")
 
-            # Invalid characters
+            # Invalid character
             badChar = self._charCheck(userText)
             if badChar[0]:
                 return (False, "input", badChar[1])
@@ -121,6 +149,12 @@ class CreatePatch(object):
         return (True,)
 
     def selectFiles(self):
+        """Select the directory containing the Patch files.
+
+        @returns {Boolean|String} False if user does not select a directory,
+            otherwise a path to the directory containing the Patch files.
+        """
+        logging.info("Select the Patch files")
         # Tkinter prep
         root = tkinter.Tk()
         root.withdraw()
@@ -149,6 +183,7 @@ class CreatePatch(object):
 
         # Store the path
         self.__patchFiles = patchFiles.replace("\\", os.path.sep)
+        logging.info("The Patch files are located at {0}".format(self.__patchFiles))
         return self.__patchFiles
 
     def fileCheck(self):
@@ -156,6 +191,10 @@ class CreatePatch(object):
 
         @returns {Boolean} Always returns True.
         """
+        # Copy temp files if needed
+        if not self.__hasTempFiles:
+            self._copyTempFiles()
+
         # Get a file tree
         for root, dirnames, filenames in os.walk(self.__tempLocation):
             for fname in filenames:
@@ -185,14 +224,9 @@ class CreatePatch(object):
 
         @returns {Boolean} Always returns True.
         """
-        # Copy files to temporary location
-        logging.info("Copying contents of {0} to {1}".format(
-                     self.__patchFiles, self.__tempLocation))
-
-        # Only copy the files if they do not already exist
-        if not os.path.exists(self.__tempLocation):
-            distutils.dir_util.copy_tree(self.__patchFiles,
-                                         self.__tempLocation)
+        # Copy temp files if needed
+        if not self.__hasTempFiles:
+            self._copyTempFiles()
 
         # Get a file tree
         for root, dirnames, filenames in os.walk(self.__tempLocation):
@@ -249,17 +283,17 @@ def main():
 #                colors.text("\nThe field must be filled out!\n",
 #                            color.FG_LIGHT_RED)
 
-            # Illegal character
+            # Invalid character
             elif results[1] == "input":
-                logging.warning("An illegal character was entered!")
-#                colors.text('\n"{0}" is an illegal character!\n'.format(
+                logging.warning("An invalid character was entered!")
+#                colors.text('\n"{0}" is an invalid character!\n'.format(
 #                            results[2]), color.FG_LIGHT_RED)
 
-            # Illegal file name
+            # Invalid file name
             elif results[1] == "fname":
-                logging.warning("An illegal file name was entered!".format(
+                logging.warning("An invalid file name was entered!".format(
                                 userText))
-#                colors.text('\n"{0}" is an illegal file name!\n'.format(
+#                colors.text('\n"{0}" is an invalid file name!\n'.format(
 #                            userText), color.FG_LIGHT_RED)
 
             userText = input("\n{0}: ".format(value)).strip()
@@ -279,9 +313,10 @@ def main():
     if not patchFiles:
         return False
 
-
-    # patch.upperCaseConvert()
-    # patch.fileCheck()
+    # Copy temporary files, convert file name cases
+    patch.fileCheck()
+    patch.upperCaseConvert()
+    # patch.save()
     # patch.deleteFiles()
 
 
@@ -289,7 +324,6 @@ main()
 
 
 
-#import tarfile
 #
 #import constants as const
 #import runasadmin
