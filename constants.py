@@ -35,11 +35,9 @@ LRSettings = "Racers.json"
 LRSettingsCfg = "Racers.cfg"
 piSettings = "PatchIt.json"
 
-init = utils.Utils()
-
 exeName = os.path.basename(sys.argv[0])
 appFolder = os.path.dirname(sys.argv[0])
-settingsFol = os.path.join(init.configPath, "Settings")
+settingsFol = os.path.join(utils.Utils().configPath, "Settings")
 
 appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
 # Build number (Pickle v3)
