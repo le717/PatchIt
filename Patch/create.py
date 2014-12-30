@@ -138,8 +138,7 @@ class CreatePatch(object):
 
         # The user clicked the cancel button
         if not patchFiles:
-            # TODO Reenable
-#            logging.warning("User did not select any files to compress!")
+            logging.warning("User did not select any files to compress!")
 #            colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
             return False
 
@@ -161,15 +160,18 @@ class CreatePatch(object):
 
                 # The extension and the file name (extension-less files)
                 # are not in the  whitelist
-                if ext not in whiteList3 and name not in whiteList3:
+                if (ext not in self.__whiteList and
+                        name not in self.__whiteList):
 
                     # Delete the file
                     fileName = os.path.join(root, fname)
+                    logging.info("Deleting {0}".format(fileName))
                     os.unlink(fileName)
 
                     # Delete empty directories
                     emptyDir = os.path.dirname(fileName)
                     if not os.listdir(emptyDir):
+                        logging.info("Deleting empty directory")
                         distutils.dir_util.remove_tree(emptyDir)
         return True
 
@@ -189,11 +191,11 @@ class CreatePatch(object):
         # Get a file tree
         for root, dirnames, filenames in os.walk(self.__tempLocation):
             for fname in filenames:
-                # Get the path to each file
-                fileName = os.path.join(root, fname)
 
                 # Rename the file to be all uppercase if needed
                 if fname != fname.upper():
+                    logging.info("Renaming {0} to be all uppercase".format(fname))
+                    fileName = os.path.join(root, fname)
                     os.replace(fileName, os.path.join(root, fname.upper()))
         return True
 
@@ -215,7 +217,7 @@ class CreatePatch(object):
 
 
 def main():
-#    logging.info("Create a PatchIt! Patch")
+    logging.info("Create a PatchIt! Patch")
 #    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
 #    colors.text('\nType "q" in any field to cancel.\n', color.FG_WHITE)
     patch = CreatePatch()
@@ -230,29 +232,26 @@ def main():
         while not results[0]:
             # Cancel creation process
             if results[1] == "quit":
-#                logging.warning("User canceled Patch creation!")
+                logging.warning("User canceled Patch creation!")
 #                colors.text("\nCanceling creation of PatchIt! Patch",
 #                            color.FG_LIGHT_RED)
                 return False
 
             # Blank input
             elif results[1] == "blank":
-                pass # TODO Reenable
-#                logging.warning("The {0} field was left blank!".format(value))
+                logging.warning("The {0} field was left blank!".format(value))
 #                colors.text("\nThe field must be filled out!\n",
 #                            color.FG_LIGHT_RED)
 
             # Illegal character
             elif results[1] == "input":
-                pass # TODO Reenable
-#                logging.warning("An illegal character was entered!")
+                logging.warning("An illegal character was entered!")
 #                colors.text('\n"{0}" is an illegal character!\n'.format(results[2]),
 #                            color.FG_LIGHT_RED)
 
             # Illegal file name
             elif results[1] == "fname":
-                pass # TODO Reenable
-#                logging.warning("An illegal file name was entered!".format(userText))
+                logging.warning("An illegal file name was entered!".format(userText))
 #                colors.text('\n"{0}" is an illegal file name!\n'.format(userText),
 #                            color.FG_LIGHT_RED)
 
@@ -260,6 +259,7 @@ def main():
             results = patch.checkInput(userText, value)
 
         # Store the input
+        logging.info("Storing {0} field".format(value))
         patchDetails[value] = userText
 
     # Create a Patch object
