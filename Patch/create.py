@@ -288,57 +288,6 @@ main()
 #import runasadmin
 
 
-#def selectPatchFiles(mp, game):
-#    """Select the Patch fils for compression"""
-#    # Draw (then withdraw) the root Tk window
-#    root = tkinter.Tk()
-#    root.withdraw()
-#
-#    # Overwrite root display settings
-#    root.overrideredirect(True)
-#    root.geometry('0x0+0+0')
-#
-#    # Show window again, lift it so it can receive the focus
-#    # Otherwise, it is behind the console window
-#    root.deiconify()
-#    root.lift()
-#    root.focus_force()
-#
-#    # The files to be compressed
-#    patch_files = filedialog.askdirectory(
-#        parent=root,
-#        title="Select the files for {0} (Version: {1})".format(
-#            name, version)  # lint:ok
-#    )
-#
-#    # The user clicked the cancel button
-#    if not patch_files:
-#        # Give focus back to console window
-#        logging.info("Give focus back to console window")
-#        root.destroy()
-#
-#        logging.warning("User did not select any files to compress!")
-#        colors.text("\nCannot find any files to compress!", color.FG_LIGHT_RED)
-#        PatchIt.main()
-#
-#    # The user selected files for Patch creation
-#    else:
-#        # Give focus back to console window
-#        logging.info("Give focus back to console window")
-#        root.destroy()
-#        logging.info("User selected files at {0} for Patch compression".format(
-#            patch_files))
-#        logging.info('''The final Patch details are:
-#
-#{0}
-#Version: {1}
-#Author: {2}
-#
-#"{3}"
-#'''.format(name, version, author, desc))  # lint:ok
-#        writePatch(patch_files, mp, game)
-
-
 #def writePatch(patch_files, mp, game):
 #    """Writes and compresses PatchIt! Patch"""
 #    try:
