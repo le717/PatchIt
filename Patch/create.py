@@ -28,15 +28,11 @@ import distutils.dir_util
 import tkinter
 from tkinter import filedialog
 
-import pipatch
-# import constants as const
-# import Color as color
-# import Color.colors as colors
-# import Settings.utils as utils
-
-# TODO TEMP HACK PLZ REMOVE
-import sys
-appFolder = os.path.dirname(sys.argv[0])
+import constants as const
+import Color as color
+import Color.colors as colors
+import Settings.utils as utils
+from Patch import (pipatch, racingtips)
 
 __all__ = ("CreatePatch")
 
@@ -51,9 +47,7 @@ class CreatePatch(object):
         self.myPatch = None
         self.__patchFiles = None
 
-        # TODO TEMP HACK PLZ REMOVE
-#        self.__tempLocation = os.path.join(utils.configPath, "Temp")
-        self.__tempLocation = os.path.join("C:/tmp", "Temp")
+        self.__tempLocation = os.path.join(utils.Utils().configPath, "Temp")
         self.__hasTempFiles = False
 
         self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")
@@ -183,8 +177,8 @@ class CreatePatch(object):
         # The user clicked the cancel button
         if not patchFiles:
             logging.warning("User did not select any files to compress!")
-#            colors.text("\nCannot find any files to compress!",
-#                        color.FG_LIGHT_RED)
+            colors.text("\nCannot find any files to compress!",
+                        color.FG_LIGHT_RED)
             return False
 
         # Store the path
@@ -273,7 +267,7 @@ class CreatePatch(object):
         with tarfile.open(piaFile, "w:xz") as archive:
             archive.add(self.__tempLocation, "")
 
-        # TODO Display game play tip here
+        # TODO Display gameplay tip here
 
         # PiP file
         with open(pipFile, "wt", encoding="utf_8") as patch:
@@ -281,17 +275,16 @@ class CreatePatch(object):
 
         # Success!
         logging.info("Patch saved to {0}".format(self.__patchFiles))
-#        colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
-#                                              self.__patchFiles),
-#                    color.FG_LIGHT_GREEN)
-        print("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
-                                              self.__patchFiles))
+        colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
+                                              self.__patchFiles),
+                    color.FG_LIGHT_GREEN)
+        return True
 
 
 def main():
     logging.info("Create a PatchIt! Patch")
-#    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
-#    colors.text('\nType "q" in any field to cancel.\n', color.FG_WHITE)
+    colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
+    colors.text('\nType "q" in any field to cancel.\n', color.FG_WHITE)
     patch = CreatePatch()
     logging.info("Get Patch details")
 
@@ -305,28 +298,28 @@ def main():
             # Cancel creation process
             if results[1] == "quit":
                 logging.warning("User canceled Patch creation!")
-#                colors.text("\nCanceling creation of PatchIt! Patch",
-#                            color.FG_LIGHT_RED)
+                colors.text("\nCanceling creation of PatchIt! Patch",
+                            color.FG_LIGHT_RED)
                 return False
 
             # Blank input
             elif results[1] == "blank":
                 logging.warning("The {0} field was left blank!".format(value))
-#                colors.text("\nThe field must be filled out!\n",
-#                            color.FG_LIGHT_RED)
+                colors.text("\nThe field must be filled out!\n",
+                            color.FG_LIGHT_RED)
 
             # Invalid character
             elif results[1] == "input":
                 logging.warning("An invalid character was entered!")
-#                colors.text('\n"{0}" is an invalid character!\n'.format(
-#                            results[2]), color.FG_LIGHT_RED)
+                colors.text('\n"{0}" is an invalid character!\n'.format(
+                            results[2]), color.FG_LIGHT_RED)
 
             # Invalid file name
             elif results[1] == "fname":
                 logging.warning("An invalid file name was entered!".format(
                                 userText))
-#                colors.text('\n"{0}" is an invalid file name!\n'.format(
-#                            userText), color.FG_LIGHT_RED)
+                colors.text('\n"{0}" is an invalid file name!\n'.format(
+                            userText), color.FG_LIGHT_RED)
 
             userText = input("\n{0}: ".format(value)).strip()
             results = patch.checkInput(userText, value)
@@ -349,12 +342,8 @@ def main():
     patch.fileCheck()
     patch.upperCaseConvert()
 
-    patch.savePatch()
-    input("Press enter to delete")
-    patch.deleteFiles()
-
-
-main()
+    if patch.savePatch():
+        patch.deleteFiles()
 
 #import runasadmin
 
