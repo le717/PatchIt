@@ -22,16 +22,21 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 import os
 import re
 import logging
-# import tarfile
+import tarfile
 import distutils.dir_util
 
 import tkinter
 from tkinter import filedialog
 
 import pipatch
+# import constants as const
 # import Color as color
 # import Color.colors as colors
 # import Settings.utils as utils
+
+# TODO TEMP HACK PLZ REMOVE
+import sys
+appFolder = os.path.dirname(sys.argv[0])
 
 __all__ = ("CreatePatch")
 
@@ -46,6 +51,7 @@ class CreatePatch(object):
         self.myPatch = None
         self.__patchFiles = None
 
+        # TODO TEMP HACK PLZ REMOVE
 #        self.__tempLocation = os.path.join(utils.configPath, "Temp")
         self.__tempLocation = os.path.join("C:/tmp", "Temp")
         self.__hasTempFiles = False
@@ -168,7 +174,7 @@ class CreatePatch(object):
         patchFiles = filedialog.askdirectory(
             parent=root,
             title="Select the files for {0}".format(
-                self.myPatch.getPrettyName())
+                self.myPatch.prettyPrint())
         )
 
         # Restore focus
@@ -196,6 +202,7 @@ class CreatePatch(object):
             self._copyTempFiles()
 
         # Get a file tree
+        logging.info("Check for non-whitelisted files")
         for root, dirnames, filenames in os.walk(self.__tempLocation):
             for fname in filenames:
 
@@ -229,6 +236,7 @@ class CreatePatch(object):
             self._copyTempFiles()
 
         # Get a file tree
+        logging.info("Check for non-uppercased files")
         for root, dirnames, filenames in os.walk(self.__tempLocation):
             for fname in filenames:
 
@@ -254,6 +262,30 @@ class CreatePatch(object):
         except FileNotFoundError:
             logging.exception("Something went wrong! Here's what happened\n",
                               exc_info=True)
+
+    def savePatch(self):
+        """Save a PatchIt! Patch to disk."""
+        logging.info("Saving PatchIt! Patch")
+        piaFile = os.path.join(self.__patchFiles, self.myPatch.getArchiveName())
+        pipFile = os.path.join(self.__patchFiles, self.myPatch.getPatchName())
+
+        # PiA archive
+        with tarfile.open(piaFile, "w:xz") as archive:
+            archive.add(self.__tempLocation, "")
+
+        # TODO Display game play tip here
+
+        # PiP file
+        with open(pipFile, "wt", encoding="utf_8") as patch:
+            patch.write(self.myPatch.getPatch())
+
+        # Success!
+        logging.info("Patch saved to {0}".format(self.__patchFiles))
+#        colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
+#                                              self.__patchFiles),
+#                    color.FG_LIGHT_GREEN)
+        print("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
+                                              self.__patchFiles))
 
 
 def main():
@@ -316,16 +348,14 @@ def main():
     # Copy temporary files, convert file name cases
     patch.fileCheck()
     patch.upperCaseConvert()
-    # patch.save()
-    # patch.deleteFiles()
+
+    patch.savePatch()
+    input("Press enter to delete")
+    patch.deleteFiles()
 
 
 main()
 
-
-
-#
-#import constants as const
 #import runasadmin
 
 
