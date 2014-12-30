@@ -78,7 +78,7 @@ class PiPatch(object):
         """
         return self.__desc
 
-    def getPrettyName(self):
+    def prettyPrint(self):
         """Get a formatted version of the Patch name and version.
 
         @returns {String}
@@ -86,14 +86,14 @@ class PiPatch(object):
         return "{0} v{1}".format(self.__name, self.__version)
 
     def getArchiveName(self):
-        """Get the Patch archive name.
+        """Get the Patch archive name suitable for saving to disc.
 
         @returns {String}
         """
         return "{0}.PiA".format(self.__patch)
 
     def getPatchName(self):
-        """Get the Patch file name.
+        """Get the Patch file name suitable for saving to disc.
 
         @returns {String}
         """
