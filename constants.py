@@ -21,32 +21,29 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 import os
+from Settings import utils
 from Settings.buildgen import BuildNumber
 
-# App name and version
 app = "PatchIt!"
 version = "1.1.3"
 minVer = "Unstable"
 creator = "Triangle717"
+testMode = False
 
-# Global game data
 LRGame = "LEGO Racers"
 LRSettings = "Racers.json"
 LRSettingsCfg = "Racers.cfg"
 piSettings = "PatchIt.json"
 
-# Name of PatchIt! Exe/Py
+init = utils.Utils()
+
 exeName = os.path.basename(sys.argv[0])
-# Location of PatchIt! Exe/Py
-appFolder = os.path.abspath(os.getcwd())
-# Location of Settings folder
-settingsFol = os.path.join(appFolder, "Settings")
-# PatchIt! Icon
+appFolder = os.path.dirname(sys.argv[0])
+settingsFol = os.path.join(init.configPath, "Settings")
+
 appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
-# Build number (v3 Pickle data)
+# Build number (Pickle v3)
 buildFile = os.path.join(appFolder, "Build.pickle")
-# Experimental Mode
-testMode = False
 
 
 def getBuildNumber():
@@ -55,7 +52,7 @@ def getBuildNumber():
     buildNum = bn.buildNum
     bn.updateBuild(buildNum)
 
-    # This is a frozen exe and the data is missing; assign a "number"
+    # This is a frozen exe and the data is missing, assign a "number"
     if buildNum is None:
         buildNum = "Unknown"
     return buildNum
