@@ -99,7 +99,7 @@ class CreatePatch(object):
 
         @returns {Boolean} Always returns True.
         """
-        logging.info("Copying contents of {0} to {1}".format(
+        logging.info("Copy contents of {0} to {1}".format(
                      self.__patchFiles, self.__tempLocation))
 
         # Only copy the files if they do not already exist
@@ -210,13 +210,14 @@ class CreatePatch(object):
 
                     # Delete the file
                     fileName = os.path.join(root, fname)
-                    logging.info("Deleting {0}".format(fileName))
+                    logging.info("Delete {0}".format(fileName))
                     os.unlink(fileName)
 
                     # Delete empty directories
                     emptyDir = os.path.dirname(fileName)
                     if not os.listdir(emptyDir):
-                        logging.info("Deleting empty directory")
+                        logging.info("Delete empty directory {0}".format(
+                                     emptyDir))
                         distutils.dir_util.remove_tree(emptyDir)
         return True
 
@@ -236,7 +237,7 @@ class CreatePatch(object):
 
                 # Rename the file to be all uppercase if needed
                 if fname != fname.upper():
-                    logging.info("Renaming {0} to be all uppercase".format(
+                    logging.info("Rename {0} to be all uppercase".format(
                                  fname))
                     fileName = os.path.join(root, fname)
                     os.replace(fileName, os.path.join(root, fname.upper()))
@@ -284,7 +285,7 @@ class CreatePatch(object):
 def main():
     logging.info("Create a PatchIt! Patch")
     colors.text("\nCreate a PatchIt! Patch", color.FG_LIGHT_YELLOW)
-    colors.text('\nType "q" in any field to cancel.\n', color.FG_WHITE)
+    colors.text('\nType "q" in any field to cancel.', color.FG_WHITE)
     patch = CreatePatch()
     logging.info("Get Patch details")
 
@@ -298,7 +299,7 @@ def main():
             # Cancel creation process
             if results[1] == "quit":
                 logging.warning("User canceled Patch creation!")
-                colors.text("\nCanceling creation of PatchIt! Patch",
+                colors.text("\nCancel creation of PatchIt! Patch",
                             color.FG_LIGHT_RED)
                 return False
 
@@ -325,7 +326,7 @@ def main():
             results = patch.checkInput(userText, value)
 
         # Store the input
-        logging.info("Storing {0} field".format(value))
+        logging.info("Store value for {0} field".format(value))
         patchDetails[value] = userText
 
     # Create a Patch object
@@ -342,8 +343,9 @@ def main():
     patch.fileCheck()
     patch.upperCaseConvert()
 
-    if patch.savePatch():
-        patch.deleteFiles()
+    # Save the Patch, remove temp files
+    patch.savePatch()
+    patch.deleteFiles()
 
 #import runasadmin
 

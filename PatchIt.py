@@ -97,10 +97,10 @@ def about():
                               Build {3}
                Released ?? ??, 201?
 
-       Created 2013-2015 Triangle717
+            Created 2013-2015 Triangle717
 
-       The standard and simple way to
-    package and install LEGO Racers mods
+              The simple way to package
+            and install LEGO Racers mods
 '''.format(const.app, const.version, const.minVer,
            buildNum))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
@@ -164,52 +164,44 @@ Please make a selection:
 
                       [q] Quit""")
 
-    menuChoice = input("\n> ")
+    menuChoice = input("\n> ").lower()
     while True:
         # About PatchIt! box
-        if menuChoice.lower() == "a":
-            logging.info("User pressed '[a] About PatchIt!'")
+        if menuChoice == "a":
+            logging.info("User pressed About PatchIt!")
             logging.info("Opening About Box")
             about()
 
-        # Patch Creation
-        elif menuChoice.lower() == "c":
-            logging.info("User pressed '[c] Create a PatchIt! Patch'")
-
-            # Run the Patch Creation process
-            logging.info("Running Patch Compression process")
+        # Patch creation
+        elif menuChoice == "c":
+            logging.info("User pressed Create a PatchIt! Patch")
             if not create.main():
                 main()
 
-        # Patch Installation
-        elif menuChoice.lower() == "i":
-            logging.info("User pressed '[i] Install a PatchIt! Patch'")
-
-            # Run the Patch Installation process
-            logging.info("Running Patch Installation process")
+        # Patch installation
+        elif menuChoice == "i":
+            logging.info("User pressed Install a PatchIt! Patch")
             install.selectPatch()
 
         # JAM Extractor wrapper
-        elif menuChoice.lower() == "j":
-            logging.info("User pressed '[j] JAM Extractor'")
-            logging.info("Running JAM Extractor wrapper")
+        elif menuChoice == "j":
+            logging.info("User pressed JAM Extractor")
             if not legojam.main():
                 main()
 
         # PatchIt! Settings
-        elif menuChoice.lower() == "s":
-            logging.info("User pressed '[s] PatchIt! Settings'")
-            logging.info("Proceeding to LEGO Racers Settings")
+        elif menuChoice == "s":
+            logging.info("User pressed PatchIt! Settings")
             if not Racers.main():
                 main()
 
         # Run LEGO Racers
-        elif menuChoice.lower() == "r":
+        elif menuChoice == "r":
             rungame.PlayRacers().runGame()
 
         # Close PatchIt!
-        elif menuChoice.lower() == "q":
-            logging.info("User pressed '[q] Quit'")
+        elif menuChoice == "q":
+            logging.info("User pressed Quit")
             logging.info('''PatchIt! is shutting down
             ''')
             logging.shutdown()
@@ -217,7 +209,8 @@ Please make a selection:
 
         # Undefined input
         else:
-            logging.info("User pressed an undefined key")
+            logging.info("User pressed an undefined key ({0})".format(
+                         menuChoice))
             colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
             main(loopNum=loopNum)
 
