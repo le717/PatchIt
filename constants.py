@@ -19,9 +19,9 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-import sys
 import os
-from Settings import utils
+import sys
+from Settings.utils import Utils
 from Settings.buildgen import BuildNumber
 
 app = "PatchIt!"
@@ -37,7 +37,7 @@ piSettings = "PatchIt.json"
 
 exeName = os.path.basename(sys.argv[0])
 appFolder = os.path.dirname(sys.argv[0])
-settingsFol = os.path.join(utils.Utils().configPath, "Settings")
+settingsFol = os.path.join(Utils.Instance().configPath, "Settings")
 
 appIcon = os.path.join(appFolder, "Icons", "PiIcon.ico")
 # Build number (Pickle v3)

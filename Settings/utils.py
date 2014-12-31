@@ -25,10 +25,14 @@ import logging
 import argparse
 import platform
 
-import constants as const
 import runasadmin
+import constants as const
+from singleton import Singleton
+
+__all__ = ("Utils")
 
 
+@Singleton
 class Utils(object):
 
     """Utility functions.

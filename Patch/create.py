@@ -32,7 +32,7 @@ from tkinter import (filedialog, messagebox)
 import Color as color
 import constants as const
 import Color.colors as colors
-import Settings.utils as utils
+from Settings.utils import Utils
 from Patch import (pipatch, racingtips)
 
 __all__ = ("CreatePatch")
@@ -50,7 +50,7 @@ class CreatePatch(object):
         self.__piaFile = None
         self.__pipFile = None
 
-        self.__tempLocation = os.path.join(utils.Utils().configPath, "Temp")
+        self.__tempLocation = os.path.join(Utils.Instance().configPath, "Temp")
         self.__hasTempFiles = False
 
         self.__badChars = ("\\", "/", ":", "*", "?", '"', "<", ">", "|")

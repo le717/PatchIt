@@ -45,8 +45,7 @@ You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
 
 # The user is running Python 3.3+, continue on
 import PatchIt
-from Settings import utils
+from Settings.utils import Utils
 
 if __name__ == "__main__":
-    init = utils.Utils()
-    PatchIt.preload(init.openArg)
+    PatchIt.preload(Utils.Instance().openArg)
