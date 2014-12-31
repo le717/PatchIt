@@ -260,7 +260,7 @@ class CreatePatch(object):
                     os.replace(fileName, os.path.join(root, fname.upper()))
         return True
 
-    def deleteFiles(self):
+    def _deleteFiles(self):
         """Delete temporary folder created during compression.
 
         @returns {Boolean} Always returns True.
@@ -302,10 +302,13 @@ class CreatePatch(object):
             colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
                                                      self.__patchLoc),
                         color.FG_LIGHT_GREEN)
+
+            # Delete the temporary files
+            self._deleteFiles()
             return True
 
         # Any error
-        except Exception as e:
+        except Exception:
             logging.exception("Something went wrong! Here's what happened\n",
                               exc_info=True)
             self._displayError("A error has occurred!",
@@ -372,64 +375,6 @@ def main():
     patch.fileCheck()
     patch.upperCaseConvert()
 
-    # Save the Patch, remove temp files
+    # Save the Patch
     patch.savePatch()
-    patch.deleteFiles()
     return True
-
-#import runasadmin
-
-
-#def writePatch(patch_files, mp, game):
-#    """Writes and compresses PatchIt! Patch"""
-#    try:
-#        # The Patch was created successfully!
-#        logging.info("Error (exit) number '0'")
-#
-#    # The user does not have the rights to write a PiP in that location
-#    except PermissionError:  # lint:ok
-#        logging.warning("Error number '13'")
-#        logging.exception('''Oops! Something went wrong! Here's what happened
-#
-#''', exc_info=True)
-#        logging.warning('''
-#
-#PatchIt! does not have the rights to create {0} (Version: {1})'''
-#                        .format(name, version))  # lint:ok
-#
-#        # User did not want to reload with Administrator rights
-#        if not runasadmin.AdminRun().launch(
-#            ["PatchIt! does not have the rights to create {0} (Version: {1})"
-#                                    .format(name, version)]):  # lint:ok
-#            # Do nothing, go to main menu
-#            pass
-#
-#    # Python itself had some I/O error/any exceptions not handled
-#    except Exception:
-#        logging.warning("Unknown error number")
-#        logging.exception('''Oops! Something went wrong! Here's what happened
-#
-#''', exc_info=True)
-#        logging.warning('''
-#
-#PatchIt! ran into an unknown error while trying to create
-#{0} (Version: {1})!'''
-#                        .format(name, version))  # lint:ok
-#        colors.text('''
-#PatchIt! ran into an unknown error while trying to create
-#{0} (Version: {1})!'''.format(name, version), color.FG_LIGHT_RED)  # lint:ok
-#
-#        # Remove the incomplete PiA archive
-#        try:
-#            os.unlink(the_archive)
-#
-#        # In case the file was never created in the first place
-#        except FileNotFoundError:  # lint:ok
-#            pass
-#
-#        # Remove the incomplete PiP file
-#        try:
-#            os.unlink(the_patch)
-#        # In case the file was never created in the first place
-#        except FileNotFoundError:  # lint:ok
-#            pass
