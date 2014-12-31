@@ -21,6 +21,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import re
+import random
 import logging
 import tarfile
 import distutils.dir_util
@@ -268,7 +269,10 @@ class CreatePatch(object):
         with tarfile.open(piaFile, "w:xz") as archive:
             archive.add(self.__tempLocation, "")
 
-        # TODO Display gameplay tip here
+        # Display gameplay tip
+        logging.info("LEGO Racers gameplay tip")
+        colors.text("\n\nHere's a tip!\n{0}\n".format(
+            random.choice(racingtips.gametips)), color.FG_CYAN)
 
         # PiP file
         with open(pipFile, "wt", encoding="utf_8") as patch:
