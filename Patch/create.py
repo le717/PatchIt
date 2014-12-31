@@ -29,7 +29,6 @@ import distutils.dir_util
 import tkinter
 from tkinter import filedialog
 
-import constants as const
 import Color as color
 import Color.colors as colors
 import Settings.utils as utils
@@ -184,7 +183,8 @@ class CreatePatch(object):
 
         # Store the path
         self.__patchFiles = patchFiles.replace("\\", os.path.sep)
-        logging.info("The Patch files are located at {0}".format(self.__patchFiles))
+        logging.info("The Patch files are located at {0}".format(
+                     self.__patchFiles))
         return self.__patchFiles
 
     def fileCheck(self):
@@ -262,7 +262,8 @@ class CreatePatch(object):
     def savePatch(self):
         """Save a PatchIt! Patch to disk."""
         logging.info("Saving PatchIt! Patch")
-        piaFile = os.path.join(self.__patchFiles, self.myPatch.getArchiveName())
+        piaFile = os.path.join(self.__patchFiles,
+                               self.myPatch.getArchiveName())
         pipFile = os.path.join(self.__patchFiles, self.myPatch.getPatchName())
 
         # PiA archive
@@ -281,7 +282,7 @@ class CreatePatch(object):
         # Success!
         logging.info("Patch saved to {0}".format(self.__patchFiles))
         colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
-                                              self.__patchFiles),
+                                                 self.__patchFiles),
                     color.FG_LIGHT_GREEN)
         return True
 
@@ -350,6 +351,7 @@ def main():
     # Save the Patch, remove temp files
     patch.savePatch()
     patch.deleteFiles()
+    return True
 
 #import runasadmin
 
@@ -357,58 +359,8 @@ def main():
 #def writePatch(patch_files, mp, game):
 #    """Writes and compresses PatchIt! Patch"""
 #    try:
-#        # Declare the Patch PiP and Archive filenames
-#        the_patch = "{0}{1}.PiP".format(name, version)  # lint:ok
-#        the_archive = "{0}{1}.PiA".format(name, version)  # lint:ok
-#        logging.info("The final file names are {0} and {1}"
-#                     .format(the_patch, the_archive))
-#
-#        # Run uppercase extension conversion process
-#        logging.info("Run upperCaseConvert() to uppercase convert extensions")
-#        upperCaseConvert(patch_files)
-#
-#        # Run illegal file check
-#        logging.info("Run file_check() to check for and remove illegal files")
-#        fileCheck(patch_files)
-#
-#        # Change the working directory to the Patch Files directory
-#        logging.info("Change the working directory to {0}".format(
-#            patch_files))
-#        os.chdir(patch_files)
-#
-#        # Compress the files
-#        logging.info('''Compress files located at {0} into an LZMA compressed
-#TAR archive to {1}'''.format(temp_location, patch_files))  # lint:ok
-#
-#        with tarfile.open(the_archive, "w:xz") as tar_file:
-#            tar_file.add(temp_location, "")  # lint:ok
-#
-#        # Write PiP file format, as defined in Documentation/PiP Format V1.1.md
-#        logging.info("Write {0} with Patch details using UTF-8 encoding"
-#                     .format(the_patch))
-#
-#        with open("{0}".format(the_patch), "wt", encoding="utf_8") as patch:
-#            patch.write('''// PatchIt! PiP file format V1.1, developed by le717 and rioforce
-#[PiA]
-#{0}
-#[General]
-#{1}
-#{2}
-#{3}
-#{4}
-#{5}
-#[Description]
-#{6}'''.format(the_archive, name, version, author, mp, game, desc))  # lint:ok
-#
 #        # The Patch was created successfully!
 #        logging.info("Error (exit) number '0'")
-#        #lint:disable
-#        logging.info("{0} Version: {1} created and saved to {2}"
-#                     .format(name, version, patch_files))
-#        colors.text('''
-#{0} (Version: {1}) successfully created and saved to
-#"{2}"'''.format(name, version, patch_files), color.FG_LIGHT_GREEN)
-#        #lint:enable
 #
 #    # The user does not have the rights to write a PiP in that location
 #    except PermissionError:  # lint:ok
@@ -457,13 +409,3 @@ def main():
 #        # In case the file was never created in the first place
 #        except FileNotFoundError:  # lint:ok
 #            pass
-#
-#    finally:
-#        # Change the working directory back to the location of PatchIt!
-#        logging.info("Change the working directory back to {0}".format(
-#            const.appFolder))
-#        os.chdir(const.appFolder)
-#        # Run process to restore all the files in the Patch files
-#        logging.info("Run process to remove temporary folder")
-#        deleteFiles()
-#        PatchIt.main()

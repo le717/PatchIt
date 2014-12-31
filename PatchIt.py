@@ -175,8 +175,8 @@ Please make a selection:
         # Patch creation
         elif menuChoice == "c":
             logging.info("User pressed Create a PatchIt! Patch")
-            if not create.main():
-                main()
+            create.main()
+            main()
 
         # Patch installation
         elif menuChoice == "i":
