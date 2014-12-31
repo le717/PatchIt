@@ -29,8 +29,8 @@ import distutils.dir_util
 import tkinter
 from tkinter import (filedialog, messagebox)
 
-import constants as const
 import Color as color
+import constants as const
 import Color.colors as colors
 import Settings.utils as utils
 from Patch import (pipatch, racingtips)

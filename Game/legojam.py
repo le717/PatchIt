@@ -22,21 +22,13 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 import os
 import logging
 
-# Colored shell text
-import Color as color
-import Color.colors as colors
-
-# Tkinter GUI library
 import tkinter
 from tkinter import filedialog
 
-# RunAsAdmin wrapper
 import runasadmin
-
-# PatchIt! modules
+import Color as color
 import constants as const
-
-# JAM Extractor
+import Color.colors as colors
 from Game import JAMExtractor
 
 
@@ -50,24 +42,24 @@ COPYRIGHT (C) 2012-2013: JrMasterModelBuilder""", color.FG_WHITE)
 [e] Extract LEGO.JAM
 [c] Compress LEGO.JAM
 [q] Quit""")
-    menuChoice = input("\n> ")
+    menuChoice = input("\n> ").lower()
 
     # User wants to compress a JAM
-    if menuChoice.lower() == "c":
-        logging.info("User pressed '[c] Compress LEGO.JAM'")
-        selectJAMFiles()
+    if menuChoice == "c":
+        logging.info("User pressed Compress LEGO.JAM")
+        selectFiles()
 
     # User wants to extract a JAM
-    if menuChoice.lower() == "e":
-        logging.info("User pressed '[e] Extract LEGO.JAM'")
-        selectJAMArchive()
+    if menuChoice == "e":
+        logging.info("User pressed Extract LEGO.JAM")
+        selectArchive()
 
     # Go back to PatchIt! menu
     else:
         return False
 
 
-def selectJAMFiles():
+def selectFiles():
     """Select the files to compress into a JAM."""
     # Draw (then withdraw) the root Tk window
     root = tkinter.Tk()
@@ -90,18 +82,20 @@ def selectJAMFiles():
         title="Where are the extracted LEGO.JAM files located?"
     )
 
+    # Restore focus
+    root.destroy()
+
     if not jamFiles:
-        root.destroy()
         colors.text("\nCould not find a JAM archive to compress!",
                     color.FG_LIGHT_RED)
         main()
 
     # Compress the JAM
-    root.destroy()
-    buildJAM(jamFiles)
+    else:
+        build(jamFiles)
 
 
-def buildJAM(jamFiles):
+def build(jamFiles):
     """Compress the files into LEGO.JAM."""
     try:
         os.chdir(jamFiles)
@@ -109,15 +103,9 @@ def buildJAM(jamFiles):
 
     # We don't have the rights to compress the JAM
     except PermissionError:
-        logging.warning("Error number '13'")
         logging.exception("""Oops! Something went wrong! Here's what happened
 
 """, exc_info=True)
-        logging.warning("""
-
-PatchIt! does not have the rights to save LEGO.JAM to
-{0}
-""".format(jamFiles))
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
@@ -132,7 +120,7 @@ PatchIt! does not have the rights to save LEGO.JAM to
         main()
 
 
-def selectJAMArchive():
+def selectArchive():
     """Select the JAM Archive to extract."""
     # Draw (then withdraw) the root Tk window
     root = tkinter.Tk()
@@ -158,18 +146,20 @@ def selectJAMArchive():
         filetypes=[("LEGO.JAM", "*.JAM")]
     )
 
+    # Restore focus
+    root.destroy()
+
     if not jamLocation:
-        root.destroy()
         colors.text("\nCould not find a JAM archive to extract!",
                     color.FG_LIGHT_RED)
         main()
 
     # Extract the JAM
-    root.destroy()
-    extractJAM(jamLocation)
+    else:
+        extract(jamLocation)
 
 
-def extractJAM(jamLocation):
+def extract(jamLocation):
     """Extract the files from LEGO.JAM."""
     try:
         # Extract the JAM archive
@@ -177,15 +167,9 @@ def extractJAM(jamLocation):
 
     # We don't have the rights to extract the JAM
     except PermissionError:
-        logging.warning("Error number '13'")
         logging.exception("""Oops! Something went wrong! Here's what happened
 
 """, exc_info=True)
-        logging.warning("""
-
-PatchIt! does not have the rights to extract LEGO.JAM to
-{0}
-""".format(jamLocation))
 
         # User did not want to reload with Administrator rights
         if not runasadmin.AdminRun().launch(
