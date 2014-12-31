@@ -29,6 +29,7 @@ import distutils.dir_util
 import tkinter
 from tkinter import (filedialog, messagebox)
 
+import constants as const
 import Color as color
 import Color.colors as colors
 import Settings.utils as utils
@@ -63,22 +64,15 @@ class CreatePatch(object):
             ".rrb", ".sbk", ".sdb", ".skb", ".spb", ".srf", ".tdb", ".tga",
             ".tgb", ".tib", ".tmb", ".trb", ".tun", ".wdb")
 
-    def _displayError(self, title, message, trace=None):
+    def _displayError(self, title, message):
         """Display error message using a a Tkinter error dialog.
 
         @param title {String} Dialog error title.
         @param message {String} Dialog error message.
-        @param trace {Exception} Exception alias for debugging.
         @returns {Boolean} Always returns False.
         """
         root = tkinter.Tk()
         root.withdraw()
-
-        # Run Exception logging only if an exception occurred
-        if trace is not None:
-            logging.exception("\nAn error has occurred:\n", exc_info=True)
-
-        logging.error("\nAn error has occurred:\n{0}".format(message))
         messagebox.showerror(title, message)
         root.destroy()
         return False
@@ -285,29 +279,38 @@ class CreatePatch(object):
         """Save a PatchIt! Patch to disk."""
         logging.info("Saving PatchIt! Patch")
         self.__piaFile = os.path.join(self.__patchLoc,
-                               self.myPatch.getArchiveName())
+                                      self.myPatch.getArchiveName())
         self.__pipFile = os.path.join(self.__patchLoc,
                                       self.myPatch.getPatchName())
 
-        # PiA archive
-        with tarfile.open(self.__piaFile, "w:xz") as archive:
-            archive.add(self.__tempLocation, "")
+        try:
+            # PiA archive
+            with tarfile.open(self.__piaFile, "w:xz") as archive:
+                archive.add(self.__tempLocation, "")
 
-        # Display gameplay tip
-        logging.info("LEGO Racers gameplay tip")
-        colors.text("\n\nHere's a tip!\n{0}\n".format(
-            random.choice(racingtips.gametips)), color.FG_CYAN)
+            # Display gameplay tip
+            logging.info("LEGO Racers gameplay tip")
+            colors.text("\n\nHere's a tip!\n{0}\n".format(
+                random.choice(racingtips.gametips)), color.FG_CYAN)
 
-        # PiP file
-        with open(self.__pipFile, "wt", encoding="utf_8") as patch:
-            patch.write(self.myPatch.getPatch())
+            # PiP file
+            with open(self.__pipFile, "wt", encoding="utf_8") as patch:
+                patch.write(self.myPatch.getPatch())
 
-        # Success!
-        logging.info("Patch saved to {0}".format(self.__patchLoc))
-        colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
-                                                 self.__patchLoc),
-                    color.FG_LIGHT_GREEN)
-        return True
+            # Success!
+            logging.info("Patch saved to {0}".format(self.__patchLoc))
+            colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
+                                                     self.__patchLoc),
+                        color.FG_LIGHT_GREEN)
+            return True
+
+        # Any error
+        except Exception as e:
+            logging.exception("Something went wrong! Here's what happened\n",
+                              exc_info=True)
+            self._displayError("A error has occurred!",
+                               """An error has occurred while saving your Patch.
+Please report this to {0} for inspection.""".format(const.creator))
 
 
 def main():

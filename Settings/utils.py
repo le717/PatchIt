@@ -50,7 +50,7 @@ class Utils(object):
         self.openArg = None
         self.isWindows = "Windows" in platform.platform()
         self.configPath = self._getConfigPath()
-        self._logger()
+        self._startLog()
         self._commandLine()
 
     def _getConfigPath(self):
@@ -105,7 +105,7 @@ without going through the menu first""")
             logging.info("Starting PatchIt! in Experimental Mode")
         return True
 
-    def _logger(self):
+    def _startLog(self):
         pythonArch = "x64"
         logsFolder = os.path.join(self.configPath, "Logs")
         loggingFile = os.path.join(logsFolder, "PatchIt.log")
