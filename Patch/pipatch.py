@@ -20,6 +20,7 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
+import logging
 
 __all__ = ("PiPatch")
 
@@ -40,6 +41,7 @@ class PiPatch(object):
         @param {String} author Patch author.
         @param {String} desc Patch description.
         """
+        logging.info("New PiPatch instance")
         self.__name = name
         self.__version = version
         self.__author = author
@@ -49,32 +51,60 @@ class PiPatch(object):
         self.__patch = "{0}-{1}".format(name.replace(" ", "-"), version)
 
     def getName(self):
-        """Get the Patch name."""
+        """Get the Patch name.
+
+        @returns {String}
+        """
         return self.__name
 
     def getVersion(self):
-        """Get the Patch version."""
+        """Get the Patch version.
+
+        @returns {String}
+        """
         return self.__version
 
     def getAuthor(self):
-        """Get the Patch author."""
+        """Get the Patch author.
+
+        @returns {String}
+        """
         return self.__author
 
     def getDesc(self):
-        """Get the Patch description."""
+        """Get the Patch description.
+
+        @returns {String}
+        """
         return self.__desc
 
+    def prettyPrint(self):
+        """Get a formatted version of the Patch name and version.
+
+        @returns {String}
+        """
+        return "{0} v{1}".format(self.__name, self.__version)
+
     def getArchiveName(self):
-        """Get the Patch archive name."""
+        """Get the Patch archive name suitable for saving to disc.
+
+        @returns {String}
+        """
         return "{0}.PiA".format(self.__patch)
 
     def getPatchName(self):
-        """Get the Patch file name."""
+        """Get the Patch file name suitable for saving to disc.
+
+        @returns {String}
+        """
         return "{0}.PiP".format(self.__patch)
 
     def getPatch(self):
-        """Get the Patch format layout suitable for saving to disc."""
+        """Get the Patch format layout suitable for saving to disc.
+
+        @returns {String}
+        """
         return """// PatchIt! PiP file format V1.1, developed by le717 and rioforce
 [PiA]\n{0}\n[General]\n{1}\n{2}\n{3}\n{4}\n{5}\n[Description]\n{6}
-""".format(self.getArchiveName(), self.getName(), self.getVersion(),
-           self.getAuthor(), self.__mp, self.__game, self.getDesc())
+""".format(self.getArchiveName(), self.__name, self.__version,
+           self.__author, self.__mp, self.__game, self.__desc)

@@ -24,7 +24,6 @@ import os
 import json
 import logging
 import webbrowser
-import subprocess
 
 # Tkinter GUI library
 import tkinter as tk
@@ -64,8 +63,6 @@ def preload(openFile):
     # Display menu
     main()
 
-# ------------ Begin PatchIt! About Box  ------------ #
-
 
 def about():
     """Tkinter about box."""
@@ -98,14 +95,14 @@ def about():
 
             {0} Version {1} {2}
                               Build {3}
-               Released ?? ??, {4}
+               Released ?? ??, 201?
 
-       Created 2013-{4} Triangle717
+            Created 2013-2015 Triangle717
 
-       The standard and simple way to
-    package and install LEGO Racers mods
+              The simple way to package
+            and install LEGO Racers mods
 '''.format(const.app, const.version, const.minVer,
-           buildNum, const.currentYear))
+           buildNum))
     label.grid(column=1, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
     def close_about(*args):
@@ -142,12 +139,6 @@ def about():
     root.mainloop()
 
 
-# ------------ End PatchIt! About Box  ------------ #
-
-
-# ------------ Begin PatchIt! Menu Layout ------------ #
-
-
 def main(loopNum=1):
     """PatchIt! main menu."""
     loopNum += 1
@@ -159,9 +150,9 @@ def main(loopNum=1):
             loopNum = 2
 
         # And display the menu only at the valid times
-        colors.text("\n{0} {1} {2}\nCreated 2013-{3} {4}".format(
+        colors.text("\n{0} {1} {2}\nCreated 2013-2015 {3}".format(
                     const.app, const.version, const.minVer,
-                    const.currentYear, const.creator), color.FG_WHITE)
+                    const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")
         print("""
@@ -173,56 +164,44 @@ Please make a selection:
 
                       [q] Quit""")
 
-    menuChoice = input("\n> ")
+    menuChoice = input("\n> ").lower()
     while True:
         # About PatchIt! box
-        if menuChoice.lower() == "a":
-            logging.info("User pressed '[a] About PatchIt!'")
+        if menuChoice == "a":
+            logging.info("User pressed About PatchIt!")
             logging.info("Opening About Box")
             about()
 
-        # Patch Creation
-        elif menuChoice.lower() == "c":
-            logging.info("User pressed '[c] Create a PatchIt! Patch'")
+        # Patch creation
+        elif menuChoice == "c":
+            logging.info("User pressed Create a PatchIt! Patch")
+            create.main()
+            main()
 
-            # Run the Patch Creation process
-            logging.info("Running Patch Compression process")
-            create.patchInfo()
-
-        # Patch Installation
-        elif menuChoice.lower() == "i":
-            logging.info("User pressed '[i] Install a PatchIt! Patch'")
-
-            # Run the Patch Installation process
-            logging.info("Running Patch Installation process")
+        # Patch installation
+        elif menuChoice == "i":
+            logging.info("User pressed Install a PatchIt! Patch")
             install.selectPatch()
 
         # JAM Extractor wrapper
-        elif menuChoice.lower() == "j":
-            logging.info("User pressed '[j] JAM Extractor'")
-            logging.info("Running JAM Extractor wrapper")
+        elif menuChoice == "j":
+            logging.info("User pressed JAM Extractor")
             if not legojam.main():
                 main()
 
         # PatchIt! Settings
-        elif menuChoice.lower() == "s":
-            logging.info("User pressed '[s] PatchIt! Settings'")
-            logging.info("Proceeding to LEGO Racers Settings")
+        elif menuChoice == "s":
+            logging.info("User pressed PatchIt! Settings")
             if not Racers.main():
                 main()
 
-        # >:-)
-        elif menuChoice.lower() == 'e':
-            logging.info("User pressed the 'e' key")
-            easterEgg()
-
         # Run LEGO Racers
-        elif menuChoice.lower() == "r":
+        elif menuChoice == "r":
             rungame.PlayRacers().runGame()
 
         # Close PatchIt!
-        elif menuChoice.lower() == "q":
-            logging.info("User pressed '[q] Quit'")
+        elif menuChoice == "q":
+            logging.info("User pressed Quit")
             logging.info('''PatchIt! is shutting down
             ''')
             logging.shutdown()
@@ -230,35 +209,10 @@ Please make a selection:
 
         # Undefined input
         else:
-            logging.info("User pressed an undefined key")
+            logging.info("User pressed an undefined key ({0})".format(
+                         menuChoice))
             colors.text("\nThat is an invalid option!", color.FG_LIGHT_RED)
             main(loopNum=loopNum)
-
-
-def easterEgg():
-    """Hehehe."""
-    root = tk.Tk()
-    root.withdraw()
-    root.iconbitmap(const.appIcon)
-    tk.messagebox.showerror("Uh-oh", "That was bad.")
-    tk.messagebox.showerror("Uh-oh", "You should not have pressed that key.")
-    tk.messagebox.askquestion(
-        "Uh-oh", "Would you like see your punishment for pressing that key?")
-    subprocess.call([os.path.join(
-        "Icons", "cghbnjcGJfnvzhdgbvgnjvnxbv12n1231gsxvbhxnb.jpg")],
-        shell=True)
-    logging.info("PatchIt! is shutting down.")
-    logging.shutdown()
-    raise SystemExit(0)
-
-
-# ------------ End PatchIt! Menu Layout ------------ #
-
-
-# ------------ Begin PatchIt! Settings ------------ #
-
-
-# ------------ Begin PatchIt! General Settings ------------ #
 
 
 def piSettings():
@@ -282,8 +236,3 @@ def piSettings():
     with open(os.path.join(theFile), "wt", encoding="utf_8") as f:
         f.write(json.dumps(jsonData, indent=4, sort_keys=True))
     return True
-
-# ------------ End PatchIt! General Settings ------------ #
-
-
-# ------------ End PatchIt! Settings ------------ #
