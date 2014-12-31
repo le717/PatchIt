@@ -27,7 +27,7 @@ import tarfile
 import distutils.dir_util
 
 import tkinter
-from tkinter import filedialog
+from tkinter import (filedialog, messagebox)
 
 import Color as color
 import Color.colors as colors
@@ -45,7 +45,9 @@ class CreatePatch(object):
         """Initialize the class."""
         logging.info("New CreatePatch instance")
         self.myPatch = None
-        self.__patchFiles = None
+        self.__patchLoc = None
+        self.__piaFile = None
+        self.__pipFile = None
 
         self.__tempLocation = os.path.join(utils.Utils().configPath, "Temp")
         self.__hasTempFiles = False
@@ -61,18 +63,25 @@ class CreatePatch(object):
             ".rrb", ".sbk", ".sdb", ".skb", ".spb", ".srf", ".tdb", ".tga",
             ".tgb", ".tib", ".tmb", ".trb", ".tun", ".wdb")
 
-    def createPatch(self, details):
-        """Create a Patch object.
+    def _displayError(self, title, message, trace=None):
+        """Display error message using a a Tkinter error dialog.
 
-        @param {Dict} details Patch details.
-            See PiPatch::__init__() for details.
-        @returns {Instance} PiPatch() instance.
+        @param title {String} Dialog error title.
+        @param message {String} Dialog error message.
+        @param trace {Exception} Exception alias for debugging.
+        @returns {Boolean} Always returns False.
         """
-        self.myPatch = pipatch.PiPatch(details["Name"],
-                                       details["Version"],
-                                       details["Author"],
-                                       details["Description"])
-        return self.myPatch
+        root = tkinter.Tk()
+        root.withdraw()
+
+        # Run Exception logging only if an exception occurred
+        if trace is not None:
+            logging.exception("\nAn error has occurred:\n", exc_info=True)
+
+        logging.error("\nAn error has occurred:\n{0}".format(message))
+        messagebox.showerror(title, message)
+        root.destroy()
+        return False
 
     def _charCheck(self, userText):
         """Check the input for any invalid characters.
@@ -100,14 +109,27 @@ class CreatePatch(object):
         @returns {Boolean} Always returns True.
         """
         logging.info("Copy contents of {0} to {1}".format(
-                     self.__patchFiles, self.__tempLocation))
+                     self.__patchLoc, self.__tempLocation))
 
         # Only copy the files if they do not already exist
         if not os.path.exists(self.__tempLocation):
-            distutils.dir_util.copy_tree(self.__patchFiles,
+            distutils.dir_util.copy_tree(self.__patchLoc,
                                          self.__tempLocation)
         self.__hasTempFiles = True
         return True
+
+    def createPatch(self, details):
+        """Create a Patch object.
+
+        @param {Dict} details Patch details.
+            See PiPatch::__init__() for details.
+        @returns {Instance} PiPatch() instance.
+        """
+        self.myPatch = pipatch.PiPatch(details["Name"],
+                                       details["Version"],
+                                       details["Author"],
+                                       details["Description"])
+        return self.myPatch
 
     def checkInput(self, userText, field=None):
         """Run the user input though some validity checks.
@@ -177,15 +199,15 @@ class CreatePatch(object):
         # The user clicked the cancel button
         if not patchFiles:
             logging.warning("User did not select any files to compress!")
-            colors.text("\nCannot find any files to compress!",
-                        color.FG_LIGHT_RED)
+            self._displayError("Missing files!",
+                               "Cannot find any files to compress!")
             return False
 
         # Store the path
-        self.__patchFiles = patchFiles.replace("\\", os.path.sep)
+        self.__patchLoc = patchFiles.replace("\\", os.path.sep)
         logging.info("The Patch files are located at {0}".format(
-                     self.__patchFiles))
-        return self.__patchFiles
+                     self.__patchLoc))
+        return self.__patchLoc
 
     def fileCheck(self):
         """Check for and remove files that are not whitelisted.
@@ -262,12 +284,13 @@ class CreatePatch(object):
     def savePatch(self):
         """Save a PatchIt! Patch to disk."""
         logging.info("Saving PatchIt! Patch")
-        piaFile = os.path.join(self.__patchFiles,
+        self.__piaFile = os.path.join(self.__patchLoc,
                                self.myPatch.getArchiveName())
-        pipFile = os.path.join(self.__patchFiles, self.myPatch.getPatchName())
+        self.__pipFile = os.path.join(self.__patchLoc,
+                                      self.myPatch.getPatchName())
 
         # PiA archive
-        with tarfile.open(piaFile, "w:xz") as archive:
+        with tarfile.open(self.__piaFile, "w:xz") as archive:
             archive.add(self.__tempLocation, "")
 
         # Display gameplay tip
@@ -276,13 +299,13 @@ class CreatePatch(object):
             random.choice(racingtips.gametips)), color.FG_CYAN)
 
         # PiP file
-        with open(pipFile, "wt", encoding="utf_8") as patch:
+        with open(self.__pipFile, "wt", encoding="utf_8") as patch:
             patch.write(self.myPatch.getPatch())
 
         # Success!
-        logging.info("Patch saved to {0}".format(self.__patchFiles))
+        logging.info("Patch saved to {0}".format(self.__patchLoc))
         colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
-                                                 self.__patchFiles),
+                                                 self.__patchLoc),
                     color.FG_LIGHT_GREEN)
         return True
 
@@ -334,10 +357,8 @@ def main():
         logging.info("Store value for {0} field".format(value))
         patchDetails[value] = userText
 
-    # Create a Patch object
-    myPatch = patch.createPatch(patchDetails)
-
-    # Locate the Patch files
+    # Create a Patch object, locate the Patch files
+    patch.createPatch(patchDetails)
     patchFiles = patch.selectFiles()
 
     # User canceled the selection
