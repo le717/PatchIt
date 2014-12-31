@@ -23,11 +23,9 @@ import os
 import json
 import logging
 
-# Tkinter GUI library
 import tkinter
 from tkinter import filedialog
 
-# PatchIt! modules
 import constants as const
 from Settings import encoding
 from singleton import Singleton

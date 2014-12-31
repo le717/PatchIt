@@ -19,31 +19,24 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-# General imports
 import os
 import time
 import tarfile
 import random
 import logging
 
-# Tkinter GUI library
 import tkinter
 from tkinter import filedialog
 
-# Colored shell text
 import Color as color
 import Color.colors as colors
 
-# RunAsAdmin wrapper
-import runasadmin
 
-# PatchIt! modules
 import PatchIt
-from Settings import encoding
-
-# LEGO Racers settings and gameplay tips
+import runasadmin
 from Game import Racers
 from Patch import racingtips
+from Settings import encoding
 
 
 # ----------- Begin PatchIt! Patch Selection and Identification  ----------- #

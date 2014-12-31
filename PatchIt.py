@@ -19,27 +19,18 @@ along with PatchIt! If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-# General use modules
 import os
 import json
 import logging
 import webbrowser
 
-# Tkinter GUI library
 import tkinter as tk
 from tkinter import ttk
 
-# Colored shell text
 import Color as color
-import Color.colors as colors
-
-# PatchIt! "Constants"
 import constants as const
-
-# Patch Creation and Installation modules
+import Color.colors as colors
 from Patch import (install, create)
-
-# LEGO Racers settings, launcher, LEGO.JAM wrapper
 from Game import (Racers, rungame, legojam)
 
 # Build number
