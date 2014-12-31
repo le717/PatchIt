@@ -299,9 +299,9 @@ class CreatePatch(object):
 
             # Success!
             logging.info("Patch saved to {0}".format(self.__patchLoc))
-            colors.text("\n{0} saved to\n{1}".format(self.myPatch.prettyPrint(),
-                                                     self.__patchLoc),
-                        color.FG_LIGHT_GREEN)
+            colors.text("\n{0} saved to\n{1}".format(
+                        self.myPatch.prettyPrint(),
+                        self.__patchLoc), color.FG_LIGHT_GREEN)
 
             # Delete the temporary files
             self._deleteFiles()
