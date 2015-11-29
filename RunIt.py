@@ -24,26 +24,6 @@ import sys
 import webbrowser
 import constants as const
 
-try:
-    # Python 3
-    import tkinter as tk
-    from tkinter.messagebox import showerror
-except ImportError:
-    # Python 2
-    import Tkinter as tk
-    from tkMessageBox import showerror
-
-# User is running < Python 3.3.0
-if sys.version_info[:2] < (3, 3):
-    root = tk.Tk()
-    root.withdraw()
-    showerror("Unsupported Python Version!", '''You are running Python {0}.
-You need to download Python 3.3.0 or newer to run\n{1} {2} {3}.\n'''.format(
-        sys.version[0:5], const.app, const.version, const.minVer))
-    webbrowser.open_new_tab("http://python.org/download/")
-    raise SystemExit(0)
-
-# The user is running Python 3.3+, continue on
 import PatchIt
 from Settings.utils import Utils
 
