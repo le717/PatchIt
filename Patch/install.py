@@ -201,47 +201,15 @@ def readModernPatch(patch):
         global allLines
         allLines = f.readlines()[:]
 
-    # Assign Patch PiA
-    logging.info("Assigning line 3 of {0} to PiA Archive".format(patch))
-    patchArchive = allLines[2]
-
-    # Assign Patch Name
-    logging.info("Assigning line 5 of {0} to Name".format(patch))
-    name = allLines[4]
-
-    # Assign Patch Version
-    logging.info("Assigning line 6 of {0} to Version".format(patch))
-    version = allLines[5]
-
-    # Assign Patch Author
-    logging.info("Assigning line 7 of {0} to Author".format(patch))
-    author = allLines[6]
-
-    # Assign Patch MP
-    logging.info("Assigning line 8 of {0} to MP".format(patch))
-    mp = allLines[7]
-
-    # Assign Patch Game field
-    logging.info("Assigning line 9 of {0} to Game".format(patch))
-    game = allLines[8]
-
-    # Assign Patch Description to lines 11-13,
-    # or until there is no more text
-    logging.info("Assigning lines 11-13 of {0} to Description".format(patch))
-    desc = allLines[10:]
-
-    # Convert (and remove) list to string
-    desc = "".join(desc)
-
-    # Clean up the Patch info
+    # Assign all the lines to variables
     logging.info("Cleaning up all fields")
-    patchArchive = patchArchive.strip()
-    name = name.strip()
-    author = author.strip()
-    version = version.strip()
-    desc = desc.strip()
-    game = game.strip()
-    mp = mp.strip()
+    patchArchive = allLines[2].strip()
+    name = allLines[4].strip()
+    version = allLines[5].strip()
+    author = allLines[6].strip()
+    mp = allLines[7].strip()
+    game = allLines[8].strip()
+    desc = "".join(allLines[10:]).strip()
 
     # The Game field says something other than LEGO Racers
     if game != "LEGO Racers":
@@ -309,7 +277,7 @@ def installModernPatch(patch, name, version, author, mp, patchArchive):
     logging.info("Get path to the Racers installation")
     installPath = Racers.Settings.Instance().getDetails()[0]
 
-    #TODO: Implement 1999 vs 2001 logic
+    # TODO: Implement 1999 vs 2001 logic
 
     # Find the PiA archive
     patchLocation = os.path.dirname(patch)
@@ -330,7 +298,6 @@ def installModernPatch(patch, name, version, author, mp, patchArchive):
             random.choice(racingtips.gametips)), color.FG_CYAN)
 
         # Installation was successful!
-        logging.warning("Error (exit) number '0'")
         logging.info('''
 
 {0} (Version: {1}) successfully installed to {2}'''
@@ -341,13 +308,12 @@ def installModernPatch(patch, name, version, author, mp, patchArchive):
         # Log Archive closure although it was closed automatically by `with`
         logging.info("Closing {0}".format(patchArchive))
 
-        # Sleep for 1 second after displaying installation result
+        # Sleep after displaying installation result
         # before kicking back to the main menu.
         time.sleep(1)
 
     # For some reason, it cannot find the Patch archive
     except FileNotFoundError:  # lint:ok
-        logging.warning("Error number '2'")
         logging.exception('''Something went wrong! Here's what happened
 
 ''', exc_info=True)
@@ -367,14 +333,10 @@ If this error continues, contact {5} and ask for a fixed version.'''
                     .format(name, version, os.path.basename(patch),
                             patchArchive, patchLocation, author),
                     color.FG_LIGHT_RED)
-
-        # Sleep for 2 seconds after displaying installation result
-        # before kicking back to the main menu.
         time.sleep(2)
 
     # The user does not have the rights to install to that location
     except PermissionError:  # lint:ok
-        logging.warning("Error number '13'")
         logging.exception('''Something went wrong! Here's what happened
 
 ''', exc_info=True)
@@ -395,7 +357,6 @@ PatchIt! does not have the rights to install {0} (Version: {1}) to {2}'''
 
     # Python itself had some I/O error/any unhandled exceptions
     except Exception:
-        logging.warning("Unknown error number")
         logging.exception('''Something went wrong! Here's what happened
 
 ''', exc_info=True)
@@ -410,9 +371,6 @@ PatchIt! ran into an unknown error while trying to install
 
 {2}
 '''.format(name, version, installPath), color.FG_LIGHT_RED)
-
-        # Sleep for 2 seconds after displaying installation result
-        # before kicking back to the ,ain menu.
         time.sleep(2)
 
     # This is run no matter if an exception was raised nor not.
