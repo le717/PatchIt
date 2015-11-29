@@ -84,8 +84,7 @@ class Utils(object):
 
         # Command line arguments
         parser.add_argument("-t", "--test",
-                            help="""Enable PatchIt! experimental features.
-There are currently no experimental features.""",
+                            help="Enable PatchIt! experimental features.",
                             action="store_true")
         parser.add_argument("-o", "--open",
                             help="""Confirm and install a PatchIt! Patch

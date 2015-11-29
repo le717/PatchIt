@@ -243,10 +243,6 @@ class CreatePatch(object):
 
         @returns {Boolean} Always returns True.
         """
-        # Copy temp files if needed
-        if not self.__hasTempFiles:
-            self._copyTempFiles()
-
         # Get a file tree
         logging.info("Check for non-uppercased files")
         for root, dirnames, filenames in os.walk(self.__tempLocation):
