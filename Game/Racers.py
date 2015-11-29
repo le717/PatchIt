@@ -277,22 +277,6 @@ The content cannot be retrieved!""".format(const.LRSettings))
                 logging.warning("Could not find CFG settings!")
                 self.__settingsExist = False
                 return False
-
-        # Check encoding of the file found
-        if self.__settingsFormat == "json":
-            settingsName = const.LRSettings
-        else:
-            settingsName = const.LRSettingsCfg
-
-        if encoding.checkEncoding(os.path.join(
-                const.settingsFol, settingsName)):
-            # The settings cannot be read
-            logging.warning("Settings cannot be read!")
-
-            # Declare nonexistent settings since we can't read the file
-            self.__settingsExist = False
-            return False
-        logging.info("File encoding check passed")
         return True
 
     # ------- Begin Settings Confirmation and Detection ------- #

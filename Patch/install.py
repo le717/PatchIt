@@ -102,18 +102,6 @@ def checkPatch(patch):
     if it is an modern or legacy Patch,
     or if it is a PatchIt! Patch at all
     """
-    # Check encoding of Patch file
-    if encoding.checkEncoding(patch):
-        # It is not written using ANSI or UTF-8-NOBOM, go to main menu
-        logging.warning("{0} is written using an unsupported encoding!".format(
-            patch))
-        colors.text('\n"{0}"\nis not a valid PatchIt! Patch!'.format(patch),
-                    color.FG_LIGHT_RED)
-
-        time.sleep(1)
-        PatchIt.main()
-
-    # It is written using UTF-8-NOBOM, continue reading it
     # Confirm that this is a patch, as defined in Documentation/PiP Format.md
     # Also check if it uses the modern or legacy format, as defined in
     # PatchIt! Dev-log #7 (http://wp.me/p1V5ge-EX)
