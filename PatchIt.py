@@ -31,7 +31,7 @@ import Color as color
 import constants as const
 import Color.colors as colors
 from Patch import (install, create)
-from Game import (Racers, rungame, legojam)
+from Game import (Racers, legojam)
 
 # Build number
 buildNum = const.getBuildNumber()
@@ -146,14 +146,10 @@ def main(loopNum=1):
                     const.creator), color.FG_WHITE)
 
         logging.info("Display menu to user")
-        print("""
-Please make a selection:
-
-[a] About PatchIt!            [c] Create a PatchIt! Patch
-[r] Run LEGO Racers           [i] Install a PatchIt! Patch
-[s] PatchIt! Settings         [j] JAM Extractor
-
-                      [q] Quit""")
+        print("""\n
+[c] Create a PatchIt! Patch   [i] Install a PatchIt! Patch
+[a] About PatchIt!            [s] PatchIt! Settings
+[j] JAM Extractor             [q] Quit""")
 
     menuChoice = input("\n> ").lower()
     while True:
@@ -185,10 +181,6 @@ Please make a selection:
             logging.info("User pressed PatchIt! Settings")
             if not Racers.main():
                 main()
-
-        # Run LEGO Racers
-        elif menuChoice == "r":
-            rungame.PlayRacers().runGame()
 
         # Close PatchIt!
         elif menuChoice == "q":
